@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class CameraController : MonoBehaviour {
 
@@ -7,14 +8,20 @@ public class CameraController : MonoBehaviour {
     public float m_ScreenEdgeBuffer = 4f;
     public float m_MinSize = 6.5f;
 
-    public GameObject m_Focus;
-    public GameObject m_Scarlet;
+    public float m_MaxXAngle = 45f;
+    public float m_MinXAngle = 15f;
+
+    public GameObject[] m_Targets;
 
     private Camera m_Camera;
     private float m_ZoomSpeed;
+    private Vector3 m_MoveVelocity;
 
     private float m_ZoomLevel;
-    private float m_Angle;
+
+    private Vector3 m_AveragePosition;
+    private float m_Distance;
+
 
 	// Use this for initialization
 	void Start () {
@@ -23,13 +30,80 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // calculate camera position based on player X pos
+        FindAveragePosition();
+        FindDistance();
 
-        float xPos = m_Scarlet.transform.position.x;
-        float yPos = m_Camera.transform.position.y;
-        float zPos = m_Scarlet.transform.position.z - m_Focus.transform.position.z - 5;
-
-        m_Camera.transform.position = new Vector3(xPos, yPos, zPos);
-        m_Camera.transform.LookAt(m_Focus.transform);
+        PointCameraToAveragePosition();
+        ChangeXRotation();        
 	}
+
+    // only when all targets are very close: "zoom in"
+    private void ChangeXRotation()
+    {
+        float xAngle = m_MinXAngle + (m_Distance / 8f) * Mathf.Abs(m_MaxXAngle - m_MinXAngle);
+        xAngle = Mathf.Min(xAngle, m_MaxXAngle);
+
+        m_Camera.transform.rotation = Quaternion.Slerp(m_Camera.transform.rotation, Quaternion.Euler(new Vector3(xAngle, 0f, 0f)), Time.deltaTime);
+    }
+
+    private void PointCameraToAveragePosition()
+    {
+        float yDistanceRatio = 1f;
+
+        if (m_Distance >= 8f)
+            yDistanceRatio = 1f;
+        else
+        {
+            yDistanceRatio = (float) Math.Max(Math.Log10(m_Distance), 0.2f);
+            if (yDistanceRatio > 1f) yDistanceRatio = 1f;
+        }
+
+        m_Camera.transform.position = Vector3.SmoothDamp(m_Camera.transform.position,
+            new Vector3(m_AveragePosition.x, m_AveragePosition.y + m_Distance * yDistanceRatio, m_AveragePosition.z - m_Distance),
+            ref m_MoveVelocity, m_DampTime);
+    }
+
+    // Calculate the average position of all tanks.
+    // more or less stolen from Tanks tutorial; difference: we do not calculate the final desired position in only one method; that will be based on what we calculate here, though.
+    private void FindAveragePosition()
+    {
+        Vector3 averagePosition = new Vector3();
+        int numTargets = 0;
+
+        for (int i = 0; i < m_Targets.Length; i++)
+        {
+            if (!m_Targets[i].activeSelf)
+                continue;
+
+            averagePosition += m_Targets[i].transform.position;
+            numTargets++;
+        }
+
+        if (numTargets > 0)
+           averagePosition /= numTargets;
+
+        m_AveragePosition = averagePosition;
+    }
+
+    private void FindDistance()
+    {
+        // calculate distance of targets to center to get the distance of the camera.
+        // with two possible targets, the distances are always equal.
+
+        float maxDistanceToCenter = 0;
+
+        for (int i = 0; i < m_Targets.Length; i++)
+        {
+            if (!m_Targets[i].activeSelf)
+                continue;
+
+            float distance = Vector3.Distance(m_Targets[i].transform.position, m_AveragePosition);
+            maxDistanceToCenter = Mathf.Max(maxDistanceToCenter, distance);
+        }
+
+        // @todo magic numbers!!
+        // @todo change formula!!
+        m_Distance = 2f + ((float) Math.Max(Math.Log10((double) maxDistanceToCenter), 0.2) * 10);
+    }
+
 }
