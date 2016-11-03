@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameController : MonoBehaviour {
 
     private static GameController instance;
+
+    private static List<Updateable> updateables = new List<Updateable>();
 
     private GameController() { instance = this; }
 
@@ -41,13 +44,35 @@ public class GameController : MonoBehaviour {
 	void Start () {
 	
 	}
+
+    public void RegisterUpdateable(Updateable updateable)
+    {
+        lock(updateables)
+        {
+            updateables.Add(updateable);
+        }
+    }
+
+    public void UnregisterUpdateable(Updateable updateable)
+    {
+        lock(updateables)
+        {
+            updateables.Remove(updateable);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
+        lock (updateables)
+        {
+            for(int i = 0; i < updateables.Count; i++)
+                updateables[i].Update();
+        }
         float healthPercentage = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
 
         m_HealthBarSlider.value = healthPercentage * 100f;
         Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
         img.color = Color.Lerp(Color.red, Color.green, healthPercentage);
+
     }
 }
