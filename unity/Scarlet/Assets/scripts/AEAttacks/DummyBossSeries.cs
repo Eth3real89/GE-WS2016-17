@@ -6,12 +6,13 @@ public class DummyBossSeries : MonoBehaviour {
     public AEAttackSeries[] m_Series;
 
     public GameObject m_PizzaSetupPrefab;
+    public GameObject m_PizzaAttackPrefab;
 
 	// Use this for initialization
 	void Start () {
         m_Series = new AEAttackSeries[1];
 
-        PizzaAttackSeries p = new PizzaAttackSeries(this, m_PizzaSetupPrefab);
+        PizzaAttackSeries p = new PizzaAttackSeries(this, m_PizzaSetupPrefab, m_PizzaAttackPrefab);
         m_Series[0] = p;
 
         StartCoroutine(InitPizzaAttack());
