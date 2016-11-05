@@ -7,8 +7,15 @@ public class PlayerControls : MonoBehaviour {
     public float m_VerticalInput;
 
     public float m_Speed = 0.3f;
+    public float m_DashDistance;
+    public float m_DashSpeed;
+    public float m_DashCooldown;
 
     public Rigidbody m_RigidBody;
+
+    private float m_LastDash;
+
+    public bool m_ControlsEnabled = true;
 
     private void Awake ()
     {
@@ -24,11 +31,15 @@ public class PlayerControls : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        if (!m_ControlsEnabled)
+            return;
+
         m_HorizontalInput = Input.GetAxis("Horizontal");
         m_VerticalInput = Input.GetAxis("Vertical");
 
         Move();
         Rotate();
+        CheckDash();
 	}
 
     // move scarlet in the right direction
@@ -55,6 +66,49 @@ public class PlayerControls : MonoBehaviour {
 
         Quaternion rotation = Quaternion.Euler(0f, Mathf.Rad2Deg * angle, 0f);
         m_RigidBody.MoveRotation(rotation);
+    }
+
+    private void CheckDash()
+    {
+        float dash = Input.GetAxis("Jump");
+
+        if (dash > 0)
+        {
+            if (Time.time >= m_LastDash + m_DashCooldown)
+            {
+                Dash();
+                m_LastDash = Time.time;
+            }
+        }
+    }
+
+    private void Dash()
+    {
+        m_ControlsEnabled = false;
+        SetVisibility(false);
+
+        StartCoroutine(Blink());
+    }
+
+    private void SetVisibility (bool visible)
+    {
+        GetComponent<Renderer>().enabled = visible;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            Renderer r = transform.GetChild(i).GetComponent<Renderer>();
+            if (r != null)
+                r.enabled = visible;
+        }
+    }
+
+    private IEnumerator Blink()
+    {
+        yield return new WaitForSeconds(m_DashSpeed);
+
+        m_RigidBody.MovePosition(m_RigidBody.transform.position + m_RigidBody.transform.right * m_DashDistance);
+
+        m_ControlsEnabled = true;
+        SetVisibility(true);
     }
 
 }

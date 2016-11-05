@@ -1261,6 +1261,7 @@ GameObject:
   - 23: {fileID: 1509129094}
   - 114: {fileID: 1509129093}
   - 54: {fileID: 1509129098}
+  - 114: {fileID: 1509129099}
   m_Layer: 0
   m_Name: PlayerDummy
   m_TagString: Untagged
@@ -1282,7 +1283,11 @@ MonoBehaviour:
   m_HorizontalInput: 0
   m_VerticalInput: 0
   m_Speed: 5
+  m_DashDistance: 3
+  m_DashSpeed: 0.05
+  m_DashCooldown: 0.5
   m_RigidBody: {fileID: 0}
+  m_ControlsEnabled: 1
 --- !u!23 &1509129094
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1360,6 +1365,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 1
+--- !u!114 &1509129099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509129092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b8dd0b244186d4890481a0c47c1d09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendTriggerMessage: 0
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  skinWidth: 0.1
 --- !u!1 &1724292163
 GameObject:
   m_ObjectHideFlags: 0
