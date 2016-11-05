@@ -25,7 +25,7 @@ public class ConeAttackSeries : AEAttackSeries
         setup.delay = 0.5f;
         setup.m_StartPosition = bossTransform.position;
 
-        ConeAttack attack = new ConeAttack(m_ConeAttackPrefab, this, setup.m_LookAngles);
+        ConeAttack attack = new ConeAttack(m_ConeAttackPrefab, this, setup);
         attack.delay = 2f;
         attack.m_StartPosition = bossTransform.position;
 

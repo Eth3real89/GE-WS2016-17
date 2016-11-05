@@ -7,16 +7,17 @@ public class ConeAttack : AEAttack {
 
     public GameObject m_ConeInstance;
     public Vector3 m_StartPosition;
-    public Quaternion m_StartRotation;
 
     public AEAttackSeries m_Series;
 
-    public ConeAttack(GameObject conePrefab, AEAttackSeries series, Quaternion rotation)
+    public ConeAttackSetup m_Setup;
+
+    public ConeAttack(GameObject conePrefab, AEAttackSeries series, ConeAttackSetup setup)
     {
         this.m_ConePrefab = conePrefab;
         this.m_Series = series;
 
-        this.m_StartRotation = rotation;
+        this.m_Setup = setup;
     }
 
     public override GameObject GetObject()
@@ -27,10 +28,9 @@ public class ConeAttack : AEAttack {
     public override void LaunchPart()
     {
         // later on: play some animation, etc. 
-        m_ConeInstance = (GameObject)GameObject.Instantiate(m_ConePrefab, m_StartPosition, m_StartRotation);
+        m_ConeInstance = (GameObject)GameObject.Instantiate(m_ConePrefab, m_StartPosition, m_Setup.m_LookAngles);
         m_ConeInstance.SetActive(true);
         m_ConeInstance.transform.localScale = new Vector3(4, 1, 4);
-        m_ConeInstance.transform.LookAt(GameController.Instance.m_Scarlet.transform.position);
 
         m_Series.m_Behaviour.StartCoroutine(RemoveAfter(2.5f));
     }

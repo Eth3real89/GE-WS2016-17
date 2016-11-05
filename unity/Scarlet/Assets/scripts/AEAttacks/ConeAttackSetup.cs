@@ -18,7 +18,7 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
         this.m_ConePrefab = conePrefab;
         this.m_Series = series;
 
-        this.m_LookAngles = new Quaternion();
+        this.m_LookAngles = Quaternion.Euler(0f, 0f, 0f);
     }
 
     public override GameObject GetObject()
@@ -49,11 +49,7 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
         Quaternion updated = m_ConeInstance.transform.rotation;
 
         m_ConeInstance.transform.rotation = Quaternion.Slerp(Quaternion.Euler(originalAngles), updated, Time.deltaTime);
-
-        m_LookAngles.Set(m_ConeInstance.transform.rotation.x, m_ConeInstance.transform.rotation.y,
-            m_ConeInstance.transform.rotation.z, m_ConeInstance.transform.rotation.w);
-
-        m_ConeInstance.transform.LookAt(GameController.Instance.m_Scarlet.transform.position);
+        m_LookAngles = m_ConeInstance.transform.rotation;
     }
 
     public IEnumerator RemoveAfter(float seconds)
