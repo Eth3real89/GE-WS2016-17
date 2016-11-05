@@ -25,8 +25,14 @@ public class PlayerControls : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-	
+       
 	}
+      
+
+    void setupController()
+    {
+        
+    }
 	
 	// Update is called once per frame
 	void Update ()
