@@ -36,6 +36,14 @@ public class BeamAttack : AEAttackPart, Updateable {
         m_BeamInstance = (GameObject) GameObject.Instantiate(m_BeamVisuals, m_StartPosition, new Quaternion(0, 0, 0, 0));
         m_BeamInstance.transform.LookAt(GameController.Instance.m_Scarlet.transform);
 
+        Quaternion rotation = m_BeamInstance.transform.rotation;
+        Vector3 asCoords = rotation.eulerAngles;
+
+        asCoords.x = 0;
+        asCoords.z = 0;
+
+        m_BeamInstance.transform.rotation = Quaternion.Euler(asCoords);
+
         m_BeamInstance.transform.localScale = new Vector3(1, 1, 0.01f);
         passedTime = 0;
 
