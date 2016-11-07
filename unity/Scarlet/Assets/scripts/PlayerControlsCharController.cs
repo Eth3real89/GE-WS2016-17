@@ -19,6 +19,9 @@ public class PlayerControlsCharController : MonoBehaviour
     private Rigidbody m_RigidBody;
     private Animator animator;
 
+    public float m_healingCharges;
+    public float m_healingAmount;
+
     private void Awake()
     {
         m_RigidBody = GetComponent<Rigidbody>();
@@ -43,6 +46,7 @@ public class PlayerControlsCharController : MonoBehaviour
         Move();
         Rotate();
         CheckDash();
+        CheckHealing();
     }
 
     // move scarlet in the right direction
@@ -83,6 +87,18 @@ public class PlayerControlsCharController : MonoBehaviour
             }
         }
     }
+
+  private void CheckHealing()
+  {
+    if (m_healingCharges > 0) 
+    {
+      if(Input.GetButtonDown("Fire2"))
+      {
+        m_healingCharges--;
+        GameController.Instance.HealScarlet(m_healingAmount);
+      }
+    }
+  } 
 
     private void Dash()
     {

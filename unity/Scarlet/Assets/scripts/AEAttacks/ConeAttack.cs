@@ -32,7 +32,7 @@ public class ConeAttack : AEAttack {
         m_ConeInstance.SetActive(true);
         m_ConeInstance.transform.localScale = new Vector3(4, 1, 4);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(2.5f));
+        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(0.3f));
     }
 
     public IEnumerator RemoveAfter(float seconds)

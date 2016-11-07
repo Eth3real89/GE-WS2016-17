@@ -12,7 +12,7 @@ public class BeamAttack : AEAttackPart, Updateable {
 
     public AEAttackSeries m_Series;
 
-    public float m_GrowthSpeed = 15f;
+    public float m_GrowthSpeed = 20f;
     public float m_GrowthTime = 1.5f;
 
     public float m_RotateTime = 8f;

@@ -40,6 +40,13 @@ public class GameController : MonoBehaviour {
         m_ScarletHealth -= damage;
     }
 
+    public void HealScarlet(float amount) {
+        m_ScarletHealth += amount;
+
+        if(m_ScarletHealth > 100)
+            m_ScarletHealth = 100;
+    }
+
 	// Use this for initialization
 	void Start () {
 	
@@ -71,8 +78,8 @@ public class GameController : MonoBehaviour {
         float healthPercentage = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
 
         m_HealthBarSlider.value = healthPercentage * 100f;
-        Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
-        img.color = Color.Lerp(Color.black, Color.red, healthPercentage);
+        //Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
+        //img.color = Color.Lerp(Color.black, Color.red, healthPercentage);
 
     }
 }

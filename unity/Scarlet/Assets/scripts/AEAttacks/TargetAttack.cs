@@ -32,7 +32,7 @@ public class TargetAttack : AEAttack
             m_Setup.m_TargetInstance.transform.position, Quaternion.Euler(0f, 0f, 0f));
         m_TargetInstance.SetActive(true);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(2.5f));
+        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(0.3f));
     }
 
     public IEnumerator RemoveAfter(float seconds)
