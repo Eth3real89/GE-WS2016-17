@@ -36,7 +36,7 @@ public class TargetAttackSetup : AEAttack, Updateable
     {
         m_TargetInstance.transform.position = Vector3.MoveTowards(m_TargetInstance.transform.position,
             GameController.Instance.m_Scarlet.transform.position,
-            0.05f);
+            0.22f);
     }
 
     public IEnumerator RemoveAfter(float seconds)

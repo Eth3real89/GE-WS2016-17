@@ -19,7 +19,7 @@ public class ConeAttackDamage : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         m_FrameCount++;
-        HandleScarletCollision(other, 2f * Time.deltaTime * m_FrameCount);
+        HandleScarletCollision(other, 20f * Time.deltaTime * m_FrameCount);
     }
 
     void OnTriggerExit(Collider other)

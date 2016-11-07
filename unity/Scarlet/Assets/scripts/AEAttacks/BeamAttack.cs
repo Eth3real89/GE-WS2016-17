@@ -12,11 +12,11 @@ public class BeamAttack : AEAttackPart, Updateable {
 
     public AEAttackSeries m_Series;
 
-    public float m_GrowthSpeed = 6f;
-    public float m_GrowthTime = 2f;
+    public float m_GrowthSpeed = 15f;
+    public float m_GrowthTime = 1.5f;
 
     public float m_RotateTime = 8f;
-    public float m_RotateSpeed = 0.6f;
+    public float m_RotateSpeed = 1f;
 
     private float passedTime = 0f;
 
@@ -44,7 +44,7 @@ public class BeamAttack : AEAttackPart, Updateable {
 
         m_BeamInstance.transform.rotation = Quaternion.Euler(asCoords);
 
-        m_BeamInstance.transform.localScale = new Vector3(1, 1, 0.01f);
+        m_BeamInstance.transform.localScale = new Vector3(2, 2, 0.02f);
         passedTime = 0;
 
         GameController.Instance.RegisterUpdateable(this);

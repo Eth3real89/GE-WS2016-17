@@ -29,7 +29,7 @@ public class TargetAttackSeries : AEAttackSeries
             setup.delay = i * 2f;
 
             TargetAttack attack = new TargetAttack(m_TargetAttackPrefab, this, setup);
-            attack.delay = setup.delay + 1.5f;
+            attack.delay = setup.delay + 1f;
 
             m_Parts[i * 2] = setup;
             m_Parts[i * 2 + 1] = attack;
