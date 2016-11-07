@@ -16,6 +16,8 @@ public class GameController : MonoBehaviour {
     public float m_ScarletStartHealth = 100f;
     public float m_ScarletHealth = 100f;
 
+    public bool m_ScarletInvincible = false;
+
     public Slider m_HealthBarSlider;
 
     public static GameController Instance
@@ -37,7 +39,8 @@ public class GameController : MonoBehaviour {
 
     public void HitScarlet(float damage)
     {
-        m_ScarletHealth -= damage;
+        if (!m_ScarletInvincible)
+            m_ScarletHealth -= damage;
     }
 
     public void HealScarlet(float amount) {

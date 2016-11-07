@@ -28,7 +28,7 @@ public class TargetAttackSetup : AEAttack, Updateable
             GameController.Instance.m_Scarlet.transform.position, Quaternion.Euler(0f, 0f, 0f));
         m_TargetInstance.SetActive(true);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1.5f));
+        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1f));
         GameController.Instance.RegisterUpdateable(this);
     }
 

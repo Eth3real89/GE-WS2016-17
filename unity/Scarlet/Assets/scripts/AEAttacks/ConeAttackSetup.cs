@@ -34,7 +34,12 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
 
         m_ConeInstance.transform.LookAt(GameController.Instance.m_Scarlet.transform.position);
 
-        m_ConeInstance.transform.localScale = new Vector3(4, 1, 4);
+        Vector3 rotationValues = m_ConeInstance.transform.rotation.eulerAngles;
+        rotationValues.x = 0;
+        rotationValues.z = 0;
+        m_ConeInstance.transform.rotation = Quaternion.Euler(rotationValues);
+
+        m_ConeInstance.transform.localScale = new Vector3(10, 1, 10);
 
         m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1.5f));
 
@@ -48,7 +53,12 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
 
         Quaternion updated = m_ConeInstance.transform.rotation;
 
-        m_ConeInstance.transform.rotation = Quaternion.Slerp(Quaternion.Euler(originalAngles), updated, Time.deltaTime);
+        m_ConeInstance.transform.rotation = Quaternion.Slerp(Quaternion.Euler(originalAngles), updated, 1.5f * Time.deltaTime);
+        Vector3 rotationValues = m_ConeInstance.transform.rotation.eulerAngles;
+        rotationValues.x = 0;
+        rotationValues.z = 0;
+        m_ConeInstance.transform.rotation = Quaternion.Euler(rotationValues);
+
         m_LookAngles = m_ConeInstance.transform.rotation;
     }
 
