@@ -19,7 +19,7 @@ public class DummyBossSeries : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        m_Series = new AEAttackSeries[4];
+        m_Series = new AEAttackSeries[5];
 
         PizzaAttackSeries p = new PizzaAttackSeries(this, m_PizzaSetupPrefab, m_PizzaAttackPrefab);
         m_Series[0] = p;
@@ -27,48 +27,42 @@ public class DummyBossSeries : MonoBehaviour {
         BeamAttackSeries b = new BeamAttackSeries(this, m_BeamPrefab, m_Boss);
         m_Series[1] = b;
 
+        DoubleBeamAttackSeries b2 = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_Boss);
+        m_Series[2] = b2;
+
         ConeAttackSeries c = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
-        m_Series[2] = c;
+        m_Series[3] = c;
 
         TargetAttackSeries t = new TargetAttackSeries(this, m_TargetSetupPrefab, m_TargetAttackPrefab);
-        m_Series[3] = t;
+        m_Series[4] = t;
+        
 
-        StartCoroutine(InitTargetAttack());
-        StartCoroutine(InitConeAttack());
-        StartCoroutine(InitBeamAttack());
-        StartCoroutine(InitPizzaAttack());
-	}
+        for (int i = 0; i < 10; i++)
+        {
+           StartCoroutine(StartAttacks(i * 41));
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
 
-    private IEnumerator InitPizzaAttack ()
+    private IEnumerator StartAttacks(float time)
     {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(time);
 
-        m_Series[0].RunSeries(transform);
+        StartCoroutine(InitAttackAfter(4, 2f));
+        StartCoroutine(InitAttackAfter(3, 9f));
+        StartCoroutine(InitAttackAfter(1, 13f));
+        StartCoroutine(InitAttackAfter(0, 24f));
+        StartCoroutine(InitAttackAfter(2, 30f));
     }
 
-    private IEnumerator InitBeamAttack()
+    private IEnumerator InitAttackAfter(int which, float time)
     {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(time);
 
-        m_Series[1].RunSeries(transform);
-    }
-
-    private IEnumerator InitConeAttack()
-    {
-        yield return new WaitForSeconds(9f);
-
-        m_Series[2].RunSeries(transform);
-    }
-
-    private IEnumerator InitTargetAttack()
-    {
-        yield return new WaitForSeconds(2f);
-
-        m_Series[3].RunSeries(transform);
+        m_Series[which].RunSeries(transform);
     }
 }
