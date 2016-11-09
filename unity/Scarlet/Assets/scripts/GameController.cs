@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour {
 
     private GameController() { instance = this; }
 
+    public GameObject m_Boss;
     public GameObject m_Scarlet;
 
     public float m_ScarletStartHealth = 100f;
@@ -37,10 +38,20 @@ public class GameController : MonoBehaviour {
         return m_Scarlet.GetComponent<Rigidbody>() == body;
     }
 
+    public bool IsBoss(Rigidbody body)
+    {
+        return m_Boss.GetComponent<Rigidbody>() == body;
+    }
+
     public void HitScarlet(float damage)
     {
         if (!m_ScarletInvincible)
             m_ScarletHealth -= damage;
+    }
+
+    public void HitBoss(float damage)
+    {
+        m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
     }
 
     public void HealScarlet(float amount) {

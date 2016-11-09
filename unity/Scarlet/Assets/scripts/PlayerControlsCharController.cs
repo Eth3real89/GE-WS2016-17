@@ -22,10 +22,14 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_healingCharges;
     public float m_healingAmount;
 
+    private HandDamage[] handDamages;
+
     private void Awake()
     {
         m_RigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+
+        handDamages = GetComponentsInChildren<HandDamage>();
     }
 
     // Use this for initialization
@@ -37,6 +41,13 @@ public class PlayerControlsCharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (InAttackAnimation())
+            return;
+        else
+        {
+            DisableDamage();
+        }
+
         if (!m_ControlsEnabled)
             return;
 
@@ -46,6 +57,7 @@ public class PlayerControlsCharController : MonoBehaviour
         Move();
         Rotate();
         CheckDash();
+        CheckAttack();
         CheckHealing();
     }
 
@@ -88,7 +100,15 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
-  private void CheckHealing()
+    private void CheckAttack()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            Punch();
+        }
+    }
+
+    private void CheckHealing()
   {
     if (m_healingCharges > 0) 
     {
@@ -108,6 +128,15 @@ public class PlayerControlsCharController : MonoBehaviour
         StartCoroutine(Blink());
     }
 
+    private void Punch()
+    {
+        animator.SetInteger("PunchCue", (int) Random.Range(1.001f, 3.999f));
+        animator.SetTrigger("PunchTrigger");
+
+        handDamages[0].m_causeDamage = true;
+        handDamages[1].m_causeDamage = true;
+    }
+
     private void SetVisibility(bool visible)
     {
         for (int i = 0; i < transform.childCount; i++)
@@ -118,6 +147,12 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
+    private bool InAttackAnimation()
+    {
+        AnimatorStateInfo info = this.animator.GetCurrentAnimatorStateInfo(0);
+        return info.IsTag("Punch");
+    }
+
     private IEnumerator Blink()
     {
         yield return new WaitForSeconds(m_DashSpeed);
@@ -126,5 +161,11 @@ public class PlayerControlsCharController : MonoBehaviour
 
         m_ControlsEnabled = true;
         SetVisibility(true);
+    }
+
+    private void DisableDamage()
+    {
+        handDamages[0].m_causeDamage = false;
+        handDamages[1].m_causeDamage = false;
     }
 }
