@@ -1454,6 +1454,68 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.3477015, y: -0.028784126, z: 0.0041576624}
     m_Extent: {x: 0.20715368, y: 0.15131117, z: 0.19889802}
   m_DirtyAABB: 0
+--- !u!1 &469134722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 469134723}
+  - 33: {fileID: 469134726}
+  - 65: {fileID: 469134725}
+  - 114: {fileID: 469134727}
+  m_Layer: 0
+  m_Name: DamageTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &469134723
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 469134722}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.098, z: 0.5}
+  m_LocalScale: {x: 1, y: 0.5, z: 0.9}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1722516011}
+  m_RootOrder: 28
+--- !u!65 &469134725
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 469134722}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &469134726
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 469134722}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &469134727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 469134722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2869a37164aa54b4395fa641f4514b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_causeDamage: 0
 --- !u!1 &546464858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3050,6 +3112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 250
   m_StartHealth: 250
+  m_CurrentHealth: 0
 --- !u!4 &1126377310
 Transform:
   m_ObjectHideFlags: 0
@@ -3205,8 +3268,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1176810242}
-  - 114: {fileID: 1176810244}
-  - 135: {fileID: 1176810243}
   m_Layer: 0
   m_Name: L Hand
   m_TagString: Untagged
@@ -3233,30 +3294,6 @@ Transform:
   - {fileID: 1822777886}
   m_Father: {fileID: 1876324126}
   m_RootOrder: 0
---- !u!135 &1176810243
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1176810241}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1176810244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1176810241}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2869a37164aa54b4395fa641f4514b15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_causeDamage: 0
 --- !u!1 &1289139936
 GameObject:
   m_ObjectHideFlags: 0
@@ -4457,6 +4494,7 @@ Transform:
   - {fileID: 1720074752}
   - {fileID: 2102326826}
   - {fileID: 1806538182}
+  - {fileID: 469134723}
   m_Father: {fileID: 0}
   m_RootOrder: 1
 --- !u!54 &1722516012
@@ -5128,8 +5166,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2001891195}
-  - 114: {fileID: 2001891197}
-  - 135: {fileID: 2001891196}
   m_Layer: 0
   m_Name: R Hand
   m_TagString: Untagged
@@ -5156,30 +5192,6 @@ Transform:
   - {fileID: 176237831}
   m_Father: {fileID: 645766895}
   m_RootOrder: 0
---- !u!135 &2001891196
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2001891194}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &2001891197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2001891194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2869a37164aa54b4395fa641f4514b15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_causeDamage: 0
 --- !u!1 &2003442713
 GameObject:
   m_ObjectHideFlags: 0

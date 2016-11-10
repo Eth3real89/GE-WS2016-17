@@ -22,14 +22,14 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_healingCharges;
     public float m_healingAmount;
 
-    private HandDamage[] handDamages;
+    private HandDamage handDamage;
 
     private void Awake()
     {
         m_RigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
-        handDamages = GetComponentsInChildren<HandDamage>();
+        handDamage = GetComponentInChildren<HandDamage>();
     }
 
     // Use this for initialization
@@ -133,8 +133,7 @@ public class PlayerControlsCharController : MonoBehaviour
         animator.SetInteger("PunchCue", (int) Random.Range(1.001f, 3.999f));
         animator.SetTrigger("PunchTrigger");
 
-        handDamages[0].m_causeDamage = true;
-        handDamages[1].m_causeDamage = true;
+        handDamage.m_causeDamage = true;
     }
 
     private void SetVisibility(bool visible)
@@ -165,7 +164,6 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void DisableDamage()
     {
-        handDamages[0].m_causeDamage = false;
-        handDamages[1].m_causeDamage = false;
+        handDamage.m_causeDamage = false;
     }
 }
