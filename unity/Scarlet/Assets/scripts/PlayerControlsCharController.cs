@@ -23,6 +23,10 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_healingAmount;
 
     private HandDamage handDamage;
+    private bool m_InAttackAnimation;
+    private IEnumerator m_DamageCoRoutine;
+
+    private int m_CurrentAttackCombo = 0;
 
     private void Awake()
     {
@@ -30,6 +34,8 @@ public class PlayerControlsCharController : MonoBehaviour
         animator = GetComponent<Animator>();
 
         handDamage = GetComponentInChildren<HandDamage>();
+
+        m_CurrentAttackCombo = 0;
     }
 
     // Use this for initialization
@@ -41,13 +47,6 @@ public class PlayerControlsCharController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (InAttackAnimation())
-            return;
-        else
-        {
-            DisableDamage();
-        }
-
         if (!m_ControlsEnabled)
             return;
 
@@ -68,6 +67,12 @@ public class PlayerControlsCharController : MonoBehaviour
         if (normalizedSpeed >= m_Speed)
         {
             normalizedSpeed = m_Speed;
+        }
+
+        if (normalizedSpeed >= 0.1f)
+        {
+            if (m_InAttackAnimation)
+                CancelAttackAnimation();
         }
 
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, 0, m_VerticalInput * normalizedSpeed);
@@ -92,6 +97,9 @@ public class PlayerControlsCharController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
+            if (m_InAttackAnimation)
+                CancelAttackAnimation();
+
             if (Time.time >= m_LastDash + m_DashCooldown)
             {
                 Dash();
@@ -104,36 +112,75 @@ public class PlayerControlsCharController : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            if (m_InAttackAnimation)
+            {
+                StopCoroutine(m_DamageCoRoutine);
+            }
+
             Punch();
+            
         }
     }
 
     private void CheckHealing()
-  {
-    if (m_healingCharges > 0) 
     {
-      if(Input.GetButtonDown("Fire2"))
-      {
-        m_healingCharges--;
-        GameController.Instance.HealScarlet(m_healingAmount);
-      }
-    }
-  } 
+        if (m_healingCharges > 0) 
+        {
+            if(Input.GetButtonDown("Fire2"))
+            {
+                if (m_InAttackAnimation)
+                    CancelAttackAnimation();
+
+                m_healingCharges--;
+                GameController.Instance.HealScarlet(m_healingAmount);
+            }
+        }
+    } 
 
     private void Dash()
     {
         m_ControlsEnabled = false;
         SetVisibility(false);
+        GameController.Instance.m_ScarletInvincible = true;
 
         StartCoroutine(Blink());
     }
 
     private void Punch()
     {
-        animator.SetInteger("PunchCue", (int) Random.Range(1.001f, 3.999f));
+        float enableControlsAfter = 0.25f;
+        int punchAnimation = 1;
+
+        if (m_CurrentAttackCombo <= 2)
+        {
+            Debug.Log("combo: " + m_CurrentAttackCombo);
+
+            punchAnimation = m_CurrentAttackCombo * 3 + (int) Random.Range(1.001f, 3.999f);
+            m_CurrentAttackCombo++;
+        }
+        else
+        {
+            Debug.Log("final hit in combo!");
+            
+            enableControlsAfter = 0.8f;
+            punchAnimation = 10;
+
+            m_CurrentAttackCombo = 0;
+        }
+
+        animator.SetInteger("PunchCue", punchAnimation);
         animator.SetTrigger("PunchTrigger");
 
-        handDamage.m_causeDamage = true;
+        handDamage.m_CauseDamage = true;
+
+        m_ControlsEnabled = false;
+        m_InAttackAnimation = true;
+
+        StartCoroutine(ReEnableControlsAfter(enableControlsAfter));
+        m_DamageCoRoutine = DisableDamageAfter(0.5f);
+
+        StartCoroutine(m_DamageCoRoutine);
+
     }
 
     private void SetVisibility(bool visible)
@@ -144,6 +191,14 @@ public class PlayerControlsCharController : MonoBehaviour
             if (r != null)
                 r.enabled = visible;
         }
+    }
+
+    private IEnumerator Reappear()
+    {
+        yield return new WaitForSeconds(0.0001f);
+
+        SetVisibility(true);
+        GameController.Instance.m_ScarletInvincible = false;
     }
 
     private bool InAttackAnimation()
@@ -159,11 +214,36 @@ public class PlayerControlsCharController : MonoBehaviour
         m_RigidBody.MovePosition(m_RigidBody.transform.position + m_RigidBody.transform.forward * m_DashDistance);
 
         m_ControlsEnabled = true;
-        SetVisibility(true);
+
+        StartCoroutine(Reappear());
+    }
+
+    private IEnumerator ReEnableControlsAfter(float afterSeconds)
+    {
+        yield return new WaitForSeconds(afterSeconds);
+
+        m_ControlsEnabled = true;
+    }
+
+    private IEnumerator DisableDamageAfter(float afterSeconds)
+    {
+        yield return new WaitForSeconds(afterSeconds);
+        DisableDamage();
+        m_InAttackAnimation = false;
     }
 
     private void DisableDamage()
     {
-        handDamage.m_causeDamage = false;
+        handDamage.m_CauseDamage = false;
+        m_CurrentAttackCombo = 0;
+    }
+
+    // Attack could have continued to combo at this point, but the user moved / blinked / etc.
+    private void CancelAttackAnimation()
+    {
+        animator.SetTrigger("StopTrigger");
+        m_InAttackAnimation = false;
+        DisableDamage();
+        StopCoroutine(m_DamageCoRoutine);
     }
 }

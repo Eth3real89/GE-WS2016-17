@@ -3,7 +3,9 @@ using System.Collections;
 
 public class HandDamage : MonoBehaviour {
 
-    public bool m_causeDamage = false;
+    public bool m_CauseDamage = false;
+
+    public float m_Damage = 20f;
 
 
 
@@ -29,12 +31,12 @@ public class HandDamage : MonoBehaviour {
 
     private void CheckHit(Collider other)
     {
-        if (m_causeDamage)
+        if (m_CauseDamage)
         {
             if (GameController.Instance.IsBoss(other.GetComponent<Rigidbody>()))
             {
-                GameController.Instance.HitBoss(20f);
-                m_causeDamage = false;
+                GameController.Instance.HitBoss(m_Damage);
+                m_CauseDamage = false;
             }
         }
     }
