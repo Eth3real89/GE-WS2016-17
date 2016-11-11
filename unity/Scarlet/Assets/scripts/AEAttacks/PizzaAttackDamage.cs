@@ -20,7 +20,7 @@ public class PizzaAttackDamage : MonoBehaviour {
 
     void OnTriggerStay(Collider other)
     {
-        HandleScarletCollision(other, 10f * Time.deltaTime);
+        HandleScarletCollision(other, 20f * Time.deltaTime);
     }
 
     private void HandleScarletCollision(Collider other, float damage)

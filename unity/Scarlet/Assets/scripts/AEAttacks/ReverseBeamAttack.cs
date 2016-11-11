@@ -2,7 +2,8 @@
 using System.Collections;
 using System;
 
-public class BeamAttack : AEAttackPart, Updateable {
+public class ReverseBeamAttack : AEAttackPart, Updateable
+{
 
     public GameObject m_BeamVisuals;
 
@@ -20,7 +21,7 @@ public class BeamAttack : AEAttackPart, Updateable {
 
     private float passedTime = 0f;
 
-    public BeamAttack(GameObject beamPrefab, AEAttackSeries series)
+    public ReverseBeamAttack(GameObject beamPrefab, AEAttackSeries series)
     {
         this.m_BeamVisuals = beamPrefab;
         this.m_Series = series;
@@ -33,7 +34,7 @@ public class BeamAttack : AEAttackPart, Updateable {
 
     public override void LaunchPart()
     {
-        m_BeamInstance = (GameObject) GameObject.Instantiate(m_BeamVisuals, m_StartPosition, new Quaternion(0, 0, 0, 0));
+        m_BeamInstance = (GameObject)GameObject.Instantiate(m_BeamVisuals, m_StartPosition, new Quaternion(0, 0, 0, 0));
         m_BeamInstance.transform.LookAt(GameController.Instance.m_Scarlet.transform);
 
         Quaternion rotation = m_BeamInstance.transform.rotation;
@@ -41,6 +42,7 @@ public class BeamAttack : AEAttackPart, Updateable {
 
         asCoords.x = 0;
         asCoords.z = 0;
+        asCoords.y += 180;
 
         m_BeamInstance.transform.rotation = Quaternion.Euler(asCoords);
 

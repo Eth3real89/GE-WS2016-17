@@ -28,7 +28,7 @@ public class TargetAttackSetup : AEAttack, Updateable
             GameController.Instance.m_Scarlet.transform.position, Quaternion.Euler(0f, 0f, 0f));
         m_TargetInstance.SetActive(true);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1.5f));
+        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1f));
         GameController.Instance.RegisterUpdateable(this);
     }
 
@@ -36,7 +36,7 @@ public class TargetAttackSetup : AEAttack, Updateable
     {
         m_TargetInstance.transform.position = Vector3.MoveTowards(m_TargetInstance.transform.position,
             GameController.Instance.m_Scarlet.transform.position,
-            0.05f);
+            0.22f);
     }
 
     public IEnumerator RemoveAfter(float seconds)

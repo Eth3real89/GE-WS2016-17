@@ -18,7 +18,7 @@ public class BeamAttackDamage : MonoBehaviour {
     void OnTriggerStay(Collider other)
     {
         m_FrameCount++;
-        HandleScarletCollision(other, 0.5f * Time.deltaTime * m_FrameCount);
+        HandleScarletCollision(other, 50f * Time.deltaTime * m_FrameCount);
     }
 
     void OnTriggerExit(Collider other)

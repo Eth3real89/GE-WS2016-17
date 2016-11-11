@@ -89,8 +89,9 @@ public class PlayerControls : MonoBehaviour {
 	{
 		m_ControlsEnabled = false;
 		SetVisibility(false);
+        GameController.Instance.m_ScarletInvincible = true;
 
-		StartCoroutine(Blink());
+        StartCoroutine(Blink());
 	}
 
 	private void SetVisibility (bool visible)
@@ -112,6 +113,8 @@ public class PlayerControls : MonoBehaviour {
 
 		m_ControlsEnabled = true;
 		SetVisibility(true);
+
+        GameController.Instance.m_ScarletInvincible = false;
 	}
 
 }
