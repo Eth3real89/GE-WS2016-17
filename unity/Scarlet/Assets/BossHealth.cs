@@ -22,4 +22,9 @@ public class BossHealth : MonoBehaviour {
     {
         m_CurrentHealth = Mathf.Max(0, m_CurrentHealth - howMuch);
     }
+
+    public float GetBossHealth() 
+    {
+      return m_CurrentHealth;
+    }
 }

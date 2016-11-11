@@ -19,7 +19,15 @@ public class GameController : MonoBehaviour {
 
     public bool m_ScarletInvincible = false;
 
+    public Text m_BossKillNotification;
+    public Text m_DeathNotification;
+
+    public float m_NotificationTime = 5.0f;
+
     public Slider m_HealthBarSlider;
+
+    private bool isScarletDead = false;
+    private bool isBossDead = false;
 
     public static GameController Instance
     {
@@ -47,24 +55,34 @@ public class GameController : MonoBehaviour {
     {
         if (!m_ScarletInvincible)
             m_ScarletHealth -= damage;
+
+        if(m_ScarletHealth <= 0) isScarletDead = true;
     }
 
     public void HitBoss(float damage)
     {
         m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
+
+        if(m_Boss.GetComponent<BossHealth>().GetBossHealth() <= 0.0f) isBossDead = true;
     }
 
     public void HealScarlet(float amount) {
-        m_ScarletHealth += amount;
-
-        if(m_ScarletHealth > 100)
-            m_ScarletHealth = 100;
+        float health = m_ScarletHealth + amount;
+     
+        m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
     }
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        m_BossKillNotification.enabled = false;
+        m_BossKillNotification.text = "ASCENDED";
+
+        m_DeathNotification.enabled = false;
+        m_DeathNotification.text = "EXORCISED";
+
+        isScarletDead = false;
+        isBossDead = false;
+    }
 
     public void RegisterUpdateable(Updateable updateable)
     {
@@ -94,6 +112,22 @@ public class GameController : MonoBehaviour {
         m_HealthBarSlider.value = healthPercentage * 100f;
         //Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
         //img.color = Color.Lerp(Color.black, Color.red, healthPercentage);
+     
+        HandleText(isBossDead, m_BossKillNotification);
+        HandleText(isScarletDead, m_DeathNotification);
+    }
 
+    private void HandleText(bool isDead, Text text) {
+      if(isDead)
+        {
+            m_NotificationTime -= Time.deltaTime;
+
+            if(m_NotificationTime > 0) {
+              text.enabled = true;
+
+            } else {
+              text.enabled = false;
+            }
+        }
     }
 }
