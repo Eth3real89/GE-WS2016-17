@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.11372549}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.06
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45108593, g: 0.50108844, b: 0.57535714, a: 1}
+  m_IndirectSpecularColor: {r: 0.45108575, g: 0.50108784, b: 0.5753566, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2934,6 +2934,7 @@ GameObject:
   - 124: {fileID: 974328358}
   - 81: {fileID: 974328357}
   - 114: {fileID: 974328362}
+  - 114: {fileID: 974328363}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3028,6 +3029,18 @@ MonoBehaviour:
   m_Targets:
   - {fileID: 1722516008}
   - {fileID: 1126377306}
+--- !u!114 &974328363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 974328356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c3e636befaf243428c396c5df3ed7d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mat: {fileID: 2100000, guid: caac1f80de602472482ca46251b8689b, type: 2}
 --- !u!1 &987867269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3536,9 +3549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28049e205448d2445b6c87af8c875d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHealth: 250
-  m_StartHealth: 250
-  m_CurrentHealth: 0
+  m_MaxHealth: 600
+  m_StartHealth: 600
 --- !u!4 &1126377310
 Transform:
   m_ObjectHideFlags: 0
@@ -6092,6 +6104,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 2009010261}
   - 114: {fileID: 2009010260}
+  - 114: {fileID: 2009010262}
   m_Layer: 0
   m_Name: _MainObject
   m_TagString: Untagged
@@ -6121,7 +6134,7 @@ MonoBehaviour:
   m_ScarletInvincible: 0
   m_BossKillNotification: {fileID: 1316916188}
   m_DeathNotification: {fileID: 614718957}
-  m_NotificationTime: 5
+  m_NotificationTime: 3
 --- !u!4 &2009010261
 Transform:
   m_ObjectHideFlags: 0
@@ -6135,6 +6148,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &2009010262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009010259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26958652c1a14968a497962e12ae27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FadeTextureBlack: {fileID: 2800000, guid: c44fa8aa889084cae9c42a8e621c15ab, type: 3}
+  m_FadeSpeed: 0.7
 --- !u!1 &2042157959
 GameObject:
   m_ObjectHideFlags: 0

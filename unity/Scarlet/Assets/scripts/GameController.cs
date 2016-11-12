@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Timers;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
@@ -222,9 +223,9 @@ public class GameController : MonoBehaviour {
                 timesUpBoss = false;
             }
         }
-
+                           
         HandleText(isBossDead, m_BossKillNotification);
-        HandleText(isScarletDead, m_DeathNotification);
+        HandleText(isScarletDead, m_DeathNotification);       
     }
 
     /// <summary>
@@ -281,8 +282,8 @@ public class GameController : MonoBehaviour {
     }
 
     private void HandleText(bool isDead, Text text)
-    {
-        if (isDead)
+    {       
+        if(isDead)
         {
             m_NotificationTime -= Time.deltaTime;
 
@@ -291,10 +292,11 @@ public class GameController : MonoBehaviour {
                 text.enabled = true;
 
             }
-            else
+            else if(m_NotificationTime <= 1.5f)
             {
-                text.enabled = false;
-            }
-        }
+                GameObject.Find("_MainObject").GetComponent<Fading>().SetFadeSpeed(0.2f);
+                GameObject.Find("_MainObject").GetComponent<Fading>().BeginFade(1);
+            }  
+        }            
     }
 }
