@@ -89,9 +89,15 @@ public class GameController : MonoBehaviour {
 
     public void HealScarlet(float amount)
     {
-        float health = m_ScarletHealth + amount;
+        if(!isScarletDead)
+        {
+            float health = m_ScarletHealth + amount;
 
-        m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
+            m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
+
+            CalculateScarletHealthBar(-amount / m_ScarletStartHealth);
+            elapsedTimeScarlet = 0;
+        }
     }
 
 
@@ -99,6 +105,9 @@ public class GameController : MonoBehaviour {
     {
         if(m_Boss.GetComponent<BossHealth>().GetBossHealth() > 0)
         {
+            if (m_Boss.GetComponent<BossHealth>().GetBossHealth() - damage < 0) {
+                damage -= m_Boss.GetComponent<BossHealth>().GetBossHealth();
+            }
             m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
             CalculateBossHealthBar(damage / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth());
             elapsedTimeBoss = 0;
@@ -224,12 +233,27 @@ public class GameController : MonoBehaviour {
     /// <param name="damage">Loss of health from current attack</param>
     private void CalculateScarletHealthBar(float damage)
     {
-        var endHealth = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
-        var endLoss = Mathf.Max(0, rtLossScarlet.rect.width + rtLossScarlet.anchoredPosition.x - endHealth);
+        //prior width of health bar
+        float endHealth = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+        //prior width of loss bar
+        float endLoss = Mathf.Max(0, rtLossScarlet.rect.width + rtLossScarlet.anchoredPosition.x - endHealth);
+        //start of loss bar and width of health bar
+        float newEndHealth;
+        //width of loss bar
+        float newEndLoss;
 
-        var newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
+        if (damage > 0)
+        {
+            newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
+            newEndLoss = Mathf.Min(fullWidth, endLoss + fullWidth * damage);
+        }
+        else
+        {
+            //Scarlet is healed and damage is negative
+            newEndHealth = Mathf.Min(fullWidth, endHealth - fullWidth * damage);
+            newEndLoss = Mathf.Max(0, endLoss + fullWidth * damage);
+        }
 
-        var newEndLoss = endLoss + fullWidth * damage;
 
         rtLossScarlet.anchoredPosition = new Vector2(newEndHealth, 0);
         rtLossScarlet.sizeDelta = new Vector2(newEndLoss, lossHeight);
