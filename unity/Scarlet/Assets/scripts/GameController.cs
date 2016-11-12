@@ -72,7 +72,8 @@ public class GameController : MonoBehaviour {
     {
         if (!m_ScarletInvincible && m_ScarletHealth > 0)
         {
-            m_ScarletHealth -= damage;
+            
+            m_ScarletHealth = m_ScarletHealth - damage < 0 ? 0 : m_ScarletHealth - damage;
             CalculateHealth(damage / m_ScarletStartHealth);
             elapsedTime = 0;
         }
@@ -155,8 +156,7 @@ public class GameController : MonoBehaviour {
         }
         
         float healthPercentage = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
-
-        //m_HealthBarSlider.value = healthPercentage * 100f;
+        
         Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
         img.color = Color.Lerp(Color.black, Color.red, healthPercentage);
 
@@ -164,8 +164,7 @@ public class GameController : MonoBehaviour {
         {
             var endHealth = rtHealth.rect.width + rtHealth.anchoredPosition.x;
             var endLoss = rtLoss.rect.width + rtLoss.anchoredPosition.x - endHealth - 10;
-            var test = endLoss < 0 ? 0 : endLoss;
-
+            
             rtLoss.sizeDelta = new Vector2(endLoss < 0 ? 0 : endLoss, lossHeight);
 
             if (endLoss <= 0)
@@ -181,14 +180,17 @@ public class GameController : MonoBehaviour {
     /// <summary>
     /// Animates the Healthbar after attack
     /// </summary>
-    /// <param name="loss">Loss of health from current attack</param>
-    private void CalculateHealth(float loss)
+    /// <param name="damage">Loss of health from current attack</param>
+    private void CalculateHealth(float damage)
     {
         var endHealth = rtHealth.rect.width + rtHealth.anchoredPosition.x;
         var endLoss = rtLoss.rect.width + rtLoss.anchoredPosition.x - endHealth;
-        
-        var newEndHealth = endHealth - fullWidth * loss;
-        var newEndLoss = endLoss + fullWidth * loss;
+        endLoss = endLoss < 0 ? 0 : endLoss;
+
+        var newEndHealth = endHealth - fullWidth * damage;
+        newEndHealth = newEndHealth < 0 ? 0 : newEndHealth;
+
+        var newEndLoss = endLoss + fullWidth * damage;
 
         rtLoss.anchoredPosition = new Vector2(newEndHealth, 0);
         rtLoss.sizeDelta = new Vector2(newEndLoss, lossHeight);
