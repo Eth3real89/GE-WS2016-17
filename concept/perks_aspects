@@ -1,0 +1,60 @@
+Scarlet verfügt über unterschiedliche dämonische Aspekte, welche sie im Laufe ihrer Geschichte kennen lernt.
+Scarlet kann immer nur einen Aspekt aktiv haben. Diese Aspekte können jedoch in Echtzeit geändert werden.
+Die meisten Aspekte besitzen einen Cooldown nachdem sie aktiviert wurden. Erst wenn dieser abgelaufen ist
+kann ein neuer aktiviert werden (Je nach Anzahl verfügbarere Askpekte könnte man dem Spieler zB 4 auswählen
+lassen, welche er über Schnelltasten erreichen kann).
+Die Aspekte sollen möglichst auf die beiden Grundmechaniken "Angreifen" und "Ausweichen" aufbauen. Sie sind
+so gestaltet, dass sie kombinierbar sind. Ein guter Spieler kann sie taktisch sinnvoll einsetzen und sich
+somit einen situationsabhängigen Vorteil verschaffen oder Scarlet zu einer erbarmungslosen Killermaschine
+hochbuffen.
+
+(Die Werteangaben müssen noch gebalanced werden und sind nur ein Beispiel.)
+
+Aspekt der Vampirin
+-------------------------
+Cooldown: 15 Sekunden
+Scarlet heilt sich mit jedem erfolgreichen Angriff auf einen Gegner um 10% ihres maximalen Lebens. 
+Nach 5 Sekunden ohne erfolgreichem Angriff verliert sie jede weitere Sekunde 2% ihres maximalen
+Lebens. Scarlet kann bis zu 200% ihres maximalen Lebens erhalten (also mehr als ein voller Lebens-
+balken). Besitzt Scarlet mehr als 100% ihres Lebens so verliert sie *sofort* (ohne der 5 Sekunden-
+frist) 1% ihres *aktuellen* Lebens (Das heißt bei 200% Leben 2%, bei 150% Leben 1,5% -> nicht linear). 
+Wenn Scarlet zu einem anderen Aspekt wechselt, während sie mehr als 100% Leben hat, setzt sich der
+Lebensverfall fort, bis sie 100% Leben erreicht hat.
+*Immer* wenn Scarlet mehr als 100% Leben besitzt (auch wenn dieser Aspekt nicht mehr aktiv ist)
+verfällt sie in Raserei und erhält 20% Bonus auf ihr Grundlauftempo.
+
+Aspekt der Assassinin
+-------------------------
+Kein Cooldown
+Scarlet erhält, wenn dieser Aspekt aktiv ist, jede Sekunde 2% Bonus auf ihr Grundlauftempo. Dieser
+Effekt steigert sich bis zu einem Bonus von 30% (Nach 15 Sekunden erreicht). Wird der Aspekt deaktiviert,
+so verliert sie ihren Bonus wieder mit derselben Rate. Solange Scarlet einen Bonus auf Lauftempo durch
+diese Fähigkeit hat (auch nachdem der Aspekt deaktiviert wurde) erhält Scarlet nach jeder Ausweichbewegung
+5 Sekunden einen Buff auf ihren nächsten Angriff. Der Angriff macht *zusätzlichen prozentualen Schaden*
+in Höhe des *zusätzlichen* Lauftempos, welches Scarlet *zum Zeitpunkt der Ausweichbewegung* hatte.
+
+Aspekt der gläsernen Furie
+-------------------------
+10 Sekunden Cooldown?
+Scarlet verursacht während dieser Aspekt aktiv ist immer doppelten Schaden. Gleichzeitig erhält sie
+jedoch doppelten Schaden.
+
+Aspekt des *Name gesucht*
+-------------------------
+10 Sekunden Cooldown?
+Scarlets Grundschaden wird nach Aktivierung auf 50% reduziert (nur der Grundschaden, alle Boni bleiben komplett
+erhalten). Jedes mal wenn Scarlet einen erfolgreichen Angriff trifft, erhält sie 15% Bonus auf ihren *aktuellen
+Grundschaden* -> dieser wird dann zum neuen *Grundschaden*. Somit wirkt dieser Effekt quasi nicht-linear (quasi
+mit Zinseszins). Sobald Scarlet Schaden erleidet und der Aspekt noch aktiv ist, wird der Grundschaden sofort
+auf 50% zurückgesetzt. Wird der Aspekt deaktiviert während der aktuelle Grundschaden geringer als der reguläre
+Grundschaden ist, erhält Scarlet für die nächsten 10 Sekunden einen Malus, der sie mit dem verminderten Grundschaden
+weiterkämpfen lässt. Danach wird der Grundschaden wieder auf den regulären Wert gesetzt. Ist der Grundschaden höher
+als der reguläre Grundschaden, so wird der Grundschaden beibehalten, bis Scarlet Schaden erleidet.
+
+----
+Kombobeispiel:
+Aspekt der Vampirin auf 200% Bonus aufladen, Aspekt der Assassinin aktivieren (Von erhöhtem Lauftempo
+durch Vampirin bereits direkt nach Aktivierung profitieren), warten bis Aspekt der Assassinin voll aufgeladen
+ist, Aspekt der gläsernen Furie aktivieren -> SOFORT dashen bevor Lauftempo von Assassinin verfällt und 
+angreifen. Dieser Angriff würde somit nach aktueller Rechnung 300% Schaden verursachen.
+----
