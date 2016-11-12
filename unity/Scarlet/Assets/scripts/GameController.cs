@@ -20,21 +20,30 @@ public class GameController : MonoBehaviour {
     public float m_ScarletStartHealth;
     public float m_ScarletHealth;
     //Value after last loss bar animation
-    public float m_ScarletHealthOld;
+    private float m_ScarletHealthOld;
+    private float m_BossHealthOld;
 
-    public Slider m_HealthBarSlider;
-    public Slider m_HealthLossSlider;
+    public Slider m_HealthBarScarlet;
+    public Slider m_LossBarScarlet;
+    public Slider m_HealthBarBoss;
+    public Slider m_LossBarBoss;
 
 
-    private static Timer aTimer;
-    private static bool timesUp = false;
+    private static bool timesUpScarlet = false;
+    private static bool timesUpBoss = false;
 
-    private RectTransform rtLoss;
-    private RectTransform rtHealth;
+    private RectTransform rtLossScarlet;
+    private RectTransform rtHealthScarlet;
+    private RectTransform rtLossBoss;
+    private RectTransform rtHealthBoss;
     private float fullWidth;
     private float lossHeight;
     private float healthHeight;
+    private float elapsedTimeBoss = 0;
+    private float elapsedTimeScarlet = 0;
 
+    private bool isScarletDead = false;
+    private bool isBossDead = false;
 
     public bool m_ScarletInvincible = false;
 
@@ -43,8 +52,6 @@ public class GameController : MonoBehaviour {
 
     public float m_NotificationTime = 5.0f;
 
-    private bool isScarletDead = false;
-    private bool isBossDead = false;
 
     public static GameController Instance
     {
@@ -72,21 +79,12 @@ public class GameController : MonoBehaviour {
     {
         if (!m_ScarletInvincible && m_ScarletHealth > 0)
         {
-            
-            m_ScarletHealth = m_ScarletHealth - damage < 0 ? 0 : m_ScarletHealth - damage;
-            CalculateHealth(damage / m_ScarletStartHealth);
-            elapsedTime = 0;
+            m_ScarletHealth = Mathf.Max(0, m_ScarletHealth - damage);
+            CalculateScarletHealthBar(damage / m_ScarletStartHealth);
+            elapsedTimeScarlet = 0;
         }
 
         if (m_ScarletHealth <= 0) isScarletDead = true;
-    }
-
-
-    public void HitBoss(float damage)
-    {
-        m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
-
-        if (m_Boss.GetComponent<BossHealth>().GetBossHealth() <= 0.0f) isBossDead = true;
     }
 
     public void HealScarlet(float amount)
@@ -94,6 +92,19 @@ public class GameController : MonoBehaviour {
         float health = m_ScarletHealth + amount;
 
         m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
+    }
+
+
+    public void HitBoss(float damage)
+    {
+        if(m_Boss.GetComponent<BossHealth>().GetBossHealth() > 0)
+        {
+            m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
+            CalculateBossHealthBar(damage / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth());
+            elapsedTimeBoss = 0;
+        }
+
+        if (m_Boss.GetComponent<BossHealth>().GetBossHealth() <= 0.0f) isBossDead = true;
     }
 
 
@@ -109,17 +120,23 @@ public class GameController : MonoBehaviour {
         isScarletDead = false;
         isBossDead = false;
 
-        Image imgHealth = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
-        Image imgLoss = m_HealthLossSlider.transform.FindChild("Fill Area 2").GetChild(0).GetComponent<Image>();
-        rtLoss = imgLoss.rectTransform;
-        rtHealth = imgHealth.rectTransform;
+        Image imgHealthScarlet = m_HealthBarScarlet.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
+        Image imgLossScarlet = m_LossBarScarlet.transform.FindChild("Fill Area 2").GetChild(0).GetComponent<Image>();
+        Image imgHealthBoss = m_HealthBarBoss.transform.FindChild("Fill Area Boss").GetChild(0).GetComponent<Image>();
+        Image imgLossBoss = m_LossBarBoss.transform.FindChild("Fill Area Boss 2").GetChild(0).GetComponent<Image>();
+        rtLossScarlet = imgLossScarlet.rectTransform;
+        rtHealthScarlet = imgHealthScarlet.rectTransform;
+        rtLossBoss = imgLossBoss.rectTransform;
+        rtHealthBoss = imgHealthBoss.rectTransform;
 
-        fullWidth = rtHealth.rect.width;
-        lossHeight = rtLoss.rect.height;
-        healthHeight = rtHealth.rect.height;
+        fullWidth = rtHealthScarlet.rect.width;
+        lossHeight = rtLossScarlet.rect.height;
+        healthHeight = rtHealthScarlet.rect.height;
 
-        rtLoss.sizeDelta = new Vector2(0, lossHeight);
-        rtLoss.anchoredPosition = new Vector2(fullWidth, 0);
+        rtLossScarlet.sizeDelta = new Vector2(0, lossHeight);
+        rtLossScarlet.anchoredPosition = new Vector2(fullWidth, 0);
+        rtLossBoss.sizeDelta = new Vector2(0, lossHeight);
+        rtLossBoss.anchoredPosition = new Vector2(fullWidth, 0);
     }
 
     public void RegisterUpdateable(Updateable updateable)
@@ -137,7 +154,6 @@ public class GameController : MonoBehaviour {
             updateables.Remove(updateable);
         }
     }
-    float elapsedTime = 0;
 
     // Update is called once per frame
     void Update () {
@@ -147,32 +163,57 @@ public class GameController : MonoBehaviour {
                 updateables[i].Update();
         }
 
-        elapsedTime += Time.deltaTime;
-        if (elapsedTime >= 1 && m_ScarletHealthOld != m_ScarletHealth)
+        elapsedTimeScarlet += Time.deltaTime;
+        if (elapsedTimeScarlet >= 1 && m_ScarletHealthOld != m_ScarletHealth)
         {
             m_ScarletHealthOld = m_ScarletHealth;
-            timesUp = true;
-            elapsedTime = 0;
+            timesUpScarlet = true;
+            elapsedTimeScarlet = 0;
         }
-        
-        float healthPercentage = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
-        
-        Image img = m_HealthBarSlider.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
-        img.color = Color.Lerp(Color.black, Color.red, healthPercentage);
 
-        if (timesUp)
+        elapsedTimeBoss += Time.deltaTime;
+        if (elapsedTimeBoss >= 1 && m_BossHealthOld != m_Boss.GetComponent<BossHealth>().GetBossHealth())
         {
-            var endHealth = rtHealth.rect.width + rtHealth.anchoredPosition.x;
-            var endLoss = rtLoss.rect.width + rtLoss.anchoredPosition.x - endHealth - 10;
-            
-            rtLoss.sizeDelta = new Vector2(endLoss < 0 ? 0 : endLoss, lossHeight);
+            m_BossHealthOld = m_Boss.GetComponent<BossHealth>().GetBossHealth();
+            timesUpBoss = true;
+            elapsedTimeBoss = 0;
+        }
 
-            if (endLoss <= 0)
+        float healthPercentageScarlet = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
+        float healthPercentageBoss = Mathf.Max(m_Boss.GetComponent<BossHealth>().GetBossHealth(), 0) / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth();
+
+        Image imgS = m_HealthBarScarlet.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
+        Image imgB = m_HealthBarBoss.transform.FindChild("Fill Area Boss").GetChild(0).GetComponent<Image>();
+        imgS.color = Color.Lerp(Color.black, Color.red, healthPercentageScarlet);
+        imgB.color = Color.Lerp(Color.black, Color.red, healthPercentageBoss);
+
+        if (timesUpScarlet)
+        {
+            var endHealthScarlet = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+            var endLossScarlet = rtLossScarlet.rect.width + rtLossScarlet.anchoredPosition.x - endHealthScarlet - 10;
+
+            rtLossScarlet.sizeDelta = new Vector2(Mathf.Max(0, endLossScarlet), lossHeight);
+
+
+            if (endLossScarlet <= 0)
             {
-                timesUp = false;
+                timesUpScarlet = false;
             }
         }
-        
+        if (timesUpBoss)
+        {
+            var endHealthBoss = rtHealthBoss.rect.width + rtHealthBoss.anchoredPosition.x;
+            var endLossBoss = rtLossBoss.rect.width + rtLossBoss.anchoredPosition.x - endHealthBoss - 10;
+
+            rtLossBoss.sizeDelta = new Vector2(Mathf.Max(0, endLossBoss), lossHeight);
+
+
+            if (endLossBoss <= 0)
+            {
+                timesUpBoss = false;
+            }
+        }
+
         HandleText(isBossDead, m_BossKillNotification);
         HandleText(isScarletDead, m_DeathNotification);
     }
@@ -181,23 +222,39 @@ public class GameController : MonoBehaviour {
     /// Animates the Healthbar after attack
     /// </summary>
     /// <param name="damage">Loss of health from current attack</param>
-    private void CalculateHealth(float damage)
+    private void CalculateScarletHealthBar(float damage)
     {
-        var endHealth = rtHealth.rect.width + rtHealth.anchoredPosition.x;
-        var endLoss = rtLoss.rect.width + rtLoss.anchoredPosition.x - endHealth;
-        endLoss = endLoss < 0 ? 0 : endLoss;
+        var endHealth = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+        var endLoss = Mathf.Max(0, rtLossScarlet.rect.width + rtLossScarlet.anchoredPosition.x - endHealth);
 
-        var newEndHealth = endHealth - fullWidth * damage;
-        newEndHealth = newEndHealth < 0 ? 0 : newEndHealth;
+        var newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
 
         var newEndLoss = endLoss + fullWidth * damage;
 
-        rtLoss.anchoredPosition = new Vector2(newEndHealth, 0);
-        rtLoss.sizeDelta = new Vector2(newEndLoss, lossHeight);
+        rtLossScarlet.anchoredPosition = new Vector2(newEndHealth, 0);
+        rtLossScarlet.sizeDelta = new Vector2(newEndLoss, lossHeight);
 
-        rtHealth.sizeDelta = new Vector2(newEndHealth, healthHeight);
+        rtHealthScarlet.sizeDelta = new Vector2(newEndHealth, healthHeight);
     }
 
+    /// <summary>
+    /// Animates the Healthbar of the boss after attack
+    /// </summary>
+    /// <param name="damage">Loss of health from current attack</param>
+    private void CalculateBossHealthBar(float damage)
+    {
+        var endHealth = rtHealthBoss.rect.width + rtHealthBoss.anchoredPosition.x;
+        var endLoss = Mathf.Max(0, rtLossBoss.rect.width + rtLossBoss.anchoredPosition.x - endHealth);
+
+        var newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
+
+        var newEndLoss = endLoss + fullWidth * damage;
+
+        rtLossBoss.anchoredPosition = new Vector2(newEndHealth, 0);
+        rtLossBoss.sizeDelta = new Vector2(newEndLoss, lossHeight);
+
+        rtHealthBoss.sizeDelta = new Vector2(newEndHealth, healthHeight);
+    }
 
     private void HandleText(bool isDead, Text text)
     {
