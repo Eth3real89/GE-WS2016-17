@@ -206,6 +206,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private IEnumerator Blink(Vector3 dashStart, Vector3 dashTarget)
     {
         float t = 0;
+        SetVisibility(false);
         m_TrailRenderer.Clear();
         m_TrailRenderer.time = 1;
         while (t < 1)
@@ -216,6 +217,7 @@ public class PlayerControlsCharController : MonoBehaviour
         }
         m_RigidBody.MovePosition(dashTarget);
         m_TrailRenderer.time = 0;
+        SetVisibility(true);
         m_ControlsEnabled = true;
     }
 
