@@ -14,17 +14,17 @@ SceneSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 7
-  m_Fog: 0
+  m_Fog: 1
   m_FogColor: {r: 0.11372549, g: 0.11372549, b: 0.11372549, a: 0.11372549}
   m_FogMode: 3
   m_FogDensity: 0.06
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientIntensity: 0
+  m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45108575, g: 0.50108784, b: 0.5753566, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -691,7 +691,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_Intensity: 1.16
+  m_Intensity: 1.53
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -700,9 +700,9 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
+    m_Bias: 0
+    m_NormalBias: 3
+    m_NearPlane: 1.3
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -712,7 +712,7 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 1
+  m_BounceIntensity: 1.48
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &170512699
@@ -1456,6 +1456,69 @@ Transform:
   - {fileID: 1429475437}
   m_Father: {fileID: 1806538182}
   m_RootOrder: 0
+--- !u!1 &421426176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 421426178}
+  - 108: {fileID: 421426177}
+  m_Layer: 0
+  m_Name: Point light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!108 &421426177
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 421426176}
+  m_Enabled: 1
+  serializedVersion: 7
+  m_Type: 2
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 1.67
+  m_Range: 21.8
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 2
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!4 &421426178
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 421426176}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3, y: 4.1796875, z: 6.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &421924165
 GameObject:
   m_ObjectHideFlags: 0
@@ -3040,6 +3103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c3e636befaf243428c396c5df3ed7d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textureRamp: {fileID: 2800000, guid: adad354eb88a84b52a2060ebe49fb286, type: 3}
+  rampOffset: 0
+  _RedPower: 0.25
+  _RedDelta: 0.25
   mat: {fileID: 2100000, guid: caac1f80de602472482ca46251b8689b, type: 2}
 --- !u!1 &987867269
 GameObject:
@@ -3549,8 +3616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28049e205448d2445b6c87af8c875d98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHealth: 600
-  m_StartHealth: 600
+  m_MaxHealth: 800
+  m_StartHealth: 800
 --- !u!4 &1126377310
 Transform:
   m_ObjectHideFlags: 0
