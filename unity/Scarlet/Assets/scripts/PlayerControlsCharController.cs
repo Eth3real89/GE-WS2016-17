@@ -189,11 +189,25 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void SetVisibility(bool visible)
     {
+        PlayerShield shield = GetComponentInChildren<PlayerShield>();
+        bool shieldActive = false;
+        Renderer shieldRenderer = null;
+
+        if (shield != null)
+        {
+            shieldRenderer = shield.GetComponent<Renderer>();
+            shieldActive = shield.m_ShieldActive;
+        }
+
+
         for (int i = 0; i < transform.childCount; i++)
         {
             Renderer r = transform.GetChild(i).GetComponent<Renderer>();
             if (r != null)
-                r.enabled = visible;
+            {
+                if (shieldActive || (!shieldActive && shieldRenderer != null && r != shieldRenderer))
+                    r.enabled = visible;
+            }
         }
     }
 
@@ -219,6 +233,7 @@ public class PlayerControlsCharController : MonoBehaviour
         m_TrailRenderer.time = 0;
         SetVisibility(true);
         m_ControlsEnabled = true;
+        GameController.Instance.m_ScarletInvincible = false;
     }
 
     private IEnumerator ReEnableControlsAfter(float afterSeconds)

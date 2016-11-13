@@ -80,6 +80,12 @@ public class GameController : MonoBehaviour {
     {
         if (!m_ScarletInvincible && m_ScarletHealth > 0)
         {
+            PlayerShield shield = m_Scarlet.GetComponentInChildren<PlayerShield>();
+            if (shield != null)
+            {
+                damage = shield.OnPlayerTakeDamage(damage);
+            }
+
             m_ScarletHealth = Mathf.Max(0, m_ScarletHealth - damage);
             CalculateScarletHealthBar(damage / m_ScarletStartHealth);
             elapsedTimeScarlet = 0;
