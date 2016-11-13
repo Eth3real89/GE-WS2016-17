@@ -118,15 +118,15 @@ public class PlayerControlsCharController : MonoBehaviour
             }
 
             Punch();
-            
+
         }
     }
 
     private void CheckHealing()
     {
-        if (m_healingCharges > 0) 
+        if (m_healingCharges > 0)
         {
-            if(Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire2"))
             {
                 if (m_InAttackAnimation)
                     CancelAttackAnimation();
@@ -135,15 +135,16 @@ public class PlayerControlsCharController : MonoBehaviour
                 GameController.Instance.HealScarlet(m_healingAmount);
             }
         }
-    } 
+    }
 
     private void Dash()
     {
         m_ControlsEnabled = false;
-        SetVisibility(false);
         GameController.Instance.m_ScarletInvincible = true;
+        Vector3 dashStart = m_RigidBody.transform.position;
+        Vector3 dashTarget = m_RigidBody.transform.position + m_RigidBody.transform.forward * m_DashDistance;
 
-        StartCoroutine(Blink());
+        StartCoroutine(Blink(dashStart, dashTarget));
     }
 
     private void Punch()
@@ -155,13 +156,13 @@ public class PlayerControlsCharController : MonoBehaviour
         {
             Debug.Log("combo: " + m_CurrentAttackCombo);
 
-            punchAnimation = m_CurrentAttackCombo * 3 + (int) Random.Range(1.001f, 3.999f);
+            punchAnimation = m_CurrentAttackCombo * 3 + (int)Random.Range(1.001f, 3.999f);
             m_CurrentAttackCombo++;
         }
         else
         {
             Debug.Log("final hit in combo!");
-            
+
             enableControlsAfter = 0.8f;
             punchAnimation = 10;
 
@@ -193,29 +194,24 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
-    private IEnumerator Reappear()
-    {
-        yield return new WaitForSeconds(0.0001f);
-
-        SetVisibility(true);
-        GameController.Instance.m_ScarletInvincible = false;
-    }
-
     private bool InAttackAnimation()
     {
         AnimatorStateInfo info = this.animator.GetCurrentAnimatorStateInfo(0);
         return info.IsTag("Punch");
     }
 
-    private IEnumerator Blink()
+    private IEnumerator Blink(Vector3 dashStart, Vector3 dashTarget)
     {
-        yield return new WaitForSeconds(m_DashSpeed);
+        float t = 0;
 
-        m_RigidBody.MovePosition(m_RigidBody.transform.position + m_RigidBody.transform.forward * m_DashDistance);
-
+        while (t < 1)
+        {
+            yield return null;
+            t += Time.deltaTime / m_DashSpeed;
+            m_RigidBody.transform.position = Vector3.Lerp(dashStart, dashTarget, t);
+        }
+        m_RigidBody.MovePosition(dashTarget);
         m_ControlsEnabled = true;
-
-        StartCoroutine(Reappear());
     }
 
     private IEnumerator ReEnableControlsAfter(float afterSeconds)
