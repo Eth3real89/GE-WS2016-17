@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerControlsCharController : MonoBehaviour
 {
+    public GameObject trailContainer;
 
     public float m_HorizontalInput;
     public float m_VerticalInput;
@@ -25,11 +26,13 @@ public class PlayerControlsCharController : MonoBehaviour
     private HandDamage handDamage;
     private bool m_InAttackAnimation;
     private IEnumerator m_DamageCoRoutine;
+    private TrailRenderer m_TrailRenderer;
 
     private int m_CurrentAttackCombo = 0;
 
     private void Awake()
     {
+        m_TrailRenderer = trailContainer.GetComponent<TrailRenderer>();
         m_RigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
 
@@ -203,7 +206,8 @@ public class PlayerControlsCharController : MonoBehaviour
     private IEnumerator Blink(Vector3 dashStart, Vector3 dashTarget)
     {
         float t = 0;
-
+        m_TrailRenderer.Clear();
+        m_TrailRenderer.time = 1;
         while (t < 1)
         {
             yield return null;
@@ -211,6 +215,7 @@ public class PlayerControlsCharController : MonoBehaviour
             m_RigidBody.transform.position = Vector3.Lerp(dashStart, dashTarget, t);
         }
         m_RigidBody.MovePosition(dashTarget);
+        m_TrailRenderer.time = 0;
         m_ControlsEnabled = true;
     }
 
