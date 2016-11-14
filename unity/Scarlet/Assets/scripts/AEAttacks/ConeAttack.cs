@@ -31,6 +31,15 @@ public class ConeAttack : AEAttack {
         m_ConeInstance = (GameObject)GameObject.Instantiate(m_ConePrefab, m_StartPosition, m_Setup.m_LookAngles);
         m_ConeInstance.SetActive(true);
         m_ConeInstance.transform.localScale = new Vector3(10, 1, 10);
+        
+
+        Light l = m_ConeInstance.GetComponentInChildren<Light>();
+        if (l != null)
+        {
+            l.intensity = 20f;
+            l.range = 40f;
+            l.spotAngle = 170f;
+        }
 
         m_Series.m_Behaviour.StartCoroutine(RemoveAfter(0.3f));
     }

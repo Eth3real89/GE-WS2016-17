@@ -25,7 +25,9 @@ public class PizzaAttack : AEAttack {
         
         for (int i = 0; i < m_SliceInstance.transform.childCount; i++)
         {
-            m_SliceInstance.transform.GetChild(i).GetComponent<Renderer>().enabled = false;
+            Renderer r = m_SliceInstance.transform.GetChild(i).GetComponent<Renderer>();
+            if (r != null)
+                r.enabled = false;
             m_Series.m_Behaviour.StartCoroutine(ShowDelayed(m_SliceInstance.transform.GetChild(i), i * 0.1f));
         }
 
@@ -40,7 +42,9 @@ public class PizzaAttack : AEAttack {
     {
         yield return new WaitForSeconds(time);
 
-        obj.GetComponent<Renderer>().enabled = true;
+        Renderer r = obj.GetComponent<Renderer>();
+        if (r != null)
+            r.enabled = true; 
     }
 
     public IEnumerator RemoveAfter(float seconds)
