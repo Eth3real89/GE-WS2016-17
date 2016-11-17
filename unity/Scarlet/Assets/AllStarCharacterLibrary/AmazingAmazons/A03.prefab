@@ -369,8 +369,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 468158}
   - 95: {fileID: 9566918}
-  - 114: {fileID: 11414942}
-  - 114: {fileID: 11420380}
   m_Layer: 0
   m_Name: A03
   m_TagString: Untagged
@@ -3421,56 +3419,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &11414942
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d746bac09956f443bee4dcc265a97ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  floorPlane: {fileID: 0}
-  WeaponState: 0
-  wasAttacking: 0
-  movementTargetPosition: {x: 0, y: 0, z: 0}
-  attackPos: {x: 0, y: 0, z: 0}
-  lookAtPos: {x: 0, y: 0, z: 0}
-  rightButtonDown: 0
---- !u!114 &11420380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 124348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad04af34bc5a58a47852c039224784bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weapons:
-  - models: []
-  - models:
-    - {fileID: 2358316}
-  - models:
-    - {fileID: 2322390}
-  - models:
-    - {fileID: 13757212}
-    - {fileID: 2363854}
-  - models:
-    - {fileID: 2358316}
-    - {fileID: 2363332}
-  - models:
-    - {fileID: 2347020}
-  - models:
-    - {fileID: 2362364}
-  - models:
-    - {fileID: 2385002}
-  - models:
-    - {fileID: 2303458}
-    - {fileID: 2329872}
 --- !u!137 &13701864
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
