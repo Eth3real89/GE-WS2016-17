@@ -29,6 +29,11 @@ public class GameController : MonoBehaviour {
     public Slider m_HealthBarBoss;
     public Slider m_LossBarBoss;
 
+    public Image HealingCharge1;
+    public Image HealingCharge2;
+    public Image HealingCharge3;
+
+
 
     private static bool timesUpScarlet = false;
     private static bool timesUpBoss = false;
@@ -94,10 +99,35 @@ public class GameController : MonoBehaviour {
         if (m_ScarletHealth <= 0) isScarletDead = true;
     }
 
-    public void HealScarlet(float amount)
+    public void HealScarlet(float amount, float chargesLeft)
     {
-        if(!isScarletDead)
+        if (!isScarletDead)
         {
+            if (chargesLeft >= 3)
+            {
+                HealingCharge1.enabled = true;
+                HealingCharge2.enabled = true;
+                HealingCharge3.enabled = true;
+            }
+            else if (chargesLeft == 2)
+            {
+                HealingCharge1.enabled = true;
+                HealingCharge2.enabled = true;
+                HealingCharge3.enabled = false;
+            }
+            else if (chargesLeft == 1)
+            {
+                HealingCharge1.enabled = true;
+                HealingCharge2.enabled = false;
+                HealingCharge3.enabled = false;
+            }
+            else if (chargesLeft == 0)
+            {
+                HealingCharge1.enabled = false;
+                HealingCharge2.enabled = false;
+                HealingCharge3.enabled = false;
+            }
+
             float health = m_ScarletHealth + amount;
 
             m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
@@ -179,6 +209,9 @@ public class GameController : MonoBehaviour {
                 updateables[i].Update();
         }
 
+        
+
+
         elapsedTimeScarlet += Time.deltaTime;
         if (elapsedTimeScarlet >= 1 && m_ScarletHealthOld != m_ScarletHealth)
         {
@@ -195,13 +228,13 @@ public class GameController : MonoBehaviour {
             elapsedTimeBoss = 0;
         }
 
-        float healthPercentageScarlet = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
-        float healthPercentageBoss = Mathf.Max(m_Boss.GetComponent<BossHealth>().GetBossHealth(), 0) / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth();
+//        float healthPercentageScarlet = Mathf.Max(m_ScarletHealth, 0) / m_ScarletStartHealth;
+//        float healthPercentageBoss = Mathf.Max(m_Boss.GetComponent<BossHealth>().GetBossHealth(), 0) / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth();
 
         Image imgS = m_HealthBarScarlet.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
         Image imgB = m_HealthBarBoss.transform.FindChild("Fill Area Boss").GetChild(0).GetComponent<Image>();
-        imgS.color = Color.Lerp(Color.black, Color.red, healthPercentageScarlet);
-        imgB.color = Color.Lerp(Color.black, Color.red, healthPercentageBoss);
+//        imgS.color = Color.Lerp(Color.black, Color.red, healthPercentageScarlet);
+//        imgB.color = Color.Lerp(Color.black, Color.red, healthPercentageBoss);
 
         if (timesUpScarlet)
         {

@@ -135,7 +135,7 @@ public class PlayerControlsCharController : MonoBehaviour
                     CancelAttackAnimation();
 
                 m_healingCharges--;
-                GameController.Instance.HealScarlet(m_healingAmount);
+                GameController.Instance.HealScarlet(m_healingAmount, m_healingCharges);
             }
         }
     }
