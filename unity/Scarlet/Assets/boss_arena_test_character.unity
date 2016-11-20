@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45108593, g: 0.50108844, b: 0.57535714, a: 1}
+  m_IndirectSpecularColor: {r: 0.45108575, g: 0.50108784, b: 0.5753566, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -232,6 +232,16 @@ Prefab:
     - target: {fileID: 4000013298021662, guid: 5fda38688ed1d8c4fb2f0e6aaa10e982, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011427102488, guid: 5fda38688ed1d8c4fb2f0e6aaa10e982,
+        type: 2}
+      propertyPath: m_StartHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011427102488, guid: 5fda38688ed1d8c4fb2f0e6aaa10e982,
+        type: 2}
+      propertyPath: m_Health
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fda38688ed1d8c4fb2f0e6aaa10e982, type: 2}
@@ -2475,8 +2485,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Boss: {fileID: 1126377306}
   m_Scarlet: {fileID: 1722516008}
-  m_ScarletStartHealth: 100
-  m_ScarletHealth: 100
   m_HealthBarScarlet: {fileID: 184562634}
   m_LossBarScarlet: {fileID: 1278521273}
   m_HealthBarBoss: {fileID: 1716599231}

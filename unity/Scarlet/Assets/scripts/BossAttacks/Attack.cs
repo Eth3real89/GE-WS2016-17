@@ -18,4 +18,14 @@ public abstract class Attack {
 	}
 
     public abstract void WhileActive();
+
+    public virtual void CancelAttack()
+    {
+        m_Callbacks.OnAttackCancelled(this);
+    }
+
+    public virtual void ParryAttack()
+    {
+        m_Callbacks.OnAttackParried(this);
+    }
 }

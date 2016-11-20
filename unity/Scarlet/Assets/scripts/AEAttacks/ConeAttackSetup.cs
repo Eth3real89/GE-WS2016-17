@@ -69,4 +69,8 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
         GameObject.Destroy(m_ConeInstance);
         GameController.Instance.UnregisterUpdateable(this);
     }
+
+    public override void WhileActive()
+    {
+    }
 }

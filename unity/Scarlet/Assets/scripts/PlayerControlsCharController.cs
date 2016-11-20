@@ -8,6 +8,11 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_HorizontalInput;
     public float m_VerticalInput;
 
+    public float m_StartHealth;
+    public float m_Health;
+    //Value after last loss bar animation
+    public float m_HealthOld;
+
     public float m_Speed = 1.3f;
     public float m_DashDistance;
     public float m_DashSpeed;
@@ -23,6 +28,12 @@ public class PlayerControlsCharController : MonoBehaviour
 
     public float m_healingCharges;
     public float m_healingAmount;
+
+    private enum ParryState {NoParry, Perfect, Regular, AdditionalDamage};
+    private float m_LastParry;
+    public float m_ParryCooldown;
+    private ParryState m_Parrying = ParryState.NoParry;
+    private IEnumerator m_ParryIEnumerator;
 
     private HandDamage handDamage;
     private bool m_InAttackAnimation;
@@ -59,6 +70,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
         Move();
         Rotate();
+        CheckParry();
         CheckDash();
         CheckAttack();
         CheckHealing();
@@ -93,6 +105,21 @@ public class PlayerControlsCharController : MonoBehaviour
 
         Quaternion rotation = Quaternion.Euler(0f, Mathf.Rad2Deg * angle, 0f);
         m_RigidBody.MoveRotation(rotation);
+    }
+
+    private void CheckParry()
+    {
+        if (Input.GetButtonDown("Parry"))
+        {
+            if (m_InAttackAnimation)
+                CancelAttackAnimation();
+
+            if (Time.time >= m_LastParry + m_ParryCooldown)
+            {
+                Parry();
+                m_LastParry = Time.time;
+            }
+        }
     }
 
     private void CheckDash()
@@ -154,6 +181,37 @@ public class PlayerControlsCharController : MonoBehaviour
         StartCoroutine(Blink(dashStart, dashTarget));
     }
 
+    private void Parry()
+    {
+        m_ControlsEnabled = false;
+        m_Parrying = ParryState.Perfect;
+
+        animator.SetTrigger("BlockTrigger");
+        m_ParryIEnumerator = SetParryState(ParryState.Regular, 0.3f);
+        StartCoroutine(m_ParryIEnumerator);
+    }
+
+    private IEnumerator SetParryState(ParryState newState, float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Parrying = newState;
+
+        if (newState == ParryState.Regular)
+        {
+            m_ParryIEnumerator = SetParryState(ParryState.AdditionalDamage, 0.3f);
+            StartCoroutine(m_ParryIEnumerator);
+        }
+        else if (newState == ParryState.AdditionalDamage)
+        {
+            m_ParryIEnumerator = SetParryState(ParryState.NoParry, 0.3f);
+            StartCoroutine(m_ParryIEnumerator);
+        }
+        else if (newState == ParryState.NoParry)
+        {
+            m_ControlsEnabled = true;
+        }
+    }
+
     private void Punch()
     {
         float enableControlsAfter = 0.25f;
@@ -189,6 +247,96 @@ public class PlayerControlsCharController : MonoBehaviour
 
         StartCoroutine(m_DamageCoRoutine);
 
+    }
+
+    public float GetHit(GameObject attacker, float damage, bool blockable)
+    {
+        if (blockable)
+        {
+            damage = ParryAttack(attacker, damage);
+        }
+
+        if (damage <= 0)
+            return 0;
+
+        PlayerShield shield = GetComponentInChildren<PlayerShield>();
+        if (shield != null)
+        {
+            damage = shield.OnPlayerTakeDamage(damage);
+        }
+
+        m_Health = Mathf.Max(0, m_Health - damage);
+
+        return damage;
+    }
+
+    private float ParryAttack(GameObject attacker, float damage)
+    {
+        if (m_Parrying == ParryState.Perfect)
+        {
+            PerfectParry(attacker);
+            return 0;
+        }
+        else if (m_Parrying == ParryState.Regular)
+        {
+            RegularParry(attacker);
+            return 0;
+        }
+        else if (m_Parrying == ParryState.NoParry)
+        {
+            return damage;
+        }
+        else if (m_Parrying == ParryState.AdditionalDamage)
+        {
+            Stagger();
+            return damage * 1.3f;
+        }
+
+        return damage;
+    }
+
+    private void PerfectParry(GameObject attacker)
+    {
+        // @todo refactor to: Behaviour that can also handle staggering etc.
+        AttackPattern pattern = attacker.GetComponent<AttackPattern>();
+        if (pattern != null)
+        {
+            if (pattern.m_CurrentAttack != null)
+            {
+                pattern.m_CurrentAttack.CancelAttack();
+            }
+        }
+
+        StopCoroutine(m_ParryIEnumerator);
+        m_ControlsEnabled = true;
+        m_Parrying = ParryState.NoParry;
+    }
+
+    private void RegularParry(GameObject attacker)
+    {
+        // @todo refactor to: Behaviour that can also handle staggering etc.
+        AttackPattern pattern = attacker.GetComponent<AttackPattern>();
+        if (pattern != null)
+        {
+            if (pattern.m_CurrentAttack != null)
+            {
+                pattern.m_CurrentAttack.ParryAttack();
+            }
+        }
+
+        StopCoroutine(m_ParryIEnumerator);
+        m_ControlsEnabled = true;
+        m_Parrying = ParryState.NoParry;
+    }
+
+    private void Stagger()
+    {
+        StopCoroutine(m_ParryIEnumerator);
+        m_ControlsEnabled = false;
+        m_Parrying = ParryState.NoParry;
+
+        animator.SetTrigger("StaggerTrigger");
+        StartCoroutine(ReEnableControlsAfter(0.3f));
     }
 
     private void SetVisibility(bool visible)
@@ -243,7 +391,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private IEnumerator ReEnableControlsAfter(float afterSeconds)
     {
         yield return new WaitForSeconds(afterSeconds);
-
+        Debug.Log("yeah...");
         m_ControlsEnabled = true;
     }
 

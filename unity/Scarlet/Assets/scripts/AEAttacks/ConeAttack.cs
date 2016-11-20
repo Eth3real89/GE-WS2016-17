@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class ConeAttack : AEAttack {
 
@@ -48,5 +49,9 @@ public class ConeAttack : AEAttack {
     {
         yield return new WaitForSeconds(seconds);
         GameObject.Destroy(m_ConeInstance);
+    }
+
+    public override void WhileActive()
+    {
     }
 }

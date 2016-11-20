@@ -46,4 +46,8 @@ public class TargetAttackSetup : AEAttack, Updateable
 
         GameController.Instance.UnregisterUpdateable(this);
     }
+
+    public override void WhileActive()
+    {
+    }
 }

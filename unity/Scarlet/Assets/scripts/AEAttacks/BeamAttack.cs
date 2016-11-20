@@ -70,4 +70,8 @@ public class BeamAttack : AEAttackPart, Updateable {
         }
 
     }
+
+    public override void WhileActive()
+    {
+    }
 }

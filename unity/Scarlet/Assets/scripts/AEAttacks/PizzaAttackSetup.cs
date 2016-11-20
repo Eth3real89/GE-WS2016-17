@@ -37,4 +37,8 @@ public class PizzaAttackSetup : AEAttackSetup {
     {
         return m_SliceInstance;
     }
+
+    public override void WhileActive()
+    {
+    }
 }

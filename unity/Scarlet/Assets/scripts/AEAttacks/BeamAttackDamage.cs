@@ -31,7 +31,7 @@ public class BeamAttackDamage : MonoBehaviour {
         if (other.GetComponent<Rigidbody>() != null &&
             GameController.Instance.IsScarlet(other.GetComponent<Rigidbody>()))
         {
-            GameController.Instance.HitScarlet(damage);
+            GameController.Instance.HitScarlet(GameController.Instance.m_Boss, damage, false);
         }
     }
 }
