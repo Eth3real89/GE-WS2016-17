@@ -16,6 +16,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private float m_LastDash;
 
     public bool m_ControlsEnabled = true;
+    public bool canDash = false;
 
     private Rigidbody m_RigidBody;
     private Animator animator;
@@ -79,14 +80,12 @@ public class PlayerControlsCharController : MonoBehaviour
         }
 
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, 0, m_VerticalInput * normalizedSpeed);
-        m_RigidBody.MovePosition(m_RigidBody.position + movement * Time.deltaTime);
+        m_RigidBody.velocity = (movement);
         animator.SetFloat("Speed", normalizedSpeed);
     }
 
-    // make sure scarlet is looking in the right direction
     void Rotate()
     {
-        // don't want to change where Scarlet is looking when she is not moving
         if (Mathf.Abs(m_HorizontalInput) <= 0.1f && Mathf.Abs(m_VerticalInput) <= 0.1f) return;
 
 
@@ -98,6 +97,11 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void CheckDash()
     {
+        if (!canDash)
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
             if (m_InAttackAnimation)
