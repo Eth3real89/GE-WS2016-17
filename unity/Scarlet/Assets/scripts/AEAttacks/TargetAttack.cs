@@ -40,4 +40,8 @@ public class TargetAttack : AEAttack
         yield return new WaitForSeconds(seconds);
         GameObject.Destroy(m_TargetInstance);
     }
+
+    public override void WhileActive()
+    {
+    }
 }

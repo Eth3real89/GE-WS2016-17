@@ -6,7 +6,7 @@ using System.Collections;
  * 
  * This script here provides a common interface for both AEAttackSetup and AEAttack.
  */
-public abstract class AEAttackPart {
+public abstract class AEAttackPart : Attack {
 
     public float delay;
 

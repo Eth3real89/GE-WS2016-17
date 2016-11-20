@@ -9,7 +9,7 @@ public class AttackPattern : MonoBehaviour {
     public float m_MaxTimeBetweenAttacks;
 
     private float m_AttackActive;
-    private Attack m_CurrentAttack;
+    public Attack m_CurrentAttack;
 
     // Use this for initialization
     void Start () {

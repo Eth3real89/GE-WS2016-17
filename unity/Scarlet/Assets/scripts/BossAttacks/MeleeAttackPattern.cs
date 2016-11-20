@@ -4,8 +4,6 @@ using System;
 
 public class MeleeAttackPattern : AttackPattern, AttackCallbacks {
 
-    private Attack activeAttack;
-
 	// Use this for initialization
 	void Start () {
 
@@ -18,18 +16,30 @@ public class MeleeAttackPattern : AttackPattern, AttackCallbacks {
 	
 	// Update is called once per frame
 	void Update () {
-        if (activeAttack != null)
+        if (m_CurrentAttack != null)
         {
-            activeAttack.WhileActive();
+            m_CurrentAttack.WhileActive();
         }
     }
 
     void AttackCallbacks.OnAttackStart(Attack a)
     {
-        activeAttack = a;
+        m_CurrentAttack = a;
     }
 
     void AttackCallbacks.OnAttackEnd(Attack a)
     {
+    }
+
+    void AttackCallbacks.OnAttackParried(Attack a)
+    {
+        Debug.Log("Attack Parried!");
+        m_CurrentAttack = null;
+    }
+
+    void AttackCallbacks.OnAttackCancelled(Attack a)
+    {
+        Debug.Log("Attack Cancelled!");
+        m_CurrentAttack = null;
     }
 }

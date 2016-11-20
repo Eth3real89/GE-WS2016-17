@@ -12,16 +12,15 @@ public class GameController : MonoBehaviour {
 
     private static List<Updateable> updateables = new List<Updateable>();
 
-    private GameController() { instance = this; }
+    private GameController() {
+        instance = this; 
+    }
 
 
     public GameObject m_Boss;
     public GameObject m_Scarlet;
+    private PlayerControlsCharController m_ScarletController;
 
-    public float m_ScarletStartHealth;
-    public float m_ScarletHealth;
-    //Value after last loss bar animation
-    private float m_ScarletHealthOld;
     private float m_BossHealthOld;
 
     public Slider m_HealthBarScarlet;
@@ -81,22 +80,17 @@ public class GameController : MonoBehaviour {
         return m_Boss.GetComponent<Rigidbody>() == body;
     }
 
-    public void HitScarlet(float damage)
+    public void HitScarlet(GameObject attacker, float damage, bool blockable)
     {
-        if (!m_ScarletInvincible && m_ScarletHealth > 0)
+        if (!m_ScarletInvincible && m_ScarletController.m_Health > 0)
         {
-            PlayerShield shield = m_Scarlet.GetComponentInChildren<PlayerShield>();
-            if (shield != null)
-            {
-                damage = shield.OnPlayerTakeDamage(damage);
-            }
+            damage = m_ScarletController.GetHit(attacker, damage, blockable);
 
-            m_ScarletHealth = Mathf.Max(0, m_ScarletHealth - damage);
-            CalculateScarletHealthBar(damage / m_ScarletStartHealth);
+            CalculateScarletHealthBar(damage / m_ScarletController.m_StartHealth);
             elapsedTimeScarlet = 0;
         }
 
-        if (m_ScarletHealth <= 0) isScarletDead = true;
+        if (m_ScarletController.m_Health <= 0) isScarletDead = true;
     }
 
     public void HealScarlet(float amount, float chargesLeft)
@@ -128,11 +122,12 @@ public class GameController : MonoBehaviour {
                 HealingCharge3.enabled = false;
             }
 
-            float health = m_ScarletHealth + amount;
+            float health = m_ScarletController.m_Health + amount;
 
-            m_ScarletHealth = (health > m_ScarletStartHealth) ? m_ScarletStartHealth : health;
+            m_ScarletController.m_Health = (health > m_ScarletController.m_Health) ? 
+                m_ScarletController.m_StartHealth : health;
 
-            CalculateScarletHealthBar(-amount / m_ScarletStartHealth);
+            CalculateScarletHealthBar(-amount / m_ScarletController.m_StartHealth);
             elapsedTimeScarlet = 0;
         }
     }
@@ -157,6 +152,8 @@ public class GameController : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        m_ScarletController = m_Scarlet.GetComponent<PlayerControlsCharController>();
+
         m_BossKillNotification.enabled = false;
         m_BossKillNotification.text = "ASCENDED";
 
@@ -213,9 +210,9 @@ public class GameController : MonoBehaviour {
 
 
         elapsedTimeScarlet += Time.deltaTime;
-        if (elapsedTimeScarlet >= 1 && m_ScarletHealthOld != m_ScarletHealth)
+        if (elapsedTimeScarlet >= 1 && m_ScarletController.m_HealthOld != m_ScarletController.m_Health)
         {
-            m_ScarletHealthOld = m_ScarletHealth;
+            m_ScarletController.m_HealthOld = m_ScarletController.m_Health;
             timesUpScarlet = true;
             elapsedTimeScarlet = 0;
         }

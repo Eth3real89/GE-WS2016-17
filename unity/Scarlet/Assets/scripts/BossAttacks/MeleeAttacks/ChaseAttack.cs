@@ -24,6 +24,7 @@ public class ChaseAttack : Attack {
     private TriggerCallback m_HitCallback;
 
     private IEnumerator m_DamageEnumerator;
+    private IEnumerator m_ResetEnumerator;
 
     public ChaseAttack(MonoBehaviour boss) : base()
     {
@@ -89,7 +90,9 @@ public class ChaseAttack : Attack {
         m_Animator.SetFloat("Speed", 0f);
         m_Animator.SetTrigger("AttackTrigger");
 
-        m_Boss.StartCoroutine(InitDamage());
+        m_DamageEnumerator = InitDamage();
+
+        m_Boss.StartCoroutine(m_DamageEnumerator);
     }
 
     private void Damage()
@@ -120,11 +123,15 @@ public class ChaseAttack : Attack {
         yield return new WaitForSeconds(0.2f);
 
         m_BossDamageTrigger.m_Callback = null;
-        m_Boss.StartCoroutine(Reset());
+        m_DamageEnumerator = Reset();
+
+        m_Boss.StartCoroutine(m_DamageEnumerator);
     }
 
     private void OnHit()
     {
+        Debug.Log("Hitting scarlet!");
+        
         if (m_DamageEnumerator != null)
         {
             m_Boss.StopCoroutine(m_DamageEnumerator);
@@ -132,8 +139,10 @@ public class ChaseAttack : Attack {
 
         m_BossDamageTrigger.m_Callback = null;
 
-        GameController.Instance.HitScarlet(30f);
-        m_Boss.StartCoroutine(Reset());
+        m_ResetEnumerator = Reset();
+        m_Boss.StartCoroutine(m_ResetEnumerator);
+
+        GameController.Instance.HitScarlet(GameController.Instance.m_Boss, 30f, true);
     }
 
     private IEnumerator Reset()
@@ -147,6 +156,28 @@ public class ChaseAttack : Attack {
     public void EndAttack()
     {
         this.m_Callbacks.OnAttackEnd(this);
+    }
+
+    public override void CancelAttack()
+    {
+        base.CancelAttack();
+
+        m_BossDamageTrigger.m_Callback = null;
+        m_Boss.StopCoroutine(m_DamageEnumerator);
+
+        if (m_ResetEnumerator != null)
+            m_Boss.StopCoroutine(m_ResetEnumerator);
+    }
+
+    public override void ParryAttack()
+    {
+        base.ParryAttack();
+
+        m_BossDamageTrigger.m_Callback = null;
+        m_Boss.StopCoroutine(m_DamageEnumerator);
+
+        if (m_ResetEnumerator != null)
+            m_Boss.StopCoroutine(m_ResetEnumerator);
     }
 
     private void SetupTriggerCallbacks()
