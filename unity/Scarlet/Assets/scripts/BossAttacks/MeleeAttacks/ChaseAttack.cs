@@ -67,6 +67,9 @@ public class ChaseAttack : Attack {
 
     private void Chase()
     {
+        if (m_Ended)
+            return;
+
         GameObject obj = GameController.Instance.m_Scarlet;
 
         Vector3 avgScarletPos = new Vector3();
@@ -172,7 +175,7 @@ public class ChaseAttack : Attack {
     {
         yield return new WaitForSeconds(2f);
 
-        if (m_HitCount >= 3)
+        if (m_Ended || m_HitCount >= 3)
         {
             EndAttack();
         }
@@ -190,6 +193,7 @@ public class ChaseAttack : Attack {
 
         this.m_Ended = true;
         this.m_Callbacks.OnAttackEnd(this);
+        m_Animator.SetFloat("Speed", 0);
     }
 
     public override void CancelAttack()
@@ -224,6 +228,9 @@ public class ChaseAttack : Attack {
 
     private void SetupTriggerCallbacks()
     {
+        if (m_Ended)
+            return;
+
         m_ChaseCallback = new ChaseTriggerCallback(this);
         m_HitCallback = new DamageTriggerCallback(this);
 

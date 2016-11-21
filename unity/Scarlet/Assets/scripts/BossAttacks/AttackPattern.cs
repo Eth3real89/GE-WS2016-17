@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 
 public class AttackPattern : MonoBehaviour, AttackCallbacks
 {
@@ -28,33 +27,47 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     // Use this for initialization
     void Start()
     {
-        SetupAttacks();
-        m_CurrentAttackIndex = 0;
+        m_Attacks = new Attack[6];
 
+        m_CurrentAttackIndex = 0;
         StartCoroutine(StartNextAttackAfter(2f));
     }
 
-    void SetupAttacks()
+    void SetupAttack(int index)
     {
-        m_Attacks = new Attack[6];
-        m_Attacks[0] = new ChaseAttack(this);
-        m_Attacks[1] = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
-        m_Attacks[2] = new PizzaAttackSeries(this, m_PizzaSetupPrefab, m_PizzaAttackPrefab);
-        m_Attacks[3] = new TargetAttackSeries(this, m_TargetSetupPrefab, m_TargetAttackPrefab);
-        m_Attacks[4] = new BeamAttackSeries(this, m_BeamPrefab, m_Boss);
-        m_Attacks[5] = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_Boss);
-
-        foreach(Attack a in m_Attacks)
+        switch(index)
         {
-            a.m_Callbacks = this;
+            case 0:
+                m_Attacks[index] = new ChaseAttack(this);
+                break;
+            case 1:
+                m_Attacks[index] = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
+                break;
+            case 2:
+                m_Attacks[index] = new PizzaAttackSeries(this, m_PizzaSetupPrefab, m_PizzaAttackPrefab);
+                break;
+            case 3:
+                m_Attacks[index] = new TargetAttackSeries(this, m_TargetSetupPrefab, m_TargetAttackPrefab);
+                break;
+            case 4:
+                m_Attacks[index] = new BeamAttackSeries(this, m_BeamPrefab, m_Boss);
+                break;
+            case 5:
+                m_Attacks[index] = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_Boss);
+                break;
         }
+
+        m_Attacks[index].m_Callbacks = this;
     }
 
     private IEnumerator StartNextAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
 
+        SetupAttack(m_CurrentAttackIndex);
+
         m_Attacks[m_CurrentAttackIndex].StartAttack();
+        m_CurrentAttack = m_Attacks[m_CurrentAttackIndex];
     }
 
     // Update is called once per frame
@@ -73,11 +86,16 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     void AttackCallbacks.OnAttackEnd(Attack a)
     {
-        Debug.Log("On attack end!");
-
-        m_CurrentAttackIndex += 1;
-        if (m_CurrentAttackIndex >= m_Attacks.Length)
+        m_CurrentAttack = null;
+        
+        if (m_CurrentAttackIndex == 0)
+        {
+            m_CurrentAttackIndex = (int) Random.Range(1, m_Attacks.Length + 0.99f);
+        }
+        else
+        {
             m_CurrentAttackIndex = 0;
+        }
         
         StartCoroutine(StartNextAttackAfter(2f));
     }
