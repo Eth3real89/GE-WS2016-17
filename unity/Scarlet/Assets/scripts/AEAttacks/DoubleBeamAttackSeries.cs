@@ -36,4 +36,21 @@ public class DoubleBeamAttackSeries : AEAttackSeries
 
         m_Parts[1] = reverseBeamAttack;
     }
+
+    public override void WhileActive()
+    {
+    }
+
+    public override void StartAttack()
+    {
+        BeforeSeries(m_Boss.transform);
+        RunSeries(GameController.Instance.m_Boss.transform);
+        m_Behaviour.StartCoroutine(EndAttackAfter(10f));
+    }
+
+    private IEnumerator EndAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Callbacks.OnAttackEnd(this);
+    }
 }

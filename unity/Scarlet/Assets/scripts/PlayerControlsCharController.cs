@@ -186,6 +186,8 @@ public class PlayerControlsCharController : MonoBehaviour
         m_ControlsEnabled = false;
         m_Parrying = ParryState.Perfect;
 
+        m_RigidBody.velocity = new Vector3();
+
         animator.SetTrigger("BlockTrigger");
         m_ParryIEnumerator = SetParryState(ParryState.Regular, 0.3f);
         StartCoroutine(m_ParryIEnumerator);
@@ -217,6 +219,8 @@ public class PlayerControlsCharController : MonoBehaviour
         float enableControlsAfter = 0.25f;
         int punchAnimation = 1;
 
+        m_RigidBody.velocity = new Vector3();
+
         if (m_CurrentAttackCombo <= 2)
         {
             Debug.Log("combo: " + m_CurrentAttackCombo);
@@ -246,7 +250,6 @@ public class PlayerControlsCharController : MonoBehaviour
         m_DamageCoRoutine = DisableDamageAfter(0.5f);
 
         StartCoroutine(m_DamageCoRoutine);
-
     }
 
     public float GetHit(GameObject attacker, float damage, bool blockable)
@@ -391,7 +394,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private IEnumerator ReEnableControlsAfter(float afterSeconds)
     {
         yield return new WaitForSeconds(afterSeconds);
-        Debug.Log("yeah...");
+
         m_ControlsEnabled = true;
     }
 

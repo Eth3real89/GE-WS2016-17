@@ -26,6 +26,10 @@ public class ChaseAttack : Attack {
     private IEnumerator m_DamageEnumerator;
     private IEnumerator m_ResetEnumerator;
 
+    private bool m_Ended;
+
+    private int m_HitCount;
+
     public ChaseAttack(MonoBehaviour boss) : base()
     {
         m_Boss = boss;
@@ -37,9 +41,10 @@ public class ChaseAttack : Attack {
         SetupTriggerCallbacks();
     }
 
-    public void StartAttack()
+    public override void StartAttack()
     {
         m_State = ChaseAttackState.Chase;
+        m_Ended = false;
 
         this.m_Callbacks.OnAttackStart(this);
     }
@@ -86,6 +91,10 @@ public class ChaseAttack : Attack {
 
     private void InitAim()
     {
+        if (m_Ended)
+            return;
+        m_HitCount++;
+
         m_State = ChaseAttackState.Aim;
         m_Animator.SetFloat("Speed", 0f);
         m_Animator.SetTrigger("AttackTrigger");
@@ -93,6 +102,13 @@ public class ChaseAttack : Attack {
         m_DamageEnumerator = InitDamage();
 
         m_Boss.StartCoroutine(m_DamageEnumerator);
+    }
+
+    private IEnumerator InitAimAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        SetupTriggerCallbacks();
+        InitAim();
     }
 
     private void Damage()
@@ -130,7 +146,6 @@ public class ChaseAttack : Attack {
 
     private void OnHit()
     {
-        Debug.Log("Hitting scarlet!");
         
         if (m_DamageEnumerator != null)
         {
@@ -139,8 +154,16 @@ public class ChaseAttack : Attack {
 
         m_BossDamageTrigger.m_Callback = null;
 
-        m_ResetEnumerator = Reset();
-        m_Boss.StartCoroutine(m_ResetEnumerator);
+        if (m_HitCount >= 3)
+        {
+            m_DamageEnumerator = EndAttackAfter(2f);
+            m_Boss.StartCoroutine(m_DamageEnumerator);
+        }
+        else
+        {
+            m_DamageEnumerator = InitAimAfter(0.4f);
+            m_Boss.StartCoroutine(m_DamageEnumerator);
+        }
 
         GameController.Instance.HitScarlet(GameController.Instance.m_Boss, 30f, true);
     }
@@ -149,12 +172,23 @@ public class ChaseAttack : Attack {
     {
         yield return new WaitForSeconds(2f);
 
-        SetupTriggerCallbacks();
-        m_State = ChaseAttackState.Chase;
+        if (m_HitCount >= 3)
+        {
+            EndAttack();
+        }
+        else
+        {
+            SetupTriggerCallbacks();
+            m_State = ChaseAttackState.Chase;
+        }
     }
 
     public void EndAttack()
     {
+        if (m_Ended)
+            return;
+
+        this.m_Ended = true;
         this.m_Callbacks.OnAttackEnd(this);
     }
 
@@ -167,17 +201,25 @@ public class ChaseAttack : Attack {
 
         if (m_ResetEnumerator != null)
             m_Boss.StopCoroutine(m_ResetEnumerator);
+
+        m_Boss.StartCoroutine(EndAttackAfter(2f));
+        Animator animator = m_Boss.GetComponentInChildren<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("StaggerTrigger");
+        }
+    }
+
+    private IEnumerator EndAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        EndAttack();
     }
 
     public override void ParryAttack()
     {
         base.ParryAttack();
-
-        m_BossDamageTrigger.m_Callback = null;
-        m_Boss.StopCoroutine(m_DamageEnumerator);
-
-        if (m_ResetEnumerator != null)
-            m_Boss.StopCoroutine(m_ResetEnumerator);
     }
 
     private void SetupTriggerCallbacks()

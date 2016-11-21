@@ -67,4 +67,20 @@ public class PizzaAttackSeries : AEAttackSeries {
         return attack;
     }
 
+    public override void WhileActive()
+    {
+    }
+
+    public override void StartAttack()
+    {
+        BeforeSeries(GameController.Instance.m_Boss.transform);
+        RunSeries(GameController.Instance.m_Boss.transform);
+        m_Behaviour.StartCoroutine(EndAttackAfter(5f));
+    }
+
+    private IEnumerator EndAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Callbacks.OnAttackEnd(this);
+    }
 }

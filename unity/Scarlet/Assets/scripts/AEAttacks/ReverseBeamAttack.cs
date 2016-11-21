@@ -72,8 +72,4 @@ public class ReverseBeamAttack : AEAttackPart, Updateable
         }
 
     }
-
-    public override void WhileActive()
-    {
-    }
 }

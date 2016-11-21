@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TargetAttackSeries : AEAttackSeries
 {
@@ -37,4 +38,20 @@ public class TargetAttackSeries : AEAttackSeries
 
     }
 
+    public override void WhileActive()
+    {
+    }
+
+    public override void StartAttack()
+    {
+        BeforeSeries(GameController.Instance.m_Boss.transform);
+        RunSeries(GameController.Instance.m_Boss.transform);
+        m_Behaviour.StartCoroutine(EndAttackAfter(7f));
+    }
+
+    private IEnumerator EndAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Callbacks.OnAttackEnd(this);
+    }
 }

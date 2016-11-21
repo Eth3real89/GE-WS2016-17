@@ -2,7 +2,7 @@
 using System.Collections;
 using System;
 
-public abstract class AEAttackSeries {
+public abstract class AEAttackSeries : Attack {
 
     public AEAttackPart[] m_Parts;
     public bool m_Cancelled = false;

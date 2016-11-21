@@ -19,6 +19,8 @@ public abstract class Attack {
 
     public abstract void WhileActive();
 
+    public abstract void StartAttack();
+
     public virtual void CancelAttack()
     {
         m_Callbacks.OnAttackCancelled(this);
