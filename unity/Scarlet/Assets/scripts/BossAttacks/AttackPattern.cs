@@ -90,7 +90,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         
         if (m_CurrentAttackIndex == 0)
         {
-            m_CurrentAttackIndex = (int) Random.Range(1, m_Attacks.Length + 0.99f);
+            m_CurrentAttackIndex = (int) Random.Range(1, m_Attacks.Length);
         }
         else
         {
