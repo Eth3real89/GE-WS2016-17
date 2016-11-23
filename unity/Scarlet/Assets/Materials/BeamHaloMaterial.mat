@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BeamMaterial
-  m_Shader: {fileID: 4800000, guid: 101a4669f12d64a88bdd95f55872b6b9, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION
+  m_Name: BeamHaloMaterial
+  m_Shader: {fileID: 4800000, guid: fed1c55290b7149f1adfe024aa0015ea, type: 3}
+  m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -69,12 +69,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - first:
-        name: _SpecGlossMap
-      second:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
@@ -87,7 +81,10 @@ Material:
       second: 1
     - first:
         name: _DstBlend
-      second: 10
+      second: 0
+    - first:
+        name: _FadePower
+      second: 8.4
     - first:
         name: _GlossMapScale
       second: 1
@@ -102,7 +99,7 @@ Material:
       second: 0
     - first:
         name: _Mode
-      second: 3
+      second: 0
     - first:
         name: _OcclusionStrength
       second: 1
@@ -123,14 +120,11 @@ Material:
       second: 0
     - first:
         name: _ZWrite
-      second: 0
+      second: 1
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0.2138841, g: 0.63235295, b: 0.268718, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.6, g: 0.6, b: 0.6, a: 1}
-    - first:
-        name: _SpecColor
-      second: {r: 1, g: 1, b: 1, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
