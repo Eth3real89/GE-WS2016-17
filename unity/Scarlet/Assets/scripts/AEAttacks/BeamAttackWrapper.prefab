@@ -69,7 +69,6 @@ GameObject:
   - 33: {fileID: 33000010205122678}
   - 136: {fileID: 136000010273505682}
   - 23: {fileID: 23000012375782738}
-  - 114: {fileID: 114000013043618900}
   m_Layer: 0
   m_Name: BeamAttackHaloPrefab
   m_TagString: Untagged
@@ -103,8 +102,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014000142428}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 5, y: 10, z: 5}
+  m_LocalPosition: {x: 0, y: -0.15, z: 1}
+  m_LocalScale: {x: 1, y: 1.25, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012605712640}
@@ -117,7 +116,7 @@ Transform:
   m_GameObject: {fileID: 1000014255191552}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.75, y: 1, z: 0.75}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012605712640}
@@ -312,17 +311,6 @@ MonoBehaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014255191552}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70a19c14b6faaf24e867d067225f70b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000013043618900
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014000142428}
-  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70a19c14b6faaf24e867d067225f70b0, type: 3}
   m_Name: 

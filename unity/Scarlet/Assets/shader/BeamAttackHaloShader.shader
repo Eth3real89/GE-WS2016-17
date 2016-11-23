@@ -2,8 +2,8 @@
 {
 	Properties
 	{
-		_Color("Color", Color) = (1, 1, 1, 1)
 		_FadePower("Fade Power", Range(1, 10)) = 5.0
+		_MainTex ("Texture", 2D) = "white" {}
 	}
 		SubShader
 	{
@@ -23,15 +23,16 @@
 	{
 		float4 vertex : POSITION;
 		float3 normal : NORMAL;
+		float2 uv : TEXCOORD0;
 	};
 
 	struct v2f
 	{
+		float2 uv : TEXCOORD0;
 		float4 vertex : SV_POSITION;
 		float dotProduct : VIEWDIRECTION;
 	};
 
-	float4 _Color;
 	float _FadePower;
 
 	v2f vert(appdata v)
@@ -43,20 +44,28 @@
 		viewDir = normalize(viewDir);
 
 		o.dotProduct = dot(v.normal, viewDir);
+		o.uv = v.uv;
+
 		return o;
 	}
 
+	sampler2D _MainTex;
+
 	fixed4 frag(v2f i) : SV_Target
 	{
+		fixed4 col = tex2D(_MainTex, i.uv);
+
 		if (i.dotProduct <= 0.1) {
 			clip(-1);
 		}
 		else if (i.dotProduct > 0.1) {
-			_Color.w = _Color.w*pow(i.dotProduct, _FadePower);
+			col.a = col.a * pow(i.dotProduct, _FadePower);
 
 		}
 
-		return _Color;
+		col.r = 0.6;
+
+		return col;
 	}
 		ENDCG
 	}

@@ -96,6 +96,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         {
             m_CurrentAttackIndex = 0;
         }
+
+        m_CurrentAttackIndex = 4;
+
         
         StartCoroutine(StartNextAttackAfter(2f));
     }
