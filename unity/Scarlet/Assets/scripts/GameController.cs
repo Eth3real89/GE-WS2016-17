@@ -145,6 +145,13 @@ public class GameController : MonoBehaviour {
                 damage -= m_Boss.GetComponent<BossHealth>().GetBossHealth();
             }
             m_Boss.GetComponent<BossHealth>().TakeDamage(damage);
+
+            AttackPattern bossBehavior = m_Boss.GetComponent<AttackPattern>();
+            if (bossBehavior != null)
+            {
+                bossBehavior.OnBossHit();
+            }
+
             CalculateBossHealthBar(damage / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth());
             elapsedTimeBoss = 0;
         }

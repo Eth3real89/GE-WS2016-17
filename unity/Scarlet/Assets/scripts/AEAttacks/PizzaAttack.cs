@@ -12,6 +12,8 @@ public class PizzaAttack : AEAttack {
 
     public AEAttackSeries m_Series;
 
+    private IEnumerator m_DestroyEnumerator;
+
     public PizzaAttack(GameObject m_PizzaSetupPrefab, AEAttackSeries series)
     {
         this.m_SliceVisuals = m_PizzaSetupPrefab;
@@ -33,9 +35,9 @@ public class PizzaAttack : AEAttack {
 
         m_SliceInstance.SetActive(true);
         CapsuleCollider collider = m_SliceInstance.GetComponent<CapsuleCollider>();
-        
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1.5f));
+        m_DestroyEnumerator = RemoveAfter(1.5f);
+        m_Series.m_Behaviour.StartCoroutine(m_DestroyEnumerator);
     }
 
     private IEnumerator ShowDelayed(Transform obj, float time)
@@ -50,11 +52,18 @@ public class PizzaAttack : AEAttack {
     public IEnumerator RemoveAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        GameObject.Destroy(m_SliceInstance);
+        Destroy();
     }
 
     public override GameObject GetObject()
     {
         return m_SliceInstance;
+    }
+
+    public void Destroy()
+    {
+        m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
+        if (m_SliceInstance != null)
+            GameObject.Destroy(m_SliceInstance);
     }
 }

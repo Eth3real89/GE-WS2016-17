@@ -13,6 +13,8 @@ public class ConeAttack : AEAttack {
 
     public ConeAttackSetup m_Setup;
 
+    private IEnumerator m_DestroyEnumerator;
+
     public ConeAttack(GameObject conePrefab, AEAttackSeries series, ConeAttackSetup setup)
     {
         this.m_ConePrefab = conePrefab;
@@ -42,12 +44,21 @@ public class ConeAttack : AEAttack {
             l.spotAngle = 170f;
         }
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(0.3f));
+        m_DestroyEnumerator = RemoveAfter(0.3f);
+
+        m_Series.m_Behaviour.StartCoroutine(m_DestroyEnumerator);
     }
 
     public IEnumerator RemoveAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        GameObject.Destroy(m_ConeInstance);
+    }
+
+    public void Destroy()
+    {
+        if (m_DestroyEnumerator != null)
+            m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
         GameObject.Destroy(m_ConeInstance);
     }
 }

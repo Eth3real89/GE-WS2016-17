@@ -8,7 +8,9 @@ public class PizzaAttackSeries : AEAttackSeries {
     public PizzaAttack m_Attack;
     private GameObject m_PizzaSetupPrefab;
     private GameObject m_PizzaAttackPrefab;
-    
+
+    private IEnumerator m_EndEnumerator;
+
     public PizzaAttackSeries(MonoBehaviour behaviour, GameObject m_PizzaSetupPrefab, GameObject m_PizzaAttackPrefab) : this(behaviour)
     {
         this.m_PizzaSetupPrefab = m_PizzaSetupPrefab;
@@ -54,7 +56,6 @@ public class PizzaAttackSeries : AEAttackSeries {
 
     private PizzaAttack MakeAttack(int sliceIndex, Transform bossTransform)
     {
-
         PizzaAttack attack = new PizzaAttack(m_PizzaAttackPrefab, this);
         attack.delay = 0.3f + (sliceIndex + 1) * 0.5f;
 
@@ -75,12 +76,32 @@ public class PizzaAttackSeries : AEAttackSeries {
     {
         BeforeSeries(GameController.Instance.m_Boss.transform);
         RunSeries(GameController.Instance.m_Boss.transform);
-        m_Behaviour.StartCoroutine(EndAttackAfter(5f));
+
+        m_EndEnumerator = EndAttackAfter(5f);
+        m_Behaviour.StartCoroutine(m_EndEnumerator);
     }
 
     private IEnumerator EndAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
         m_Callbacks.OnAttackEnd(this);
+    }
+
+    public override void CancelAttack()
+    {
+        base.m_Cancelled = true;
+
+        ((PizzaAttackSetup)m_Parts[0]).Destroy();
+        ((PizzaAttack)m_Parts[1]).Destroy();
+        ((PizzaAttackSetup)m_Parts[2]).Destroy();
+        ((PizzaAttack)m_Parts[3]).Destroy();
+        ((PizzaAttackSetup)m_Parts[4]).Destroy();
+        ((PizzaAttack)m_Parts[5]).Destroy();
+        ((PizzaAttackSetup)m_Parts[6]).Destroy();
+        ((PizzaAttack)m_Parts[7]).Destroy();
+
+        m_Behaviour.StopCoroutine(m_EndEnumerator);
+        m_Attack.Destroy();
+        this.m_Callbacks.OnAttackCancelled(this);
     }
 }

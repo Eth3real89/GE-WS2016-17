@@ -19,6 +19,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     public GameObject m_TargetSetupPrefab;
     public GameObject m_TargetAttackPrefab;
+
+    public bool m_CancelOnHit = true;
+
     /*
      * Index of m_Attacks that is currently active; only stored so as not to use the same attack twice in a row.
      */
@@ -79,6 +82,15 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         }
     }
 
+    public void OnBossHit()
+    {
+        if (m_CancelOnHit && m_CurrentAttack != null && m_CurrentAttackIndex != 0) // = any AE attack
+        {
+            m_Boss.GetComponentInChildren<Animator>().SetTrigger("StaggerTrigger");
+            m_CurrentAttack.CancelAttack();
+        }
+    }
+
     void AttackCallbacks.OnAttackStart(Attack a)
     {
         m_CurrentAttack = a;
@@ -97,17 +109,29 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_CurrentAttackIndex = 0;
         }
 
-        //m_CurrentAttackIndex = 4;
+        // m_CurrentAttackIndex = 4;
 
-        
         StartCoroutine(StartNextAttackAfter(2f));
     }
 
     void AttackCallbacks.OnAttackParried(Attack a)
     {
+        m_Boss.GetComponentInChildren<Animator>().SetTrigger("IdleTrigger");
     }
 
     void AttackCallbacks.OnAttackCancelled(Attack a)
     {
+        if (m_CurrentAttack != null)
+        {
+            m_CurrentAttack = null;
+            StartCoroutine(StaggerThenContinueAttacking(1.5f, a));
+        }
+    }
+
+    private IEnumerator StaggerThenContinueAttacking(float seconds, Attack a)
+    {
+        yield return new WaitForSeconds(seconds);
+
+        (this as AttackCallbacks).OnAttackEnd(a);
     }
 }

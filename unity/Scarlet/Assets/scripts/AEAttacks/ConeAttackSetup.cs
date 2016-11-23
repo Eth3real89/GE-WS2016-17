@@ -66,6 +66,11 @@ public class ConeAttackSetup : AEAttackSetup, Updateable
     {
         yield return new WaitForSeconds(seconds);
 
+        Destroy();
+    }
+    
+    public void Destroy()
+    {
         GameObject.Destroy(m_ConeInstance);
         GameController.Instance.UnregisterUpdateable(this);
     }

@@ -8,6 +8,8 @@ public class DoubleBeamAttackSeries : AEAttackSeries
     public GameObject m_BeamPrefab;
 
     public GameObject m_Boss;
+    
+    private IEnumerator m_EndEnumerator;
 
     public DoubleBeamAttackSeries(MonoBehaviour behaviour, GameObject breamPrefab, GameObject boss) : this(behaviour)
     {
@@ -45,12 +47,24 @@ public class DoubleBeamAttackSeries : AEAttackSeries
     {
         BeforeSeries(m_Boss.transform);
         RunSeries(GameController.Instance.m_Boss.transform);
-        m_Behaviour.StartCoroutine(EndAttackAfter(10f));
+
+        m_EndEnumerator = EndAttackAfter(10f);
+        m_Behaviour.StartCoroutine(m_EndEnumerator);
     }
 
     private IEnumerator EndAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
         m_Callbacks.OnAttackEnd(this);
+    }
+
+    public override void CancelAttack()
+    {
+        base.m_Cancelled = true;
+        m_Behaviour.StopCoroutine(m_EndEnumerator);
+        ((BeamAttack) m_Parts[0]).Destroy();
+        ((ReverseBeamAttack) m_Parts[1]).Destroy();
+
+        this.m_Callbacks.OnAttackCancelled(this);
     }
 }

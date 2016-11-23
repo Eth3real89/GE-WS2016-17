@@ -8,6 +8,9 @@ public class BeamAttackSeries : AEAttackSeries {
 
     public GameObject m_Boss;
 
+    private BeamAttack m_Attack;
+    private IEnumerator m_EndEnumerator;
+
     public BeamAttackSeries(MonoBehaviour behaviour, GameObject breamPrefab, GameObject boss) : this(behaviour)
     {
         this.m_BeamPrefab = breamPrefab;
@@ -25,10 +28,10 @@ public class BeamAttackSeries : AEAttackSeries {
 
         m_Parts = new AEAttackPart[1];
 
-        BeamAttack beamAttack = new BeamAttack(m_BeamPrefab, this);
-        beamAttack.m_StartPosition = bossPos;
+        m_Attack = new BeamAttack(m_BeamPrefab, this);
+        m_Attack.m_StartPosition = bossPos;
 
-        m_Parts[0] = beamAttack;
+        m_Parts[0] = m_Attack;
     }
 
     public override void WhileActive()
@@ -39,12 +42,21 @@ public class BeamAttackSeries : AEAttackSeries {
     {
         BeforeSeries(m_Boss.transform);
         RunSeries(GameController.Instance.m_Boss.transform);
-        m_Behaviour.StartCoroutine(EndAttackAfter(10f));
+        m_EndEnumerator = EndAttackAfter(10f);
+        m_Behaviour.StartCoroutine(m_EndEnumerator);
     }
 
     private IEnumerator EndAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
         m_Callbacks.OnAttackEnd(this);
+    }
+
+    public override void CancelAttack()
+    {
+        base.m_Cancelled = true;
+        m_Behaviour.StopCoroutine(m_EndEnumerator);
+        m_Attack.Destroy();
+        this.m_Callbacks.OnAttackCancelled(this);
     }
 }

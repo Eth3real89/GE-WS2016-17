@@ -5522,6 +5522,7 @@ MonoBehaviour:
     type: 2}
   m_TargetAttackPrefab: {fileID: 1000013635837448, guid: ab7c97511a706814eb2b565597249c8e,
     type: 2}
+  m_CancelOnHit: 1
 --- !u!1001 &1129790054
 Prefab:
   m_ObjectHideFlags: 0
@@ -8386,6 +8387,9 @@ MonoBehaviour:
   canDash: 0
   m_healingCharges: 3
   m_healingAmount: 33
+  m_PerfectParryTime: 0.1
+  m_RegularParryTime: 0.25
+  m_AdditionalDamageTime: 0.3
   m_ParryCooldown: 0
 --- !u!114 &1722516014
 MonoBehaviour:

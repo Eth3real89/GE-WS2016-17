@@ -12,6 +12,7 @@ public class TargetAttack : AEAttack
 
     public TargetAttackSetup m_Setup;
 
+    private IEnumerator m_DestroyEnumerator;
 
     public TargetAttack(GameObject targetPrefab, AEAttackSeries series, TargetAttackSetup setup)
     {
@@ -32,12 +33,20 @@ public class TargetAttack : AEAttack
             m_Setup.m_TargetInstance.transform.position, Quaternion.Euler(0f, 0f, 0f));
         m_TargetInstance.SetActive(true);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(0.3f));
+        m_DestroyEnumerator = RemoveAfter(0.3f);
+        m_Series.m_Behaviour.StartCoroutine(m_DestroyEnumerator);
     }
 
     public IEnumerator RemoveAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
+        GameObject.Destroy(m_TargetInstance);
+    }
+
+    public void Destroy()
+    {
+        if (m_DestroyEnumerator != null)
+            m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
         GameObject.Destroy(m_TargetInstance);
     }
 }

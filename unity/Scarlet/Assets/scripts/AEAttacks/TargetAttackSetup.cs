@@ -10,6 +10,8 @@ public class TargetAttackSetup : AEAttack, Updateable
 
     public AEAttackSeries m_Series;
 
+    private IEnumerator m_DestroyEnumerator;
+
     public TargetAttackSetup(GameObject targetPrefab, AEAttackSeries series)
     {
         this.m_TargetPrefab = targetPrefab;
@@ -28,7 +30,8 @@ public class TargetAttackSetup : AEAttack, Updateable
             GameController.Instance.m_Scarlet.transform.position, Quaternion.Euler(0f, 0f, 0f));
         m_TargetInstance.SetActive(true);
 
-        m_Series.m_Behaviour.StartCoroutine(RemoveAfter(1f));
+        m_DestroyEnumerator = RemoveAfter(1f);
+        m_Series.m_Behaviour.StartCoroutine(m_DestroyEnumerator);
         GameController.Instance.RegisterUpdateable(this);
     }
 
@@ -43,7 +46,14 @@ public class TargetAttackSetup : AEAttack, Updateable
     {
         yield return new WaitForSeconds(seconds);
         GameObject.Destroy(m_TargetInstance);
+        GameController.Instance.UnregisterUpdateable(this);
+    }
 
+    public void Destroy()
+    {
+        if (m_DestroyEnumerator != null)
+            m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
+        GameObject.Destroy(m_TargetInstance);
         GameController.Instance.UnregisterUpdateable(this);
     }
 }

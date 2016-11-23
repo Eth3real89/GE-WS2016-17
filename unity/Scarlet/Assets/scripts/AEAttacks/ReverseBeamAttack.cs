@@ -67,9 +67,14 @@ public class ReverseBeamAttack : AEAttackPart, Updateable
         }
         else
         {
-            GameObject.Destroy(m_BeamInstance);
-            GameController.Instance.UnregisterUpdateable(this);
+            Destroy();
         }
 
+    }
+
+    public void Destroy()
+    {
+        GameObject.Destroy(m_BeamInstance);
+        GameController.Instance.UnregisterUpdateable(this);
     }
 }
