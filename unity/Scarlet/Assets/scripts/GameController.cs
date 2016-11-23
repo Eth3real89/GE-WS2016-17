@@ -46,7 +46,9 @@ public class GameController : MonoBehaviour {
     private float healthHeight;
     private float elapsedTimeBoss = 0;
     private float elapsedTimeScarlet = 0;
+    private float healingHealth = 0;
 
+    private bool isHealing = false;
     private bool isScarletDead = false;
     private bool isBossDead = false;
 
@@ -93,10 +95,12 @@ public class GameController : MonoBehaviour {
         if (m_ScarletController.m_Health <= 0) isScarletDead = true;
     }
 
+
     public void HealScarlet(float amount, float chargesLeft)
     {
         if (!isScarletDead)
         {
+            isHealing = true;
             if (chargesLeft >= 3)
             {
                 HealingCharge1.enabled = true;
@@ -198,6 +202,8 @@ public class GameController : MonoBehaviour {
         }
     }
 
+
+
     // Update is called once per frame
     void Update () {
         lock (updateables)
@@ -205,9 +211,7 @@ public class GameController : MonoBehaviour {
             for(int i = 0; i < updateables.Count; i++)
                 updateables[i].Update();
         }
-
         
-
 
         elapsedTimeScarlet += Time.deltaTime;
         if (elapsedTimeScarlet >= 1 && m_ScarletController.m_HealthOld != m_ScarletController.m_Health)
@@ -259,10 +263,22 @@ public class GameController : MonoBehaviour {
                 timesUpBoss = false;
             }
         }
-                           
+        var endHealthScarletPrior = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+
+        if (isHealing && endHealthScarletPrior < healingHealth)
+        {
+            var endHealthScarlet = endHealthScarletPrior + 15;
+            rtHealthScarlet.sizeDelta = new Vector2(Mathf.Min(healingHealth, endHealthScarlet, fullWidth), healthHeight);
+            if(healingHealth <= endHealthScarlet)
+            {
+                isHealing = false;
+            }
+        }
+        
         HandleText(isBossDead, m_BossKillNotification);
         HandleText(isScarletDead, m_DeathNotification);       
     }
+
 
     /// <summary>
     /// Animates the Healthbar after attack
@@ -282,20 +298,28 @@ public class GameController : MonoBehaviour {
         if (damage > 0)
         {
             newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
-            newEndLoss = Mathf.Min(fullWidth, endLoss + fullWidth * damage);
+            if(newEndHealth == 0)
+            {
+                newEndLoss = Mathf.Min(endLoss + endHealth, fullWidth, endLoss + fullWidth * damage);
+            } else
+            {
+                newEndLoss = Mathf.Min(fullWidth, endLoss + fullWidth * damage);
+            }
+
+            rtLossScarlet.anchoredPosition = new Vector2(newEndHealth, 0);
+            rtLossScarlet.sizeDelta = new Vector2(newEndLoss, lossHeight);
+
+            rtHealthScarlet.sizeDelta = new Vector2(newEndHealth, healthHeight);
         }
         else
         {
             //Scarlet is healed and damage is negative
             newEndHealth = Mathf.Min(fullWidth, endHealth - fullWidth * damage);
+            healingHealth = newEndHealth;
             newEndLoss = Mathf.Max(0, endLoss + fullWidth * damage);
         }
 
 
-        rtLossScarlet.anchoredPosition = new Vector2(newEndHealth, 0);
-        rtLossScarlet.sizeDelta = new Vector2(newEndLoss, lossHeight);
-
-        rtHealthScarlet.sizeDelta = new Vector2(newEndHealth, healthHeight);
     }
 
     /// <summary>
