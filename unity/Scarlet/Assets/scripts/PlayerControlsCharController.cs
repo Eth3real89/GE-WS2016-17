@@ -29,6 +29,9 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_healingCharges;
     public float m_healingAmount;
 
+    public float m_PerfectParryTime = 0.1f;
+    public float m_RegularParryTime = 0.25f;
+    public float m_AdditionalDamageTime = 0.4f;
     private enum ParryState {NoParry, Perfect, Regular, AdditionalDamage};
     private float m_LastParry;
     public float m_ParryCooldown;
@@ -189,7 +192,7 @@ public class PlayerControlsCharController : MonoBehaviour
         m_RigidBody.velocity = new Vector3();
 
         animator.SetTrigger("BlockTrigger");
-        m_ParryIEnumerator = SetParryState(ParryState.Regular, 0.3f);
+        m_ParryIEnumerator = SetParryState(ParryState.Regular, m_PerfectParryTime);
         StartCoroutine(m_ParryIEnumerator);
     }
 
@@ -200,16 +203,18 @@ public class PlayerControlsCharController : MonoBehaviour
 
         if (newState == ParryState.Regular)
         {
-            m_ParryIEnumerator = SetParryState(ParryState.AdditionalDamage, 0.3f);
+            m_ParryIEnumerator = SetParryState(ParryState.AdditionalDamage, m_RegularParryTime);
             StartCoroutine(m_ParryIEnumerator);
         }
         else if (newState == ParryState.AdditionalDamage)
         {
-            m_ParryIEnumerator = SetParryState(ParryState.NoParry, 0.3f);
+            m_ParryIEnumerator = SetParryState(ParryState.NoParry, m_AdditionalDamageTime);
             StartCoroutine(m_ParryIEnumerator);
+            animator.SetTrigger("StaggerTrigger");
         }
         else if (newState == ParryState.NoParry)
         {
+            animator.SetTrigger("IdleTrigger");
             m_ControlsEnabled = true;
         }
     }
