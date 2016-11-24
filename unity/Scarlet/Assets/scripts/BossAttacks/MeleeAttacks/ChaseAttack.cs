@@ -26,6 +26,8 @@ public class ChaseAttack : Attack {
     private IEnumerator m_DamageEnumerator;
     private IEnumerator m_ResetEnumerator;
 
+    private TrailRenderer m_TrailRenderer;
+
     private bool m_Ended;
 
     private int m_HitCount;
@@ -35,6 +37,8 @@ public class ChaseAttack : Attack {
         m_Boss = boss;
         m_Animator = m_Boss.GetComponentInChildren<Animator>();
         m_BossDamageTrigger = m_Boss.GetComponentInChildren<BossDamageTrigger>();
+
+        m_TrailRenderer = m_Boss.GetComponentInChildren<TrailRenderer>();
 
         m_LastPlayerPositions = new ArrayList();
 
@@ -105,6 +109,9 @@ public class ChaseAttack : Attack {
         m_DamageEnumerator = InitDamage();
 
         m_Boss.StartCoroutine(m_DamageEnumerator);
+
+        m_TrailRenderer.Clear();
+        m_TrailRenderer.time = 0.5f;
     }
 
     private IEnumerator InitAimAfter(float time)
@@ -140,6 +147,8 @@ public class ChaseAttack : Attack {
     private IEnumerator StopDamage()
     {
         yield return new WaitForSeconds(0.2f);
+
+        m_TrailRenderer.time = 0;
 
         m_BossDamageTrigger.m_Callback = null;
         m_DamageEnumerator = Reset();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class AttackPattern : MonoBehaviour, AttackCallbacks
 {
@@ -20,7 +21,12 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public GameObject m_TargetSetupPrefab;
     public GameObject m_TargetAttackPrefab;
 
+    public Material m_HitMaterial;
+
     public bool m_CancelOnHit = true;
+
+    private IEnumerator m_ColorChangeEnumerator;
+    private IDictionary<Renderer, Material> m_OriginalMaterialDictionary;
 
     /*
      * Index of m_Attacks that is currently active; only stored so as not to use the same attack twice in a row.
@@ -34,6 +40,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
         m_CurrentAttackIndex = 0;
         StartCoroutine(StartNextAttackAfter(2f));
+
+        InitOriginalColorDictionary();
     }
 
     void SetupAttack(int index)
@@ -89,6 +97,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_Boss.GetComponentInChildren<Animator>().SetTrigger("StaggerTrigger");
             m_CurrentAttack.CancelAttack();
         }
+
+        ColorBossRed();
     }
 
     void AttackCallbacks.OnAttackStart(Attack a)
@@ -134,4 +144,39 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
         (this as AttackCallbacks).OnAttackEnd(a);
     }
+
+    private void InitOriginalColorDictionary()
+    {
+        m_OriginalMaterialDictionary = new System.Collections.Generic.Dictionary<Renderer, Material>();
+        foreach (Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        {
+            m_OriginalMaterialDictionary.Add(r, r.material);
+        }
+    }
+
+    private void ColorBossRed()
+    {
+        foreach (Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        {
+            r.material = m_HitMaterial;
+        }
+        DynamicGI.UpdateEnvironment();
+
+        if (m_ColorChangeEnumerator != null)
+        {
+            StopCoroutine(m_ColorChangeEnumerator);
+        }
+        StartCoroutine(RestoreColors());
+    }
+
+    private IEnumerator RestoreColors()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        foreach (Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        {
+            r.material = m_OriginalMaterialDictionary[r];
+        }
+        DynamicGI.UpdateEnvironment();
+    } 
 }
