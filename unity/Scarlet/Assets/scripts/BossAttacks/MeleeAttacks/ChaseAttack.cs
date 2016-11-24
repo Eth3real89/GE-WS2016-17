@@ -198,20 +198,19 @@ public class ChaseAttack : Attack {
 
     public override void CancelAttack()
     {
-        base.CancelAttack();
-
         m_BossDamageTrigger.m_Callback = null;
         m_Boss.StopCoroutine(m_DamageEnumerator);
 
         if (m_ResetEnumerator != null)
             m_Boss.StopCoroutine(m_ResetEnumerator);
 
-        m_Boss.StartCoroutine(EndAttackAfter(2f));
         Animator animator = m_Boss.GetComponentInChildren<Animator>();
         if (animator != null)
         {
             animator.SetTrigger("StaggerTrigger");
         }
+
+        m_Boss.StartCoroutine(CancelAttackAfter(2f));
     }
 
     private IEnumerator EndAttackAfter(float time)
@@ -219,6 +218,18 @@ public class ChaseAttack : Attack {
         yield return new WaitForSeconds(time);
 
         EndAttack();
+    }
+
+    private IEnumerator CancelAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (!m_Ended)
+        {
+            this.m_Ended = true;
+            m_Animator.SetFloat("Speed", 0);
+            this.m_Callbacks.OnAttackCancelled(this);
+        }
     }
 
     public override void ParryAttack()
