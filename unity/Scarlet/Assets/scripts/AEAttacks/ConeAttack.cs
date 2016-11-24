@@ -44,7 +44,7 @@ public class ConeAttack : AEAttack {
             l.spotAngle = 170f;
         }
 
-        m_DestroyEnumerator = RemoveAfter(0.3f);
+        m_DestroyEnumerator = RemoveAfter(1.5f);
 
         m_Series.m_Behaviour.StartCoroutine(m_DestroyEnumerator);
     }

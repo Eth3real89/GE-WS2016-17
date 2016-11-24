@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012803318558}
   - 108: {fileID: 108000014244023956}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: coneLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,8 @@ GameObject:
   - 33: {fileID: 33000012665401058}
   - 23: {fileID: 23000013039088786}
   - 95: {fileID: 95000010134205266}
-  m_Layer: 0
+  - 114: {fileID: 114000014124855886}
+  m_Layer: 8
   m_Name: coneAoE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +54,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011080411716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ConeSetupWrapper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,3 +189,16 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000014124855886
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012087804276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e544285cf2a4402f86ba320a7f386c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Duration: 1.5
+  m_TargetAlpha: 0.8

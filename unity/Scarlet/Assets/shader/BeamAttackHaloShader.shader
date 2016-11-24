@@ -63,7 +63,7 @@
 
 		}
 
-		col.r = 0.6;
+		col.r = 1;
 
 		return col;
 	}
