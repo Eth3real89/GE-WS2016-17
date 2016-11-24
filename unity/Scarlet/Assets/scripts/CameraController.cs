@@ -22,6 +22,7 @@ public class CameraController : MonoBehaviour {
 	private Vector3 m_AveragePosition;
 	private float m_Distance;
 
+    public GameObject m_OtherCamera;
 
 	// Use this for initialization
 	void Start () {
@@ -34,7 +35,8 @@ public class CameraController : MonoBehaviour {
 		FindDistance();
 
 		PointCameraToAveragePosition();
-		ChangeXRotation();        
+		ChangeXRotation();
+        UpdateOtherCamera();
 	}
 
 	// only when all targets are very close: "zoom in"
@@ -105,5 +107,14 @@ public class CameraController : MonoBehaviour {
 		// @todo change formula!!
 		m_Distance = 2f + ((float) Math.Max(Math.Log10((double) maxDistanceToCenter), 0.2) * 10);
 	}
+
+    private void UpdateOtherCamera()
+    {
+        if (m_OtherCamera != null)
+        {
+            m_OtherCamera.transform.position = m_Camera.transform.position;
+            m_OtherCamera.transform.rotation = m_Camera.transform.rotation;
+        }
+    }
 
 }
