@@ -32,6 +32,8 @@ public class BeamAttackSeries : AEAttackSeries {
         m_Attack.m_StartPosition = bossPos;
 
         m_Parts[0] = m_Attack;
+
+        m_Boss.GetComponentInChildren<Animator>().SetTrigger("SpellTrigger");
     }
 
     public override void WhileActive()
@@ -41,9 +43,17 @@ public class BeamAttackSeries : AEAttackSeries {
     public override void StartAttack()
     {
         BeforeSeries(m_Boss.transform);
-        RunSeries(GameController.Instance.m_Boss.transform);
-        m_EndEnumerator = EndAttackAfter(10f);
+        m_Behaviour.StartCoroutine(RunSeriesAfter(1f));
+        m_EndEnumerator = EndAttackAfter(11f);
         m_Behaviour.StartCoroutine(m_EndEnumerator);
+    }
+
+    private IEnumerator RunSeriesAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (!m_Cancelled)
+            RunSeries(GameController.Instance.m_Boss.transform);
     }
 
     private IEnumerator EndAttackAfter(float time)

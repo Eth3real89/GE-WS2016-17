@@ -22,6 +22,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public GameObject m_TargetAttackPrefab;
 
     public Material m_HitMaterial;
+    public Material m_HighlightMaterial;
 
     public bool m_CancelOnHit = true;
 
@@ -49,7 +50,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         switch(index)
         {
             case 0:
-                m_Attacks[index] = new ChaseAttack(this);
+                m_Attacks[index] = new ChaseAttack(this, m_HighlightMaterial);
                 break;
             case 1:
                 m_Attacks[index] = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
@@ -160,7 +161,6 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         {
             r.material = m_HitMaterial;
         }
-        DynamicGI.UpdateEnvironment();
 
         if (m_ColorChangeEnumerator != null)
         {
@@ -169,7 +169,15 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         StartCoroutine(RestoreColors());
     }
 
-    private IEnumerator RestoreColors()
+    public void HighlightBoss()
+    {
+        foreach(Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        {
+            r.material = m_HighlightMaterial;
+        }
+    }
+
+    public IEnumerator RestoreColors()
     {
         yield return new WaitForSeconds(0.3f);
 
@@ -177,6 +185,5 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         {
             r.material = m_OriginalMaterialDictionary[r];
         }
-        DynamicGI.UpdateEnvironment();
     } 
 }

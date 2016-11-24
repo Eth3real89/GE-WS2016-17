@@ -31,10 +31,13 @@ public class ChaseAttack : Attack {
     private bool m_Ended;
 
     private int m_HitCount;
+    private Material m_HighlightMaterial;
 
-    public ChaseAttack(MonoBehaviour boss) : base()
+    public ChaseAttack(MonoBehaviour boss, Material m_HighlightMaterial)
     {
         m_Boss = boss;
+        this.m_HighlightMaterial = m_HighlightMaterial;
+
         m_Animator = m_Boss.GetComponentInChildren<Animator>();
         m_BossDamageTrigger = m_Boss.GetComponentInChildren<BossDamageTrigger>();
 
@@ -112,10 +115,12 @@ public class ChaseAttack : Attack {
 
         m_TrailRenderer.Clear();
         m_TrailRenderer.time = 0.5f;
+        m_Boss.GetComponentInChildren<AttackPattern>().HighlightBoss();
     }
 
     private IEnumerator InitAimAfter(float time)
     {
+        m_Boss.GetComponentInChildren<AttackPattern>().HighlightBoss();
         yield return new WaitForSeconds(time);
         SetupTriggerCallbacks();
         InitAim();
@@ -142,6 +147,7 @@ public class ChaseAttack : Attack {
 
         m_DamageEnumerator = StopDamage();
         m_Boss.StartCoroutine(m_DamageEnumerator);
+        m_Boss.StartCoroutine(m_Boss.GetComponentInChildren<AttackPattern>().RestoreColors());
     }
 
     private IEnumerator StopDamage()

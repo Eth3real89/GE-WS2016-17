@@ -101,7 +101,6 @@ public class PizzaAttackSeries : AEAttackSeries {
         ((PizzaAttack)m_Parts[7]).Destroy();
 
         m_Behaviour.StopCoroutine(m_EndEnumerator);
-        m_Attack.Destroy();
         this.m_Callbacks.OnAttackCancelled(this);
     }
 }
