@@ -38,6 +38,7 @@ GameObject:
   - 33: {fileID: 33000010336275144}
   - 136: {fileID: 136000013533977838}
   - 23: {fileID: 23000011199395496}
+  - 114: {fileID: 114000014156055232}
   m_Layer: 0
   m_Name: TargetAttackSetupPrefab
   m_TagString: Untagged
@@ -114,7 +115,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010655939994}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -142,6 +143,19 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000014156055232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012059812694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e544285cf2a4402f86ba320a7f386c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Duration: 1
+  m_TargetAlpha: 0.9
 --- !u!136 &136000013533977838
 CapsuleCollider:
   m_ObjectHideFlags: 1
