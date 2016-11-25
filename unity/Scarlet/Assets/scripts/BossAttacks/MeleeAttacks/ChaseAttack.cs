@@ -28,7 +28,7 @@ public class ChaseAttack : Attack {
 
     private TrailRenderer m_TrailRenderer;
 
-    private bool m_Ended;
+    public bool m_Ended;
 
     private int m_HitCount;
     private Material m_HighlightMaterial;
@@ -103,6 +103,7 @@ public class ChaseAttack : Attack {
     {
         if (m_Ended)
             return;
+
         m_HitCount++;
 
         m_State = ChaseAttackState.Aim;
@@ -122,8 +123,12 @@ public class ChaseAttack : Attack {
     {
         m_Boss.GetComponentInChildren<AttackPattern>().HighlightBoss();
         yield return new WaitForSeconds(time);
-        SetupTriggerCallbacks();
-        InitAim();
+
+        if (!m_Ended)
+        {
+            SetupTriggerCallbacks();
+            InitAim();
+        }
     }
 
     private void Damage()
@@ -142,12 +147,15 @@ public class ChaseAttack : Attack {
     {
         yield return new WaitForSeconds(0.3f);
 
-        m_State = ChaseAttackState.Damage;
-        m_BossDamageTrigger.m_Callback = m_HitCallback;
+        if (!m_Ended)
+        {
+            m_State = ChaseAttackState.Damage;
+            m_BossDamageTrigger.m_Callback = m_HitCallback;
 
-        m_DamageEnumerator = StopDamage();
-        m_Boss.StartCoroutine(m_DamageEnumerator);
-        m_Boss.StartCoroutine(m_Boss.GetComponentInChildren<AttackPattern>().RestoreColors());
+            m_DamageEnumerator = StopDamage();
+            m_Boss.StartCoroutine(m_DamageEnumerator);
+            m_Boss.StartCoroutine(m_Boss.GetComponentInChildren<AttackPattern>().RestoreColors());
+        }
     }
 
     private IEnumerator StopDamage()
@@ -164,6 +172,8 @@ public class ChaseAttack : Attack {
 
     private void OnHit()
     {
+        if (m_Ended)
+            return;
         
         if (m_DamageEnumerator != null)
         {
@@ -183,6 +193,7 @@ public class ChaseAttack : Attack {
             m_Boss.StartCoroutine(m_DamageEnumerator);
         }
 
+        m_BossDamageTrigger.PlayHitSound();
         GameController.Instance.HitScarlet(GameController.Instance.m_Boss, 30f, true);
     }
 

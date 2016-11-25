@@ -5,6 +5,12 @@ public class BossDamageTrigger : MonoBehaviour {
 
     public TriggerCallback m_Callback;
 
+    private AudioSource m_AudioSource;
+
+    void Start()
+    {
+        m_AudioSource = GetComponent<AudioSource>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -27,6 +33,14 @@ public class BossDamageTrigger : MonoBehaviour {
         if (m_Callback != null)
         {
             m_Callback.OnTriggerLeave(other);
+        }
+    }
+
+    public void PlayHitSound()
+    {
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.Play();
         }
     }
 }

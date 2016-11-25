@@ -26,8 +26,13 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     public bool m_CancelOnHit = true;
 
+    public AudioClip m_OnBossHitAudio;
+    private AudioSource m_AudioSource;
+
     private IEnumerator m_ColorChangeEnumerator;
     private IDictionary<Renderer, Material> m_OriginalMaterialDictionary;
+
+    private bool m_Dead;
 
     /*
      * Index of m_Attacks that is currently active; only stored so as not to use the same attack twice in a row.
@@ -37,16 +42,21 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     // Use this for initialization
     void Start()
     {
+        m_AudioSource = GetComponent<AudioSource>();
         m_Attacks = new Attack[6];
 
         m_CurrentAttackIndex = 0;
         StartCoroutine(StartNextAttackAfter(2f));
 
         InitOriginalColorDictionary();
+        m_Dead = false;
     }
 
     void SetupAttack(int index)
     {
+        if (m_Dead)
+            return;
+
         switch(index)
         {
             case 0:
@@ -76,15 +86,21 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     {
         yield return new WaitForSeconds(time);
 
-        SetupAttack(m_CurrentAttackIndex);
+        if (!m_Dead)
+        {
+            SetupAttack(m_CurrentAttackIndex);
 
-        m_Attacks[m_CurrentAttackIndex].StartAttack();
-        m_CurrentAttack = m_Attacks[m_CurrentAttackIndex];
+            m_Attacks[m_CurrentAttackIndex].StartAttack();
+            m_CurrentAttack = m_Attacks[m_CurrentAttackIndex];
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (m_Dead)
+            return;
+
         if (m_CurrentAttack != null)
         {
             m_CurrentAttack.WhileActive();
@@ -98,6 +114,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_Boss.GetComponentInChildren<Animator>().SetTrigger("StaggerTrigger");
             m_CurrentAttack.CancelAttack();
         }
+
+        PlayOnHitSound();
 
         ColorBossRed();
     }
@@ -166,7 +184,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         {
             StopCoroutine(m_ColorChangeEnumerator);
         }
-        StartCoroutine(RestoreColors());
+        m_ColorChangeEnumerator = RestoreColors();
+        StartCoroutine(m_ColorChangeEnumerator);
     }
 
     public void HighlightBoss()
@@ -186,4 +205,28 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             r.material = m_OriginalMaterialDictionary[r];
         }
     } 
+
+    private void PlayOnHitSound()
+    {
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_OnBossHitAudio;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void Die()
+    {
+        m_Dead = true;
+
+        if (m_CurrentAttack != null)
+        {
+            if (m_CurrentAttack is ChaseAttack)
+            {
+                (m_CurrentAttack as ChaseAttack).m_Ended = true;
+            }
+            m_CurrentAttack.CancelAttack();
+        }
+        m_Boss.GetComponentInChildren<Animator>().SetTrigger("DeathTrigger");
+    }
 }

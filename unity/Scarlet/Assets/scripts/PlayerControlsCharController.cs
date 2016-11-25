@@ -5,6 +5,12 @@ public class PlayerControlsCharController : MonoBehaviour
 {
     public GameObject trailContainer;
 
+    public AudioClip m_PunchAudio;
+    public AudioClip m_GetHitAudio;
+
+    private AudioSource m_StepSource;
+    private AudioSource m_EffectSource;
+
     public float m_HorizontalInput;
     public float m_VerticalInput;
 
@@ -54,6 +60,20 @@ public class PlayerControlsCharController : MonoBehaviour
         handDamage = GetComponentInChildren<HandDamage>();
 
         m_CurrentAttackCombo = 0;
+
+        AudioSource[] sources = GetComponents<AudioSource>();
+        foreach (AudioSource s in sources)
+        {
+            if (s.clip != null)
+            {
+                m_StepSource = s;
+                m_StepSource.loop = true;
+            }
+            else
+            {
+                m_EffectSource = s;
+            }
+        }
     }
 
     // Use this for initialization
@@ -90,8 +110,13 @@ public class PlayerControlsCharController : MonoBehaviour
 
         if (normalizedSpeed >= 0.1f)
         {
+            LoopStepSound();
             if (m_InAttackAnimation)
                 CancelAttackAnimation();
+        }
+        else
+        {
+            CancelStepSound();
         }
 
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, 0, m_VerticalInput * normalizedSpeed);
@@ -245,6 +270,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
         animator.SetInteger("PunchCue", punchAnimation);
         animator.SetTrigger("PunchTrigger");
+        PlayPunchSound();
 
         handDamage.m_CauseDamage = true;
 
@@ -266,6 +292,11 @@ public class PlayerControlsCharController : MonoBehaviour
 
         if (damage <= 0)
             return 0;
+
+        if (blockable)
+        {
+            PlayGetHitSound();
+        }
 
         PlayerShield shield = GetComponentInChildren<PlayerShield>();
         if (shield != null)
@@ -423,5 +454,35 @@ public class PlayerControlsCharController : MonoBehaviour
         m_InAttackAnimation = false;
         DisableDamage();
         StopCoroutine(m_DamageCoRoutine);
+    }
+
+    private void LoopStepSound()
+    {
+        if (m_StepSource != null && !m_StepSource.isPlaying)
+            m_StepSource.Play();
+    }
+
+    private void CancelStepSound()
+    {
+        if (m_StepSource != null && m_StepSource.isPlaying)
+            m_StepSource.Stop();
+    }
+
+    private void PlayGetHitSound()
+    {
+        if (m_EffectSource != null)
+        {
+            m_EffectSource.clip = m_GetHitAudio;
+            m_EffectSource.Play();
+        }
+    }
+
+    private void PlayPunchSound()
+    {
+        if (m_EffectSource != null)
+        {
+            m_EffectSource.clip = m_PunchAudio;
+            m_EffectSource.Play();
+        }
     }
 }

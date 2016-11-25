@@ -13,7 +13,7 @@ public class GameController : MonoBehaviour {
     private static List<Updateable> updateables = new List<Updateable>();
 
     private GameController() {
-        instance = this; 
+        instance = this;
     }
 
 
@@ -27,6 +27,10 @@ public class GameController : MonoBehaviour {
     public Slider m_LossBarScarlet;
     public Slider m_HealthBarBoss;
     public Slider m_LossBarBoss;
+
+    public AudioClip m_AscensionSound;
+    public AudioClip m_DefeatSound;
+    private AudioSource m_AudioSource;
 
     public Image HealingCharge1;
     public Image HealingCharge2;
@@ -92,7 +96,11 @@ public class GameController : MonoBehaviour {
             elapsedTimeScarlet = 0;
         }
 
-        if (m_ScarletController.m_Health <= 0) isScarletDead = true;
+        if (m_ScarletController.m_Health <= 0)
+        {
+            PlayDefeatSound();
+            isScarletDead = true;
+        }
     }
 
 
@@ -156,7 +164,11 @@ public class GameController : MonoBehaviour {
             elapsedTimeBoss = 0;
         }
 
-        if (m_Boss.GetComponent<BossHealth>().GetBossHealth() <= 0.0f) isBossDead = true;
+        if (m_Boss.GetComponent<BossHealth>().GetBossHealth() <= 0.0f)
+        {
+            PlayAscensionSound();
+            isBossDead = true;
+        }
     }
 
 
@@ -164,6 +176,7 @@ public class GameController : MonoBehaviour {
     void Start ()
     {
         m_ScarletController = m_Scarlet.GetComponent<PlayerControlsCharController>();
+        m_AudioSource = GetComponent<AudioSource>();
 
         m_BossKillNotification.enabled = false;
         m_BossKillNotification.text = "ASCENDED";
@@ -366,4 +379,29 @@ public class GameController : MonoBehaviour {
             }  
         }            
     }
+
+    private void PlayAscensionSound()
+    {
+        if (isBossDead)
+            return;
+
+        m_Boss.GetComponent<AttackPattern>().Die();
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_AscensionSound;
+            m_AudioSource.Play();
+        }
+    }
+
+    private void PlayDefeatSound()
+    {
+        if (isScarletDead)
+            return;
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_DefeatSound;
+            m_AudioSource.Play();
+        }
+    }
+
 }
