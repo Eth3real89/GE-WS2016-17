@@ -20,10 +20,14 @@ public class BeamAttack : AEAttackPart, Updateable {
 
     private float passedTime = 0f;
 
+    private bool m_PlayingSound;
+    
     public BeamAttack(GameObject beamPrefab, AEAttackSeries series)
     {
         this.m_BeamVisuals = beamPrefab;
         this.m_Series = series;
+
+        m_PlayingSound = false;
     }
 
     public override GameObject GetObject()
@@ -59,6 +63,11 @@ public class BeamAttack : AEAttackPart, Updateable {
         }
         else if (passedTime - m_GrowthTime < m_RotateTime)
         {
+            if (!m_PlayingSound)
+            {
+                m_BeamInstance.GetComponentInChildren<AudioSource>().Play();
+                m_PlayingSound = true;
+            }
             m_BeamInstance.transform.rotation = Quaternion.Slerp(m_BeamInstance.transform.rotation,
                 Quaternion.Euler(m_BeamInstance.transform.rotation.eulerAngles + new Vector3(0, 179, 0)),
                 Time.deltaTime * m_RotateSpeed);
