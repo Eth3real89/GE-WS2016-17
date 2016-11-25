@@ -14,7 +14,7 @@ Properties {
        
     CGPROGRAM
 // Upgrade NOTE: excluded shader from DX11, Xbox360, OpenGL ES 2.0 because it uses unsized arrays
-#pragma exclude_renderers d3d11 xbox360 gles
+#pragma exclude_renderers xbox360 gles
    
     #pragma vertex vert_img
     #pragma fragment frag
