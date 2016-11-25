@@ -57,4 +57,10 @@ public class RadialBlur : MonoBehaviour
         GetMaterial().SetFloat("_BlurStrength", blurStrength);
         Graphics.Blit(source, dest, GetMaterial());
     }
+
+    public void Reset()
+    {
+        liftBlurStart = Time.deltaTime;
+        blurStrength = originalBlurStrength;
+    }
 }

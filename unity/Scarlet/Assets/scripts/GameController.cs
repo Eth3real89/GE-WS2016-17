@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour {
 
     public GameObject m_Boss;
     public GameObject m_Scarlet;
+    public GameObject m_MainCamera;
+
     private PlayerControlsCharController m_ScarletController;
 
     private float m_BossHealthOld;
@@ -30,7 +32,9 @@ public class GameController : MonoBehaviour {
 
     public AudioClip m_AscensionSound;
     public AudioClip m_DefeatSound;
+    public AudioClip m_Heartbeat;
     private AudioSource m_AudioSource;
+    private bool m_HeartbeatPlaying;
 
     public Image HealingCharge1;
     public Image HealingCharge2;
@@ -62,7 +66,7 @@ public class GameController : MonoBehaviour {
     public Text m_DeathNotification;
 
     public float m_NotificationTime = 5.0f;
-
+    private RadialBlur m_RadialBlur;
 
     public static GameController Instance
     {
@@ -94,6 +98,12 @@ public class GameController : MonoBehaviour {
 
             CalculateScarletHealthBar(damage / m_ScarletController.m_StartHealth);
             elapsedTimeScarlet = 0;
+        }
+
+        if (m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
+        {
+            if (!m_HeartbeatPlaying)
+                StartPlayingHeartbeat();
         }
 
         if (m_ScarletController.m_Health <= 0)
@@ -177,6 +187,8 @@ public class GameController : MonoBehaviour {
     {
         m_ScarletController = m_Scarlet.GetComponent<PlayerControlsCharController>();
         m_AudioSource = GetComponent<AudioSource>();
+        m_HeartbeatPlaying = false;
+        m_RadialBlur = m_MainCamera.GetComponent<RadialBlur>();
 
         m_BossKillNotification.enabled = false;
         m_BossKillNotification.text = "ASCENDED";
@@ -294,7 +306,17 @@ public class GameController : MonoBehaviour {
                 isHealing = false;
             }
         }
-        
+
+        if (m_HeartbeatPlaying && m_ScarletController.m_Health > m_ScarletController.m_StartHealth * 0.15f)
+        {
+            StopPlayingHeartbeat();
+        }
+        else if (m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
+        {
+            m_RadialBlur.Reset();
+            m_RadialBlur.blurDuration = 1;
+        }
+
         HandleText(isBossDead, m_BossKillNotification);
         HandleText(isScarletDead, m_DeathNotification);       
     }
@@ -389,6 +411,7 @@ public class GameController : MonoBehaviour {
         if (m_AudioSource != null)
         {
             m_AudioSource.clip = m_AscensionSound;
+            m_AudioSource.loop = false;
             m_AudioSource.Play();
         }
     }
@@ -400,7 +423,29 @@ public class GameController : MonoBehaviour {
         if (m_AudioSource != null)
         {
             m_AudioSource.clip = m_DefeatSound;
+            m_AudioSource.loop = false;
             m_AudioSource.Play();
+        }
+    }
+
+    private void StartPlayingHeartbeat()
+    {
+        m_HeartbeatPlaying = true;
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_Heartbeat;
+            m_AudioSource.loop = true;
+            m_AudioSource.Play();
+
+        }
+    }
+
+    private void StopPlayingHeartbeat()
+    {
+        m_HeartbeatPlaying = false;
+        if (m_AudioSource != null && m_AudioSource.isPlaying && m_AudioSource.clip == m_Heartbeat)
+        {
+            m_AudioSource.Stop();
         }
     }
 
