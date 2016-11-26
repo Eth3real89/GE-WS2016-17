@@ -314,7 +314,9 @@ public class GameController : MonoBehaviour {
         else if (m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
         {
             m_RadialBlur.Reset();
-            m_RadialBlur.blurDuration = 1;
+            m_RadialBlur.blurDuration = 1f;
+            m_RadialBlur.blurWidth = 1f;
+            m_RadialBlur.blurStrength = 1.45f;
         }
 
         HandleText(isBossDead, m_BossKillNotification);

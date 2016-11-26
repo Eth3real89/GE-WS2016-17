@@ -12,6 +12,7 @@ public class RadialBlur : MonoBehaviour
 
     private float liftBlurStart;
     private float originalBlurStrength;
+    private bool isBlurringAllowed;
 
     private Material rbMaterial = null;
  
@@ -36,30 +37,47 @@ public class RadialBlur : MonoBehaviour
 
         liftBlurStart = 0f;
         originalBlurStrength = blurStrength;
+        isBlurringAllowed = false;
     }
  
     void OnRenderImage(RenderTexture source, RenderTexture dest)
     {
-        if(blurDuration > 0f)
+        float blur = 0f;
+
+        if(isBlurringAllowed)
         {
-            blurDuration -= Time.deltaTime;
+            if(blurDuration > 0f)
+            {
+                blurDuration -= Time.deltaTime;
+            }
+            else
+            {
+                if(liftBlurStart < liftBlurDuration)
+                {
+                    liftBlurStart += Time.deltaTime;
+
+                    blurStrength = Mathf.Lerp(originalBlurStrength, 0f, (liftBlurStart / liftBlurDuration));
+                }
+                else
+                {
+                    isBlurringAllowed = false;
+                }
+            }
+
+            blur = blurStrength;
         }
         else
         {
-            if(liftBlurStart < liftBlurDuration)
-            {
-                liftBlurStart += Time.deltaTime;
-
-                blurStrength = Mathf.Lerp(originalBlurStrength, 0f, (liftBlurStart / liftBlurDuration));
-            }
+            blur = 0f;
         }
 
-        GetMaterial().SetFloat("_BlurStrength", blurStrength);
+        GetMaterial().SetFloat("_BlurStrength", blur);
         Graphics.Blit(source, dest, GetMaterial());
     }
 
     public void Reset()
     {
+        isBlurringAllowed = true;
         liftBlurStart = Time.deltaTime;
         blurStrength = originalBlurStrength;
     }
