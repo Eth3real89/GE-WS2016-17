@@ -10,6 +10,8 @@ public class RadialBlur : MonoBehaviour
     public float blurDuration;
     public float liftBlurDuration;
 
+    public bool haveRedBlurArea;
+
     private float liftBlurStart;
     private float originalBlurStrength;
     private bool isBlurringAllowed;
@@ -70,6 +72,11 @@ public class RadialBlur : MonoBehaviour
         {
             blur = 0f;
         }
+
+        if(haveRedBlurArea) 
+            GetMaterial().SetFloat("_HaveRedBlur", 1f);        
+        else
+            GetMaterial().SetFloat("_HaveRedBlur", 0f);   
 
         GetMaterial().SetFloat("_BlurStrength", blur);
         Graphics.Blit(source, dest, GetMaterial());

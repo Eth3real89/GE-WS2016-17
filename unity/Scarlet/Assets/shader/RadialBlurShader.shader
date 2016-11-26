@@ -6,6 +6,7 @@ Properties {
     _MainTex ("Input", RECT) = "white" {}
     _BlurStrength ("", Float) = 0.5
     _BlurWidth ("", Float) = 0.5
+    _HaveRedBlur("", Float) = 0
 }
     SubShader {
         Pass {
@@ -25,6 +26,7 @@ Properties {
     uniform sampler2D _MainTex;
     uniform half _BlurStrength;
     uniform half _BlurWidth;
+    uniform half _HaveRedBlur;
  
     half4 frag (v2f_img i) : COLOR {
         half4 color = tex2D(_MainTex, i.uv);
@@ -61,7 +63,7 @@ Properties {
         half t = dist * _BlurStrength;
         t = clamp(t, 0.0, 1.0);
 
-        if(sum.r < 0.5)
+        if(sum.r < 0.5 && _HaveRedBlur == 1)
         {
 		sum.r = 0.5;
         }
