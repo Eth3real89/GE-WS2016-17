@@ -38,7 +38,7 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_PerfectParryTime = 0.1f;
     public float m_RegularParryTime = 0.25f;
     public float m_AdditionalDamageTime = 0.4f;
-    private enum ParryState {NoParry, Perfect, Regular, AdditionalDamage};
+    private enum ParryState { NoParry, Perfect, Regular, AdditionalDamage };
     private float m_LastParry;
     public float m_ParryCooldown;
     private ParryState m_Parrying = ParryState.NoParry;
@@ -76,13 +76,6 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (!m_ControlsEnabled)
@@ -119,7 +112,7 @@ public class PlayerControlsCharController : MonoBehaviour
             CancelStepSound();
         }
 
-        Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, 0, m_VerticalInput * normalizedSpeed);
+        Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, m_RigidBody.velocity.y, m_VerticalInput * normalizedSpeed);
         m_RigidBody.velocity = (movement);
         animator.SetFloat("Speed", normalizedSpeed);
     }
@@ -154,6 +147,7 @@ public class PlayerControlsCharController : MonoBehaviour
     {
         if (!canDash)
         {
+            CheckClimb();
             return;
         }
 
@@ -166,6 +160,21 @@ public class PlayerControlsCharController : MonoBehaviour
             {
                 Dash();
                 m_LastDash = Time.time;
+            }
+        }
+    }
+
+    private void CheckClimb()
+    {
+        RaycastHit hit;
+        if (Input.GetButton("Jump"))
+        {
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+            {
+                if (hit.collider.tag != "Climbable") {
+                    return;
+                }
+                m_RigidBody.velocity = new Vector3(0, 2, 0);
             }
         }
     }

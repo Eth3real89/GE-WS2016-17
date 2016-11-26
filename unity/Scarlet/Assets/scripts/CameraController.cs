@@ -22,9 +22,9 @@ public class CameraController : MonoBehaviour {
 	private Vector3 m_AveragePosition;
 	private float m_Distance;
 
-    public GameObject m_OtherCamera;
+	public GameObject m_OtherCamera;
 
-    public GameObject[] m_HideIfInTheWay;
+	public GameObject[] m_HideIfInTheWay;
 
 	// Use this for initialization
 	void Start () {
@@ -38,9 +38,9 @@ public class CameraController : MonoBehaviour {
 
 		PointCameraToAveragePosition();
 		ChangeXRotation();
-        UpdateOtherCamera();
+		UpdateOtherCamera();
 
-        HideObstacles();
+		HideObstacles();
 	}
 
 	// only when all targets are very close: "zoom in"
@@ -112,39 +112,39 @@ public class CameraController : MonoBehaviour {
 		m_Distance = 2f + ((float) Math.Max(Math.Log10((double) maxDistanceToCenter), 0.2) * 10);
 	}
 
-    private void UpdateOtherCamera()
-    {
-        if (m_OtherCamera != null)
-        {
-            m_OtherCamera.transform.position = m_Camera.transform.position;
-            m_OtherCamera.transform.rotation = m_Camera.transform.rotation;
-        }
-    }
+	private void UpdateOtherCamera()
+	{
+		if (m_OtherCamera != null)
+		{
+			m_OtherCamera.transform.position = m_Camera.transform.position;
+			m_OtherCamera.transform.rotation = m_Camera.transform.rotation;
+		}
+	}
 
-    private void HideObstacles()
-    {
-        GameObject player = GameController.Instance.m_Scarlet;
-        GameObject boss = GameController.Instance.m_Boss;
+	private void HideObstacles()
+	{
+		GameObject player = GameController.Instance.m_Scarlet;
+		GameObject boss = GameController.Instance.m_Boss;
 
-        Vector3 copy = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
-                
-        RaycastHit[] hits = Physics.RaycastAll(copy, Vector3.Normalize(player.transform.position - copy), 
-            Vector3.Distance(copy, player.transform.position) - 0.3f);
+		Vector3 copy = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+				
+		RaycastHit[] hits = Physics.RaycastAll(copy, Vector3.Normalize(player.transform.position - copy), 
+			Vector3.Distance(copy, player.transform.position) - 0.3f);
 
-        foreach(GameObject gameObject in m_HideIfInTheWay)
-        {
-            gameObject.GetComponent<Renderer>().enabled = true;
-        }
+		foreach(GameObject gameObject in m_HideIfInTheWay)
+		{
+			gameObject.GetComponent<Renderer>().enabled = true;
+		}
 
-        foreach(RaycastHit hit in hits)
-        {
-            GameObject go = hit.transform.gameObject;
+		foreach(RaycastHit hit in hits)
+		{
+			GameObject go = hit.transform.gameObject;
 
-            if (Array.IndexOf(m_HideIfInTheWay, go) != -1)
-            {
-                go.GetComponent<Renderer>().enabled = false;
-            }
-        }
-    }
+			if (Array.IndexOf(m_HideIfInTheWay, go) != -1)
+			{
+				go.GetComponent<Renderer>().enabled = false;
+			}
+		}
+	}
 
 }
