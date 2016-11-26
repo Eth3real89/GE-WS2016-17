@@ -4688,6 +4688,15 @@ MonoBehaviour:
   - {fileID: 1722516008}
   - {fileID: 1126377306}
   m_OtherCamera: {fileID: 1375734468}
+  m_HideIfInTheWay:
+  - {fileID: 747568536}
+  - {fileID: 186888753}
+  - {fileID: 346943089}
+  - {fileID: 1921077101}
+  - {fileID: 1944952730}
+  - {fileID: 1884601488}
+  - {fileID: 1327604789}
+  - {fileID: 1336453559}
 --- !u!114 &974328363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4737,6 +4746,7 @@ MonoBehaviour:
   blurWidth: 2
   blurDuration: 2
   liftBlurDuration: 1
+  haveRedBlurArea: 0
 --- !u!1001 &978366814
 Prefab:
   m_ObjectHideFlags: 0
@@ -8601,7 +8611,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1722516008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -43.01, y: 0.055, z: -0.9904634}
+  m_LocalPosition: {x: -23, y: 0.055, z: -0.9904634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
