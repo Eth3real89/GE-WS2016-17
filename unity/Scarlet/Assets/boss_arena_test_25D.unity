@@ -5520,10 +5520,7 @@ MonoBehaviour:
     type: 2}
   m_BloodTrailPlaneCollider: {fileID: 727682024}
   m_TimeBleedAfterHit: 5
-  m_InitialBloodEmissionRate: 160
-  m_InitialBloodSpeed: 4
-  m_EndBloodEmissionRate: 80
-  m_InitialBloodShapeRadius: 0.5
+  m_InitialBloodShapeRadius: 0.3
   m_CancelOnHit: 1
   m_OnBossHitAudio: {fileID: 8300000, guid: 01893ed2a015a1e46b11ee8431eb8766, type: 3}
 --- !u!82 &1126377314
@@ -10210,11 +10207,6 @@ Prefab:
     - target: {fileID: 1000010349907260, guid: 152db3468ebe746d5a425c18203a4b8a, type: 2}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000010052388886, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.maxNumParticles
-      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 152db3468ebe746d5a425c18203a4b8a, type: 2}

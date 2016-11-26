@@ -228,8 +228,10 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         GameObject bloodTrailWrapper = (GameObject) Instantiate(m_BloodTrailPrefab, m_Boss.transform.position,
             GameController.Instance.m_Scarlet.transform.rotation);
         Transform bloodTrail = bloodTrailWrapper.transform.FindChild("BloodTrail");
+        Transform bloodPuddle = bloodTrail.transform.FindChild("BloodPuddle");
 
         ParticleSystem ps = bloodTrail.GetComponent<ParticleSystem>();
+        ParticleSystem ps2 = bloodPuddle.GetComponent<ParticleSystem>();
         //ps.startSpeed = m_InitialBloodSpeed;
 
         var emission = ps.emission;
@@ -240,10 +242,10 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
         ps.collision.SetPlane(0, m_BloodTrailPlaneCollider.transform);
 
-        StartCoroutine(RemoveBloodTrail(bloodTrailWrapper, ps));
+        StartCoroutine(RemoveBloodTrail(bloodTrailWrapper, ps, ps2));
     }
 
-    private IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps)
+    private IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps, ParticleSystem ps2)
     {
         float time = 0;
         float endTime = time + m_TimeBleedAfterHit;
@@ -262,8 +264,18 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
             time += Time.deltaTime;
             yield return null;
+        }       
+
+        emission.rate = 0;
+
+        emission.SetBursts(new ParticleSystem.Burst[] {});
+
+        while(ps2.particleCount > 0)
+        {
+            yield return null;
         }
-        GameObject.Destroy(bloodTrail);
+
+        GameObject.Destroy(bloodTrail); // removes all blood instantly
     }
 
     public void Die()
