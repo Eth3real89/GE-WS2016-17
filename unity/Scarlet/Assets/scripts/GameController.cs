@@ -216,6 +216,10 @@ public class GameController : MonoBehaviour {
         rtLossScarlet.anchoredPosition = new Vector2(fullWidth, 0);
         rtLossBoss.sizeDelta = new Vector2(0, lossHeight);
         rtLossBoss.anchoredPosition = new Vector2(fullWidth, 0);
+
+        m_RadialBlur.blurDuration = 1f;
+        m_RadialBlur.blurWidth = 1f;
+        m_RadialBlur.blurStrength = 1.45f;
     }
 
     public void RegisterUpdateable(Updateable updateable)
@@ -313,10 +317,12 @@ public class GameController : MonoBehaviour {
         }
         else if (m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
         {
-            m_RadialBlur.Reset();
             m_RadialBlur.blurDuration = 1f;
             m_RadialBlur.blurWidth = 1f;
             m_RadialBlur.blurStrength = 1.45f;
+
+            m_RadialBlur.Reset();
+
         }
 
         HandleText(isBossDead, m_BossKillNotification);

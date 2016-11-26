@@ -60,7 +60,13 @@ Properties {
         //weighten blur depending on distance to screen center
         half t = dist * _BlurStrength;
         t = clamp(t, 0.0, 1.0);
-       
+
+        if(sum.r < 0.5)
+        {
+		sum.r = 0.5;
+        }
+
+
         //blend original with blur
         return lerp(color, sum, t);
     }
