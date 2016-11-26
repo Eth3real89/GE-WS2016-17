@@ -8760,6 +8760,7 @@ MonoBehaviour:
   m_PunchAudio: {fileID: 8300000, guid: 75a1da0e411b96a4294a2ba9845b4073, type: 3}
   m_GetHitAudio: {fileID: 8300000, guid: 2431bbf8a235be041bfe6641ab5bc3fc, type: 3}
   m_BlockAudio: {fileID: 8300000, guid: 4d572d176ceb4a24e903dd175a2f6a2f, type: 3}
+  m_StaggerAudio: {fileID: 0}
   m_HorizontalInput: 0
   m_VerticalInput: 0
   m_StartHealth: 100
@@ -8772,6 +8773,7 @@ MonoBehaviour:
   m_DashCooldown: 0.15
   m_ClimbingDistance: 0.5
   m_ControlsEnabled: 1
+  currentControlMode: 0
   m_healingCharges: 3
   m_healingAmount: 33
   m_PerfectParryTime: 0.1
@@ -8807,7 +8809,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.236
   m_Pitch: 1.5
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   Priority: 217

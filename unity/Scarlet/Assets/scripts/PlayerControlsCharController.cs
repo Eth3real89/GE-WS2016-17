@@ -31,6 +31,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private float m_LastDash;
     private float m_CurrentSpeed;
+    private float lastStepSound;
 
     public bool m_ControlsEnabled = true;
     public ControlMode currentControlMode;
@@ -72,12 +73,21 @@ public class PlayerControlsCharController : MonoBehaviour
             if (s.clip != null)
             {
                 m_StepSource = s;
-                m_StepSource.loop = true;
             }
             else
             {
                 m_EffectSource = s;
             }
+        }
+    }
+
+    public void Step()
+    {
+        //avoid spamming step sounds in animation transition
+        if (Time.realtimeSinceStartup - lastStepSound > 0.2f)
+        {
+            lastStepSound = Time.realtimeSinceStartup;
+            m_StepSource.Play();
         }
     }
 
@@ -116,13 +126,8 @@ public class PlayerControlsCharController : MonoBehaviour
 
         if (normalizedSpeed >= 0.1f)
         {
-            LoopStepSound();
             if (m_InAttackAnimation)
                 CancelAttackAnimation();
-        }
-        else
-        {
-            CancelStepSound();
         }
 
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, m_RigidBody.velocity.y, m_VerticalInput * normalizedSpeed);
@@ -150,7 +155,6 @@ public class PlayerControlsCharController : MonoBehaviour
 
             if (Time.time >= m_LastParry + m_ParryCooldown)
             {
-                CancelStepSound();
                 Parry();
                 m_LastParry = Time.time;
             }
@@ -166,7 +170,6 @@ public class PlayerControlsCharController : MonoBehaviour
 
             if (Time.time >= m_LastDash + m_DashCooldown)
             {
-                CancelStepSound();
                 Dash();
                 m_LastDash = Time.time;
             }
@@ -202,8 +205,6 @@ public class PlayerControlsCharController : MonoBehaviour
             {
                 StopCoroutine(m_DamageCoRoutine);
             }
-
-            CancelStepSound();
             Punch();
 
         }
@@ -480,18 +481,6 @@ public class PlayerControlsCharController : MonoBehaviour
         m_InAttackAnimation = false;
         DisableDamage();
         StopCoroutine(m_DamageCoRoutine);
-    }
-
-    private void LoopStepSound()
-    {
-        if (m_StepSource != null && !m_StepSource.isPlaying)
-            m_StepSource.Play();
-    }
-
-    private void CancelStepSound()
-    {
-        if (m_StepSource != null && m_StepSource.isPlaying)
-            m_StepSource.Stop();
     }
 
     private void PlayGetHitSound()
