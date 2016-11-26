@@ -5520,6 +5520,10 @@ MonoBehaviour:
     type: 2}
   m_BloodTrailPlaneCollider: {fileID: 727682024}
   m_TimeBleedAfterHit: 5
+  m_InitialBloodEmissionRate: 160
+  m_InitialBloodSpeed: 4
+  m_EndBloodEmissionRate: 80
+  m_InitialBloodShapeRadius: 0.5
   m_CancelOnHit: 1
   m_OnBossHitAudio: {fileID: 8300000, guid: 01893ed2a015a1e46b11ee8431eb8766, type: 3}
 --- !u!82 &1126377314
@@ -8662,8 +8666,8 @@ MonoBehaviour:
   m_GetHitAudio: {fileID: 8300000, guid: 2431bbf8a235be041bfe6641ab5bc3fc, type: 3}
   m_HorizontalInput: 0
   m_VerticalInput: 0
-  m_StartHealth: 31
-  m_Health: 31
+  m_StartHealth: 100
+  m_Health: 100
   m_HealthOld: 0
   m_Speed: 8
   m_DashDistance: 4.5
@@ -10203,69 +10207,14 @@ Prefab:
       propertyPath: CollisionModule.plane0
       value: 
       objectReference: {fileID: 727682028}
-    - target: {fileID: 4000013797396908, guid: 152db3468ebe746d5a425c18203a4b8a, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.startSpeed.scalar
+    - target: {fileID: 1000010349907260, guid: 152db3468ebe746d5a425c18203a4b8a, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
+    - target: {fileID: 198000010052388886, guid: 152db3468ebe746d5a425c18203a4b8a,
         type: 2}
-      propertyPath: randomSeed
-      value: 1419446233
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InheritVelocityModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.rotation3D
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.startRotationY.scalar
-      value: 0.7853981
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.startRotationX.scalar
-      value: 0.7853981
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: InitialModule.startRotation.scalar
-      value: 0.6981317
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: RotationBySpeedModule.curve.scalar
-      value: 0.7853981
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: RotationModule.curve.scalar
-      value: 0.7853981
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: RotationModule.enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: RotationModule.separateAxes
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198000012899581086, guid: 152db3468ebe746d5a425c18203a4b8a,
-        type: 2}
-      propertyPath: ExternalForcesModule.enabled
-      value: 0
+      propertyPath: InitialModule.maxNumParticles
+      value: 4000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 152db3468ebe746d5a425c18203a4b8a, type: 2}

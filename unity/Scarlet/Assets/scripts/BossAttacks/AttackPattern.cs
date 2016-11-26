@@ -27,6 +27,10 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public GameObject m_BloodTrailPrefab;
     public GameObject m_BloodTrailPlaneCollider;
     public float m_TimeBleedAfterHit;
+    //public float m_InitialBloodEmissionRate;
+    //public float m_InitialBloodSpeed;
+    //public float m_EndBloodEmissionRate;
+    public float m_InitialBloodShapeRadius;
 
     public bool m_CancelOnHit = true;
 
@@ -226,7 +230,14 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         Transform bloodTrail = bloodTrailWrapper.transform.FindChild("BloodTrail");
 
         ParticleSystem ps = bloodTrail.GetComponent<ParticleSystem>();
-        ps.startSpeed = 4;
+        //ps.startSpeed = m_InitialBloodSpeed;
+
+        var emission = ps.emission;
+       // emission.rate = m_InitialBloodEmissionRate;
+
+        var shape = ps.shape;
+        shape.radius = m_InitialBloodShapeRadius;
+
         ps.collision.SetPlane(0, m_BloodTrailPlaneCollider.transform);
 
         StartCoroutine(RemoveBloodTrail(bloodTrailWrapper, ps));
@@ -234,13 +245,20 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     private IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps)
     {
-        float time = Time.deltaTime;
+        float time = 0;
         float endTime = time + m_TimeBleedAfterHit;
+
+        var emission = ps.emission;
+        var shape = ps.shape;
         
         while (time < endTime)
         {
             bloodTrail.transform.position = m_Boss.transform.position;
-            ps.startSpeed *= 0.95f;
+
+            float level = time / endTime;
+            //ps.startSpeed = Mathf.Lerp(m_InitialBloodSpeed, 0, level);
+            //emission.rate = Mathf.Lerp(m_InitialBloodEmissionRate, m_EndBloodEmissionRate, level);
+            shape.radius = Mathf.Lerp(m_InitialBloodShapeRadius, 0.05f, level);      
 
             time += Time.deltaTime;
             yield return null;
