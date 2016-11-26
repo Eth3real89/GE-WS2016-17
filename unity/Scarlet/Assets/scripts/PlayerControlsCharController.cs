@@ -8,6 +8,8 @@ public class PlayerControlsCharController : MonoBehaviour
 
     public AudioClip m_PunchAudio;
     public AudioClip m_GetHitAudio;
+    public AudioClip m_BlockAudio;
+    public AudioClip m_StaggerAudio;
 
     private AudioSource m_StepSource;
     private AudioSource m_EffectSource;
@@ -148,6 +150,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
             if (Time.time >= m_LastParry + m_ParryCooldown)
             {
+                CancelStepSound();
                 Parry();
                 m_LastParry = Time.time;
             }
@@ -163,6 +166,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
             if (Time.time >= m_LastDash + m_DashCooldown)
             {
+                CancelStepSound();
                 Dash();
                 m_LastDash = Time.time;
             }
@@ -199,6 +203,7 @@ public class PlayerControlsCharController : MonoBehaviour
                 StopCoroutine(m_DamageCoRoutine);
             }
 
+            CancelStepSound();
             Punch();
 
         }
@@ -253,6 +258,7 @@ public class PlayerControlsCharController : MonoBehaviour
         }
         else if (newState == ParryState.AdditionalDamage)
         {
+            PlayStaggerAudio();
             m_ParryIEnumerator = SetParryState(ParryState.NoParry, m_AdditionalDamageTime);
             StartCoroutine(m_ParryIEnumerator);
             animator.SetTrigger("StaggerTrigger");
@@ -308,15 +314,14 @@ public class PlayerControlsCharController : MonoBehaviour
         if (blockable)
         {
             damage = ParryAttack(attacker, damage);
+            if (damage <= 0)
+                PlayBlockSound();
+            else
+                PlayGetHitSound();
         }
 
         if (damage <= 0)
             return 0;
-
-        if (blockable)
-        {
-            PlayGetHitSound();
-        }
 
         PlayerShield shield = GetComponentInChildren<PlayerShield>();
         if (shield != null)
@@ -498,11 +503,29 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
+    private void PlayBlockSound()
+    {
+        if (m_EffectSource != null)
+        {
+            m_EffectSource.clip = m_BlockAudio;
+            m_EffectSource.Play();
+        }
+    }
+
     private void PlayPunchSound()
     {
         if (m_EffectSource != null)
         {
             m_EffectSource.clip = m_PunchAudio;
+            m_EffectSource.Play();
+        }
+    }
+
+    private void PlayStaggerAudio()
+    {
+        if (m_EffectSource != null)
+        {
+            m_EffectSource.clip = m_StaggerAudio;
             m_EffectSource.Play();
         }
     }

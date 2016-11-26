@@ -35,6 +35,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public bool m_CancelOnHit = true;
 
     public AudioClip m_OnBossHitAudio;
+    public AudioClip m_OnSwishAudio;
+    public AudioClip m_AeStartAudio;
+    public AudioClip m_StaggerAudio;
     private AudioSource m_AudioSource;
 
     private IEnumerator m_ColorChangeEnumerator;
@@ -68,7 +71,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         switch(index)
         {
             case 0:
-                m_Attacks[index] = new ChaseAttack(this, m_HighlightMaterial);
+                m_Attacks[index] = new ChaseAttack(this, m_HighlightMaterial, m_OnSwishAudio);
                 break;
             case 1:
                 m_Attacks[index] = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
@@ -92,6 +95,11 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     private IEnumerator StartNextAttackAfter(float time)
     {
+        if (m_CurrentAttackIndex != 0)
+        {
+            PlayAESound();
+        }
+
         yield return new WaitForSeconds(time);
 
         if (!m_Dead)
@@ -119,11 +127,15 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     {
         if (m_CancelOnHit && m_CurrentAttack != null && m_CurrentAttackIndex != 0) // = any AE attack
         {
+            PlayStaggerSound();
             m_Boss.GetComponentInChildren<Animator>().SetTrigger("StaggerTrigger");
             m_CurrentAttack.CancelAttack();
         }
+        else
+        {
+            PlayOnHitSound();
+        }
 
-        PlayOnHitSound();
         InitBloodTrail();
         ColorBossRed();
     }
@@ -158,6 +170,11 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     void AttackCallbacks.OnAttackCancelled(Attack a)
     {
+        if (a is ChaseAttack)
+        {
+            PlayStaggerSound();
+        }
+
         if (m_CurrentAttack != null)
         {
             m_CurrentAttack = null;
@@ -200,7 +217,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     {
         foreach(Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
         {
-            r.material = m_HighlightMaterial;
+            if (!(r is TrailRenderer))
+                r.material = m_HighlightMaterial;
         }
     }
 
@@ -219,6 +237,24 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         if (m_AudioSource != null)
         {
             m_AudioSource.clip = m_OnBossHitAudio;
+            m_AudioSource.Play();
+        }
+    }
+    
+    private void PlayAESound()
+    {
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_AeStartAudio;
+            m_AudioSource.Play();
+        }
+    }
+
+    public void PlayStaggerSound()
+    {
+        if (m_AudioSource != null)
+        {
+            m_AudioSource.clip = m_StaggerAudio;
             m_AudioSource.Play();
         }
     }

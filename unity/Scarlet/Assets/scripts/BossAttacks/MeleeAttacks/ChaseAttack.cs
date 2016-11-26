@@ -32,11 +32,13 @@ public class ChaseAttack : Attack {
 
     private int m_HitCount;
     private Material m_HighlightMaterial;
+    private AudioClip m_SwishClip;
 
-    public ChaseAttack(MonoBehaviour boss, Material m_HighlightMaterial)
+    public ChaseAttack(MonoBehaviour boss, Material m_HighlightMaterial, AudioClip m_SwishClip)
     {
         m_Boss = boss;
         this.m_HighlightMaterial = m_HighlightMaterial;
+        this.m_SwishClip = m_SwishClip;
 
         m_Animator = m_Boss.GetComponentInChildren<Animator>();
         m_BossDamageTrigger = m_Boss.GetComponentInChildren<BossDamageTrigger>();
@@ -118,6 +120,7 @@ public class ChaseAttack : Attack {
         m_TrailRenderer.Clear();
         m_TrailRenderer.time = 0.5f;
         m_Boss.GetComponentInChildren<AttackPattern>().HighlightBoss();
+        PlaySwishSound();
     }
 
     private IEnumerator InitAimAfter(float time)
@@ -295,6 +298,16 @@ public class ChaseAttack : Attack {
     private void EnableLookingAtScarlet()
     {
         m_Boss.GetComponentInChildren<BossLook>().enabled = true;
+    }
+
+    private void PlaySwishSound()
+    {
+        AudioSource s = m_Boss.GetComponentInChildren<AudioSource>();
+        if (s != null)
+        {
+            s.clip = m_SwishClip;
+            s.Play();
+        }
     }
 
     private class ChaseTriggerCallback : TriggerCallback
