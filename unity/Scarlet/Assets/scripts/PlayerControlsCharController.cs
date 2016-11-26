@@ -346,6 +346,7 @@ public class PlayerControlsCharController : MonoBehaviour
             }
         }
 
+        GameController.Instance.BrieflyBlurCamera();
         StopCoroutine(m_ParryIEnumerator);
         m_ControlsEnabled = true;
         m_Parrying = ParryState.NoParry;

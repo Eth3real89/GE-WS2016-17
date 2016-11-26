@@ -448,6 +448,15 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void BrieflyBlurCamera(float time = 1f)
+    {
+        m_RadialBlur.blurDuration = time;
+        m_RadialBlur.blurWidth = 1f;
+        m_RadialBlur.blurStrength = 1.45f;
+
+        m_RadialBlur.Reset();
+    }
+
     private void StopPlayingHeartbeat()
     {
         m_HeartbeatPlaying = false;
