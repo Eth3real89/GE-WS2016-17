@@ -24,6 +24,10 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public Material m_HitMaterial;
     public Material m_HighlightMaterial;
 
+    public GameObject m_BloodTrailPrefab;
+    public GameObject m_BloodTrailPlaneCollider;
+    public float m_TimeBleedAfterHit;
+
     public bool m_CancelOnHit = true;
 
     public AudioClip m_OnBossHitAudio;
@@ -116,7 +120,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         }
 
         PlayOnHitSound();
-
+        InitBloodTrail();
         ColorBossRed();
     }
 
@@ -213,6 +217,35 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_AudioSource.clip = m_OnBossHitAudio;
             m_AudioSource.Play();
         }
+    }
+
+    private void InitBloodTrail()
+    {
+        GameObject bloodTrailWrapper = (GameObject) Instantiate(m_BloodTrailPrefab, m_Boss.transform.position,
+            GameController.Instance.m_Scarlet.transform.rotation);
+        Transform bloodTrail = bloodTrailWrapper.transform.FindChild("BloodTrail");
+
+        ParticleSystem ps = bloodTrail.GetComponent<ParticleSystem>();
+        ps.startSpeed = 4;
+        ps.collision.SetPlane(0, m_BloodTrailPlaneCollider.transform);
+
+        StartCoroutine(RemoveBloodTrail(bloodTrailWrapper, ps));
+    }
+
+    private IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps)
+    {
+        float time = Time.deltaTime;
+        float endTime = time + m_TimeBleedAfterHit;
+        
+        while (time < endTime)
+        {
+            bloodTrail.transform.position = m_Boss.transform.position;
+            ps.startSpeed *= 0.95f;
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        GameObject.Destroy(bloodTrail);
     }
 
     public void Die()
