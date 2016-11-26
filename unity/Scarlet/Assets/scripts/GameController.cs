@@ -320,6 +320,7 @@ public class GameController : MonoBehaviour {
             m_RadialBlur.blurDuration = 1f;
             m_RadialBlur.blurWidth = 1f;
             m_RadialBlur.blurStrength = 1.45f;
+            m_RadialBlur.haveRedBlurArea = true;
 
             m_RadialBlur.Reset();
 
@@ -453,6 +454,7 @@ public class GameController : MonoBehaviour {
         m_RadialBlur.blurDuration = time;
         m_RadialBlur.blurWidth = 1f;
         m_RadialBlur.blurStrength = 1.45f;
+        m_RadialBlur.haveRedBlurArea = false;
 
         m_RadialBlur.Reset();
     }
