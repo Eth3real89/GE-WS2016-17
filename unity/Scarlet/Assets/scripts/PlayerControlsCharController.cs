@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlayerControlsCharController : MonoBehaviour
 {
+    public enum ControlMode { Exploration, BossFight, Disabled };
     public GameObject trailContainer;
 
     public AudioClip m_PunchAudio;
@@ -19,16 +20,18 @@ public class PlayerControlsCharController : MonoBehaviour
     //Value after last loss bar animation
     public float m_HealthOld;
 
-    public float m_Speed = 1.3f;
+    public float m_SpeedRun;
+    public float m_SpeedWalk;
     public float m_DashDistance;
     public float m_DashSpeed;
     public float m_DashCooldown;
+    public float m_ClimbingDistance;
 
     private float m_LastDash;
+    private float m_CurrentSpeed;
 
     public bool m_ControlsEnabled = true;
-    public bool canDash = false;
-
+    public ControlMode currentControlMode;
     private Rigidbody m_RigidBody;
     private Animator animator;
 
@@ -56,9 +59,9 @@ public class PlayerControlsCharController : MonoBehaviour
         m_TrailRenderer = trailContainer.GetComponent<TrailRenderer>();
         m_RigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        currentControlMode = ControlMode.Exploration;
 
         handDamage = GetComponentInChildren<HandDamage>();
-
         m_CurrentAttackCombo = 0;
 
         AudioSource[] sources = GetComponents<AudioSource>();
@@ -86,19 +89,27 @@ public class PlayerControlsCharController : MonoBehaviour
 
         Move();
         Rotate();
-        CheckParry();
-        CheckDash();
-        CheckAttack();
-        CheckHealing();
+        if (currentControlMode == ControlMode.BossFight)
+        {
+            m_CurrentSpeed = m_SpeedRun;
+            CheckParry();
+            CheckDash();
+            CheckAttack();
+            CheckHealing();
+        }
+        else if (currentControlMode == ControlMode.Exploration)
+        {
+            CheckSprint();
+        }
     }
 
     // move scarlet in the right direction
     void Move()
     {
-        float normalizedSpeed = (Mathf.Abs(m_HorizontalInput) + Mathf.Abs(m_VerticalInput)) * m_Speed;
-        if (normalizedSpeed >= m_Speed)
+        float normalizedSpeed = (Mathf.Abs(m_HorizontalInput) + Mathf.Abs(m_VerticalInput)) * m_CurrentSpeed;
+        if (normalizedSpeed >= m_CurrentSpeed)
         {
-            normalizedSpeed = m_Speed;
+            normalizedSpeed = m_CurrentSpeed;
         }
 
         if (normalizedSpeed >= 0.1f)
@@ -145,12 +156,6 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void CheckDash()
     {
-        if (!canDash)
-        {
-            CheckClimb();
-            return;
-        }
-
         if (Input.GetButtonDown("Jump"))
         {
             if (m_InAttackAnimation)
@@ -164,18 +169,24 @@ public class PlayerControlsCharController : MonoBehaviour
         }
     }
 
-    private void CheckClimb()
+    private void CheckSprint()
     {
         RaycastHit hit;
         if (Input.GetButton("Jump"))
         {
-            if (Physics.Raycast(transform.position, transform.forward, out hit, 2f))
+            m_CurrentSpeed = m_SpeedRun;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, m_ClimbingDistance))
             {
-                if (hit.collider.tag != "Climbable") {
+                if (hit.collider.tag != "Climbable")
+                {
                     return;
                 }
                 m_RigidBody.velocity = new Vector3(0, 2, 0);
             }
+        }
+        else
+        {
+            m_CurrentSpeed = m_SpeedWalk;
         }
     }
 

@@ -19,7 +19,7 @@ public class ActivateBossfight : MonoBehaviour
             }
             cc.enabled = true;
             cc2d.enabled = false;
-            controls.canDash = true;
+            controls.currentControlMode = PlayerControlsCharController.ControlMode.BossFight;
             Destroy(this.gameObject);
         }
     }
