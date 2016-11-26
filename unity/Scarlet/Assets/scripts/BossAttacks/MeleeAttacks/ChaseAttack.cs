@@ -104,6 +104,7 @@ public class ChaseAttack : Attack {
         if (m_Ended)
             return;
 
+        DisableLookingAtScarlet();
         m_HitCount++;
 
         m_State = ChaseAttackState.Aim;
@@ -163,6 +164,7 @@ public class ChaseAttack : Attack {
         yield return new WaitForSeconds(0.2f);
 
         m_TrailRenderer.time = 0;
+        EnableLookingAtScarlet();
 
         m_BossDamageTrigger.m_Callback = null;
         m_DamageEnumerator = Reset();
@@ -210,6 +212,9 @@ public class ChaseAttack : Attack {
             SetupTriggerCallbacks();
             m_State = ChaseAttackState.Chase;
         }
+
+        m_TrailRenderer.time = 0;
+        EnableLookingAtScarlet();
     }
 
     public void EndAttack()
@@ -219,6 +224,10 @@ public class ChaseAttack : Attack {
 
         this.m_Ended = true;
         this.m_Callbacks.OnAttackEnd(this);
+
+        m_TrailRenderer.time = 0;
+        EnableLookingAtScarlet();
+
         m_Animator.SetFloat("Speed", 0);
     }
 
@@ -237,6 +246,8 @@ public class ChaseAttack : Attack {
         }
 
         m_Boss.StartCoroutine(CancelAttackAfter(2f));
+        m_TrailRenderer.time = 0;
+        EnableLookingAtScarlet();
     }
 
     private IEnumerator EndAttackAfter(float time)
@@ -255,6 +266,8 @@ public class ChaseAttack : Attack {
             this.m_Ended = true;
             m_Animator.SetFloat("Speed", 0);
             this.m_Callbacks.OnAttackCancelled(this);
+            m_TrailRenderer.time = 0;
+            EnableLookingAtScarlet();
         }
     }
 
@@ -272,6 +285,16 @@ public class ChaseAttack : Attack {
         m_HitCallback = new DamageTriggerCallback(this);
 
         m_BossDamageTrigger.m_Callback = m_ChaseCallback;
+    }
+
+    private void DisableLookingAtScarlet()
+    {
+        m_Boss.GetComponentInChildren<BossLook>().enabled = false;
+    }
+
+    private void EnableLookingAtScarlet()
+    {
+        m_Boss.GetComponentInChildren<BossLook>().enabled = true;
     }
 
     private class ChaseTriggerCallback : TriggerCallback
