@@ -184,11 +184,10 @@ public class PlayerControlsCharController : MonoBehaviour
             m_CurrentSpeed = m_SpeedRun;
             if (Physics.Raycast(transform.position, transform.forward, out hit, m_ClimbingDistance))
             {
-                if (hit.collider.tag != "Climbable")
+                if (hit.collider.tag == "Climbable")
                 {
-                    return;
+                    m_RigidBody.velocity = new Vector3(0, 2, 0);
                 }
-                m_RigidBody.velocity = new Vector3(0, 2, 0);
             }
         }
         else

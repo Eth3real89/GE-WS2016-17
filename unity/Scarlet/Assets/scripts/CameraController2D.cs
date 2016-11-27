@@ -10,10 +10,12 @@ public class CameraController2D : MonoBehaviour
     public float viewAngle;
     public float smoothingFactor;
 
+    private float zeroY;
     private float trackAheadCurrent;
 
     void Start()
     {
+        zeroY = player.position.y;
         transform.position = new Vector3(player.position.x, yOffset, zOffset);
         transform.rotation = Quaternion.Euler(viewAngle, 0, 0);
     }
@@ -29,6 +31,7 @@ public class CameraController2D : MonoBehaviour
         trackAheadCurrent = trackAhead * hInput;
         Vector3 targetPosition = transform.position;
         targetPosition.x = player.position.x + trackAheadCurrent;
+        targetPosition.y = player.position.y - zeroY + yOffset;
         transform.position = Vector3.Lerp(transform.position, targetPosition, smoothingFactor * Time.deltaTime);
     }
 }
