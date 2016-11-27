@@ -5,6 +5,9 @@ public class PlayerControlsCharController : MonoBehaviour
 {
     public enum ControlMode { Exploration, BossFight, Disabled };
     private enum ParryState { NoParry, Perfect, Regular, AdditionalDamage };
+
+    public enum AttackType { Regular, LastHitInCombo };
+
     public GameObject trailContainer;
 
     public AudioClip m_PunchAudio;
@@ -306,15 +309,13 @@ public class PlayerControlsCharController : MonoBehaviour
 
         if (m_CurrentAttackCombo <= 2)
         {
-            Debug.Log("combo: " + m_CurrentAttackCombo);
-
+            handDamage.m_CurrentAttackType = AttackType.Regular;
             punchAnimation = m_CurrentAttackCombo * 3 + (int)Random.Range(1.001f, 3.999f);
             m_CurrentAttackCombo++;
         }
         else
         {
-            Debug.Log("final hit in combo!");
-
+            handDamage.m_CurrentAttackType = AttackType.LastHitInCombo;
             enableControlsAfter = 0.8f;
             punchAnimation = 10;
 

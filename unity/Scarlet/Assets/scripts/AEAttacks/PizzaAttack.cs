@@ -62,7 +62,8 @@ public class PizzaAttack : AEAttack {
 
     public void Destroy()
     {
-        m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
+        if (m_DestroyEnumerator != null)
+            m_Series.m_Behaviour.StopCoroutine(m_DestroyEnumerator);
         if (m_SliceInstance != null)
             GameObject.Destroy(m_SliceInstance);
     }

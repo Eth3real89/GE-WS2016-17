@@ -8,6 +8,8 @@ public class BossHealth : MonoBehaviour {
 
     private float m_CurrentHealth;
 
+    public bool m_Invincible = false;
+
 	// Use this for initialization
 	void Start () {
         m_CurrentHealth = m_StartHealth;
@@ -20,7 +22,8 @@ public class BossHealth : MonoBehaviour {
 
     public void TakeDamage(float howMuch)
     {
-        m_CurrentHealth = Mathf.Max(0, m_CurrentHealth - howMuch);
+        if (!m_Invincible)
+            m_CurrentHealth = Mathf.Max(0, m_CurrentHealth - howMuch);
     }
 
     public float GetBossHealth() 

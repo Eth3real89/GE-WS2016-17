@@ -65,4 +65,9 @@ public class ConeAttackSeries : AEAttackSeries
         m_Attack.Destroy();
         this.m_Callbacks.OnAttackCancelled(this);
     }
+
+    public override bool DoCancelOnHit(PlayerControlsCharController.AttackType attackType)
+    {
+        return attackType == PlayerControlsCharController.AttackType.LastHitInCombo;
+    }
 }

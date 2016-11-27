@@ -7679,6 +7679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 800
   m_StartHealth: 800
+  m_Invincible: 0
 --- !u!4 &1126377310
 Transform:
   m_ObjectHideFlags: 0
@@ -7726,6 +7727,8 @@ MonoBehaviour:
   m_PizzaAttackPrefab: {fileID: 1000010551373798, guid: 9af35aec2f3473148924801d9bad3c3f,
     type: 2}
   m_BeamPrefab: {fileID: 1000013107731110, guid: e8087ccf6c11f3148b47b679e8b6305a,
+    type: 2}
+  m_BeamWarningPrefab: {fileID: 1000012179747646, guid: 26cc5393722a1476fa085ccd34b526da,
     type: 2}
   m_Boss: {fileID: 1126377306}
   m_ConeSetupPrefab: {fileID: 1000012468996644, guid: 71248fcdacafc804bad8dd096f5b2b53,
@@ -9837,6 +9840,7 @@ MonoBehaviour:
   m_CauseDamage: 0
   m_Damage: 20
   m_AudioSource: {fileID: 0}
+  m_CurrentAttackType: 0
 --- !u!65 &1390362841
 BoxCollider:
   m_ObjectHideFlags: 0

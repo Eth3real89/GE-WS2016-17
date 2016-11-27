@@ -24,10 +24,10 @@ public class DummyBossSeries : MonoBehaviour {
         PizzaAttackSeries p = new PizzaAttackSeries(this, m_PizzaSetupPrefab, m_PizzaAttackPrefab);
         m_Series[0] = p;
 
-        BeamAttackSeries b = new BeamAttackSeries(this, m_BeamPrefab, m_Boss);
+        BeamAttackSeries b = new BeamAttackSeries(this, m_BeamPrefab, null, m_Boss);
         m_Series[1] = b;
 
-        DoubleBeamAttackSeries b2 = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_Boss);
+        DoubleBeamAttackSeries b2 = new DoubleBeamAttackSeries(this, m_BeamPrefab, null, m_Boss);
         m_Series[2] = b2;
 
         ConeAttackSeries c = new ConeAttackSeries(this, m_ConeSetupPrefab, m_ConeAttackPrefab);
