@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour {
     public GameObject m_Scarlet;
     public GameObject m_MainCamera;
 
+    public GameObject m_Capsule;
+
     private PlayerControlsCharController m_ScarletController;
 
     private float m_BossHealthOld;
@@ -327,7 +329,9 @@ public class GameController : MonoBehaviour {
         }
 
         HandleText(isBossDead, m_BossKillNotification);
-        HandleText(isScarletDead, m_DeathNotification);       
+        HandleText(isScarletDead, m_DeathNotification);  
+
+        print(m_Capsule.GetComponent<Renderer>().isVisible);    
     }
 
 

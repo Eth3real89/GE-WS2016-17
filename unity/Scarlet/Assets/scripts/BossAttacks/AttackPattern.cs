@@ -200,7 +200,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     private void ColorBossRed()
     {
-        foreach (Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        GameObject skeleton = m_Boss.transform.FindChild("skeleton_animated").gameObject;
+
+        foreach (Renderer r in skeleton.GetComponentsInChildren<Renderer>())
         {
             r.material = m_HitMaterial;
         }
@@ -215,7 +217,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
 
     public void HighlightBoss()
     {
-        foreach(Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        GameObject skeleton = m_Boss.transform.FindChild("skeleton_animated").gameObject;
+
+        foreach (Renderer r in skeleton.GetComponentsInChildren<Renderer>())
         {
             if (!(r is TrailRenderer))
                 r.material = m_HighlightMaterial;
@@ -226,7 +230,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     {
         yield return new WaitForSeconds(0.3f);
 
-        foreach (Renderer r in m_Boss.GetComponentsInChildren<Renderer>())
+        GameObject skeleton = m_Boss.transform.FindChild("skeleton_animated").gameObject;
+
+        foreach (Renderer r in skeleton.GetComponentsInChildren<Renderer>())
         {
             r.material = m_OriginalMaterialDictionary[r];
         }
