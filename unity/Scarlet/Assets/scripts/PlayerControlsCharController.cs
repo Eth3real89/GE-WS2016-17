@@ -35,6 +35,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private float lastStepSound;
 
     public bool m_ControlsEnabled = true;
+    public bool canSprint;
     public ControlMode currentControlMode;
     private Rigidbody m_RigidBody;
     private Animator animator;
@@ -63,6 +64,7 @@ public class PlayerControlsCharController : MonoBehaviour
         m_TrailRenderer = trailContainer.GetComponent<TrailRenderer>();
         m_RigidBody = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
+        canSprint = true;
         currentControlMode = ControlMode.Exploration;
 
         handDamage = GetComponentInChildren<HandDamage>();
@@ -143,10 +145,11 @@ public class PlayerControlsCharController : MonoBehaviour
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, m_RigidBody.velocity.y, m_VerticalInput * normalizedSpeed);
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position + Vector3.up * 0.2f, transform.forward, out hit, 1f))
+        if (Physics.Raycast(transform.position + Vector3.up * 0.3f, transform.forward, out hit, 1f))
         {
-            Debug.Log(transform.name);
-            if (hit.transform != transform)
+            //Scarlet can only traverse slopes up to a certain angle
+            float hitAngle = Vector3.Angle(transform.forward, hit.normal);
+            if (hit.transform.tag != "Player" && hit.transform.tag != "Climbable" && hitAngle > 135)
             {
                 movement = Vector3.zero;
                 normalizedSpeed = 0;
@@ -201,7 +204,7 @@ public class PlayerControlsCharController : MonoBehaviour
     {
         RaycastHit hit;
         isClimbing = false;
-        if (Input.GetButton("Jump"))
+        if (Input.GetButton("Jump") && canSprint)
         {
             m_CurrentSpeed = m_SpeedRun;
             if (Physics.Raycast(transform.position, transform.forward, out hit, m_ClimbingDistance))
@@ -540,5 +543,11 @@ public class PlayerControlsCharController : MonoBehaviour
             m_EffectSource.clip = m_StaggerAudio;
             m_EffectSource.Play();
         }
+    }
+
+    public void CancelMovement()
+    {
+        m_RigidBody.velocity = Vector3.zero;
+        animator.SetFloat("Speed", 0);
     }
 }
