@@ -207,6 +207,7 @@ public class PlayerControlsCharController : MonoBehaviour
         {
             m_CurrentSpeed = m_SpeedWalk;
         }
+        animator.SetBool("Climbing", isClimbing);
     }
 
     private void CheckAttack()
