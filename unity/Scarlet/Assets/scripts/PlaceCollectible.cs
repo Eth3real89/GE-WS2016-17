@@ -4,7 +4,8 @@ using System.Collections;
 public class PlaceCollectible : MonoBehaviour
 {
     public bool hasCollectible;
-    public GameObject placedObject;
+    public Transform newPosition;
+    public GameObject collectible;
 
     void OnTriggerEnter(Collider other)
     {
@@ -13,7 +14,9 @@ public class PlaceCollectible : MonoBehaviour
             if (hasCollectible)
             {
                 GetComponent<AudioSource>().Play();
-                placedObject.SetActive(true);
+                collectible.transform.parent = newPosition;
+                collectible.transform.localPosition = Vector3.zero;
+                collectible.SetActive(true);
                 hasCollectible = false;
             }
         }

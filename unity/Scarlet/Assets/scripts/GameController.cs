@@ -339,7 +339,7 @@ public class GameController : MonoBehaviour {
 
     private void HandleCollectibleVisualization()
     {
-        if(m_Capsule.GetComponent<Renderer>().isVisible)
+        if(m_Capsule != null && m_Capsule.GetComponent<Renderer>().isVisible)
         {
             Vector3 target = m_MainCamera.GetComponent<Camera>().WorldToScreenPoint(m_Capsule.transform.position);
             m_OnCollectibleVFX.Activate(target);

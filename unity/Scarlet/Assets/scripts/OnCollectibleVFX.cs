@@ -23,8 +23,6 @@ public class OnCollectibleVFX : MonoBehaviour {
 
 	void OnRenderImage (RenderTexture sourceTexture, RenderTexture destTexture)
 	{
-		print(this.m_IsActive);
-
 		if(this.m_IsActive)
 		{
 			this.m_Mat.SetVector ("_Center", m_ObjectPosition);

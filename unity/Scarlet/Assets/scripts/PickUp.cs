@@ -8,7 +8,8 @@ public class PickUp : MonoBehaviour {
         if (other.tag == "Player")
         {
             pcScript.hasCollectible = true;
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            Destroy(this);
         }
     }
 }
