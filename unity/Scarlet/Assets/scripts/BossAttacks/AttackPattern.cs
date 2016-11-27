@@ -13,6 +13,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public GameObject m_PizzaAttackPrefab;
 
     public GameObject m_BeamPrefab;
+    public GameObject m_BeamWarningPrefab;
     public GameObject m_Boss;
 
     public GameObject m_ConeSetupPrefab;
@@ -83,10 +84,10 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
                 m_Attacks[index] = new TargetAttackSeries(this, m_TargetSetupPrefab, m_TargetAttackPrefab);
                 break;
             case 4:
-                m_Attacks[index] = new BeamAttackSeries(this, m_BeamPrefab, m_Boss);
+                m_Attacks[index] = new BeamAttackSeries(this, m_BeamPrefab, m_BeamWarningPrefab, m_Boss);
                 break;
             case 5:
-                m_Attacks[index] = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_Boss);
+                m_Attacks[index] = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_BeamWarningPrefab, m_Boss);
                 break;
         }
 
@@ -161,7 +162,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_CurrentAttackIndex = 0;
         }
 
-        // m_CurrentAttackIndex = 2;
+       // m_CurrentAttackIndex = 5;
 
         StartCoroutine(StartNextAttackAfter(2f));
     }

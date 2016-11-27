@@ -7,13 +7,17 @@ public class DoubleBeamAttackSeries : AEAttackSeries
 
     public GameObject m_BeamPrefab;
 
+    public GameObject m_BeamWarningPrefab;
+    private GameObject m_BeamWarning;
+
     public GameObject m_Boss;
     
     private IEnumerator m_EndEnumerator;
 
-    public DoubleBeamAttackSeries(MonoBehaviour behaviour, GameObject breamPrefab, GameObject boss) : this(behaviour)
+    public DoubleBeamAttackSeries(MonoBehaviour behaviour, GameObject breamPrefab, GameObject beamWarningPrefab, GameObject boss) : this(behaviour)
     {
         this.m_BeamPrefab = breamPrefab;
+        this.m_BeamWarningPrefab = beamWarningPrefab;
         this.m_Boss = boss;
     }
 
@@ -37,6 +41,8 @@ public class DoubleBeamAttackSeries : AEAttackSeries
         reverseBeamAttack.m_StartPosition = bossPos;
 
         m_Parts[1] = reverseBeamAttack;
+
+        m_Boss.GetComponentInChildren<Animator>().SetTrigger("SpellTrigger");
     }
 
     public override void WhileActive()
@@ -46,13 +52,23 @@ public class DoubleBeamAttackSeries : AEAttackSeries
     public override void StartAttack()
     {
         BeforeSeries(m_Boss.transform);
-        RunSeries(GameController.Instance.m_Boss.transform);
-
-        m_EndEnumerator = EndAttackAfter(10f);
+        m_Behaviour.StartCoroutine(RunSeriesAfter(1f));
+        m_EndEnumerator = EndAttackAfter(11f);
         m_Behaviour.StartCoroutine(m_EndEnumerator);
 
-        m_Boss.GetComponentInChildren<AttackPattern>().SetInvincible(true);
-        m_Boss.GetComponentInChildren<Animator>().SetTrigger("SpellTrigger");
+        m_BeamWarning = (GameObject) GameObject.Instantiate(m_BeamWarningPrefab, m_Boss.transform);
+    }
+
+    private IEnumerator RunSeriesAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        if (!m_Cancelled)
+        {
+            RemoveBeamWarning();
+            m_Boss.GetComponentInChildren<AttackPattern>().SetInvincible(true);
+            RunSeries(GameController.Instance.m_Boss.transform);
+        }
     }
 
     private IEnumerator EndAttackAfter(float time)
@@ -76,5 +92,14 @@ public class DoubleBeamAttackSeries : AEAttackSeries
     public override bool DoCancelOnHit(PlayerControlsCharController.AttackType attackType)
     {
         return false;
+    }
+
+    private void RemoveBeamWarning()
+    {
+        if (m_BeamWarning != null)
+        {
+            GameObject.Destroy(m_BeamWarning);
+            m_BeamWarning = null;
+        }
     }
 }

@@ -6043,6 +6043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxHealth: 800
   m_StartHealth: 800
+  m_Invincible: 0
 --- !u!4 &1126377310
 Transform:
   m_ObjectHideFlags: 0
@@ -6091,6 +6092,8 @@ MonoBehaviour:
     type: 2}
   m_BeamPrefab: {fileID: 1000013107731110, guid: e8087ccf6c11f3148b47b679e8b6305a,
     type: 2}
+  m_BeamWarningPrefab: {fileID: 1000012179747646, guid: 26cc5393722a1476fa085ccd34b526da,
+    type: 2}
   m_Boss: {fileID: 1126377306}
   m_ConeSetupPrefab: {fileID: 1000012468996644, guid: 71248fcdacafc804bad8dd096f5b2b53,
     type: 2}
@@ -6108,7 +6111,6 @@ MonoBehaviour:
   m_TimeBleedAfterHit: 5
   m_InitialBloodShapeRadius: 0.3
   m_CancelOnHit: 1
-  m_Invincible: 0
   m_OnBossHitAudio: {fileID: 8300000, guid: 01893ed2a015a1e46b11ee8431eb8766, type: 3}
   m_OnSwishAudio: {fileID: 8300000, guid: 099f7f581b8fe2f46b66e1b16218a675, type: 3}
   m_AeStartAudio: {fileID: 8300000, guid: 81a655434087dcc4b8faf6c38d0409a1, type: 3}
