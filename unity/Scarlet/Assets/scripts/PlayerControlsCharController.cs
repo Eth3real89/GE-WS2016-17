@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerControlsCharController : MonoBehaviour
 {
     public enum ControlMode { Exploration, BossFight, Disabled };
+    private enum ParryState { NoParry, Perfect, Regular, AdditionalDamage };
     public GameObject trailContainer;
 
     public AudioClip m_PunchAudio;
@@ -44,7 +45,6 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_PerfectParryTime = 0.1f;
     public float m_RegularParryTime = 0.25f;
     public float m_AdditionalDamageTime = 0.4f;
-    private enum ParryState { NoParry, Perfect, Regular, AdditionalDamage };
     private float m_LastParry;
     public float m_ParryCooldown;
     private ParryState m_Parrying = ParryState.NoParry;
@@ -54,6 +54,8 @@ public class PlayerControlsCharController : MonoBehaviour
     private bool m_InAttackAnimation;
     private IEnumerator m_DamageCoRoutine;
     private TrailRenderer m_TrailRenderer;
+
+    private bool isClimbing;
 
     private int m_CurrentAttackCombo = 0;
 
@@ -101,6 +103,7 @@ public class PlayerControlsCharController : MonoBehaviour
 
         Move();
         Rotate();
+        CheckGround();
         if (currentControlMode == ControlMode.BossFight)
         {
             m_CurrentSpeed = m_SpeedRun;
@@ -112,6 +115,14 @@ public class PlayerControlsCharController : MonoBehaviour
         else if (currentControlMode == ControlMode.Exploration)
         {
             CheckSprint();
+        }
+    }
+
+    private void CheckGround()
+    {
+        if (!Physics.Raycast(transform.position, Vector3.down, 0.2f) && !isClimbing)
+        {
+            m_RigidBody.AddForce(Vector3.down * 50);
         }
     }
 
@@ -179,6 +190,7 @@ public class PlayerControlsCharController : MonoBehaviour
     private void CheckSprint()
     {
         RaycastHit hit;
+        isClimbing = false;
         if (Input.GetButton("Jump"))
         {
             m_CurrentSpeed = m_SpeedRun;
@@ -186,6 +198,7 @@ public class PlayerControlsCharController : MonoBehaviour
             {
                 if (hit.collider.tag == "Climbable")
                 {
+                    isClimbing = true;
                     m_RigidBody.velocity = new Vector3(0, 2, 0);
                 }
             }
