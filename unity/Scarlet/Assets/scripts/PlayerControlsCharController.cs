@@ -56,7 +56,6 @@ public class PlayerControlsCharController : MonoBehaviour
     private TrailRenderer m_TrailRenderer;
 
     private bool isClimbing;
-
     private int m_CurrentAttackCombo = 0;
 
     private void Awake()
