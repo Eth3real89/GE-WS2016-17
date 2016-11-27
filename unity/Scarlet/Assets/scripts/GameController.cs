@@ -159,9 +159,9 @@ public class GameController : MonoBehaviour {
     }
 
 
-    public void HitBoss(float damage)
+    public void HitBoss(float damage, PlayerControlsCharController.AttackType attackType)
     {
-        if(m_Boss.GetComponent<BossHealth>().GetBossHealth() > 0)
+        if(!m_Boss.GetComponent<BossHealth>().m_Invincible && m_Boss.GetComponent<BossHealth>().GetBossHealth() > 0)
         {
             if (m_Boss.GetComponent<BossHealth>().GetBossHealth() - damage < 0) {
                 damage -= m_Boss.GetComponent<BossHealth>().GetBossHealth();
@@ -171,7 +171,7 @@ public class GameController : MonoBehaviour {
             AttackPattern bossBehavior = m_Boss.GetComponent<AttackPattern>();
             if (bossBehavior != null)
             {
-                bossBehavior.OnBossHit();
+                bossBehavior.OnBossHit(attackType);
             }
 
             CalculateBossHealthBar(damage / m_Boss.GetComponent<BossHealth>().GetMaxBossHealth());

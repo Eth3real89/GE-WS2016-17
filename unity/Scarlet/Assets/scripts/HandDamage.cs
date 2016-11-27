@@ -9,6 +9,8 @@ public class HandDamage : MonoBehaviour {
 
     public AudioSource m_AudioSource;
 
+    public PlayerControlsCharController.AttackType m_CurrentAttackType = PlayerControlsCharController.AttackType.Regular;
+
 	// Use this for initialization
 	void Start () {
         m_AudioSource = GetComponent<AudioSource>();
@@ -36,7 +38,7 @@ public class HandDamage : MonoBehaviour {
             if (GameController.Instance.IsBoss(other.GetComponent<Rigidbody>()))
             {
                 PlayHitAudio();
-                GameController.Instance.HitBoss(m_Damage);
+                GameController.Instance.HitBoss(m_Damage, m_CurrentAttackType);
                 m_CauseDamage = false;
             }
         }

@@ -123,9 +123,12 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
         }
     }
 
-    public void OnBossHit()
+    public void OnBossHit(PlayerControlsCharController.AttackType attackType)
     {
-        if (m_CancelOnHit && m_CurrentAttack != null && m_CurrentAttackIndex != 0) // = any AE attack
+        if (GetComponent<BossHealth>().m_Invincible)
+            return;
+
+        if (m_CancelOnHit && m_CurrentAttack != null && m_CurrentAttack.DoCancelOnHit(attackType))
         {
             PlayStaggerSound();
             m_Boss.GetComponentInChildren<Animator>().SetTrigger("StaggerTrigger");
@@ -158,7 +161,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_CurrentAttackIndex = 0;
         }
 
-        //m_CurrentAttackIndex = 4;
+        // m_CurrentAttackIndex = 2;
 
         StartCoroutine(StartNextAttackAfter(2f));
     }
@@ -333,5 +336,17 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_CurrentAttack.CancelAttack();
         }
         m_Boss.GetComponentInChildren<Animator>().SetTrigger("DeathTrigger");
+    }
+
+    public void SetInvincible(bool invincible)
+    {
+        GetComponent<BossHealth>().m_Invincible = invincible;
+
+        Transform lightAura = transform.Find("LightAura");
+
+        if (lightAura != null)
+        {
+            lightAura.gameObject.SetActive(invincible);
+        }
     }
 }

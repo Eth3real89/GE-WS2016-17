@@ -30,4 +30,9 @@ public abstract class Attack {
     {
         m_Callbacks.OnAttackParried(this);
     }
+
+    public virtual bool DoCancelOnHit(PlayerControlsCharController.AttackType attackType)
+    {
+        return true;
+    }
 }

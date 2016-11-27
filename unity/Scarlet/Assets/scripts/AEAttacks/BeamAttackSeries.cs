@@ -34,6 +34,7 @@ public class BeamAttackSeries : AEAttackSeries {
         m_Parts[0] = m_Attack;
 
         m_Boss.GetComponentInChildren<Animator>().SetTrigger("SpellTrigger");
+        m_Boss.GetComponentInChildren<AttackPattern>().SetInvincible(true);
     }
 
     public override void WhileActive()
@@ -59,14 +60,21 @@ public class BeamAttackSeries : AEAttackSeries {
     private IEnumerator EndAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
+        m_Boss.GetComponentInChildren<AttackPattern>().SetInvincible(false);
         m_Callbacks.OnAttackEnd(this);
     }
 
     public override void CancelAttack()
     {
+        m_Boss.GetComponentInChildren<AttackPattern>().SetInvincible(false);
         base.m_Cancelled = true;
         m_Behaviour.StopCoroutine(m_EndEnumerator);
         m_Attack.Destroy();
         this.m_Callbacks.OnAttackCancelled(this);
+    }
+
+    public override bool DoCancelOnHit(PlayerControlsCharController.AttackType attackType)
+    {
+        return false;
     }
 }

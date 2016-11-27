@@ -279,6 +279,11 @@ public class ChaseAttack : Attack {
         base.ParryAttack();
     }
 
+    public override bool DoCancelOnHit(PlayerControlsCharController.AttackType attackType)
+    {
+        return false;
+    }
+
     private void SetupTriggerCallbacks()
     {
         if (m_Ended)
