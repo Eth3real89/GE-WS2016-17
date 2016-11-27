@@ -9,6 +9,7 @@ public class PlaceCollectible : MonoBehaviour
     public GameObject wall;
     public GameObject collectible;
     public Transform newPosition;
+    public Font fantasyFont;
 
     void OnTriggerEnter(Collider other)
     {
@@ -16,6 +17,9 @@ public class PlaceCollectible : MonoBehaviour
         {
             if (hasCollectible)
             {
+                hint.GetComponent<TextMesh>().text = "HansWurscht!";
+                hint.GetComponent<TextMesh>().font = fantasyFont;
+                hint.GetComponent<Renderer>().sharedMaterial = fantasyFont.material;
                 collectible.transform.parent = newPosition;
                 collectible.transform.localPosition = Vector3.zero;
                 collectible.SetActive(true);
@@ -24,6 +28,7 @@ public class PlaceCollectible : MonoBehaviour
                 wall.GetComponent<AudioSource>().Play();
                 GetComponent<AudioSource>().Play();
                 hasCollectible = false;
+                hint.SetActive(true);
             }
             else
             {
