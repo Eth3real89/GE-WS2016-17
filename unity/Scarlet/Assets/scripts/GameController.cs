@@ -70,6 +70,8 @@ public class GameController : MonoBehaviour {
     public float m_NotificationTime = 5.0f;
     private RadialBlur m_RadialBlur;
 
+    private OnCollectibleVFX m_OnCollectibleVFX;
+
     public static GameController Instance
     {
         get
@@ -191,6 +193,7 @@ public class GameController : MonoBehaviour {
         m_AudioSource = GetComponent<AudioSource>();
         m_HeartbeatPlaying = false;
         m_RadialBlur = m_MainCamera.GetComponent<RadialBlur>();
+        m_OnCollectibleVFX = m_MainCamera.GetComponent<OnCollectibleVFX>();
 
         m_BossKillNotification.enabled = false;
         m_BossKillNotification.text = "ASCENDED";
@@ -331,7 +334,20 @@ public class GameController : MonoBehaviour {
         HandleText(isBossDead, m_BossKillNotification);
         HandleText(isScarletDead, m_DeathNotification);  
 
-        print(m_Capsule.GetComponent<Renderer>().isVisible);    
+        HandleCollectibleVisualization();
+    }
+
+    private void HandleCollectibleVisualization()
+    {
+        if(m_Capsule.GetComponent<Renderer>().isVisible)
+        {
+            Vector3 target = m_MainCamera.GetComponent<Camera>().WorldToScreenPoint(m_Capsule.transform.position);
+            m_OnCollectibleVFX.Activate(target);
+        }
+        else
+        {
+            m_OnCollectibleVFX.Deactivate();
+        }
     }
 
 
