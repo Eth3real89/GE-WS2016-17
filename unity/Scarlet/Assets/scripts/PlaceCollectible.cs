@@ -17,7 +17,7 @@ public class PlaceCollectible : MonoBehaviour
         {
             if (hasCollectible)
             {
-                hint.GetComponent<TextMesh>().text = "HansWurscht!";
+                hint.GetComponent<TextMesh>().text = "HansWurscht!Wurscht\nTestNextLine";
                 hint.GetComponent<TextMesh>().font = fantasyFont;
                 hint.GetComponent<Renderer>().sharedMaterial = fantasyFont.material;
                 collectible.transform.parent = newPosition;
