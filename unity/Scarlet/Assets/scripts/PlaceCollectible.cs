@@ -4,6 +4,7 @@ using System.Collections;
 public class PlaceCollectible : MonoBehaviour
 {
     public bool hasCollectible;
+    public GameObject hint;
     public GameObject border;
     public GameObject wall;
     public GameObject collectible;
@@ -24,6 +25,18 @@ public class PlaceCollectible : MonoBehaviour
                 GetComponent<AudioSource>().Play();
                 hasCollectible = false;
             }
+            else
+            {
+                hint.SetActive(true);
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            hint.SetActive(false);
         }
     }
 }
