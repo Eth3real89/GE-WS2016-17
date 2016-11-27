@@ -129,6 +129,7 @@ public class PlayerControlsCharController : MonoBehaviour
     void Move()
     {
         float normalizedSpeed = (Mathf.Abs(m_HorizontalInput) + Mathf.Abs(m_VerticalInput)) * m_CurrentSpeed;
+
         if (normalizedSpeed >= m_CurrentSpeed)
         {
             normalizedSpeed = m_CurrentSpeed;
@@ -139,8 +140,18 @@ public class PlayerControlsCharController : MonoBehaviour
             if (m_InAttackAnimation)
                 CancelAttackAnimation();
         }
-
         Vector3 movement = new Vector3(m_HorizontalInput * normalizedSpeed, m_RigidBody.velocity.y, m_VerticalInput * normalizedSpeed);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up * 0.2f, transform.forward, out hit, 1f))
+        {
+            Debug.Log(transform.name);
+            if (hit.transform != transform)
+            {
+                movement = Vector3.zero;
+                normalizedSpeed = 0;
+            }
+        }
         m_RigidBody.velocity = (movement);
         animator.SetFloat("Speed", normalizedSpeed);
     }

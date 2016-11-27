@@ -39,8 +39,6 @@ public class OnCollectibleVFX : MonoBehaviour {
 		objectPosition = ToUV(objectPosition);
 
 		this.m_ObjectPosition = new Vector4(objectPosition.x, objectPosition.y, objectPosition.z, 0f);
-
-		print(this.m_ObjectPosition);
 	}
 
 	public void Deactivate() 
