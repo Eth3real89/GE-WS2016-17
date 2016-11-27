@@ -56,7 +56,7 @@ public class DoubleBeamAttackSeries : AEAttackSeries
         m_EndEnumerator = EndAttackAfter(11f);
         m_Behaviour.StartCoroutine(m_EndEnumerator);
 
-        m_BeamWarning = (GameObject) GameObject.Instantiate(m_BeamWarningPrefab, m_Boss.transform);
+        m_BeamWarning = (GameObject) GameObject.Instantiate(m_BeamWarningPrefab, m_Boss.transform.position, m_Boss.transform.rotation);
     }
 
     private IEnumerator RunSeriesAfter(float time)
