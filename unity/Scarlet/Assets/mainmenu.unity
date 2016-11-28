@@ -325,6 +325,7 @@ GameObject:
   - 114: {fileID: 501323071}
   - 114: {fileID: 501323070}
   - 114: {fileID: 501323074}
+  - 114: {fileID: 501323075}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -423,6 +424,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sound: {fileID: 1296964220}
+--- !u!114 &501323075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 501323069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f26958652c1a14968a497962e12ae27e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FadeTextureBlack: {fileID: 2800000, guid: c44fa8aa889084cae9c42a8e621c15ab, type: 3}
+  m_FadeSpeed: 0.05
 --- !u!1 &1296964219
 GameObject:
   m_ObjectHideFlags: 0
@@ -727,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 2100000, guid: 52088e8dd9b974318b98b4b92b045390, type: 2}
   m_Color: {r: 0.9705882, g: 0, b: 0, a: 0.809}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
