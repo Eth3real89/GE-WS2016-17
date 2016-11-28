@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
     public AudioClip m_AscensionSound;
     public AudioClip m_DefeatSound;
     public AudioClip m_Heartbeat;
+    public AudioClip m_BossMusic;
     private AudioSource m_AudioSource;
     private bool m_HeartbeatPlaying;
 
@@ -464,6 +465,7 @@ public class GameController : MonoBehaviour {
         {
             m_AudioSource.clip = m_Heartbeat;
             m_AudioSource.loop = true;
+            m_AudioSource.volume = 0.8f;
             m_AudioSource.Play();
 
         }
@@ -488,4 +490,11 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    public void PlayBossMusic()
+    {
+        m_AudioSource.clip = m_BossMusic;
+        m_AudioSource.loop = true;
+        m_AudioSource.volume = 0.2f;
+        m_AudioSource.Play();
+    }
 }

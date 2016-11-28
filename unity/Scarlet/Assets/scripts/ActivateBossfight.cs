@@ -41,5 +41,7 @@ public class ActivateBossfight : MonoBehaviour
         cc2d.enabled = false;
         controls.currentControlMode = PlayerControlsCharController.ControlMode.BossFight;
         Destroy(gameObject);
+
+        GameController.Instance.PlayBossMusic();
     }
 }
