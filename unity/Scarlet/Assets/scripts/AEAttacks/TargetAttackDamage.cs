@@ -15,12 +15,12 @@ public class TargetAttackDamage : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        HandleScarletCollision(other, 10f);
+        HandleScarletCollision(other, 30f);
     }
 
     void OnTriggerStay(Collider other)
     {
-        HandleScarletCollision(other, 20f * Time.deltaTime);
+        HandleScarletCollision(other, 30f);
     }
 
     private void HandleScarletCollision(Collider other, float damage)

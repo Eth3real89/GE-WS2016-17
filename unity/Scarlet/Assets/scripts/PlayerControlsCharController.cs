@@ -25,6 +25,7 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_Health;
     //Value after last loss bar animation
     public float m_HealthOld;
+    public bool m_Invincible = false;
 
     public float m_SpeedRun;
     public float m_SpeedWalk;
@@ -85,6 +86,8 @@ public class PlayerControlsCharController : MonoBehaviour
                 m_EffectSource = s;
             }
         }
+
+        m_Invincible = false;
     }
 
     public void Step()
@@ -339,6 +342,9 @@ public class PlayerControlsCharController : MonoBehaviour
 
     public float GetHit(GameObject attacker, float damage, bool blockable)
     {
+        if (m_Invincible)
+            return 0;
+
         if (blockable)
         {
             damage = ParryAttack(attacker, damage);
@@ -352,9 +358,21 @@ public class PlayerControlsCharController : MonoBehaviour
             return 0;
 
         PlayerShield shield = GetComponentInChildren<PlayerShield>();
+
+        float dmgBeforeShield = damage;
         if (shield != null)
         {
             damage = shield.OnPlayerTakeDamage(damage);
+        }
+
+        if (damage > 0 && !blockable)
+        {
+            Stagger();
+            LaunchIFrames(0.25f);
+        }
+        else if (damage <= 0 && dmgBeforeShield > 0)
+        {
+            LaunchIFrames(0.25f);
         }
 
         m_Health = Mathf.Max(0, m_Health - damage);
@@ -550,5 +568,18 @@ public class PlayerControlsCharController : MonoBehaviour
     {
         m_RigidBody.velocity = Vector3.zero;
         animator.SetFloat("Speed", 0);
+    }
+
+    public void LaunchIFrames(float time)
+    {
+        m_Invincible = true;
+
+        StartCoroutine(StopIFrames(time));
+    }
+
+    private IEnumerator StopIFrames(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Invincible = false;
     }
 }

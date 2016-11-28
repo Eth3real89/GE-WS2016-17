@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class ConeAttackDamage : MonoBehaviour {
-    private int m_FrameCount = 0;
 
     // Use this for initialization
     void Start()
@@ -16,15 +15,14 @@ public class ConeAttackDamage : MonoBehaviour {
 
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        m_FrameCount++;
-        HandleScarletCollision(other, 20f * Time.deltaTime * m_FrameCount);
+        HandleScarletCollision(other, 30f);
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        m_FrameCount = 0;
+        HandleScarletCollision(other, 30f);
     }
 
     private void HandleScarletCollision(Collider other, float damage)

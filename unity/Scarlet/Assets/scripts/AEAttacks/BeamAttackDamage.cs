@@ -3,8 +3,6 @@ using System.Collections;
 
 public class BeamAttackDamage : MonoBehaviour {
 
-    private int m_FrameCount = 0;
-
 	// Use this for initialization
 	void Start () {
 	
@@ -15,15 +13,14 @@ public class BeamAttackDamage : MonoBehaviour {
 
     }
 
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        m_FrameCount++;
-        HandleScarletCollision(other, 25f * Time.deltaTime * m_FrameCount);
+        HandleScarletCollision(other, 35f);
     }
 
-    void OnTriggerExit(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        m_FrameCount = 0;
+        HandleScarletCollision(other, 35f );
     }
 
     private void HandleScarletCollision(Collider other, float damage)
