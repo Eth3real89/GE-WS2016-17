@@ -147,8 +147,8 @@ public class GameController : MonoBehaviour {
 
             float health = m_ScarletController.m_Health + amount;
 
-            m_ScarletController.m_Health = (health > m_ScarletController.m_Health) ? 
-            m_ScarletController.m_Health = (health > m_ScarletController.m_StartHealth) ? 
+           // m_ScarletController.m_Health = (health > m_ScarletController.m_Health) ?
+            m_ScarletController.m_Health = (health > m_ScarletController.m_StartHealth) ?
                 m_ScarletController.m_StartHealth : health;
 
             CalculateScarletHealthBar(-amount / m_ScarletController.m_StartHealth);
@@ -486,6 +486,28 @@ public class GameController : MonoBehaviour {
         m_RadialBlur.haveRedBlurArea = false;
 
         m_RadialBlur.Reset();
+    }
+
+    public void BrieflyMakeSlowMo(float time = 1f)
+    {
+        SlowMo slowMo = GetComponent<SlowMo>();
+        if (slowMo != null)
+        {
+            slowMo.enabled = true;
+            slowMo.StartSlowMo();
+            StartCoroutine(StopSlowMo(time * slowMo.slowAmount));
+        }
+    }
+
+    private IEnumerator StopSlowMo(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        SlowMo slowMo = GetComponent<SlowMo>();
+        if (slowMo != null)
+        {
+            slowMo.StopSlowMo();
+        }
     }
 
     private void StopPlayingHeartbeat()

@@ -10,7 +10,7 @@ public class SlowMo : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-	    if(Input.GetButtonDown("Fire1"))
+	/*    if(Input.GetButtonDown("Fire1"))
         {
 
             if(Time.timeScale == 1.0f)
@@ -32,6 +32,18 @@ public class SlowMo : MonoBehaviour {
             currentSlowMo = 0f;
 
             Time.timeScale = 1.0f;
-        }
+        } */
 	}
+
+    public void StartSlowMo()
+    {
+        Time.timeScale = slowAmount;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    }
+
+    public void StopSlowMo()
+    {
+        Time.timeScale = 1f;
+        Time.fixedDeltaTime = 0.02f * Time.timeScale;
+    }
 }
