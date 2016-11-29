@@ -37,6 +37,8 @@ public class GameController : MonoBehaviour {
     public AudioClip m_Heartbeat;
     public AudioClip m_BossMusic;
     private AudioSource m_AudioSource;
+    private AudioSource m_HeartbeatAudioSource;
+    private AudioSource m_MusicAudioSource;
     private bool m_HeartbeatPlaying;
 
     public Image HealingCharge1;
@@ -192,6 +194,8 @@ public class GameController : MonoBehaviour {
     {
         m_ScarletController = m_Scarlet.GetComponent<PlayerControlsCharController>();
         m_AudioSource = GetComponent<AudioSource>();
+        m_HeartbeatAudioSource = GameObject.Find("HeartbeatAudioSource").GetComponent<AudioSource>();
+        m_MusicAudioSource = GameObject.Find("MusicAudioSource").GetComponent<AudioSource>();
         m_HeartbeatPlaying = false;
         m_RadialBlur = m_MainCamera.GetComponent<RadialBlur>();
         m_OnCollectibleVFX = m_MainCamera.GetComponent<OnCollectibleVFX>();
@@ -450,7 +454,7 @@ public class GameController : MonoBehaviour {
     {
         if (isScarletDead)
             return;
-        if (m_AudioSource != null)
+        if (m_HeartbeatAudioSource != null)
         {
             m_AudioSource.clip = m_DefeatSound;
             m_AudioSource.loop = false;
@@ -461,12 +465,12 @@ public class GameController : MonoBehaviour {
     private void StartPlayingHeartbeat()
     {
         m_HeartbeatPlaying = true;
-        if (m_AudioSource != null)
+        if (m_HeartbeatAudioSource != null)
         {
-            m_AudioSource.clip = m_Heartbeat;
-            m_AudioSource.loop = true;
-            m_AudioSource.volume = 0.8f;
-            m_AudioSource.Play();
+            m_HeartbeatAudioSource.clip = m_Heartbeat;
+            m_HeartbeatAudioSource.loop = true;
+            m_HeartbeatAudioSource.volume = 0.8f;
+            m_HeartbeatAudioSource.Play();
 
         }
     }
@@ -484,17 +488,17 @@ public class GameController : MonoBehaviour {
     private void StopPlayingHeartbeat()
     {
         m_HeartbeatPlaying = false;
-        if (m_AudioSource != null && m_AudioSource.isPlaying && m_AudioSource.clip == m_Heartbeat)
+        if (m_HeartbeatAudioSource != null && m_HeartbeatAudioSource.isPlaying && m_HeartbeatAudioSource.clip == m_Heartbeat)
         {
-            m_AudioSource.Stop();
+            m_HeartbeatAudioSource.Stop();
         }
     }
 
     public void PlayBossMusic()
     {
-        m_AudioSource.clip = m_BossMusic;
-        m_AudioSource.loop = true;
-        m_AudioSource.volume = 0.2f;
-        m_AudioSource.Play();
+        m_MusicAudioSource.clip = m_BossMusic;
+        m_MusicAudioSource.loop = true;
+        m_MusicAudioSource.volume = 0.2f;
+        m_MusicAudioSource.Play();
     }
 }
