@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerControlsCharController : MonoBehaviour
 {
     public enum ControlMode { Exploration, BossFight, Disabled };
-    private enum ParryState { NoParry, Perfect, Regular, AdditionalDamage };
+    private enum ParryState {TooLate, NoParry, Perfect, Regular, AdditionalDamage };
 
     public enum AttackType { Regular, LastHitInCombo };
 
@@ -47,6 +47,7 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_healingCharges;
     public float m_healingAmount;
 
+    public float m_TooLateParryTime = 0.1f;
     public float m_PerfectParryTime = 0.1f;
     public float m_RegularParryTime = 0.25f;
     public float m_AdditionalDamageTime = 0.4f;
@@ -270,12 +271,12 @@ public class PlayerControlsCharController : MonoBehaviour
     private void Parry()
     {
         m_ControlsEnabled = false;
-        m_Parrying = ParryState.Perfect;
+        m_Parrying = ParryState.TooLate;
 
         m_RigidBody.velocity = new Vector3();
 
         animator.SetTrigger("BlockTrigger");
-        m_ParryIEnumerator = SetParryState(ParryState.Regular, m_PerfectParryTime);
+        m_ParryIEnumerator = SetParryState(ParryState.Perfect, m_TooLateParryTime);
         StartCoroutine(m_ParryIEnumerator);
     }
 
@@ -284,7 +285,12 @@ public class PlayerControlsCharController : MonoBehaviour
         yield return new WaitForSeconds(time);
         m_Parrying = newState;
 
-        if (newState == ParryState.Regular)
+        if (newState == ParryState.Perfect)
+        {
+            m_ParryIEnumerator = SetParryState(ParryState.Regular, m_PerfectParryTime);
+            StartCoroutine(m_ParryIEnumerator);
+        }
+        else if (newState == ParryState.Regular)
         {
             m_ParryIEnumerator = SetParryState(ParryState.AdditionalDamage, m_RegularParryTime);
             StartCoroutine(m_ParryIEnumerator);
@@ -396,7 +402,7 @@ public class PlayerControlsCharController : MonoBehaviour
         {
             return damage;
         }
-        else if (m_Parrying == ParryState.AdditionalDamage)
+        else if (m_Parrying == ParryState.AdditionalDamage || m_Parrying == ParryState.TooLate)
         {
             Stagger();
             return damage * 1.3f;
