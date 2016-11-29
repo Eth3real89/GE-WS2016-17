@@ -148,6 +148,7 @@ public class GameController : MonoBehaviour {
             float health = m_ScarletController.m_Health + amount;
 
             m_ScarletController.m_Health = (health > m_ScarletController.m_Health) ? 
+            m_ScarletController.m_Health = (health > m_ScarletController.m_StartHealth) ? 
                 m_ScarletController.m_StartHealth : health;
 
             CalculateScarletHealthBar(-amount / m_ScarletController.m_StartHealth);
@@ -362,7 +363,8 @@ public class GameController : MonoBehaviour {
     private void CalculateScarletHealthBar(float damage)
     {
         //prior width of health bar
-        float endHealth = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+        // float endHealth = rtHealthScarlet.rect.width + rtHealthScarlet.anchoredPosition.x;
+        float endHealth = fullWidth * (m_ScarletController.m_HealthOld / m_ScarletController.m_StartHealth);
         //prior width of loss bar
         float endLoss = Mathf.Max(0, rtLossScarlet.rect.width + rtLossScarlet.anchoredPosition.x - endHealth);
         //start of loss bar and width of health bar
@@ -372,7 +374,8 @@ public class GameController : MonoBehaviour {
 
         if (damage > 0)
         {
-            newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
+            // newEndHealth = Mathf.Max(0, endHealth - fullWidth * damage);
+            newEndHealth = fullWidth * (m_ScarletController.m_Health / m_ScarletController.m_StartHealth);
             if(newEndHealth == 0)
             {
                 newEndLoss = Mathf.Min(endLoss + endHealth, fullWidth, endLoss + fullWidth * damage);
@@ -389,7 +392,8 @@ public class GameController : MonoBehaviour {
         else
         {
             //Scarlet is healed and damage is negative
-            newEndHealth = Mathf.Min(fullWidth, endHealth - fullWidth * damage);
+            // newEndHealth = Mathf.Min(fullWidth, endHealth - fullWidth * damage);
+            newEndHealth = fullWidth * (m_ScarletController.m_Health / m_ScarletController.m_StartHealth);
             healingHealth = newEndHealth;
             newEndLoss = Mathf.Max(0, endLoss + fullWidth * damage);
         }
