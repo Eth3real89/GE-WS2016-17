@@ -107,12 +107,6 @@ public class GameController : MonoBehaviour {
             elapsedTimeScarlet = 0;
         }
 
-        if (m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
-        {
-            if (!m_HeartbeatPlaying)
-                StartPlayingHeartbeat();
-        }
-
         if (m_ScarletController.m_Health <= 0)
         {
             PlayDefeatSound();
@@ -319,6 +313,11 @@ public class GameController : MonoBehaviour {
             {
                 isHealing = false;
             }
+        }
+
+        if (!m_HeartbeatPlaying && m_ScarletController.m_Health <= m_ScarletController.m_StartHealth * 0.15f)
+        {
+            StartPlayingHeartbeat();
         }
 
         if (m_HeartbeatPlaying && m_ScarletController.m_Health > m_ScarletController.m_StartHealth * 0.15f)
