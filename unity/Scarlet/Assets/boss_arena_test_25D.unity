@@ -16191,6 +16191,7 @@ GameObject:
   - 114: {fileID: 2009010260}
   - 114: {fileID: 2009010262}
   - 82: {fileID: 2009010263}
+  - 114: {fileID: 2009010264}
   m_Layer: 0
   m_Name: _MainObject
   m_TagString: Untagged
@@ -16328,6 +16329,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &2009010264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2009010259}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f00a938b2d5c48e7842f406dc60905e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slowDuration: 0.2
+  slowAmount: 0.05
 --- !u!1 &2021006860
 GameObject:
   m_ObjectHideFlags: 0
