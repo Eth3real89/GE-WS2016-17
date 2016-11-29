@@ -442,7 +442,8 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void Stagger()
     {
-        StopCoroutine(m_ParryIEnumerator);
+        if (m_ParryIEnumerator != null)
+            StopCoroutine(m_ParryIEnumerator);
         m_ControlsEnabled = false;
         m_Parrying = ParryState.NoParry;
 
