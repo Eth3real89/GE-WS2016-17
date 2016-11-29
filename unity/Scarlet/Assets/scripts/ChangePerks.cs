@@ -36,36 +36,36 @@ public class ChangePerks : MonoBehaviour {
             if (tLeft <= 1)
             {
                 tLeft += Time.deltaTime * speed;
-                if (perk3.fillAmount != 0 && perk2.fillAmount == 0)
+                if (perk3.fillAmount != 0 && perk1.fillAmount == 0)
                 {
                     perk3.fillOrigin = (int)Image.OriginHorizontal.Right;
-                    perk1.fillOrigin = (int)Image.OriginHorizontal.Left;
+                    perk2.fillOrigin = (int)Image.OriginHorizontal.Left;
                     perk3.fillAmount = Mathf.Lerp(1, 0, tLeft);
-                    perk1.fillAmount = Mathf.Lerp(0, 1, tLeft);
+                    perk2.fillAmount = Mathf.Lerp(0, 1, tLeft);
                     if (perk3.fillAmount == 0)
                     {
                         perkChangeLeft = false;
                         tLeft = 0;
                     }
                 }
-                else if (perk1.fillAmount != 0 && perk3.fillAmount == 0)
+                else if (perk1.fillAmount != 0 && perk2.fillAmount == 0)
                 {
                     perk1.fillOrigin = (int)Image.OriginHorizontal.Right;
-                    perk2.fillOrigin = (int)Image.OriginHorizontal.Left;
+                    perk3.fillOrigin = (int)Image.OriginHorizontal.Left;
                     perk1.fillAmount = Mathf.Lerp(1, 0, tLeft);
-                    perk2.fillAmount = Mathf.Lerp(0, 1, tLeft);
+                    perk3.fillAmount = Mathf.Lerp(0, 1, tLeft);
                     if (perk1.fillAmount == 0)
                     {
                         perkChangeLeft = false;
                         tLeft = 0;
                     }
                 }
-                else if (perk2.fillAmount != 0 && perk1.fillAmount == 0)
+                else if (perk2.fillAmount != 0 && perk3.fillAmount == 0)
                 {
                     perk2.fillOrigin = (int)Image.OriginHorizontal.Right;
-                    perk3.fillOrigin = (int)Image.OriginHorizontal.Left;
+                    perk1.fillOrigin = (int)Image.OriginHorizontal.Left;
                     perk2.fillAmount = Mathf.Lerp(1, 0, tLeft);
-                    perk3.fillAmount = Mathf.Lerp(0, 1, tLeft);
+                    perk1.fillAmount = Mathf.Lerp(0, 1, tLeft);
                     if (perk2.fillAmount == 0)
                     {
                         perkChangeLeft = false;
