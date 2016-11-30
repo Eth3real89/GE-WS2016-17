@@ -16,12 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014137574730}
-  - 33: {fileID: 33000011831387516}
-  - 136: {fileID: 136000010923348984}
-  - 23: {fileID: 23000012333106020}
+  - component: {fileID: 4000014137574730}
+  - component: {fileID: 33000011831387516}
+  - component: {fileID: 23000012333106020}
   m_Layer: 0
   m_Name: Banner
   m_TagString: Untagged
@@ -34,11 +33,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014126862062}
-  - 137: {fileID: 137000013489587460}
-  - 183: {fileID: 183000012118988170}
+  - component: {fileID: 4000014126862062}
+  - component: {fileID: 137000013489587460}
+  - component: {fileID: 183000012118988170}
   m_Layer: 0
   m_Name: Cloth
   m_TagString: Untagged
@@ -55,10 +54,10 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -14, z: 0}
   m_LocalScale: {x: 0.0536297, y: 3.6871054, z: 2.7044735}
-  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
   m_Children: []
   m_Father: {fileID: 4000014137574730}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: -90, z: 90}
 --- !u!4 &4000014137574730
 Transform:
   m_ObjectHideFlags: 1
@@ -68,11 +67,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.01, y: 0.37331, z: -0.551}
   m_LocalScale: {x: 0.45582318, y: 0.028836034, z: 0.27121562}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000014126862062}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000012333106020
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +86,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 5478d3f7b3d434c8faa53a8e9bf4eb2f, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -95,7 +96,7 @@ MeshRenderer:
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -109,19 +110,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011490658860}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &136000010923348984
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011490658860}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137000013489587460
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -136,7 +124,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 2d75fec6ba7754c6e82a51cbe0d8e131, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -144,7 +134,7 @@ SkinnedMeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -160,8 +150,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: 0, y: 0, z: -0.00000047683716}
-    m_Extent: {x: 5.0000234, y: 0.00000087395495, z: 5.0000014}
+    m_Center: {x: 0, y: -0.00000011920929, z: -0.00000047683716}
+    m_Extent: {x: 5.0000234, y: 0.0000008739552, z: 5.0000024}
   m_DirtyAABB: 0
 --- !u!183 &183000012118988170
 Cloth:
@@ -175,7 +165,7 @@ Cloth:
   m_UseTethers: 1
   m_UseGravity: 1
   m_Damping: 0
-  m_ExternalAcceleration: {x: 0, y: 0, z: 0}
+  m_ExternalAcceleration: {x: 1.5, y: 0, z: 0}
   m_RandomAcceleration: {x: 2, y: 0, z: 0}
   m_WorldVelocityScale: 0.5
   m_WorldAccelerationScale: 1
