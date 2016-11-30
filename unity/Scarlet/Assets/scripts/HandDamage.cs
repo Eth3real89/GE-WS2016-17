@@ -41,6 +41,14 @@ public class HandDamage : MonoBehaviour {
                 GameController.Instance.HitBoss(m_Damage, m_CurrentAttackType);
                 m_CauseDamage = false;
             }
+            else
+            {
+                Bullet b = other.gameObject.GetComponentInParent<Bullet>();
+                if (b != null)
+                {
+                    b.DestroyBullet();
+                }
+            }
         }
     }
 

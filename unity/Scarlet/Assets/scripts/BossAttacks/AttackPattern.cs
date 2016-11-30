@@ -22,6 +22,8 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     public GameObject m_TargetSetupPrefab;
     public GameObject m_TargetAttackPrefab;
 
+    public GameObject m_StraightBulletPrefab;
+
     public Material m_HitMaterial;
     public Material m_HighlightMaterial;
 
@@ -55,7 +57,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
     void Start()
     {
         m_AudioSource = GetComponent<AudioSource>();
-        m_Attacks = new Attack[6];
+        m_Attacks = new Attack[7];
 
         m_CurrentAttackIndex = 0;
         StartCoroutine(StartNextAttackAfter(2f));
@@ -88,6 +90,9 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
                 break;
             case 5:
                 m_Attacks[index] = new DoubleBeamAttackSeries(this, m_BeamPrefab, m_BeamWarningPrefab, m_Boss);
+                break;
+            case 6:
+                m_Attacks[index] = new WaveConeBulletAttack(this, m_StraightBulletPrefab);
                 break;
         }
 
@@ -162,7 +167,7 @@ public class AttackPattern : MonoBehaviour, AttackCallbacks
             m_CurrentAttackIndex = 0;
         }
 
-       // m_CurrentAttackIndex = 5;
+        // m_CurrentAttackIndex = 6;
 
         StartCoroutine(StartNextAttackAfter(2f));
     }

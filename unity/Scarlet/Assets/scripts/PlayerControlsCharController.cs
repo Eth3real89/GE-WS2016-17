@@ -380,6 +380,10 @@ public class PlayerControlsCharController : MonoBehaviour
         {
             LaunchIFrames(0.25f);
         }
+        else if (damage > 0 && blockable && attacker.GetComponentInParent<Bullet>() != null)
+        {
+            LaunchIFrames(0.5f);
+        }
 
         m_Health = Mathf.Max(0, m_Health - damage);
 
@@ -388,6 +392,26 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private float ParryAttack(GameObject attacker, float damage)
     {
+        if (attacker.GetComponentInParent<Bullet>() != null)
+        {
+            if (m_Parrying == ParryState.Perfect || m_Parrying == ParryState.Regular)
+            {
+                attacker.GetComponentInParent<Bullet>().DestroyBullet();
+                StopCoroutine(m_ParryIEnumerator);
+                m_ControlsEnabled = true;
+                m_Parrying = ParryState.NoParry;
+                return 0;
+            }
+            else
+            {
+                if (m_ParryIEnumerator != null)
+                    StopCoroutine(m_ParryIEnumerator);
+                m_ControlsEnabled = true;
+                m_Parrying = ParryState.NoParry;
+                return damage;
+            }
+        }
+
         if (m_Parrying == ParryState.Perfect)
         {
             PerfectParry(attacker);
