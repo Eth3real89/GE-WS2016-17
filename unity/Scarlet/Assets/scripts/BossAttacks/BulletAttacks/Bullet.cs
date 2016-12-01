@@ -27,6 +27,7 @@ public abstract class Bullet : MonoBehaviour
         if (m_PassedTime > m_MaxLifetime)
         {
             m_Destroy = true;
+            this.DestroyBullet();
         }
     }
 
