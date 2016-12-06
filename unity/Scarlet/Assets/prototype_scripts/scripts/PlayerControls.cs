@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using System.Collections;
 
 public class PlayerControls : MonoBehaviour {
@@ -118,3 +118,4 @@ public class PlayerControls : MonoBehaviour {
 	}
 
 }
+*/
