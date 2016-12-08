@@ -32,6 +32,7 @@ public class PlayerControlsCharController : MonoBehaviour
     public float m_DashDistance;
     public float m_DashSpeed;
     public float m_DashCooldown;
+    public bool m_DashEnabled = true;
     public float m_ClimbingDistance;
 
     private float m_LastDash;
@@ -194,6 +195,9 @@ public class PlayerControlsCharController : MonoBehaviour
 
     private void CheckDash()
     {
+        if (!m_DashEnabled)
+            return;
+
         if (Input.GetButtonDown("Jump"))
         {
             if (m_InAttackAnimation)
