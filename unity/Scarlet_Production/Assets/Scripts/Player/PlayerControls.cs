@@ -14,6 +14,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     private PlayerParryCommand m_ParryCommand;
     private PlayerStaggerCommand m_StaggerCommand;
 
+    private IEnumerator m_DashDelayEnumerator;
+
     void Start () {
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         foreach(PlayerCommand command in m_PlayerCommands)
@@ -41,13 +43,20 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     public void OnCommandEnd(string commandName, PlayerCommand command)
     {
         if (command == m_HealCommand)
+        {
             return;
-
-        // so far, there is no "switch case" thing here; if a command was not interrupted
-        // (by, say, staggering), then it was the only one that was active (with the exception of healing)
-        // and all other commands become available again.
-        EnableCommands(m_AttackCommand, m_DashCommand, m_HealCommand, 
-                       m_ParryCommand, m_MoveCommand, m_StaggerCommand);
+        }
+        else if (command == m_DashCommand)
+        {
+            EnableCommands(m_AttackCommand, m_HealCommand, m_ParryCommand, m_MoveCommand, m_StaggerCommand);
+            m_DashDelayEnumerator = EnableDashAfter(m_DashCommand.m_DashDelay);
+            StartCoroutine(m_DashDelayEnumerator);
+        }
+        else
+        {
+            EnableCommands(m_AttackCommand, m_DashCommand, m_HealCommand,
+                        m_ParryCommand, m_MoveCommand, m_StaggerCommand);
+        }
     }
 
     public void OnCommandStart(string commandName, PlayerCommand command)
@@ -55,7 +64,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
         if (command == m_AttackCommand)
             DisableCommands(m_AttackCommand, m_DashCommand, m_HealCommand, m_ParryCommand, m_MoveCommand);
         else if (command == m_DashCommand)
-            DisableCommands(m_AttackCommand, m_ParryCommand, m_MoveCommand);
+            DisableCommands(m_AttackCommand, m_ParryCommand, m_MoveCommand, m_DashCommand);
         else if (command == m_ParryCommand)
             DisableCommands(m_AttackCommand, m_ParryCommand, m_DashCommand, m_MoveCommand);
     }
@@ -76,11 +85,20 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     {
         if (command != null)
             command.m_Active = false;
+
+        if (command == m_DashCommand && m_DashDelayEnumerator != null)
+            StopCoroutine(m_DashDelayEnumerator);
     }
 
     private void EnableCommand(PlayerCommand command)
     {
         if (command != null)
             command.m_Active = true;
+    }
+
+    private IEnumerator EnableDashAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        EnableCommand(m_DashCommand);
     }
 }
