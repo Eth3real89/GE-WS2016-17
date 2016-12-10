@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerParryCommand : PlayerCommand {
 
+    private Rigidbody m_ScarletBody;
+
     private void Start()
     {
         m_CommandName = "Parry";
@@ -13,6 +15,7 @@ public class PlayerParryCommand : PlayerCommand {
     public override void InitTrigger()
     {
         m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
+        m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
 
     public override void TriggerCommand()
@@ -23,6 +26,7 @@ public class PlayerParryCommand : PlayerCommand {
     private void DoParry()
     {
         m_Callback.OnCommandStart(m_CommandName, this);
+        m_ScarletBody.velocity = new Vector3(0, 0, 0);
         print("Parrying!");
     }
 

@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class PlayerStaggerCommand : PlayerCommand {
 
+    private Rigidbody m_ScarletBody;
+
     private void Start()
     {
-        m_Trigger = new StaggerTrigger(this);
     }
 
     public override void InitTrigger()
     {
+        m_Trigger = new StaggerTrigger(this);
+        m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
 
     public override void TriggerCommand()
@@ -23,6 +26,7 @@ public class PlayerStaggerCommand : PlayerCommand {
     private void DoStagger()
     {
 
+        m_ScarletBody.velocity = new Vector3(0, 0, 0);
     }
 
     // Stagger trigger remains empty!! stagger is not triggered by the player.
