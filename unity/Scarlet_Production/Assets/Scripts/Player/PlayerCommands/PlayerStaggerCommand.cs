@@ -29,6 +29,12 @@ public class PlayerStaggerCommand : PlayerCommand {
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
     }
 
+    public override void CancelDelay()
+    {
+        // @todo.
+        // stagger is probably the cause of the delay.
+    }
+
     // Stagger trigger remains empty!! stagger is not triggered by the player.
     private class StaggerTrigger : CommandTrigger
     {

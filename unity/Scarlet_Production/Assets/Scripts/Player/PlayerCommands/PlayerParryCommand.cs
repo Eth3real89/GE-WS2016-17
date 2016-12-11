@@ -30,4 +30,8 @@ public class PlayerParryCommand : PlayerCommand {
         print("Parrying!");
     }
 
+    public override void CancelDelay()
+    {
+        // @todo
+    }
 }

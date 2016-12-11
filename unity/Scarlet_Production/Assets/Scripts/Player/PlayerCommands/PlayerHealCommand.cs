@@ -25,4 +25,9 @@ public class PlayerHealCommand : PlayerCommand {
         print("Healing!");
         m_Callback.OnCommandStart(m_CommandName, this);
     }
+
+    // heal cannot be cancelled.
+    public override void CancelDelay()
+    {
+    }
 }

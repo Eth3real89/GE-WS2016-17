@@ -50,6 +50,11 @@ public class PlayerMoveCommand : PlayerCommand {
         m_ScarletBody.MoveRotation(rotation);
     }
 
+    // moving has no delay, cannot be cancelled.
+    public override void CancelDelay()
+    {
+    }
+
     private class MoveTrigger : CommandTrigger
     {
         new PlayerMoveCommand m_Command;

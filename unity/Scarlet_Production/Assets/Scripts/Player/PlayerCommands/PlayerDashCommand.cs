@@ -67,4 +67,8 @@ public class PlayerDashCommand : PlayerCommand {
         // @todo: stop showing trail / animation
     }
 
+    // dash cannot be cancelled.
+    public override void CancelDelay()
+    {
+    }
 }

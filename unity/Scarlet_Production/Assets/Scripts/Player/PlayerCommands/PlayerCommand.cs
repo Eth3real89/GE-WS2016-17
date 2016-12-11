@@ -32,6 +32,7 @@ public abstract class PlayerCommand : MonoBehaviour {
 
     public abstract void InitTrigger();
     public abstract void TriggerCommand();
+    public abstract void CancelDelay();
 
     public abstract class CommandTrigger
     {
