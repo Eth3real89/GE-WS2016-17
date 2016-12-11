@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 29568142}
   - component: {fileID: 29568144}
   - component: {fileID: 29568143}
+  - component: {fileID: 29568145}
   m_Layer: 0
   m_Name: DamageTrigger
   m_TagString: Untagged
@@ -141,6 +142,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 29568141}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &29568145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 29568141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0686e59d3567e54c9479e3162ecd697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Active: 0
+  m_Damage: 0
 --- !u!1 &223304240
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,9 +436,12 @@ MonoBehaviour:
   m_Active: 1
   m_Scarlet: {fileID: 0}
   m_Animator: {fileID: 0}
+  m_RegularHitDamage: 20
+  m_FinalHitDamage: 30
   m_MaxTimeForCombo: 0.5
   m_DelayAfterAttack: 0.3
   m_DelayAfterLastAttack: 0.5
+  m_DamageTrigger: {fileID: 29568141}
 --- !u!1 &1474446095
 GameObject:
   m_ObjectHideFlags: 0
