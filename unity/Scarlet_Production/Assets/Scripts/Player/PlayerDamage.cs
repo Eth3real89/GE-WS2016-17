@@ -1,25 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamage : MonoBehaviour {
+public class PlayerDamage : Damage {
 
     public bool m_Active;
     public float m_Damage;
 
+    public override bool blockable()
+    {
+        return true;
+    }
+
+    public override float damage()
+    {
+        return m_Damage;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Active)
-        {
-            // @todo: check if other is boss
-            // @todo: deal damage
-            // @todo: then, set active to false.
-        }
+        CheckHit(other);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        // same as above (make that 1 method)
+        CheckHit(other);
     }
 
+
+    private void CheckHit(Collider other)
+    {
+        if (m_Active)
+        {
+            Hittable hittable = other.gameObject.GetComponentInChildren<Hittable>();
+            if (hittable != null)
+            {
+                hittable.hit(this);
+                m_Active = false;
+            }
+        }
+    }
 }
