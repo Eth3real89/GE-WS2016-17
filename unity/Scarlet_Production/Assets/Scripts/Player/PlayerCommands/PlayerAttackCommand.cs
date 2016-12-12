@@ -31,6 +31,7 @@ public class PlayerAttackCommand : PlayerCommand {
 
     public override void InitTrigger()
     {
+        m_CommandName = "Attack";
         m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
@@ -60,7 +61,7 @@ public class PlayerAttackCommand : PlayerCommand {
 
         PlayAttackAnimation(m_CurrentCombo);
 
-        if (m_CurrentCombo < 4)
+        if (m_CurrentCombo < 3)
         {
             m_PlayerDamage.m_Damage = m_RegularHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterAttack);
@@ -78,11 +79,30 @@ public class PlayerAttackCommand : PlayerCommand {
 
     private void PlayAttackAnimation(int currentCombo)
     {
-        print("play attack anim. " + currentCombo);
+        if (currentCombo == 0)
+        {
+            m_Animator.SetInteger("WhichAttack", UnityEngine.Random.Range(1, 3));
+        }
+        else if (currentCombo == 1)
+        {
+            m_Animator.SetInteger("WhichAttack", UnityEngine.Random.Range(3, 5));
+        }
+        else if (currentCombo == 2)
+        {
+            m_Animator.SetInteger("WhichAttack", UnityEngine.Random.Range(5, 7));
+        }
+        else if (currentCombo == 3)
+        {
+            m_Animator.SetInteger("WhichAttack", 7);
+        }
+
+        m_Animator.SetTrigger("AttackTrigger");
     }
 
     public override void CancelDelay()
     {
+        m_PlayerDamage.m_Active = false;
+
         if (m_AttackEnumerator != null)
             StopCoroutine(m_AttackEnumerator);
     }

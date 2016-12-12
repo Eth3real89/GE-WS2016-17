@@ -12,6 +12,7 @@ public class PlayerHealCommand : PlayerCommand {
 
     public override void InitTrigger()
     {
+        m_CommandName = "Heal";
         m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
     }
 

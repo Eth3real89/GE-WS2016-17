@@ -9,10 +9,12 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     private void Start()
     {
+        m_CommandName = "Stagger";
     }
 
     public override void InitTrigger()
     {
+        m_CommandName = "Stagger";
         m_Trigger = new StaggerTrigger(this);
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }

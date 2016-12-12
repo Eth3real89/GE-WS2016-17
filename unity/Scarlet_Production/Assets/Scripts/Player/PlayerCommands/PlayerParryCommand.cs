@@ -14,6 +14,7 @@ public class PlayerParryCommand : PlayerCommand {
 
     public override void InitTrigger()
     {
+        m_CommandName = "Parry";
         m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
