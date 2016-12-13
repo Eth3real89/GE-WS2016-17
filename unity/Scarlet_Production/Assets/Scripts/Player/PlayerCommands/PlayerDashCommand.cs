@@ -9,11 +9,23 @@ public class PlayerDashCommand : PlayerCommand {
     public float m_DashTime = 0.05f;
     public float m_DashDelay = 0.15f;
 
+    public GameObject m_TrailContainer;
+    public GameObject m_RendererContainer;
+
+    private TrailRenderer m_TrailRenderer;
+    private Renderer m_ScarletRenderer;
+
     private Rigidbody m_ScarletBody;
 
     private void Start()
     {
         m_CommandName = "Dash";
+
+        if (m_TrailContainer != null)
+            m_TrailRenderer = m_TrailContainer.GetComponent<TrailRenderer>();
+
+        if (m_RendererContainer != null)
+            m_ScarletRenderer = m_RendererContainer.GetComponentInChildren<Renderer>();
     }
 
     public override void InitTrigger()
@@ -58,14 +70,34 @@ public class PlayerDashCommand : PlayerCommand {
 
     private void OnDashStart()
     {
-        // make invincible
-        // @todo: start showing trail / animation
+        // @todo make invincible
+
+        if (m_TrailRenderer != null)
+        {
+            m_TrailRenderer.Clear();
+            m_TrailRenderer.time = 2;
+        }
+
+        if (m_ScarletRenderer != null)
+        {
+            m_ScarletRenderer.enabled = false;
+        }
     }
 
     private void OnDashEnd()
     {
-        // stop invincibility
-        // @todo: stop showing trail / animation
+        // @todo stop invincibility
+
+        if (m_TrailRenderer != null)
+        {
+            m_TrailRenderer.time = 0;
+            m_TrailRenderer.Clear();
+        }
+
+        if (m_ScarletRenderer != null)
+        {
+            m_ScarletRenderer.enabled = true;
+        }
     }
 
     // dash cannot be cancelled.
