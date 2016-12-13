@@ -16,6 +16,7 @@ public class PlayerMoveCommand : PlayerCommand {
 
     public override void InitTrigger()
     {
+        m_CommandName = "Move";
         m_Trigger = new MoveTrigger(this);
 
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();

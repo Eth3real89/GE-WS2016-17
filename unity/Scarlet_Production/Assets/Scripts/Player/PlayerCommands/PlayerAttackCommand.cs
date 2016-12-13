@@ -116,6 +116,8 @@ public class PlayerAttackCommand : PlayerCommand {
     private IEnumerator DelayEnd(float delay)
     {
         yield return new WaitForSeconds(delay);
+
+        m_PlayerDamage.m_Active = false;
         m_Callback.OnCommandEnd(m_CommandName, this);
     }
 }

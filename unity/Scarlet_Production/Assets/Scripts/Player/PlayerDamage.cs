@@ -8,12 +8,12 @@ public class PlayerDamage : Damage {
     public bool m_Active;
     public float m_Damage;
 
-    public override bool blockable()
+    public override bool Blockable()
     {
         return true;
     }
 
-    public override float damage()
+    public override float DamageAmount()
     {
         return m_Damage;
     }
