@@ -212,6 +212,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 66d8ed6947ccd14439e479adde33e98a, type: 2}
+    - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
   m_IsPrefabParent: 0
@@ -1695,6 +1699,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_BossMove: {fileID: 1792357394}
+  m_BossTurn: {fileID: 1792357396}
   m_BossHit: {fileID: 1792357395}
   m_Target: {fileID: 638130663}
 --- !u!1 &1739478931
@@ -1839,6 +1844,7 @@ GameObject:
   - component: {fileID: 1792357395}
   - component: {fileID: 1792357394}
   - component: {fileID: 1792357393}
+  - component: {fileID: 1792357396}
   m_Layer: 0
   m_Name: BossCommands
   m_TagString: Untagged
@@ -1900,6 +1906,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
+--- !u!114 &1792357396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792357391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4741f77b698aca64f808407f63a19806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_TurnSpeed: 45
+  m_Scarlet: {fileID: 638130663}
 --- !u!1 &1795476251
 GameObject:
   m_ObjectHideFlags: 0
