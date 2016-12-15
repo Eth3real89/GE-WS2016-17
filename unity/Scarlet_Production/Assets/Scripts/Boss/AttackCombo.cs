@@ -33,6 +33,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         {
             attack.m_Boss = m_Boss;
             attack.m_Animator = m_Animator;
+            attack.m_Callback = this;
         }
 	}
 	
@@ -60,8 +61,14 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         }
         else
         {
-            m_Attacks[m_CurrentAttackIndex].StartAttack();
+            StartCoroutine(StartNextAttackAfter(m_Attacks[m_CurrentAttackIndex - 1].m_TimeAfterAttack));
         }
+    }
+
+    private IEnumerator StartNextAttackAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
     public void OnAttackInterrupted(BossAttack attack)
