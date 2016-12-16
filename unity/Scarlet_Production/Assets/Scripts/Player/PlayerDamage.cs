@@ -36,7 +36,7 @@ public class PlayerDamage : Damage {
             Hittable hittable = other.gameObject.GetComponentInChildren<Hittable>();
             if (hittable != null)
             {
-                hittable.hit(this);
+                hittable.Hit(this);
                 m_Active = false;
             }
         }

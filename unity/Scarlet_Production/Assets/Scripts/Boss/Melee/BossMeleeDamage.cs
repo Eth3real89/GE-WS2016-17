@@ -57,7 +57,7 @@ public class BossMeleeDamage : Damage {
             Hittable hittable = other.GetComponentInChildren<Hittable>();
             if (hittable != null)
             {
-                hittable.hit(this.m_Damage);
+                hittable.Hit(this.m_Damage);
                 m_Damage.enabled = false;
             }
         }

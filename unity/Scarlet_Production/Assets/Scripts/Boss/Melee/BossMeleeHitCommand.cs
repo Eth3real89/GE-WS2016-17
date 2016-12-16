@@ -85,7 +85,7 @@ public class BossMeleeHitCommand : BossCommand, BossMeleeDamage.CollisionHandler
         {
             if (m_DamageTrigger.m_Active)
             {
-                hittable.hit(m_DamageTrigger);
+                hittable.Hit(m_DamageTrigger);
                 m_Callback.OnMeleeHitSuccess();
                 m_DamageTrigger.m_Active = false;
 

@@ -6,19 +6,19 @@ using UnityEngine;
 public class WerewolfHittable : MonoBehaviour, Hittable {
 
     public CharacterHealth m_Health;
+    private HitInterject m_Interject;
 
-    public void hit(Damage damage)
+    public void Hit(Damage damage)
     {
-        m_Health.m_CurrentHealth -= damage.DamageAmount();
+        if (!m_Interject.OnHit(damage))
+        {
+            m_Health.m_CurrentHealth -= damage.DamageAmount();
+            damage.OnSuccessfulHit();
+        }
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void RegisterInterject(HitInterject interject)
+    {
+        m_Interject = interject;
+    }
 }

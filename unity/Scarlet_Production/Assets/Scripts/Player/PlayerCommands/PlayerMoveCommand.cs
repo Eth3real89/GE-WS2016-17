@@ -41,6 +41,11 @@ public class PlayerMoveCommand : PlayerCommand {
         m_Animator.SetFloat("Speed", movement.magnitude);
     }
 
+    public void StopMoving()
+    {
+        DoMove(0, 0);
+    }
+
     private void DoRotate(float horizontal, float vertical)
     {
         if (Mathf.Abs(horizontal) <= 0.05f && Mathf.Abs(vertical) <= 0.05f) return;

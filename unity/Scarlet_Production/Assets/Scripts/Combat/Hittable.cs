@@ -3,5 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public interface Hittable {
-    void hit(Damage damage);    
+    void Hit(Damage damage);
+    void RegisterInterject(HitInterject interject);
 }

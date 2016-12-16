@@ -62,11 +62,20 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     public void OnCommandStart(string commandName, PlayerCommand command)
     {
         if (command == m_AttackCommand)
+        {
             DisableCommands(m_AttackCommand, m_DashCommand, m_HealCommand, m_ParryCommand, m_MoveCommand);
+            m_MoveCommand.StopMoving();
+        }
         else if (command == m_DashCommand)
+        {
             DisableCommands(m_AttackCommand, m_ParryCommand, m_MoveCommand, m_DashCommand);
+            m_MoveCommand.StopMoving();
+        }
         else if (command == m_ParryCommand)
+        {
             DisableCommands(m_AttackCommand, m_ParryCommand, m_DashCommand, m_MoveCommand);
+            m_MoveCommand.StopMoving();
+        }
     }
 
     private void DisableCommands(params PlayerCommand[] commands)
