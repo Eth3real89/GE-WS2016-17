@@ -7,6 +7,8 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     private Rigidbody m_ScarletBody;
 
+    public float m_StaggerTime;
+
     private void Start()
     {
         m_CommandName = "Stagger";
@@ -23,18 +25,24 @@ public class PlayerStaggerCommand : PlayerCommand {
     {
         m_Callback.OnCommandStart(m_CommandName, this);
         DoStagger();
+
+        StartCoroutine(EndStaggerAfter(m_StaggerTime));
     }
 
     private void DoStagger()
     {
-
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
+        m_Animator.SetTrigger("StaggerTrigger");
+    }
+
+    private IEnumerator EndStaggerAfter(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        m_Callback.OnCommandEnd(m_CommandName, this);
     }
 
     public override void CancelDelay()
     {
-        // @todo.
-        // stagger is probably the cause of the delay.
     }
 
     // Stagger trigger remains empty!! stagger is not triggered by the player.

@@ -931,6 +931,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: {fileID: 638130670}
+--- !u!114 &638130672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 638130663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be2dd12cd34ce042a41cfec17be7509, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HealthPotions: 0
+  m_PlayerDamage: {fileID: 29568145}
+  m_StaggerCommand: {fileID: 1102121420}
 --- !u!1 &788500321 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 106674, guid: b1cc94d26cd016d479aa5b522d88da0a, type: 2}
@@ -1081,6 +1095,7 @@ GameObject:
   - component: {fileID: 1102121416}
   - component: {fileID: 1102121415}
   - component: {fileID: 1102121419}
+  - component: {fileID: 1102121420}
   m_Layer: 0
   m_Name: MovementObject
   m_TagString: Untagged
@@ -1198,6 +1213,23 @@ MonoBehaviour:
   m_DelayAfterAttack: 0.3
   m_DelayAfterLastAttack: 0.5
   m_DamageTrigger: {fileID: 29568141}
+--- !u!114 &1102121420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1102121413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3796ee79a70fc1448b48d751b0a15116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CommandName: 
+  m_Tags: []
+  m_Active: 1
+  m_Scarlet: {fileID: 0}
+  m_Animator: {fileID: 0}
+  m_StaggerTime: 0.75
 --- !u!1 &1147996698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1270,12 +1302,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Boss: {fileID: 10650774}
   m_Animator: {fileID: 10650780}
+  m_BossHittable: {fileID: 10650779}
+  m_BossStagger: {fileID: 1792357397}
   m_Attacks:
   - {fileID: 1498674190}
   - {fileID: 1498674190}
   - {fileID: 1498674190}
   m_Interruptable: 0
-  m_TriggerParry: 2
+  m_TriggerParry: 1
   m_ParryTrumpsInterrupt: 0
   m_TimeAfterCombo: 3
 --- !u!1 &1268947407
@@ -1865,6 +1899,7 @@ GameObject:
   - component: {fileID: 1792357394}
   - component: {fileID: 1792357393}
   - component: {fileID: 1792357396}
+  - component: {fileID: 1792357397}
   m_Layer: 0
   m_Name: BossCommands
   m_TagString: Untagged
@@ -1945,6 +1980,19 @@ MonoBehaviour:
   m_Boss: {fileID: 0}
   m_TurnSpeed: 45
   m_Scarlet: {fileID: 638130663}
+--- !u!114 &1792357397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1792357391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 642a36631e7b74a4c8c7ce9716ca4e63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
 --- !u!1 &1795476251
 GameObject:
   m_ObjectHideFlags: 0

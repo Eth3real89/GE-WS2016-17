@@ -10,7 +10,7 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
     public void Hit(Damage damage)
     {
-        if (!m_Interject.OnHit(damage))
+        if (m_Interject == null || !m_Interject.OnHit(damage))
         {
             m_Health.m_CurrentHealth -= damage.DamageAmount();
             damage.OnSuccessfulHit();

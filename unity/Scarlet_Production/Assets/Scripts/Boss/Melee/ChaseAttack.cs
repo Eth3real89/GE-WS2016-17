@@ -32,6 +32,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Bos
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
+
+        m_Callback.OnAttackStart(this);
     }
 
     void Update ()
@@ -113,6 +115,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Bos
     
     public override void CancelAttack()
     {
+        m_State = AttackState.None;
+        m_BossHit.CancelHit();
     }
     
     public void OnMeleeHitEnd()

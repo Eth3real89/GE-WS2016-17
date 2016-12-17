@@ -23,6 +23,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
             command.Init(this, gameObject, GetComponentInChildren<Animator>());
         }
 
+
+
         ReferenceCommands();
 	}
 
@@ -76,6 +78,12 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
             DisableCommands(m_AttackCommand, m_ParryCommand, m_DashCommand, m_MoveCommand);
             m_MoveCommand.StopMoving();
         }
+        else if (command == m_StaggerCommand)
+        {
+            CancelCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
+            DisableCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
+            m_MoveCommand.StopMoving();
+        }
     }
 
     private void DisableCommands(params PlayerCommand[] commands)
@@ -103,6 +111,19 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     {
         if (command != null)
             command.m_Active = true;
+    }
+
+
+    private void CancelCommands(params PlayerCommand[] commands)
+    {
+        foreach (PlayerCommand command in commands)
+            CancelCommand(command);
+    }
+
+    private void CancelCommand(PlayerCommand command)
+    {
+        if (command != null)
+            command.CancelDelay();
     }
 
     private IEnumerator EnableDashAfter(float time)

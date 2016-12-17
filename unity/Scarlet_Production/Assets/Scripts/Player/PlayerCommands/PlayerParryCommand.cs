@@ -75,7 +75,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     public override void CancelDelay()
     {
-        StopCoroutine(m_ParryTimer);
+        if (m_ParryTimer != null)
+            StopCoroutine(m_ParryTimer);
         m_CurrentState = ParryState.None;
     }
 
