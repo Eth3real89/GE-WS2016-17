@@ -1047,9 +1047,10 @@ MonoBehaviour:
   m_Scarlet: {fileID: 638130663}
   m_TurnCommand: {fileID: 1792357398}
   m_JumpCommand: {fileID: 1792357399}
-  m_TrackSpeed: 5
+  m_TrackSpeed: 7
   m_TrackTime: 4
   m_HesitateTime: 0.1
+  m_TimeAfterLand: 0.5
 --- !u!1 &1073673984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,6 +2453,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75b1e9193038c74ba0a69a06638bb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Active: 0
+  m_Damage: 45
 --- !u!1 &2001003665
 GameObject:
   m_ObjectHideFlags: 0

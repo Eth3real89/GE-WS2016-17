@@ -6,6 +6,7 @@ using UnityEngine;
 public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
 
     public LungeTrigger m_LungeTrigger;
+    public BossCollider m_BossCollider;
     public GameObject m_Scarlet;
 
     public BossTurnCommand m_TurnCommand;
@@ -25,8 +26,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
     public override void StartAttack()
     {
         m_LungeTrigger.transform.position = new Vector3(m_Scarlet.transform.position.x, m_LungeTrigger.transform.position.y, m_Scarlet.transform.position.z);
-
         m_LungeTrigger.GetComponent<Renderer>().enabled = true;
+        m_LungeTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
 
         m_StateTimer = Aim();
         StartCoroutine(m_StateTimer);
@@ -71,6 +73,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
 
         m_State = State.Jump;
         m_JumpCommand.JumpAt(m_LungeTrigger.transform, this);
+        m_BossCollider.m_Active = true;
+        DefaultCollisionHandler collisionHandler = new DefaultCollisionHandler(m_LungeTrigger);
+        m_BossCollider.m_Handler = collisionHandler;
     }
 
     public override void CancelAttack()
@@ -78,13 +83,16 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
         if (m_StateTimer != null)
             StopCoroutine(m_StateTimer);
 
-        m_LungeTrigger.GetComponent<Renderer>().enabled = true;
+        m_LungeTrigger.GetComponent<Renderer>().enabled = false;
+        m_LungeTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
     }
 
     public void OnLand()
     {
         m_State = State.Land;
-        m_LungeTrigger.GetComponent<Renderer>().enabled = false;
+        m_LungeTrigger.m_Active = true;
+        m_LungeTrigger.m_CollisionHandler = m_BossCollider.m_Handler;
 
         m_StateTimer = WaitAfterLand();
         StartCoroutine(m_StateTimer);
@@ -95,6 +103,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
         yield return new WaitForSeconds(m_TimeAfterLand);
         m_State = State.None;
 
+        m_LungeTrigger.GetComponent<Renderer>().enabled = false;
+        m_LungeTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
         m_Callback.OnAttackEnd(this);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BossMeleeHitCommand : BossCommand, BossMeleeDamage.CollisionHandler {
+public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public BossMeleeDamage m_DamageTrigger;
 

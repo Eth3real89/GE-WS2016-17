@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerDamage : Damage {
 
-    public bool m_Active;
     public float m_Damage;
 
     public override bool Blockable()

@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LungeTrigger : Damage {
+public class LungeTrigger : Damage
+{
+    public DamageCollisionHandler m_CollisionHandler;
+
+    public float m_Damage = 45f;
 
     public override bool Blockable()
     {
@@ -12,16 +16,22 @@ public class LungeTrigger : Damage {
 
     public override float DamageAmount()
     {
-        return 45f;
+        return m_Damage;
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void OnTriggerEnter(Collider other)
+    {
+        if (m_Active && m_CollisionHandler != null)
+        {
+            m_CollisionHandler.HandleCollision(other);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (m_Active && m_CollisionHandler != null)
+        {
+            m_CollisionHandler.HandleCollision(other);
+        }
+    }
 }

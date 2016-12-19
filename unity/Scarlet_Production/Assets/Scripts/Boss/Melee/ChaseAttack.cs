@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, BossMeleeDamage.CollisionHandler {
+public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler {
 
     public BossMoveCommand m_BossMove;
     public TurnTowardsScarlet m_BossTurn;

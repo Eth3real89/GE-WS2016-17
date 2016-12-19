@@ -5,13 +5,7 @@ using UnityEngine;
 
 public class BossMeleeDamage : Damage {
 
-    public interface CollisionHandler
-    {
-        void HandleCollision(Collider other);
-    }
-
-    public CollisionHandler m_CollisionHandler;
-    public bool m_Active;
+    public DamageCollisionHandler m_CollisionHandler;
 
     public override bool Blockable()
     {
@@ -22,7 +16,6 @@ public class BossMeleeDamage : Damage {
     {
         return 30f;
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,29 +30,6 @@ public class BossMeleeDamage : Damage {
         if (m_Active && m_CollisionHandler != null)
         {
             m_CollisionHandler.HandleCollision(other);
-        }
-    }
-
-    public class DefaultCollisionHandler : CollisionHandler
-    {
-        private BossMeleeDamage m_Damage;
-
-        public DefaultCollisionHandler(BossMeleeDamage damage)
-        {
-            this.m_Damage = damage;
-        }
-
-        public void HandleCollision(Collider other)
-        {
-            if (!m_Damage.enabled)
-                return;
-
-            Hittable hittable = other.GetComponentInChildren<Hittable>();
-            if (hittable != null)
-            {
-                hittable.Hit(this.m_Damage);
-                m_Damage.enabled = false;
-            }
         }
     }
 

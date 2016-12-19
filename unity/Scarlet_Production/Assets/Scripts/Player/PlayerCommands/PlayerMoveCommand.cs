@@ -28,13 +28,16 @@ public class PlayerMoveCommand : PlayerCommand {
     }
 
     public void DoMove(float horizontal, float vertical)
-    {        
+    {
+        float yBefore = m_ScarletBody.velocity.y;
+
         Vector3 movement = new Vector3(horizontal, 0, vertical);
 
         if (movement.magnitude > 1)
             movement.Normalize();
 
         movement *= m_RunSpeed;
+        movement.y = yBefore;
 
         m_ScarletBody.velocity = movement;
 

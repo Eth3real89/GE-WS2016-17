@@ -6,6 +6,8 @@ public abstract class Damage : MonoBehaviour {
 
     public DamageCallback m_Callback;
 
+    public bool m_Active;
+
     public Damage(DamageCallback callback = null)
     {
         m_Callback = callback;
