@@ -198,15 +198,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 400134, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402, type: 3}
       propertyPath: m_Controller
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 1147996698}
   m_Combos:
-  - {fileID: 1190926874}
+  - {fileID: 1190899574}
 --- !u!114 &10650779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +296,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: {fileID: 10650777}
+  m_OnHitSignal: {fileID: 10650783}
 --- !u!95 &10650780 stripped
 Animator:
   m_PrefabParentObject: {fileID: 9500000, guid: 39d03f82786b57d41af8bd27bce84402,
@@ -330,6 +331,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ScarletBody: {fileID: 638130665}
   m_Active: 0
+--- !u!114 &10650783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 10650774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf6ab45a54647084fa7398bf7644648f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Scarlet: {fileID: 638130663}
+  m_RendererContainer: {fileID: 10650774}
+  m_BloodTrailPrefab: {fileID: 1492538519219924, guid: a01b663743693c3478f9c83740245e30,
+    type: 2}
+  m_BloodTrailPlaneCollider: {fileID: 223304240}
+  m_InitialBloodShapeRadius: 0.3
+  m_TimeBleedAfterHit: 5
+  m_HitMaterial: {fileID: 2100000, guid: b7f4d1b84ff4b654a8016cc6926b492e, type: 2}
 --- !u!1 &29568141
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,7 +875,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 268782754}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.35, z: 0}
+  m_LocalPosition: {x: 3, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 10650773}
