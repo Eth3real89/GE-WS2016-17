@@ -233,7 +233,7 @@ CapsuleCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 10650774}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 211c346d45c0ede449b40dd5d2387933, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2
@@ -283,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 1147996698}
   m_Combos:
-  - {fileID: 1545673103}
+  - {fileID: 1190926874}
 --- !u!114 &10650779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +317,19 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   skinWidth: 0.1
+--- !u!114 &10650782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 10650774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4db85680bebfdb64f9287f109d7f94a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ScarletBody: {fileID: 638130665}
+  m_Active: 0
 --- !u!1 &29568141
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,6 +869,11 @@ Transform:
 GameObject:
   m_PrefabParentObject: {fileID: 100004, guid: b1cc94d26cd016d479aa5b522d88da0a, type: 2}
   m_PrefabInternal: {fileID: 87783280}
+--- !u!54 &638130665 stripped
+Rigidbody:
+  m_PrefabParentObject: {fileID: 5400000, guid: b1cc94d26cd016d479aa5b522d88da0a,
+    type: 2}
+  m_PrefabInternal: {fileID: 87783280}
 --- !u!114 &638130666
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1000,6 +1018,55 @@ MonoBehaviour:
   m_HealthBar: {fileID: 1354865411}
   m_LossBar: {fileID: 1073673986}
   m_Character: {fileID: 638130663}
+--- !u!1 &964065854
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 964065855}
+  - component: {fileID: 964065856}
+  m_Layer: 0
+  m_Name: ChargeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &964065855
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 964065854}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1190926875}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &964065856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 964065854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5d1d26349080a44ae756ddb371ca50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Scarlet: {fileID: 638130663}
+  m_TurnCommand: {fileID: 1792357398}
+  m_MoveCommand: {fileID: 1792357394}
+  m_AimTime: 2
+  m_MaxRunTime: 2
+  m_ChargeSpeed: 7
 --- !u!1 &996083704
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1111,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_LungeTrigger: {fileID: 1985515357}
+  m_BossCollider: {fileID: 10650782}
   m_Scarlet: {fileID: 638130663}
   m_TurnCommand: {fileID: 1792357398}
   m_JumpCommand: {fileID: 1792357399}
@@ -1364,6 +1432,57 @@ MonoBehaviour:
   m_TriggerParry: 1
   m_ParryTrumpsInterrupt: 0
   m_TimeAfterCombo: 3
+--- !u!1 &1190926873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1190926875}
+  - component: {fileID: 1190926874}
+  m_Layer: 0
+  m_Name: Combo3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1190926874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1190926873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 10650774}
+  m_Animator: {fileID: 10650780}
+  m_BossHittable: {fileID: 10650779}
+  m_BossStagger: {fileID: 1792357397}
+  m_Attacks:
+  - {fileID: 964065856}
+  m_Interruptable: 0
+  m_TriggerParry: 0
+  m_ParryTrumpsInterrupt: 0
+  m_TimeAfterCombo: 0
+--- !u!4 &1190926875
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1190926873}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 964065855}
+  m_Father: {fileID: 1973800120}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1268947407
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,6 +2475,7 @@ Transform:
   m_Children:
   - {fileID: 1190899573}
   - {fileID: 1545673102}
+  - {fileID: 1190926875}
   m_Father: {fileID: 268782755}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
