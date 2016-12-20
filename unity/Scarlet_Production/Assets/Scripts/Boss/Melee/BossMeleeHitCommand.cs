@@ -7,6 +7,8 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public BossMeleeDamage m_DamageTrigger;
 
+    public GameObject m_HitSignal;
+
     private IEnumerator m_Timer;
 
     public float m_UpswingTime = 0.1f;
@@ -30,13 +32,23 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     private void SignalDownswing()
     {
-        // @todo: show some kind of signal
         m_Timer = DownswingAfter(m_HoldTime);
         StartCoroutine(m_Timer);
+
+        if (m_HitSignal != null)
+        {
+            m_HitSignal.SetActive(true);
+        }
     }
 
     public void Downswing()
     {
+
+        if (m_HitSignal != null)
+        {
+            m_HitSignal.SetActive(false);
+        }
+
         m_Animator.SetTrigger("MeleeDownswingTrigger");
         m_DamageTrigger.m_CollisionHandler = this;
         m_DamageTrigger.m_Active = true;
