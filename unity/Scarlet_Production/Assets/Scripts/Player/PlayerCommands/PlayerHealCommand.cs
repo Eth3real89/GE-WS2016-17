@@ -5,6 +5,30 @@ using UnityEngine;
 
 public class PlayerHealCommand : PlayerCommand {
 
+    public int m_NumHealthPotions
+    {
+        set
+        {
+            _NumHealthPotions = value;
+            if (m_NumPotionListener != null || (m_NumPotionListenerObject != null && (m_NumPotionListener = m_NumPotionListenerObject.GetComponent<NumPotionListener>()) != null))
+                m_NumPotionListener.OnNumberOfPotionsUpdated(value);
+        }
+
+        get
+        {
+            return _NumHealthPotions;
+        }
+    }
+
+    public float m_MaxHealthGain = 33f;
+
+    public GameObject m_NumPotionListenerObject;
+    private NumPotionListener m_NumPotionListener;
+
+    public CharacterHealth m_PlayerHealth;
+
+    private int _NumHealthPotions;
+
     private void Start()
     {
         m_CommandName = "Heal";
@@ -13,22 +37,54 @@ public class PlayerHealCommand : PlayerCommand {
     public override void InitTrigger()
     {
         m_CommandName = "Heal";
-        m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
+        m_Trigger = new HealTrigger(this);
     }
 
     public override void TriggerCommand()
     {
-        DoHeal();
+        if (m_NumHealthPotions > 0)
+            DoHeal();
     }
 
     private void DoHeal()
     {
-        print("Healing!");
         m_Callback.OnCommandStart(m_CommandName, this);
+        m_PlayerHealth.m_CurrentHealth = Mathf.Min(m_PlayerHealth.m_CurrentHealth + m_MaxHealthGain, m_PlayerHealth.m_MaxHealth);
+        m_NumHealthPotions -= 1;
+
+        m_Callback.OnCommandEnd(m_CommandName, this);
     }
 
     // heal cannot be cancelled.
     public override void CancelDelay()
     {
+    }
+
+    public interface NumPotionListener
+    {
+        void OnNumberOfPotionsUpdated(int num);
+    }
+
+    private class HealTrigger : CommandTrigger
+    {
+        private PlayerHealCommand m_HealCommand;
+        private float prevValue = 0;
+
+        public HealTrigger(PlayerHealCommand command) : base(command)
+        {
+            m_HealCommand = command;
+        }
+
+        public override void Update()
+        {
+            float newVal;
+
+            if ((newVal = Input.GetAxis(m_HealCommand.m_CommandName)) != prevValue && newVal > 0)
+            {
+                m_HealCommand.TriggerCommand();
+            }
+
+            prevValue = newVal;
+        }
     }
 }

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The PlayerManager contains the player's status and
+/// (@todo later) their abilities etc.
+/// </summary>
 public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
 
     public enum State
@@ -10,7 +14,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
         Stunned
     };
 
-    public int m_HealthPotions;
+    public int m_StartHealthPotions;
+    public PlayerHealCommand m_HealCommand;
 
     public Damage m_PlayerDamage;
     public PlayerStaggerCommand m_StaggerCommand;
@@ -21,6 +26,11 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
         if (m_PlayerDamage != null)
         {
             m_PlayerDamage.m_Callback = this;
+        }
+
+        if (m_HealCommand != null)
+        {
+            m_HealCommand.m_NumHealthPotions = m_StartHealthPotions;
         }
     }
 
