@@ -1,10 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public interface DamageCollisionHandler {
 
-    void HandleCollision(Collider other);
+    void HandleScarletCollision(Collider other);
+    void HandleCollision(Collider other, bool initialCollision);
 }
 
 public class DefaultCollisionHandler : DamageCollisionHandler
@@ -16,7 +18,12 @@ public class DefaultCollisionHandler : DamageCollisionHandler
         this.m_Damage = damage;
     }
 
-    public void HandleCollision(Collider other)
+    public void HandleCollision(Collider other, bool initialCollision)
+    {
+        return;
+    }
+
+    public void HandleScarletCollision(Collider other)
     {
         if (!m_Damage.m_Active)
             return;

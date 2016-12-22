@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeAttack : BossAttack, DamageCollisionHandler {
+public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     private enum State {None, Aim, Run};
     private State m_State;
@@ -13,6 +13,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     public BossMoveCommand m_MoveCommand;
 
     public BossCollider m_BossCollider;
+
+    public GameObject[] m_EnvironmentColliderContainers;
+    private List<Collider> m_EnvironmentColliders;
 
     private IEnumerator m_StateTimer;
 
@@ -32,6 +35,26 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
         m_RunSpeedBefore = m_MoveCommand.m_Speed;
         m_MoveCommand.m_Speed = m_ChargeSpeed;
+
+        m_BossHittable.RegisterInterject(this);
+
+        ReferenceColliders();
+    }
+
+    private void ReferenceColliders()
+    {
+        m_EnvironmentColliders = new List<Collider>();
+
+        if (m_EnvironmentColliderContainers != null)
+        {
+            foreach (GameObject obj in m_EnvironmentColliderContainers)
+            {
+                foreach (Collider coll in obj.GetComponentsInChildren<Collider>())
+                {
+                    m_EnvironmentColliders.Add(coll);
+                }
+            }
+        }
     }
 
     void Update()
@@ -66,8 +89,6 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     private void Run()
     {
         m_MoveCommand.DoMove(m_Boss.transform.forward.x, m_Boss.transform.forward.z);
-
-        // @todo check if scarlet / wall was hit -> stop moving
     }
 
     private IEnumerator StopRunnigAfter(float time)
@@ -90,7 +111,25 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
     }
 
-    public void HandleCollision(Collider other)
+    public void HandleCollision(Collider other, bool initialCollision)
+    {
+        if (initialCollision && m_State == State.Run)
+        {
+            if (m_EnvironmentColliders.IndexOf(other) >= 0)
+            {
+                if (m_StateTimer != null)
+                    StopCoroutine(m_StateTimer);
+
+                m_State = State.None;
+                m_MoveCommand.StopMoving();
+
+                m_Callback.OnAttackInterrupted(this);
+                m_MoveCommand.m_Speed = m_RunSpeedBefore;
+            }
+        }
+    }
+
+    public void HandleScarletCollision(Collider other)
     {
         Hittable hittable = other.GetComponent<Hittable>();
         if (hittable != null)
@@ -99,6 +138,21 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
             m_BossCollider.m_Active = false;
         }
+    }
+
+    public bool OnHit(Damage dmg)
+    {
+        if (m_State == State.Aim)
+        {
+            return false;
+        }
+        else if (m_State == State.Run)
+        {
+            dmg.OnBlockDamage();
+            return true;
+        }
+
+        return false;
     }
 
     private class ChargeDamage : Damage

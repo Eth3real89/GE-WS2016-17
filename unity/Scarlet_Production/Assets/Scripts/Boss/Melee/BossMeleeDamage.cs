@@ -21,7 +21,7 @@ public class BossMeleeDamage : Damage {
     {
         if (m_Active && m_CollisionHandler != null)
         {
-            m_CollisionHandler.HandleCollision(other);
+            m_CollisionHandler.HandleScarletCollision(other);
         }
     }
 
@@ -29,7 +29,7 @@ public class BossMeleeDamage : Damage {
     {
         if (m_Active && m_CollisionHandler != null)
         {
-            m_CollisionHandler.HandleCollision(other);
+            m_CollisionHandler.HandleScarletCollision(other);
         }
     }
 

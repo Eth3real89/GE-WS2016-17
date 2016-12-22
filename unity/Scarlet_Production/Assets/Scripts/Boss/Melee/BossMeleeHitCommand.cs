@@ -90,7 +90,7 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
         }
     }
 
-    public void HandleCollision(Collider other)
+    public void HandleScarletCollision(Collider other)
     {
         Hittable hittable = other.GetComponentInChildren<Hittable>();
         if (hittable != null && hittable is PlayerHittable)
@@ -107,6 +107,10 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
                 }
             }
         }
+    }
+
+    public void HandleCollision(Collider other, bool initialCollision)
+    {
     }
 
     public interface MeleeHitCallback

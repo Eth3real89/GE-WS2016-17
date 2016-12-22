@@ -129,12 +129,16 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         m_Callback.OnAttackEnd(this);
     }
 
-    public void HandleCollision(Collider other)
+    public void HandleScarletCollision(Collider other)
     {
         Hittable hittable = other.GetComponentInChildren<Hittable>();
         if (hittable != null && hittable is PlayerHittable)
         {
             m_ScarletInRange = true;
         }
+    }
+
+    public void HandleCollision(Collider other, bool initialCollision)
+    {
     }
 }

@@ -11,17 +11,24 @@ public class BossCollider : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (m_Active && m_Handler != null && collision.gameObject.GetComponent<Rigidbody>() == m_ScarletBody)
-        {
-            m_Handler.HandleCollision(collision.collider);
-        }
+        OnCollision(collision, true);
     }
 
     private void OnCollisionStay(Collision collision)
     {
+        OnCollision(collision, false);
+    }
+
+    private void OnCollision(Collision collision, bool initialCollision)
+    {
+        if (m_Active && m_Handler != null)
+        {
+            m_Handler.HandleCollision(collision.collider, initialCollision);
+        }
+
         if (m_Active && m_Handler != null && collision.gameObject.GetComponent<Rigidbody>() == m_ScarletBody)
         {
-            m_Handler.HandleCollision(collision.collider);
+            m_Handler.HandleScarletCollision(collision.collider);
         }
     }
 }

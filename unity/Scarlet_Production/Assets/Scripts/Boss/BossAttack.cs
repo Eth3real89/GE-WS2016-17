@@ -8,10 +8,14 @@ using UnityEngine;
 /// </summary>
 public abstract class BossAttack : MonoBehaviour {
 
+    public AttackCombo.Interruptability m_Interruptable;
+    public AttackCombo.TriggerParry m_TriggerParry;
+
     public float m_TimeAfterAttack;
 
     public Animator m_Animator;
     public GameObject m_Boss;
+    public Hittable m_BossHittable;
 
     public AttackCallback m_Callback;
     

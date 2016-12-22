@@ -40,6 +40,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
             attack.m_Boss = m_Boss;
             attack.m_Animator = m_Animator;
             attack.m_Callback = this;
+            attack.m_BossHittable = m_BossHittable;
         }
 	}
 
