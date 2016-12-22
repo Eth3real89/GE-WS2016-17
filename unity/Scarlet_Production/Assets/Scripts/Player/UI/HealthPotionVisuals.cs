@@ -7,31 +7,24 @@ public class HealthPotionVisuals : MonoBehaviour, PlayerHealCommand.NumPotionLis
 
     private GameObject[] m_Images;
 
-    // Use this for initialization
-    void Start () {
-        m_Images = new GameObject[0];
-	}
-	
-	// Update is called once per frame
-	void Update () {
-
-    }
-
     public void OnNumberOfPotionsUpdated(int num)
     {
-        foreach(GameObject image in m_Images)
-        {
-            GameObject.Destroy(image);
-        }
+        if (m_ImagePrefab == null)
+            return;
+
+        ClearExistingImages();
 
         m_Images = new GameObject[num];
 
-        for(int i = 0; i < num; i++)
+        ShowPotionIcons(num);
+    }
+
+    private void ShowPotionIcons(int num)
+    {
+        for (int i = 0; i < num; i++)
         {
             GameObject singleImg = GameObject.Instantiate(m_ImagePrefab);
             singleImg.transform.SetParent(this.transform);
-
-            
 
             m_Images[i] = singleImg;
 
@@ -43,11 +36,15 @@ public class HealthPotionVisuals : MonoBehaviour, PlayerHealCommand.NumPotionLis
         }
     }
 
-    private IEnumerator FixPosition(RectTransform rt, Vector3 position)
+    private void ClearExistingImages()
     {
-        yield return new WaitForEndOfFrame();
-
-        rt.position = position;
+        if (m_Images != null)
+        {
+            foreach (GameObject image in m_Images)
+            {
+                GameObject.Destroy(image);
+            }
+        }
     }
 
 }

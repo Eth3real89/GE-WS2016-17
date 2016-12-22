@@ -7,7 +7,7 @@ public class BossCollider : MonoBehaviour {
     public Rigidbody m_ScarletBody;
     public bool m_Active = false;
 
-    public DefaultCollisionHandler m_Handler;
+    public DamageCollisionHandler m_Handler;
 
     void OnCollisionEnter(Collision collision)
     {
