@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
+public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback {
 
     public PlayerCommand[] m_PlayerCommands;
 
@@ -36,6 +36,9 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
         m_MoveCommand = GetComponentInChildren<PlayerMoveCommand>();
         m_ParryCommand = GetComponentInChildren<PlayerParryCommand>();
         m_StaggerCommand = GetComponentInChildren<PlayerStaggerCommand>();
+
+        if (m_ParryCommand != null)
+            m_ParryCommand.m_ParryCallback = this;
     }
 	
 	void Update () {
@@ -130,5 +133,33 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback {
     {
         yield return new WaitForSeconds(time);
         EnableCommand(m_DashCommand);
+    }
+
+    public void OnPerfectParry()
+    {
+        if (m_AttackCommand != null)
+            m_AttackCommand.m_RiposteActive = true;
+
+        SlowTime.Instance.StartSlowMo();
+
+        StartCoroutine(PerfectParryEnumerator());
+    }
+
+    private IEnumerator PerfectParryEnumerator()
+    {
+        yield return new WaitForSeconds(1 * SlowTime.Instance.m_SlowAmount);
+
+        SlowTime.Instance.StopSlowMo();
+        m_AttackCommand.m_RiposteActive = false;
+    }
+
+    public void OnBlock()
+    {// do nothing special
+    }
+
+    public void OnParryFail()
+    {
+        if (m_StaggerCommand != null)
+            m_StaggerCommand.TriggerCommand();
     }
 }

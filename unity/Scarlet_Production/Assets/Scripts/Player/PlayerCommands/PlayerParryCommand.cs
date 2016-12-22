@@ -8,6 +8,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     private Rigidbody m_ScarletBody;
     public PlayerHittable m_ScarletHittable;
 
+    public ParryCallback m_ParryCallback;
+
     public float m_TooLateParryTime = 0.05f;
     public float m_PerfectParryTime = 0.025f;
     public float m_OkParryTime = 0.125f;
@@ -82,6 +84,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     public bool OnHit(Damage dmg)
     {
+
         if (!dmg.Blockable())
             return false;
 
@@ -91,21 +94,43 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
         }
         else if (m_CurrentState == ParryState.TooSoon || m_CurrentState == ParryState.TooLate)
         {
-            // @todo: Stagger, deal extra damage
+            if (m_ParryCallback != null)
+                m_ParryCallback.OnParryFail();
+
             dmg.OnSuccessfulHit();
             return true;
         }
         else if (m_CurrentState == ParryState.Perfect)
         {
+            if (m_ParryCallback != null)
+                m_ParryCallback.OnPerfectParry();
+
+            CancelDelay();
+            m_Callback.OnCommandEnd(m_CommandName, this);
+
             dmg.OnParryDamage();
             return true;
         }
         else if (m_CurrentState == ParryState.Ok)
         {
+            if (m_ParryCallback != null)
+                m_ParryCallback.OnBlock();
+
+            CancelDelay();
+            m_Callback.OnCommandEnd(m_CommandName, this);
+
             dmg.OnBlockDamage();
             return true;
         }
 
         return false;
     }
+
+    public interface ParryCallback
+    {
+        void OnPerfectParry();
+        void OnBlock();
+        void OnParryFail();
+    }
+
 }

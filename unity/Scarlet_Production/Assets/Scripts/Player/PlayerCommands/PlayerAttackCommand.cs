@@ -7,12 +7,19 @@ public class PlayerAttackCommand : PlayerCommand {
 
     public float m_RegularHitDamage = 20f;
     public float m_FinalHitDamage = 30f;
+    public float m_RiposteDamage = 50f;
 
     public float m_MaxTimeForCombo = 0.5f;
     public float m_DelayAfterAttack = 0.3f;
     public float m_DelayAfterLastAttack = 0.5f;
+    public float m_DelayAfterRiposte = 0.5f;
 
     private Rigidbody m_ScarletBody;
+
+    /// <summary>
+    /// @todo this has to change!!
+    /// </summary>
+    public GameObject m_RiposteTarget;
     
     private IEnumerator m_AttackEnumerator;
     private IEnumerator m_ComboEnumerator;
@@ -21,6 +28,8 @@ public class PlayerAttackCommand : PlayerCommand {
     private PlayerDamage m_PlayerDamage;
 
     private int m_CurrentCombo = 0;
+
+    public bool m_RiposteActive = false;
     
     void Start () {
         m_CommandName = "Attack";
@@ -61,7 +70,15 @@ public class PlayerAttackCommand : PlayerCommand {
 
         PlayAttackAnimation(m_CurrentCombo);
 
-        if (m_CurrentCombo < 3)
+        if (m_RiposteActive)
+        {
+            m_PlayerDamage.m_Damage = m_RiposteDamage;
+            m_AttackEnumerator = DelayEnd(m_DelayAfterRiposte);
+            Hittable hittable = ((m_RiposteTarget == null) ? null : m_RiposteTarget.GetComponent<Hittable>());
+            if (hittable != null)
+                hittable.Hit(m_PlayerDamage);
+        }
+        else if (m_CurrentCombo < 3)
         {
             m_PlayerDamage.m_Damage = m_RegularHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterAttack);
@@ -79,7 +96,11 @@ public class PlayerAttackCommand : PlayerCommand {
 
     private void PlayAttackAnimation(int currentCombo)
     {
-        if (currentCombo == 0)
+        if (m_RiposteActive)
+        {
+            m_Animator.SetTrigger("RiposteTrigger");
+        }
+        else if (currentCombo == 0)
         {
             m_Animator.SetInteger("WhichAttack", UnityEngine.Random.Range(1, 3));
         }
