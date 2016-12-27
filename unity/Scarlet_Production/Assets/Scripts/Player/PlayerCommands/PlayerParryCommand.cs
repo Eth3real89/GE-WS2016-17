@@ -28,7 +28,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     public override void InitTrigger()
     {
         m_CommandName = "Parry";
-        m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
+        m_Trigger = new PressAxisTrigger(this, m_CommandName);
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
 
@@ -102,11 +102,11 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
         }
         else if (m_CurrentState == ParryState.Perfect)
         {
-            if (m_ParryCallback != null)
-                m_ParryCallback.OnPerfectParry();
-
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
+
+            if (m_ParryCallback != null)
+                m_ParryCallback.OnPerfectParry();
 
             dmg.OnParryDamage();
             return true;

@@ -37,7 +37,7 @@ public class PlayerHealCommand : PlayerCommand {
     public override void InitTrigger()
     {
         m_CommandName = "Heal";
-        m_Trigger = new HealTrigger(this);
+        m_Trigger = new PressAxisTrigger(this, "Heal");
     }
 
     public override void TriggerCommand()
@@ -65,26 +65,4 @@ public class PlayerHealCommand : PlayerCommand {
         void OnNumberOfPotionsUpdated(int num);
     }
 
-    private class HealTrigger : CommandTrigger
-    {
-        private PlayerHealCommand m_HealCommand;
-        private float prevValue = 0;
-
-        public HealTrigger(PlayerHealCommand command) : base(command)
-        {
-            m_HealCommand = command;
-        }
-
-        public override void Update()
-        {
-            float newVal;
-
-            if ((newVal = Input.GetAxis(m_HealCommand.m_CommandName)) != prevValue && newVal > 0)
-            {
-                m_HealCommand.TriggerCommand();
-            }
-
-            prevValue = newVal;
-        }
-    }
 }

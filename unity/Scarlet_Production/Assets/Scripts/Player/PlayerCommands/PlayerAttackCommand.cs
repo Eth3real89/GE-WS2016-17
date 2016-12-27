@@ -41,7 +41,7 @@ public class PlayerAttackCommand : PlayerCommand {
     public override void InitTrigger()
     {
         m_CommandName = "Attack";
-        m_Trigger = new DefaultAxisTrigger(this, m_CommandName);
+        m_Trigger = new PressAxisTrigger(this, m_CommandName);
         m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
 

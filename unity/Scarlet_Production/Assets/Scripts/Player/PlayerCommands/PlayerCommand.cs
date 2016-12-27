@@ -46,11 +46,11 @@ public abstract class PlayerCommand : MonoBehaviour {
         public abstract void Update();
     }
 
-    public class DefaultAxisTrigger : CommandTrigger
+    public class ConstantAxisTrigger : CommandTrigger
     {
         private string m_Axis;
 
-        public DefaultAxisTrigger(PlayerCommand command, String axis) : base(command)
+        public ConstantAxisTrigger(PlayerCommand command, String axis) : base(command)
         {
             m_Axis = axis;
         }
@@ -65,6 +65,33 @@ public abstract class PlayerCommand : MonoBehaviour {
             {
                 m_Command.TriggerCommand();
             }
+        }
+    }
+
+    public class PressAxisTrigger : CommandTrigger
+    {
+        private string m_Axis;
+
+        private float m_Pressed;
+
+        public PressAxisTrigger(PlayerCommand command, String axis) : base(command)
+        {
+            m_Axis = axis;
+        }
+
+        public override void Update()
+        {
+            float pressed = Input.GetAxis(m_Axis);
+
+            if (m_Command.m_Active)
+            {
+                if (pressed > 0 && pressed != m_Pressed)
+                {
+                    m_Command.TriggerCommand();
+                }
+            }
+
+            m_Pressed = pressed;
         }
     }
 }
