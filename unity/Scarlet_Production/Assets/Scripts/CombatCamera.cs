@@ -1,0 +1,159 @@
+﻿using UnityEngine;
+using System.Collections;
+using System;
+
+public class CombatCamera : MonoBehaviour
+{
+
+    public float m_DampTime = 0.2f;
+
+    public float m_MinDistance = 2.1f;
+
+    public float m_MaxXAngle = 45f;
+    public float m_MinXAngle = 25f;
+    private float m_CurrentAngle;
+
+    public GameObject[] m_Targets;
+
+    private Camera m_Camera;
+    private float m_ZoomSpeed;
+    private Vector3 m_MoveVelocity;
+
+    private float m_ZoomLevel;
+
+    private Vector3 m_AveragePosition;
+    private float m_Distance;
+
+    public GameObject m_OtherCamera;
+
+    public GameObject[] m_HideIfInTheWay;
+
+    // Use this for initialization
+    void Start()
+    {
+        m_Camera = GetComponent<Camera>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        FindAveragePosition();
+        FindDistance();
+
+        PointCameraToAveragePosition();
+        ChangeXRotation();
+        UpdateOtherCamera();
+
+        HideObstacles();
+    }
+
+    // only when all targets are very close: "zoom in"
+    private void ChangeXRotation()
+    {
+        m_CurrentAngle = m_MinXAngle + (m_Distance / 8f) * Mathf.Abs(m_MaxXAngle - m_MinXAngle);
+        m_CurrentAngle = Mathf.Min(m_CurrentAngle, m_MaxXAngle);
+
+        m_Camera.transform.rotation = Quaternion.Slerp(m_Camera.transform.rotation, Quaternion.Euler(new Vector3(m_CurrentAngle, 0f, 0f)), Time.deltaTime);
+    }
+
+    private void PointCameraToAveragePosition()
+    {
+        var goalZ = m_Distance * Mathf.Cos(m_CurrentAngle * Mathf.Deg2Rad);
+        var goalY = m_Distance * Mathf.Sin(m_CurrentAngle * Mathf.Deg2Rad);
+
+        Vector3 goal = new Vector3(m_AveragePosition.x, m_AveragePosition.y, m_AveragePosition.z);
+
+        goal.z -= goalZ;
+        goal.y += goalY;
+
+        m_Camera.transform.position = Vector3.SmoothDamp(m_Camera.transform.position,
+            goal,
+            ref m_MoveVelocity, m_DampTime);
+    }
+
+    // Calculate the average position of all targets.
+    // more or less stolen from Tanks tutorial; difference: we do not calculate the final desired position in only one method; that will be based on what we calculate here, though.
+    private void FindAveragePosition()
+    {
+        Vector3 averagePosition = new Vector3();
+        int numTargets = 0;
+
+        for (int i = 0; i < m_Targets.Length; i++)
+        {
+            if (!m_Targets[i].activeSelf)
+                continue;
+
+            averagePosition += m_Targets[i].transform.position;
+            numTargets++;
+        }
+
+        if (numTargets > 0)
+            averagePosition /= numTargets;
+
+        m_AveragePosition = averagePosition;
+    }
+
+    private void FindDistance()
+    {
+        // calculate distance of targets to center to get the distance of the camera.
+        // with two possible targets, the distances are always equal.
+
+        float maxDistanceToCenter = 0;
+
+        for (int i = 0; i < m_Targets.Length; i++)
+        {
+            if (!m_Targets[i].activeSelf)
+                continue;
+
+            float distance = Vector3.Distance(m_Targets[i].transform.position, m_AveragePosition);
+            maxDistanceToCenter = Mathf.Max(maxDistanceToCenter, distance);
+        }
+
+        if (maxDistanceToCenter <= 0.2)
+        {
+            m_Distance = m_MinDistance;
+        }
+        else
+        {
+            m_Distance = m_MinDistance + ((float) Math.Log10(maxDistanceToCenter) * 10);
+        }
+
+        m_Distance = Mathf.Max(m_MinDistance, m_Distance);
+    }
+
+    private void UpdateOtherCamera()
+    {
+        if (m_OtherCamera != null)
+        {
+            m_OtherCamera.transform.position = m_Camera.transform.position;
+            m_OtherCamera.transform.rotation = m_Camera.transform.rotation;
+        }
+    }
+
+    private void HideObstacles()
+    {
+        Vector3 copy = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
+
+        foreach(GameObject obj in m_Targets)
+        {
+            RaycastHit[] hits = Physics.RaycastAll(copy, Vector3.Normalize(obj.transform.position - copy),
+                Vector3.Distance(copy, obj.transform.position) - 0.3f);
+
+            foreach (GameObject gameObject in m_HideIfInTheWay)
+            {
+                gameObject.GetComponent<Renderer>().enabled = true;
+            }
+
+            foreach (RaycastHit hit in hits)
+            {
+                GameObject go = hit.transform.gameObject;
+
+                if (Array.IndexOf(m_HideIfInTheWay, go) != -1)
+                {
+                    go.GetComponent<Renderer>().enabled = false;
+                }
+            }
+        }
+    }
+
+}
