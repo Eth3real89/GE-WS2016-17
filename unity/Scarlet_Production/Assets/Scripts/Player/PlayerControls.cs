@@ -14,6 +14,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     private PlayerParryCommand m_ParryCommand;
     private PlayerStaggerCommand m_StaggerCommand;
 
+    private PlayerCommand m_ActiveCommand;
+
     private IEnumerator m_DashDelayEnumerator;
 
     void Start () {
@@ -22,8 +24,6 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         {
             command.Init(this, gameObject, GetComponentInChildren<Animator>());
         }
-
-
 
         ReferenceCommands();
 	}
@@ -47,6 +47,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     public void OnCommandEnd(string commandName, PlayerCommand command)
     {
+        m_ActiveCommand = null;
+
         if (command == m_HealCommand)
         {
             return;
@@ -66,6 +68,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     public void OnCommandStart(string commandName, PlayerCommand command)
     {
+        m_ActiveCommand = command;
+
         if (command == m_AttackCommand)
         {
             DisableCommands(m_AttackCommand, m_DashCommand, m_HealCommand, m_ParryCommand, m_MoveCommand);
@@ -145,6 +149,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         StartCoroutine(PerfectParryEnumerator());
 
         CameraController.Instance.ZoomIn();
+
+        DisableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
     }
 
     private IEnumerator PerfectParryEnumerator()
@@ -155,6 +161,11 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         m_AttackCommand.m_RiposteActive = false;
 
         CameraController.Instance.ActivateDefaultCamera();
+
+        // @todo need a better solution, e.g. make slow-mo longer if attack occurred & start a new timer
+        // (these things need to be enabled, but not necessarily here!)
+        if (m_ActiveCommand == null)
+            EnableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
     }
 
     public void OnBlock()

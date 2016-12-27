@@ -62,7 +62,10 @@ public class OnHitSignal : MonoBehaviour {
 
         foreach (Renderer r in m_RendererContainer.GetComponentsInChildren<Renderer>())
         {
-            r.material = m_OriginalMaterialDictionary[r];
+            if (m_OriginalMaterialDictionary.ContainsKey(r))
+            {
+                r.material = m_OriginalMaterialDictionary[r];
+            }
         }
     }
 

@@ -77,6 +77,7 @@ public class PlayerAttackCommand : PlayerCommand {
             Hittable hittable = ((m_RiposteTarget == null) ? null : m_RiposteTarget.GetComponent<Hittable>());
             if (hittable != null)
                 hittable.Hit(m_PlayerDamage);
+            LookAtTarget();
         }
         else if (m_CurrentCombo < 3)
         {
@@ -92,6 +93,13 @@ public class PlayerAttackCommand : PlayerCommand {
         }
 
         StartCoroutine(m_AttackEnumerator);
+    }
+
+    private void LookAtTarget()
+    {
+        m_ScarletBody.transform.rotation = Quaternion.Euler(0, 
+            Mathf.Atan2(m_ScarletBody.transform.position.x - m_RiposteTarget.transform.position.x,
+                        m_RiposteTarget.transform.position.z - m_ScarletBody.transform.position.z) * Mathf.Rad2Deg * -1, 0);
     }
 
     private void PlayAttackAnimation(int currentCombo)
