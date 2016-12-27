@@ -143,6 +143,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         SlowTime.Instance.StartSlowMo();
 
         StartCoroutine(PerfectParryEnumerator());
+
+        CameraController.Instance.ZoomIn();
     }
 
     private IEnumerator PerfectParryEnumerator()
@@ -151,6 +153,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
         SlowTime.Instance.StopSlowMo();
         m_AttackCommand.m_RiposteActive = false;
+
+        CameraController.Instance.ActivateDefaultCamera();
     }
 
     public void OnBlock()

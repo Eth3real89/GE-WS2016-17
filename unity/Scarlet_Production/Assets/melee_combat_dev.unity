@@ -552,6 +552,11 @@ Prefab:
       propertyPath: m_RiposteTarget
       value: 
       objectReference: {fileID: 10650774}
+    - target: {fileID: 114823536178913316, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_PerfectParryTime
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_IsPrefabParent: 0
@@ -1617,6 +1622,58 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1300272936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1300272938}
+  - component: {fileID: 1300272937}
+  m_Layer: 0
+  m_Name: TopViewCameraBehavior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1300272937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1300272936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d46c9e2bce352642b766976968fc8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DampTime: 0.2
+  m_MinDistance: 2.1
+  m_MaxXAngle: 45
+  m_MinXAngle: 25
+  m_YOffset: 0.5
+  m_RotationChangeFactor: 2
+  m_Targets:
+  - {fileID: 638130663}
+  - {fileID: 10650774}
+  m_OtherCamera: {fileID: 0}
+  m_HideIfInTheWay:
+  - {fileID: 1918049389}
+--- !u!4 &1300272938
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1300272936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2001003670}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1310298968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2557,7 +2614,7 @@ MonoBehaviour:
   m_DamageTrigger: {fileID: 2138337290}
   m_HitSignal: {fileID: 772266052}
   m_UpswingTime: 0.3
-  m_HoldTime: 0.25
+  m_HoldTime: 0.15
   m_DownswingTime: 0.3
 --- !u!114 &1792357396
 MonoBehaviour:
@@ -2908,6 +2965,110 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1920386347
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1920386349}
+  - component: {fileID: 1920386348}
+  m_Layer: 0
+  m_Name: DefaultCameraBehavior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1920386348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920386347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d46c9e2bce352642b766976968fc8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DampTime: 0.2
+  m_MinDistance: 3
+  m_MaxXAngle: 45
+  m_MinXAngle: 35
+  m_YOffset: 0.5
+  m_RotationChangeFactor: 2
+  m_Targets:
+  - {fileID: 638130663}
+  - {fileID: 10650774}
+  m_OtherCamera: {fileID: 0}
+  m_HideIfInTheWay:
+  - {fileID: 1918049389}
+--- !u!4 &1920386349
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920386347}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2001003670}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1932803808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1932803810}
+  - component: {fileID: 1932803809}
+  m_Layer: 0
+  m_Name: ZoomCameraBehavior
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1932803809
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1932803808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d46c9e2bce352642b766976968fc8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DampTime: 0
+  m_MinDistance: 1
+  m_MaxXAngle: 10
+  m_MinXAngle: 10
+  m_YOffset: 1
+  m_RotationChangeFactor: 4
+  m_Targets:
+  - {fileID: 638130663}
+  - {fileID: 10650774}
+  m_OtherCamera: {fileID: 0}
+  m_HideIfInTheWay:
+  - {fileID: 1918049389}
+--- !u!4 &1932803810
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1932803808}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2001003670}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1973800119
 GameObject:
   m_ObjectHideFlags: 0
@@ -3119,7 +3280,10 @@ Transform:
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0, y: 3, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1920386349}
+  - {fileID: 1932803810}
+  - {fileID: 1300272938}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
@@ -3131,26 +3295,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2001003665}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d46c9e2bce352642b766976968fc8e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 11ba5a84260c6484c816dfdcedcc024d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_DampTime: 0.2
-  m_MinDistance: 4
-  m_MaxXAngle: 60
-  m_MinXAngle: 30
-  m_Targets:
-  - {fileID: 638130663}
-  - {fileID: 10650774}
-  m_OtherCamera: {fileID: 0}
-  m_HideIfInTheWay:
-  - {fileID: 1419437462}
-  - {fileID: 1912197764}
-  - {fileID: 1758494027}
-  - {fileID: 713193420}
-  - {fileID: 1723363282}
-  - {fileID: 207792711}
-  - {fileID: 820928456}
-  - {fileID: 1436760747}
+  m_DefaultCamera: {fileID: 1920386348}
+  m_ZoomCamera: {fileID: 1932803809}
+  m_TopDownCamera: {fileID: 1300272937}
 --- !u!1 &2124712666
 GameObject:
   m_ObjectHideFlags: 0

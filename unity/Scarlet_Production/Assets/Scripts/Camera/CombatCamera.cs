@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 public class CombatCamera : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class CombatCamera : MonoBehaviour
 
     public float m_MaxXAngle = 45f;
     public float m_MinXAngle = 25f;
+
+    public float m_YOffset = 0.5f;
+    public float m_RotationChangeFactor = 2f;
+
     private float m_CurrentAngle;
 
     public GameObject[] m_Targets;
@@ -27,11 +32,21 @@ public class CombatCamera : MonoBehaviour
     public GameObject m_OtherCamera;
 
     public GameObject[] m_HideIfInTheWay;
+    private List<GameObject> m_HidePlusChildren;
 
     // Use this for initialization
     void Start()
     {
-        m_Camera = GetComponent<Camera>();
+        m_Camera = GetComponentInParent<Camera>();
+
+        m_HidePlusChildren = new List<GameObject>();
+        foreach(GameObject go in m_HideIfInTheWay)
+        {
+            foreach(Renderer r in go.GetComponentsInChildren<Renderer>())
+            {
+                m_HidePlusChildren.Add(r.gameObject);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -53,7 +68,9 @@ public class CombatCamera : MonoBehaviour
         m_CurrentAngle = m_MinXAngle + (m_Distance / 8f) * Mathf.Abs(m_MaxXAngle - m_MinXAngle);
         m_CurrentAngle = Mathf.Min(m_CurrentAngle, m_MaxXAngle);
 
-        m_Camera.transform.rotation = Quaternion.Slerp(m_Camera.transform.rotation, Quaternion.Euler(new Vector3(m_CurrentAngle, 0f, 0f)), Time.deltaTime);
+        Quaternion newRot = Quaternion.Euler(new Vector3(m_CurrentAngle, 0f, 0f));
+
+        m_Camera.transform.rotation = Quaternion.Slerp(m_Camera.transform.rotation, newRot, Time.deltaTime * m_RotationChangeFactor);
     }
 
     private void PointCameraToAveragePosition()
@@ -64,7 +81,7 @@ public class CombatCamera : MonoBehaviour
         Vector3 goal = new Vector3(m_AveragePosition.x, m_AveragePosition.y, m_AveragePosition.z);
 
         goal.z -= goalZ;
-        goal.y += goalY;
+        goal.y += goalY + m_YOffset;
 
         m_Camera.transform.position = Vector3.SmoothDamp(m_Camera.transform.position,
             goal,
@@ -139,7 +156,7 @@ public class CombatCamera : MonoBehaviour
             RaycastHit[] hits = Physics.RaycastAll(copy, Vector3.Normalize(obj.transform.position - copy),
                 Vector3.Distance(copy, obj.transform.position) - 0.3f);
 
-            foreach (GameObject gameObject in m_HideIfInTheWay)
+            foreach (GameObject gameObject in m_HidePlusChildren)
             {
                 gameObject.GetComponent<Renderer>().enabled = true;
             }
@@ -148,7 +165,7 @@ public class CombatCamera : MonoBehaviour
             {
                 GameObject go = hit.transform.gameObject;
 
-                if (Array.IndexOf(m_HideIfInTheWay, go) != -1)
+                if (m_HidePlusChildren.IndexOf(go) != -1)
                 {
                     go.GetComponent<Renderer>().enabled = false;
                 }
