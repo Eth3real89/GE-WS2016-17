@@ -27,7 +27,8 @@ public abstract class PlayerCommand : MonoBehaviour {
 
     void Update()
     {
-        m_Trigger.Update();
+        if (m_Trigger != null)
+            m_Trigger.Update();
     }
 
     public abstract void InitTrigger();

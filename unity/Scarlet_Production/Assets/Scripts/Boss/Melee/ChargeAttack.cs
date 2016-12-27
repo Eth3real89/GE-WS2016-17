@@ -28,6 +28,8 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     public override void StartAttack()
     {
+        base.StartAttack();
+
         m_State = State.Aim;
         m_StateTimer = StopAimingAfter(m_AimTime);
         StartCoroutine(m_StateTimer);
@@ -97,7 +99,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_State = State.None;
         m_MoveCommand.StopMoving();
 
-        m_Callback.OnAttackInterrupted(this);
+        m_Callback.OnAttackEndUnsuccessfully(this);
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
     }
 
@@ -123,7 +125,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
                 m_State = State.None;
                 m_MoveCommand.StopMoving();
 
-                m_Callback.OnAttackInterrupted(this);
+                m_Callback.OnAttackEndUnsuccessfully(this);
                 m_MoveCommand.m_Speed = m_RunSpeedBefore;
             }
         }
@@ -138,21 +140,6 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
             m_BossCollider.m_Active = false;
         }
-    }
-
-    public bool OnHit(Damage dmg)
-    {
-        if (m_State == State.Aim)
-        {
-            return false;
-        }
-        else if (m_State == State.Run)
-        {
-            dmg.OnBlockDamage();
-            return true;
-        }
-
-        return false;
     }
 
     private class ChargeDamage : Damage

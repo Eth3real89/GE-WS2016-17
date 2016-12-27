@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Damage : MonoBehaviour {
 
+    public enum DamageType {Regular, Special};
+    public DamageType m_Type = DamageType.Regular;
+
     public DamageCallback m_Callback;
 
     public bool m_Active;

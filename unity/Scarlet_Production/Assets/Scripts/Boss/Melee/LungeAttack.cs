@@ -25,6 +25,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
 
     public override void StartAttack()
     {
+        base.StartAttack();
+
         m_LungeTrigger.transform.position = new Vector3(m_Scarlet.transform.position.x, m_LungeTrigger.transform.position.y, m_Scarlet.transform.position.z);
         m_LungeTrigger.GetComponent<Renderer>().enabled = true;
         m_LungeTrigger.m_Active = false;

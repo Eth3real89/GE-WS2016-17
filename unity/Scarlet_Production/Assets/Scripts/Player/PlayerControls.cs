@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback {
+public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback, PlayerAttackCommand.AttackCallback {
 
     public PlayerCommand[] m_PlayerCommands;
 
@@ -39,6 +39,9 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
         if (m_ParryCommand != null)
             m_ParryCommand.m_ParryCallback = this;
+
+        if (m_AttackCommand != null)
+            m_AttackCommand.m_AttackCallback = this;
     }
 	
 	void Update () {
@@ -176,5 +179,19 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     {
         if (m_StaggerCommand != null)
             m_StaggerCommand.TriggerCommand();
+    }
+
+    public void OnPlayerAttackParried()
+    {
+        print("Player attack parried!");
+        if (m_ActiveCommand != null)
+            m_ActiveCommand.CancelDelay();
+
+        if (m_StaggerCommand != null)
+            m_StaggerCommand.TriggerCommand();
+    }
+
+    public void OnPlayerAttackBlocked()
+    {
     }
 }

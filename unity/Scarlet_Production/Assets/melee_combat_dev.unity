@@ -300,8 +300,6 @@ MonoBehaviour:
   m_Scarlet: {fileID: 1147996698}
   m_Combos:
   - {fileID: 1190899574}
-  - {fileID: 1545673103}
-  - {fileID: 1190926874}
 --- !u!114 &10650779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,7 +553,21 @@ Prefab:
     - target: {fileID: 114823536178913316, guid: 2acb300160851794e8c5a2330570274b,
         type: 2}
       propertyPath: m_PerfectParryTime
-      value: 0.5
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114823536178913316, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_OkParryTime
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262191347684074, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114653629839274918, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_StaggerTime
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
@@ -1190,8 +1202,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5d1d26349080a44ae756ddb371ca50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Interruptable: 0
+  m_TriggerInterrupt: 1
   m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
   m_TimeAfterAttack: 0
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
@@ -1291,8 +1305,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7951099fb49db55408d3278adbe50fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Interruptable: 0
+  m_TriggerInterrupt: 0
   m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
   m_TimeAfterAttack: 0.5
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
@@ -1442,9 +1458,6 @@ MonoBehaviour:
   - {fileID: 1498674190}
   - {fileID: 1498674190}
   - {fileID: 1498674190}
-  m_Interruptable: 0
-  m_TriggerParry: 0
-  m_ParryTrumpsInterrupt: 0
   m_TimeAfterCombo: 1
 --- !u!1 &1190926873
 GameObject:
@@ -1479,9 +1492,6 @@ MonoBehaviour:
   m_BossStagger: {fileID: 1792357397}
   m_Attacks:
   - {fileID: 964065856}
-  m_Interruptable: 0
-  m_TriggerParry: 0
-  m_ParryTrumpsInterrupt: 0
   m_TimeAfterCombo: 1
 --- !u!4 &1190926875
 Transform:
@@ -2095,8 +2105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Interruptable: 0
+  m_TriggerInterrupt: 0
   m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
   m_TimeAfterAttack: 1
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
@@ -2153,9 +2165,6 @@ MonoBehaviour:
   m_BossStagger: {fileID: 1792357397}
   m_Attacks:
   - {fileID: 996083706}
-  m_Interruptable: 0
-  m_TriggerParry: 0
-  m_ParryTrumpsInterrupt: 0
   m_TimeAfterCombo: 1
 --- !u!1 &1666630148
 GameObject:
@@ -3194,6 +3203,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b75b1e9193038c74ba0a69a06638bb1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Type: 0
   m_Active: 0
   m_Damage: 45
 --- !u!1 &2001003665
@@ -3545,4 +3555,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603cdba93b385d54ca16581ed2cc92a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Type: 0
   m_Active: 0

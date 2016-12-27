@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler {
+public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler, Damage.DamageCallback {
 
     public BossMoveCommand m_BossMove;
     public TurnTowardsScarlet m_BossTurn;
@@ -25,10 +25,13 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     public override void StartAttack()
     {
+        base.StartAttack();
+
         m_State = AttackState.Chase;
         m_BossTurn.m_TurnSpeed = m_MaxTurnAngleTurnState;
         m_RangeTrigger.m_CollisionHandler = this;
         m_RangeTrigger.m_Active = true;
+        m_RangeTrigger.m_Callback = this;
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
@@ -102,7 +105,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         {
             m_State = AttackState.None;
             CancelAttack();
-            m_Callback.OnAttackInterrupted(this);
+            m_Callback.OnAttackEndUnsuccessfully(this);
         }
     }
 
@@ -126,7 +129,6 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     public void OnMeleeHitSuccess()
     {
-        m_Callback.OnAttackEnd(this);
     }
 
     public void HandleScarletCollision(Collider other)
@@ -139,6 +141,19 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     }
 
     public void HandleCollision(Collider other, bool initialCollision)
+    {
+    }
+
+    public void OnParryDamage()
+    {
+        m_Callback.OnAttackParried(this);
+    }
+
+    public void OnBlockDamage()
+    {
+    }
+
+    public void OnSuccessfulHit()
     {
     }
 }

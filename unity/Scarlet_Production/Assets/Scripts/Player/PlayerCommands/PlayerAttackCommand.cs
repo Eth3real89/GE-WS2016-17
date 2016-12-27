@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackCommand : PlayerCommand {
+public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
 
     public float m_RegularHitDamage = 20f;
     public float m_FinalHitDamage = 30f;
@@ -30,19 +30,22 @@ public class PlayerAttackCommand : PlayerCommand {
     private int m_CurrentCombo = 0;
 
     public bool m_RiposteActive = false;
+
+    public AttackCallback m_AttackCallback;
     
     void Start () {
         m_CommandName = "Attack";
         m_CurrentCombo = 0;
-
-        m_PlayerDamage = m_DamageTrigger.GetComponent<PlayerDamage>();
 	}
 
     public override void InitTrigger()
     {
+        m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
+        m_PlayerDamage = m_DamageTrigger.GetComponent<PlayerDamage>();
+
         m_CommandName = "Attack";
         m_Trigger = new PressAxisTrigger(this, m_CommandName);
-        m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
+        m_PlayerDamage.m_Callback = this;
     }
 
     public override void TriggerCommand()
@@ -148,5 +151,31 @@ public class PlayerAttackCommand : PlayerCommand {
 
         m_PlayerDamage.m_Active = false;
         m_Callback.OnCommandEnd(m_CommandName, this);
+    }
+
+    public void OnParryDamage()
+    {
+        // play some sound
+        if (m_AttackCallback != null)
+            m_AttackCallback.OnPlayerAttackParried();
+    }
+
+    public void OnBlockDamage()
+    {
+        // play some sound
+        if (m_AttackCallback != null)
+            m_AttackCallback.OnPlayerAttackBlocked();
+    }
+
+    public void OnSuccessfulHit()
+    {
+        // play some sound
+    }
+
+    public interface AttackCallback
+    {
+        void OnPlayerAttackParried();
+        void OnPlayerAttackBlocked();
+
     }
 }

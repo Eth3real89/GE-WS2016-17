@@ -5,24 +5,12 @@ using UnityEngine;
 
 public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterject {
 
-    public enum Interruptability {None, AnyHit, SpecialHit};
-    public enum TriggerParry {Never, AnyHit, SpecialHit};
-
     public GameObject m_Boss;
     public Animator m_Animator;
     public WerewolfHittable m_BossHittable;
     public BossStaggerCommand m_BossStagger;
 
     public BossAttack[] m_Attacks;
-
-    public Interruptability m_Interruptable;
-    public TriggerParry m_TriggerParry;
-
-    /// <summary>
-    /// If an attack was interrupted and the player keeps hitting,
-    /// can the boss still parry or will it have to take damage for a while?
-    /// </summary>
-    public bool m_ParryTrumpsInterrupt;
 
     public float m_TimeAfterCombo;
 
@@ -81,7 +69,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
-    public void OnAttackInterrupted(BossAttack attack)
+    public void OnAttackEndUnsuccessfully(BossAttack attack)
     {
         // @todo might do something more sophisticated such as switch to a different attack?
         // (tbd when there is more than one kind of attack ;) )
@@ -89,48 +77,11 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
     }
 
     public bool OnHit(Damage dmg)
-    {
-        // @todo: maybe the individual attacks can take care of this as long as they are active?
-        // (so the combo behaviour is active unless an attack is active & wants to override it)
-
-        // @todo dmg needs a type? at least player damage...
-
-        if (m_Interruptable == Interruptability.None)
-        {
-            if (m_TriggerParry == TriggerParry.AnyHit)
-            {
-                ParryAttack(dmg);
-                return true;
-            }
-
-            return false;
-        }
-        else if (m_Interruptable == Interruptability.AnyHit)
-        {
-            if (m_ParryTrumpsInterrupt)
-            {
-                if (m_TriggerParry == TriggerParry.AnyHit)
-                {
-                    ParryAttack(dmg);
-                    return true;
-                }
-                else
-                {
-                    Interrupt(dmg);
-                    return false;
-                }
-            }
-            else
-            {
-                Interrupt(dmg);
-                return false;
-            }
-        }
-
+    { 
         return false;
     }
 
-    private void ParryAttack(Damage dmg)
+    private void ParryAttack()
     {
         // @todo separate animation!
         m_Animator.SetTrigger("MeleeDownswingTrigger");
@@ -142,23 +93,41 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         {
             m_CurrentAttack.CancelAttack();
         }
-        dmg.OnParryDamage();
-
-        // @todo more elegant solution
-        m_BossHittable.RegisterInterject(null);
+        m_BossHittable.RegisterInterject(this);
 
         m_Callback.OnActivateParry(this);
     }
 
-    private void Interrupt(Damage dmg)
+    public void OnParryPlayerAttack(BossAttack attack)
+    {
+        ParryAttack();
+    }
+
+    public void OnBlockPlayerAttack(BossAttack attack)
+    {
+        // @todo some animation? could be difficult for all attacks, maybe let attacks handle this...
+    }
+
+    public void OnAttackParried(BossAttack attack)
     {
         if (!m_BetweenAttacks && m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
         }
         m_BossStagger.DoStagger();
+        StartCoroutine(WaitAfterParried());
+    }
+
+    private IEnumerator WaitAfterParried()
+    {
+        yield return new WaitForSeconds(1f);
 
         m_Callback.OnInterruptCombo(this);
+    }
+
+    public void OnAttackInterrupted(BossAttack attack)
+    {
+        OnAttackParried(attack);
     }
 
     public interface ComboCallback
