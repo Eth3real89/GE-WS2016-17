@@ -25,22 +25,6 @@ public class BossJumpCommand : BossCommand {
         StartCoroutine(WaitMidJump(jumpTime, callback));
     }
 
-    private IEnumerator testDistance(float jumpTime, JumpCallback callback)
-    {
-        Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
-        float t = 0;
-        float gravity = Physics.gravity.magnitude * (m_Speed - 1) * bossBody.mass;
-        while ((t += Time.deltaTime) < jumpTime)
-        {
-            bossBody.AddForce(new Vector3(0, -gravity * Time.deltaTime, 0), ForceMode.Impulse);
-            yield return null;
-        }
-
-        m_Boss.GetComponentInChildren<Rigidbody>().velocity = new Vector3();
-        m_Animator.SetTrigger("LandTrigger");
-        callback.OnLand();
-    }
-
     private IEnumerator WaitMidJump(float jumpTime, JumpCallback callback)
     {
         Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
@@ -57,7 +41,9 @@ public class BossJumpCommand : BossCommand {
         bossBody.useGravity = false;
         bossBody.velocity = new Vector3(0, 0, 0);
 
+        callback.OnStopMidAir();
         yield return new WaitForSeconds(m_TimeSpentInAir);
+        callback.OnContinueMidAir();
 
         bossBody.useGravity = true;
 
@@ -114,6 +100,8 @@ public class BossJumpCommand : BossCommand {
 
     public interface JumpCallback
     {
+        void OnStopMidAir();
+        void OnContinueMidAir();
         void OnLand();
     }
 

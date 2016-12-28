@@ -12,6 +12,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
     public BossTurnCommand m_TurnCommand;
     public BossJumpCommand m_JumpCommand;
 
+    public GameObject m_HitSignal;
+
     public float m_TrackSpeed = 7f;
 
     public float m_TrackTime = 4f;
@@ -88,6 +90,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
         m_LungeTrigger.GetComponent<Renderer>().enabled = false;
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
+
+        if (m_HitSignal != null)
+            m_HitSignal.SetActive(false);
     }
 
     public void OnLand()
@@ -109,5 +114,17 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
         m_Callback.OnAttackEnd(this);
+    }
+
+    public void OnStopMidAir()
+    {
+        if (m_HitSignal != null)
+            m_HitSignal.SetActive(true);
+    }
+
+    public void OnContinueMidAir()
+    {
+        if (m_HitSignal != null)
+            m_HitSignal.SetActive(false);
     }
 }
