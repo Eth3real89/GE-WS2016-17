@@ -10,10 +10,12 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     public GameObject m_HitSignal;
 
     private IEnumerator m_Timer;
+    private IEnumerator m_DamageTimer;
 
     public float m_UpswingTime = 0.1f;
     public float m_HoldTime = 0.15f;
     public float m_DownswingTime = 0.3f;
+    public float m_TimeBeforeDownswingCausesDamage = 0.2f;
 
     private MeleeHitCallback m_Callback;
 
@@ -43,15 +45,14 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public void Downswing()
     {
-
         if (m_HitSignal != null)
         {
             m_HitSignal.SetActive(false);
         }
 
         m_Animator.SetTrigger("MeleeDownswingTrigger");
-        m_DamageTrigger.m_CollisionHandler = this;
-        m_DamageTrigger.m_Active = true;
+        m_DamageTimer = EnableDamageAfter(m_TimeBeforeDownswingCausesDamage);
+        StartCoroutine(m_DamageTimer);
 
         m_Timer = EndAfter(m_DownswingTime);
         StartCoroutine(m_Timer);
@@ -77,8 +78,19 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     private IEnumerator EndAfter(float time)
     {
         yield return new WaitForSeconds(time);
-        m_Callback.OnMeleeHitEnd();
         m_DamageTrigger.m_Active = false;
+
+        if (m_DamageTimer != null)
+            StopCoroutine(m_DamageTimer);
+
+        m_Callback.OnMeleeHitEnd();
+    }
+
+    private IEnumerator EnableDamageAfter(float time)
+    {
+        yield return new WaitForSeconds(time);
+        m_DamageTrigger.m_CollisionHandler = this;
+        m_DamageTrigger.m_Active = true;
     }
 
     public void CancelHit()
@@ -88,6 +100,10 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
             StopCoroutine(m_Timer);
             m_DamageTrigger.m_Active = false;
         }
+
+        if (m_DamageTimer != null)
+            StopCoroutine(m_DamageTimer);
+
     }
 
     public void HandleScarletCollision(Collider other)
@@ -100,11 +116,6 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
                 hittable.Hit(m_DamageTrigger);
                 m_Callback.OnMeleeHitSuccess();
                 m_DamageTrigger.m_Active = false;
-
-                if (m_Timer != null)
-                {
-                    StopCoroutine(m_Timer);
-                }
             }
         }
     }
