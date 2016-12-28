@@ -9,6 +9,7 @@ public class BossJumpCommand : BossCommand {
 
     public float m_TimeWaitBeforeLand = 0.15f;
     public float m_TimeSpentInAir = 0.15f;
+    public float m_Speed = 1f;
 
     public void JumpAt(Transform target, JumpCallback callback = null)
     {
@@ -24,12 +25,33 @@ public class BossJumpCommand : BossCommand {
         StartCoroutine(WaitMidJump(jumpTime, callback));
     }
 
+    private IEnumerator testDistance(float jumpTime, JumpCallback callback)
+    {
+        Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
+        float t = 0;
+        float gravity = Physics.gravity.magnitude * (m_Speed - 1) * bossBody.mass;
+        while ((t += Time.deltaTime) < jumpTime)
+        {
+            bossBody.AddForce(new Vector3(0, -gravity * Time.deltaTime, 0), ForceMode.Impulse);
+            yield return null;
+        }
+
+        m_Boss.GetComponentInChildren<Rigidbody>().velocity = new Vector3();
+        m_Animator.SetTrigger("LandTrigger");
+        callback.OnLand();
+    }
+
     private IEnumerator WaitMidJump(float jumpTime, JumpCallback callback)
     {
         Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
-        float gravity = Physics.gravity.magnitude;
+        float gravity = Physics.gravity.magnitude * (m_Speed - 1) * bossBody.mass;
 
-        yield return new WaitForSeconds(jumpTime - m_TimeWaitBeforeLand);
+        float t = 0;
+        while((t += Time.deltaTime) < jumpTime - m_TimeWaitBeforeLand)
+        {
+            bossBody.AddForce(new Vector3(0, -gravity * Time.deltaTime, 0), ForceMode.Impulse);
+            yield return null;
+        }
 
         Vector3 previousVelocity = new Vector3(bossBody.velocity.x, bossBody.velocity.y, bossBody.velocity.z);
         bossBody.useGravity = false;
@@ -46,7 +68,15 @@ public class BossJumpCommand : BossCommand {
 
     private IEnumerator WaitForJumpEnd(float time, JumpCallback callback)
     {
-        yield return new WaitForSeconds(time);
+        Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
+        float gravity = Physics.gravity.magnitude * (m_Speed - 1) * bossBody.mass;
+
+        float t = 0;
+        while ((t += Time.deltaTime) < time)
+        {
+            bossBody.AddForce(new Vector3(0, -gravity * Time.deltaTime, 0), ForceMode.Impulse);
+            yield return null;
+        }
 
         m_Boss.GetComponentInChildren<Rigidbody>().velocity = new Vector3();
         m_Animator.SetTrigger("LandTrigger");
@@ -58,7 +88,7 @@ public class BossJumpCommand : BossCommand {
 
     private Vector3 CalculateRequiredForce(Transform bossTransform, Transform target, ref float time)
     {
-        float gravity = Physics.gravity.magnitude;
+        float gravity = Physics.gravity.magnitude * m_Speed;
 
         Vector3 planarTarget = new Vector3(target.position.x, 0, target.position.z);
         Vector3 planarPostion = new Vector3(bossTransform.position.x, 0, bossTransform.position.z);
@@ -66,14 +96,7 @@ public class BossJumpCommand : BossCommand {
         float distance = Vector3.Distance(planarTarget, planarPostion);
         float yOffset = 0; // transform.position.y - target.position.y;
 
-        float angle = (10 + distance * 4) * Mathf.Deg2Rad;
-
-        if (distance <= 3)
-        {
-            angle = 30 * Mathf.Deg2Rad;
-        }
-
-        angle = Mathf.Min(angle, 50 * Mathf.Deg2Rad);
+        float angle = (10 + 2.5f * distance) * Mathf.Deg2Rad;
 
         float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
         Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
