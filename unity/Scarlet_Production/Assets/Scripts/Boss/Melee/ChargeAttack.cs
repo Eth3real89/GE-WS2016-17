@@ -11,6 +11,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
     public GameObject m_Scarlet;
     public BossTurnCommand m_TurnCommand;
     public BossMoveCommand m_MoveCommand;
+    public BossStaggerCommand m_StaggerCommand;
 
     public BossCollider m_BossCollider;
 
@@ -24,7 +25,12 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     public float m_ChargeSpeed = 7f;
 
+    public float m_StaggerTimeOnWallHit = 1.5f;
+    private IEnumerator m_StaggerTimer;
+
     private float m_RunSpeedBefore;
+
+    private bool m_CarryingScarlet = false;
 
     public override void StartAttack()
     {
@@ -37,6 +43,8 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
         m_RunSpeedBefore = m_MoveCommand.m_Speed;
         m_MoveCommand.m_Speed = m_ChargeSpeed;
+
+        m_CarryingScarlet = false;
 
         m_BossHittable.RegisterInterject(this);
 
@@ -68,6 +76,11 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         else if (m_State == State.Run)
         {
             Run();
+
+            if (m_CarryingScarlet)
+            {
+                MoveScarlet();
+            }
         }
     }
 
@@ -99,8 +112,12 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_State = State.None;
         m_MoveCommand.StopMoving();
 
-        m_Callback.OnAttackEndUnsuccessfully(this);
+        m_Callback.OnAttackEnd(this);
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
+
+        if (m_CarryingScarlet)
+            EnableScarletControls();
+        m_CarryingScarlet = false;
     }
 
     public override void CancelAttack()
@@ -110,7 +127,14 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         if (m_StateTimer != null)
             StopCoroutine(m_StateTimer);
 
+        if (m_StaggerTimer != null)
+            StopCoroutine(m_StaggerTimer);
+
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
+        if (m_CarryingScarlet)
+            EnableScarletControls();
+
+        m_CarryingScarlet = false;
     }
 
     public void HandleCollision(Collider other, bool initialCollision)
@@ -124,11 +148,29 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
                 m_State = State.None;
                 m_MoveCommand.StopMoving();
-
-                m_Callback.OnAttackEndUnsuccessfully(this);
                 m_MoveCommand.m_Speed = m_RunSpeedBefore;
+
+                if (m_CarryingScarlet)
+                {
+                    EnableScarletControls();
+                    m_CarryingScarlet = false;
+                }
+
+                if (m_StaggerTimeOnWallHit > 0)
+                {
+                    m_StaggerCommand.DoStagger();
+
+                    m_StaggerTimer = WaitWhileStaggering();
+                    StartCoroutine(m_StaggerTimer);
+                }
             }
         }
+    }
+
+    private IEnumerator WaitWhileStaggering()
+    {
+        yield return new WaitForSeconds(m_StaggerTimeOnWallHit);
+        m_Callback.OnAttackEnd(this);
     }
 
     public void HandleScarletCollision(Collider other)
@@ -137,8 +179,39 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         if (hittable != null)
         {
             hittable.Hit(new ChargeDamage());
-
             m_BossCollider.m_Active = false;
+
+            m_CarryingScarlet = true;
+
+            DisableScarletControls();
+        }
+    }
+
+    private void MoveScarlet()
+    {
+        Rigidbody scarletBody = m_Scarlet.GetComponent<Rigidbody>();
+        Rigidbody bossBody = m_BossCollider.GetComponentInChildren<Rigidbody>();
+        if (scarletBody != null && bossBody != null)
+        {
+            scarletBody.velocity = bossBody.velocity;
+        }
+    }
+
+    private void DisableScarletControls()
+    {
+        PlayerControls controls = m_Scarlet.GetComponentInChildren<PlayerControls>();
+        if (controls != null)
+        {
+            controls.DisableAllCommands();
+        }
+    }
+
+    private void EnableScarletControls()
+    {
+        PlayerControls controls = m_Scarlet.GetComponentInChildren<PlayerControls>();
+        if (controls != null)
+        {
+            controls.EnableAllCommands();
         }
     }
 

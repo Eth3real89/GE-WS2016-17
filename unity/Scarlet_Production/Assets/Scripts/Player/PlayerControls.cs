@@ -18,6 +18,16 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     private IEnumerator m_DashDelayEnumerator;
 
+    public void DisableAllCommands()
+    {
+        DisableCommands(m_PlayerCommands);
+    }
+
+    public void EnableAllCommands()
+    {
+        EnableCommands(m_PlayerCommands);
+    }
+
     void Start () {
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         foreach(PlayerCommand command in m_PlayerCommands)
@@ -42,10 +52,6 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
         if (m_AttackCommand != null)
             m_AttackCommand.m_AttackCallback = this;
-    }
-	
-	void Update () {
-
     }
 
     public void OnCommandEnd(string commandName, PlayerCommand command)
