@@ -7,6 +7,9 @@ public class BossJumpCommand : BossCommand {
 
     // https://forum.unity3d.com/threads/how-to-calculate-force-needed-to-jump-towards-target-point.372288/
 
+    public float m_TimeWaitBeforeLand = 0.15f;
+    public float m_TimeSpentInAir = 0.15f;
+
     public void JumpAt(Transform target, JumpCallback callback = null)
     {
         float jumpTime = 0f;
@@ -18,16 +21,32 @@ public class BossJumpCommand : BossCommand {
         m_Boss.GetComponentInChildren<Rigidbody>().AddForce(
             force * m_Boss.GetComponentInChildren<Rigidbody>().mass,
             ForceMode.Impulse);
-        StartCoroutine(WaitForJumpEnd(jumpTime, callback));
+        StartCoroutine(WaitMidJump(jumpTime, callback));
+    }
+
+    private IEnumerator WaitMidJump(float jumpTime, JumpCallback callback)
+    {
+        Rigidbody bossBody = m_Boss.GetComponentInChildren<Rigidbody>();
+        float gravity = Physics.gravity.magnitude;
+
+        yield return new WaitForSeconds(jumpTime - m_TimeWaitBeforeLand);
+
+        Vector3 previousVelocity = new Vector3(bossBody.velocity.x, bossBody.velocity.y, bossBody.velocity.z);
+        bossBody.useGravity = false;
+        bossBody.velocity = new Vector3(0, 0, 0);
+
+        yield return new WaitForSeconds(m_TimeSpentInAir);
+
+        bossBody.useGravity = true;
+
+        bossBody.velocity = previousVelocity;
+
+        StartCoroutine(WaitForJumpEnd(m_TimeWaitBeforeLand, callback));
     }
 
     private IEnumerator WaitForJumpEnd(float time, JumpCallback callback)
     {
-        float t = 0;
-        while ((t += Time.deltaTime) < time)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(time);
 
         m_Boss.GetComponentInChildren<Rigidbody>().velocity = new Vector3();
         m_Animator.SetTrigger("LandTrigger");
@@ -49,7 +68,12 @@ public class BossJumpCommand : BossCommand {
 
         float angle = (10 + distance * 4) * Mathf.Deg2Rad;
 
-        angle = Mathf.Min(angle, 60);
+        if (distance <= 3)
+        {
+            angle = 30 * Mathf.Deg2Rad;
+        }
+
+        angle = Mathf.Min(angle, 50 * Mathf.Deg2Rad);
 
         float initialVelocity = (1 / Mathf.Cos(angle)) * Mathf.Sqrt((0.5f * gravity * Mathf.Pow(distance, 2)) / (distance * Mathf.Tan(angle) + yOffset));
         Vector3 velocity = new Vector3(0, initialVelocity * Mathf.Sin(angle), initialVelocity * Mathf.Cos(angle));
@@ -60,10 +84,8 @@ public class BossJumpCommand : BossCommand {
         if (bossTransform.position.x > target.position.x)
             finalVelocity.x *= -1;
 
-        float jumpTime = Mathf.Sqrt(2 * Mathf.Abs(velocity.y) / gravity);
-        time = jumpTime + (distance - 5) * 0.05f;
-        time = Mathf.Max(0, time);
-
+        time = finalVelocity.y / gravity * 2;
+        
         return finalVelocity;
     }
 
