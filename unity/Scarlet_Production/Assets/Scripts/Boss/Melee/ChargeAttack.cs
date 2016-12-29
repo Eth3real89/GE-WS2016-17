@@ -14,6 +14,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
     public BossStaggerCommand m_StaggerCommand;
 
     public BossCollider m_BossCollider;
+    public BossMeleeDamage m_DamageTrigger;
 
     public GameObject[] m_EnvironmentColliderContainers;
     private List<Collider> m_EnvironmentColliders;
@@ -97,6 +98,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_BossCollider.m_Handler = this;
         m_BossCollider.m_Active = true;
 
+        m_DamageTrigger.m_CollisionHandler = new ChargeHitWallWithScarletCallback(this);
+        m_DamageTrigger.m_Active = true;
+
         m_StateTimer = StopRunnigAfter(m_MaxRunTime);
         StartCoroutine(m_StateTimer);
     }
@@ -104,6 +108,16 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
     private void Run()
     {
         m_MoveCommand.DoMove(m_Boss.transform.forward.x, m_Boss.transform.forward.z);
+    }
+
+    private void MoveScarlet()
+    {
+        Rigidbody scarletBody = m_Scarlet.GetComponent<Rigidbody>();
+        Rigidbody bossBody = m_BossCollider.GetComponentInChildren<Rigidbody>();
+        if (scarletBody != null && bossBody != null)
+        {
+            scarletBody.velocity = bossBody.velocity;
+        }
     }
 
     private IEnumerator StopRunnigAfter(float time)
@@ -115,8 +129,14 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_Callback.OnAttackEnd(this);
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
 
+        m_DamageTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
+
         if (m_CarryingScarlet)
+        {
             EnableScarletControls();
+            MoveScarlet(); // in this case: break!
+        }
         m_CarryingScarlet = false;
     }
 
@@ -133,6 +153,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
         if (m_CarryingScarlet)
             EnableScarletControls();
+
+        m_DamageTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
 
         m_CarryingScarlet = false;
     }
@@ -154,6 +177,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
                 {
                     EnableScarletControls();
                     m_CarryingScarlet = false;
+                    DealDamageToScarlet(m_Scarlet, new ChargeHitWallDamage());
                 }
 
                 if (m_StaggerTimeOnWallHit > 0)
@@ -175,25 +199,19 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     public void HandleScarletCollision(Collider other)
     {
+        DealDamageToScarlet(m_Scarlet, new ChargePickUpDamage());
+        DisableScarletControls();
+    }
+
+    private void DealDamageToScarlet(GameObject other, Damage damage)
+    {
         Hittable hittable = other.GetComponent<Hittable>();
         if (hittable != null)
         {
-            hittable.Hit(new ChargeDamage());
+            hittable.Hit(damage);
             m_BossCollider.m_Active = false;
 
             m_CarryingScarlet = true;
-
-            DisableScarletControls();
-        }
-    }
-
-    private void MoveScarlet()
-    {
-        Rigidbody scarletBody = m_Scarlet.GetComponent<Rigidbody>();
-        Rigidbody bossBody = m_BossCollider.GetComponentInChildren<Rigidbody>();
-        if (scarletBody != null && bossBody != null)
-        {
-            scarletBody.velocity = bossBody.velocity;
         }
     }
 
@@ -215,7 +233,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         }
     }
 
-    private class ChargeDamage : Damage
+    private class ChargePickUpDamage : Damage
     {
         public override bool Blockable()
         {
@@ -224,7 +242,43 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
         public override float DamageAmount()
         {
-            return 40;
+            return 15;
+        }
+    }
+
+    private class ChargeHitWallDamage : Damage
+    {
+        public override bool Blockable()
+        {
+            return false;
+        }
+
+        public override float DamageAmount()
+        {
+            return 60;
+        }
+    }
+
+    private class ChargeHitWallWithScarletCallback : DamageCollisionHandler
+    {
+
+        private ChargeAttack m_Attack;
+
+        public ChargeHitWallWithScarletCallback(ChargeAttack attack)
+        {
+            m_Attack = attack;
+        }
+
+        public void HandleCollision(Collider other, bool initialCollision)
+        {
+            if (m_Attack.m_CarryingScarlet)
+            {
+                m_Attack.HandleCollision(other, initialCollision);
+            }
+        }
+
+        public void HandleScarletCollision(Collider other)
+        {
         }
     }
 }

@@ -19,17 +19,24 @@ public class BossMeleeDamage : Damage {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Active && m_CollisionHandler != null)
-        {
-            m_CollisionHandler.HandleScarletCollision(other);
-        }
+        OnTrigger(other, true);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (m_Active && m_CollisionHandler != null)
+        OnTrigger(other, false);
+    }
+
+    private void OnTrigger(Collider other, bool initialCollision)
+    {
+        if (m_Active && m_CollisionHandler != null && other.GetComponentInChildren<PlayerManager>() != null)
         {
             m_CollisionHandler.HandleScarletCollision(other);
+        }
+        else if
+        (m_Active && m_CollisionHandler != null)
+        {
+            m_CollisionHandler.HandleCollision(other, initialCollision);
         }
     }
 
