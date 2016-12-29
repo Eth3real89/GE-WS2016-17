@@ -7,6 +7,7 @@ public interface DamageCollisionHandler {
 
     void HandleScarletCollision(Collider other);
     void HandleCollision(Collider other, bool initialCollision);
+    void HandleScarletLeave(Collider other);
 }
 
 public class DefaultCollisionHandler : DamageCollisionHandler
@@ -34,5 +35,9 @@ public class DefaultCollisionHandler : DamageCollisionHandler
             hittable.Hit(this.m_Damage);
             m_Damage.m_Active = false;
         }
+    }
+
+    public void HandleScarletLeave(Collider other)
+    {
     }
 }

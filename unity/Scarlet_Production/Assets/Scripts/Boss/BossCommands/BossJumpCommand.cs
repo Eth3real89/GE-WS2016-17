@@ -7,7 +7,7 @@ public class BossJumpCommand : BossCommand {
 
     // https://forum.unity3d.com/threads/how-to-calculate-force-needed-to-jump-towards-target-point.372288/
 
-    public float m_TimeWaitBeforeLand = 0.15f;
+    public float m_StopAtPointInJump = 0.9f;
     public float m_TimeSpentInAir = 0.15f;
     public float m_Speed = 1f;
 
@@ -31,25 +31,28 @@ public class BossJumpCommand : BossCommand {
         float gravity = Physics.gravity.magnitude * (m_Speed - 1) * bossBody.mass;
 
         float t = 0;
-        while((t += Time.deltaTime) < jumpTime - m_TimeWaitBeforeLand)
+        float stopPoint = jumpTime * m_StopAtPointInJump;
+        while ((t += Time.deltaTime) < stopPoint)
         {
             bossBody.AddForce(new Vector3(0, -gravity * Time.deltaTime, 0), ForceMode.Impulse);
             yield return null;
         }
+        
+        if (callback.StopMidAir())
+        {
+            Vector3 previousVelocity = new Vector3(bossBody.velocity.x, bossBody.velocity.y, bossBody.velocity.z);
+            bossBody.useGravity = false;
+            bossBody.velocity = new Vector3(0, 0, 0);
 
-        Vector3 previousVelocity = new Vector3(bossBody.velocity.x, bossBody.velocity.y, bossBody.velocity.z);
-        bossBody.useGravity = false;
-        bossBody.velocity = new Vector3(0, 0, 0);
+            callback.OnStopMidAir();
+            yield return new WaitForSeconds(m_TimeSpentInAir);
+            callback.OnContinueMidAir();
 
-        callback.OnStopMidAir();
-        yield return new WaitForSeconds(m_TimeSpentInAir);
-        callback.OnContinueMidAir();
+            bossBody.useGravity = true;
+            bossBody.velocity = previousVelocity;
+        }
 
-        bossBody.useGravity = true;
-
-        bossBody.velocity = previousVelocity;
-
-        StartCoroutine(WaitForJumpEnd(m_TimeWaitBeforeLand, callback));
+        StartCoroutine(WaitForJumpEnd(jumpTime - stopPoint, callback));
     }
 
     private IEnumerator WaitForJumpEnd(float time, JumpCallback callback)
@@ -103,6 +106,7 @@ public class BossJumpCommand : BossCommand {
         void OnStopMidAir();
         void OnContinueMidAir();
         void OnLand();
+        bool StopMidAir();
     }
 
 }

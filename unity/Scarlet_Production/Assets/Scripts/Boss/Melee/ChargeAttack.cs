@@ -233,6 +233,10 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         }
     }
 
+    public void HandleScarletLeave(Collider other)
+    {
+    }
+
     private class ChargePickUpDamage : Damage
     {
         public override bool Blockable()
@@ -278,6 +282,10 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         }
 
         public void HandleScarletCollision(Collider other)
+        {
+        }
+
+        public void HandleScarletLeave(Collider other)
         {
         }
     }

@@ -156,4 +156,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     public void OnSuccessfulHit()
     {
     }
+
+    public void HandleScarletLeave(Collider other)
+    {
+    }
 }

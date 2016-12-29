@@ -688,6 +688,21 @@ Prefab:
       propertyPath: m_ChargeSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 114309030154558374, guid: d7ba993b020f0d54a88cdfb5fc21db26,
+        type: 2}
+      propertyPath: m_Combos.Array.data[0]
+      value: 
+      objectReference: {fileID: 1545673103}
+    - target: {fileID: 114335568851225490, guid: d7ba993b020f0d54a88cdfb5fc21db26,
+        type: 2}
+      propertyPath: m_TimeSpentInAir
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114335568851225490, guid: d7ba993b020f0d54a88cdfb5fc21db26,
+        type: 2}
+      propertyPath: m_StopAtPointInJump
+      value: 0.8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d7ba993b020f0d54a88cdfb5fc21db26, type: 2}
   m_IsPrefabParent: 0
@@ -1584,6 +1599,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1436760747}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1545673103 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114123865071116758, guid: d7ba993b020f0d54a88cdfb5fc21db26,
+    type: 2}
+  m_PrefabInternal: {fileID: 308458965}
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
 --- !u!1 &1723363282
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
+public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageCollisionHandler {
 
     public LungeTrigger m_LungeTrigger;
     public BossCollider m_BossCollider;
@@ -25,6 +25,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
 
     private IEnumerator m_StateTimer;
 
+    private bool m_ScarletInTargetArea;
+    private DefaultCollisionHandler m_CollisionHandler;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -33,11 +36,14 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
         m_LungeTrigger.GetComponent<Renderer>().enabled = true;
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
+        m_ScarletInTargetArea = false;
 
         m_StateTimer = Aim();
         StartCoroutine(m_StateTimer);
 
         m_Callback.OnAttackStart(this);
+
+        m_CollisionHandler = new DefaultCollisionHandler(m_LungeTrigger);
     }
 
     private IEnumerator Aim()
@@ -77,9 +83,12 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
 
         m_State = State.Jump;
         m_JumpCommand.JumpAt(m_LungeTrigger.transform, this);
+
         m_BossCollider.m_Active = true;
-        DefaultCollisionHandler collisionHandler = new DefaultCollisionHandler(m_LungeTrigger);
-        m_BossCollider.m_Handler = collisionHandler;
+        m_BossCollider.m_Handler = m_CollisionHandler;
+
+        m_LungeTrigger.m_Active = true;
+        m_LungeTrigger.m_CollisionHandler = this;
     }
 
     public override void CancelAttack()
@@ -98,8 +107,6 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
     public void OnLand()
     {
         m_State = State.Land;
-        m_LungeTrigger.m_Active = true;
-        m_LungeTrigger.m_CollisionHandler = m_BossCollider.m_Handler;
 
         m_StateTimer = WaitAfterLand();
         StartCoroutine(m_StateTimer);
@@ -126,5 +133,31 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback {
     {
         if (m_HitSignal != null)
             m_HitSignal.SetActive(false);
+    }
+
+    public bool StopMidAir()
+    {
+        return m_ScarletInTargetArea;
+    }
+
+    public void HandleScarletCollision(Collider other)
+    {
+        m_ScarletInTargetArea = true;
+
+        if (m_State == State.Land)
+            m_CollisionHandler.HandleScarletCollision(other);
+    }
+
+    public void HandleCollision(Collider other, bool initialCollision)
+    {
+        m_CollisionHandler.HandleCollision(other, initialCollision);
+    }
+
+    public void HandleScarletLeave(Collider other)
+    {
+        m_ScarletInTargetArea = false;
+
+        if (m_State == State.Land)
+            m_CollisionHandler.HandleScarletLeave(other);
     }
 }

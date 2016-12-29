@@ -124,6 +124,10 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     {
     }
 
+    public void HandleScarletLeave(Collider other)
+    {
+    }
+
     public interface MeleeHitCallback
     {
         void OnMeleeHitSuccess();

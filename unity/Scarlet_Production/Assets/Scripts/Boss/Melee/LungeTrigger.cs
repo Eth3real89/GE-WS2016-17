@@ -22,7 +22,7 @@ public class LungeTrigger : Damage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Active && m_CollisionHandler != null)
+        if (m_Active && m_CollisionHandler != null && other.GetComponentInChildren<PlayerManager>() != null)
         {
             m_CollisionHandler.HandleScarletCollision(other);
         }
@@ -30,9 +30,17 @@ public class LungeTrigger : Damage
 
     private void OnTriggerStay(Collider other)
     {
-        if (m_Active && m_CollisionHandler != null)
+        if (m_Active && m_CollisionHandler != null && other.GetComponentInChildren<PlayerManager>() != null)
         {
             m_CollisionHandler.HandleScarletCollision(other);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (m_Active && m_CollisionHandler != null && other.GetComponentInChildren<PlayerManager>() != null)
+        {
+            m_CollisionHandler.HandleScarletLeave(other);
         }
     }
 }
