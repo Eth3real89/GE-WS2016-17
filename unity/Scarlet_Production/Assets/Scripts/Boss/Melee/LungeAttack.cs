@@ -38,6 +38,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_BossCollider.m_Active = false;
         m_ScarletInTargetArea = false;
 
+        m_Animator.SetTrigger("CrouchTrigger");
+
         m_StateTimer = Aim();
         StartCoroutine(m_StateTimer);
 
@@ -107,6 +109,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     public void OnLand()
     {
         m_State = State.Land;
+
+        m_Animator.SetTrigger("UprightTrigger");
 
         m_StateTimer = WaitAfterLand();
         StartCoroutine(m_StateTimer);
