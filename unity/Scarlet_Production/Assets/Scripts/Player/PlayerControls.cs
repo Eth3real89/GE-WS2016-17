@@ -17,6 +17,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     private PlayerCommand m_ActiveCommand;
 
     private IEnumerator m_DashDelayEnumerator;
+    private IEnumerator m_SlowMoEnumerator;
 
     public void DisableAllCommands()
     {
@@ -155,10 +156,11 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
         SlowTime.Instance.StartSlowMo();
 
-        StartCoroutine(PerfectParryEnumerator());
+        m_SlowMoEnumerator = PerfectParryEnumerator();
+
+        StartCoroutine(m_SlowMoEnumerator);
 
         CameraController.Instance.ZoomIn();
-
         DisableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
     }
 
@@ -189,7 +191,6 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     public void OnPlayerAttackParried()
     {
-        print("Player attack parried!");
         if (m_ActiveCommand != null)
             m_ActiveCommand.CancelDelay();
 
@@ -199,5 +200,21 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     public void OnPlayerAttackBlocked()
     {
+    }
+
+    public void OnPlayerActivateRiposte()
+    {
+        if (m_SlowMoEnumerator != null)
+            StopCoroutine(m_SlowMoEnumerator);
+
+        StartCoroutine(ResetAfterRiposte());
+    }
+
+    public IEnumerator ResetAfterRiposte()
+    {
+        yield return new WaitForSeconds(0.15f * SlowTime.Instance.m_SlowAmount);
+
+        SlowTime.Instance.StopSlowMo();
+        CameraController.Instance.ActivateDefaultCamera();
     }
 }

@@ -14,6 +14,8 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
     public float m_DelayAfterLastAttack = 0.5f;
     public float m_DelayAfterRiposte = 0.5f;
 
+    public float m_DelayDamageActive = 0.2f;
+
     private Rigidbody m_ScarletBody;
 
     /// <summary>
@@ -23,6 +25,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
     
     private IEnumerator m_AttackEnumerator;
     private IEnumerator m_ComboEnumerator;
+    private IEnumerator m_DamageActiveEnumerator;
 
     public GameObject m_DamageTrigger;
     private PlayerDamage m_PlayerDamage;
@@ -69,8 +72,6 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
 
     private void ActivateDamage()
     {
-        m_PlayerDamage.m_Active = true;
-
         PlayAttackAnimation(m_CurrentCombo);
 
         if (m_RiposteActive)
@@ -81,6 +82,11 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
             if (hittable != null)
                 hittable.Hit(m_PlayerDamage);
             LookAtTarget();
+
+            if (m_AttackCallback != null)
+                m_AttackCallback.OnPlayerActivateRiposte();
+
+            m_RiposteActive = false;
         }
         else if (m_CurrentCombo < 3)
         {
@@ -96,6 +102,15 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
         }
 
         StartCoroutine(m_AttackEnumerator);
+
+        m_DamageActiveEnumerator = ActivateDamageDelayed();
+        StartCoroutine(m_DamageActiveEnumerator);
+    }
+
+    private IEnumerator ActivateDamageDelayed()
+    {
+        yield return new WaitForSeconds(m_DelayDamageActive);
+        m_PlayerDamage.m_Active = true;
     }
 
     private void LookAtTarget()
@@ -137,6 +152,9 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
 
         if (m_AttackEnumerator != null)
             StopCoroutine(m_AttackEnumerator);
+
+        if (m_DamageActiveEnumerator != null)
+            StopCoroutine(m_DamageActiveEnumerator);
     }
 
     private IEnumerator CancelCombo()
@@ -176,6 +194,6 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
     {
         void OnPlayerAttackParried();
         void OnPlayerAttackBlocked();
-
+        void OnPlayerActivateRiposte();
     }
 }
