@@ -112,7 +112,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     void StartHit()
     {
         m_State = AttackState.Attack;
-        m_BossHit.DoHit(this);
+        m_BossHit.DoHit(this, null, 1);
         m_BossMove.StopMoving();
     }
     

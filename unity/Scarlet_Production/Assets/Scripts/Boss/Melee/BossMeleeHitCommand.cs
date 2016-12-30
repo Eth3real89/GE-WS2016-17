@@ -7,7 +7,7 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public BossMeleeDamage m_DamageTrigger;
 
-    public GameObject m_HitSignal;
+    public GameObject[] m_HitSignals;
 
     private IEnumerator m_Timer;
     private IEnumerator m_DamageTimer;
@@ -18,37 +18,49 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     public float m_TimeBeforeDownswingCausesDamage = 0.2f;
 
     private MeleeHitCallback m_Callback;
+    private MeleeHitStepsCallback m_StepsCallback;
+    private int m_CurrentAnimation;
 
-    public void DoHit(MeleeHitCallback callback)
+    public void DoHit(MeleeHitCallback callback, MeleeHitStepsCallback stepsCallback = null, int whichAnimation = 0)
     {
         m_Callback = callback;
+        m_StepsCallback = stepsCallback;
+        m_CurrentAnimation = whichAnimation;
         Upswing();   
     }
 
     public void Upswing()
     {
         m_Animator.SetTrigger("MeleeUpswingTrigger");
+        m_Animator.SetInteger("WhichAttackAnimation", m_CurrentAnimation);
         m_Timer = SignalDownswingAfter(m_UpswingTime);
         StartCoroutine(m_Timer);
+
+        if (m_StepsCallback != null)
+            m_StepsCallback.OnMeleeUpswingStart();
     }
 
     private void SignalDownswing()
     {
         m_Timer = DownswingAfter(m_HoldTime);
         StartCoroutine(m_Timer);
+        SetHitSignalState(true);
 
-        if (m_HitSignal != null)
+        if (m_StepsCallback != null)
+            m_StepsCallback.OnMeleeHalt();
+    }
+
+    private void SetHitSignalState(bool active)
+    {
+        if (m_HitSignals != null && m_HitSignals.Length > m_CurrentAnimation && m_HitSignals[m_CurrentAnimation] != null)
         {
-            m_HitSignal.SetActive(true);
+            m_HitSignals[m_CurrentAnimation].SetActive(active);
         }
     }
 
-    public void Downswing()
+    public void Downswing(int whichAnimation = 0)
     {
-        if (m_HitSignal != null)
-        {
-            m_HitSignal.SetActive(false);
-        }
+        SetHitSignalState(false);
 
         m_Animator.SetTrigger("MeleeDownswingTrigger");
         m_DamageTimer = EnableDamageAfter(m_TimeBeforeDownswingCausesDamage);
@@ -56,11 +68,18 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
         m_Timer = EndAfter(m_DownswingTime);
         StartCoroutine(m_Timer);
+
+        if (m_StepsCallback != null)
+            m_StepsCallback.OnMeleeDownswingStart();
     }
 
     public void EndAttack()
     {
         m_DamageTrigger.m_Active = false;
+
+
+        if (m_StepsCallback != null)
+            m_StepsCallback.OnMeleeEnd();
     }
 
     private IEnumerator SignalDownswingAfter(float time)
@@ -134,5 +153,13 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
         void OnMeleeHitEnd();
     }
 
+
+    public interface MeleeHitStepsCallback
+    {
+        void OnMeleeDownswingStart();
+        void OnMeleeHalt();
+        void OnMeleeUpswingStart();
+        void OnMeleeEnd();
+    }
 
 }

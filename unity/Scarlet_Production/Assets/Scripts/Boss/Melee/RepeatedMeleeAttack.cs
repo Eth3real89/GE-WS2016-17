@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Damage.DamageCallback
+public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Damage.DamageCallback, BossMeleeHitCommand.MeleeHitStepsCallback
 {
 
     public int m_Repetitions = 3;
@@ -21,8 +21,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     public override void StartAttack()
     {
         m_CurrentRepetition = 0;
-        m_BossHit.DoHit(this);
-        m_BossMove.DoMove(m_Boss.transform.forward.x * m_MovementSpeed, m_Boss.transform.forward.z * m_MovementSpeed);
+        m_BossHit.DoHit(this, this, m_CurrentRepetition % 2);
         m_Damage.m_Callback = this;
         m_Damage.m_CollisionHandler = new DefaultCollisionHandler(m_Damage);
     }
@@ -34,6 +33,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
         m_BossHit.CancelHit();
         m_Damage.m_Active = false;
+        m_BossMove.DoMove(0, 0);
     }
 
     public void OnMeleeHitSuccess()
@@ -60,8 +60,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     {
         yield return new WaitForSeconds(time);
 
-        m_BossHit.DoHit(this);
-        m_BossMove.DoMove(m_Boss.transform.forward.x * m_MovementSpeed, m_Boss.transform.forward.z * m_MovementSpeed);
+        m_BossHit.DoHit(this, this, m_CurrentRepetition % 2);
     }
 
     public void OnParryDamage()
@@ -74,6 +73,23 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     }
 
     public void OnSuccessfulHit()
+    {
+    }
+
+    public void OnMeleeDownswingStart()
+    {
+        m_BossMove.DoMove(m_Boss.transform.forward.x * m_MovementSpeed, m_Boss.transform.forward.z * m_MovementSpeed);
+    }
+
+    public void OnMeleeHalt()
+    {
+    }
+
+    public void OnMeleeUpswingStart()
+    {
+    }
+
+    public void OnMeleeEnd()
     {
     }
 }
