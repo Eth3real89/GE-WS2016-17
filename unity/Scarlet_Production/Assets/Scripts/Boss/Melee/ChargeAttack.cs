@@ -239,9 +239,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     private class ChargePickUpDamage : Damage
     {
-        public override bool Blockable()
+        public override BlockableType Blockable()
         {
-            return false;
+            return BlockableType.None;
         }
 
         public override float DamageAmount()
@@ -252,9 +252,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
 
     private class ChargeHitWallDamage : Damage
     {
-        public override bool Blockable()
+        public override BlockableType Blockable()
         {
-            return false;
+            return BlockableType.None;
         }
 
         public override float DamageAmount()

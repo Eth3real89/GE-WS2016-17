@@ -128,9 +128,9 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             this.m_Attack = attack;
         }
 
-        public override bool Blockable()
+        public override BlockableType Blockable()
         {
-            return false;
+            return BlockableType.None;
         }
 
         public override float DamageAmount()

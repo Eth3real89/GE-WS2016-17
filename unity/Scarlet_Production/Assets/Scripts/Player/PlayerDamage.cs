@@ -7,9 +7,9 @@ public class PlayerDamage : Damage {
 
     public float m_Damage;
 
-    public override bool Blockable()
+    public override BlockableType Blockable()
     {
-        return true;
+        return BlockableType.Parry;
     }
 
     public override float DamageAmount()

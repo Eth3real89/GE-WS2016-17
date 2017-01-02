@@ -14,6 +14,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
     public GameObject m_HitSignal;
 
+    public Damage.BlockableType m_Blockable = Damage.BlockableType.Parry;
+
     public float m_TrackSpeed = 7f;
 
     public float m_TrackTime = 4f;
@@ -35,6 +37,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_LungeTrigger.transform.position = new Vector3(m_Scarlet.transform.position.x, m_LungeTrigger.transform.position.y, m_Scarlet.transform.position.z);
         m_LungeTrigger.GetComponent<Renderer>().enabled = true;
         m_LungeTrigger.m_Active = false;
+        m_LungeTrigger.m_Blockable = this.m_Blockable;
         m_BossCollider.m_Active = false;
         m_ScarletInTargetArea = false;
 

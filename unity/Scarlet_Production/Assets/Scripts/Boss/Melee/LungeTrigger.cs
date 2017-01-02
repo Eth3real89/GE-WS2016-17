@@ -8,9 +8,9 @@ public class LungeTrigger : Damage
     public DamageCollisionHandler m_CollisionHandler;
 
     public float m_Damage = 45f;
-    public bool m_Blockable = true;
+    public BlockableType m_Blockable = BlockableType.Parry;
 
-    public override bool Blockable()
+    public override BlockableType Blockable()
     {
         return m_Blockable;
     }

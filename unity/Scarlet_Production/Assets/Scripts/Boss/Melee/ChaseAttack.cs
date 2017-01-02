@@ -12,6 +12,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     public GameObject m_Target;
 
+    public Damage.BlockableType m_Blockable = Damage.BlockableType.Parry;
+
     public float m_MaxChaseTime = 7f;
     private float m_CurrentChaseTime;
 
@@ -113,6 +115,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     {
         m_State = AttackState.Attack;
         m_BossHit.DoHit(this, null, 1);
+        m_RangeTrigger.m_Blockable = this.m_Blockable;
         m_BossMove.StopMoving();
     }
     

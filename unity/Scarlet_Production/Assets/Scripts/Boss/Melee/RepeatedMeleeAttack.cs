@@ -6,6 +6,8 @@ using UnityEngine;
 public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Damage.DamageCallback, BossMeleeHitCommand.MeleeHitStepsCallback
 {
 
+    public Damage.BlockableType m_Blockable = Damage.BlockableType.Parry;
+
     public int m_Repetitions = 3;
     private int m_CurrentRepetition;
 
@@ -23,6 +25,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
         m_CurrentRepetition = 0;
         m_BossHit.DoHit(this, this, m_CurrentRepetition % 2);
         m_Damage.m_Callback = this;
+        m_Damage.m_Blockable = this.m_Blockable;
         m_Damage.m_CollisionHandler = new DefaultCollisionHandler(m_Damage);
     }
 

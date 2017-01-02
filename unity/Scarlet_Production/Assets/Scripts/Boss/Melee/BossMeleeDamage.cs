@@ -6,10 +6,11 @@ using UnityEngine;
 public class BossMeleeDamage : Damage {
 
     public DamageCollisionHandler m_CollisionHandler;
+    public BlockableType m_Blockable = BlockableType.Parry;
 
-    public override bool Blockable()
+    public override BlockableType Blockable()
     {
-        return true;
+        return m_Blockable;
     }
 
     public override float DamageAmount()

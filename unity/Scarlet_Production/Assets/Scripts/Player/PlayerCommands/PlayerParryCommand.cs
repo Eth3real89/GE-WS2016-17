@@ -85,7 +85,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     public bool OnHit(Damage dmg)
     {
 
-        if (!dmg.Blockable())
+        if (dmg.Blockable() == Damage.BlockableType.None)
             return false;
 
         if (m_CurrentState == ParryState.None)
@@ -100,7 +100,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
             dmg.OnSuccessfulHit();
             return true;
         }
-        else if (m_CurrentState == ParryState.Perfect)
+        else if (m_CurrentState == ParryState.Perfect && dmg.Blockable() != Damage.BlockableType.OnlyBlock)
         {
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
@@ -111,7 +111,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
             dmg.OnParryDamage();
             return true;
         }
-        else if (m_CurrentState == ParryState.Ok)
+        else if (m_CurrentState == ParryState.Ok || (m_CurrentState == ParryState.Perfect && dmg.Blockable() == Damage.BlockableType.OnlyBlock))
         {
             if (m_ParryCallback != null)
                 m_ParryCallback.OnBlock();

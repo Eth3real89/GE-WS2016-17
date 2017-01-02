@@ -7,6 +7,9 @@ public abstract class Damage : MonoBehaviour {
     public enum DamageType {Regular, Special};
     public DamageType m_Type = DamageType.Regular;
 
+    public enum BlockableType {None, OnlyBlock, Parry};
+    public BlockableType m_BlockType = BlockableType.Parry;
+
     public DamageCallback m_Callback;
 
     public bool m_Active;
@@ -18,7 +21,7 @@ public abstract class Damage : MonoBehaviour {
 
     // these are methods because they will get parameters later! (blockable by which kind of parry etc.)
 
-    public abstract bool Blockable();
+    public abstract BlockableType Blockable();
     public abstract float DamageAmount();
 
     /// <summary>
