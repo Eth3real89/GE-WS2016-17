@@ -77,7 +77,6 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     {
         m_DamageTrigger.m_Active = false;
 
-
         if (m_StepsCallback != null)
             m_StepsCallback.OnMeleeEnd();
     }
@@ -103,6 +102,9 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
             StopCoroutine(m_DamageTimer);
 
         m_Callback.OnMeleeHitEnd();
+
+        if (m_StepsCallback != null)
+            m_StepsCallback.OnMeleeEnd();
     }
 
     private IEnumerator EnableDamageAfter(float time)

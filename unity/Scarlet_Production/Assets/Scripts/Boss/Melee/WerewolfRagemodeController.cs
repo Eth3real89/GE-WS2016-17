@@ -11,6 +11,9 @@ public class WerewolfRagemodeController : BossController
 
     public TurnTowardsScarlet m_TurnTowardsScarlet;
 
+    public float m_TotalRagemodeTime = 120f;
+    private bool m_CancelAfterComboFinishes = false;
+
     new void Start()
     {
         m_Combos = new AttackCombo[3];
@@ -19,20 +22,41 @@ public class WerewolfRagemodeController : BossController
         m_Combos[2] = m_ChaseCombo;
 
         base.RegisterComboCallback();
-
+        
         StartCoroutine(StartAfterDelay());
+        StartCoroutine(RageModeCountdown());
+    }
+
+    private void EndRageMode()
+    {
+        print("Rage mode is over!");
+        // @todo
     }
 
     private IEnumerator StartAfterDelay()
     {
         yield return new WaitForSeconds(0.5f);
 
+        m_CancelAfterComboFinishes = false;
         DecideNextCombo(null);
+    }
+
+    private IEnumerator RageModeCountdown()
+    {
+        yield return new WaitForSeconds(m_TotalRagemodeTime);
+        m_CancelAfterComboFinishes = true;
     }
 
     public override void OnComboEnd(AttackCombo combo)
     {
-        DecideNextCombo(combo);
+        if (m_CancelAfterComboFinishes)
+        {
+            EndRageMode();
+        }
+        else
+        {
+            DecideNextCombo(combo);
+        }
     }
 
     private IEnumerator StartNextComboAfter(float time, AttackCombo combo)
@@ -52,10 +76,6 @@ public class WerewolfRagemodeController : BossController
             if (Mathf.Abs(m_TurnTowardsScarlet.CalculateAngleTowardsScarlet()) >= 40)
             {
                 newCombo = m_ChaseCombo;
-            }
-            else
-            {
-                print("yaay");
             }
         }
         else

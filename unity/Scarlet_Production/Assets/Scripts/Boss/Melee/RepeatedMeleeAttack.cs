@@ -17,8 +17,21 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     public BossMeleeHitCommand m_BossHit;
     public BossMeleeDamage m_Damage;
 
+    public TurnTowardsScarlet m_BossTurn;
+    public bool m_AllowTurnWhileAttacking = false;
+
     private IEnumerator m_BetweenHitsTimer;
     public float m_TimeBetweenHits = 0.5f;
+
+    private bool m_Attacking = false;
+
+    private void Update()
+    {
+        if (m_Attacking && m_AllowTurnWhileAttacking)
+        {
+            m_BossTurn.DoTurn();
+        }
+    }
 
     public override void StartAttack()
     {
@@ -26,6 +39,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
         m_BossHit.DoHit(this, this, m_CurrentRepetition % 2);
         m_Damage.m_Callback = this;
         m_Damage.m_Blockable = this.m_Blockable;
+        m_Attacking = false;
         m_Damage.m_CollisionHandler = new DefaultCollisionHandler(m_Damage);
     }
 
@@ -36,15 +50,18 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
         m_BossHit.CancelHit();
         m_Damage.m_Active = false;
+        m_Attacking = false;
         m_BossMove.DoMove(0, 0);
     }
 
     public void OnMeleeHitSuccess()
     {
+        m_Attacking = false;
     }
 
     public void OnMeleeHitEnd()
     {
+        m_Attacking = false;
         m_BossMove.DoMove(0, 0);
 
         m_CurrentRepetition++;
@@ -90,9 +107,11 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
     public void OnMeleeUpswingStart()
     {
+        m_Attacking = true;
     }
 
     public void OnMeleeEnd()
     {
+        m_Attacking = false;
     }
 }

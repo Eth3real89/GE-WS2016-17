@@ -19,6 +19,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     public float m_MaxTurnAngleChaseState = 120f;
     public float m_MaxTurnAngleTurnState = 180f;
+    public bool m_AllowTurnWhileAttacking = false;
 
     private enum AttackState {None, Chase, Turn, Attack};
     private AttackState m_State = AttackState.None;
@@ -51,7 +52,11 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         {
             Turn();
         }
-	}
+        else if (m_State == AttackState.Attack && m_AllowTurnWhileAttacking)
+        {
+            m_BossTurn.DoTurn();
+        }
+    }
 
     void Chase()
     {
@@ -82,7 +87,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         {
             m_State = AttackState.Chase;
         }
-
+        
         CheckRange();
     }
 
@@ -127,11 +132,13 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     
     public void OnMeleeHitEnd()
     {
-        m_Callback.OnAttackEnd(this);    
+        m_Callback.OnAttackEnd(this);
+        m_State = AttackState.None;
     }
 
     public void OnMeleeHitSuccess()
     {
+        m_State = AttackState.None;
     }
 
     public void HandleScarletCollision(Collider other)
