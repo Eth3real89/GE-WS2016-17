@@ -17,16 +17,22 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
     private IEnumerator m_NextComboTimer;
 
 	// Use this for initialization
-	void Start () {
-        foreach(AttackCombo combo in m_Combos)
-        {
-            combo.m_Callback = this;
-        }
+	protected void Start ()
+    {
+        RegisterComboCallback();
 
         m_CurrentComboIndex = 0;
 
         StartCoroutine(StartAfterDelay());
-	}
+    }
+
+    protected void RegisterComboCallback()
+    {
+        foreach (AttackCombo combo in m_Combos)
+        {
+            combo.m_Callback = this;
+        }
+    }
 
     private IEnumerator StartAfterDelay()
     {
@@ -37,18 +43,16 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
             m_Combos[0].LaunchCombo();
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void OnComboStart(AttackCombo combo)
+    public virtual void OnComboStart(AttackCombo combo)
     {
     }
 
-    public void OnComboEnd(AttackCombo combo)
+    public virtual void OnComboEnd(AttackCombo combo)
     {
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
+
         m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
         StartCoroutine(m_NextComboTimer);
     }
@@ -64,13 +68,13 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
         m_Combos[m_CurrentComboIndex].LaunchCombo();
     }
 
-    public void OnActivateParry(AttackCombo combo)
+    public virtual void OnActivateParry(AttackCombo combo)
     {
         // @todo maybe wait a little longer or do something special?
         OnComboEnd(combo);
     }
 
-    public void OnInterruptCombo(AttackCombo combo)
+    public virtual void OnInterruptCombo(AttackCombo combo)
     {
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);

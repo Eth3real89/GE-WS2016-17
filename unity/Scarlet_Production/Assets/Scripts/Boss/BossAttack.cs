@@ -38,6 +38,7 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 	}
 
     public abstract void CancelAttack();
+
     public virtual void StartAttack()
     {
         m_BossHittable.RegisterInterject(this);

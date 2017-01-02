@@ -15,8 +15,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     public float m_MaxChaseTime = 7f;
     private float m_CurrentChaseTime;
 
-    private float m_MaxTurnAngleChaseState = 120f;
-    private float m_MaxTurnAngleTurnState = 180f;
+    public float m_MaxTurnAngleChaseState = 120f;
+    public float m_MaxTurnAngleTurnState = 180f;
 
     private enum AttackState {None, Chase, Turn, Attack};
     private AttackState m_State = AttackState.None;

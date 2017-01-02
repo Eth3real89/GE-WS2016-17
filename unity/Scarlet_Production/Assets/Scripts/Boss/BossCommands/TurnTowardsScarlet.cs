@@ -26,13 +26,7 @@ public class TurnTowardsScarlet : BossCommand {
 
     public void DoTurn()
     {
-        float angle = Mathf.Atan2(
-            m_Scarlet.transform.position.x - m_Boss.transform.position.x,
-            m_Scarlet.transform.position.z - m_Boss.transform.position.z) * Mathf.Rad2Deg;
-
-        float currentAngle = m_Boss.transform.rotation.eulerAngles.y;
-
-        m_AngleTowardsScarlet = (angle - currentAngle) % 360;
+        m_AngleTowardsScarlet = CalculateAngleTowardsScarlet();
         if (m_AngleTowardsScarlet > 180)
             m_AngleTowardsScarlet -= 360;
 
@@ -42,6 +36,17 @@ public class TurnTowardsScarlet : BossCommand {
         float turnAngle = CalculateActualTurnAngle(m_AngleTowardsScarlet);
 
         m_Boss.transform.Rotate(new Vector3(0, 1, 0), turnAngle);
+    }
+
+    public float CalculateAngleTowardsScarlet()
+    {
+        float angle = Mathf.Atan2(
+            m_Scarlet.transform.position.x - m_Boss.transform.position.x,
+            m_Scarlet.transform.position.z - m_Boss.transform.position.z) * Mathf.Rad2Deg;
+
+        float currentAngle = m_Boss.transform.rotation.eulerAngles.y;
+
+        return (angle - currentAngle) % 360;
     }
 
     private float CalculateActualTurnAngle(float totalAngleDifference)
