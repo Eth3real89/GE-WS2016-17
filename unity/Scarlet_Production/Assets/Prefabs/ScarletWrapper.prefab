@@ -719,6 +719,7 @@ GameObject:
   - component: {fileID: 114177473010530202}
   - component: {fileID: 114588574810603080}
   - component: {fileID: 114923802319802484}
+  - component: {fileID: 114072412852494062}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -3178,6 +3179,22 @@ TrailRenderer:
     textureMode: 0
   m_MinVertexDistance: 0
   m_Autodestruct: 0
+--- !u!114 &114072412852494062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84fed62dd83bc64cb8d85d3db48fbcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerControls: {fileID: 114283564950094282}
+  m_DashCommand: {fileID: 114677901600229002}
+  m_AttackCommand: {fileID: 114806152150870836}
+  m_MoveCommand: {fileID: 114812869210509324}
+  m_MovementSpeedInLight: 3
 --- !u!114 &114171752264778418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3233,6 +3250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Type: 0
+  m_BlockType: 2
   m_Active: 0
   m_Damage: 0
 --- !u!114 &114401864621938456
@@ -3327,6 +3345,7 @@ MonoBehaviour:
   m_DelayAfterAttack: 0.3
   m_DelayAfterLastAttack: 0.5
   m_DelayAfterRiposte: 0.5
+  m_DelayDamageActive: 0.2
   m_RiposteTarget: {fileID: 0}
   m_DamageTrigger: {fileID: 1114780441469478}
   m_RiposteActive: 0
@@ -3383,6 +3402,7 @@ MonoBehaviour:
   m_HealCommand: {fileID: 114401864621938456}
   m_PlayerDamage: {fileID: 114335818791618858}
   m_StaggerCommand: {fileID: 114653629839274918}
+  m_LightEffects: {fileID: 114072412852494062}
 --- !u!136 &136201768175974282
 CapsuleCollider:
   m_ObjectHideFlags: 1

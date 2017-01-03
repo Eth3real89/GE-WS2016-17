@@ -16,6 +16,8 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     private PlayerCommand m_ActiveCommand;
 
+    private List<PlayerCommand> m_LockedCommands;
+
     private IEnumerator m_DashDelayEnumerator;
     private IEnumerator m_SlowMoEnumerator;
 
@@ -29,13 +31,43 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         EnableCommands(m_PlayerCommands);
     }
 
+    public void DisableAndLock(params PlayerCommand[] commands)
+    {
+        foreach(PlayerCommand c in commands)
+        {
+            if (m_ActiveCommand == c)
+                m_ActiveCommand = null;
+
+            c.CancelDelay();
+            c.m_Active = false;
+            if (!m_LockedCommands.Contains(c))
+            {
+                m_LockedCommands.Add(c);
+            }
+        }
+    }
+
+    public void EnableAndUnlock(params PlayerCommand[] commands)
+    {
+        foreach (PlayerCommand c in commands)
+        {
+            c.m_Active = true;
+            if (m_LockedCommands.Contains(c))
+            {
+                m_LockedCommands.Remove(c);
+            }
+        }
+    }
+
     void Start () {
+
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         foreach(PlayerCommand command in m_PlayerCommands)
         {
             command.Init(this, gameObject, GetComponentInChildren<Animator>());
         }
 
+        m_LockedCommands = new List<PlayerCommand>();
         ReferenceCommands();
 	}
 
@@ -126,10 +158,9 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     private void EnableCommand(PlayerCommand command)
     {
-        if (command != null)
+        if (command != null && !m_LockedCommands.Contains(command))
             command.m_Active = true;
     }
-
 
     private void CancelCommands(params PlayerCommand[] commands)
     {

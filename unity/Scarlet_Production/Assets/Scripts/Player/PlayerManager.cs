@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ using UnityEngine;
 /// The PlayerManager contains the player's status and
 /// (@todo later) their abilities etc.
 /// </summary>
-public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
+public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.LightFieldResponder {
 
     public enum State
     {
@@ -19,6 +20,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
 
     public Damage m_PlayerDamage;
     public PlayerStaggerCommand m_StaggerCommand;
+
+    public PlayerLightEffects m_LightEffects;
 
     // Use this for initialization
     void Start()
@@ -54,5 +57,21 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback {
 
     public void OnSuccessfulHit()
     {
+    }
+
+    public void OnEnterLightField(LightField.LightFieldClass lightFieldClass)
+    {
+        if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
+            m_LightEffects.OnPlayerEnterLight();
+    }
+
+    public void OnStayInLightField(LightField.LightFieldClass lightFieldClass)
+    {
+    }
+
+    public void OnExitLightField(LightField.LightFieldClass lightFieldClass)
+    {
+        if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
+            m_LightEffects.OnPlayerExitsLight();
     }
 }
