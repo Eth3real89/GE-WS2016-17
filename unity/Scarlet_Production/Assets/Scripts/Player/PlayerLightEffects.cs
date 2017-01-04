@@ -28,4 +28,14 @@ public class PlayerLightEffects : MonoBehaviour {
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand);
     }
 
+    public void OnPlayerEnterStrongLight()
+    {
+        // @todo
+    }
+
+    public void OnPlayerExitStrongLight()
+    {
+        // @todo
+    }
+
 }
