@@ -87,24 +87,29 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
                 m_AttackCallback.OnPlayerActivateRiposte();
 
             m_RiposteActive = false;
+            m_PlayerDamage.m_Active = false;
         }
         else if (m_CurrentCombo < 3)
         {
             m_PlayerDamage.m_Damage = m_RegularHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterAttack);
             m_CurrentCombo++;
+
+            m_DamageActiveEnumerator = ActivateDamageDelayed();
+            StartCoroutine(m_DamageActiveEnumerator);
         }
         else
         {
             m_PlayerDamage.m_Damage = m_FinalHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterLastAttack);
             m_CurrentCombo = 0;
+
+            m_DamageActiveEnumerator = ActivateDamageDelayed();
+            StartCoroutine(m_DamageActiveEnumerator);
         }
 
         StartCoroutine(m_AttackEnumerator);
 
-        m_DamageActiveEnumerator = ActivateDamageDelayed();
-        StartCoroutine(m_DamageActiveEnumerator);
     }
 
     private IEnumerator ActivateDamageDelayed()
