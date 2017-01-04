@@ -1,9 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WerewolfRagemodeController : BossController
 {
+
+    private BossfightCallbacks m_Callbacks;
 
     public AttackCombo m_HitCombo;
     public AttackCombo m_LeapCombo;
@@ -16,24 +19,29 @@ public class WerewolfRagemodeController : BossController
 
     new void Start()
     {
+    }
+
+    public void LaunchPhase(BossfightCallbacks callbacks)
+    {
+        m_Callbacks = callbacks;
+
         m_Combos = new AttackCombo[3];
         m_Combos[0] = m_HitCombo;
         m_Combos[1] = m_LeapCombo;
         m_Combos[2] = m_ChaseCombo;
 
         base.RegisterComboCallback();
-        
+
         StartCoroutine(StartAfterDelay());
         StartCoroutine(RageModeCountdown());
     }
 
     private void EndRageMode()
     {
-        print("Rage mode is over!");
-        // @todo
+        m_Callbacks.PhaseEnd(this);
     }
 
-    private IEnumerator StartAfterDelay()
+    private new IEnumerator StartAfterDelay()
     {
         yield return new WaitForSeconds(0.5f);
 

@@ -24,6 +24,11 @@ public class DefaultCollisionHandler : DamageCollisionHandler
         return;
     }
 
+    public void SetDamageCallbacks(Damage.DamageCallback callback)
+    {
+        this.m_Damage.m_Callback = callback;
+    }
+
     public void HandleScarletCollision(Collider other)
     {
         if (!m_Damage.m_Active)

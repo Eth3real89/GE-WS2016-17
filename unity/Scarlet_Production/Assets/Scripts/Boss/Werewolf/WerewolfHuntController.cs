@@ -43,12 +43,20 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         {
             if (m_BossHealth.m_CurrentHealth == 0)
             {
+                m_Active = false;
+
+                m_PlayerAttackCommand.m_RegularHitDamage = m_AttackDmgAmountBefore;
+                m_PlayerAttackCommand.m_FinalHitDamage = m_FinalDmgAmountBefore;
+                m_PlayerAttackCommand.m_RiposteDamage = m_RiposteDmgAmountBefore;
+
+                m_JumpCombo.CancelCombo();
+
                 if (m_Callbacks != null)
                     m_Callbacks.PhaseEnd(this);
             }
         }
 
-        if (m_Hunting)
+        if (m_Active && m_Hunting)
         {
             HuntPhaseRoutine();
         }

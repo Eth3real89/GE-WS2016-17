@@ -34,6 +34,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void LaunchCombo()
     {
+        m_Callback.OnComboStart(this);
+
         m_CurrentAttackIndex = 0;
         m_BossHittable.RegisterInterject(this);
         m_Attacks[m_CurrentAttackIndex].StartAttack();
@@ -116,6 +118,16 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         }
         m_BossStagger.DoStagger();
         StartCoroutine(WaitAfterParried());
+    }
+
+    public void CancelCombo()
+    {
+        if (!m_BetweenAttacks && m_CurrentAttack != null)
+        {
+            m_CurrentAttack.CancelAttack();
+        }
+
+        StopAllCoroutines();
     }
 
     private IEnumerator WaitAfterParried()

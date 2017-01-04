@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageCollisionHandler {
+public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageCollisionHandler, Damage.DamageCallback {
 
     public LungeTrigger m_LungeTrigger;
     public BossCollider m_BossCollider;
@@ -89,10 +89,12 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_State = State.Jump;
         m_JumpCommand.JumpAt(m_LungeTrigger.transform, this);
 
+        m_CollisionHandler.SetDamageCallbacks(this);
         m_BossCollider.m_Active = true;
         m_BossCollider.m_Handler = m_CollisionHandler;
 
         m_LungeTrigger.m_Active = true;
+        m_LungeTrigger.m_Callback = this;
         m_LungeTrigger.m_CollisionHandler = this;
     }
 
@@ -122,6 +124,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     private IEnumerator WaitAfterLand()
     {
         yield return new WaitForSeconds(m_TimeAfterLand);
+
         m_State = State.None;
 
         m_LungeTrigger.GetComponent<Renderer>().enabled = false;
@@ -166,5 +169,18 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
         if (m_State == State.Land)
             m_CollisionHandler.HandleScarletLeave(other);
+    }
+
+    public void OnParryDamage()
+    {
+        m_Callback.OnAttackParried(this);
+    }
+
+    public void OnBlockDamage()
+    {
+    }
+
+    public void OnSuccessfulHit()
+    {
     }
 }

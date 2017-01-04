@@ -12,18 +12,20 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
     /// </summary>
     public AttackCombo[] m_Combos;
 
-    private int m_CurrentComboIndex;
+    protected int m_CurrentComboIndex;
 
-    private IEnumerator m_NextComboTimer;
+    protected IEnumerator m_NextComboTimer;
+
+    protected AttackCombo m_ActiveCombo;
 
 	// Use this for initialization
 	protected void Start ()
     {
-        RegisterComboCallback();
+/*        RegisterComboCallback();
 
         m_CurrentComboIndex = 0;
 
-        StartCoroutine(StartAfterDelay());
+        StartCoroutine(StartAfterDelay()); */
     }
 
     protected void RegisterComboCallback()
@@ -34,7 +36,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
         }
     }
 
-    private IEnumerator StartAfterDelay()
+    protected IEnumerator StartAfterDelay()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -46,10 +48,13 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
 
     public virtual void OnComboStart(AttackCombo combo)
     {
+        m_ActiveCombo = combo;
     }
 
     public virtual void OnComboEnd(AttackCombo combo)
     {
+        m_ActiveCombo = null;
+
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
