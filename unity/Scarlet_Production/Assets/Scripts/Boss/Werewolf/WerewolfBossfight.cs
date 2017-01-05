@@ -10,6 +10,8 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
 
     private Phase m_CurrentPhase;
 
+    public Animator m_WerewolfAnimator;
+
     public WerewolfHuntController m_HuntController;
     public WerewolfPhase2Controller m_Phase2Controller;
     public WerewolfRagemodeController m_RagemodeController;
@@ -17,6 +19,8 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
     public GameObject m_StreetLightWrapper;
 
     public GameObject m_Scarlet;
+
+    public PlayerControls m_PlayerControls; 
 
 	void Start () {
         m_CurrentPhase = m_StartPhase;
@@ -41,20 +45,18 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         if (whichPhase == m_HuntController)
         {
             SetStreetLightsEnabled(false);
-
             m_HuntController.enabled = false;
-            m_Phase2Controller.enabled = true;
-            m_Phase2Controller.LaunchPhase(this);
+
+            StartCoroutine(StartPhase2AfterHowling());
         }
         else if (whichPhase == m_Phase2Controller)
         {
             SetStreetLightsEnabled(true);
             if (m_Scarlet != null)
                 m_Scarlet.transform.position = new Vector3(0, m_Scarlet.transform.position.y, 0); // @todo better
-
             m_Phase2Controller.enabled = false;
-            m_RagemodeController.enabled = true;
-            m_RagemodeController.LaunchPhase(this);
+
+            StartCoroutine(StartPhase3AfterHowling());
         }
         else if (whichPhase == m_RagemodeController)
         {
@@ -62,6 +64,36 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
 
             print("FIGHT OVER (not really, still need to kill the wolf, but mostly...)");
         }
+    }
+
+    private IEnumerator StartPhase2AfterHowling()
+    {
+        m_WerewolfAnimator.SetTrigger("HowlTrigger");
+
+        m_PlayerControls.DisableAllCommands();
+        yield return new WaitForSeconds(4f);
+
+        m_PlayerControls.EnableAllCommands();
+        m_WerewolfAnimator.SetTrigger("IdleTrigger");
+        yield return new WaitForSeconds(0.5f);
+
+        m_Phase2Controller.enabled = true;
+        m_Phase2Controller.LaunchPhase(this);
+    }
+
+    private IEnumerator StartPhase3AfterHowling()
+    {
+        m_WerewolfAnimator.SetTrigger("HowlTrigger");
+
+        m_PlayerControls.DisableAllCommands();
+        yield return new WaitForSeconds(4f);
+
+        m_PlayerControls.EnableAllCommands();
+        m_WerewolfAnimator.SetTrigger("IdleTrigger");
+        yield return new WaitForSeconds(0.5f);
+
+        m_RagemodeController.enabled = true;
+        m_RagemodeController.LaunchPhase(this);
     }
 
     private void SetStreetLightsEnabled(bool enabled)

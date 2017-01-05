@@ -451,6 +451,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &125627558 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114283564950094282, guid: 2acb300160851794e8c5a2330570274b,
+    type: 2}
+  m_PrefabInternal: {fileID: 125627557}
+  m_Script: {fileID: 11500000, guid: 569e23014a7bb7e4b9e2ca5e05bd4fcd, type: 3}
 --- !u!1 &141468729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,11 +1110,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_StartPhase: 1
+  m_WerewolfAnimator: {fileID: 975992013}
   m_HuntController: {fileID: 2104373139}
   m_Phase2Controller: {fileID: 2104373142}
   m_RagemodeController: {fileID: 2104373140}
   m_StreetLightWrapper: {fileID: 480907525}
   m_Scarlet: {fileID: 638130663}
+  m_PlayerControls: {fileID: 125627558}
 --- !u!1 &581980358
 GameObject:
   m_ObjectHideFlags: 0
