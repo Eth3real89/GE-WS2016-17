@@ -15,6 +15,9 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     private float m_RiposteDmgAmountBefore;
     private float m_FinalDmgAmountBefore;
 
+    public PlayerParryCommand m_PlayerParryCommand;
+    private float m_BlockTimeBefore;
+
     public float m_MinHuntTime = 5f;
     public float m_MaxHuntTime = 9f;
 
@@ -49,6 +52,9 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
                 m_PlayerAttackCommand.m_FinalHitDamage = m_FinalDmgAmountBefore;
                 m_PlayerAttackCommand.m_RiposteDamage = m_RiposteDmgAmountBefore;
 
+                m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime - m_BlockTimeBefore;
+                m_PlayerParryCommand.m_OkParryTime = m_BlockTimeBefore;
+
                 m_JumpCombo.CancelCombo();
 
                 if (m_Callbacks != null)
@@ -74,6 +80,10 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         m_PlayerAttackCommand.m_RegularHitDamage = 0;
         m_PlayerAttackCommand.m_FinalHitDamage = 0;
         m_PlayerAttackCommand.m_RiposteDamage = m_BossHealth.m_MaxHealth / m_NumParryRequired;
+
+        m_BlockTimeBefore = m_PlayerParryCommand.m_OkParryTime;
+        m_PlayerParryCommand.m_OkParryTime = 0;
+        m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime + m_BlockTimeBefore;
 
         LaunchSingleHuntIteration();
     }

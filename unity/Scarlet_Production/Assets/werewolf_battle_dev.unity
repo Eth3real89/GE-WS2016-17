@@ -803,6 +803,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &554074565 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114823536178913316, guid: 2acb300160851794e8c5a2330570274b,
+    type: 2}
+  m_PrefabInternal: {fileID: 125627557}
+  m_Script: {fileID: 11500000, guid: 1f30b0e035e9d2241a3cab98aa07d822, type: 3}
 --- !u!1 &578030725
 GameObject:
   m_ObjectHideFlags: 0
@@ -5298,6 +5304,7 @@ MonoBehaviour:
   m_HuntDistance: 4
   m_NumParryRequired: 1
   m_PlayerAttackCommand: {fileID: 1619488113}
+  m_PlayerParryCommand: {fileID: 554074565}
   m_MinHuntTime: 5
   m_MaxHuntTime: 9
   m_BossHealth: {fileID: 2104373141}
