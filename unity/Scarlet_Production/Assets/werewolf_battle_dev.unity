@@ -141,6 +141,129 @@ MonoBehaviour:
   m_HealthBar: {fileID: 1852971180}
   m_LossBar: {fileID: 2124712668}
   m_Character: {fileID: 2104373138}
+--- !u!1 &36751137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 36751138}
+  - component: {fileID: 36751139}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &36751138
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36751137}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2039539815}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &36751139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 36751137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 0000000001000000
+  m_Repetitions: 3
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 1
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &47174964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 47174965}
+  - component: {fileID: 47174966}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &47174965
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 47174964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1063387381}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47174966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 47174964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 1
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 45
+  m_AttackAnimation: 2
 --- !u!1 &51821037
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,66 +600,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 207792711}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &221142128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 221142129}
-  - component: {fileID: 221142130}
-  m_Layer: 9
-  m_Name: ChaseAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &221142129
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 221142128}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 409569421}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &221142130
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 221142128}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 0
-  m_TriggerParry: 0
-  m_TriggerBlock: 1
-  m_DamageOnParry: 15
-  m_TimeAfterAttack: 0
-  m_Animator: {fileID: 0}
-  m_Boss: {fileID: 0}
-  m_BossMove: {fileID: 975992015}
-  m_BossTurn: {fileID: 975992014}
-  m_BossHit: {fileID: 975992017}
-  m_RangeTrigger: {fileID: 975992008}
-  m_Target: {fileID: 638130663}
-  m_Blockable: 1
-  m_MaxChaseTime: 6
-  m_MaxTurnAngleChaseState: 90
-  m_MaxTurnAngleTurnState: 140
-  m_AllowTurnWhileAttacking: 0
 --- !u!1 &223304240
 GameObject:
   m_ObjectHideFlags: 0
@@ -717,7 +780,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &409569420
+--- !u!1 &347080721
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
@@ -725,38 +788,38 @@ GameObject:
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 409569421}
-  - component: {fileID: 409569422}
+  - component: {fileID: 347080722}
+  - component: {fileID: 347080723}
   m_Layer: 9
-  m_Name: ChaseCombo
+  m_Name: ThreeLightAttacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &409569421
+--- !u!4 &347080722
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 409569420}
+  m_GameObject: {fileID: 347080721}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
-  - {fileID: 221142129}
-  - {fileID: 1496732529}
+  - {fileID: 1221675909}
+  - {fileID: 908450792}
   m_Father: {fileID: 1346028617}
-  m_RootOrder: 0
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &409569422
+--- !u!114 &347080723
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 409569420}
+  m_GameObject: {fileID: 347080721}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
@@ -767,9 +830,132 @@ MonoBehaviour:
   m_BossHittable: {fileID: 975992012}
   m_BossStagger: {fileID: 975992010}
   m_Attacks:
-  - {fileID: 221142130}
-  - {fileID: 1496732530}
+  - {fileID: 1221675910}
+  - {fileID: 908450793}
   m_TimeAfterCombo: 1
+--- !u!1 &397952644
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 397952645}
+  - component: {fileID: 397952646}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &397952645
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 397952644}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2095788105}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &397952646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 397952644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 00000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &456714754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 456714755}
+  - component: {fileID: 456714756}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &456714755
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456714754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2095788105}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &456714756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 456714754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 30
+  m_AttackAnimation: 1
 --- !u!1 &480907525
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,6 +995,61 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 125627557}
   m_Script: {fileID: 11500000, guid: 1f30b0e035e9d2241a3cab98aa07d822, type: 3}
+--- !u!1 &558557251
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 558557252}
+  - component: {fileID: 558557253}
+  m_Layer: 9
+  m_Name: TwoLightOneHeavy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &558557252
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558557251}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 1659973892}
+  - {fileID: 1964005061}
+  - {fileID: 1612977596}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558557253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 558557251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 1659973893}
+  - {fileID: 1964005062}
+  - {fileID: 1612977597}
+  m_TimeAfterCombo: 1
 --- !u!1 &578030725
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,12 +1103,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartPhase: 0
+  m_StartPhase: 1
   m_HuntController: {fileID: 2104373139}
   m_Phase2Controller: {fileID: 2104373142}
   m_RagemodeController: {fileID: 2104373140}
   m_StreetLightWrapper: {fileID: 480907525}
   m_Scarlet: {fileID: 638130663}
+--- !u!1 &581980358
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 581980359}
+  - component: {fileID: 581980360}
+  m_Layer: 9
+  m_Name: HeavyAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &581980359
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 581980358}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 1319457400}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &581980360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 581980358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 1319457401}
+  m_TimeAfterCombo: 1.5
 --- !u!1 &638130663 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1546299661062702, guid: 2acb300160851794e8c5a2330570274b,
@@ -1077,6 +1369,67 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 713193420}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &801092504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1326502975153576, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 801092505}
+  - component: {fileID: 801092506}
+  m_Layer: 9
+  m_Name: LungeAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801092505
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4058582618662822, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 801092504}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2039539815}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &801092506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114103425716703920, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 801092504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7951099fb49db55408d3278adbe50fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 1.03
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_LungeTrigger: {fileID: 863274536}
+  m_BossCollider: {fileID: 975992011}
+  m_Scarlet: {fileID: 638130663}
+  m_TurnCommand: {fileID: 1650628592}
+  m_JumpCommand: {fileID: 1650628590}
+  m_HitSignal: {fileID: 975992009}
+  m_Blockable: 2
+  m_TrackSpeed: 5
+  m_TrackTime: 0.6
+  m_HesitateTime: 1.13
+  m_TimeAfterLand: 0.5
 --- !u!1 &820928456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1330,6 +1683,184 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &908450791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 908450792}
+  - component: {fileID: 908450793}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &908450792
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908450791}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 347080722}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &908450793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 908450791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 0000000001000000
+  m_Repetitions: 2
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &930372389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 930372390}
+  - component: {fileID: 930372391}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &930372390
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 930372389}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 936758034}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &930372391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 930372389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 30
+  m_AttackAnimation: 1
+--- !u!1 &936758033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 936758034}
+  - component: {fileID: 936758035}
+  m_Layer: 9
+  m_Name: ThreeLightOneHeavy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &936758034
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 936758033}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 930372390}
+  - {fileID: 2025137298}
+  - {fileID: 1546185623}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &936758035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 936758033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 930372391}
+  - {fileID: 2025137299}
+  - {fileID: 1546185624}
+  m_TimeAfterCombo: 1
 --- !u!1 &953642771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1965,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_HitAnimationIndices.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4608113132614596, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -3611,6 +4147,21 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_HitAnimationIndices.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_HitAnimationIndices.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_DamageAmount
+      value: 40
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -3671,6 +4222,59 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 975992004}
   m_Script: {fileID: 11500000, guid: 7eb52bbaac28a2f4e970deb28985f360, type: 3}
+--- !u!1 &1063387380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1063387381}
+  - component: {fileID: 1063387382}
+  m_Layer: 9
+  m_Name: TwoHeavyAttacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1063387381
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1063387380}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 47174965}
+  - {fileID: 1798118263}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1063387382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1063387380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 47174966}
+  - {fileID: 1798118264}
+  m_TimeAfterCombo: 1
 --- !u!1 &1073673984
 GameObject:
   m_ObjectHideFlags: 0
@@ -3754,6 +4358,129 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &1112232703
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1112232704}
+  - component: {fileID: 1112232705}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1112232704
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112232703}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2124635962}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112232705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1112232703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 1.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 0000000001000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &1221675908
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1221675909}
+  - component: {fileID: 1221675910}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1221675909
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221675908}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 347080722}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1221675910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1221675908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 30
+  m_AttackAnimation: 1
 --- !u!1 &1268947407
 GameObject:
   m_ObjectHideFlags: 0
@@ -3936,6 +4663,68 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1310298968}
+--- !u!1 &1319457399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1319457400}
+  - component: {fileID: 1319457401}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1319457400
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1319457399}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 581980359}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1319457401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1319457399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 1
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 45
+  m_AttackAnimation: 2
 --- !u!1 &1346028616
 GameObject:
   m_ObjectHideFlags: 0
@@ -3963,8 +4752,15 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 409569421}
+  - {fileID: 581980359}
+  - {fileID: 2095788105}
+  - {fileID: 1063387381}
+  - {fileID: 347080722}
+  - {fileID: 558557252}
+  - {fileID: 936758034}
+  - {fileID: 2124635962}
   - {fileID: 1726492175}
+  - {fileID: 2039539815}
   m_Father: {fileID: 975992016}
   m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -4281,7 +5077,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1436760747}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1496732528
+--- !u!1 &1546185622
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
@@ -4289,36 +5085,36 @@ GameObject:
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1496732529}
-  - component: {fileID: 1496732530}
+  - component: {fileID: 1546185623}
+  - component: {fileID: 1546185624}
   m_Layer: 9
-  m_Name: RepeatAttack
+  m_Name: RepeatAttack (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1496732529
+--- !u!4 &1546185623
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1496732528}
+  m_GameObject: {fileID: 1546185622}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 409569421}
-  m_RootOrder: 1
+  m_Father: {fileID: 936758034}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1496732530
+--- !u!114 &1546185624
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1496732528}
+  m_GameObject: {fileID: 1546185622}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
@@ -4326,20 +5122,83 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TriggerInterrupt: 0
   m_TriggerParry: 0
-  m_TriggerBlock: 1
+  m_TriggerBlock: 0
   m_DamageOnParry: 15
   m_TimeAfterAttack: 0
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
-  m_Blockable: 1
-  m_Repetitions: 2
-  m_MovementSpeed: 0.5
+  m_Blockable: 2
+  m_HitAnimationIndices: 02000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0
   m_BossMove: {fileID: 975992015}
   m_BossHit: {fileID: 975992017}
   m_Damage: {fileID: 975992008}
   m_BossTurn: {fileID: 975992014}
   m_AllowTurnWhileAttacking: 0
   m_TimeBetweenHits: 0.1
+  m_DamageAmount: 45
+--- !u!1 &1612977595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1612977596}
+  - component: {fileID: 1612977597}
+  m_Layer: 9
+  m_Name: RepeatAttack (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1612977596
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612977595}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 558557252}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1612977597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612977595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 02000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 45
 --- !u!114 &1619488113 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114806152150870836, guid: 2acb300160851794e8c5a2330570274b,
@@ -4358,6 +5217,68 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 975992004}
   m_Script: {fileID: 11500000, guid: e3971eb728fb46e4296f0ad79fb6c0a1, type: 3}
+--- !u!1 &1659973891
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1659973892}
+  - component: {fileID: 1659973893}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1659973892
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659973891}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 558557252}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1659973893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1659973891}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 30
+  m_AttackAnimation: 1
 --- !u!1 &1723363282
 GameObject:
   m_ObjectHideFlags: 0
@@ -4469,7 +5390,7 @@ Transform:
   m_Children:
   - {fileID: 830418062}
   m_Father: {fileID: 1346028617}
-  m_RootOrder: 1
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1726492176
 MonoBehaviour:
@@ -4553,6 +5474,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1746368460
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1216452398293990, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1746368461}
+  - component: {fileID: 1746368462}
+  m_Layer: 9
+  m_Name: ChaseAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1746368461
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4754346763831738, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746368460}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2124635962}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1746368462
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746368460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_BossMove: {fileID: 975992015}
+  m_BossTurn: {fileID: 975992014}
+  m_BossHit: {fileID: 975992017}
+  m_RangeTrigger: {fileID: 975992008}
+  m_Target: {fileID: 638130663}
+  m_Blockable: 2
+  m_MaxChaseTime: 6
+  m_MaxTurnAngleChaseState: 90
+  m_MaxTurnAngleTurnState: 140
+  m_AllowTurnWhileAttacking: 0
+  m_DamageAmount: 30
+  m_AttackAnimation: 1
 --- !u!1 &1758494027
 GameObject:
   m_ObjectHideFlags: 0
@@ -4749,6 +5732,67 @@ Transform:
   m_PrefabParentObject: {fileID: 4783981202902224, guid: a8c98acc5672c6244a717942b7c1d09d,
     type: 2}
   m_PrefabInternal: {fileID: 1794501344}
+--- !u!1 &1798118262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1798118263}
+  - component: {fileID: 1798118264}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1798118263
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1798118262}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1063387381}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1798118264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1798118262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 02000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 45
 --- !u!1 &1822057234
 GameObject:
   m_ObjectHideFlags: 0
@@ -5176,6 +6220,67 @@ Transform:
   m_Father: {fileID: 480907526}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1964005060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1964005061}
+  - component: {fileID: 1964005062}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1964005061
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1964005060}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 558557252}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1964005062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1964005060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0.5
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 00000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
 --- !u!1 &2001003665
 GameObject:
   m_ObjectHideFlags: 0
@@ -5281,6 +6386,234 @@ MonoBehaviour:
   m_DefaultCamera: {fileID: 1920386348}
   m_ZoomCamera: {fileID: 1932803809}
   m_TopDownCamera: {fileID: 1300272937}
+--- !u!1 &2025137297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2025137298}
+  - component: {fileID: 2025137299}
+  m_Layer: 9
+  m_Name: RepeatAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2025137298
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2025137297}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 936758034}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2025137299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2025137297}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 2
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 0000000001000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &2039539814
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1444039940396404, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2039539815}
+  - component: {fileID: 2039539816}
+  m_Layer: 9
+  m_Name: LungeThreeLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2039539815
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4021035942248142, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039539814}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 801092505}
+  - {fileID: 36751138}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2039539816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114817372958446622, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039539814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 801092506}
+  - {fileID: 36751139}
+  m_TimeAfterCombo: 1
+--- !u!1 &2048755696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2048755697}
+  - component: {fileID: 2048755698}
+  m_Layer: 9
+  m_Name: RepeatAttack (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2048755697
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2048755696}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2124635962}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2048755698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2048755696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 0000000001000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0.5
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 30
+--- !u!1 &2095788104
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2095788105}
+  - component: {fileID: 2095788106}
+  m_Layer: 9
+  m_Name: TwoLightAttacks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2095788105
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095788104}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 456714755}
+  - {fileID: 397952645}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2095788106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2095788104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 456714756}
+  - {fileID: 397952646}
+  m_TimeAfterCombo: 1
 --- !u!1 &2104373138 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1059681401426920, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
@@ -5335,9 +6668,73 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 638130663}
   m_Combos:
-  - {fileID: 409569422}
+  - {fileID: 581980360}
+  - {fileID: 2095788106}
+  - {fileID: 1063387382}
+  - {fileID: 347080723}
+  - {fileID: 558557253}
+  - {fileID: 936758035}
+  - {fileID: 2124635963}
   - {fileID: 1726492176}
+  - {fileID: 2039539816}
   m_BossHealth: {fileID: 2104373141}
+--- !u!1 &2124635961
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1188455936585552, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2124635962}
+  - component: {fileID: 2124635963}
+  m_Layer: 9
+  m_Name: ThreeLightOneHeavyTwoLight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2124635962
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4301551126695752, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2124635961}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 1746368461}
+  - {fileID: 1112232704}
+  - {fileID: 2141551312}
+  - {fileID: 2048755697}
+  m_Father: {fileID: 1346028617}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2124635963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2124635961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 2104373138}
+  m_Animator: {fileID: 975992013}
+  m_BossHittable: {fileID: 975992012}
+  m_BossStagger: {fileID: 975992010}
+  m_Attacks:
+  - {fileID: 1746368462}
+  - {fileID: 1112232705}
+  - {fileID: 2141551313}
+  - {fileID: 2048755698}
+  m_TimeAfterCombo: 1
 --- !u!1 &2124712666
 GameObject:
   m_ObjectHideFlags: 0
@@ -5489,3 +6886,64 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2125627606}
+--- !u!1 &2141551311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1091681206070332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2141551312}
+  - component: {fileID: 2141551313}
+  m_Layer: 9
+  m_Name: RepeatAttack (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2141551312
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4156812124960306, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2141551311}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2124635962}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2141551313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114085457215741546, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2141551311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 931cf7f334df8cc439db84522405c73f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 0
+  m_TriggerParry: 0
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 2
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_Blockable: 2
+  m_HitAnimationIndices: 02000000
+  m_Repetitions: 1
+  m_MovementSpeed: 0
+  m_BossMove: {fileID: 975992015}
+  m_BossHit: {fileID: 975992017}
+  m_Damage: {fileID: 975992008}
+  m_BossTurn: {fileID: 975992014}
+  m_AllowTurnWhileAttacking: 0
+  m_TimeBetweenHits: 0.1
+  m_DamageAmount: 45

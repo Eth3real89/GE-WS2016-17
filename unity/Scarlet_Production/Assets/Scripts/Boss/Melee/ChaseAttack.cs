@@ -26,6 +26,9 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     private bool m_ScarletInRange = false;
 
+    public float m_DamageAmount = 30f;
+    public int m_AttackAnimation = 0;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -35,6 +38,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         m_RangeTrigger.m_CollisionHandler = this;
         m_RangeTrigger.m_Active = true;
         m_RangeTrigger.m_Callback = this;
+
+        m_BossHit.m_DamageTrigger.m_Amount = this.m_DamageAmount;
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
@@ -119,7 +124,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     void StartHit()
     {
         m_State = AttackState.Attack;
-        m_BossHit.DoHit(this, null, 1);
+        m_BossHit.DoHit(this, null, m_AttackAnimation);
         m_RangeTrigger.m_Blockable = this.m_Blockable;
         m_BossMove.StopMoving();
     }

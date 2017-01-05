@@ -8,6 +8,8 @@ public class BossMeleeDamage : Damage {
     public DamageCollisionHandler m_CollisionHandler;
     public BlockableType m_Blockable = BlockableType.Parry;
 
+    public float m_Amount = 30f;
+
     public override BlockableType Blockable()
     {
         return m_Blockable;
@@ -15,7 +17,7 @@ public class BossMeleeDamage : Damage {
 
     public override float DamageAmount()
     {
-        return 30f;
+        return m_Amount;
     }
 
     private void OnTriggerEnter(Collider other)
