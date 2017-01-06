@@ -48,7 +48,10 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback {
 
     public virtual void OnComboStart(AttackCombo combo)
     {
-        m_ActiveCombo = combo;
+        if (m_ActiveCombo != null)
+            combo.CancelCombo();
+        else
+            m_ActiveCombo = combo;
     }
 
     public virtual void OnComboEnd(AttackCombo combo)

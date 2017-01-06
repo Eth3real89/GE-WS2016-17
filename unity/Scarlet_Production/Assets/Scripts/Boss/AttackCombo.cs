@@ -43,8 +43,13 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void OnAttackStart(BossAttack attack)
     {
-        m_BetweenAttacks = false;
-        m_CurrentAttack = attack;
+        if (m_CurrentAttack != null)
+            attack.CancelAttack();
+        else
+        {
+            m_BetweenAttacks = false;
+            m_CurrentAttack = attack;
+        }
     }
 
     public void OnAttackEnd(BossAttack attack)
