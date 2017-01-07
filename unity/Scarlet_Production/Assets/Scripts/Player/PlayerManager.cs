@@ -25,10 +25,12 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerClimbingHandler m_ClimbingHandler;
 
     private bool m_IsClimbing;
+    private Animator m_Animator;
 
     // Use this for initialization
     void Start()
     {
+        m_Animator = GetComponent<Animator>();
         if (m_PlayerDamage != null)
         {
             m_PlayerDamage.m_Callback = this;
@@ -38,12 +40,6 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         {
             m_HealCommand.m_NumHealthPotions = m_StartHealthPotions;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void OnParryDamage()
@@ -101,22 +97,27 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
                 m_IsClimbing = false;
             }
         }
-
-        if (m_IsClimbing && Input.GetAxis("Vertical") < 0)
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f))
-            {
-                if (hit.collider.tag == "Ground")
-                {
-                    m_ClimbingHandler.StopClimbing();
-                    m_IsClimbing = false;
-                }
-            }
-        }
     }
 
     public void OnExitClimbArea()
     {
+        m_ClimbingHandler.StopClimbing();
+        m_IsClimbing = false;
+    }
+
+    public void OnHitGround(string groundTag)
+    {
+        if (m_IsClimbing && groundTag == "Ground")
+        {
+            m_ClimbingHandler.StopClimbing();
+            m_IsClimbing = false;
+        }
+        m_Animator.SetBool("IsFalling", false);
+    }
+
+    public void OnLoseGround()
+    {
+        if (!m_IsClimbing)
+            m_Animator.SetBool("IsFalling", true);
     }
 }
