@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
-
+public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
+{
     public float m_RegularHitDamage = 20f;
     public float m_FinalHitDamage = 30f;
     public float m_RiposteDamage = 50f;
@@ -22,7 +22,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
     /// @todo this has to change!!
     /// </summary>
     public GameObject m_RiposteTarget;
-    
+
     private IEnumerator m_AttackEnumerator;
     private IEnumerator m_ComboEnumerator;
     private IEnumerator m_DamageActiveEnumerator;
@@ -35,11 +35,12 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
     public bool m_RiposteActive = false;
 
     public AttackCallback m_AttackCallback;
-    
-    void Start () {
+
+    void Start()
+    {
         m_CommandName = "Attack";
         m_CurrentCombo = 0;
-	}
+    }
 
     public override void InitTrigger()
     {
@@ -120,7 +121,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback {
 
     private void LookAtTarget()
     {
-        m_ScarletBody.transform.rotation = Quaternion.Euler(0, 
+        m_ScarletBody.transform.rotation = Quaternion.Euler(0,
             Mathf.Atan2(m_ScarletBody.transform.position.x - m_RiposteTarget.transform.position.x,
                         m_RiposteTarget.transform.position.z - m_ScarletBody.transform.position.z) * Mathf.Rad2Deg * -1, 0);
     }

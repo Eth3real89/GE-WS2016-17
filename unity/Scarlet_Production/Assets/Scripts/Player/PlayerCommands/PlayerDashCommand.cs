@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDashCommand : PlayerCommand {
-
+public class PlayerDashCommand : PlayerCommand
+{
     public float m_DashDistance = 4.5f;
     public float m_DashTime = 0.05f;
     public float m_DashDelay = 0.15f;
@@ -39,7 +39,7 @@ public class PlayerDashCommand : PlayerCommand {
     {
         DoDash();
     }
-    
+
     private void DoDash()
     {
         m_Callback.OnCommandStart(m_CommandName, this);

@@ -14,6 +14,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     private PlayerMoveCommand m_MoveCommand;
     private PlayerParryCommand m_ParryCommand;
     private PlayerStaggerCommand m_StaggerCommand;
+    private PlayerSprintCommand m_SprintCommand;
 
     private PlayerCommand m_ActiveCommand;
 
@@ -62,7 +63,6 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     void Start()
     {
-
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         foreach (PlayerCommand command in m_PlayerCommands)
         {
@@ -81,6 +81,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         m_MoveCommand = GetComponentInChildren<PlayerMoveCommand>();
         m_ParryCommand = GetComponentInChildren<PlayerParryCommand>();
         m_StaggerCommand = GetComponentInChildren<PlayerStaggerCommand>();
+        m_SprintCommand = GetComponentInChildren<PlayerSprintCommand>();
 
         if (m_ParryCommand != null)
             m_ParryCommand.m_ParryCallback = this;

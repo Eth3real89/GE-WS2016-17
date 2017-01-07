@@ -8,9 +8,10 @@ using UnityEngine;
  * and does not disable any of the other commands.
  * It moves scarlet around (duh) on the x-z-plane and makes her look in the right direction.
  */
-public class PlayerMoveCommand : PlayerCommand {
-
-    public float m_RunSpeed = 8f;
+public class PlayerMoveCommand : PlayerCommand
+{
+    public float m_RunSpeed;
+    public float m_WalkSpeed;
 
     private Rigidbody m_ScarletBody;
 
