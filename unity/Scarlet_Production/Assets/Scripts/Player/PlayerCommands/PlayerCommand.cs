@@ -42,8 +42,7 @@ public abstract class PlayerCommand : MonoBehaviour
         if (m_Availability == CommandAvailability.Anywhere)
             return true;
 
-        PlayerManager playerManager = m_Scarlet.GetComponentInChildren<PlayerManager>();
-        PlayerManager.ControlMode currentControlMode = playerManager.m_ControlMode;
+        LevelManager.ControlMode currentControlMode = LevelManager.Instance.m_ControlMode;
         return (int)m_Availability == (int)currentControlMode;
     }
 

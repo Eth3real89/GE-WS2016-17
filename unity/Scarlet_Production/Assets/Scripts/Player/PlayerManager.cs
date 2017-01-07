@@ -15,12 +15,6 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         Stunned
     };
 
-    public enum ControlMode
-    {
-        Exploration = 0,
-        Combat = 1
-    }
-
     public int m_StartHealthPotions;
     public PlayerHealCommand m_HealCommand;
 
@@ -28,7 +22,6 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerStaggerCommand m_StaggerCommand;
 
     public PlayerLightEffects m_LightEffects;
-    public ControlMode m_ControlMode = ControlMode.Exploration;
 
     // Use this for initialization
     void Start()

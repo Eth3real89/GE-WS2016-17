@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback, PlayerAttackCommand.AttackCallback {
+public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback, PlayerAttackCommand.AttackCallback
+{
 
     public PlayerCommand[] m_PlayerCommands;
 
@@ -33,7 +34,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     public void DisableAndLock(params PlayerCommand[] commands)
     {
-        foreach(PlayerCommand c in commands)
+        foreach (PlayerCommand c in commands)
         {
             if (m_ActiveCommand == c)
                 m_ActiveCommand = null;
@@ -59,17 +60,18 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         }
     }
 
-    void Start() {
+    void Start()
+    {
 
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
-        foreach(PlayerCommand command in m_PlayerCommands)
+        foreach (PlayerCommand command in m_PlayerCommands)
         {
             command.Init(this, gameObject, GetComponentInChildren<Animator>());
         }
 
         m_LockedCommands = new List<PlayerCommand>();
         ReferenceCommands();
-	}
+    }
 
     private void ReferenceCommands()
     {
