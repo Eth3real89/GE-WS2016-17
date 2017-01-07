@@ -59,12 +59,12 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     {
     }
 
-    public void OnEnterLightField(LightField.LightFieldClass lightFieldClass)
+    public void OnEnterLightField(LightField.LightFieldClass lightFieldClass, Vector3 retreatDirection)
     {
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
-            m_LightEffects.OnPlayerEnterStrongLight();
+            m_LightEffects.OnPlayerEnterStrongLight(retreatDirection);
     }
 
     public void OnStayInLightField(LightField.LightFieldClass lightFieldClass)

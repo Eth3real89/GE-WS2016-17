@@ -29,27 +29,11 @@ public class PlayerLightEffects : MonoBehaviour
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand);
     }
 
-    public void OnPlayerEnterStrongLight()
+    public void OnPlayerEnterStrongLight(Vector3 retreatDirection)
     {
         m_RegularMovementSpeed = m_MoveCommand.m_RunSpeed;
         m_MoveCommand.m_RunSpeed = 0.3f;
-        StartCoroutine(StartDelayedRetreat());
-    }
-
-    IEnumerator StartDelayedRetreat()
-    {
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(Retreat());
-    }
-
-    IEnumerator Retreat()
-    {
-        m_PlayerControls.DisableAllCommands();
-        while (m_MoveCommand.m_RunSpeed != m_RegularMovementSpeed)
-        {
-            m_MoveCommand.TriggerManually(Vector3.left);
-            yield return null;
-        }
+        StartCoroutine(StartDelayedRetreat(retreatDirection));
     }
 
     public void OnPlayerExitStrongLight()
@@ -58,4 +42,21 @@ public class PlayerLightEffects : MonoBehaviour
         m_MoveCommand.m_RunSpeed = m_RegularMovementSpeed;
     }
 
+    // let the player step into the light for a bit...
+    IEnumerator StartDelayedRetreat(Vector3 retreatDirection)
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(Retreat(retreatDirection));
+    }
+
+    // ...and then get out of there
+    IEnumerator Retreat(Vector3 retreatDirection)
+    {
+        m_PlayerControls.DisableAllCommands();
+        while (m_MoveCommand.m_RunSpeed != m_RegularMovementSpeed)
+        {
+            m_MoveCommand.TriggerManually(retreatDirection);
+            yield return null;
+        }
+    }
 }
