@@ -3926,17 +3926,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1546299661062702, guid: 2acb300160851794e8c5a2330570274b,
     type: 2}
   m_PrefabInternal: {fileID: 1891979137}
---- !u!4 &1016097030 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4309062748784360, guid: 2acb300160851794e8c5a2330570274b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1891979137}
---- !u!114 &1016097034 stripped
+--- !u!114 &1016097036 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114923802319802484, guid: 2acb300160851794e8c5a2330570274b,
+  m_PrefabParentObject: {fileID: 114283564950094282, guid: 2acb300160851794e8c5a2330570274b,
     type: 2}
   m_PrefabInternal: {fileID: 1891979137}
-  m_Script: {fileID: 11500000, guid: 6be2dd12cd34ce042a41cfec17be7509, type: 3}
+  m_Script: {fileID: 11500000, guid: 569e23014a7bb7e4b9e2ca5e05bd4fcd, type: 3}
 --- !u!4 &1029857058 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: f509f3fa8d9f14fc9a6380f09da8563a, type: 2}
@@ -5934,79 +5929,6 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: f509f3fa8d9f14fc9a6380f09da8563a, type: 2}
   m_PrefabInternal: {fileID: 1728194605}
---- !u!1 &1531329313
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1531329314}
-  - component: {fileID: 1531329315}
-  m_Layer: 0
-  m_Name: GroundCheckAnchor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1531329314
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1531329313}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1016097030}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1531329315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1531329313}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b11a2839f0c50441ac3e223ee3eb9c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GroundCheckThreshold: 0.2
-  m_HitGroundEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1016097034}
-        m_MethodName: OnHitGround
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: GroundControl+ChangeGroundedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  m_LoseGroundEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1016097034}
-        m_MethodName: OnLoseGround
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: GroundControl+ChangeGroundedEvent, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &1544057513
 Prefab:
   m_ObjectHideFlags: 0
@@ -7632,10 +7554,24 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 54499609250838276, guid: 2acb300160851794e8c5a2330570274b,
+    - target: {fileID: 4784615178666948, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.238
+      objectReference: {fileID: 0}
+    - target: {fileID: 114923802319802484, guid: 2acb300160851794e8c5a2330570274b,
         type: 2}
-      propertyPath: m_CollisionDetection
-      value: 0
+      propertyPath: m_PlayerControls
+      value: 
+      objectReference: {fileID: 1016097036}
+    - target: {fileID: 114717782061925462, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_Situational
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114717782061925462, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_DefaultLocked
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}

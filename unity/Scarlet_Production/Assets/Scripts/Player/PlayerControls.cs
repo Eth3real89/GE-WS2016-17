@@ -65,12 +65,17 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     void Start()
     {
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
+        m_LockedCommands = new List<PlayerCommand>();
+
         foreach (PlayerCommand command in m_PlayerCommands)
         {
             command.Init(this, gameObject, GetComponentInChildren<Animator>());
+            if (command.m_DefaultLocked)
+            {
+                DisableAndLock(command);
+            }
         }
 
-        m_LockedCommands = new List<PlayerCommand>();
         ReferenceCommands();
     }
 

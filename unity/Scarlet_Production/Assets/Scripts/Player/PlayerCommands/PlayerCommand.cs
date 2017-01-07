@@ -15,6 +15,7 @@ public abstract class PlayerCommand : MonoBehaviour
     public CommandAvailability m_Availability;
 
     public bool m_Active;
+    public bool m_DefaultLocked;
 
     public PlayerCommandCallback m_Callback;
     public GameObject m_Scarlet;
