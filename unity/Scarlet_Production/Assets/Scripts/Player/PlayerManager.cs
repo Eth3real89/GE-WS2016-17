@@ -7,8 +7,8 @@ using UnityEngine;
 /// The PlayerManager contains the player's status and
 /// (@todo later) their abilities etc.
 /// </summary>
-public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.LightFieldResponder {
-
+public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.LightFieldResponder, ClimbableArea.ClimbAreaResponder
+{
     public enum State
     {
         Invincible,
@@ -22,6 +22,9 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerStaggerCommand m_StaggerCommand;
 
     public PlayerLightEffects m_LightEffects;
+    public PlayerClimbingHandler m_ClimbingHandler;
+
+    private bool m_IsClimbing;
 
     // Use this for initialization
     void Start()
@@ -77,5 +80,43 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
             m_LightEffects.OnPlayerExitsLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
             m_LightEffects.OnPlayerExitStrongLight();
+    }
+
+    public void OnEnterClimbArea()
+    {
+    }
+
+    public void OnStayInClimbArea()
+    {
+        if (Input.GetButtonDown("Dash"))
+        {
+            if (!m_IsClimbing)
+            {
+                m_ClimbingHandler.StartClimbing();
+                m_IsClimbing = true;
+            }
+            else
+            {
+                m_ClimbingHandler.StopClimbing();
+                m_IsClimbing = false;
+            }
+        }
+
+        if (m_IsClimbing && Input.GetAxis("Vertical") < 0)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 0.1f))
+            {
+                if (hit.collider.tag == "Ground")
+                {
+                    m_ClimbingHandler.StopClimbing();
+                    m_IsClimbing = false;
+                }
+            }
+        }
+    }
+
+    public void OnExitClimbArea()
+    {
     }
 }

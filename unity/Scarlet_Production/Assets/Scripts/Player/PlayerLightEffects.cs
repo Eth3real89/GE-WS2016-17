@@ -9,8 +9,8 @@ public class PlayerLightEffects : MonoBehaviour
     public PlayerDashCommand m_DashCommand;
     public PlayerAttackCommand m_AttackCommand;
     public PlayerSprintCommand m_SprintCommand;
-
     public PlayerMoveCommand m_MoveCommand;
+
     public float m_MovementSpeedInLight;
     public float m_MovementSpeedInStrongLight;
     private float m_RegularMovementSpeed;

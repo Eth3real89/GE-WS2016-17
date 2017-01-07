@@ -375,6 +375,7 @@ GameObject:
   - component: {fileID: 114806152150870836}
   - component: {fileID: 114653629839274918}
   - component: {fileID: 114384745881405942}
+  - component: {fileID: 114717782061925462}
   m_Layer: 0
   m_Name: MovementObject
   m_TagString: Untagged
@@ -721,6 +722,7 @@ GameObject:
   - component: {fileID: 114588574810603080}
   - component: {fileID: 114923802319802484}
   - component: {fileID: 114072412852494062}
+  - component: {fileID: 114546980591097790}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -3294,6 +3296,21 @@ MonoBehaviour:
   m_MaxHealthGain: 33
   m_NumPotionListenerObject: {fileID: 0}
   m_PlayerHealth: {fileID: 114177473010530202}
+--- !u!114 &114546980591097790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23029d1ebf158c043ba0ba89113ed5ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayerControls: {fileID: 114283564950094282}
+  m_SprintCommand: {fileID: 114384745881405942}
+  m_MoveCommand: {fileID: 114812869210509324}
+  m_ClimbCommand: {fileID: 114717782061925462}
 --- !u!114 &114588574810603080
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3346,6 +3363,24 @@ MonoBehaviour:
   m_DashDelay: 0.15
   m_TrailContainer: {fileID: 1701238727433960}
   m_RendererContainer: {fileID: 1198766527106716}
+--- !u!114 &114717782061925462
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262191347684074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: adf66af80401ae548b1ce5c9b769c206, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CommandName: 
+  m_Tags: []
+  m_Availability: 0
+  m_Active: 0
+  m_Scarlet: {fileID: 0}
+  m_Animator: {fileID: 0}
+  m_ClimbSpeed: 1
 --- !u!114 &114806152150870836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3432,6 +3467,7 @@ MonoBehaviour:
   m_PlayerDamage: {fileID: 114335818791618858}
   m_StaggerCommand: {fileID: 114653629839274918}
   m_LightEffects: {fileID: 114072412852494062}
+  m_ClimbingHandler: {fileID: 114546980591097790}
 --- !u!136 &136201768175974282
 CapsuleCollider:
   m_ObjectHideFlags: 1
