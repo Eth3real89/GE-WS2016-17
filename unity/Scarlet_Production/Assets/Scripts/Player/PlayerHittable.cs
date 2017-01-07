@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerHittable : MonoBehaviour, Hittable {
 
     public CharacterHealth m_Health;
+
+    public AudioSource m_OnHitAudio;
+
     private HitInterject m_Interject;
 
     public void Hit(Damage damage)
@@ -14,6 +17,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
         {
             m_Health.m_CurrentHealth -= damage.DamageAmount();
             damage.OnSuccessfulHit();
+
+            if (m_OnHitAudio != null)
+                m_OnHitAudio.Play();
         }
     }
 

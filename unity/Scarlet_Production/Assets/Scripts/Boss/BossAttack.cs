@@ -9,6 +9,10 @@ using UnityEngine;
 /// </summary>
 public abstract class BossAttack : MonoBehaviour, HitInterject {
 
+    public static AudioClip m_ParryAudio;
+    public static AudioClip m_BlockAudio;
+    public static AudioSource m_ParryBlockAudioSource;
+
     public enum PlayerAttackType { None, AnyHit, AfterBlock, SpecialHit };
 
     public PlayerAttackType m_TriggerInterrupt = PlayerAttackType.SpecialHit;
@@ -55,13 +59,18 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
             dmg.OnParryDamage();
             m_Callback.OnParryPlayerAttack(this);
+            PlaySound(m_ParryAudio);
+
             return true;
         }
         if (CheckBlock(dmg))
         {
             m_LastHitWasBlocked = true;
             dmg.OnBlockDamage();
+
             m_Callback.OnBlockPlayerAttack(this);
+            PlaySound(m_BlockAudio);
+
             return true;
         }
         if (CheckInterrupt(dmg))
@@ -72,6 +81,15 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
         m_LastHitWasBlocked = false;
         return false;
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (m_ParryBlockAudioSource != null)
+        {
+            m_ParryBlockAudioSource.clip = clip;
+            m_ParryBlockAudioSource.Play();
+        }
     }
 
     private bool CheckInterrupt(Damage dmg)

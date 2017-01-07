@@ -6,6 +6,8 @@ public class BossMoveCommand : BossCommand {
 
     public float m_Speed;
     public Rigidbody m_BossBody;
+
+    public AudioSource m_StepsAudio;
     
     public override void InitCommand(GameObject m_Boss, Animator m_Animator)
     {
@@ -25,12 +27,23 @@ public class BossMoveCommand : BossCommand {
         m_BossBody.velocity = movement;
 
         m_Animator.SetFloat("Speed", movement.magnitude);
+
+        if (m_StepsAudio != null)
+        {
+            if (m_StepsAudio.isPlaying && movement.magnitude <= 0.2)
+                m_StepsAudio.Stop();
+            else if (!m_StepsAudio.isPlaying && movement.magnitude >= 0.2)
+                m_StepsAudio.Play();
+        }
     }
 
     public void StopMoving()
     {
         m_Animator.SetFloat("Speed", 0);
         m_BossBody.velocity = new Vector3(0, 0, 0);
+
+        if (m_StepsAudio != null && m_StepsAudio.isPlaying)
+            m_StepsAudio.Stop();
     }
 
 }

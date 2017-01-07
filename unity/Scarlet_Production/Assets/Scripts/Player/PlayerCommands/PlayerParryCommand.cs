@@ -15,6 +15,10 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     public float m_OkParryTime = 0.125f;
     public float m_TooSoonParryTime = 0.05f;
 
+    public AudioSource m_ParryAudioPlayer;
+    public AudioClip m_BlockAudio;
+    public AudioClip m_ParryAudio;
+
     private enum ParryState {TooLate, Perfect, Ok, TooSoon, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
@@ -94,36 +98,64 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
         }
         else if (m_CurrentState == ParryState.TooSoon || m_CurrentState == ParryState.TooLate)
         {
-            if (m_ParryCallback != null)
-                m_ParryCallback.OnParryFail();
-
-            dmg.OnSuccessfulHit();
-            return true;
+            return FailedParry(dmg);
         }
         else if (m_CurrentState == ParryState.Perfect && dmg.Blockable() != Damage.BlockableType.OnlyBlock)
         {
-            CancelDelay();
-            m_Callback.OnCommandEnd(m_CommandName, this);
-
-            if (m_ParryCallback != null)
-                m_ParryCallback.OnPerfectParry();
-
-            dmg.OnParryDamage();
-            return true;
+            return PerfectParry(dmg);
         }
         else if (m_CurrentState == ParryState.Ok || (m_CurrentState == ParryState.Perfect && dmg.Blockable() == Damage.BlockableType.OnlyBlock))
         {
-            if (m_ParryCallback != null)
-                m_ParryCallback.OnBlock();
-
-            CancelDelay();
-            m_Callback.OnCommandEnd(m_CommandName, this);
-
-            dmg.OnBlockDamage();
-            return true;
+            return Block(dmg);
         }
 
         return false;
+    }
+
+    private bool Block(Damage dmg)
+    {
+        if (m_ParryCallback != null)
+            m_ParryCallback.OnBlock();
+
+        CancelDelay();
+        m_Callback.OnCommandEnd(m_CommandName, this);
+
+        dmg.OnBlockDamage();
+        PlayAudio(m_BlockAudio);
+
+        return true;
+    }
+
+    private bool PerfectParry(Damage dmg)
+    {
+        CancelDelay();
+        m_Callback.OnCommandEnd(m_CommandName, this);
+
+        if (m_ParryCallback != null)
+            m_ParryCallback.OnPerfectParry();
+
+        dmg.OnParryDamage();
+        PlayAudio(m_ParryAudio);
+
+        return true;
+    }
+
+    private void PlayAudio(AudioClip clip)
+    {
+        if (m_ParryAudioPlayer != null)
+        {
+            m_ParryAudioPlayer.clip = clip;
+            m_ParryAudioPlayer.Play();
+        }
+    }
+
+    private bool FailedParry(Damage dmg)
+    {
+        if (m_ParryCallback != null)
+            m_ParryCallback.OnParryFail();
+
+        dmg.OnSuccessfulHit();
+        return true;
     }
 
     public interface ParryCallback

@@ -16,6 +16,8 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
 
     public float m_DelayDamageActive = 0.2f;
 
+    public AudioSource m_HitAudio;
+
     private Rigidbody m_ScarletBody;
 
     /// <summary>
@@ -111,6 +113,8 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
 
         StartCoroutine(m_AttackEnumerator);
 
+        if (m_HitAudio != null)
+            m_HitAudio.Play();
     }
 
     private IEnumerator ActivateDamageDelayed()

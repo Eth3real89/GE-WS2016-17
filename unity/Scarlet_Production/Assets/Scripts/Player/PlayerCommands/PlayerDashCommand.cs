@@ -12,6 +12,8 @@ public class PlayerDashCommand : PlayerCommand
     public GameObject m_TrailContainer;
     public GameObject m_RendererContainer;
 
+    public AudioSource m_DashAudio;
+
     private TrailRenderer m_TrailRenderer;
     private Renderer m_ScarletRenderer;
 
@@ -49,6 +51,9 @@ public class PlayerDashCommand : PlayerCommand
         Vector3 dashTarget = m_ScarletBody.transform.position + m_ScarletBody.transform.forward * m_DashDistance;
 
         StartCoroutine(Blink(dashStart, dashTarget));
+
+        if (m_DashAudio != null)
+            m_DashAudio.Play();
     }
 
     private IEnumerator Blink(Vector3 dashStart, Vector3 dashTarget)
