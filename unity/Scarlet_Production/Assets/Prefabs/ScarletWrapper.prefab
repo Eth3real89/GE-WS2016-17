@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 114823536178913316}
   - component: {fileID: 114806152150870836}
   - component: {fileID: 114653629839274918}
+  - component: {fileID: 114384745881405942}
   m_Layer: 0
   m_Name: MovementObject
   m_TagString: Untagged
@@ -3193,8 +3194,10 @@ MonoBehaviour:
   m_PlayerControls: {fileID: 114283564950094282}
   m_DashCommand: {fileID: 114677901600229002}
   m_AttackCommand: {fileID: 114806152150870836}
+  m_SprintCommand: {fileID: 114384745881405942}
   m_MoveCommand: {fileID: 114812869210509324}
   m_MovementSpeedInLight: 3
+  m_MovementSpeedInStrongLight: 0.3
 --- !u!114 &114171752264778418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3253,6 +3256,24 @@ MonoBehaviour:
   m_BlockType: 2
   m_Active: 0
   m_Damage: 0
+--- !u!114 &114384745881405942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262191347684074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578dc472e3738724482297ff8c850d18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CommandName: 
+  m_Tags: []
+  m_Availability: 0
+  m_Active: 1
+  m_Scarlet: {fileID: 0}
+  m_Animator: {fileID: 0}
+  m_MoveCommand: {fileID: 0}
 --- !u!114 &114401864621938456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3371,6 +3392,8 @@ MonoBehaviour:
   m_Scarlet: {fileID: 0}
   m_Animator: {fileID: 0}
   m_RunSpeed: 5
+  m_WalkSpeed: 1
+  m_CurrentSpeed: 0
 --- !u!114 &114823536178913316
 MonoBehaviour:
   m_ObjectHideFlags: 1

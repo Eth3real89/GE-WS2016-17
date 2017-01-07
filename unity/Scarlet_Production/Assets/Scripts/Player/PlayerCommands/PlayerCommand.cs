@@ -73,7 +73,7 @@ public abstract class PlayerCommand : MonoBehaviour
 
         public override void Update()
         {
-            if (!m_Command.m_Active && !m_Command.IsCommandAvailable())
+            if (!m_Command.m_Active || !m_Command.IsCommandAvailable())
                 return;
 
             float axisValue = Input.GetAxis(m_Axis);

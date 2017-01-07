@@ -10,8 +10,13 @@ using UnityEngine;
  */
 public class PlayerMoveCommand : PlayerCommand
 {
+    // @todo:
+    // these stats should probably not be stored in the command but in a seperate stats-class
+    // (also applies to healing amount/charges, etc.)
     public float m_RunSpeed;
     public float m_WalkSpeed;
+
+    public float m_CurrentSpeed;
 
     private Rigidbody m_ScarletBody;
 
@@ -44,7 +49,7 @@ public class PlayerMoveCommand : PlayerCommand
         if (movement.magnitude > 1)
             movement.Normalize();
 
-        movement *= m_RunSpeed;
+        movement *= m_CurrentSpeed;
         movement.y = yBefore;
 
         m_ScarletBody.velocity = movement;
@@ -83,7 +88,7 @@ public class PlayerMoveCommand : PlayerCommand
 
         public override void Update()
         {
-            if (!m_Command.m_Active)
+            if (!m_Command.m_Active || !m_Command.IsCommandAvailable())
                 return;
 
             float horizontal = Input.GetAxis("Horizontal");
