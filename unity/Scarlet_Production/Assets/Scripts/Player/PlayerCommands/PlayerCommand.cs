@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class PlayerCommand : MonoBehaviour {
+public abstract class PlayerCommand : MonoBehaviour
+{
+    public enum CommandAvailability
+    {
+        Anywhere = -1, Exploration = 0, Combat = 1
+    }
 
     public string m_CommandName;
     public string[] m_Tags;
+    public CommandAvailability m_Availability;
 
     public bool m_Active;
 
@@ -29,6 +35,16 @@ public abstract class PlayerCommand : MonoBehaviour {
     {
         if (m_Trigger != null)
             m_Trigger.Update();
+    }
+
+    public bool IsCommandAvailable()
+    {
+        if (m_Availability == CommandAvailability.Anywhere)
+            return true;
+
+        PlayerManager playerManager = m_Scarlet.GetComponentInChildren<PlayerManager>();
+        PlayerManager.ControlMode currentControlMode = playerManager.m_ControlMode;
+        return (int)m_Availability == (int)currentControlMode;
     }
 
     public abstract void InitTrigger();
@@ -58,7 +74,7 @@ public abstract class PlayerCommand : MonoBehaviour {
 
         public override void Update()
         {
-            if (!m_Command.m_Active)
+            if (!m_Command.m_Active && !m_Command.IsCommandAvailable())
                 return;
 
             float axisValue = Input.GetAxis(m_Axis);
@@ -84,7 +100,7 @@ public abstract class PlayerCommand : MonoBehaviour {
         {
             float pressed = Input.GetAxis(m_Axis);
 
-            if (m_Command.m_Active)
+            if (m_Command.m_Active && m_Command.IsCommandAvailable())
             {
                 if (pressed > 0 && pressed != m_Pressed)
                 {

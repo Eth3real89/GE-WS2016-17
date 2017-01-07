@@ -59,7 +59,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         }
     }
 
-    void Start () {
+    void Start() {
 
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         foreach(PlayerCommand command in m_PlayerCommands)
