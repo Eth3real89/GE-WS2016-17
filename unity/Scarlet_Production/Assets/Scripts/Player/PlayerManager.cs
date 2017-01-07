@@ -63,6 +63,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     {
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
+        if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
+            m_LightEffects.OnPlayerEnterStrongLight();
     }
 
     public void OnStayInLightField(LightField.LightFieldClass lightFieldClass)
@@ -73,5 +75,7 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     {
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerExitsLight();
+        if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
+            m_LightEffects.OnPlayerExitStrongLight();
     }
 }

@@ -27,6 +27,13 @@ public class PlayerMoveCommand : PlayerCommand {
     {
     }
 
+    // little hack to control the Player via script
+    public void TriggerManually(Vector3 direction)
+    {
+        DoRotate(direction.x, direction.z);
+        DoMove(direction.x, direction.z);
+    }
+
     public void DoMove(float horizontal, float vertical)
     {
         float yBefore = m_ScarletBody.velocity.y;
