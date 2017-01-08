@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
 
@@ -13,4 +14,28 @@ public class MenuController : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("city_exploration_level");
+    }
+
+    public void LoadGame()
+    {
+
+    }
+
+    public void OpenOptions()
+    {
+
+    }
+
+    public void CloseGame()
+    {
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
+    }
 }
