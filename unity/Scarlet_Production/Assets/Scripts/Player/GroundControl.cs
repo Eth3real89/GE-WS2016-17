@@ -14,6 +14,7 @@ public class GroundControl : MonoBehaviour
     public ChangeGroundedEvent m_LoseGroundEvent;
 
     private Rigidbody m_RigidBody;
+    private float m_FloatingThreshold = 0.1f;
     private bool m_IsGrounded;
     private string m_GroundTag;
 
@@ -43,9 +44,11 @@ public class GroundControl : MonoBehaviour
             }
         }
 
-        Debug.Log(m_RigidBody.velocity.sqrMagnitude);
-
-        if (!m_IsGrounded && m_RigidBody.velocity.sqrMagnitude <= 0.1)
+        // Sometimes when Scarlet is standing on an edge, the Raycast misses the floor,
+        // which leads to Scarlet being stuck in place in falling state.
+        // To avoid this, a force is added to scarlet when she is not grounded and also
+        // has no velocity (-> stuck in place), to push her out of her misery
+        if (!m_IsGrounded && m_RigidBody.velocity.sqrMagnitude <= m_FloatingThreshold)
         {
             m_RigidBody.AddForce(new Vector3(1, 0, 1) * 100, ForceMode.Impulse);
         }
