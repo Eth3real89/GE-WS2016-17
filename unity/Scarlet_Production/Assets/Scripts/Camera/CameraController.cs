@@ -50,5 +50,12 @@ public class CameraController : MonoBehaviour {
             camera.gameObject.SetActive(enabled);
         }
     }
+
+    public void Darken(bool darken)
+    {
+        DarkenCameraImage dci = GetComponent<DarkenCameraImage>();
+        if (dci != null)
+            dci.enabled = darken;
+    }
     
 }
