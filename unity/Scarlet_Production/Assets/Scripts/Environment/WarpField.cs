@@ -21,14 +21,14 @@ public class WarpField : MonoBehaviour
     {
         if (other.tag == "Player" && m_Enabled)
         {
-            StartCoroutine(Warp());
+            m_Player.transform.position = m_Target.position;
         }
     }
-
+    
     IEnumerator Warp()
     {
         m_Enabled = false;
-        m_Player.GetComponent<Rigidbody>().position = m_Target.position;
+        m_Player.transform.position = m_Target.position;
         yield return new WaitForSeconds(m_WarpDelay);
         m_Enabled = true;
     }
