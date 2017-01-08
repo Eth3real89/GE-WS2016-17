@@ -81,6 +81,14 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
     public void OnEnterClimbArea()
     {
+        if (Input.GetButton("Dash"))
+        {
+            if (!m_IsClimbing)
+            {
+                m_ClimbingHandler.StartClimbing();
+                m_IsClimbing = true;
+            }
+        }
     }
 
     public void OnStayInClimbArea()

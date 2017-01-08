@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: brick_highlighted
-  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP _NORMALMAP _SPECGLOSSMAP
+  m_Name: glassIllu_Unlit
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION _NORMALMAP
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -18,7 +18,13 @@ Material:
     - first:
         name: _BumpMap
       second:
-        m_Texture: {fileID: 2800000, guid: a5a43bb23044f4d118e91169059258ba, type: 3}
+        m_Texture: {fileID: 2800000, guid: 233a6315737474c84a75f1d9a0777bad, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Cube
+      second:
+        m_Texture: {fileID: 8900000, guid: 15c6acc4f11254a04b03849245d80574, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -46,15 +52,21 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _Illum
+      second:
+        m_Texture: {fileID: 2800000, guid: 859f7dab2c102428da12a52fae0a9d05, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 93f8655c3dcc74c44816a63e168b8222, type: 3}
+        m_Texture: {fileID: 2800000, guid: 859f7dab2c102428da12a52fae0a9d05, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
       second:
-        m_Texture: {fileID: 2800000, guid: 93f8655c3dcc74c44816a63e168b8222, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -67,12 +79,6 @@ Material:
         name: _ParallaxMap
       second:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - first:
-        name: _SpecGlossMap
-      second:
-        m_Texture: {fileID: 2800000, guid: 93f8655c3dcc74c44816a63e168b8222, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -89,11 +95,17 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _Emission
+      second: 1
+    - first:
+        name: _EmissionLM
+      second: 1
+    - first:
         name: _GlossMapScale
       second: 1
     - first:
         name: _Glossiness
-      second: 0.635
+      second: 0.5
     - first:
         name: _GlossyReflections
       second: 1
@@ -108,10 +120,10 @@ Material:
       second: 1
     - first:
         name: _Parallax
-      second: 0.02267857
+      second: 0.02
     - first:
         name: _Shininess
-      second: 0.15077282
+      second: 1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -133,7 +145,10 @@ Material:
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0.1, g: 0.053676475, b: 0.053676475, a: 1}
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _ReflectColor
+      second: {r: 0.9338235, g: 0.9338235, b: 0.9338235, a: 0.63529414}
     - first:
         name: _SpecColor
-      second: {r: 0.30882353, g: 0.30882353, b: 0.30882353, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}

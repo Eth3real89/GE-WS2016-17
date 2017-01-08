@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class TrackingBehaviour : MonoBehaviour
 {
     public Transform m_Player;
+    public GameObject[] m_CulledObjects;
+
     private CameraTracking m_CameraTracking;
 
     public void Start()
@@ -18,6 +20,18 @@ public abstract class TrackingBehaviour : MonoBehaviour
         if (other.tag == "Player")
         {
             m_CameraTracking.m_TrackingBehaviour = this;
+            foreach (GameObject g in m_CulledObjects)
+            {
+                g.GetComponent<Renderer>().enabled = false;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        foreach (GameObject g in m_CulledObjects)
+        {
+            g.GetComponent<Renderer>().enabled = true;
         }
     }
 
