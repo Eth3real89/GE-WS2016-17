@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Damage : MonoBehaviour {
 
-    public enum DamageType {Regular, Special};
+    public enum DamageType {Regular, Special, Riposte};
     public DamageType m_Type = DamageType.Regular;
 
     public enum BlockableType {None, OnlyBlock, Parry};

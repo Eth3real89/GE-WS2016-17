@@ -57,8 +57,8 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             if (hittable != null)
                 hittable.Hit(new BossParryDamage(this));
 
-            dmg.OnParryDamage();
             m_Callback.OnParryPlayerAttack(this);
+            dmg.OnParryDamage();
             PlaySound(m_ParryAudio);
 
             return true;
@@ -109,6 +109,8 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
     private bool CheckIfAttackTypeApplies(Damage dmg, PlayerAttackType type)
     {
+        if (dmg.m_Type == Damage.DamageType.Riposte) return false;
+
         if (type == PlayerAttackType.None) return false;
         else if (type == PlayerAttackType.AfterBlock && m_LastHitWasBlocked) return true;
         else if (type == PlayerAttackType.SpecialHit && dmg.m_Type == Damage.DamageType.Special) return true;

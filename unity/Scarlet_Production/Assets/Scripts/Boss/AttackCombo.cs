@@ -90,8 +90,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     private void ParryAttack()
     {
-        // @todo separate animation!
-        m_Animator.SetTrigger("MeleeDownswingTrigger");
+        m_Animator.SetTrigger("ParryTrigger");
 
         if (m_AttackTimer != null)
             StopCoroutine(m_AttackTimer);
@@ -117,11 +116,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void OnAttackParried(BossAttack attack)
     {
+        m_BossHittable.RegisterInterject(this);
         if (!m_BetweenAttacks && m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
         }
-        m_BossStagger.DoStagger();
+        m_BossStagger.DoStagger("ParriedTrigger");
         StartCoroutine(WaitAfterParried());
     }
 

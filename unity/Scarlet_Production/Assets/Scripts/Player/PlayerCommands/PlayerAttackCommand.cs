@@ -80,6 +80,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
         if (m_RiposteActive)
         {
             m_PlayerDamage.m_Damage = m_RiposteDamage;
+            m_PlayerDamage.m_Type = Damage.DamageType.Riposte;
             m_AttackEnumerator = DelayEnd(m_DelayAfterRiposte);
             Hittable hittable = ((m_RiposteTarget == null) ? null : m_RiposteTarget.GetComponent<Hittable>());
             if (hittable != null)
@@ -94,6 +95,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
         }
         else if (m_CurrentCombo < 3)
         {
+            m_PlayerDamage.m_Type = Damage.DamageType.Regular;
             m_PlayerDamage.m_Damage = m_RegularHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterAttack);
             m_CurrentCombo++;
@@ -103,6 +105,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
         }
         else
         {
+            m_PlayerDamage.m_Type = Damage.DamageType.Special;
             m_PlayerDamage.m_Damage = m_FinalHitDamage;
             m_AttackEnumerator = DelayEnd(m_DelayAfterLastAttack);
             m_CurrentCombo = 0;
