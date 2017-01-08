@@ -5,22 +5,34 @@ using UnityEngine.SceneManagement;
 
 public class IngameMenuController : MonoBehaviour {
 
+    public GameObject menu;
+    private bool menuVisible = false;
 
-
-	// Use this for initialization
-	void Start () {
-		
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if (Input.GetButtonDown("Cancel"))
+        {
+            if (menuVisible)
+            {
+                menuVisible = false;
+                menu.SetActive(false);
+            }
+            else
+            {
+                menuVisible = true;
+                menu.SetActive(true);
+            }
+        }
 	}
 
-    public void OnResume(GameObject resumeButton)
+    public void OnResume()
     {
-        resumeButton.SetActive(false);
-        //Menü unsichtbar machen
+        menuVisible = false;
+        menu.SetActive(false);
     }
 
     public void OnChangeVolume(int volume)
