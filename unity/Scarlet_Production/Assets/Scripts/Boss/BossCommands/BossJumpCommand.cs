@@ -11,6 +11,8 @@ public class BossJumpCommand : BossCommand {
     public float m_TimeSpentInAir = 0.15f;
     public float m_Speed = 1f;
 
+    public AudioSource m_JumpAudio;
+
     public void JumpAt(Transform target, JumpCallback callback = null)
     {
         float jumpTime = 0f;
@@ -23,6 +25,9 @@ public class BossJumpCommand : BossCommand {
             force * m_Boss.GetComponentInChildren<Rigidbody>().mass,
             ForceMode.Impulse);
         StartCoroutine(WaitMidJump(jumpTime, callback));
+
+        if (m_JumpAudio != null)
+            m_JumpAudio.Play();
     }
 
     private IEnumerator WaitMidJump(float jumpTime, JumpCallback callback)

@@ -17,6 +17,8 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     public float m_DownswingTime = 0.3f;
     public float m_TimeBeforeDownswingCausesDamage = 0.2f;
 
+    public AudioSource m_HitAudio;
+
     private MeleeHitCallback m_Callback;
     private MeleeHitStepsCallback m_StepsCallback;
     private int m_CurrentAnimation;
@@ -61,6 +63,9 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
     public void Downswing(int whichAnimation = 0)
     {
         SetHitSignalState(false);
+
+        if (m_HitAudio != null)
+            m_HitAudio.Play();
 
         m_Animator.SetTrigger("MeleeDownswingTrigger");
         m_DamageTimer = EnableDamageAfter(m_TimeBeforeDownswingCausesDamage);
