@@ -38,6 +38,8 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
     public override void StartAttack()
     {
+        base.StartAttack();
+
         m_CurrentRepetition = 0;
         m_BossHit.DoHit(this, this, m_HitAnimationIndices[m_CurrentRepetition % m_HitAnimationIndices.Length]);
         m_Damage.m_Callback = this;

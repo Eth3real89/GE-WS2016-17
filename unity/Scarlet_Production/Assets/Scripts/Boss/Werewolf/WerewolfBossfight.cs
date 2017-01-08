@@ -24,9 +24,16 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
 
 	void Start () {
         m_CurrentPhase = m_StartPhase;
+        StartCoroutine(StartAfterShortDelay());
+	}
+
+    private IEnumerator StartAfterShortDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
 
         if (m_StartPhase == Phase.Hunt)
         {
+            CameraController.Instance.Darken(true);
             m_HuntController.enabled = true;
             m_HuntController.StartHuntPhase(this);
         }
@@ -34,7 +41,7 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         {
             PhaseEnd(m_HuntController);
         }
-	}
+    }
 	
 	void Update () {
 		

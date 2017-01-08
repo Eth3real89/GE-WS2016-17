@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BossStaggerCommand : BossCommand {
 
-    public void DoStagger()
+    public void DoStagger(string trigger = "StaggerTrigger")
     {
-        m_Animator.SetTrigger("StaggerTrigger");
+        m_Animator.SetTrigger(trigger);
     }
 
 }
