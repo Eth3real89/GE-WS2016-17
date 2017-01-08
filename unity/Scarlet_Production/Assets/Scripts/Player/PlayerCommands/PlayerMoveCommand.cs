@@ -19,8 +19,6 @@ public class PlayerMoveCommand : PlayerCommand
 
     public float m_CurrentSpeed;
 
-    public AudioSource m_StepsAudio;
-
     private Rigidbody m_ScarletBody;
 
     public override void InitTrigger()
@@ -58,21 +56,11 @@ public class PlayerMoveCommand : PlayerCommand
         m_ScarletBody.velocity = movement;
 
         m_Animator.SetFloat("Speed", movement.magnitude);
-
-        if (m_StepsAudio != null)
-        {
-            if (movement.magnitude >= 0.2 && !m_StepsAudio.isPlaying)
-                m_StepsAudio.Play();
-            else if (movement.magnitude <= 0.2 && m_StepsAudio.isPlaying)
-                m_StepsAudio.Stop();
-        }
     }
 
     public void StopMoving()
     {
         DoMove(0, 0);
-        if (m_StepsAudio != null)
-            m_StepsAudio.Stop();
     }
 
     private void DoRotate(float horizontal, float vertical)

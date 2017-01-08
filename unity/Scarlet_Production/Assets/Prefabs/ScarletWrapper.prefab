@@ -786,6 +786,7 @@ GameObject:
   - component: {fileID: 114923802319802484}
   - component: {fileID: 114072412852494062}
   - component: {fileID: 114546980591097790}
+  - component: {fileID: 114502588334783684}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -2460,7 +2461,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211058420233924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -20.77, y: 0.57, z: -20.25}
+  m_LocalPosition: {x: 1.59, y: 3.924, z: 0.051}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4309062748784360}
@@ -3323,7 +3324,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.629
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -3807,8 +3808,8 @@ MonoBehaviour:
   m_AttackCommand: {fileID: 114806152150870836}
   m_SprintCommand: {fileID: 114384745881405942}
   m_MoveCommand: {fileID: 114812869210509324}
-  m_MovementSpeedInLight: 3
-  m_MovementSpeedInStrongLight: 0.3
+  m_MovementSpeedInLight: 1
+  m_MovementSpeedInStrongLight: 0.4
 --- !u!114 &114171752264778418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3951,6 +3952,19 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: GroundControl+ChangeGroundedEvent, Assembly-CSharp, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114502588334783684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f102261476f89e41ab32cd2b194e799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StepsAudio: {fileID: 82146330606723684}
+  m_MoveCommand: {fileID: 114812869210509324}
 --- !u!114 &114546980591097790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4089,10 +4103,10 @@ MonoBehaviour:
   m_DefaultLocked: 0
   m_Scarlet: {fileID: 0}
   m_Animator: {fileID: 0}
-  m_RunSpeed: 5
+  m_RunSpeedCombat: 0
+  m_RunSpeedExploration: 3.5
   m_WalkSpeed: 1
   m_CurrentSpeed: 0
-  m_StepsAudio: {fileID: 82146330606723684}
 --- !u!114 &114823536178913316
 MonoBehaviour:
   m_ObjectHideFlags: 1
