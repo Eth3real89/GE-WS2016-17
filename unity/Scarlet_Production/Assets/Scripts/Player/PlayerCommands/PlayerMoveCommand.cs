@@ -13,7 +13,8 @@ public class PlayerMoveCommand : PlayerCommand
     // @todo:
     // these stats should probably not be stored in the command but in a seperate stats-class
     // (also applies to healing amount/charges, etc.)
-    public float m_RunSpeed;
+    public float m_RunSpeedCombat;
+    public float m_RunSpeedExploration;
     public float m_WalkSpeed;
 
     public float m_CurrentSpeed;

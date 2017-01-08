@@ -27,6 +27,6 @@ public class LevelManager : GenericSingletonClass<LevelManager>
         if (m_ControlMode == ControlMode.Exploration)
             m_ScarletMoveCommand.m_CurrentSpeed = m_ScarletMoveCommand.m_WalkSpeed;
         if (m_ControlMode == ControlMode.Combat)
-            m_ScarletMoveCommand.m_CurrentSpeed = m_ScarletMoveCommand.m_RunSpeed;
+            m_ScarletMoveCommand.m_CurrentSpeed = m_ScarletMoveCommand.m_RunSpeedCombat;
     }
 }

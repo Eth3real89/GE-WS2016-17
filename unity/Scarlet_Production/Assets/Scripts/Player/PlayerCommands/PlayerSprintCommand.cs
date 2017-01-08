@@ -45,7 +45,7 @@ public class PlayerSprintCommand : PlayerCommand
 
             if (Input.GetAxis(m_Command.m_CommandName) > 0)
             {
-                m_Command.m_MoveCommand.m_CurrentSpeed = m_Command.m_MoveCommand.m_RunSpeed;
+                m_Command.m_MoveCommand.m_CurrentSpeed = m_Command.m_MoveCommand.m_RunSpeedExploration;
             }
             else
             {

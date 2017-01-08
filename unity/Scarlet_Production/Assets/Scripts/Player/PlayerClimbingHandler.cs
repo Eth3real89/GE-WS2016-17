@@ -28,6 +28,7 @@ public class PlayerClimbingHandler : MonoBehaviour
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
         m_Rigidbody.useGravity = false;
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.DisableAndLock(m_MoveCommand, m_SprintCommand);
         m_PlayerControls.EnableAndUnlock(m_ClimbCommand);
     }
 
@@ -37,6 +38,7 @@ public class PlayerClimbingHandler : MonoBehaviour
         m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
         m_Rigidbody.useGravity = true;
         m_PlayerControls.EnableAllCommands();
+        m_PlayerControls.EnableAndUnlock(m_MoveCommand, m_SprintCommand);
         m_PlayerControls.DisableAndLock(m_ClimbCommand);
     }
 }

@@ -6,6 +6,7 @@ using UnityEngine;
 public class StaticTracking : TrackingBehaviour
 {
     public float m_MaxDistance;
+    public bool m_FollowPlayer;
 
     private GameObject m_Anchor;
 
@@ -26,6 +27,9 @@ public class StaticTracking : TrackingBehaviour
 
     public override Quaternion CalculateCameraRotation()
     {
-        return m_Anchor.transform.rotation;
+        if (!m_FollowPlayer)
+            return m_Anchor.transform.rotation;
+        else
+            return Quaternion.LookRotation(m_Player.position - m_Anchor.transform.position);
     }
 }
