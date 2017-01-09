@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: DummyFloor
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 9, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -104,6 +104,9 @@ Material:
         name: _Parallax
       second: 0.02
     - first:
+        name: _Shininess
+      second: 0.01
+    - first:
         name: _SmoothnessTextureChannel
       second: 1
     - first:
@@ -121,7 +124,10 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.36764705, g: 0.3618676, b: 0.28384516, a: 1}
+      second: {r: 0.6544118, g: 0.004811856, b: 0.004811856, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 0.63235295, g: 0.63235295, b: 0.63235295, a: 1}
