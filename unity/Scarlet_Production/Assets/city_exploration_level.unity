@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.61764705, g: 0.61764705, b: 0.61764705, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SkyboxMaterial: {fileID: 2100000, guid: 82b660520bdecce4daf45d270ec93fe4, type: 2}
   m_HaloStrength: 0.5
@@ -20609,7 +20609,7 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 0.36764705, g: 0, b: 0, a: 1}
-  m_Intensity: 0.25
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -20630,7 +20630,7 @@ Light:
     m_Bits: 4294967295
   m_Lightmapping: 2
   m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0.24
+  m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!4 &957153194
@@ -38700,6 +38700,11 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54499609250838276, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
