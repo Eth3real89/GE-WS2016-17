@@ -20,6 +20,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     private bool m_BetweenAttacks;
     private IEnumerator m_AttackTimer;
+
+    private IEnumerator m_ParriedTimer;
    
 	void Start ()
     {
@@ -116,13 +118,27 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void OnAttackParried(BossAttack attack)
     {
-        m_BossHittable.RegisterInterject(this);
         if (!m_BetweenAttacks && m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
         }
-        m_BossStagger.DoStagger("ParriedTrigger");
-        StartCoroutine(WaitAfterParried());
+        m_BossStagger.DoStagger();
+        m_ParriedTimer = WaitAfterParried();
+        StartCoroutine(m_ParriedTimer);
+    }
+
+    public void OnAttackRiposted(BossAttack attack)
+    {
+        if (m_ParriedTimer != null)
+            StopCoroutine(m_ParriedTimer);
+
+        m_BossHittable.RegisterInterject(this);
+
+        m_BossStagger.DoStagger("RipostedTrigger");
+
+        // @todo make method WaitAfterRiposted
+        m_ParriedTimer = WaitAfterParried();
+        StartCoroutine(m_ParriedTimer);
     }
 
     public void CancelCombo()
@@ -138,6 +154,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
     private IEnumerator WaitAfterParried()
     {
         yield return new WaitForSeconds(1f);
+        m_BossHittable.RegisterInterject(this);
 
         m_Callback.OnInterruptCombo(this);
     }

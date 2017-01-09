@@ -80,7 +80,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: ParriedTrigger
+  - m_Name: RipostedTrigger
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -250,7 +250,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: ParriedTrigger
+    m_ConditionEvent: RipostedTrigger
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1102894449136848946}
@@ -258,9 +258,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.1
+  m_TransitionDuration: 0.017915754
   m_TransitionOffset: 0
-  m_ExitTime: 0.9
+  m_ExitTime: 0.0000000053692566
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -675,9 +675,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.065822825
+  m_TransitionDuration: 0.007741045
   m_TransitionOffset: 0
-  m_ExitTime: 0.107872605
+  m_ExitTime: 0.000000009176945
   m_HasExitTime: 0
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -696,9 +696,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.1
+  m_TransitionDuration: 0.100000024
   m_TransitionOffset: 0
-  m_ExitTime: 0.9
+  m_ExitTime: 0.047272887
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -717,9 +717,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0.29403722
   m_TransitionOffset: 0
-  m_ExitTime: 0.75961536
+  m_ExitTime: 0.26899245
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -1019,7 +1019,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: AfterParried
+  m_Name: AfterRiposted
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1209,7 +1209,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Parried
+  m_Name: Riposted
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

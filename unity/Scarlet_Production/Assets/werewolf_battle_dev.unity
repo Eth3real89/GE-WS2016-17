@@ -2260,7 +2260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartPhase: 0
+  m_StartPhase: 1
   m_WerewolfAnimator: {fileID: 975992013}
   m_HuntController: {fileID: 2104373139}
   m_Phase2Controller: {fileID: 2104373142}
@@ -3518,6 +3518,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Combos.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4608113132614596, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -4045,6 +4050,86 @@ Prefab:
       propertyPath: m_LocalScale.x
       value: 2.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114948663892731264, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114138719884506348, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114914028840730526, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114693371607293782, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114791217374522206, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114934316636430100, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114279377889857850, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114892299802096208, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114193452035759802, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114103438683500270, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114524110496006706, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114277282232704426, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeAfterAttack
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114277282232704426, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_HesitateTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114277282232704426, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TrackTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Combos.Array.data[8]
+      value: 
+      objectReference: {fileID: 991828048}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Combos.Array.data[7]
+      value: 
+      objectReference: {fileID: 991828048}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -4057,6 +4142,12 @@ Animator:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: de8c2603932bc0b4caa6dbf8fed7aa65, type: 2}
   m_PrefabInternal: {fileID: 1638470474}
+--- !u!114 &991828048 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114921132938707602, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 975992004}
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
 --- !u!1001 &996514244
 Prefab:
   m_ObjectHideFlags: 0
