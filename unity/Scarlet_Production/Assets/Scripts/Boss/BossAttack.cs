@@ -51,6 +51,12 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
     public virtual bool OnHit(Damage dmg)
     {
+        if (dmg.m_Type == Damage.DamageType.Riposte)
+        {
+            m_Callback.OnAttackRiposted(this);
+            return false;
+        }
+
         if (CheckParry(dmg))
         {
             Hittable hittable = dmg.gameObject.GetComponent<Hittable>();
@@ -137,6 +143,8 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
         void OnBlockPlayerAttack(BossAttack attack);
 
         void OnAttackParried(BossAttack attack);
+
+        void OnAttackRiposted(BossAttack attack);
     }
 
     private class BossParryDamage : Damage

@@ -35,7 +35,6 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         base.StartAttack();
 
         m_LungeTrigger.transform.position = new Vector3(m_Scarlet.transform.position.x, m_LungeTrigger.transform.position.y, m_Scarlet.transform.position.z);
-        m_LungeTrigger.GetComponent<Renderer>().enabled = true;
         m_LungeTrigger.m_Active = false;
         m_LungeTrigger.m_Blockable = this.m_Blockable;
         m_BossCollider.m_Active = false;
@@ -103,7 +102,6 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         if (m_StateTimer != null)
             StopCoroutine(m_StateTimer);
 
-        m_LungeTrigger.GetComponent<Renderer>().enabled = false;
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
 
@@ -127,7 +125,6 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
         m_State = State.None;
 
-        m_LungeTrigger.GetComponent<Renderer>().enabled = false;
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
         m_Callback.OnAttackEnd(this);

@@ -93,6 +93,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         yield return new WaitForSeconds(time);
         m_Hunting = false;
         m_JumpCombo.m_Callback = this;
+
+        m_BossMove.StopMoving();
         m_JumpCombo.LaunchCombo();
     }
 
