@@ -90,7 +90,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         return false;
     }
 
-    private void ParryAttack()
+    public void OnParryPlayerAttack(BossAttack attack)
     {
         m_Animator.SetTrigger("ParryTrigger");
 
@@ -106,14 +106,19 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         m_Callback.OnActivateParry(this);
     }
 
-    public void OnParryPlayerAttack(BossAttack attack)
-    {
-        ParryAttack();
-    }
-
     public void OnBlockPlayerAttack(BossAttack attack)
     {
-        // @todo some animation? could be difficult for all attacks, maybe let attacks handle this...
+        m_Animator.SetTrigger("BlockTrigger");
+
+        if (m_AttackTimer != null)
+            StopCoroutine(m_AttackTimer);
+
+        if (m_CurrentAttack != null)
+        {
+            m_CurrentAttack.CancelAttack();
+        }
+
+        m_Callback.OnActivateParry(this);
     }
 
     public void OnAttackParried(BossAttack attack)

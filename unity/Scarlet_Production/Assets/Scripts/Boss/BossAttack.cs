@@ -59,9 +59,11 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
         if (CheckParry(dmg))
         {
-            Hittable hittable = dmg.gameObject.GetComponent<Hittable>();
+            Hittable hittable = dmg.gameObject.GetComponentInParent<Hittable>();
             if (hittable != null)
+            {
                 hittable.Hit(new BossParryDamage(this));
+            }
 
             m_Callback.OnParryPlayerAttack(this);
             dmg.OnParryDamage();
