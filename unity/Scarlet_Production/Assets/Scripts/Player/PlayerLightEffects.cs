@@ -13,12 +13,20 @@ public class PlayerLightEffects : MonoBehaviour
 
     public float m_MovementSpeedInLight;
     public float m_MovementSpeedInStrongLight;
+
+    private Animator m_Animator;
     private float m_RegularMovementSpeed;
 
     private bool m_InsideStrongLight;
 
+    private void Start()
+    {
+        m_Animator = GetComponent<Animator>();
+    }
+
     public void OnPlayerEnterLight()
     {
+        m_Animator.SetLayerWeight(1, 1);
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
         m_MoveCommand.m_CurrentSpeed = m_MovementSpeedInLight;
 
@@ -27,12 +35,14 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerExitsLight()
     {
+        m_Animator.SetLayerWeight(1, 0);
         m_MoveCommand.m_CurrentSpeed = m_RegularMovementSpeed;
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand, m_SprintCommand);
     }
 
     public void OnPlayerEnterStrongLight(Vector3 retreatDirection)
     {
+        m_Animator.SetLayerWeight(1, 1);
         m_InsideStrongLight = true;
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
         m_MoveCommand.m_CurrentSpeed = m_MovementSpeedInStrongLight;
@@ -42,6 +52,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerExitStrongLight()
     {
+        m_Animator.SetLayerWeight(1, 0);
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand, m_SprintCommand);
         m_PlayerControls.EnableAllCommands();
         m_InsideStrongLight = false;
