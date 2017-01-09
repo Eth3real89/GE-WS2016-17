@@ -8,28 +8,29 @@ public class WarpField : MonoBehaviour
 
     private GameObject m_Player;
     private Transform m_Target;
-    private bool m_Enabled;
+    private DontGoThroughThings m_Blocker;
 
     void Start()
     {
-        m_Enabled = true;
         m_Player = GameObject.FindGameObjectWithTag("Player");
+        m_Blocker = m_Player.GetComponent<DontGoThroughThings>();
         m_Target = transform.GetChild(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player" && m_Enabled)
+        if (other.tag == "Player")
         {
-            m_Player.transform.position = m_Target.position;
+            StartCoroutine(Warp());
         }
     }
-    
+
     IEnumerator Warp()
     {
-        m_Enabled = false;
+        m_Player.SetActive(false);
         m_Player.transform.position = m_Target.position;
+        m_Blocker.ResetPosition();
         yield return new WaitForSeconds(m_WarpDelay);
-        m_Enabled = true;
+        m_Player.SetActive(true);
     }
 }

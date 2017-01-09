@@ -58,4 +58,10 @@ public class DontGoThroughThings : MonoBehaviour
 
         previousPosition = myRigidbody.position;
     }
+
+    // when player position should be changed by script, this has to be bypassed
+    public void ResetPosition()
+    {
+        previousPosition = transform.position;
+    }
 }
