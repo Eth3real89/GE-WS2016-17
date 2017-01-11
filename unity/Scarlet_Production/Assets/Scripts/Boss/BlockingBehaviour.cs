@@ -25,7 +25,7 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
         m_Callback = callback;
 
         m_Active = true;
-        m_BlockCount = 0;
+        m_BlockCount = 1;
 
         m_BlockTimer = StopBlockingAfter();
         StartCoroutine(m_BlockTimer);

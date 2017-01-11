@@ -130,6 +130,7 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
         if (m_DamageTimer != null)
             StopCoroutine(m_DamageTimer);
 
+        SetHitSignalState(false);
     }
 
     public void HandleScarletCollision(Collider other)

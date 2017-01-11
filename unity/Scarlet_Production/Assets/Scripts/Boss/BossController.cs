@@ -19,7 +19,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     protected AttackCombo m_ActiveCombo;
 
-    public BlockingBehaviour m_Blocking;
+    public BlockingBehaviour m_BlockingBehaviour;
+    public int m_MaxBlocksBeforeParry = 3;
     public OnHitBehaviour m_TimeWindowManager;
 
     // Use this for initialization
@@ -63,6 +64,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         m_ActiveCombo = null;
 
         m_BossHittable.RegisterInterject(this);
+        m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
 
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
@@ -88,8 +90,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public virtual void OnActivateBlock(AttackCombo combo)
     {
-        m_Blocking.Activate(this);
-        m_BossHittable.RegisterInterject(m_Blocking);
+        m_BlockingBehaviour.Activate(this);
+        m_BossHittable.RegisterInterject(m_BlockingBehaviour);
     }
 
     public virtual void OnActivateParry(AttackCombo combo)

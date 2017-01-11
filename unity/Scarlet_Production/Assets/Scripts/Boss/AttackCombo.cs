@@ -14,6 +14,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public float m_TimeAfterCombo;
 
+    public BlockingBehaviour m_BlockingBehaviour;
+    public int m_MaxBlocksBeforeParry = 3;
+
     public ComboCallback m_Callback;
     private BossAttack m_CurrentAttack;
     private int m_CurrentAttackIndex;
@@ -22,6 +25,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     private IEnumerator m_AttackTimer;
 
     private IEnumerator m_ParriedTimer;
+
    
 	void Start ()
     {
@@ -36,6 +40,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void LaunchCombo()
     {
+        if (m_BlockingBehaviour != null)
+            m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
+
         m_Callback.OnComboStart(this);
 
         m_CurrentAttackIndex = 0;

@@ -4168,6 +4168,36 @@ Prefab:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
+    - target: {fileID: 114607010596079592, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_MaxBlocksBeforeParry
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BlockingBehaviour
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114088025732758926, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BlockingBehaviour
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114985066830409210, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BlockingBehaviour
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114607010596079592, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BlockingBehaviour
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_MaxBlocksBeforeParry
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -7111,8 +7141,8 @@ GameObject:
   - component: {fileID: 2001003667}
   - component: {fileID: 2001003666}
   - component: {fileID: 2001003671}
-  - component: {fileID: 2001003672}
   - component: {fileID: 2001003673}
+  - component: {fileID: 2001003672}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -7216,6 +7246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7844c604025014f801d58c50a1448b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  darkShader: {fileID: 4800000, guid: 537a72f37feb8ac45822990741d390b0, type: 3}
 --- !u!114 &2001003673
 MonoBehaviour:
   m_ObjectHideFlags: 0
