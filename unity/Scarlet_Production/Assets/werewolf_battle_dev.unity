@@ -2248,7 +2248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StartPhase: 1
+  m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 975992013}
   m_HuntController: {fileID: 2104373139}
   m_Phase2Controller: {fileID: 2104373142}
@@ -4118,6 +4118,56 @@ Prefab:
       propertyPath: m_Combos.Array.data[7]
       value: 
       objectReference: {fileID: 991828048}
+    - target: {fileID: 114985066830409210, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Blocking
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114985066830409210, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeWindowManager
+      value: 
+      objectReference: {fileID: 2104373143}
+    - target: {fileID: 114088025732758926, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Blocking
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114088025732758926, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeWindowManager
+      value: 
+      objectReference: {fileID: 2104373143}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Blocking
+      value: 
+      objectReference: {fileID: 2104373141}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TimeWindowManager
+      value: 
+      objectReference: {fileID: 2104373143}
+    - target: {fileID: 114985066830409210, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BossHittable
+      value: 
+      objectReference: {fileID: 2104373146}
+    - target: {fileID: 114088025732758926, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BossHittable
+      value: 
+      objectReference: {fileID: 2104373146}
+    - target: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BossHittable
+      value: 
+      objectReference: {fileID: 2104373146}
+    - target: {fileID: 82677601441898526, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -5957,6 +6007,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1723363282}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!82 &1725679204 stripped
+AudioSource:
+  m_PrefabParentObject: {fileID: 82677601441898526, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 975992004}
 --- !u!1 &1758494027
 GameObject:
   m_ObjectHideFlags: 0
@@ -7161,7 +7216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7844c604025014f801d58c50a1448b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  darkShader: {fileID: 4800000, guid: 537a72f37feb8ac45822990741d390b0, type: 3}
 --- !u!114 &2001003673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7519,12 +7573,50 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 975992004}
   m_Script: {fileID: 11500000, guid: 7b1ad5268c22a024a87858112223f3b4, type: 3}
+--- !u!114 &2104373141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2104373138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 289482f89b7da9b44b0cf59844f2da06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TimesBlockBeforeParry: 2
+  m_MaxBlockTime: 1.5
+  m_Animator: {fileID: 975992013}
+  m_BlockAudio: {fileID: 1725679204}
 --- !u!114 &2104373142 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114607288428992128, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 975992004}
   m_Script: {fileID: 11500000, guid: 4c51c880f51e72340a88ff341fa87247, type: 3}
+--- !u!114 &2104373143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2104373138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d81d4cffe104244802036d037d2331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TimeWindowsBeforeBlocks:
+  - 0.6
+  - 0.5
+  - 0.4
+  m_Animator: {fileID: 975992013}
+  m_StaggerTime: 1
+--- !u!114 &2104373146 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114975546324574482, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 975992004}
+  m_Script: {fileID: 11500000, guid: 4af2a821db05c2449a5eb72f5d5d203b, type: 3}
 --- !u!1 &2107058984
 GameObject:
   m_ObjectHideFlags: 0
