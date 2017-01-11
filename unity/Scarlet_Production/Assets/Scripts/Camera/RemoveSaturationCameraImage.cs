@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DarkenCameraImage : MonoBehaviour {
+public class RemoveSaturationFromCamera : MonoBehaviour {
 
     public Shader darkShader;
     private Material darkMaterial;

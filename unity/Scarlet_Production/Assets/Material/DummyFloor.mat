@@ -7,8 +7,8 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: DummyFloor
-  m_Shader: {fileID: 9, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _NORMALMAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+  m_Shader: {fileID: 45, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _SPECGLOSSMAP
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -18,7 +18,7 @@ Material:
     - first:
         name: _BumpMap
       second:
-        m_Texture: {fileID: 2800000, guid: 45c91b414e82cbe43918e747350b0968, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
@@ -69,6 +69,12 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - first:
+        name: _SpecGlossMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 5c343ea2517d8c449b0768d3f47d5d9d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
         name: _BumpScale
@@ -84,13 +90,13 @@ Material:
       second: 0
     - first:
         name: _GlossMapScale
-      second: 0.13
+      second: 0
     - first:
         name: _Glossiness
-      second: 0.1
+      second: 0.241
     - first:
         name: _GlossyReflections
-      second: 1
+      second: 0
     - first:
         name: _Metallic
       second: 0
@@ -102,13 +108,13 @@ Material:
       second: 1
     - first:
         name: _Parallax
-      second: 0.02
+      second: 0.005
     - first:
         name: _Shininess
       second: 0.01
     - first:
         name: _SmoothnessTextureChannel
-      second: 1
+      second: 0
     - first:
         name: _SpecularHighlights
       second: 1
@@ -124,10 +130,10 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.6544118, g: 0.004811856, b: 0.004811856, a: 1}
+      second: {r: 0.7705882, g: 1, b: 0.71323526, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
     - first:
         name: _SpecColor
-      second: {r: 0.63235295, g: 0.63235295, b: 0.63235295, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}

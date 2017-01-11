@@ -53,7 +53,7 @@ public class CameraController : MonoBehaviour {
 
     public void Darken(bool darken)
     {
-        DarkenCameraImage dci = GetComponent<DarkenCameraImage>();
+        RemoveSaturationFromCamera dci = GetComponent<RemoveSaturationFromCamera>();
         if (dci != null)
             dci.enabled = darken;
     }
