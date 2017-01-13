@@ -43,6 +43,10 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         {
             PhaseEnd(m_HuntController);
         }
+        else if (m_StartPhase == Phase.RageMode)
+        {
+            PhaseEnd(m_Phase2Controller);
+        }
     }
 	
 	void Update () {

@@ -14,7 +14,8 @@ public class WerewolfRagemodeController : BossController
 
     public TurnTowardsScarlet m_TurnTowardsScarlet;
 
-    public float m_TotalRagemodeTime = 120f;
+    public int m_TotalAttacks = 30;
+    private int m_AttackCount = 0;
     private bool m_CancelAfterComboFinishes = false;
 
     new void Start()
@@ -23,6 +24,8 @@ public class WerewolfRagemodeController : BossController
 
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
+        m_AttackCount = 0;
+
         m_BossHittable.RegisterInterject(this);
 
         m_Callbacks = callbacks;
@@ -35,7 +38,6 @@ public class WerewolfRagemodeController : BossController
         base.RegisterComboCallback();
 
         StartCoroutine(StartAfterDelay());
-        StartCoroutine(RageModeCountdown());
     }
 
     private void EndRageMode()
@@ -51,14 +53,19 @@ public class WerewolfRagemodeController : BossController
         DecideNextCombo(null);
     }
 
-    private IEnumerator RageModeCountdown()
-    {
-        yield return new WaitForSeconds(m_TotalRagemodeTime);
-        m_CancelAfterComboFinishes = true;
-    }
-
     public override void OnComboEnd(AttackCombo combo)
     {
+        IncreaseAttackCount(combo);
+
+        m_ActiveCombo = null;
+
+        MLog.Log(LogType.BattleLog, "On Combo End, Controller");
+
+        if (m_AttackCount >= m_TotalAttacks)
+        {
+            m_CancelAfterComboFinishes = true;
+        }
+
         if (m_CancelAfterComboFinishes)
         {
             EndRageMode();
@@ -73,6 +80,22 @@ public class WerewolfRagemodeController : BossController
     {
         yield return new WaitForSeconds(time);
         combo.LaunchCombo();
+    }
+
+    private void IncreaseAttackCount(AttackCombo combo)
+    {
+        if (combo == m_HitCombo)
+        {
+            m_AttackCount += 2;
+        }
+        else if (combo == m_LeapCombo)
+        {
+            m_AttackCount++;
+        }
+        else if (combo == m_ChaseCombo)
+        {
+            m_AttackCount++;
+        }
     }
 
     private void DecideNextCombo(AttackCombo previous)

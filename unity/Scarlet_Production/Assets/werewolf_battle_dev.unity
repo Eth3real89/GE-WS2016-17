@@ -2249,7 +2249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HowlTime: 4
-  m_StartPhase: 0
+  m_StartPhase: 2
   m_WerewolfAnimator: {fileID: 975992013}
   m_HuntController: {fileID: 2104373139}
   m_Phase2Controller: {fileID: 2104373142}
@@ -3512,6 +3512,11 @@ Prefab:
       propertyPath: m_Combos.Array.size
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Attacks.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4608113132614596, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4
@@ -4234,6 +4239,16 @@ Prefab:
       propertyPath: m_AllowRunWhileTurning
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Attacks.Array.data[1]
+      value: 
+      objectReference: {fileID: 1683424221}
+    - target: {fileID: 114186602986021002, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Attacks.Array.data[2]
+      value: 
+      objectReference: {fileID: 1683424221}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -5992,6 +6007,12 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: c1c185b72a350a84a91e8c80ac056b14, type: 2}
   m_PrefabInternal: {fileID: 1660217650}
+--- !u!114 &1683424221 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114393432002047332, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 975992004}
+  m_Script: {fileID: 11500000, guid: 661f2fd1c201d56428f78b2cbd23b063, type: 3}
 --- !u!1 &1723363282
 GameObject:
   m_ObjectHideFlags: 0

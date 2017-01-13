@@ -38,6 +38,11 @@ public class TurnTowardsScarlet : BossCommand {
         m_Boss.transform.Rotate(new Vector3(0, 1, 0), turnAngle);
     }
 
+    public float DistanceToScarlet()
+    {
+        return Vector3.Distance(m_Boss.transform.position, m_Scarlet.transform.position);
+    }
+
     public float CalculateAngleTowardsScarlet()
     {
         float angle = Mathf.Atan2(

@@ -59,7 +59,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
         m_BossHit.CancelHit();
         m_Damage.m_Active = false;
         m_Attacking = false;
-        m_BossMove.DoMove(0, 0);
+        m_BossMove.StopMoving();
     }
 
     public void OnMeleeHitSuccess()
@@ -70,7 +70,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     public void OnMeleeHitEnd()
     {
         m_Attacking = false;
-        m_BossMove.DoMove(0, 0);
+        m_BossMove.StopMoving();
 
         m_CurrentRepetition++;
         if (m_CurrentRepetition >= m_Repetitions)
@@ -106,7 +106,8 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
     public void OnMeleeDownswingStart()
     {
-        m_BossMove.DoMove(m_Boss.transform.forward.x * m_MovementSpeed, m_Boss.transform.forward.z * m_MovementSpeed);
+        if (m_BossTurn.DistanceToScarlet() >= 1)
+            m_BossMove.DoMove(m_Boss.transform.forward.x * m_MovementSpeed, m_Boss.transform.forward.z * m_MovementSpeed);
     }
 
     public void OnMeleeHalt()

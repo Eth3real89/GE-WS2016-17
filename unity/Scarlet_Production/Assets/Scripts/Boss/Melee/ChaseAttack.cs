@@ -57,7 +57,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         {
             Turn();
 
-            if (m_AllowRunWhileTurning && (m_State == AttackState.Turn || m_State == AttackState.Chase))
+            if (m_AllowRunWhileTurning && m_State != AttackState.Attack)
             {
                 Chase();
             }
