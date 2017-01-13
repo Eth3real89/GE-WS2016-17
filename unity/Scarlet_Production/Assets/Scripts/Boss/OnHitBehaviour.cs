@@ -28,6 +28,9 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
         m_Active = true;
         m_IsStaggered = false;
         m_Callbacks = callbacks;
+
+        m_TimeWindowTimer = QuitAfter(m_TimeWindowsBeforeBlocks[m_CurrentHit]);
+        StartCoroutine(m_TimeWindowTimer);
     }
 
     public bool OnHit(Damage dmg)
@@ -44,22 +47,27 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
         if (m_CurrentHit >= m_TimeWindowsBeforeBlocks.Length)
         {
-            m_IsStaggered = true;
-            m_StaggerTimer = EndStaggerAfterWaiting();
-            StartCoroutine(m_StaggerTimer);
-
-            m_Animator.SetTrigger("StaggerTrigger");
-            m_Callbacks.OnBossStaggered();
+            TriggerStagger();
         }
         else
         {
             m_Callbacks.OnBossTakesDamage();
-            m_TimeWindowTimer = QuitAfter(m_TimeWindowsBeforeBlocks[m_CurrentHit - 1]);
+            m_TimeWindowTimer = QuitAfter(m_TimeWindowsBeforeBlocks[m_CurrentHit]);
             StartCoroutine(m_TimeWindowTimer);
         }
 
         // return false = take damage, so while this _did_ handle the hit, it still needs to return false!
         return false;
+    }
+
+    private void TriggerStagger()
+    {
+        m_IsStaggered = true;
+        m_StaggerTimer = EndStaggerAfterWaiting();
+        StartCoroutine(m_StaggerTimer);
+
+        m_Animator.SetTrigger("StaggerTrigger");
+        m_Callbacks.OnBossStaggered();
     }
 
     public IEnumerator QuitAfter(float time)

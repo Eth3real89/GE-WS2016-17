@@ -2248,6 +2248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_HowlTime: 4
   m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 975992013}
   m_HuntController: {fileID: 2104373139}
@@ -4022,7 +4023,7 @@ Prefab:
     - target: {fileID: 114277282232704426, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
       propertyPath: m_TriggerBlock
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114377355898190512, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
@@ -4197,6 +4198,41 @@ Prefab:
         type: 2}
       propertyPath: m_MaxBlocksBeforeParry
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114948663892731264, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114138719884506348, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114914028840730526, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114693371607293782, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114791217374522206, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114279377889857850, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114193452035759802, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_AllowRunWhileTurning
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
@@ -7616,7 +7652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TimesBlockBeforeParry: 2
-  m_MaxBlockTime: 1.5
+  m_MaxBlockTime: 0.96
   m_Animator: {fileID: 975992013}
   m_BlockAudio: {fileID: 1725679204}
 --- !u!114 &2104373142 stripped
@@ -7639,7 +7675,7 @@ MonoBehaviour:
   m_TimeWindowsBeforeBlocks:
   - 0.6
   - 0.5
-  - 0.4
+  - 0.5
   m_Animator: {fileID: 975992013}
   m_StaggerTime: 1
 --- !u!114 &2104373146 stripped

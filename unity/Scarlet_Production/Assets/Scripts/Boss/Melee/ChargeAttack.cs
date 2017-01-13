@@ -40,7 +40,6 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_State = State.Aim;
         m_StateTimer = StopAimingAfter(m_AimTime);
         StartCoroutine(m_StateTimer);
-        m_Callback.OnAttackStart(this);
 
         m_RunSpeedBefore = m_MoveCommand.m_Speed;
         m_MoveCommand.m_Speed = m_ChargeSpeed;

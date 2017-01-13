@@ -40,6 +40,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void LaunchCombo()
     {
+        MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
+
         if (m_BlockingBehaviour != null)
             m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
 
@@ -51,6 +53,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void OnAttackStart(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Attack Start, Combo, " + this);
+
         if (m_CurrentAttack != null)
             attack.CancelAttack();
         else
@@ -62,6 +66,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void OnAttackEnd(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Attack End, Combo, " + this);
+
         m_BetweenAttacks = true;
         m_CurrentAttack = null;
 
@@ -88,13 +94,11 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         OnAttackEnd(attack);
     }
 
-    public bool OnHit(Damage dmg)
-    { 
-        return false;
-    }
-
     public void OnBlockPlayerAttack(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Blocked Player Attack, Combo, " + this);
+
+
         m_Animator.SetTrigger("BlockTrigger");
 
         if (m_AttackTimer != null)
@@ -110,6 +114,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void OnAttackParried(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Attack was Parried, Combo, " + this);
+
         if (!m_BetweenAttacks && m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
@@ -121,6 +127,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void OnAttackRiposted(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Attack was Riposted, Combo, " + this);
+
         if (m_ParriedTimer != null)
             StopCoroutine(m_ParriedTimer);
 
@@ -134,6 +142,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void CancelCombo()
     {
+        MLog.Log(LogType.BattleLog, 1, "Cancelling Combo, Combo, " + this);
+
         if (m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
@@ -151,6 +161,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void OnAttackInterrupted(BossAttack attack)
     {
+        MLog.Log(LogType.BattleLog, 1, "Attack was Interrupted, Combo, " + this);
+
         m_Callback.OnInterruptCombo(this);
     }
 

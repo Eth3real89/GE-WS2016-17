@@ -45,8 +45,6 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_StateTimer = Aim();
         StartCoroutine(m_StateTimer);
 
-        m_Callback.OnAttackStart(this);
-
         m_CollisionHandler = new DefaultCollisionHandler(m_LungeTrigger);
     }
 

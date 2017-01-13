@@ -51,11 +51,16 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
         if (m_BlockAudio != null)
             m_BlockAudio.Play();
 
+        if (m_BlockTimer != null)
+            StopCoroutine(m_BlockTimer);
+
         if (m_BlockCount > m_TimesBlockBeforeParry)
         {
             m_Animator.SetTrigger("ParryTrigger");
             m_Callback.OnBossParries();
             dmg.OnParryDamage();
+
+            return true;
         }
         else
         {
@@ -63,8 +68,6 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
             dmg.OnBlockDamage();
         }
 
-        if (m_BlockTimer != null)
-            StopCoroutine(m_BlockTimer);
 
         m_BlockTimer = StopBlockingAfter();
         StartCoroutine(m_BlockTimer);

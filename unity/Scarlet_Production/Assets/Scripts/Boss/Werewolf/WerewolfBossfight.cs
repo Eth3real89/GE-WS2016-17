@@ -6,6 +6,8 @@ using UnityEngine;
 public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
 
     public enum Phase {Hunt, Combat, RageMode, Finish};
+
+    public float m_HowlTime = 4f;
     public Phase m_StartPhase;
 
     private Phase m_CurrentPhase;
@@ -78,7 +80,7 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         m_WerewolfAnimator.SetTrigger("HowlTrigger");
 
         m_PlayerControls.DisableAllCommands();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(m_HowlTime);
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");

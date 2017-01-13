@@ -21,6 +21,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     public float m_MaxTurnAngleTurnState = 180f;
     public bool m_AllowTurnWhileAttacking = false;
 
+    public bool m_AllowRunWhileTurning = false;
+
     private enum AttackState {None, Chase, Turn, Attack};
     private AttackState m_State = AttackState.None;
 
@@ -43,8 +45,6 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
-
-        m_Callback.OnAttackStart(this);
     }
 
     void Update ()
@@ -56,6 +56,11 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         else if (m_State == AttackState.Turn)
         {
             Turn();
+
+            if (m_AllowRunWhileTurning && (m_State == AttackState.Turn || m_State == AttackState.Chase))
+            {
+                Chase();
+            }
         }
         else if (m_State == AttackState.Attack && m_AllowTurnWhileAttacking)
         {
@@ -77,7 +82,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
         else
         {
             m_State = AttackState.Turn;
-            m_BossMove.StopMoving();
+            if (!m_AllowRunWhileTurning)    
+                m_BossMove.StopMoving();
             m_BossTurn.m_TurnSpeed = m_MaxTurnAngleTurnState;
         }
 

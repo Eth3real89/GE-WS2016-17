@@ -53,6 +53,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public virtual void OnComboStart(AttackCombo combo)
     {
+        MLog.Log(LogType.BattleLog, "On Combo Start, Controller");
+
         if (m_ActiveCombo != null)
             combo.CancelCombo();
         else
@@ -61,6 +63,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public virtual void OnComboEnd(AttackCombo combo)
     {
+        MLog.Log(LogType.BattleLog, "On Combo End, Controller");
+
         m_ActiveCombo = null;
 
         m_BossHittable.RegisterInterject(this);
@@ -90,14 +94,13 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public virtual void OnActivateBlock(AttackCombo combo)
     {
+        MLog.Log(LogType.BattleLog, "On Activate Block, Controller");
+
+        if (m_ActiveCombo != null)
+            m_ActiveCombo.CancelCombo();
+
         m_BlockingBehaviour.Activate(this);
         m_BossHittable.RegisterInterject(m_BlockingBehaviour);
-    }
-
-    public virtual void OnActivateParry(AttackCombo combo)
-    {
-        // @todo maybe wait a little longer or do something special?
-        OnComboEnd(combo);
     }
 
     public virtual void OnInterruptCombo(AttackCombo combo)
@@ -115,16 +118,21 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public void OnBossParries()
     {
+        MLog.Log(LogType.BattleLog, "On Boss Parries, Controller");
         StartNextCombo();
     }
 
     public void OnBlockingOver()
     {
+        MLog.Log(LogType.BattleLog, "On Blocking Over, Controller");
+
         StartNextCombo();
     }
 
     public bool OnHit(Damage dmg)
     {
+        MLog.Log(LogType.BattleLog, "On Hit, Controller");
+
         if (m_TimeWindowManager != null)
         {
             m_TimeWindowManager.Activate(this);
@@ -148,11 +156,15 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public void OnTimeWindowClosed()
     {
+        MLog.Log(LogType.BattleLog, "On Time Window Was Closed, Controller");
+
         StartNextCombo();
     }
 
     public void OnBossStaggerOver()
     {
+        MLog.Log(LogType.BattleLog, "On Boss Stagger Over, Controller");
+
         StartNextCombo();
     }
 }

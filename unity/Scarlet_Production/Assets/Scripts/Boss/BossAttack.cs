@@ -26,26 +26,22 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
     public Hittable m_BossHittable;
 
     public AttackCallback m_Callback;
-    
-	void Start ()
-    {
-		
-	}
-	
-	void Update ()
-    {
-		
-	}
 
     public abstract void CancelAttack();
 
     public virtual void StartAttack()
     {
+        MLog.Log(LogType.BattleLog, 2, "Starting Attack, Attack, " + this);
+
         m_BossHittable.RegisterInterject(this);
+        m_Callback.OnAttackStart(this);
     }
 
     public virtual bool OnHit(Damage dmg)
     {
+        MLog.Log(LogType.BattleLog, 2, "On Hit, Attack, " + this);
+
+
         if (dmg.m_Type == Damage.DamageType.Riposte)
         {
             m_Callback.OnAttackRiposted(this);
