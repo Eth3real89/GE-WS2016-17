@@ -23,6 +23,8 @@ public class WerewolfRagemodeController : BossController
 
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
+        m_BossHittable.RegisterInterject(this);
+
         m_Callbacks = callbacks;
 
         m_Combos = new AttackCombo[3];

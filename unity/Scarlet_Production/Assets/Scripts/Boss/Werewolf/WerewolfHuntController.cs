@@ -70,6 +70,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
 
     public void StartHuntPhase(BossfightCallbacks callbacks)
     {
+        m_BossHittable.RegisterInterject(this);
+
         m_Callbacks = callbacks;
         m_Active = true;
 
@@ -161,6 +163,13 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         float time = m_MinHuntTime + Random.value * (m_MaxHuntTime - m_MinHuntTime);
         m_HuntTimer = EndHuntAfter(time);
         StartCoroutine(m_HuntTimer);
+    }
+
+    // doesn't matter at all (JumpAttack will always take care of that)
+    public new bool OnHit(Damage dmg)
+    {
+        dmg.OnBlockDamage();
+        return true;
     }
 
 }

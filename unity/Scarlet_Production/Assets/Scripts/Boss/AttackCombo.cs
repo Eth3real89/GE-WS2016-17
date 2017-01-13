@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterject {
+public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public GameObject m_Boss;
     public Animator m_Animator;
@@ -14,6 +14,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public float m_TimeAfterCombo;
 
+    public BlockingBehaviour m_BlockingBehaviour;
+    public int m_MaxBlocksBeforeParry = 3;
+
     public ComboCallback m_Callback;
     private BossAttack m_CurrentAttack;
     private int m_CurrentAttackIndex;
@@ -22,6 +25,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
     private IEnumerator m_AttackTimer;
 
     private IEnumerator m_ParriedTimer;
+
    
 	void Start ()
     {
@@ -36,10 +40,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void LaunchCombo()
     {
+        if (m_BlockingBehaviour != null)
+            m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
+
         m_Callback.OnComboStart(this);
 
         m_CurrentAttackIndex = 0;
-        m_BossHittable.RegisterInterject(this);
         m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
@@ -58,7 +64,6 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
     {
         m_BetweenAttacks = true;
         m_CurrentAttack = null;
-        m_BossHittable.RegisterInterject(this);
 
         m_CurrentAttackIndex++;
         if (m_CurrentAttackIndex >= m_Attacks.Length)
@@ -80,30 +85,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
 
     public void OnAttackEndUnsuccessfully(BossAttack attack)
     {
-        // @todo might do something more sophisticated such as switch to a different attack?
-        // (tbd when there is more than one kind of attack ;) )
         OnAttackEnd(attack);
     }
 
     public bool OnHit(Damage dmg)
     { 
         return false;
-    }
-
-    public void OnParryPlayerAttack(BossAttack attack)
-    {
-        m_Animator.SetTrigger("ParryTrigger");
-
-        if (m_AttackTimer != null)
-            StopCoroutine(m_AttackTimer);
-
-        if (m_CurrentAttack != null)
-        {
-            m_CurrentAttack.CancelAttack();
-        }
-        m_BossHittable.RegisterInterject(this);
-
-        m_Callback.OnActivateParry(this);
     }
 
     public void OnBlockPlayerAttack(BossAttack attack)
@@ -118,7 +105,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
             m_CurrentAttack.CancelAttack();
         }
 
-        m_Callback.OnActivateParry(this);
+        m_Callback.OnActivateBlock(this);
     }
 
     public void OnAttackParried(BossAttack attack)
@@ -137,9 +124,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         if (m_ParriedTimer != null)
             StopCoroutine(m_ParriedTimer);
 
-        m_BossHittable.RegisterInterject(this);
-
         m_BossStagger.DoStagger("RipostedTrigger");
+        m_BossHittable.RegisterInterject(null);
 
         // @todo make method WaitAfterRiposted
         m_ParriedTimer = WaitAfterParried();
@@ -159,14 +145,13 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
     private IEnumerator WaitAfterParried()
     {
         yield return new WaitForSeconds(1f);
-        m_BossHittable.RegisterInterject(this);
 
         m_Callback.OnInterruptCombo(this);
     }
 
     public void OnAttackInterrupted(BossAttack attack)
     {
-        OnAttackParried(attack);
+        m_Callback.OnInterruptCombo(this);
     }
 
     public interface ComboCallback
@@ -174,7 +159,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback, HitInterjec
         void OnComboStart(AttackCombo combo);
         void OnComboEnd(AttackCombo combo);
 
-        void OnActivateParry(AttackCombo combo);
+        void OnActivateBlock(AttackCombo combo);
         void OnInterruptCombo(AttackCombo combo);
     }
 

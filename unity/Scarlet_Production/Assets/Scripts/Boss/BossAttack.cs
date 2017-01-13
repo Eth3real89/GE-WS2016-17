@@ -9,19 +9,15 @@ using UnityEngine;
 /// </summary>
 public abstract class BossAttack : MonoBehaviour, HitInterject {
 
-    public static AudioClip m_ParryAudio;
     public static AudioClip m_BlockAudio;
     public static AudioSource m_ParryBlockAudioSource;
 
-    public enum PlayerAttackType { None, AnyHit, AfterBlock, SpecialHit };
+    public enum PlayerAttackType { None, AnyHit, SpecialHit };
 
     public PlayerAttackType m_TriggerInterrupt = PlayerAttackType.SpecialHit;
-    public PlayerAttackType m_TriggerParry = PlayerAttackType.None;
     public PlayerAttackType m_TriggerBlock = PlayerAttackType.None;
 
     public float m_DamageOnParry = 15f;
-
-    private bool m_LastHitWasBlocked = false;
 
     public float m_TimeAfterAttack;
 
@@ -46,7 +42,6 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
     public virtual void StartAttack()
     {
         m_BossHittable.RegisterInterject(this);
-        m_LastHitWasBlocked = false;
     }
 
     public virtual bool OnHit(Damage dmg)
@@ -56,24 +51,8 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             m_Callback.OnAttackRiposted(this);
             return false;
         }
-
-        if (CheckParry(dmg))
-        {
-            Hittable hittable = dmg.gameObject.GetComponentInParent<Hittable>();
-            if (hittable != null)
-            {
-                hittable.Hit(new BossParryDamage(this));
-            }
-
-            m_Callback.OnParryPlayerAttack(this);
-            dmg.OnParryDamage();
-            PlaySound(m_ParryAudio);
-
-            return true;
-        }
         if (CheckBlock(dmg))
         {
-            m_LastHitWasBlocked = true;
             dmg.OnBlockDamage();
 
             m_Callback.OnBlockPlayerAttack(this);
@@ -87,7 +66,6 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             return false;
         }
 
-        m_LastHitWasBlocked = false;
         return false;
     }
 
@@ -110,17 +88,12 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
         return CheckIfAttackTypeApplies(dmg, m_TriggerBlock);
     }
 
-    private bool CheckParry(Damage dmg)
-    {
-        return CheckIfAttackTypeApplies(dmg, m_TriggerParry);
-    }
 
     private bool CheckIfAttackTypeApplies(Damage dmg, PlayerAttackType type)
     {
         if (dmg.m_Type == Damage.DamageType.Riposte) return false;
 
         if (type == PlayerAttackType.None) return false;
-        else if (type == PlayerAttackType.AfterBlock && m_LastHitWasBlocked) return true;
         else if (type == PlayerAttackType.SpecialHit && dmg.m_Type == Damage.DamageType.Special) return true;
         else if (type == PlayerAttackType.AnyHit) return true;
 
@@ -140,33 +113,11 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
         void OnAttackInterrupted(BossAttack attack);
 
-        void OnParryPlayerAttack(BossAttack attack);
-
         void OnBlockPlayerAttack(BossAttack attack);
 
         void OnAttackParried(BossAttack attack);
 
         void OnAttackRiposted(BossAttack attack);
-    }
-
-    private class BossParryDamage : Damage
-    {
-        private BossAttack m_Attack;
-
-        public BossParryDamage(BossAttack attack)
-        {
-            this.m_Attack = attack;
-        }
-
-        public override BlockableType Blockable()
-        {
-            return BlockableType.None;
-        }
-
-        public override float DamageAmount()
-        {
-            return m_Attack.m_DamageOnParry;
-        }
     }
 
 }

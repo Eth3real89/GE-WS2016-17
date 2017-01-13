@@ -34,6 +34,8 @@ public class WerewolfPhase2Controller : BossController {
         m_Callbacks = callbacks;
         m_Active = true;
 
+        m_BossHittable.RegisterInterject(this);
+
         RegisterComboCallback();
 
         m_CurrentComboIndex = 0;

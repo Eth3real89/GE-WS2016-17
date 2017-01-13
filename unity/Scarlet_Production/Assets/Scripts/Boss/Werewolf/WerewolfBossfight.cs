@@ -51,7 +51,6 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
     {
         if (whichPhase == m_HuntController)
         {
-            CameraController.Instance.Darken(false);
             SetStreetLightsEnabled(false);
             m_HuntController.enabled = false;
 
@@ -59,7 +58,6 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         }
         else if (whichPhase == m_Phase2Controller)
         {
-            CameraController.Instance.Darken(true);
             SetStreetLightsEnabled(true);
             if (m_Scarlet != null)
                 m_Scarlet.transform.position = new Vector3(0, m_Scarlet.transform.position.y, 0); // @todo better
@@ -69,7 +67,6 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         }
         else if (whichPhase == m_RagemodeController)
         {
-            CameraController.Instance.Darken(false);
             m_RagemodeController.enabled = false;
 
             print("FIGHT OVER (not really, still need to kill the wolf, but mostly...)");
