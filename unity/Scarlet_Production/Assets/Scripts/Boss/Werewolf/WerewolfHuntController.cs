@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WerewolfHuntController : BossController, AttackCombo.ComboCallback {
@@ -20,6 +19,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
 
     public float m_MinHuntTime = 5f;
     public float m_MaxHuntTime = 9f;
+    private bool m_JumpSoon;
 
     public CharacterHealth m_BossHealth;
 
@@ -74,6 +74,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
 
         m_Callbacks = callbacks;
         m_Active = true;
+        m_JumpSoon = false;
 
         m_RiposteDmgAmountBefore = m_PlayerAttackCommand.m_RiposteDamage;
         m_AttackDmgAmountBefore = m_PlayerAttackCommand.m_RegularHitDamage;
@@ -93,15 +94,21 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     private IEnumerator EndHuntAfter(float time)
     {
         yield return new WaitForSeconds(time);
-        m_Hunting = false;
-        m_JumpCombo.m_Callback = this;
+        m_JumpSoon = true;
 
-        m_BossMove.StopMoving();
-        m_JumpCombo.LaunchCombo();
     }
 
     private void HuntPhaseRoutine()
     {
+        if (m_JumpSoon)
+        {
+            if (CheckJump())
+            {
+                LungeOut();
+                return;
+            }
+        }
+
         float distanceToCenter = Vector3.Distance(transform.position, m_HuntCenter.position);
 
         if (distanceToCenter >= 1.1 * m_HuntDistance || distanceToCenter <= 0.9 * m_HuntDistance)
@@ -112,6 +119,22 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         {
             RunInCircle(distanceToCenter);
         }
+    }
+
+    private bool CheckJump()
+    {
+        float turnAngle = this.transform.rotation.eulerAngles.y;
+        return (Mathf.Abs(((int) turnAngle) % 90) <= 4);
+    }
+
+    private void LungeOut()
+    {
+        m_JumpSoon = false;
+        m_Hunting = false;
+        m_JumpCombo.m_Callback = this;
+
+        m_BossMove.StopMoving();
+        m_JumpCombo.LaunchCombo();
     }
 
     private void ReachHuntDistance(float distanceToCenter)
@@ -153,6 +176,14 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
 
     public new void OnComboEnd(AttackCombo combo)
     {
+        StartCoroutine(WaitToStandUp());
+
+//        LaunchSingleHuntIteration();
+    }
+
+    private IEnumerator WaitToStandUp()
+    {
+        yield return new WaitForSeconds(0.5f);
         LaunchSingleHuntIteration();
     }
 

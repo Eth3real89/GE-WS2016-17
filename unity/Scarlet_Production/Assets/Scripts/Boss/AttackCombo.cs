@@ -134,7 +134,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public void CancelCombo()
     {
-        if (!m_BetweenAttacks && m_CurrentAttack != null)
+        if (m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
         }
