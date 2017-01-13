@@ -33,7 +33,7 @@ public class ObjectCuller : MonoBehaviour
 
     void Update()
     {
-        m_CurrentHits = m_CollidingObjects;
+        m_CurrentHits.AddRange(m_CollidingObjects);
         RaycastHit[] hits;
         Vector3 dir = m_Scarlet.transform.position - m_Camera.transform.position;
         Ray ray = new Ray(m_Camera.transform.position, dir);
