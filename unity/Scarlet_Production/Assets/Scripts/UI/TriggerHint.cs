@@ -9,7 +9,7 @@ public class TriggerHint : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(1.0f, 0.8f));
         }
@@ -17,7 +17,7 @@ public class TriggerHint : MonoBehaviour {
 
     void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(0.0f, 0.8f));
         }

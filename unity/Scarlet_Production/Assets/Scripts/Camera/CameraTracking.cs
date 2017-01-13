@@ -11,7 +11,7 @@ public class CameraTracking : MonoBehaviour
     {
         Vector3 pos = m_TrackingBehaviour.CalculateCameraPosition();
         Quaternion rot = m_TrackingBehaviour.CalculateCameraRotation();
-        transform.position = Vector3.Lerp(transform.position, pos, .05f);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, .05f);
+        transform.position = Vector3.Lerp(transform.position, pos, m_TrackingBehaviour.m_LerpSpeed);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, m_TrackingBehaviour.m_LerpSpeed);
     }
 }
