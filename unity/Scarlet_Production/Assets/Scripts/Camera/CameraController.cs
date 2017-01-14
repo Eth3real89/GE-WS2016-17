@@ -58,4 +58,11 @@ public class CameraController : MonoBehaviour {
             dci.enabled = darken;
     }
     
+    public void Shake()
+    {
+        CameraShake shake = GetComponent<CameraShake>();
+        if (shake != null)
+            shake.ShakeCamera(0.5f, 0.15f);
+    }
+
 }

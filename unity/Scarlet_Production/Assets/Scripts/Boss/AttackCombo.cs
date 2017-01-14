@@ -7,8 +7,11 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public GameObject m_Boss;
     public Animator m_Animator;
+    public TurnTowardsScarlet m_FullTurnCommand;
     public WerewolfHittable m_BossHittable;
     public BossStaggerCommand m_BossStagger;
+
+    public BossMoveCommand m_MoveCommand;
 
     public BossAttack[] m_Attacks;
 
@@ -35,6 +38,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
             attack.m_Animator = m_Animator;
             attack.m_Callback = this;
             attack.m_BossHittable = m_BossHittable;
+            attack.m_FullTurnCommand = m_FullTurnCommand;
         }
 	}
 
@@ -98,8 +102,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Blocked Player Attack, Combo, " + this);
 
-
         m_Animator.SetTrigger("BlockTrigger");
+        if (m_MoveCommand != null)
+            m_MoveCommand.StopMoving();
 
         if (m_AttackTimer != null)
             StopCoroutine(m_AttackTimer);

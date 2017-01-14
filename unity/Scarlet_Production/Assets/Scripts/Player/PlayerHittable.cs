@@ -20,6 +20,8 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
             if (m_OnHitAudio != null)
                 m_OnHitAudio.Play();
+
+            CameraController.Instance.Shake();
         }
     }
 

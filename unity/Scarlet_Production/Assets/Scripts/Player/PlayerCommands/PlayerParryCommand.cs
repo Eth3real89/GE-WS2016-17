@@ -88,7 +88,6 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     public bool OnHit(Damage dmg)
     {
-
         if (dmg.Blockable() == Damage.BlockableType.None)
             return false;
 
@@ -114,6 +113,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     private bool Block(Damage dmg)
     {
+        CameraController.Instance.Shake();
+
         if (m_ParryCallback != null)
             m_ParryCallback.OnBlock();
 
@@ -128,6 +129,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     private bool PerfectParry(Damage dmg)
     {
+        CameraController.Instance.Shake();
+
         CancelDelay();
         m_Callback.OnCommandEnd(m_CommandName, this);
 
@@ -151,6 +154,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
 
     private bool FailedParry(Damage dmg)
     {
+        CameraController.Instance.Shake();
+
         if (m_ParryCallback != null)
             m_ParryCallback.OnParryFail();
 

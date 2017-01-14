@@ -19,6 +19,8 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
 
     public AudioSource m_BlockAudio;
 
+    public TurnTowardsScarlet m_TurnCommand;
+
     public void Activate(BossBlockCallback callback)
     {
         // @todo block stance
@@ -45,6 +47,10 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
     {
         if (!m_Active)
             return false;
+
+        if (m_TurnCommand != null)
+            m_TurnCommand.DoTurn();
+        CameraController.Instance.Shake();
 
         m_BlockCount++;
 

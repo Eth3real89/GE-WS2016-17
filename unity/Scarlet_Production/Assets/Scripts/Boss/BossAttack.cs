@@ -23,6 +23,7 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
     public Animator m_Animator;
     public GameObject m_Boss;
+    public TurnTowardsScarlet m_FullTurnCommand;
     public Hittable m_BossHittable;
 
     public AttackCallback m_Callback;
@@ -41,6 +42,9 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
     {
         MLog.Log(LogType.BattleLog, 2, "On Hit, Attack, " + this);
 
+        if (m_FullTurnCommand != null)
+            m_FullTurnCommand.DoTurn();
+        CameraController.Instance.Shake();
 
         if (dmg.m_Type == Damage.DamageType.Riposte)
         {

@@ -142,6 +142,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
+        CameraController.Instance.Shake();
+
         return false;
     }
 

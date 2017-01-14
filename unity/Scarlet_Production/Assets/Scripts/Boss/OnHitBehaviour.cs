@@ -21,6 +21,8 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
     private bool m_IsStaggered;
 
+    public TurnTowardsScarlet m_TurnCommand;
+
     public void Activate(BossHitCallbacks callbacks)
     {
         m_Animator.SetTrigger("StunTrigger");
@@ -39,7 +41,9 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
         if (!m_Active || m_IsStaggered)
             return false;
 
-        // @todo: on hit animation
+        if (m_TurnCommand != null)
+            m_TurnCommand.DoTurn();
+        CameraController.Instance.Shake();
 
         if (m_TimeWindowTimer != null)
             StopCoroutine(m_TimeWindowTimer);
