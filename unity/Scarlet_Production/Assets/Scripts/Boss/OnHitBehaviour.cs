@@ -23,6 +23,7 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
     public void Activate(BossHitCallbacks callbacks)
     {
+        m_Animator.SetTrigger("StunTrigger");
         m_CurrentHit = 0;
 
         m_Active = true;
@@ -51,6 +52,7 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
         }
         else
         {
+            m_Animator.SetTrigger("StunTrigger");
             m_Callbacks.OnBossTakesDamage();
             m_TimeWindowTimer = QuitAfter(m_TimeWindowsBeforeBlocks[m_CurrentHit]);
             StartCoroutine(m_TimeWindowTimer);
