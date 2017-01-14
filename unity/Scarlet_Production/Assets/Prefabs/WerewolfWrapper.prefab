@@ -19291,6 +19291,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114139256987896248}
   m_AllowTurnWhileAttacking: 1
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 40
 --- !u!114 &114103425716703920
@@ -19349,6 +19350,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114107830221688878
@@ -19406,6 +19408,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114121302234765288
@@ -19439,6 +19442,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114693371607293782}
   - {fileID: 114567635188264706}
@@ -19473,7 +19477,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
 --- !u!114 &114139256987896248
@@ -19507,6 +19511,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114321522944543970}
   m_TimeAfterCombo: 1
@@ -19567,6 +19572,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114026543923882718}
+  m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114393432002047332}
   m_TimeAfterCombo: 1
@@ -19600,7 +19606,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
 --- !u!114 &114217175205514184
@@ -19619,6 +19625,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114085457215741546}
   m_TimeAfterCombo: 0
@@ -19681,7 +19688,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
 --- !u!114 &114297121066627016
@@ -19768,6 +19775,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 1
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114393432002047332
@@ -19828,6 +19836,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114421800819569646
@@ -19905,6 +19914,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 45
 --- !u!114 &114561964665770396
@@ -19951,6 +19961,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114607010596079592
@@ -19969,6 +19980,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114948663892731264}
   m_TimeAfterCombo: 1.5
@@ -20029,6 +20041,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114138719884506348}
   - {fileID: 114110285375122400}
@@ -20063,7 +20076,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
 --- !u!114 &114700286909059066
@@ -20082,6 +20095,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114791217374522206}
   - {fileID: 114934316636430100}
@@ -20196,7 +20210,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
 --- !u!114 &114817372958446622
@@ -20215,6 +20229,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114103425716703920}
   m_TimeAfterCombo: 1
@@ -20247,6 +20262,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 45
 --- !u!114 &114842664496121148
@@ -20265,6 +20281,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114279377889857850}
   - {fileID: 114892299802096208}
@@ -20332,6 +20349,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114914028840730526
@@ -20362,7 +20380,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 45
   m_AttackAnimation: 2
 --- !u!114 &114917235165953254
@@ -20394,6 +20412,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114277282232704426}
   - {fileID: 114377355898190512}
@@ -20427,6 +20446,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 45
 --- !u!114 &114934020183785984
@@ -20445,6 +20465,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114914028840730526}
   - {fileID: 114835218856587022}
@@ -20478,6 +20499,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 30
 --- !u!114 &114948663892731264
@@ -20508,7 +20530,7 @@ MonoBehaviour:
   m_MaxTurnAngleChaseState: 90
   m_MaxTurnAngleTurnState: 140
   m_AllowTurnWhileAttacking: 0
-  m_AllowRunWhileTurning: 1
+  m_AllowRunWhileTurning: 0
   m_DamageAmount: 45
   m_AttackAnimation: 2
 --- !u!114 &114950054383899724
@@ -20584,6 +20606,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 114121302234765288}
   m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
+  m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114193452035759802}
   - {fileID: 114103438683500270}
@@ -20619,6 +20642,7 @@ MonoBehaviour:
   m_Damage: {fileID: 114858976643972576}
   m_BossTurn: {fileID: 114736205853766716}
   m_AllowTurnWhileAttacking: 0
+  m_TurnBeforeEachAttack: 1
   m_TimeBetweenHits: 0.1
   m_DamageAmount: 45
 --- !u!135 &135263763160691442

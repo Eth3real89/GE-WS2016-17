@@ -90,7 +90,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     private IEnumerator StartNextAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
-        m_Attacks[m_CurrentAttackIndex].StartAttack();
+
+        if (m_CurrentAttackIndex < m_Attacks.Length)
+            m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
     public void OnAttackEndUnsuccessfully(BossAttack attack)

@@ -20,6 +20,9 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
     public TurnTowardsScarlet m_BossTurn;
     public bool m_AllowTurnWhileAttacking = false;
+    public bool m_TurnBeforeEachAttack = true;
+    private float m_TurnSpeedBeforeAttack = 360;
+    private float m_PreviousTurnSpeed;
 
     private IEnumerator m_BetweenHitsTimer;
     public float m_TimeBetweenHits = 0.5f;
@@ -39,6 +42,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     public override void StartAttack()
     {
         base.StartAttack();
+        HandleTurnBeforeAttack();
 
         m_CurrentRepetition = 0;
         m_BossHit.DoHit(this, this, m_HitAnimationIndices[m_CurrentRepetition % m_HitAnimationIndices.Length]);
@@ -49,6 +53,31 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
         m_Attacking = false;
         m_Damage.m_CollisionHandler = new DefaultCollisionHandler(m_Damage);
+    }
+
+    private void HandleTurnBeforeAttack()
+    {
+        if (m_TurnBeforeEachAttack)
+        {
+            StartCoroutine(TurnBeforeAttackParallel());
+        }
+    }
+
+    private IEnumerator TurnBeforeAttackParallel()
+    {
+        m_PreviousTurnSpeed = m_BossTurn.m_TurnSpeed;
+        m_BossTurn.m_TurnSpeed = m_TurnSpeedBeforeAttack;
+
+        float time = 0;
+        while (time < 0.1)
+        {
+            m_BossTurn.DoTurn();
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        m_BossTurn.m_TurnSpeed = m_PreviousTurnSpeed;
     }
 
     public override void CancelAttack()
@@ -89,6 +118,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
         yield return new WaitForSeconds(time);
 
         m_BossHit.DoHit(this, this, m_CurrentRepetition % 2);
+        HandleTurnBeforeAttack();
     }
 
     public void OnParryDamage()
