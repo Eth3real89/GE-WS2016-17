@@ -29,6 +29,11 @@ public class DefaultCollisionHandler : DamageCollisionHandler
         this.m_Damage.m_Callback = callback;
     }
 
+    public void SetDamageBlockable(Damage.BlockableType blockableType)
+    {
+        this.m_Damage.m_BlockType = blockableType;
+    }
+
     public void HandleScarletCollision(Collider other)
     {
         if (!m_Damage.m_Active)
