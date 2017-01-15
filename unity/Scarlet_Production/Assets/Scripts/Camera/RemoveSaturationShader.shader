@@ -100,11 +100,30 @@
 				float3 colVals = float3(col.r, col.g, col.b);
 				float3 hsv = rgb_to_hsv_no_clip(colVals);
 
-				float dampenBy = hsv.x <= 0.5 ? 1 - hsv.x : hsv.x;
+				float howRed = hsv.x >= 0.5 ? 1 - hsv.x : hsv.x;
+				
+				// if not very red
+				/*if (hsv.x >= 0.15 && hsv.x <= 0.85)
+				{
+					float addVal;
+					float weight = 1 - abs(0.5 - hsv.y);
 
-				dampenBy = pow(dampenBy, 3);
+					if (hsv.y >= 0.5)
+					{
+						addVal = 0.5;
+					}
+					else
+					{
+						if (hsv.x >= 0.5)
+							addVal = 1;
+						else
+							addVal = 0;
+					}
 
-				hsv.y *= dampenBy;
+					hsv.x = weight * hsv.x + (1 - weight) * addVal;
+				} */
+
+				hsv.y *= pow(1 - howRed, 8);
 
 				colVals = hsv_to_rgb(hsv);
 
