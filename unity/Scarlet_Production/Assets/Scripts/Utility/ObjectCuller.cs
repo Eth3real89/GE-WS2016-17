@@ -21,9 +21,10 @@ public class ObjectCuller : MonoBehaviour
         m_CollidingObjects = new List<GameObject>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        m_CollidingObjects.Add(other.transform.gameObject);
+        if (!m_CulledObjects.Contains(other.transform.gameObject))
+            m_CollidingObjects.Add(other.transform.gameObject);
     }
 
     private void OnTriggerExit(Collider other)

@@ -8,11 +8,14 @@ public class StaticTracking : TrackingBehaviour
     public float m_MaxDistance;
     public bool m_FollowPlayer;
 
+    private Transform m_PlayerCameraAnchor;
+
     private GameObject m_Anchor;
 
     new void Start()
     {
         base.Start();
+        m_PlayerCameraAnchor = m_Player.transform.Find("CameraAnchor");
         m_Anchor = transform.GetChild(0).gameObject;
     }
 
@@ -30,6 +33,6 @@ public class StaticTracking : TrackingBehaviour
         if (!m_FollowPlayer)
             return m_Anchor.transform.rotation;
         else
-            return Quaternion.LookRotation(m_Player.position - m_Anchor.transform.position);
+            return Quaternion.LookRotation(m_PlayerCameraAnchor.position - Camera.main.transform.position);
     }
 }
