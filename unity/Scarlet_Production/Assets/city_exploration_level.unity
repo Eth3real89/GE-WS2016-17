@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 957153193}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.13559267, g: 0.14969191, b: 0.16211069, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4181,8 +4181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_LerpSpeed: 0.07
-  m_MaxDistance: 2
   m_FollowPlayer: 1
+  m_MaxDistance: 2
+  m_BackTrackMultiplier: 1
 --- !u!65 &128244140
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13038,8 +13039,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_LerpSpeed: 0.05
-  m_MaxDistance: 0
   m_FollowPlayer: 1
+  m_MaxDistance: 0
+  m_BackTrackMultiplier: 0
 --- !u!65 &375356467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14302,8 +14304,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_LerpSpeed: 0.05
-  m_MaxDistance: 3.5
   m_FollowPlayer: 0
+  m_MaxDistance: 3.5
+  m_BackTrackMultiplier: 0
 --- !u!4 &418727365 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 57ea6b3d3319c424fb9fd794f795d855, type: 2}
@@ -18728,7 +18731,7 @@ Prefab:
     - target: {fileID: 65916769300742658, guid: 971771de608b46a44ba39482fa8a79fe,
         type: 2}
       propertyPath: m_Size.y
-      value: 2.22
+      value: 2.38
       objectReference: {fileID: 0}
     - target: {fileID: 4821174814943362, guid: 971771de608b46a44ba39482fa8a79fe, type: 2}
       propertyPath: m_LocalPosition.z
@@ -18737,6 +18740,16 @@ Prefab:
     - target: {fileID: 4821174814943362, guid: 971771de608b46a44ba39482fa8a79fe, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 65916769300742658, guid: 971771de608b46a44ba39482fa8a79fe,
+        type: 2}
+      propertyPath: m_Size.z
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 65916769300742658, guid: 971771de608b46a44ba39482fa8a79fe,
+        type: 2}
+      propertyPath: m_Center.z
+      value: -0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 971771de608b46a44ba39482fa8a79fe, type: 2}
@@ -71730,8 +71743,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_LerpSpeed: 0.01
-  m_MaxDistance: 0
   m_FollowPlayer: 1
+  m_MaxDistance: 0
+  m_BackTrackMultiplier: 0
 --- !u!65 &2095665028
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -72326,8 +72340,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Player: {fileID: 0}
   m_LerpSpeed: 0.08
-  m_MaxDistance: 0
   m_FollowPlayer: 1
+  m_MaxDistance: 0
+  m_BackTrackMultiplier: 0
 --- !u!65 &2131271464
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class StaticTracking : TrackingBehaviour
 {
-    public float m_MaxDistance;
     public bool m_FollowPlayer;
+    public float m_MaxDistance;
+    public float m_BackTrackMultiplier;
 
     private Transform m_PlayerCameraAnchor;
 
@@ -24,6 +25,10 @@ public class StaticTracking : TrackingBehaviour
         Vector3 cameraPos = m_Anchor.transform.position;
         if (m_MaxDistance != 0 && Math.Abs(cameraPos.z - m_Player.transform.position.z) > m_MaxDistance)
             cameraPos.z = m_Player.transform.position.z - m_MaxDistance;
+        if (m_Player.GetComponent<Rigidbody>().velocity.z < 0)
+        {
+            cameraPos.z -= Math.Abs(m_Player.GetComponent<Rigidbody>().velocity.z * m_BackTrackMultiplier);
+        }
 
         return cameraPos;
     }
