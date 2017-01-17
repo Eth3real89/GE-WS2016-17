@@ -60,7 +60,7 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
             SetStreetLightsEnabled(false);
             m_HuntController.enabled = false;
 
-            StartCoroutine(StartPhase2AfterHowling());
+            StartCoroutine(StartPhase2AfterHowling(2f));
         }
         else if (whichPhase == m_Phase2Controller)
         {
@@ -79,8 +79,9 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         }
     }
 
-    private IEnumerator StartPhase2AfterHowling()
+    private IEnumerator StartPhase2AfterHowling(float initialWaitTime)
     {
+        yield return new WaitForSeconds(initialWaitTime);
         m_WerewolfAnimator.SetTrigger("HowlTrigger");
 
         m_PlayerControls.DisableAllCommands();
