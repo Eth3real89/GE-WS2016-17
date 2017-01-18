@@ -47,6 +47,12 @@ public class EffectController : GenericSingletonClass<EffectController>
         m_CurrentCoroutine = StartCoroutine(FadeBloom(m_DefaultBloomSettings.intensity, m_DefaultBloomSettings.radius, 0.5f));
     }
 
+    public void Empowered()
+    {
+        StopCurrentCoroutine();
+        StartCoroutine(EmpoweredPeak());
+    }
+
     IEnumerator FadeBloom(float intensity, float radius, float time)
     {
         m_LerpTimer.Start(time);
@@ -57,6 +63,26 @@ public class EffectController : GenericSingletonClass<EffectController>
         {
             m_Bloom.settings.intensity = Mathf.Lerp(startIntensity, intensity, m_LerpTimer.GetLerpProgress());
             m_Bloom.settings.radius = Mathf.Lerp(startRadius, radius, m_LerpTimer.GetLerpProgress());
+            yield return null;
+        }
+    }
+
+    IEnumerator EmpoweredPeak()
+    {
+        float maxFlareInt = 40;
+        float defaultFlareInt = m_MoonFlare.brightness;
+        m_LerpTimer.Start(0.25f);
+
+        while (m_MoonFlare.brightness != maxFlareInt)
+        {
+            m_MoonFlare.brightness = Mathf.Lerp(defaultFlareInt, maxFlareInt, m_LerpTimer.GetLerpProgress());
+            yield return null;
+        }
+
+        m_LerpTimer.Start(0.25f);
+        while (m_MoonFlare.brightness != defaultFlareInt)
+        {
+            m_MoonFlare.brightness = Mathf.Lerp(maxFlareInt, defaultFlareInt, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
     }

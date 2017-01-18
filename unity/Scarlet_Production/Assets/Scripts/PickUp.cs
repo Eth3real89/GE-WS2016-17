@@ -27,6 +27,7 @@ public class PickUp : MonoBehaviour
             m_Light.SetActive(false);
             gameObject.SetActive(false);
             m_OnCollectibleVFX.Deactivate();
+            EffectController.Instance.Empowered();
             Destroy(this);
         }
     }
