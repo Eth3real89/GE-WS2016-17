@@ -26,18 +26,30 @@ public class EffectController : GenericSingletonClass<EffectController>
     public void EnterStrongLight()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(FadeBloom(5, 5));
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(5, 5, 0.25f));
     }
 
     public void ExitStrongLight()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(FadeBloom(m_DefaultBloomSettings.intensity, m_DefaultBloomSettings.radius));
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(m_DefaultBloomSettings.intensity, m_DefaultBloomSettings.radius, 0.25f));
     }
 
-    IEnumerator FadeBloom(float intensity, float radius)
+    public void EnterRegularLight()
     {
-        m_LerpTimer.Start(0.25f);
+        StopCurrentCoroutine();
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(2.5f, 3, 0.5f));
+    }
+
+    public void ExitRegularLight()
+    {
+        StopCurrentCoroutine();
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(m_DefaultBloomSettings.intensity, m_DefaultBloomSettings.radius, 0.5f));
+    }
+
+    IEnumerator FadeBloom(float intensity, float radius, float time)
+    {
+        m_LerpTimer.Start(time);
         float startIntensity = m_Bloom.settings.intensity;
         float startRadius = m_Bloom.settings.radius;
 

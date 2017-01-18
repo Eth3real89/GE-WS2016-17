@@ -26,6 +26,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerEnterLight()
     {
+        EffectController.Instance.EnterRegularLight();
         m_Animator.SetLayerWeight(1, 1);
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
         m_MoveCommand.m_CurrentSpeed = m_MovementSpeedInLight;
@@ -35,6 +36,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerExitsLight()
     {
+        EffectController.Instance.ExitRegularLight();
         m_Animator.SetLayerWeight(1, 0);
         m_MoveCommand.m_CurrentSpeed = m_RegularMovementSpeed;
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand, m_SprintCommand);
