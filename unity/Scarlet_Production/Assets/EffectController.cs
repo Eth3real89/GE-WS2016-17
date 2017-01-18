@@ -69,7 +69,7 @@ public class EffectController : GenericSingletonClass<EffectController>
 
     IEnumerator EmpoweredPeak()
     {
-        float maxFlareInt = 40;
+        float maxFlareInt = 25;
         float defaultFlareInt = m_MoonFlare.brightness;
         m_LerpTimer.Start(0.25f);
 
@@ -78,7 +78,7 @@ public class EffectController : GenericSingletonClass<EffectController>
             m_MoonFlare.brightness = Mathf.Lerp(defaultFlareInt, maxFlareInt, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
-
+        yield return new WaitForSeconds(0.25f);
         m_LerpTimer.Start(0.25f);
         while (m_MoonFlare.brightness != defaultFlareInt)
         {
