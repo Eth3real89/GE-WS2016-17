@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class FixedPlaceSetupVisuals : MonoBehaviour {
+public class FixedPlaceSetupVisuals : MonoBehaviour
+{
 
     protected SetupCallback m_Callback;
 

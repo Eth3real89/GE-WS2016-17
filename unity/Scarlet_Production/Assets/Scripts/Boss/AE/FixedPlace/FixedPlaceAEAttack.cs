@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback {
+public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
+{
 
     public AEAttackDamage m_AEDamage;
 
