@@ -26,15 +26,15 @@ public class CircularSetupVisuals : FixedPlaceSetupVisuals {
 
         this.m_Canvas.transform.rotation = Quaternion.Euler(90, this.transform.eulerAngles.y - m_Angle / 2, 0);
 
-        StartCoroutine(HideAfter(m_TimeShown));
+        StartCoroutine(StopAfter(m_TimeShown));
 
     }
 
-    private IEnumerator HideAfter(float time)
+    private IEnumerator StopAfter(float time)
     {
         yield return new WaitForSeconds(time);
 
-        Hide();
+        this.m_Callback.OnSetupOver();
     }
 
     public override void Hide()
