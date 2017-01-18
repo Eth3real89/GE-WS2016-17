@@ -12,7 +12,6 @@ public class FixedPlaceSetupVisuals : MonoBehaviour {
 
     public virtual void Hide()
     {
-        this.m_Callback.OnSetupOver();
     }
 
     public interface SetupCallback

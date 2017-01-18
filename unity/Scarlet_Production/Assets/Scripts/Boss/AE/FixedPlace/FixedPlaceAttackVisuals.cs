@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FixedPlaceAttackVisuals : MonoBehaviour {
 
-    public void Show()
+    public virtual void Show()
     {
 
     }
 
-    public void Hide()
+    public virtual void Hide()
     {
 
     }
