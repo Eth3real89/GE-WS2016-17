@@ -42,6 +42,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerEnterStrongLight(Vector3 retreatDirection)
     {
+        EffectController.Instance.EnterStrongLight();
         m_Animator.SetLayerWeight(1, 1);
         m_InsideStrongLight = true;
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
@@ -52,6 +53,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     public void OnPlayerExitStrongLight()
     {
+        EffectController.Instance.ExitStrongLight();
         m_Animator.SetLayerWeight(1, 0);
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand, m_SprintCommand);
         m_PlayerControls.EnableAllCommands();

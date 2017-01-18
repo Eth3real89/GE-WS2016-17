@@ -35,7 +35,6 @@ public class PickUp : MonoBehaviour
     {
         RaycastHit hit;
         Physics.Raycast(m_Camera.transform.position, transform.position - m_Camera.transform.position, out hit);
-        Debug.Log(hit.transform.name);
 
         if (GetComponent<Renderer>().isVisible && hit.transform == transform)
         {

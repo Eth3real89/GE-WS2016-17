@@ -2438,6 +2438,7 @@ GameObject:
   - component: {fileID: 82825776}
   - component: {fileID: 82825774}
   - component: {fileID: 82825773}
+  - component: {fileID: 82825777}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -2614,6 +2615,25 @@ MonoBehaviour:
   blurDuration: 2
   liftBlurDuration: 1
   haveRedBlurArea: 1
+--- !u!114 &82825777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 82825764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32187365ced0c42219cde2b57c99b323, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings:
+    threshold: 0.9
+    softKnee: 0.5
+    radius: 2.65
+    intensity: 0.5
+    highQuality: 1
+    antiFlicker: 0
+  m_Shader: {fileID: 4800000, guid: e45d4f28262b04d10a075856ab5fdb5e, type: 3}
 --- !u!1 &83253030
 GameObject:
   m_ObjectHideFlags: 0
@@ -23600,8 +23620,8 @@ GameObject:
   m_Component:
   - component: {fileID: 748603901}
   - component: {fileID: 748603904}
-  - component: {fileID: 748603903}
   - component: {fileID: 748603902}
+  - component: {fileID: 748603903}
   m_Layer: 0
   m_Name: City1
   m_TagString: Untagged
@@ -24116,6 +24136,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 765663652}
   m_Mesh: {fileID: 4300000, guid: 3d94497b85b6a4222bebe7dfd479f6a8, type: 3}
+--- !u!123 &765883918 stripped
+LensFlare:
+  m_PrefabParentObject: {fileID: 12371420, guid: 00cbbb3475b1b0640a802c21a905203b,
+    type: 2}
+  m_PrefabInternal: {fileID: 2024570732}
 --- !u!4 &766052761 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: f509f3fa8d9f14fc9a6380f09da8563a, type: 2}
@@ -27130,8 +27155,8 @@ GameObject:
   m_Component:
   - component: {fileID: 882692720}
   - component: {fileID: 882692723}
-  - component: {fileID: 882692722}
   - component: {fileID: 882692721}
+  - component: {fileID: 882692722}
   m_Layer: 0
   m_Name: TutorialPathLower
   m_TagString: Untagged
@@ -27383,8 +27408,8 @@ GameObject:
   m_Component:
   - component: {fileID: 894799442}
   - component: {fileID: 894799445}
-  - component: {fileID: 894799444}
   - component: {fileID: 894799443}
+  - component: {fileID: 894799444}
   m_Layer: 0
   m_Name: City2
   m_TagString: Untagged
@@ -34514,9 +34539,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1051846413}
-  - component: {fileID: 1051846416}
   - component: {fileID: 1051846415}
   - component: {fileID: 1051846414}
+  - component: {fileID: 1051846416}
   m_Layer: 0
   m_Name: TutorialPathHigher
   m_TagString: Untagged
@@ -45926,9 +45951,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1520373630}
-  - component: {fileID: 1520373633}
   - component: {fileID: 1520373632}
   - component: {fileID: 1520373631}
+  - component: {fileID: 1520373633}
   m_Layer: 0
   m_Name: YardHouseRoof2
   m_TagString: Untagged
@@ -56403,6 +56428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1702772627}
   - component: {fileID: 1702772626}
+  - component: {fileID: 1702772628}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -56436,6 +56462,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1702772628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1702772625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01af0bbe5d9d6ce4d81bfdfcb54a9de2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MoonFlare: {fileID: 765883918}
+  m_Bloom: {fileID: 82825777}
 --- !u!4 &1703208511 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 6b9ccc2265e8540b189d541407a6ef3b, type: 2}
@@ -58066,9 +58105,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1757946680}
-  - component: {fileID: 1757946683}
   - component: {fileID: 1757946682}
   - component: {fileID: 1757946681}
+  - component: {fileID: 1757946683}
   m_Layer: 0
   m_Name: YardHouseRoof1
   m_TagString: Untagged
