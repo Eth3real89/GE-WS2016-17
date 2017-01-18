@@ -13,10 +13,13 @@ public class TriggerHint : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(1.0f, 0.6f));
-            var particleSystems = arrowHint.GetComponentsInChildren<ParticleSystem>();
-            particleSystems[0].Play();
-            particleSystems[1].Play();
-            particleSystems[2].Play();
+            if(arrowHint != null)
+            {
+                var particleSystems = arrowHint.GetComponentsInChildren<ParticleSystem>();
+                particleSystems[0].Play();
+                particleSystems[1].Play();
+                particleSystems[2].Play();
+            }
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, true);
         }
     }
@@ -26,10 +29,13 @@ public class TriggerHint : MonoBehaviour {
         if (other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(0.0f, 0.6f));
-            var particleSystems = arrowHint.GetComponentsInChildren<ParticleSystem>();
-            particleSystems[0].Stop();
-            particleSystems[1].Stop();
-            particleSystems[2].Stop();
+            if (arrowHint != null)
+            {
+                var particleSystems = arrowHint.GetComponentsInChildren<ParticleSystem>();
+                particleSystems[0].Stop();
+                particleSystems[1].Stop();
+                particleSystems[2].Stop();
+            }
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
         }
     }
@@ -48,6 +54,8 @@ public class TriggerHint : MonoBehaviour {
 
             yield return null;
         }
+        textHint.GetComponentInChildren<Image>().color = new Color(0.65f, 0, 0, aValue);
+        textHint.GetComponentInChildren<Text>().color = new Color(0.65f, 0, 0, aValue);
     }
 
 }

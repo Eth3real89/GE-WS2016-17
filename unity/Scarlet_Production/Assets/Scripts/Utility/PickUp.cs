@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour
 {
     public GameObject m_Light;
+    public GameObject[] m_Auras;
 
     private Camera m_Camera;
     private OnCollectibleVFX m_OnCollectibleVFX;
@@ -24,9 +25,14 @@ public class PickUp : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
+            foreach (GameObject aura in m_Auras)
+            {
+                aura.SetActive(true);
+            }
             m_Light.SetActive(false);
             gameObject.SetActive(false);
             m_OnCollectibleVFX.Deactivate();
+            EffectController.Instance.Empowered();
             Destroy(this);
         }
     }

@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 957153193}
-  m_IndirectSpecularColor: {r: 0.13559267, g: 0.14969191, b: 0.16211069, a: 1}
+  m_IndirectSpecularColor: {r: 0.1357679, g: 0.1496808, b: 0.16221637, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   m_Component:
   - component: {fileID: 10876780}
   - component: {fileID: 10876781}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderBetween
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3331,6 +3331,7 @@ RectTransform:
   - {fileID: 247130944}
   - {fileID: 190474487}
   - {fileID: 1978509617}
+  - {fileID: 925626603}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8979,7 +8980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 225249716}
   - component: {fileID: 225249717}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9082,6 +9083,84 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 226723089}
   m_Mesh: {fileID: 4300000, guid: 6cd8f0b5164a1422c98b08b8b0500917, type: 3}
+--- !u!1 &231323474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1532852295450482, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 231323475}
+  - component: {fileID: 231323477}
+  - component: {fileID: 231323476}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &231323475
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224050719320597672, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231323474}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 925626603}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -12.6}
+  m_SizeDelta: {x: 205, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &231323476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114355149481914786, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231323474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.7647059, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f, type: 3}
+    m_FontSize: 34
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: Scarlet Suburb
+--- !u!222 &231323477
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222613862900102694, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 231323474}
 --- !u!1001 &235293749
 Prefab:
   m_ObjectHideFlags: 0
@@ -11767,7 +11846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 328504190}
   - component: {fileID: 328504191}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13176,7 +13255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 376689769}
   - component: {fileID: 376689770}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13283,7 +13362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 380557104}
   - component: {fileID: 380557105}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15758,7 +15837,7 @@ GameObject:
   m_Component:
   - component: {fileID: 477223616}
   - component: {fileID: 477223617}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17675,6 +17754,11 @@ MeshFilter:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: f509f3fa8d9f14fc9a6380f09da8563a, type: 2}
   m_PrefabInternal: {fileID: 292780009}
+--- !u!1 &551835484 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1163343874308536, guid: d5894e6ea2ed044cc8b397001c4c7b83,
+    type: 2}
+  m_PrefabInternal: {fileID: 1212555474}
 --- !u!1 &555791949
 GameObject:
   m_ObjectHideFlags: 0
@@ -20501,6 +20585,62 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 659257870}
   m_Mesh: {fileID: 4300002, guid: 14f7c18dfa79c41aca0390985874717e, type: 3}
+--- !u!1 &659771206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 659771209}
+  - component: {fileID: 659771208}
+  - component: {fileID: 659771207}
+  m_Layer: 0
+  m_Name: Trigger Zone Level Load
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &659771207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659771206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db289e4f829767549acf8aa79188ac6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textHint: {fileID: 925626602}
+  timeShowHint: 6
+  delay: 1
+--- !u!65 &659771208
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659771206}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &659771209
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 659771206}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -20.7, y: 0.35, z: -21.04}
+  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &660996003
 GameObject:
   m_ObjectHideFlags: 0
@@ -24553,7 +24693,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784883741}
   - component: {fileID: 784883742}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25322,6 +25462,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807849570}
   m_Mesh: {fileID: 4300000, guid: 1c4e5b6222aad47aead1f88c6707b880, type: 3}
+--- !u!1 &808420916 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1426023545981944, guid: b60bbaa49ca4b47a9bd14690e7e86fa6,
+    type: 2}
+  m_PrefabInternal: {fileID: 1780523002}
 --- !u!1 &810215671
 GameObject:
   m_ObjectHideFlags: 0
@@ -28393,6 +28538,42 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 923206424}
   m_Mesh: {fileID: 4300000, guid: 043db322efa76493daceafc0d26b59c7, type: 3}
+--- !u!1 &925626602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1195075819449050, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 925626603}
+  m_Layer: 5
+  m_Name: Level Load Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &925626603
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224645664913222696, guid: c7b59d6da78df304c86f1582dfaee149,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 925626602}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 231323475}
+  m_Father: {fileID: 92690122}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 275, y: -174.1}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &927380991
 GameObject:
   m_ObjectHideFlags: 0
@@ -28753,6 +28934,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Light: {fileID: 1702351841}
+  m_Auras:
+  - {fileID: 551835484}
+  - {fileID: 808420916}
 --- !u!1001 &949079039
 Prefab:
   m_ObjectHideFlags: 0
@@ -35458,7 +35642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1083039937}
   - component: {fileID: 1083039938}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37625,7 +37809,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1145328252}
   - component: {fileID: 1145328253}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39055,23 +39239,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 4109729113648882, guid: d5894e6ea2ed044cc8b397001c4c7b83, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4109729113648882, guid: d5894e6ea2ed044cc8b397001c4c7b83, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4109729113648882, guid: d5894e6ea2ed044cc8b397001c4c7b83, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 198347254607312646, guid: d5894e6ea2ed044cc8b397001c4c7b83,
-        type: 2}
-      propertyPath: randomSeed
-      value: 1684415154
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d5894e6ea2ed044cc8b397001c4c7b83, type: 2}
   m_IsPrefabParent: 0
@@ -39251,7 +39418,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1215902947}
   - component: {fileID: 1215902948}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44983,7 +45150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1476588478}
   - component: {fileID: 1476588479}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45611,7 +45778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1511824269}
   - component: {fileID: 1511824270}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56346,7 +56513,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1698798410}
   - component: {fileID: 1698798411}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -66397,13 +66564,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2007761215}
   - component: {fileID: 2007761216}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ColliderRoof (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2007761215
 Transform:
   m_ObjectHideFlags: 0
@@ -66894,19 +67061,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 403548, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.8764222
+      value: -0.8764221
       objectReference: {fileID: 0}
     - target: {fileID: 403548, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.23414747
+      value: 0.23414744
       objectReference: {fileID: 0}
     - target: {fileID: 403548, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.41582808
+      value: 0.41582802
       objectReference: {fileID: 0}
     - target: {fileID: 403548, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.06439087
+      value: -0.06439086
       objectReference: {fileID: 0}
     - target: {fileID: 403548, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_RootOrder
@@ -66919,6 +67086,22 @@ Prefab:
     - target: {fileID: 12371420, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
       propertyPath: m_Brightness
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 12371420, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
+      propertyPath: m_Directional
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417354, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417354, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 417354, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00cbbb3475b1b0640a802c21a905203b, type: 2}
