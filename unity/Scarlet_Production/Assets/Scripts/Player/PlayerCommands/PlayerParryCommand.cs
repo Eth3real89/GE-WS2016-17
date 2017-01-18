@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerParryCommand : PlayerCommand, HitInterject {
+public class PlayerParryCommand : PlayerCommand, HitInterject
+{
 
-    private Rigidbody m_ScarletBody;
     public PlayerHittable m_ScarletHittable;
 
     public ParryCallback m_ParryCallback;
@@ -19,7 +19,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     public AudioClip m_BlockAudio;
     public AudioClip m_ParryAudio;
 
-    private enum ParryState {TooLate, Perfect, Ok, TooSoon, None };
+    private enum ParryState { TooLate, Perfect, Ok, TooSoon, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
 
@@ -33,7 +33,6 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     {
         m_CommandName = "Parry";
         m_Trigger = new PressAxisTrigger(this, m_CommandName);
-        m_ScarletBody = m_Scarlet.GetComponent<Rigidbody>();
     }
 
     public override void TriggerCommand()
@@ -44,7 +43,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject {
     private void DoParry()
     {
         m_Callback.OnCommandStart(m_CommandName, this);
-        
+
         m_ScarletHittable.RegisterInterject(this);
         m_CurrentState = ParryState.TooLate;
         m_ParryTimer = SetParryState(m_TooLateParryTime, ParryState.Perfect);

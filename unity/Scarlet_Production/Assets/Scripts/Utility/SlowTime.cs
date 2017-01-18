@@ -15,12 +15,11 @@ public class SlowTime : MonoBehaviour {
     }
 
     public float m_SlowAmount;
-    float currentSlowMo = 0f;
     
     void Start () {
         _instance = this;
-	}
-	
+    }
+    
     public void StartSlowMo()
     {
         Time.timeScale = m_SlowAmount;

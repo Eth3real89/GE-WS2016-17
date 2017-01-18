@@ -7,9 +7,6 @@ public class TriggerHint : MonoBehaviour {
 
     public GameObject arrowHint;
     public GameObject textHint;
-    private float redValue = 0.75f;
-    //public GameObject text;
-
 
     void OnTriggerEnter(Collider other)
     {

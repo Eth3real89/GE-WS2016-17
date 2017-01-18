@@ -45,7 +45,6 @@ public class ObjectCuller : MonoBehaviour
         {
             m_CurrentHits.Add(hit.transform.gameObject);
         }
-        IEnumerable intersection = m_CurrentHits.Intersect(m_CulledObjects);
 
         foreach (GameObject objectToCull in m_CurrentHits.Except(m_CulledObjects))
         {

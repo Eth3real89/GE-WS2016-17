@@ -49,7 +49,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     void Update ()
     {
-		if (m_State == AttackState.Chase)
+        if (m_State == AttackState.Chase)
         {
             Chase();
         }
@@ -70,8 +70,6 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     void Chase()
     {
-        Vector3 distance = m_Target.transform.position - m_Boss.transform.position;
-
         m_BossTurn.DoTurn();
 
         if (Mathf.Abs(m_BossTurn.m_AngleTowardsScarlet) <= 45)

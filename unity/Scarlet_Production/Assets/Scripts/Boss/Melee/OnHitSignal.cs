@@ -111,7 +111,7 @@ public class OnHitSignal : MonoBehaviour {
             yield return null;
         }
 
-        emission.rate = 0;
+        emission.rateOverTime = 0;
 
         emission.SetBursts(new ParticleSystem.Burst[] { });
 

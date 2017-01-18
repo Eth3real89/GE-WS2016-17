@@ -10,8 +10,6 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
     public float m_HowlTime = 4f;
     public Phase m_StartPhase;
 
-    private Phase m_CurrentPhase;
-
     public Animator m_WerewolfAnimator;
 
     public WerewolfHuntController m_HuntController;
@@ -24,10 +22,9 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
 
     public PlayerControls m_PlayerControls; 
 
-	void Start () {
-        m_CurrentPhase = m_StartPhase;
+    void Start () {
         StartCoroutine(StartAfterShortDelay());
-	}
+    }
 
     private IEnumerator StartAfterShortDelay()
     {
@@ -48,10 +45,10 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
             PhaseEnd(m_Phase2Controller);
         }
     }
-	
-	void Update () {
-		
-	}
+    
+    void Update () {
+        
+    }
 
     public void PhaseEnd(BossController whichPhase)
     {
