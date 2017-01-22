@@ -14,11 +14,16 @@ public class JumpTrigger : MonoBehaviour
             GetComponentInChildren<PlayerMoveCommand>();
     }
 
+    private void OnEnable()
+    {
+        GetComponent<Collider>().enabled = true;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            if (other.GetComponent<Rigidbody>().velocity.magnitude < m_JumpSpeedThreshold)
+            if (Mathf.Abs(other.GetComponent<Rigidbody>().velocity.magnitude) < m_JumpSpeedThreshold)
             {
                 return;
             }
@@ -30,7 +35,7 @@ public class JumpTrigger : MonoBehaviour
 
     IEnumerator ReenableJumpTrigger()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(0.5f);
         GetComponent<Collider>().enabled = true;
     }
 }

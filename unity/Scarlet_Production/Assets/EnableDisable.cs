@@ -9,6 +9,9 @@ public class EnableDisable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag != "Player")
+            return;
+
         foreach (GameObject go in m_ObjectsToEnable)
         {
             go.SetActive(true);
