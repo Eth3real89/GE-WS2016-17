@@ -55,6 +55,7 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
     public void OnRotationOver()
     {
         m_ExpansionEnumerator = RemoveBeamAfterWaiting();
+
         StartCoroutine(m_ExpansionEnumerator);
     }
 
@@ -75,5 +76,6 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);
+        HideLightGuard();
     }
 }

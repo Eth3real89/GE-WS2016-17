@@ -41,8 +41,9 @@ public class ExpandingAEDamage : AEAttackDamage
         float t = 0;
 
         Vector3[] points = m_VolumetricBehavior.LineVertices;
-        Vector3 lastPoint = points[points.Length - 1];
+        Vector3 lastPoint = new Vector3(0, 0, 1);
 
+        m_BoxCollider.center = new Vector3(0, 0, 1);
         float initialZOffset = m_BoxCollider.center.z;
 
         while ((t += Time.deltaTime) < time)
@@ -59,6 +60,7 @@ public class ExpandingAEDamage : AEAttackDamage
 
             yield return null;
         }
+
 
         callback.OnExpansionOver();
     }
@@ -87,7 +89,6 @@ public class ExpandingAEDamage : AEAttackDamage
         }
 
         callback.OnRotationOver();
-
     }
 
     private void OnTriggerEnter(Collider other)

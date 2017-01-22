@@ -65,6 +65,7 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
         }
 
         m_Callback.OnAttackEnd(this);
+        HideLightGuard();
         m_Visuals.gameObject.SetActive(false);
     }
     

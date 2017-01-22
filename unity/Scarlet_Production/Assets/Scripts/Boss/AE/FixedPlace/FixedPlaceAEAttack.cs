@@ -83,6 +83,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
             StopCoroutine(m_AttackTimer);
 
         m_AEDamage.m_Active = false;
+        HideLightGuard();
         m_AttackVisuals.Hide();
     }
 
@@ -95,6 +96,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
         m_AEDamage.m_Active = false;
 
         m_Callback.OnAttackEnd(this);
+        HideLightGuard();
     }
 
 }
