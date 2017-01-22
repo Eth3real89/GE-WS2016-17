@@ -28,6 +28,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
     public BossTurnCommand m_BossTurn;
     public BossMoveCommand m_BossMove;
 
+    public TutorialPromptController m_Tutorial;
+
     public float m_SlowMoAmount;
     public float m_SlowMoTime;
 
@@ -242,7 +244,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
             m_SlowMoTimer = SlowMoTimer();
             StartCoroutine(m_SlowMoTimer);
 
-            // @todo: show signal
+            m_Tutorial.ShowTutorial("X", "Parry", m_SlowMoAmount);
         }
     }
 
@@ -256,7 +258,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
             m_SlowMoTimer = SlowMoTimer();
             StartCoroutine(m_SlowMoTimer);
 
-            // @todo: show riposte signal
+            m_Tutorial.ShowTutorial("Y", "Riposte", m_SlowMoAmount);
         }
 
         if (m_HuntTimer == null)
@@ -273,7 +275,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
                 StopCoroutine(m_SlowMoTimer);
                 SlowTime.Instance.StopSlowMo();
 
-                // @todo: hide hint
+                m_Tutorial.HideTutorial(m_SlowMoAmount);
             }
         }
 
@@ -286,6 +288,6 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         yield return new WaitForSeconds(m_SlowMoTime * m_SlowMoAmount);
         SlowTime.Instance.StopSlowMo();
 
-        // @todo: hide hint
+        m_Tutorial.HideTutorial(m_SlowMoAmount);
     }
 }

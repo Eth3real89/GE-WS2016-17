@@ -42,20 +42,20 @@ public class TutorialPromptController : MonoBehaviour {
     /// </summary>
     /// <param name="buttonShort"></param>
     /// <param name="newText"></param>
-    public void ShowTutorial(string buttonShort, string newText)
+    public void ShowTutorial(string buttonShort, string newText, float timeMultplier = 1f)
     {
         tutorialText.text = newText;
         tutorialImages[1].sprite = Resources.Load<Sprite>("controls-" + buttonShort + "_rot");
-        StartCoroutine(FadeTo(1.0f, 0.2f));
+        StartCoroutine(FadeTo(1.0f, 0.2f * timeMultplier));
     }
 
     /// <summary>
     /// Hide tutorial instructions
     /// </summary>
-    public void HideTutorial()
+    public void HideTutorial(float timeMultiplier = 1f)
     {
 
-        StartCoroutine(FadeTo(0.0f, 0.2f));
+        StartCoroutine(FadeTo(0.0f, 0.2f * timeMultiplier));
     }
 
 
