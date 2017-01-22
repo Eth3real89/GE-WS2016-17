@@ -280,7 +280,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 638130663}
   m_Combos:
-  - {fileID: 890946261}
+  - {fileID: 384621743}
+  - {fileID: 157656916}
   m_BossHittable: {fileID: 10650778}
   m_BlockingBehaviour: {fileID: 10650785}
   m_MaxBlocksBeforeParry: 3
@@ -631,10 +632,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 97515549}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36fbaf2db684e8b45814e3a9fea06377, type: 3}
+  m_Script: {fileID: 11500000, guid: 09dca2326061230438856194ed60b009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 0
+  m_TriggerInterrupt: 2
   m_TriggerBlock: 0
   m_DamageOnParry: 15
   m_TimeAfterAttack: 0
@@ -646,6 +647,11 @@ MonoBehaviour:
   m_SetupVisuals: {fileID: 2018650989}
   m_AttackVisuals: {fileID: 1837151320}
   m_TurnTowardsScarlet: {fileID: 1725315263}
+  m_TrackingSpeedAngles: 0
+  m_SetupTime: 2
+  m_Size: 5
+  m_Angle: 270
+  m_DamageAmount: 50
 --- !u!1 &111066778
 GameObject:
   m_ObjectHideFlags: 0
@@ -869,6 +875,58 @@ Light:
   m_PrefabParentObject: {fileID: 108979764218094876, guid: 6c544cd4fc1b3084481d40437dbae5ab,
     type: 2}
   m_PrefabInternal: {fileID: 2026081933}
+--- !u!1 &157656915
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 157656917}
+  - component: {fileID: 157656916}
+  m_Layer: 0
+  m_Name: PizzaCombo2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &157656916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 157656915}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 10650774}
+  m_Animator: {fileID: 10650783}
+  m_FullTurnCommand: {fileID: 1100974638}
+  m_BossHittable: {fileID: 10650778}
+  m_BossStagger: {fileID: 1725315262}
+  m_MoveCommand: {fileID: 1725315265}
+  m_Attacks:
+  - {fileID: 1367286879}
+  m_TimeAfterCombo: 2
+  m_BlockingBehaviour: {fileID: 10650785}
+  m_MaxBlocksBeforeParry: 3
+--- !u!4 &157656917
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 157656915}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1367286880}
+  m_Father: {fileID: 2074498877}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &158347739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1441,7 +1499,7 @@ Transform:
   - {fileID: 1713698929}
   - {fileID: 364987929}
   m_Father: {fileID: 2074498877}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &267519953
 GameObject:
@@ -1828,7 +1886,7 @@ GameObject:
   - component: {fileID: 384621742}
   - component: {fileID: 384621743}
   m_Layer: 0
-  m_Name: Combo1
+  m_Name: PizzaCombo1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2867,7 +2925,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2074498877}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &890946261
 MonoBehaviour:
@@ -4148,6 +4206,63 @@ Light:
   m_BounceIntensity: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1367286878
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1367286880}
+  - component: {fileID: 1367286879}
+  m_Layer: 0
+  m_Name: FixedPlaceAEAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1367286879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367286878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09dca2326061230438856194ed60b009, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 10650783}
+  m_Boss: {fileID: 10650774}
+  m_FullTurnCommand: {fileID: 1100974638}
+  m_AEDamage: {fileID: 1837151321}
+  m_AttackTime: 0.5
+  m_SetupVisuals: {fileID: 2018650989}
+  m_AttackVisuals: {fileID: 1837151320}
+  m_TurnTowardsScarlet: {fileID: 1725315263}
+  m_TrackingSpeedAngles: 45
+  m_SetupTime: 3
+  m_Size: 5
+  m_Angle: 90
+  m_DamageAmount: 30
+--- !u!4 &1367286880
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1367286878}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 157656917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1383239588
 GameObject:
   m_ObjectHideFlags: 0
@@ -5710,7 +5825,7 @@ Transform:
   m_Children:
   - {fileID: 884054104}
   m_Father: {fileID: 2074498877}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832642528
 GameObject:
@@ -6764,6 +6879,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 384621742}
+  - {fileID: 157656917}
   - {fileID: 1829125715}
   - {fileID: 890946260}
   - {fileID: 255706153}
