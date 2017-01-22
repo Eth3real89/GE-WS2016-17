@@ -13,11 +13,37 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
 
     public ExpandingAEDamage m_Damage;
 
+    public TurnTowardsScarlet m_InitialTurn;
+    public float m_InitialTurnTrackSpeed = 45;
+    public float m_TurnTime = 2f;
+    private float m_PrevTurnSpeed;
+
+    private IEnumerator m_ExpansionEnumerator;
+
     public override void StartAttack()
     {
         base.StartAttack();
 
-        m_Damage.SetAngle(- m_RotationAngle / 2);
+        m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
+        m_InitialTurn.m_TurnSpeed = 9999;
+        m_InitialTurn.DoTurn();
+        m_InitialTurn.m_TurnSpeed = m_InitialTurnTrackSpeed;
+
+        m_ExpansionEnumerator = BeforeExpansion();
+        StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    private IEnumerator BeforeExpansion()
+    {
+        float t = 0;
+
+        while ((t += Time.deltaTime) < m_TurnTime)
+        {
+            m_InitialTurn.DoTurn();
+            yield return null;
+        }
+
+        m_Damage.SetAngle(-m_RotationAngle / 2);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
     }
 
@@ -28,7 +54,18 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
 
     public void OnRotationOver()
     {
-        StartCoroutine(RemoveBeamAfterWaiting());
+        m_ExpansionEnumerator = RemoveBeamAfterWaiting();
+        StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    public override void CancelAttack()
+    {
+        base.CancelAttack();
+
+        if (m_ExpansionEnumerator != null)
+            StopCoroutine(m_ExpansionEnumerator);
+
+        m_Damage.CancelDamage();
     }
 
     private IEnumerator RemoveBeamAfterWaiting()

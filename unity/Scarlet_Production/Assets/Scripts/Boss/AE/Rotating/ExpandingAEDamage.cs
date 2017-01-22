@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class ExpandingAEDamage : AEAttackDamage
     private DefaultCollisionHandler m_CollisionHandler;
 
     private BoxCollider m_BoxCollider;
+
+    private IEnumerator m_Timer;
 
     public void SetAngle(float angle)
     {
@@ -23,12 +26,14 @@ public class ExpandingAEDamage : AEAttackDamage
         gameObject.SetActive(true);
         m_CollisionHandler = new DefaultCollisionHandler(this);
 
-        StartCoroutine(ExpansionRoutine(time, size, callback));
+        m_Timer = ExpansionRoutine(time, size, callback);
+        StartCoroutine(m_Timer);
     }
 
     public void Rotate(float time, float angles, ExpandingDamageCallbacks callback)
     {
-        StartCoroutine(RotationRoutine(time, angles, callback));
+        m_Timer = RotationRoutine(time, angles, callback);
+        StartCoroutine(m_Timer);
     }
 
     private IEnumerator ExpansionRoutine(float time, float size, ExpandingDamageCallbacks callback)
@@ -56,6 +61,14 @@ public class ExpandingAEDamage : AEAttackDamage
         }
 
         callback.OnExpansionOver();
+    }
+
+    internal void CancelDamage()
+    {
+        m_Active = false;
+
+        if (m_Timer != null)
+            StopCoroutine(m_Timer);
     }
 
     private IEnumerator RotationRoutine(float time, float angle, ExpandingDamageCallbacks callback)
