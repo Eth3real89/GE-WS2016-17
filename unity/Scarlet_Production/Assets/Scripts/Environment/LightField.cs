@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightField : MonoBehaviour
 {
-    public enum RetreatDirection { Left, Right, Top, Bottom }
+    public enum RetreatDirection { Left, Right, Top, Bottom, BothX, BothZ }
     public enum LightFieldClass { Regular, Strong };
 
     public LightFieldClass m_Class = LightFieldClass.Regular;
@@ -15,7 +15,7 @@ public class LightField : MonoBehaviour
         LightFieldResponder responder = other.GetComponentInChildren<LightFieldResponder>();
         if (responder != null)
         {
-            responder.OnEnterLightField(m_Class, GetVectorFromDirection());
+            responder.OnEnterLightField(m_Class, GetVectorFromDirection(other.attachedRigidbody.velocity));
         }
     }
 
@@ -44,9 +44,9 @@ public class LightField : MonoBehaviour
         void OnExitLightField(LightFieldClass lightFieldClass);
     }
 
-    private Vector3 GetVectorFromDirection()
+    private Vector3 GetVectorFromDirection(Vector3 velocity)
     {
-        switch(m_Direction)
+        switch (m_Direction)
         {
             case RetreatDirection.Left:
                 return Vector3.left;
@@ -56,8 +56,28 @@ public class LightField : MonoBehaviour
                 return Vector3.forward;
             case RetreatDirection.Bottom:
                 return Vector3.back;
+            case RetreatDirection.BothX:
+                return GetXVel(velocity);
+            case RetreatDirection.BothZ:
+                return GetZVel(velocity);
             default:
                 return Vector3.left;
         }
+    }
+
+    private Vector3 GetXVel(Vector3 velocity)
+    {
+        if (velocity.x > 0)
+            return Vector3.left;
+        else
+            return Vector3.right;
+    }
+
+    private Vector3 GetZVel(Vector3 velocity)
+    {
+        if (velocity.z > 0)
+            return Vector3.back;
+        else
+            return Vector3.forward;
     }
 }
