@@ -169,4 +169,13 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
         StartNextCombo();
     }
+
+
+    public virtual void OnComboParried(AttackCombo combo)
+    {
+    }
+
+    public virtual void OnComboRiposted(AttackCombo combo)
+    {
+    }
 }

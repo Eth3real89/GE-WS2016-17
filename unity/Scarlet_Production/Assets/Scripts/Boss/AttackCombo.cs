@@ -123,7 +123,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Parried, Combo, " + this);
 
-        if (!m_BetweenAttacks && m_CurrentAttack != null)
+        m_Callback.OnComboParried(this);
+
+        if (m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
         }
@@ -138,6 +140,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
         if (m_ParriedTimer != null)
             StopCoroutine(m_ParriedTimer);
+
+        m_Callback.OnComboRiposted(this);
 
         m_BossStagger.DoStagger("RipostedTrigger");
         m_BossHittable.RegisterInterject(null);
@@ -177,6 +181,14 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         void OnComboStart(AttackCombo combo);
         void OnComboEnd(AttackCombo combo);
+
+        /// <summary>
+        ///  Caution! OnInterruptCombo will most likely be called afterwards, the combo should take care of staggering!
+        ///  Only if an immediate notification is required!!
+        /// </summary>
+        /// <param name="combo"></param>
+        void OnComboParried(AttackCombo combo);
+        void OnComboRiposted(AttackCombo combo);
 
         void OnActivateBlock(AttackCombo combo);
         void OnInterruptCombo(AttackCombo combo);

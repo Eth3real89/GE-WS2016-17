@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageCollisionHandler, Damage.DamageCallback {
 
+
     public LungeTrigger m_LungeTrigger;
     public BossCollider m_BossCollider;
     public GameObject m_Scarlet;
@@ -29,6 +30,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
     private bool m_ScarletInTargetArea;
     private DefaultCollisionHandler m_CollisionHandler;
+
+    public LungeAttackCallbacks m_LungeAttackCallbacks;
 
     public override void StartAttack()
     {
@@ -122,6 +125,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     {
         yield return new WaitForSeconds(m_TimeAfterLand);
 
+        MLog.Log(LogType.BattleLog, 2, "WaitAfterLand, LungeAttack");
+
         m_State = State.None;
 
         m_LungeTrigger.m_Active = false;
@@ -133,6 +138,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     {
         if (m_HitSignal != null)
             m_HitSignal.SetActive(true);
+
+        if (m_LungeAttackCallbacks != null)
+            m_LungeAttackCallbacks.OnLungeStopInAir();
     }
 
     public void OnContinueMidAir()
@@ -178,5 +186,10 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
     public void OnSuccessfulHit()
     {
+    }
+
+    public interface LungeAttackCallbacks
+    {
+        void OnLungeStopInAir();
     }
 }

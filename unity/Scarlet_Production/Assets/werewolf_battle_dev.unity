@@ -3662,6 +3662,26 @@ Prefab:
       propertyPath: m_PlayerParryCommand
       value: 
       objectReference: {fileID: 554074565}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_LungeAttack
+      value: 
+      objectReference: {fileID: 1621662664}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_SlowMoAmount
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_SlowMoTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_NumParryRequired
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -5478,6 +5498,12 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: e783eb5944838624b87c3c2beafa01dd, type: 2}
   m_PrefabInternal: {fileID: 1619833036}
+--- !u!114 &1621662664 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114321522944543970, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 951623644}
+  m_Script: {fileID: 11500000, guid: 7951099fb49db55408d3278adbe50fd8, type: 3}
 --- !u!1001 &1638470474
 Prefab:
   m_ObjectHideFlags: 0

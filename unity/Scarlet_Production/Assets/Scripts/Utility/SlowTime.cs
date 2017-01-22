@@ -20,9 +20,12 @@ public class SlowTime : MonoBehaviour {
         _instance = this;
     }
     
-    public void StartSlowMo()
+    public void StartSlowMo(float slowAmount = -1)
     {
-        Time.timeScale = m_SlowAmount;
+        if (slowAmount < 0)
+            slowAmount = m_SlowAmount;
+
+        Time.timeScale = slowAmount;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
 

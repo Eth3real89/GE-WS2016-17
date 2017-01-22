@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
-public class WerewolfHuntController : BossController, AttackCombo.ComboCallback {
+public class WerewolfHuntController : BossController, AttackCombo.ComboCallback, LungeAttack.LungeAttackCallbacks {
 
     public AttackCombo m_JumpCombo;
+    public LungeAttack m_LungeAttack;
 
     public Transform m_HuntCenter;
     public float m_HuntDistance;
@@ -26,15 +28,22 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     public BossTurnCommand m_BossTurn;
     public BossMoveCommand m_BossMove;
 
+    public float m_SlowMoAmount;
+    public float m_SlowMoTime;
+
     private bool m_Active;
     private BossfightCallbacks m_Callbacks;
 
     private IEnumerator m_HuntTimer;
 
+    private IEnumerator m_SlowMoTimer;
+
     /// <summary>
     /// as opposed to "jumping": hunting = running around
     /// </summary>
     private bool m_Hunting;
+
+    public bool m_SuccessfullyRiposted;
 
     protected new void Start()
     {
@@ -56,9 +65,15 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
                 m_PlayerParryCommand.m_OkParryTime = m_BlockTimeBefore;
 
                 m_JumpCombo.CancelCombo();
+                m_LungeAttack.m_LungeAttackCallbacks = null;
 
                 if (m_Callbacks != null)
                     m_Callbacks.PhaseEnd(this);
+            }
+
+            if (m_BossHealth.m_CurrentHealth < m_BossHealth.m_HealthOld)
+            {
+                m_SuccessfullyRiposted = true;
             }
         }
 
@@ -71,10 +86,12 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     public void StartHuntPhase(BossfightCallbacks callbacks)
     {
         m_BossHittable.RegisterInterject(this);
+        m_SuccessfullyRiposted = false;
 
         m_Callbacks = callbacks;
         m_Active = true;
         m_JumpSoon = false;
+        m_LungeAttack.m_LungeAttackCallbacks = this;
 
         m_RiposteDmgAmountBefore = m_PlayerAttackCommand.m_RiposteDamage;
         m_AttackDmgAmountBefore = m_PlayerAttackCommand.m_RegularHitDamage;
@@ -165,10 +182,22 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     {
         if (combo == m_JumpCombo)
         {
-            // was parried!
+            if (m_SlowMoTimer != null)
+            {
+                MLog.Log(LogType.BattleLog, 0, "Hunt Controller: Cancelling Jump Slow Mo");
+                StopCoroutine(m_SlowMoTimer);
+            }
         }
-    }
 
+        if (m_Hunting)
+            return;
+
+        if (m_HuntTimer == null)
+            StopCoroutine(m_HuntTimer);
+
+        m_HuntTimer = WaitToStandUp();
+        StartCoroutine(m_HuntTimer);
+    }
 
     public new void OnComboStart(AttackCombo combo)
     {
@@ -191,7 +220,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
     {
         m_Hunting = true;
 
-        float time = m_MinHuntTime + Random.value * (m_MaxHuntTime - m_MinHuntTime);
+        m_JumpSoon = false;
+        float time = m_MinHuntTime + UnityEngine.Random.value * (m_MaxHuntTime - m_MinHuntTime);
         m_HuntTimer = EndHuntAfter(time);
         StartCoroutine(m_HuntTimer);
     }
@@ -203,4 +233,59 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback 
         return true;
     }
 
+    public void OnLungeStopInAir()
+    {
+        if (!m_SuccessfullyRiposted)
+        {
+            SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
+
+            m_SlowMoTimer = SlowMoTimer();
+            StartCoroutine(m_SlowMoTimer);
+
+            // @todo: show signal
+        }
+    }
+
+    public override void OnComboParried(AttackCombo combo)
+    {
+        base.OnComboParried(combo);
+        if (!m_SuccessfullyRiposted)
+        {
+            SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
+
+            m_SlowMoTimer = SlowMoTimer();
+            StartCoroutine(m_SlowMoTimer);
+
+            // @todo: show riposte signal
+        }
+
+        if (m_HuntTimer == null)
+            StopCoroutine(m_HuntTimer);
+    }
+
+    public override void OnComboRiposted(AttackCombo combo)
+    {
+        base.OnComboRiposted(combo);
+        if (!m_SuccessfullyRiposted)
+        {
+            if (m_SlowMoTimer != null)
+            {
+                StopCoroutine(m_SlowMoTimer);
+                SlowTime.Instance.StopSlowMo();
+
+                // @todo: hide hint
+            }
+        }
+
+        if (m_HuntTimer == null)
+            StopCoroutine(m_HuntTimer);
+    }
+
+    private IEnumerator SlowMoTimer()
+    {
+        yield return new WaitForSeconds(m_SlowMoTime * m_SlowMoAmount);
+        SlowTime.Instance.StopSlowMo();
+
+        // @todo: hide hint
+    }
 }
