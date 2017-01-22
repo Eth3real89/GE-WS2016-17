@@ -14,26 +14,26 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
     public float m_GrowRate;
 
     public BlastWaveVisuals m_Visuals;
-    public GrowingAEFrontWave m_FrontWave;
-    public GrowingAEBackWave m_BackWave;
+
+    public PlayerHittable m_Target;
 
     private IEnumerator m_GrowEnumerator;
+  
     private bool m_ScarletInFront;
     private bool m_ScarletInBack;
-    private bool m_HitInNextUpdate;
+    private bool m_HasHit;
+
+    private BlastWaveDamage m_BlastDamage;
 
     public override void StartAttack()
     {
         base.StartAttack();
+        
 
-        m_FrontWave.m_Callback = this;
-        m_BackWave.m_Callback = this;
+        m_BlastDamage = new BlastWaveDamage();
+        m_BlastDamage.m_DamageAmount = this.m_Damage;
 
-        m_Visuals.gameObject.SetActive(true);
-        m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
-        m_Visuals.Setup();
-        m_FrontWave.gameObject.SetActive(true);
-        m_BackWave.gameObject.SetActive(true);
+        m_HasHit = false;
 
         m_GrowEnumerator = GrowWave();
         StartCoroutine(m_GrowEnumerator);
@@ -41,58 +41,74 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
 
     private IEnumerator GrowWave()
     {
-        m_FrontWave.transform.localScale = m_FrontWave.transform.localScale.normalized * m_InitialFrontSize;
-        m_BackWave.transform.localScale = m_BackWave.transform.localScale.normalized * ((m_InitialFrontSize - m_DistanceBetweenCircles > 0)? m_InitialFrontSize - m_DistanceBetweenCircles : 0);
+        m_Visuals.gameObject.SetActive(true);
+        m_Visuals.Setup();
 
-        bool xSmaller = m_FrontWave.transform.localScale.x < m_FrontWave.transform.localScale.z;
+        float waveSize = m_InitialFrontSize;
+        m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
 
         float t = 0;
         while((t += Time.deltaTime) < m_GrowTime)
         {
-            HandleGrowth(xSmaller);
-
-            if (m_HitInNextUpdate)
+            waveSize += m_GrowRate * Time.deltaTime;
+            float distance = Vector3.Distance(m_Center.position, m_Target.transform.position);
+            
+            if (waveSize >= distance && waveSize - m_DistanceBetweenCircles / 2 <= distance)
             {
-                if (m_ScarletInFront && !m_ScarletInBack)
-                    MLog.Log(LogType.AELog, 0, "Blast Wave Attack: Hit!!");
+                DealDamage();
 
-                m_HitInNextUpdate = false;
             }
+
+            m_Visuals.ScaleUp(waveSize);
 
             yield return null;
         }
 
         m_Callback.OnAttackEnd(this);
-        m_FrontWave.gameObject.SetActive(false);
-        m_BackWave.gameObject.SetActive(false);
         m_Visuals.gameObject.SetActive(false);
     }
-
-    private void HandleGrowth(bool xSmaller)
-    {
-        Vector3 growth = new Vector3(m_GrowRate, m_GrowRate, m_GrowRate) * Time.deltaTime;
-
-        m_FrontWave.transform.localScale += growth * 2;
-
-        float compareValue = xSmaller? m_FrontWave.transform.localScale.x : m_FrontWave.transform.localScale.z;
-        if (compareValue >= m_DistanceBetweenCircles)
-        {
-            m_BackWave.transform.localScale = m_FrontWave.transform.localScale - new Vector3(m_DistanceBetweenCircles, 0, m_DistanceBetweenCircles);
-        }
-
-
-        m_Visuals.ScaleUp((m_FrontWave.transform.localScale - new Vector3(m_DistanceBetweenCircles, 0, m_DistanceBetweenCircles) / 2) / 2);
-    }
+    
 
     public void NotifyAboutRangeFront(bool isInFront)
     {
         m_ScarletInFront = isInFront;
         if (isInFront)
-            m_HitInNextUpdate = true;
+            StartCoroutine(CheckHit());
+    }
+
+    private IEnumerator CheckHit()
+    {
+        yield return new WaitForEndOfFrame();
+        if (!m_ScarletInBack && m_ScarletInFront)
+            DealDamage();
     }
 
     public void NotifyAboutRangeBack(bool isInBack)
     {
         m_ScarletInBack = isInBack;
+    }
+
+    public override void CancelAttack()
+    {
+        base.CancelAttack();
+
+        if (m_GrowEnumerator != null)
+            StopCoroutine(m_GrowEnumerator);
+        
+        m_Visuals.gameObject.SetActive(false);
+    }
+
+    private void DealDamage()
+    {
+        if (m_HasHit)
+            return;
+
+        m_Target.Hit(m_BlastDamage);
+        m_HasHit = true;
+    }
+
+    private class BlastWaveDamage : AEAttackDamage
+    {
+
     }
 }

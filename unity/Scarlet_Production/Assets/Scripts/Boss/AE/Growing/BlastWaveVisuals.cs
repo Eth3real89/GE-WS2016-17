@@ -8,7 +8,8 @@ public class BlastWaveVisuals : MonoBehaviour {
     public int m_NumVertices;
     public float m_InitialScale;
 
-    public float m_LineWidthFactor = 2;
+    public float m_LineWidthFactor = 1;
+    public float m_AdjustForLightsaber = 1.4f;
 
     public Transform m_Center;
 
@@ -26,7 +27,7 @@ public class BlastWaveVisuals : MonoBehaviour {
 
         for(int i = 0; i < vertices.Length; i++)
         {
-            Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * i, 0) * new Vector3(0, 0, m_InitialScale);
+            Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * i, 0) * new Vector3(0, 0, m_InitialScale / 2);
             vertices[i] = vert;
         }
 
@@ -34,13 +35,13 @@ public class BlastWaveVisuals : MonoBehaviour {
         totalGrowth = 1;
     }
 
-    public void ScaleUp(Vector3 totalGrowth)
+    public void ScaleUp(float totalGrowth)
     {
-        transform.localScale = totalGrowth;
         //        m_VolumetricLineMaterial.SetFloat(Shader.PropertyToID("_LineWidth"), 1 / m_VolumetricLineMaterial.GetFloat(Shader.PropertyToID("_LineScale")));
 
-        Material m = m_volumetricBehavior.GetComponent<MeshRenderer>().material;
+        transform.localScale = new Vector3(totalGrowth * 2 - m_LineWidthFactor, totalGrowth, totalGrowth * 2 - m_LineWidthFactor);
 
-        m.SetFloat(Shader.PropertyToID("_LineWidth"), m_LineWidthFactor / totalGrowth.magnitude);
+        Material m = m_volumetricBehavior.GetComponent<MeshRenderer>().material;
+        m.SetFloat(Shader.PropertyToID("_LineWidth"), m_AdjustForLightsaber * m_LineWidthFactor / totalGrowth);
     }
 }
