@@ -23,7 +23,6 @@ public class AreaEnterTextController : MonoBehaviour {
         time += Time.deltaTime;
         if(time > delay && fadeIn)
         {
-            Debug.Log("Fade in: " + time);
             StartCoroutine(FadeTo(1.0f, 0.6f));
             fadeIn = false;
             fadeOut = true;
@@ -31,7 +30,6 @@ public class AreaEnterTextController : MonoBehaviour {
         }
         if(time > timeShowHint && fadeOut)
         {
-            Debug.Log("Fade out: " + time);
             fadeOut = false;
             StartCoroutine(FadeTo(0.0f, 0.6f));
         }

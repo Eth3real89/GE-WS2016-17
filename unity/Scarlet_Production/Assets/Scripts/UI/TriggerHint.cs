@@ -7,6 +7,15 @@ public class TriggerHint : MonoBehaviour {
 
     public GameObject arrowHint;
     public GameObject textHint;
+    private Text textField;
+    private Image imageButton;
+
+
+    void Start()
+    {
+        imageButton = textHint.GetComponentInChildren<Image>();
+        textField = textHint.GetComponentInChildren<Text>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -43,19 +52,25 @@ public class TriggerHint : MonoBehaviour {
 
     IEnumerator FadeTo(float aValue, float aTime)
     {
-        float alpha = textHint.GetComponentInChildren<Text>().color.a;
+        float alpha = textField.color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             //Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
             //arrowHint.GetComponent<SpriteRenderer>().color = newColor;
-            textHint.GetComponentInChildren<Image>().color = newColorRed;
-            textHint.GetComponentInChildren<Text>().color = newColorRed;
+            if(imageButton != null)
+            {
+                imageButton.color = newColorRed;
+            }
+            textField.color = newColorRed;
 
             yield return null;
         }
-        textHint.GetComponentInChildren<Image>().color = new Color(0.65f, 0, 0, aValue);
-        textHint.GetComponentInChildren<Text>().color = new Color(0.65f, 0, 0, aValue);
+        if (imageButton != null)
+        {
+            imageButton.color = new Color(0.65f, 0, 0, aValue);
+        }
+        textField.color = new Color(0.65f, 0, 0, aValue);
     }
 
 }
