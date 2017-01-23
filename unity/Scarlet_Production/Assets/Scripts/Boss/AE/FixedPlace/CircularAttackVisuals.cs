@@ -14,16 +14,16 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
 
     private int m_NumPoints = 11;
 
-    public override void Show()
+    public override void ShowAttack()
     {
-        base.Show();
+        base.ShowAttack();
 
         CreateLines();
     }
 
-    public override void Hide()
+    public override void HideAttack()
     {
-        base.Hide();
+        base.HideAttack();
 
         if (m_Lines == null)
             return;

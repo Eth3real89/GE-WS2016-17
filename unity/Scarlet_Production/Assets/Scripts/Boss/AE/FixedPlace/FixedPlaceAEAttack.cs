@@ -41,7 +41,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
 
         m_TurnTowardsScarlet.m_TurnSpeed = m_TrackingSpeedAngles;
 
-        m_SetupVisuals.Show(this);
+        m_SetupVisuals.ShowSetup(this);
 
         m_SetupTimer = TurnDuringSetup();
         StartCoroutine(m_SetupTimer);
@@ -59,8 +59,8 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
     public void OnSetupOver()
     {
         m_SetupActive = false;
-        m_SetupVisuals.Hide();
-        m_AttackVisuals.Show();
+        m_SetupVisuals.HideAttack();
+        m_AttackVisuals.ShowAttack();
 
         m_AttackTimer = DisableAttackTimer();
         StartCoroutine(m_AttackTimer);
@@ -74,7 +74,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
         m_Active = false;
         m_SetupActive = false;
 
-        m_SetupVisuals.Hide();
+        m_SetupVisuals.HideAttack();
 
         if (m_AttackTimer != null)
             StopCoroutine(m_AttackTimer);
@@ -84,7 +84,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
 
         m_AEDamage.m_Active = false;
         HideLightGuard();
-        m_AttackVisuals.Hide();
+        m_AttackVisuals.HideAttack();
     }
 
     private IEnumerator DisableAttackTimer()
@@ -92,7 +92,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
         yield return new WaitForSeconds(m_AttackTime);
 
         m_Active = false;
-        m_AttackVisuals.Hide();
+        m_AttackVisuals.HideAttack();
         m_AEDamage.m_Active = false;
 
         m_Callback.OnAttackEnd(this);

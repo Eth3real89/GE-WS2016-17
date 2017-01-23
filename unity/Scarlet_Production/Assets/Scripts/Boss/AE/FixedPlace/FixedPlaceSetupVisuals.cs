@@ -6,12 +6,12 @@ public class FixedPlaceSetupVisuals : MonoBehaviour
 
     protected SetupCallback m_Callback;
 
-    public virtual void Show(SetupCallback callback)
+    public virtual void ShowSetup(SetupCallback callback)
     {
         this.m_Callback = callback;
     }
 
-    public virtual void Hide()
+    public virtual void HideAttack()
     {
     }
 

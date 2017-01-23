@@ -12,9 +12,9 @@ public class CircularSetupVisuals : FixedPlaceSetupVisuals {
     public float m_Size;
     public float m_Angle;
 
-    public override void Show(SetupCallback callback)
+    public override void ShowSetup(SetupCallback callback)
     {
-        base.Show(callback);
+        base.ShowSetup(callback);
 
         MLog.Log(LogType.BattleLog, 2, "Showing Circular Setup Visuals");
 
@@ -37,9 +37,9 @@ public class CircularSetupVisuals : FixedPlaceSetupVisuals {
         this.m_Callback.OnSetupOver();
     }
 
-    public override void Hide()
+    public override void HideAttack()
     {
-        base.Hide();
+        base.HideAttack();
 
         this.m_Canvas.gameObject.SetActive(false);
     }
