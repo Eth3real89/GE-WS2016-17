@@ -50232,6 +50232,7 @@ GameObject:
   - component: {fileID: 1546564206}
   - component: {fileID: 1546564205}
   - component: {fileID: 1546564204}
+  - component: {fileID: 1546564208}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -50319,6 +50320,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1546564202}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1546564208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1546564202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6db9a89983051a4a9ee93bbb28c47a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textHint: {fileID: 1356307806}
+  message: Need item to get stronger
+  FollowingObjects: []
 --- !u!4 &1553844381 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: ae4ae9b9b100d4b7db2dbc42994d8a95, type: 2}
@@ -64933,6 +64948,10 @@ Prefab:
     - target: {fileID: 4309062748784360, guid: 2acb300160851794e8c5a2330570274b, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4309062748784360, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 62.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
