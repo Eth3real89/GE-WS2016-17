@@ -15,13 +15,18 @@ public class SlowTime : MonoBehaviour {
     }
 
     public float m_SlowAmount;
-    
+    public bool m_PreventChanges;
+
     void Start () {
         _instance = this;
+        _instance.m_PreventChanges = false;
     }
     
     public void StartSlowMo(float slowAmount = -1)
     {
+        if (m_PreventChanges)
+            return;
+
         if (slowAmount < 0)
             slowAmount = m_SlowAmount;
 
@@ -31,6 +36,9 @@ public class SlowTime : MonoBehaviour {
 
     public void StopSlowMo()
     {
+        if (m_PreventChanges)
+            return;
+
         Time.timeScale = 1f;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }

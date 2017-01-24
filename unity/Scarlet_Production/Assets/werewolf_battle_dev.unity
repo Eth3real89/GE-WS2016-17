@@ -2266,6 +2266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SlowAmount: 0.05
+  m_PreventChanges: 0
 --- !u!4 &578030727
 Transform:
   m_ObjectHideFlags: 0
@@ -3702,7 +3703,7 @@ Prefab:
     - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
       propertyPath: m_SlowMoAmount
-      value: 0.05
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
@@ -3719,6 +3720,16 @@ Prefab:
       propertyPath: m_Tutorial
       value: 
       objectReference: {fileID: 2023222680}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_MinHuntTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114107830221688878, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_MaxHuntTime
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0

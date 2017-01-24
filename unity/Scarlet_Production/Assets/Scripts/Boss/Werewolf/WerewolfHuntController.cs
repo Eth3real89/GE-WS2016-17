@@ -243,6 +243,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         if (!m_SuccessfullyRiposted)
         {
             SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
+            SlowTime.Instance.m_PreventChanges = true;
 
             m_SlowMoTimer = SlowMoTimer();
             StartCoroutine(m_SlowMoTimer);
@@ -256,10 +257,15 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         base.OnComboParried(combo);
         if (!m_SuccessfullyRiposted)
         {
-            SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
+            if (m_SlowMoTimer != null)
+                StopCoroutine(m_SlowMoTimer);
 
             m_SlowMoTimer = SlowMoTimer();
             StartCoroutine(m_SlowMoTimer);
+
+            SlowTime.Instance.m_PreventChanges = false;
+            SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
+            SlowTime.Instance.m_PreventChanges = true;
 
             m_Tutorial.ShowTutorial("Y", "Riposte", m_SlowMoAmount);
         }
@@ -276,6 +282,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
             if (m_SlowMoTimer != null)
             {
                 StopCoroutine(m_SlowMoTimer);
+                SlowTime.Instance.m_PreventChanges = false;
                 SlowTime.Instance.StopSlowMo();
 
                 m_Tutorial.HideTutorial(m_SlowMoAmount);
@@ -291,7 +298,9 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         if (m_SlowMoTimer != null)
         {
             StopCoroutine(m_SlowMoTimer);
+            SlowTime.Instance.m_PreventChanges = false;
             SlowTime.Instance.StopSlowMo();
+            SlowTime.Instance.m_PreventChanges = true;
             m_Tutorial.HideTutorial();
         }
     }
@@ -299,6 +308,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
     private IEnumerator SlowMoTimer()
     {
         yield return new WaitForSeconds(m_SlowMoTime * m_SlowMoAmount);
+        SlowTime.Instance.m_PreventChanges = false;
         SlowTime.Instance.StopSlowMo();
 
         m_Tutorial.HideTutorial(m_SlowMoAmount);
