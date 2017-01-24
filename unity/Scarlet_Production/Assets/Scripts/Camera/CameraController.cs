@@ -62,7 +62,7 @@ public class CameraController : MonoBehaviour {
     {
         CameraShake shake = GetComponent<CameraShake>();
         if (shake != null)
-            shake.ShakeCamera(0.5f, 0.15f);
+            shake.ShakeCamera(1f, 0.15f);
     }
 
 }
