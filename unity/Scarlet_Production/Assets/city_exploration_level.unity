@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 957153193}
-  m_IndirectSpecularColor: {r: 0.1357679, g: 0.1496808, b: 0.16221637, a: 1}
+  m_IndirectSpecularColor: {r: 0.13559267, g: 0.14969191, b: 0.16211069, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -9751,6 +9751,12 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114355149481914786, guid: c7b59d6da78df304c86f1582dfaee149,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7b59d6da78df304c86f1582dfaee149, type: 2}
   m_IsPrefabParent: 0
@@ -13031,7 +13037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textHint: {fileID: 1356307806}
-  message: You cannot cross strong lightfields
+  message: strong light expels darkness
   FollowingObjects:
   - {fileID: 487734748}
   - {fileID: 1659662671}
@@ -25932,7 +25938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textHint: {fileID: 1356307806}
-  message: weak lightfield
+  message: weak light saps darkness
   FollowingObjects: []
 --- !u!1 &812137372
 GameObject:
@@ -27547,6 +27553,12 @@ Prefab:
       propertyPath: m_Text
       value: Jump
       objectReference: {fileID: 0}
+    - target: {fileID: 114355149481914786, guid: c7b59d6da78df304c86f1582dfaee149,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c7b59d6da78df304c86f1582dfaee149, type: 2}
   m_IsPrefabParent: 0
@@ -50332,7 +50344,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textHint: {fileID: 1356307806}
-  message: Need item to get stronger
+  message: aquire pure darkness
   FollowingObjects: []
 --- !u!4 &1553844381 stripped
 Transform:
@@ -64651,7 +64663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textHint: {fileID: 1356307806}
-  message: You cannot cross strong lightfields
+  message: strong light expels darkness
   FollowingObjects:
   - {fileID: 487734748}
   - {fileID: 1659662671}
