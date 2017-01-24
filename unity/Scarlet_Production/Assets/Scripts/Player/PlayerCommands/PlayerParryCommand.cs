@@ -43,6 +43,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     private void DoParry()
     {
         m_Callback.OnCommandStart(m_CommandName, this);
+        EventManager.TriggerEvent("user_parry");
 
         m_ScarletHittable.RegisterInterject(this);
         m_CurrentState = ParryState.TooLate;

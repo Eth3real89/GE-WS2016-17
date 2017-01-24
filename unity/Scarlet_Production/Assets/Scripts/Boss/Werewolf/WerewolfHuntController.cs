@@ -76,6 +76,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
             if (m_BossHealth.m_CurrentHealth < m_BossHealth.m_HealthOld)
             {
                 m_SuccessfullyRiposted = true;
+                EventManager.StopListening("user_parry", OnUserFirstParry);
             }
         }
 
@@ -106,6 +107,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         m_BlockTimeBefore = m_PlayerParryCommand.m_OkParryTime;
         m_PlayerParryCommand.m_OkParryTime = 0;
         m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime + m_BlockTimeBefore;
+
+        EventManager.StartListening("user_parry", OnUserFirstParry);
 
         LaunchSingleHuntIteration();
     }
@@ -281,6 +284,16 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
 
         if (m_HuntTimer == null)
             StopCoroutine(m_HuntTimer);
+    }
+
+    private void OnUserFirstParry()
+    {
+        if (m_SlowMoTimer != null)
+        {
+            StopCoroutine(m_SlowMoTimer);
+            SlowTime.Instance.StopSlowMo();
+            m_Tutorial.HideTutorial();
+        }
     }
 
     private IEnumerator SlowMoTimer()

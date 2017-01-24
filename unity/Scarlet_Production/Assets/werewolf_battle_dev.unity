@@ -883,6 +883,11 @@ Prefab:
       propertyPath: m_TooSoonParryTime
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 114335818791618858, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_Owner
+      value: 
+      objectReference: {fileID: 638130663}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_IsPrefabParent: 0
@@ -2284,7 +2289,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HowlTime: 4
-  m_StartPhase: 0
+  m_StartPhase: 1
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -3095,6 +3100,7 @@ MonoBehaviour:
   m_Type: 0
   m_BlockType: 2
   m_Active: 0
+  m_Owner: {fileID: 0}
   m_Damage: 45
   m_Blockable: 1
 --- !u!23 &863274537
