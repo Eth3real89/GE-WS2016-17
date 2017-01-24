@@ -2245,6 +2245,7 @@ GameObject:
   - component: {fileID: 578030727}
   - component: {fileID: 578030726}
   - component: {fileID: 578030728}
+  - component: {fileID: 578030729}
   m_Layer: 0
   m_Name: _MainObject
   m_TagString: Untagged
@@ -2289,7 +2290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HowlTime: 4
-  m_StartPhase: 1
+  m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -2297,6 +2298,17 @@ MonoBehaviour:
   m_StreetLightWrapper: {fileID: 480907525}
   m_Scarlet: {fileID: 638130663}
   m_PlayerControls: {fileID: 125627558}
+--- !u!114 &578030729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 578030725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58b7e559944a9e4c8a07d3627106dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &592721408
 Prefab:
   m_ObjectHideFlags: 0
