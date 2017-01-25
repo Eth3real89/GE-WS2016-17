@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class BulletFactoryInvoker : MonoBehaviour {
 
-
     public BulletFactory[] m_Factories;
+    public Transform m_Base;
 
     public int m_Iterations;
     public float m_TimeBetweenIterations;
 
-    private int m_CurrentIteration;
+    protected int m_CurrentIteration;
 
-    private IEnumerator m_LaunchIterationTimer;
+    protected IEnumerator m_LaunchIterationTimer;
 
-    public void Launch(BulletSwarm bs)
+    public virtual void Launch(BulletSwarm bs)
     {
         m_CurrentIteration = 0;
         SpawnIteration(bs);
     }
 
-    private void SpawnIteration(BulletSwarm bs)
+    protected virtual void SpawnIteration(BulletSwarm bs)
     {
         if (m_CurrentIteration >= m_Iterations)
             return;
@@ -29,6 +29,9 @@ public class BulletFactoryInvoker : MonoBehaviour {
         {
             BulletBehaviour b = m_Factories[i].CreateBullet();
             b.Launch();
+
+            b.transform.position = m_Base.transform.position;
+            b.transform.rotation = m_Base.transform.rotation;
 
             bs.m_Instances.Add(b);
         }
@@ -39,7 +42,7 @@ public class BulletFactoryInvoker : MonoBehaviour {
         StartCoroutine(m_LaunchIterationTimer);
     }
 
-    private IEnumerator BetweenIterations(BulletSwarm bs)
+    protected virtual IEnumerator BetweenIterations(BulletSwarm bs)
     {
         yield return new WaitForSeconds(m_TimeBetweenIterations);
 

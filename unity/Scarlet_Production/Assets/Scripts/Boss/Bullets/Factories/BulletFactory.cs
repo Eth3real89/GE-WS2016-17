@@ -12,9 +12,15 @@ public class BulletFactory : MonoBehaviour {
     public virtual BulletBehaviour CreateBullet()
     {
         BulletBehaviour copy = Instantiate(m_Base, this.transform.position, this.transform.rotation);
+
         copy.m_Movement = Instantiate(m_Movement);
+        copy.m_Movement.transform.parent = copy.transform;
+
         copy.m_Expiration = Instantiate(m_Expire);
+        copy.m_Expiration.transform.parent = copy.transform;
+
         copy.m_OnExpire = Instantiate(m_OnExpire);
+        copy.m_OnExpire.transform.parent = copy.transform;
 
         return copy;
     }
