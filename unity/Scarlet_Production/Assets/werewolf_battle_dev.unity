@@ -1897,6 +1897,81 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 375e0ea0d94c43044b8507d7c44ff80d, type: 2}
   m_PrefabInternal: {fileID: 446473026}
+--- !u!1 &454739548
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 454739553}
+  - component: {fileID: 454739552}
+  - component: {fileID: 454739551}
+  - component: {fileID: 454739549}
+  m_Layer: 0
+  m_Name: _MainObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &454739549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454739548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f58b7e559944a9e4c8a07d3627106dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &454739551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454739548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HowlTime: 4
+  m_StartPhase: 0
+  m_WerewolfAnimator: {fileID: 1689460406}
+  m_HuntController: {fileID: 1689460401}
+  m_Phase2Controller: {fileID: 1689460400}
+  m_RagemodeController: {fileID: 1689460399}
+  m_StreetLightWrapper: {fileID: 480907525}
+  m_Scarlet: {fileID: 638130663}
+  m_PlayerControls: {fileID: 125627558}
+--- !u!114 &454739552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454739548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e5a84aef1ad8694888a7e0de8c201eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SlowAmount: 0.05
+  m_PreventChanges: 0
+--- !u!4 &454739553
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 454739548}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.485197, y: -1.6611414, z: -4.1382227}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &461883925
 Prefab:
   m_ObjectHideFlags: 0
@@ -2235,95 +2310,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 125627557}
   m_Script: {fileID: 11500000, guid: 1f30b0e035e9d2241a3cab98aa07d822, type: 3}
---- !u!1 &578030725
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 578030727}
-  - component: {fileID: 578030726}
-  - component: {fileID: 578030728}
-  - component: {fileID: 578030729}
-  - component: {fileID: 578030730}
-  m_Layer: 0
-  m_Name: _MainObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &578030726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578030725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e5a84aef1ad8694888a7e0de8c201eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SlowAmount: 0.05
-  m_PreventChanges: 0
---- !u!4 &578030727
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578030725}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &578030728
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578030725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HowlTime: 4
-  m_StartPhase: 0
-  m_WerewolfAnimator: {fileID: 1689460406}
-  m_HuntController: {fileID: 1689460401}
-  m_Phase2Controller: {fileID: 1689460400}
-  m_RagemodeController: {fileID: 1689460399}
-  m_StreetLightWrapper: {fileID: 480907525}
-  m_Scarlet: {fileID: 638130663}
-  m_PlayerControls: {fileID: 125627558}
---- !u!114 &578030729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578030725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f58b7e559944a9e4c8a07d3627106dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &578030730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578030725}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01af0bbe5d9d6ce4d81bfdfcb54a9de2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MoonFlare: {fileID: 1850061158}
-  m_Bloom: {fileID: 2001003675}
 --- !u!1001 &592721408
 Prefab:
   m_ObjectHideFlags: 0
@@ -6260,11 +6246,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c544cd4fc1b3084481d40437dbae5ab, type: 2}
   m_IsPrefabParent: 0
---- !u!123 &1850061158 stripped
-LensFlare:
-  m_PrefabParentObject: {fileID: 123366166236734626, guid: 6c544cd4fc1b3084481d40437dbae5ab,
-    type: 2}
-  m_PrefabInternal: {fileID: 1850061157}
 --- !u!1 &1852971178
 GameObject:
   m_ObjectHideFlags: 0
