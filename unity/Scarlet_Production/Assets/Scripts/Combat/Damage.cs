@@ -14,6 +14,8 @@ public abstract class Damage : MonoBehaviour {
 
     public bool m_Active;
 
+    public GameObject m_Owner;
+
     public Damage(DamageCallback callback = null)
     {
         m_Callback = callback;
