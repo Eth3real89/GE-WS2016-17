@@ -43,9 +43,11 @@ public class AreaEnterTextController : MonoBehaviour {
         {
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
             textHint.GetComponentInChildren<Text>().color = newColorRed;
+            textHint.GetComponentInChildren<Image>().color = newColorRed;
 
             yield return null;
         }
+        textHint.GetComponentInChildren<Image>().color = new Color(0.65f, 0, 0, aValue);
         textHint.GetComponentInChildren<Text>().color = new Color(0.65f, 0, 0, aValue);
 
     }
