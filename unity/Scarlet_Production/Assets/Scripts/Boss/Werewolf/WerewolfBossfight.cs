@@ -38,10 +38,13 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         }
         else if (m_StartPhase == Phase.Combat)
         {
+            SetRedLightsEnabled(false);
             PhaseEnd(m_HuntController);
         }
         else if (m_StartPhase == Phase.RageMode)
         {
+            SetStreetLightsEnabled(false);
+            SetRedLightsEnabled(true);
             PhaseEnd(m_Phase2Controller);
         }
     }
@@ -54,14 +57,14 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
     {
         if (whichPhase == m_HuntController)
         {
-            SetStreetLightsEnabled(false);
             m_HuntController.enabled = false;
 
+            StartCoroutine(FlickerLightsOff());
             StartCoroutine(StartPhase2AfterHowling(2f));
         }
         else if (whichPhase == m_Phase2Controller)
         {
-            SetStreetLightsEnabled(true);
+            StartCoroutine(FlickerLightsOn());
             if (m_Scarlet != null)
                 m_Scarlet.transform.position = new Vector3(0, m_Scarlet.transform.position.y, 0); // @todo better
             m_Phase2Controller.enabled = false;
@@ -111,7 +114,8 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
     {
         foreach(Light l in m_StreetLightWrapper.GetComponentsInChildren<Light>())
         {
-            l.enabled = enabled;
+            if(l.gameObject.name != "Red Light")
+                l.enabled = enabled;
         }
 
         foreach(Collider col in m_StreetLightWrapper.GetComponentsInChildren<Collider>())
@@ -122,6 +126,64 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
             }
         }
     }
+
+    private void SetRedLightsEnabled(bool enabled)
+    {
+        foreach (Light l in m_StreetLightWrapper.GetComponentsInChildren<Light>())
+        {
+            if (l.gameObject.name == "Red Light")
+            {
+                l.enabled = enabled;
+            }
+        }
+    }
+
+    private void SetRedLightsIntensity(float intensity)
+    {
+        foreach (Light l in m_StreetLightWrapper.GetComponentsInChildren<Light>())
+        {
+            if (l.gameObject.name == "Red Light")
+                l.intensity = intensity;
+        }
+    }
+
+    private IEnumerator FlickerLightsOff()
+    {
+        for(int i = 0; i < 9; i++)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
+            SetStreetLightsEnabled(i % 2 == 1);
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        SetRedLightsEnabled(true);
+        float t = 0;
+        while ((t += Time.deltaTime) < 2)
+        {
+            SetRedLightsIntensity(t / 2);
+            yield return null;
+        }
+    }
+
+    private IEnumerator FlickerLightsOn()
+    {
+        SetRedLightsEnabled(false);
+
+        yield return new WaitForSeconds(0.1f);
+        SetStreetLightsEnabled(true);
+        yield return new WaitForSeconds(0.1f);
+        SetStreetLightsEnabled(false);
+        yield return new WaitForSeconds(0.5f);
+
+
+        for (int i = 0; i < 9; i++)
+        {
+            yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
+            SetStreetLightsEnabled(i % 2 == 0);
+        }
+    }
+
 }
 
 public interface BossfightCallbacks
