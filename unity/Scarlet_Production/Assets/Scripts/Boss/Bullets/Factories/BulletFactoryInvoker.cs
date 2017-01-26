@@ -27,12 +27,8 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
         for (int i = 0; i < m_Factories.Length; i++)
         {
-            BulletBehaviour b = m_Factories[i].CreateBullet();
+            BulletBehaviour b = CreateBullet(i);
             b.Launch();
-
-            b.transform.position = m_Base.transform.position;
-            b.transform.rotation = m_Base.transform.rotation;
-
             bs.m_Instances.Add(b);
         }
 
@@ -40,6 +36,15 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
         m_LaunchIterationTimer = BetweenIterations(bs);
         StartCoroutine(m_LaunchIterationTimer);
+    }
+
+    protected virtual BulletBehaviour CreateBullet(int factoryIndex)
+    {
+        BulletBehaviour b = m_Factories[factoryIndex].CreateBullet();
+
+        b.transform.position = m_Base.transform.position;
+        b.transform.rotation = m_Base.transform.rotation;
+        return b;
     }
 
     protected virtual IEnumerator BetweenIterations(BulletSwarm bs)

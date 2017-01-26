@@ -6,13 +6,20 @@ public class BossTurnCommand : BossCommand {
 
     public static float CalculateAngleTowards(Transform boss, Transform goal)
     {
-        float angle = Mathf.Atan2(
-            goal.position.x - boss.position.x,
-            goal.position.z - boss.position.z) * Mathf.Rad2Deg;
+        float angle = CalculateAngleTowards(boss.position, goal.position);
 
         float currentAngle = boss.rotation.eulerAngles.y;
 
         return (angle - currentAngle) % 360;
+    }
+
+    public static float CalculateAngleTowards(Vector3 boss, Vector3 goal)
+    {
+        float angle = Mathf.Atan2(
+            goal.x - boss.x,
+            goal.z - boss.z) * Mathf.Rad2Deg;
+
+        return angle;
     }
 
     public void TurnBossTowards(GameObject another)

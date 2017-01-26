@@ -20,6 +20,8 @@ public class BulletSwarm : BulletBehaviour {
 
     public override void MoveBy(Vector3 movement)
     {
+        transform.position += movement;
+
         foreach (BulletBehaviour b in m_Instances)
         {
             b.MoveBy(movement);
