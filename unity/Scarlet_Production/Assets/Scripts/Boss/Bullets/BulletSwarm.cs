@@ -3,15 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletSwarm : BulletBehaviour {
+public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
 
     public List<BulletBehaviour> m_Instances;
 
     public BulletFactoryInvoker m_Invoker;
 
-    public override void Launch()
+    public override void Launch(BulletCallbacks callbacks)
     {
-        base.Launch();
+        this.m_BulletCallbacks = callbacks;
+        base.Launch(this);
 
         m_Instances = new List<BulletBehaviour>();
         m_Invoker.Launch(this);
@@ -35,5 +36,23 @@ public class BulletSwarm : BulletBehaviour {
         {
             b.Kill();
         }
+    }
+
+    public void OnBulletCreated(BulletBehaviour bullet)
+    {
+    }
+
+    public void OnBulletHitTarget(BulletBehaviour bullet)
+    {
+    }
+
+    public void OnBulletParried(BulletBehaviour bullet)
+    {
+    }
+
+    public void OnBulletDestroyed(BulletBehaviour bullet)
+    {
+        if (m_Instances.Contains(bullet))
+            m_Instances.Remove(bullet);
     }
 }

@@ -35,7 +35,7 @@ public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
         b.transform.position = new Vector3(m_Base.transform.position.x, m_Base.transform.position.y, m_Base.transform.position.z);
         
 
-        b.Launch();
+        b.Launch(bs);
         bs.m_Instances.Add(b);
 
         m_CurrentIteration++;

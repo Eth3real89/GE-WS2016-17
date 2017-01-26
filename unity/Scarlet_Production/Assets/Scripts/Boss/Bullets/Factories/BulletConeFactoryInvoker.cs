@@ -24,7 +24,7 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
             b.transform.position = m_Base.transform.position;
             b.transform.rotation = m_Base.transform.rotation;
 
-            b.Launch();
+            b.Launch(bs);
 
             float angle = angleStep * i - m_Angle / 2;
             if (count == 1)

@@ -12,8 +12,13 @@ public abstract class BulletBehaviour : MonoBehaviour {
 
     private IEnumerator m_BulletLifeEnumerator;
 
-    public virtual void Launch()
+    public BulletBehaviour.BulletCallbacks m_BulletCallbacks;
+
+
+    public virtual void Launch(BulletBehaviour.BulletCallbacks callbacks)
     {
+        m_BulletCallbacks = callbacks;
+
         m_KillBullet = false;
         m_BulletLifeEnumerator = LifeCycle();
         StartCoroutine(m_BulletLifeEnumerator);
@@ -35,5 +40,14 @@ public abstract class BulletBehaviour : MonoBehaviour {
 
     public abstract void Kill();
     public abstract void MoveBy(Vector3 movement);
+
+
+    public interface BulletCallbacks
+    {
+        void OnBulletCreated(BulletBehaviour bullet);
+        void OnBulletHitTarget(BulletBehaviour bullet);
+        void OnBulletParried(BulletBehaviour bullet);
+        void OnBulletDestroyed(BulletBehaviour bullet);
+    }
 
 }

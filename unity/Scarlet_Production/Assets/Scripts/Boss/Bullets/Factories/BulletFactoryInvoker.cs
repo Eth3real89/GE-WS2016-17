@@ -28,7 +28,7 @@ public class BulletFactoryInvoker : MonoBehaviour {
         for (int i = 0; i < m_Factories.Length; i++)
         {
             BulletBehaviour b = CreateBullet(i);
-            b.Launch();
+            b.Launch(bs);
             bs.m_Instances.Add(b);
         }
 

@@ -2189,6 +2189,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Radius: 0
   m_TimeToGetInFormation: 0
+  m_Center: {x: 0, y: 0, z: 0}
   m_IndexInCircle: 0
   m_TotalBulletsInCircle: 0
 --- !u!1 &483415588
@@ -6289,8 +6290,9 @@ MonoBehaviour:
   m_Iterations: 1
   m_TimeBetweenIterations: 0
   m_Radius: 3
-  m_TimeToGetInFormation: 5
-  m_TimeToSpawnBullets: 3
+  m_TimeToGetInFormation: 2
+  m_TimeToSpawnBullets: 1
+  m_FirstMovement: {fileID: 0}
 --- !u!114 &1676513352
 MonoBehaviour:
   m_ObjectHideFlags: 0
