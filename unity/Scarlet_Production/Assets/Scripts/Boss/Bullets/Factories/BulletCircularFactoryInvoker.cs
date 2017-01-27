@@ -11,9 +11,11 @@ public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
     private float m_Time;
     private float m_AbsoluteStartTime;
 
-    private Vector3 m_Center;
+    public Transform m_Center;
+    private Vector3 m_OffsetFix;
 
     public BulletCircularMovement m_FirstMovement;
+    
 
     protected override void SpawnIteration(BulletSwarm bs)
     {
@@ -59,13 +61,17 @@ public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
 
             if (factoryIndex == 0)
             {
-                m_Center = bcm.CalculateCenter(b);
+                bcm.CalculateCenter(b);
+                m_OffsetFix = m_Center.position - bcm.m_Center;
+                m_OffsetFix.y = 0;
+                bcm.SetCenterOffset(m_OffsetFix);
+
                 m_FirstMovement = bcm;
             }
             else
             {
-                bcm.m_Center = m_Center;
-                bcm.SetCenterOffset(m_FirstMovement.CalculateCenterOffset());
+                bcm.m_Center = m_FirstMovement.m_Center;
+                bcm.SetCenterOffset(m_FirstMovement.CalculateCenterOffset() + m_OffsetFix);
             }
 
         }

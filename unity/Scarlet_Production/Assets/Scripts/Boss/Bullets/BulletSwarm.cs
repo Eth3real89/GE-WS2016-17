@@ -42,8 +42,15 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     {
     }
 
-    public void OnBulletHitTarget(BulletBehaviour bullet)
+    public void OnBulletHitTarget(BulletBehaviour bullet, GameObject scarlet)
     {
+        if (m_Instances.Contains(bullet))
+            m_Instances.Remove(bullet);
+
+        bullet.Kill();
+
+        if (m_Instances.Count == 0)
+            Kill();
     }
 
     public void OnBulletParried(BulletBehaviour bullet)
@@ -54,5 +61,8 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     {
         if (m_Instances.Contains(bullet))
             m_Instances.Remove(bullet);
+
+        if (m_Instances.Count == 0)
+            Kill();
     }
 }

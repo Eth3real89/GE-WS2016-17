@@ -4,13 +4,43 @@ using UnityEngine;
 
 public class BulletDamageTrigger : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public BulletDamageCallback m_Callback;
+    public bool m_Active = true;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!m_Active)
+            return;
+
+        if (other.GetComponentInChildren<PlayerManager>() != null)
+        {
+            if (m_Callback != null)
+                m_Callback.OnScarletCollidesWithBullet(other.gameObject);
+        }
+
+        if (m_Callback != null)
+            m_Callback.OnBulletCollision(other);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (!m_Active)
+            return;
+
+        if (other.GetComponentInChildren<PlayerManager>() != null)
+        {
+            if (m_Callback != null)
+                m_Callback.OnScarletCollidesWithBullet(other.gameObject);
+        }
+
+        if (m_Callback != null)
+            m_Callback.OnBulletCollision(other);
+    }
+
+    public interface BulletDamageCallback
+    {
+        void OnScarletCollidesWithBullet(GameObject scarlet);
+        void OnBulletCollision(Collider other);
+    }
+
 }
