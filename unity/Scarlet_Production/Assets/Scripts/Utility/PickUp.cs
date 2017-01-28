@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 
 public class PickUp : MonoBehaviour
 {
-    public GameObject m_Light;
+    public GameObject[] m_Enables;
+    public GameObject[] m_Disables;
+
     public GameObject[] m_Auras;
 
     private Camera m_Camera;
@@ -29,11 +30,23 @@ public class PickUp : MonoBehaviour
             {
                 aura.SetActive(true);
             }
-            m_Light.SetActive(false);
             gameObject.SetActive(false);
             m_OnCollectibleVFX.Deactivate();
+            OpenTheGates();
             EffectController.Instance.Empowered();
             Destroy(this);
+        }
+    }
+
+    private void OpenTheGates()
+    {
+        foreach (GameObject go in m_Enables)
+        {
+            go.SetActive(true);
+        }
+        foreach (GameObject go in m_Disables)
+        {
+            go.SetActive(false);
         }
     }
 
