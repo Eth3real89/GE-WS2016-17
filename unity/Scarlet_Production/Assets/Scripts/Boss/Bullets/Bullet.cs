@@ -19,7 +19,8 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback
     public override void Kill()
     {
         m_KillBullet = true;
-        Destroy(this.gameObject);
+        if (this.gameObject != null)
+            Destroy(this.gameObject);
     }
 
     public override void MoveBy(Vector3 movement)

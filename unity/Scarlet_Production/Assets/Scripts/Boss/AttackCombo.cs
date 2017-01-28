@@ -21,16 +21,16 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     public int m_MaxBlocksBeforeParry = 3;
 
     public ComboCallback m_Callback;
-    private BossAttack m_CurrentAttack;
-    private int m_CurrentAttackIndex;
+    protected BossAttack m_CurrentAttack;
+    protected int m_CurrentAttackIndex;
 
-    private bool m_BetweenAttacks;
-    private IEnumerator m_AttackTimer;
+    protected bool m_BetweenAttacks;
+    protected IEnumerator m_AttackTimer;
 
-    private IEnumerator m_ParriedTimer;
+    protected IEnumerator m_ParriedTimer;
 
    
-	void Start ()
+	protected virtual void Start ()
     {
 		foreach(BossAttack attack in m_Attacks)
         {
@@ -42,7 +42,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         }
 	}
 
-    public void LaunchCombo()
+    public virtual void LaunchCombo()
     {
         MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
 
@@ -55,9 +55,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
-    public void OnAttackStart(BossAttack attack)
+    public virtual void OnAttackStart(BossAttack attack)
     {
-        MLog.Log(LogType.BattleLog, 1, "Attack Start, Combo, " + this);
+        MLog.Log(LogType.BattleLog, 1, "Attack Start, Combo, " + this + " " + attack);
 
         if (m_CurrentAttack != null)
             attack.CancelAttack();
@@ -68,9 +68,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         }
     }
 
-    public void OnAttackEnd(BossAttack attack)
+    public virtual void OnAttackEnd(BossAttack attack)
     {
-        MLog.Log(LogType.BattleLog, 1, "Attack End, Combo, " + this);
+        MLog.Log(LogType.BattleLog, 1, "Attack End, Combo, " + this + " " + attack);
 
         m_BetweenAttacks = true;
         m_CurrentAttack = null;
@@ -87,7 +87,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         }
     }
 
-    private IEnumerator StartNextAttackAfter(float time)
+    protected virtual IEnumerator StartNextAttackAfter(float time)
     {
         yield return new WaitForSeconds(time);
 
@@ -95,12 +95,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
             m_Attacks[m_CurrentAttackIndex].StartAttack();
     }
 
-    public void OnAttackEndUnsuccessfully(BossAttack attack)
+    public virtual void OnAttackEndUnsuccessfully(BossAttack attack)
     {
         OnAttackEnd(attack);
     }
 
-    public void OnBlockPlayerAttack(BossAttack attack)
+    public virtual void OnBlockPlayerAttack(BossAttack attack)
     {
         MLog.Log(LogType.BattleLog, 1, "Blocked Player Attack, Combo, " + this);
 
@@ -119,7 +119,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         m_Callback.OnActivateBlock(this);
     }
 
-    public void OnAttackParried(BossAttack attack)
+    public virtual void OnAttackParried(BossAttack attack)
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Parried, Combo, " + this);
 
@@ -134,7 +134,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         StartCoroutine(m_ParriedTimer);
     }
 
-    public void OnAttackRiposted(BossAttack attack)
+    public virtual void OnAttackRiposted(BossAttack attack)
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Riposted, Combo, " + this);
 
@@ -151,7 +151,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         StartCoroutine(m_ParriedTimer);
     }
 
-    public void CancelCombo()
+    public virtual void CancelCombo()
     {
         MLog.Log(LogType.BattleLog, 1, "Cancelling Combo, Combo, " + this);
 
@@ -163,14 +163,14 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         StopAllCoroutines();
     }
 
-    private IEnumerator WaitAfterParried()
+    protected virtual IEnumerator WaitAfterParried()
     {
         yield return new WaitForSeconds(1f);
 
         m_Callback.OnInterruptCombo(this);
     }
 
-    public void OnAttackInterrupted(BossAttack attack)
+    public virtual void OnAttackInterrupted(BossAttack attack)
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Interrupted, Combo, " + this);
 

@@ -36,6 +36,8 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
         {
             b.Kill();
         }
+
+        Destroy(this.gameObject);
     }
 
     public void OnBulletCreated(BulletBehaviour bullet)

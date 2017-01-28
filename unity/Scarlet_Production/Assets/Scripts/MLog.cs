@@ -5,11 +5,20 @@ using UnityEngine;
 public class MLog : MonoBehaviour {
 
     // same order in which they appear in LogType
-    private static bool[] s_EnabledTypes = {false, true, false, true, false, true};
+    private static bool[] s_EnabledTypes = {false, true, false, true, false, false };
+
+    public static bool m_LogTime = true;
 
     public static void Log(string msg)
     {
-        Debug.Log(msg);
+        if (m_LogTime)
+        {
+            Debug.Log(msg + "\t" + Time.realtimeSinceStartup);
+        }
+        else
+        {
+            Debug.Log(msg);
+        }
     }
 
     public static void Log(LogType type, string msg)
