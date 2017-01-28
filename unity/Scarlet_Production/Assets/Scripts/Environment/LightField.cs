@@ -15,7 +15,7 @@ public class LightField : MonoBehaviour
         LightFieldResponder responder = other.GetComponentInChildren<LightFieldResponder>();
         if (responder != null)
         {
-            responder.OnEnterLightField(m_Class, GetVectorFromDirection(other.attachedRigidbody.velocity));
+            responder.OnEnterLightField(gameObject);
         }
     }
 
@@ -24,7 +24,7 @@ public class LightField : MonoBehaviour
         LightFieldResponder responder = other.GetComponentInChildren<LightFieldResponder>();
         if (responder != null)
         {
-            responder.OnExitLightField(m_Class);
+            responder.OnExitLightField(gameObject);
         }
     }
 
@@ -39,12 +39,12 @@ public class LightField : MonoBehaviour
 
     public interface LightFieldResponder
     {
-        void OnEnterLightField(LightFieldClass lightFieldClass, Vector3 retreatDirection);
+        void OnEnterLightField(GameObject lightField);
         void OnStayInLightField(LightFieldClass lightFieldClass);
-        void OnExitLightField(LightFieldClass lightFieldClass);
+        void OnExitLightField(GameObject lightField);
     }
 
-    private Vector3 GetVectorFromDirection(Vector3 velocity)
+    public Vector3 GetVectorFromDirection(Vector3 velocity)
     {
         switch (m_Direction)
         {

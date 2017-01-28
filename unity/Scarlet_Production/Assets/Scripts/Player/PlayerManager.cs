@@ -24,12 +24,14 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerControls m_PlayerControls;
 
     private bool m_IsClimbing;
+    private List<GameObject> m_TrackLightFields;
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
 
     // Use this for initialization
     void Start()
     {
+        m_TrackLightFields = new List<GameObject>();
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         if (m_PlayerDamage != null)
@@ -59,8 +61,13 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     {
     }
 
-    public void OnEnterLightField(LightField.LightFieldClass lightFieldClass, Vector3 retreatDirection)
+    public void OnEnterLightField(GameObject lightField)
     {
+        Vector3 retreatDirection = lightField.GetComponent<LightField>().GetVectorFromDirection(m_Rigidbody.velocity);
+        LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
+        if (!m_TrackLightFields.Contains(lightField))
+            m_TrackLightFields.Add(lightField);
+
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
@@ -71,12 +78,20 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     {
     }
 
-    public void OnExitLightField(LightField.LightFieldClass lightFieldClass)
+    public void OnExitLightField(GameObject lightField)
     {
+        LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
+        if (m_TrackLightFields.Contains(lightField))
+            m_TrackLightFields.Remove(lightField);
+
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerExitsLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
             m_LightEffects.OnPlayerExitStrongLight();
+        if (m_TrackLightFields.Count > 0)
+        {
+            OnEnterLightField(m_TrackLightFields[0]);
+        }
     }
 
     public void OnEnterClimbArea()
