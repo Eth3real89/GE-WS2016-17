@@ -21,6 +21,12 @@ public class CircularAEAttack : FixedPlaceAEAttack {
         attackVisuals.m_Size = m_Size;
         attackVisuals.m_Angle = m_Angle;
 
+        if (m_AEDamage is CircularAttackDamage)
+        {
+            ((CircularAttackDamage)m_AEDamage).m_Angle = m_Angle;
+            ((CircularAttackDamage)m_AEDamage).m_Distance = m_Size;
+        }
+
         m_AEDamage.m_DamageAmount = m_DamageAmount;
 
         base.StartAttack();

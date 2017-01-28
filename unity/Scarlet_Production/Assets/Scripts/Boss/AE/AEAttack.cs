@@ -49,6 +49,7 @@ public class AEAttack : BossAttack {
         float t = 0;
 
         m_LightGuardVisuals.Setup();
+        m_LightGuardVisuals.transform.position = new Vector3(m_Boss.transform.position.x, m_LightGuardVisuals.transform.position.y, m_Boss.transform.position.z);
 
         while((t += Time.deltaTime) < m_ExpandLightGuardTime)
         {

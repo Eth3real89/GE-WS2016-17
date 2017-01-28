@@ -21,7 +21,7 @@ public class CircularAttackDamage : AEAttackDamage {
         {
             float angleTowardsScarlet = m_TurnTowardsScarlet.CalculateAngleTowardsScarlet();
             if (Mathf.Abs(angleTowardsScarlet) <= m_Angle / 2 && 
-                Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position) <= m_Distance)
+                Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position) <= m_Distance / 2)
             {
                 Hittable hittable = m_TurnTowardsScarlet.m_Scarlet.GetComponentInChildren<Hittable>();
                 if (hittable != null)
