@@ -38,7 +38,7 @@ public class EffectController : GenericSingletonClass<EffectController>
     public void EnterRegularLight()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(FadeBloom(2.5f, 3, 0.5f));
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(3f, 3.5f, 0.5f));
     }
 
     public void ExitRegularLight()
