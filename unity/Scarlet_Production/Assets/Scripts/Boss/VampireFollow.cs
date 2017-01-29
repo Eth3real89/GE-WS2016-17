@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class VampireFollow : MonoBehaviour
 {
     private GameObject m_Player;
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
-    private bool m_ShouldMove;
+    private float m_Offset = 0.5f;
 
     public bool m_Active;
 
@@ -20,26 +21,54 @@ public class VampireFollow : MonoBehaviour
     {
         if (!m_Active)
             return;
+        float moveSpeed;
 
-        Vector3 playerPos = m_Player.transform.position;
         Vector3 selfPos = transform.position;
-        playerPos.y = selfPos.y;
-        transform.LookAt(playerPos);
+        Vector3 targetLocation = GetTargetLocation();
+        transform.LookAt(targetLocation);
 
-        if (Vector3.Distance(playerPos, selfPos) > 2)
-            m_ShouldMove = true;
-        if (Vector3.Distance(playerPos, selfPos) < 0.7f)
-            m_ShouldMove = false;
+        if (Vector3.Distance(targetLocation, selfPos) >= 0.5f)
+            moveSpeed = 1.1f;
+        else if (Vector3.Distance(targetLocation, selfPos) < 0.2f)
+            moveSpeed = 0;
+        else
+            moveSpeed = 0.8f;
 
-        if (m_ShouldMove)
+        if (moveSpeed > 0)
         {
-            m_Rigidbody.velocity = transform.forward * 1f;
-            m_Animator.SetFloat("Speed", 1);
+            m_Rigidbody.velocity = transform.forward * moveSpeed;
+            m_Animator.SetFloat("Speed", moveSpeed);
         }
         else
         {
             m_Rigidbody.velocity = Vector3.zero;
             m_Animator.SetFloat("Speed", 0);
         }
+    }
+
+    private Vector3 GetTargetLocation()
+    {
+        float offsetX, offsetZ;
+        Vector3 playerPos = m_Player.transform.position;
+        playerPos.y = transform.position.y;
+        offsetZ = m_Offset;
+
+        if (m_Player.transform.forward.x >= 0)
+        {
+            offsetX = -m_Offset;
+        }
+        else
+        {
+            offsetX = m_Offset;
+        }
+
+        RaycastHit hit;
+        Vector3 targetPos = new Vector3(playerPos.x + offsetX, playerPos.y, playerPos.z + offsetZ);
+        float rayLength = Vector3.Distance(transform.position, targetPos);
+        if (Physics.Raycast(transform.position, targetPos - transform.position, out hit, rayLength))
+        {
+            targetPos.z -= m_Offset * 2;
+        }
+        return targetPos;
     }
 }
