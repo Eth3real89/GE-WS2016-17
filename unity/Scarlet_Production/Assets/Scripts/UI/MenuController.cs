@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour {
 
+
 	// Use this for initialization
 	void Start () {
 		
@@ -38,4 +39,5 @@ public class MenuController : MonoBehaviour {
             Application.Quit();
         #endif
     }
+    
 }

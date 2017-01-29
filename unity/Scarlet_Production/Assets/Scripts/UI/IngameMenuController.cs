@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class IngameMenuController : MonoBehaviour {
+public class IngameMenuController : MonoBehaviour
+{
+
+    public GameObject[] MenuItems;
 
     public GameObject menu;
     private bool menuVisible = false;
+    private int selected;
 
     // Use this for initialization
-    void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (Input.GetButtonDown("Cancel"))
+    void Start()
+    {
+        selected = 0;
+        SelectItem(selected);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
         {
             if (menuVisible)
             {
@@ -27,7 +36,71 @@ public class IngameMenuController : MonoBehaviour {
                 menu.SetActive(true);
             }
         }
-	}
+        if(Input.GetButtonDown("Vertical"))
+        {
+            if (Input.GetAxis("Vertical") < 0)
+            {
+                if(selected == MenuItems.Length - 1)
+                {
+                    selected = 0;
+                } else
+                {
+                    selected += 1;
+                }
+            }
+            else
+            {
+                if (selected == 0)
+                {
+                    selected = MenuItems.Length - 1;
+                }
+                else
+                {
+                    selected -= 1;
+                }
+            }
+            SelectItem(selected);
+            Debug.Log(selected);
+        }
+        if(Input.GetButtonDown("Horizontal"))
+        {
+            if (selected == 1)
+            {
+                if(Input.GetAxis("Horizontal") < 0)
+                {
+                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                } else
+                {
+                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                }
+            }
+            else if (selected == 2)
+            {
+                if (Input.GetAxis("Horizontal") < 0)
+                {
+                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                }
+                else
+                {
+                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                }
+
+            }
+
+        }
+        if (Input.GetButtonDown("Submit"))
+        {
+
+            if (selected == 0)
+            {
+                OnResume();
+            }
+            else if (selected == 4)
+            {
+                BackToMain();
+            }
+        }
+    }
 
     public void OnResume()
     {
@@ -35,29 +108,47 @@ public class IngameMenuController : MonoBehaviour {
         menu.SetActive(false);
     }
 
-    public void OnChangeVolume(int volume)
+    private void OnChangeMusicVolume(int volume)
     {
         //Musik Lautstärke auf den übergebenen Wert setzen
     }
 
-    public void OnChangeSoundVolume(int volume)
+    private void OnChangeSoundVolume(int volume)
     {
-        //Sounds Lautstärke auf den übergebebene Wert setzen
+        //Sounds Lautstärke auf den übergebebenen Wert setzen
     }
 
-    public void OnInvertControl(bool inverted)
-    {
 
-        //Je nach übergebenen Wert die Steuerung invertieren oder nicht
+    public void ToggleControllerInput() {
+        //Je nach Wert die Steuerung invertieren oder nicht
     }
 
-    public void BackToMain()
+    private void BackToMain()
     {
+        //Debug.Log("Back");
         SceneManager.LoadScene("userinterface_menu");
 
         //Zurück zum Hauptmenü
     }
 
+    public void SelectItem(int itemNumber)
+    {
+        if (selected != itemNumber)
+        {
+            selected = itemNumber;
+            Debug.Log(selected);
+        }
+        for (int i=0; i<MenuItems.Length; i++)
+        {
+            Image background = MenuItems[i].GetComponentInChildren<Image>();
+            if (itemNumber == i)
+            {
+                background.sprite = Resources.Load<Sprite>("BackgroundPanelSelected");
+            } else
+            {
+                background.sprite = Resources.Load<Sprite>("BackgroundPanel");
+            }
+        }
 
-
+    }
 }

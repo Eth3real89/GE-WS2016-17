@@ -49,13 +49,13 @@ public class LightFieldPromptController : MonoBehaviour {
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
-            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue / 1.5f, t));
+            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue / 1.75f, t));
             textField.color = newColorRed;
             background.color = newColorBlack;
             yield return null;
         }
         textField.color = new Color(0.65f, 0, 0, aValue);
-        background.color = new Color(0, 0, 0, aValue / 1.5f);
+        background.color = new Color(0, 0, 0, aValue / 1.75f);
     }
 
     private void ActivateFollowingObjects()
