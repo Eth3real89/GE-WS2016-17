@@ -15,6 +15,7 @@ Shader "Custom/Water" {
         _RefractionIntensity_copy ("Refraction Intensity_copy", Range(0, 1)) = 0.1
         _opacity ("opacity", Float ) = 0
         _opacityclip ("opacity clip", Float ) = 0.7
+		_redness ("redness", Float) = 0.7
         [HideInInspector]_Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
     }
     SubShader {
@@ -55,6 +56,7 @@ Shader "Custom/Water" {
             uniform float _RefractionIntensity_copy;
             uniform float _opacity;
             uniform float _opacityclip;
+			uniform float _redness;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -175,6 +177,7 @@ Shader "Custom/Water" {
                 float3 diffuse = directDiffuse * diffuseColor;
 /// Final Color:
                 float3 finalColor = diffuse * _opacity + specular;
+				finalColor += float3(_redness, 0, 0);
                 fixed4 finalRGBA = fixed4(lerp(sceneColor.rgb, finalColor,_opacity),1);
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
