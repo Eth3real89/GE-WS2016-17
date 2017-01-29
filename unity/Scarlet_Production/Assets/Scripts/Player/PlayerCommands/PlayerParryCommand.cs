@@ -118,8 +118,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         if (m_ParryCallback != null)
             m_ParryCallback.OnBlock();
 
-        CancelDelay();
-        m_Callback.OnCommandEnd(m_CommandName, this);
+        //CancelDelay();
+        //m_Callback.OnCommandEnd(m_CommandName, this);
 
         dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);

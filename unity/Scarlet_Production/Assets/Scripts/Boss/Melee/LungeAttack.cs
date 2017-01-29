@@ -22,6 +22,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     public float m_TrackTime = 4f;
     public float m_HesitateTime = 0.1f;
     public float m_TimeAfterLand = 0.5f;
+    public bool m_DamageInAir = false;
 
     private enum State {None, Aim, Jump, Land};
     private State m_State = State.None;
@@ -91,8 +92,11 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_JumpCommand.JumpAt(m_LungeTrigger.transform, this);
 
         m_CollisionHandler.SetDamageCallbacks(this);
-        m_BossCollider.m_Active = true;
-        m_BossCollider.m_Handler = m_CollisionHandler;
+        if (m_DamageInAir)
+        {
+            m_BossCollider.m_Active = true;
+            m_BossCollider.m_Handler = m_CollisionHandler;
+        }
 
         m_LungeTrigger.m_Active = true;
         m_LungeTrigger.m_Callback = this;

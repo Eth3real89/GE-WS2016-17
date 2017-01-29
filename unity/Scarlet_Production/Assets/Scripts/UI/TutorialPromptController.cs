@@ -9,6 +9,8 @@ public class TutorialPromptController : MonoBehaviour {
     private Image[] tutorialImages;
     private Text tutorialText;
 
+    private IEnumerator m_TutorialEnumerator;
+
     // Use this for initialization
     void Start () {
         tutorialImages = TutorialPrompt.GetComponentsInChildren<Image>();
@@ -46,7 +48,12 @@ public class TutorialPromptController : MonoBehaviour {
     {
         tutorialText.text = newText;
         tutorialImages[1].sprite = Resources.Load<Sprite>("controls-" + buttonShort + "_rot");
-        StartCoroutine(FadeTo(1.0f, 0.2f * timeMultplier));
+
+        if (m_TutorialEnumerator != null)
+            StopCoroutine(m_TutorialEnumerator);
+
+        m_TutorialEnumerator = FadeTo(1.0f, 0.2f * timeMultplier);
+        StartCoroutine(m_TutorialEnumerator);
     }
 
     /// <summary>
@@ -54,8 +61,11 @@ public class TutorialPromptController : MonoBehaviour {
     /// </summary>
     public void HideTutorial(float timeMultiplier = 1f)
     {
+        if (m_TutorialEnumerator != null)
+            StopCoroutine(m_TutorialEnumerator);
 
-        StartCoroutine(FadeTo(0.0f, 0.2f * timeMultiplier));
+        m_TutorialEnumerator = FadeTo(0.0f, 0.2f * timeMultiplier);
+        StartCoroutine(m_TutorialEnumerator);
     }
 
 

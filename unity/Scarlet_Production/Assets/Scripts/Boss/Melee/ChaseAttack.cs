@@ -45,6 +45,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
+
+        CheckRange();
     }
 
     void Update ()

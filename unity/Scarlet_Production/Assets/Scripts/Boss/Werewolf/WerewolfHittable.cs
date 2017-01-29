@@ -23,6 +23,9 @@ public class WerewolfHittable : MonoBehaviour, Hittable {
 
         if (m_Interject == null || !m_Interject.OnHit(damage))
         {
+            if (damage.DamageAmount() == 0)
+                return;
+
             m_Health.m_CurrentHealth -= damage.DamageAmount();
             damage.OnSuccessfulHit();
 
