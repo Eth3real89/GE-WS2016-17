@@ -36,7 +36,7 @@ public class PlayerInteractionCommand : PlayerCommand
                 m_CurrentInteraction -= Time.deltaTime;
                 if (m_CurrentInteraction < 0)
                 {
-                    hit.transform.GetComponent<PickUp>().TriggerPickUp();
+                    hit.transform.GetComponent<Interactor>().Interact();
                 }
             }
         }

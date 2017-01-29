@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PickUp : MonoBehaviour
+public class PickUp : Interactor
 {
     public GameObject[] m_Enables;
     public GameObject[] m_Disables;
@@ -22,7 +22,7 @@ public class PickUp : MonoBehaviour
         HandleCollectibleVisualization();
     }
 
-    public void TriggerPickUp()
+    public override void Interact()
     {
         foreach (GameObject aura in m_Auras)
         {
