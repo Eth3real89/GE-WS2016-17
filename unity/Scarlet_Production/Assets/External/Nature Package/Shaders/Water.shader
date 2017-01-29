@@ -8,6 +8,7 @@
 Shader "Custom/Water" {
     Properties {
         _Normal ("Normal", 2D) = "bump" {}
+		_FlowMap("FlowMap  (RGB)", 2D) = "white" {}
         _Watercolor ("Water color", Color) = (0.5,0.5,0.5,1)
         _tiling ("tiling", Float ) = 1
         _Roughness ("Roughness", Float ) = 0
@@ -49,6 +50,7 @@ Shader "Custom/Water" {
             uniform sampler2D _GrabTexture;
             uniform float4 _TimeEditor;
             uniform sampler2D _Normal; uniform float4 _Normal_ST;
+			uniform sampler2D _FlowMap;
             uniform float4 _Watercolor;
             uniform float _tiling;
             uniform float _Roughness;
@@ -96,7 +98,7 @@ Shader "Custom/Water" {
                 i.screenPos = float4( i.screenPos.xy / i.screenPos.w, 0, 0 );
                 i.screenPos.y *= _ProjectionParams.x;
                 float4 node_6677 = _Time + _TimeEditor;
-                float2 node_8888 = ((i.uv0*_tiling)+node_6677.g*float2(0.03,0.03));
+                float2 node_8888 = ((i.uv0*_tiling)+node_6677.g*float2(0.3,0.0));
                 float3 _Normal_var = UnpackNormal(tex2D(_Normal,TRANSFORM_TEX(node_8888, _Normal)));
                 float2 sceneUVs = float2(1,grabSign)*i.screenPos.xy*0.5+0.5 + (_Normal_var.rgb.rg*(_RefractionIntensity_copy*0.2));
                 float4 sceneColor = tex2D(_GrabTexture, sceneUVs);
