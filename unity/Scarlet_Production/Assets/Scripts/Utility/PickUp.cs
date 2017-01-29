@@ -22,20 +22,17 @@ public class PickUp : MonoBehaviour
         HandleCollectibleVisualization();
     }
 
-    private void OnCollisionEnter(Collision collision)
+    public void TriggerPickUp()
     {
-        if (collision.transform.tag == "Player")
+        foreach (GameObject aura in m_Auras)
         {
-            foreach (GameObject aura in m_Auras)
-            {
-                aura.SetActive(true);
-            }
-            gameObject.SetActive(false);
-            m_OnCollectibleVFX.Deactivate();
-            OpenTheGates();
-            EffectController.Instance.Empowered();
-            Destroy(this);
+            aura.SetActive(true);
         }
+        gameObject.SetActive(false);
+        m_OnCollectibleVFX.Deactivate();
+        OpenTheGates();
+        EffectController.Instance.Empowered();
+        Destroy(this);
     }
 
     private void OpenTheGates()

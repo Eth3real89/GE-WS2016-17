@@ -14,6 +14,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     private PlayerMoveCommand m_MoveCommand;
     private PlayerParryCommand m_ParryCommand;
     private PlayerStaggerCommand m_StaggerCommand;
+    private PlayerInteractionCommand m_InteractionCommand;
 
     private PlayerCommand m_ActiveCommand;
 
@@ -85,6 +86,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         m_MoveCommand = GetComponentInChildren<PlayerMoveCommand>();
         m_ParryCommand = GetComponentInChildren<PlayerParryCommand>();
         m_StaggerCommand = GetComponentInChildren<PlayerStaggerCommand>();
+        m_InteractionCommand = GetComponentInChildren<PlayerInteractionCommand>();
 
         if (m_ParryCommand != null)
             m_ParryCommand.m_ParryCallback = this;
@@ -134,6 +136,12 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
             m_MoveCommand.StopMoving();
         }
         else if (command == m_StaggerCommand)
+        {
+            CancelCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
+            DisableCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
+            m_MoveCommand.StopMoving();
+        }
+        else if (command = m_InteractionCommand)
         {
             CancelCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
             DisableCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
