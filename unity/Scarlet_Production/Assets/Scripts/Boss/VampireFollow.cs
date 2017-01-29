@@ -6,7 +6,7 @@ public class VampireFollow : MonoBehaviour
     private GameObject m_Player;
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
-    private float m_Offset = 0.5f;
+    private float m_Offset = 0.5f, cSpeed, moveSpeed;
 
     public bool m_Active;
 
@@ -21,7 +21,7 @@ public class VampireFollow : MonoBehaviour
     {
         if (!m_Active)
             return;
-        float moveSpeed;
+        cSpeed = Mathf.Lerp(cSpeed, moveSpeed, 0.05f);
 
         Vector3 selfPos = transform.position;
         Vector3 targetLocation = GetTargetLocation();
@@ -36,7 +36,7 @@ public class VampireFollow : MonoBehaviour
 
         if (moveSpeed > 0)
         {
-            m_Rigidbody.velocity = transform.forward * moveSpeed;
+            m_Rigidbody.velocity = transform.forward * cSpeed;
             m_Animator.SetFloat("Speed", moveSpeed);
         }
         else
