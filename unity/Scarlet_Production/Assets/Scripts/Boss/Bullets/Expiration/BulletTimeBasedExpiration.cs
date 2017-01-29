@@ -22,6 +22,8 @@ public class BulletTimeBasedExpiration : BulletExpirationBehaviour
     {
         yield return new WaitForSeconds(m_Time);
 
+        m_Bullet.m_BulletCallbacks.OnBulletDestroyed(m_Bullet);
+
         if (m_Bullet != null)
             m_Bullet.Kill();
     }

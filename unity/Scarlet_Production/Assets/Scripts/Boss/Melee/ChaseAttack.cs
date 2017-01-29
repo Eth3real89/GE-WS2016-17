@@ -45,6 +45,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
         m_ScarletInRange = false;
         m_CurrentChaseTime = 0f;
+
+        CheckRange();
     }
 
     void Update ()
@@ -74,7 +76,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
         if (Mathf.Abs(m_BossTurn.m_AngleTowardsScarlet) <= 45)
         {
-            m_BossMove.DoMove(m_Boss.transform.forward.x, m_Boss.transform.forward.z);
+            m_BossMove.DoMove(m_Boss.transform.forward.x, m_Boss.transform.forward.z, m_BossTurn.m_Scarlet.transform.position);
             m_BossTurn.m_TurnSpeed = m_MaxTurnAngleChaseState;
         }
         else

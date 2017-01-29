@@ -35,6 +35,35 @@ public class BossMoveCommand : BossCommand {
         }
     }
 
+    public void DoMove(float horizontal, float vertical, Vector3 target)
+    {
+        Vector3 movement = new Vector3(horizontal, 0, vertical);
+
+        if (movement.magnitude > 1)
+            movement.Normalize();
+
+        movement *= m_Speed;
+
+        float dist = Vector3.Distance(m_Boss.transform.position, target);
+        if (movement.magnitude * Time.deltaTime * 4 > dist) // rough estimate to fix an issue based on another estimate ~.~
+                                                            // (first estimate: boss's position is about the same as its melee dmg. trigger)
+                                                            // (second estimate: if scarlet/target is almost in range, the boss should barely move; that's what's in this condition.)
+        {
+            movement *= dist / movement.magnitude;
+        }
+        
+        m_BossBody.velocity = movement;
+        m_Animator.SetFloat("Speed", movement.magnitude);
+
+        if (m_StepsAudio != null)
+        {
+            if (m_StepsAudio.isPlaying && movement.magnitude <= 0.2)
+                m_StepsAudio.Stop();
+            else if (!m_StepsAudio.isPlaying && movement.magnitude >= 0.2)
+                m_StepsAudio.Play();
+        }
+    }
+
     public void StopMoving()
     {
         m_Animator.SetFloat("Speed", 0);

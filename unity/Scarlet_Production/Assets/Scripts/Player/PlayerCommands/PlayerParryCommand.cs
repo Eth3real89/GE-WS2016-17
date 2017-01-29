@@ -118,8 +118,11 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         if (m_ParryCallback != null)
             m_ParryCallback.OnBlock();
 
-        CancelDelay();
-        m_Callback.OnCommandEnd(m_CommandName, this);
+        if (!(dmg is BulletDamage))
+        {
+            CancelDelay();
+            m_Callback.OnCommandEnd(m_CommandName, this);
+        }
 
         dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);
@@ -131,8 +134,11 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     {
         CameraController.Instance.Shake();
 
-        CancelDelay();
-        m_Callback.OnCommandEnd(m_CommandName, this);
+        if (!(dmg is BulletDamage))
+        {
+            CancelDelay();
+            m_Callback.OnCommandEnd(m_CommandName, this);
+        }
 
         if (m_ParryCallback != null)
             m_ParryCallback.OnPerfectParry();

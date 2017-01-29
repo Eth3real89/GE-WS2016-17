@@ -29,11 +29,13 @@ public class IngameMenuController : MonoBehaviour
             {
                 menuVisible = false;
                 menu.SetActive(false);
+                SetScarletControlsEnabled(true);
             }
             else
             {
                 menuVisible = true;
                 menu.SetActive(true);
+                SetScarletControlsEnabled(false);
             }
         }
         if(Input.GetButtonDown("Vertical"))
@@ -60,7 +62,6 @@ public class IngameMenuController : MonoBehaviour
                 }
             }
             SelectItem(selected);
-            Debug.Log(selected);
         }
         if(Input.GetButtonDown("Horizontal"))
         {
@@ -90,7 +91,6 @@ public class IngameMenuController : MonoBehaviour
         }
         if (Input.GetButtonDown("Submit"))
         {
-
             if (selected == 0)
             {
                 OnResume();
@@ -106,6 +106,7 @@ public class IngameMenuController : MonoBehaviour
     {
         menuVisible = false;
         menu.SetActive(false);
+        SetScarletControlsEnabled(true);
     }
 
     private void OnChangeMusicVolume(int volume)
@@ -125,10 +126,21 @@ public class IngameMenuController : MonoBehaviour
 
     private void BackToMain()
     {
-        //Debug.Log("Back");
         SceneManager.LoadScene("userinterface_menu");
 
         //Zurück zum Hauptmenü
+    }
+
+    private void SetScarletControlsEnabled(bool enabled)
+    {
+        PlayerControls controls = FindObjectOfType<PlayerControls>();
+        if (controls != null)
+        {
+            if (enabled)
+                controls.EnableAllCommands();
+            else
+                controls.DisableAllCommands();
+        }
     }
 
     public void SelectItem(int itemNumber)
@@ -136,7 +148,6 @@ public class IngameMenuController : MonoBehaviour
         if (selected != itemNumber)
         {
             selected = itemNumber;
-            Debug.Log(selected);
         }
         for (int i=0; i<MenuItems.Length; i++)
         {
