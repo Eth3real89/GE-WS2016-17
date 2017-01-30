@@ -13,7 +13,6 @@ public class PlayerInteractionCommand : PlayerCommand
     private void Start()
     {
         m_CurrentInteraction = m_InteractionTime;
-        m_CommandName = "Attack";
     }
 
     public override void InitTrigger()
