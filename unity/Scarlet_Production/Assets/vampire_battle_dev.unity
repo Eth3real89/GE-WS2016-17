@@ -122,6 +122,53 @@ Transform:
   m_Father: {fileID: 227936104}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5385618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 5385620}
+  - component: {fileID: 5385619}
+  m_Layer: 0
+  m_Name: BulletMoveHomingThenNone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &5385619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5385618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f428f48f40e1bc747afb447bf1ef76ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Movements:
+  - {fileID: 1979368104}
+  - {fileID: 1260456318}
+  m_Times:
+  - 2
+--- !u!4 &5385620
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 5385618}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.55555546, y: 0.5555556, z: 0.55555546}
+  m_Children:
+  - {fileID: 1979368103}
+  - {fileID: 1260456317}
+  m_Father: {fileID: 169418337}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7174892
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +333,7 @@ MonoBehaviour:
   - {fileID: 384621743}
   - {fileID: 1829125714}
   - {fileID: 157656916}
+  - {fileID: 364869754}
   m_BossHittable: {fileID: 10650778}
   m_BlockingBehaviour: {fileID: 10650785}
   m_MaxBlocksBeforeParry: 3
@@ -418,7 +466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 638130663}
   m_Combos:
-  - {fileID: 569883828}
+  - {fileID: 364869754}
   m_BossHittable: {fileID: 10650778}
   m_BlockingBehaviour: {fileID: 10650785}
   m_MaxBlocksBeforeParry: 3
@@ -485,7 +533,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
-  m_Movement: {fileID: 450870580}
+  m_Movement: {fileID: 2053107125}
   m_Expire: {fileID: 367262770}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
     type: 2}
@@ -499,7 +547,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.10000001, z: 0}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
-  - {fileID: 450870579}
+  - {fileID: 2053107124}
   - {fileID: 367262771}
   m_Father: {fileID: 322723763}
   m_RootOrder: 2
@@ -1255,6 +1303,7 @@ Transform:
   m_Children:
   - {fileID: 1676513350}
   - {fileID: 997434084}
+  - {fileID: 5385620}
   m_Father: {fileID: 364869753}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2227,7 +2276,7 @@ GameObject:
   - component: {fileID: 367262771}
   - component: {fileID: 367262770}
   m_Layer: 9
-  m_Name: NoExpiration
+  m_Name: TimeBasedExpiration
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2241,9 +2290,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 367262769}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d649f41ef2264648bfd9f22cdb02943, type: 3}
+  m_Script: {fileID: 11500000, guid: 22a7977da094b0e458cd498ee5759bfe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Time: 4
 --- !u!4 &367262771
 Transform:
   m_ObjectHideFlags: 0
@@ -2525,51 +2575,6 @@ Transform:
   m_Father: {fileID: 1456863864}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &450870578
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 450870579}
-  - component: {fileID: 450870580}
-  m_Layer: 9
-  m_Name: CircularMovement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &450870579
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 450870578}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 69281135}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &450870580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 450870578}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a238d6dcbf3fca4a97fbfa7b4c6dda4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Radius: 0
-  m_TimeToGetInFormation: 0
-  m_Center: {x: 0, y: 0, z: 0}
-  m_IndexInCircle: 0
-  m_TotalBulletsInCircle: 0
 --- !u!1 &483415588
 GameObject:
   m_ObjectHideFlags: 0
@@ -5355,6 +5360,46 @@ MonoBehaviour:
   m_Target: {fileID: 125627558}
   m_HomingFactor: 120
   m_Speed: 5
+--- !u!1 &1260456316
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1260456317}
+  - component: {fileID: 1260456318}
+  m_Layer: 0
+  m_Name: BulletNoMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1260456317
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1260456316}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5385620}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1260456318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1260456316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ed9854e86b0794293917a57928ded9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1268947407
 GameObject:
   m_ObjectHideFlags: 0
@@ -7209,7 +7254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504da2b452b1ac44b81db6c5fdff2229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Movement: {fileID: 997434085}
+  m_Movement: {fileID: 5385619}
   m_Expiration: {fileID: 1676513352}
   m_OnExpire: {fileID: 1676513354}
   m_KillBullet: 0
@@ -8757,6 +8802,47 @@ Transform:
   m_Father: {fileID: 1614642237}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1979368102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1979368103}
+  - component: {fileID: 1979368104}
+  m_Layer: 0
+  m_Name: BulletHomingMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1979368103
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979368102}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5385620}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1979368104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1979368102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fe47e3482193254baefbae81fee553f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Target: {fileID: 125627558}
 --- !u!1 &2001003665
 GameObject:
   m_ObjectHideFlags: 0
@@ -9002,6 +9088,53 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c544cd4fc1b3084481d40437dbae5ab, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &2053107123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2053107124}
+  - component: {fileID: 2053107125}
+  m_Layer: 0
+  m_Name: BulletMoveCircularThenCloseIn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2053107124
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2053107123}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.10000001, z: 0}
+  m_LocalScale: {x: 0.5555557, y: 0.5555556, z: 0.5555557}
+  m_Children: []
+  m_Father: {fileID: 69281135}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053107125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2053107123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d0985e82a235ea478cb5d72fda1b080, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Radius: 0
+  m_TimeToGetInFormation: 0
+  m_Center: {x: 0, y: 0, z: 0}
+  m_IndexInCircle: 0
+  m_TotalBulletsInCircle: 0
+  m_CloseInSpeed: 2
+  m_CloseInToRadius: 0.02
 --- !u!1 &2055887225
 GameObject:
   m_ObjectHideFlags: 0

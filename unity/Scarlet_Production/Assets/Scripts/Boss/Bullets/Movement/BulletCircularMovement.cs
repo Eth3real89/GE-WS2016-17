@@ -6,29 +6,29 @@ using UnityEngine;
 public class BulletCircularMovement : BulletMovement {
 
     // because vector3 cant be null & this value will never occur
-    private const int VAL_LAST_UNINITIALIZED = 100000;
+    protected const int VAL_LAST_UNINITIALIZED = 100000;
 
     public float m_Radius;
     public float m_TimeToGetInFormation;
 
     public Vector3 m_Center;
-    private Vector3 m_CenterOffset;
-    private Vector3 m_OffsetCleared;
+    protected Vector3 m_CenterOffset;
+    protected Vector3 m_OffsetCleared;
 
-    private float m_AnglesToReach;
-    private float m_InitialAngle;
+    protected float m_AnglesToReach;
+    protected float m_InitialAngle;
 
     public int m_IndexInCircle;
     public int m_TotalBulletsInCircle;
 
-    private bool m_FirstMovement = true;
-    private float m_PassedTime;
+    protected bool m_FirstMovement = true;
+    protected float m_PassedTime;
 
-    private Vector3 m_InitialPos;
-    private Vector3 m_LastMovement;
+    protected Vector3 m_InitialPos;
+    protected Vector3 m_LastMovement;
 
-    private Vector3 m_UnrelatedMovement;
-    private Vector3 m_LastPosition;
+    protected Vector3 m_UnrelatedMovement;
+    protected Vector3 m_LastPosition;
 
     public Vector3 CalculateCenter(BulletBehaviour b)
     {
@@ -39,7 +39,6 @@ public class BulletCircularMovement : BulletMovement {
     public Vector3 CalculateCenterOffset()
     {
         Vector3 offset = new Vector3(m_UnrelatedMovement.x, 0, m_UnrelatedMovement.z);
-        print(offset);
         return offset;
     }
 
@@ -47,6 +46,11 @@ public class BulletCircularMovement : BulletMovement {
     {
         m_CenterOffset = offset;
         m_OffsetCleared = new Vector3(0, 0, 0);
+    }
+
+    public float GetAnglesPerTimeUnit()
+    {
+        return m_AnglesToReach / m_TimeToGetInFormation;
     }
 
     public override void HandleMovement(BulletBehaviour b)

@@ -14,6 +14,8 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
         this.m_BulletCallbacks = callbacks;
         base.Launch(this);
 
+        m_Movement = Instantiate(m_Movement);
+
         m_Instances = new List<BulletBehaviour>();
         m_Invoker.Launch(this);
     }
