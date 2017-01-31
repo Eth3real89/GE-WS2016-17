@@ -33,7 +33,7 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
         StartCoroutine(m_ExpansionEnumerator);
     }
 
-    private IEnumerator BeforeExpansion()
+    protected virtual IEnumerator BeforeExpansion()
     {
         float t = 0;
 
@@ -45,23 +45,26 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
 
         m_Damage.SetAngle(-m_RotationAngle / 2);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
+
+        CameraController.Instance.ZoomOut();
     }
 
-    public void OnExpansionOver()
+    public virtual void OnExpansionOver()
     {
         m_Damage.Rotate(m_RotationTime, m_RotationAngle, this);
     }
 
-    public void OnRotationOver()
+    public virtual void OnRotationOver()
     {
         m_ExpansionEnumerator = RemoveBeamAfterWaiting();
-
         StartCoroutine(m_ExpansionEnumerator);
+        CameraController.Instance.ActivateDefaultCamera();
     }
 
     public override void CancelAttack()
     {
         base.CancelAttack();
+        CameraController.Instance.ActivateDefaultCamera();
 
         if (m_ExpansionEnumerator != null)
             StopCoroutine(m_ExpansionEnumerator);
@@ -69,7 +72,7 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
         m_Damage.CancelDamage();
     }
 
-    private IEnumerator RemoveBeamAfterWaiting()
+    protected virtual IEnumerator RemoveBeamAfterWaiting()
     {
         yield return new WaitForSeconds(0.5f);
 

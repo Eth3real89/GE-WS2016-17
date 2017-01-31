@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
+public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     public enum Phase {Hunt, Combat, RageMode, Finish};
 
-    public float m_HowlTime = 4f;
+    public float m_TransitionTime = 4f;
     public Phase m_StartPhase;
 
     public Animator m_WerewolfAnimator;
@@ -48,10 +48,6 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
             PhaseEnd(m_Phase2Controller);
         }
     }
-    
-    void Update () {
-        
-    }
 
     public void PhaseEnd(BossController whichPhase)
     {
@@ -85,7 +81,7 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         m_WerewolfAnimator.SetTrigger("HowlTrigger");
 
         m_PlayerControls.DisableAllCommands();
-        yield return new WaitForSeconds(m_HowlTime);
+        yield return new WaitForSeconds(m_TransitionTime);
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
@@ -184,9 +180,4 @@ public class WerewolfBossfight : MonoBehaviour, BossfightCallbacks {
         }
     }
 
-}
-
-public interface BossfightCallbacks
-{
-    void PhaseEnd(BossController whichPhase);
 }

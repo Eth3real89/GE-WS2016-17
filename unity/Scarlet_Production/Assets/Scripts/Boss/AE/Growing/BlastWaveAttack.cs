@@ -13,6 +13,9 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
     public float m_GrowTime;
     public float m_GrowRate;
 
+    public float m_Angles;
+    private float m_AngleAtLaunch;
+
     public BlastWaveVisuals m_Visuals;
 
     public PlayerHittable m_Target;
@@ -41,8 +44,15 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
 
     private IEnumerator GrowWave()
     {
-        m_Visuals.gameObject.SetActive(true);
+        m_AngleAtLaunch = m_Boss.transform.rotation.eulerAngles.y;
+        if (m_AngleAtLaunch > 180) m_AngleAtLaunch -= 360;
+        else if (m_AngleAtLaunch < -180) m_AngleAtLaunch += 360;
+
+        m_Visuals.m_Angles = m_Angles;
         m_Visuals.Setup();
+
+        yield return new WaitForEndOfFrame();
+        m_Visuals.gameObject.SetActive(true);
 
         float waveSize = m_InitialFrontSize;
         m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
@@ -52,11 +62,10 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
         {
             waveSize += m_GrowRate * Time.deltaTime;
             float distance = Vector3.Distance(m_Center.position, m_Target.transform.position);
-            
-            if (waveSize >= distance && waveSize - m_DistanceBetweenCircles / 2 <= distance)
+
+            if (WithinDistanceBounds(waveSize, distance) && WithinAngleBounds(m_Angles))
             {
                 DealDamage();
-
             }
 
             m_Visuals.ScaleUp(waveSize);
@@ -68,7 +77,36 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
         HideLightGuard();
         m_Visuals.gameObject.SetActive(false);
     }
-    
+
+    private bool WithinAngleBounds(float angles)
+    {
+        float angle = BossTurnCommand.CalculateAngleTowards(m_Boss.transform.position, m_Target.transform.position);
+        
+        if (m_AngleAtLaunch < 0)
+        {
+            while (angle > 0)
+            {
+                angle -= 360;
+            }
+        }
+        else
+        {
+            while (angle < 0)
+            {
+                angle += 360;
+            }
+        }
+
+        if (angle <= m_AngleAtLaunch + m_Angles / 2 && angle >= m_AngleAtLaunch - m_Angles / 2)
+            return true;
+
+        return false;
+    }
+
+    private bool WithinDistanceBounds(float waveSize, float distance)
+    {
+        return waveSize >= distance && waveSize - m_DistanceBetweenCircles / 4 <= distance;
+    }
 
     public void NotifyAboutRangeFront(bool isInFront)
     {

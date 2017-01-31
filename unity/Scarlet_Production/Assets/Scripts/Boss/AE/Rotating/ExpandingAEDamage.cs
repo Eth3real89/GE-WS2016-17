@@ -13,12 +13,12 @@ public class ExpandingAEDamage : AEAttackDamage
 
     private IEnumerator m_Timer;
 
-    public void SetAngle(float angle)
+    public virtual void SetAngle(float angle)
     {
         transform.localRotation = Quaternion.Euler(0, angle, 0);
     }
 
-    public void Expand(float time, float size, ExpandingDamageCallbacks callback)
+    public virtual void Expand(float time, float size, ExpandingDamageCallbacks callback)
     {
         m_Active = true;
         m_BoxCollider = GetComponent<BoxCollider>();
@@ -30,20 +30,20 @@ public class ExpandingAEDamage : AEAttackDamage
         StartCoroutine(m_Timer);
     }
 
-    public void Rotate(float time, float angles, ExpandingDamageCallbacks callback)
+    public virtual void Rotate(float time, float angles, ExpandingDamageCallbacks callback)
     {
         m_Timer = RotationRoutine(time, angles, callback);
         StartCoroutine(m_Timer);
     }
 
-    private IEnumerator ExpansionRoutine(float time, float size, ExpandingDamageCallbacks callback)
+    protected virtual IEnumerator ExpansionRoutine(float time, float size, ExpandingDamageCallbacks callback)
     {
         float t = 0;
 
         Vector3[] points = m_VolumetricBehavior.LineVertices;
         Vector3 lastPoint = new Vector3(0, 0, 1);
 
-        m_BoxCollider.center = new Vector3(0, 0, 1);
+        m_BoxCollider.center = new Vector3(0, 0, 0);
         float initialZOffset = m_BoxCollider.center.z;
 
         while ((t += Time.deltaTime) < time)
@@ -73,7 +73,7 @@ public class ExpandingAEDamage : AEAttackDamage
             StopCoroutine(m_Timer);
     }
 
-    private IEnumerator RotationRoutine(float time, float angle, ExpandingDamageCallbacks callback)
+    protected virtual IEnumerator RotationRoutine(float time, float angle, ExpandingDamageCallbacks callback)
     {
         float t = 0;
         float prevAngleChange = 0;
@@ -91,7 +91,7 @@ public class ExpandingAEDamage : AEAttackDamage
         callback.OnRotationOver();
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (!m_Active)
             return;
@@ -103,7 +103,7 @@ public class ExpandingAEDamage : AEAttackDamage
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (!m_Active)
             return;
@@ -115,7 +115,7 @@ public class ExpandingAEDamage : AEAttackDamage
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    protected virtual void OnTriggerStay(Collider other)
     {
         if (!m_Active)
             return;
