@@ -28,4 +28,8 @@ public class BulletTimeBasedExpiration : BulletExpirationBehaviour
             m_Bullet.Kill();
     }
 
+    public override void CancelBehaviour(BulletBehaviour b)
+    {
+        StopCoroutine(m_Timer);
+    }
 }

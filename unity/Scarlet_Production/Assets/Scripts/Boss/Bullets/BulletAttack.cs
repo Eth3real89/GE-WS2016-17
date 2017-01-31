@@ -40,7 +40,7 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
     {
     }
 
-    public void OnBulletHitTarget(BulletBehaviour bullet, GameObject scarlet)
+    public void OnBulletHitTarget(BulletBehaviour bullet)
     {
     }
 
@@ -49,6 +49,10 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
     }
 
     public void OnBulletDestroyed(BulletBehaviour bullet)
+    {
+    }
+
+    public void LoseBullet(Bullet bullet)
     {
     }
 }

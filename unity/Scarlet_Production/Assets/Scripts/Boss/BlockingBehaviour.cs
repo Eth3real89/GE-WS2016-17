@@ -48,6 +48,12 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
         if (!m_Active)
             return false;
 
+        if (dmg is BulletDamage)
+        {
+            dmg.OnSuccessfulHit();
+            return false;
+        }
+
         if (m_TurnCommand != null)
             m_TurnCommand.DoTurn();
         CameraController.Instance.Shake();

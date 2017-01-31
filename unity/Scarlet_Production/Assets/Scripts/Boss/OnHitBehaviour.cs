@@ -40,6 +40,12 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
     {
         if (!m_Active || m_IsStaggered)
             return false;
+        
+        if (dmg is BulletDamage)
+        {
+            dmg.OnSuccessfulHit();
+            return false;
+        }
 
         if (m_TurnCommand != null)
             m_TurnCommand.DoTurn();

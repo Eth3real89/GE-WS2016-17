@@ -45,9 +45,10 @@ public abstract class BulletBehaviour : MonoBehaviour {
     public interface BulletCallbacks
     {
         void OnBulletCreated(BulletBehaviour bullet);
-        void OnBulletHitTarget(BulletBehaviour bullet, GameObject target);
+        void OnBulletHitTarget(BulletBehaviour bullet);
         void OnBulletParried(BulletBehaviour bullet);
         void OnBulletDestroyed(BulletBehaviour bullet);
+        void LoseBullet(Bullet bullet);
     }
 
 }

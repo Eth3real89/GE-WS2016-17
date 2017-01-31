@@ -133,6 +133,12 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
         MLog.Log(LogType.BattleLog, "On Hit, Controller");
 
+        if (dmg is BulletDamage)
+        {
+            dmg.OnSuccessfulHit();
+            return false;
+        }
+
         if (m_TimeWindowManager != null)
         {
             m_TimeWindowManager.Activate(this);

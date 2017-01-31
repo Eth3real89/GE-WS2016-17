@@ -46,6 +46,12 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             m_FullTurnCommand.DoTurn();
         CameraController.Instance.Shake();
 
+        if (dmg is BulletDamage)
+        {
+            dmg.OnSuccessfulHit();
+            return false;
+        }
+
         if (dmg.m_Type == Damage.DamageType.Riposte)
         {
             m_Callback.OnAttackRiposted(this);
