@@ -41,18 +41,21 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         {
             MLog.Log(LogType.BattleLog, "Vampire: Tutorial over " + this);
             m_TutorialController.enabled = false;
-            m_Phase1Controller.StartPhase();
+            m_Phase1Controller.enabled = true;
+            m_Phase1Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase1Controller)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 1 over " + this);
             m_Phase1Controller.enabled = false;
+            m_Phase2Controller.enabled = true;
             m_Phase2Controller.StartPhase();
         }
         else if (whichPhase == m_Phase2Controller)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
+            m_Phase3Controller.enabled = true;
             m_Phase3Controller.StartPhase();
         }
         else if (whichPhase == m_Phase3Controller)

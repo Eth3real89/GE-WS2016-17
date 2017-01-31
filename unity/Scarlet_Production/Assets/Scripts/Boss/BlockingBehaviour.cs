@@ -45,6 +45,8 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
 
     public bool OnHit(Damage dmg)
     {
+        MLog.Log(LogType.BattleLog, "OnHit, BlockingBehaviour");
+
         if (!m_Active)
             return false;
 

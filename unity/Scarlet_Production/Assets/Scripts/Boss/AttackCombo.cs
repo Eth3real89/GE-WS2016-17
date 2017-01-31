@@ -174,6 +174,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Interrupted, Combo, " + this);
 
+        if (m_CurrentAttack != null)
+            m_CurrentAttack.CancelAttack();
+
         m_Callback.OnInterruptCombo(this);
     }
 

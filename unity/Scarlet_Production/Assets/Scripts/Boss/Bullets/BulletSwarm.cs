@@ -41,8 +41,14 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
             b.Kill();
         }
 
+        if (m_Movement != null)
+        {
+            Destroy(m_Movement.gameObject);
+        }
+
         if (this != null && this.gameObject != null)
             Destroy(this.gameObject);
+                
     }
 
     public void OnBulletCreated(BulletBehaviour bullet)

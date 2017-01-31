@@ -38,6 +38,8 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
     public bool OnHit(Damage dmg)
     {
+        MLog.Log(LogType.BattleLog, "OnHit, OnHitBehaviour");
+
         if (!m_Active || m_IsStaggered)
             return false;
         
