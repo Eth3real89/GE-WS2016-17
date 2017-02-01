@@ -19,6 +19,7 @@ public class BlastWaveAttack : GrowingAEAttack {
     public BlastWaveVisuals m_Visuals;
 
     public PlayerHittable m_Target;
+    private Vector3 m_InitialCenterPos;
 
     private IEnumerator m_GrowEnumerator;
     private bool m_HasHit;
@@ -28,7 +29,9 @@ public class BlastWaveAttack : GrowingAEAttack {
     public override void StartAttack()
     {
         base.StartAttack();
-        
+
+        m_Visuals.transform.position = new Vector3(m_Center.transform.position.x, m_Visuals.transform.position.y, m_Center.transform.position.z);
+        m_InitialCenterPos = new Vector3(m_Center.transform.position.x, m_Center.transform.position.y, m_Center.transform.position.z);
 
         m_BlastDamage = new BlastWaveDamage();
         m_BlastDamage.m_DamageAmount = this.m_Damage;
@@ -58,7 +61,7 @@ public class BlastWaveAttack : GrowingAEAttack {
         while((t += Time.deltaTime) < m_GrowTime)
         {
             waveSize += m_GrowRate * Time.deltaTime;
-            float distance = Vector3.Distance(m_Center.position, m_Target.transform.position);
+            float distance = Vector3.Distance(m_Target.transform.position, m_InitialCenterPos);
 
             if (WithinDistanceBounds(waveSize, distance) && WithinAngleBounds(m_Angles))
             {
@@ -77,7 +80,7 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     private bool WithinAngleBounds(float angles)
     {
-        float angle = BossTurnCommand.CalculateAngleTowards(m_Boss.transform.position, m_Target.transform.position);
+        float angle = BossTurnCommand.CalculateAngleTowards(m_Target.transform.position, m_InitialCenterPos);
         
         if (m_AngleAtLaunch < 0)
         {
