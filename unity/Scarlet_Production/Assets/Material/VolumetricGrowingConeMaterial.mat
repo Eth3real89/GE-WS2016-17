@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: VolumetricLineStripMaterial
-  m_Shader: {fileID: 4800000, guid: 89815bbc9fb99b744887dfbe56123d31, type: 3}
+  m_Name: VolumetricGrowingConeMaterial
+  m_Shader: {fileID: 4800000, guid: 2d9a4ca4b2730b64e8aade7030f8caeb, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -20,24 +20,18 @@ Material:
       second:
         m_Texture: {fileID: 10300, guid: 0000000000000000f000000000000000, type: 0}
         m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
-        name: _InvFade
-      second: 1
-    - first:
         name: _LightSaberFactor
-      second: 0.5
+      second: 0.6119402
     - first:
         name: _LineScale
       second: 1
     - first:
         name: _LineWidth
-      second: 1
+      second: 6.0631757
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.52404237, g: 0.1362457, b: 0.66176474, a: 0}
-    - first:
-        name: _TintColor
-      second: {r: 1, g: 0.32352942, b: 0.32352942, a: 0.5019608}
+      second: {r: 0, g: 1, b: 0.2551725, a: 1}

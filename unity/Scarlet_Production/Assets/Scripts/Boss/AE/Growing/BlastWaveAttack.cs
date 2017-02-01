@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCallback, GrowingAEBackWave.BackWaveCallback {
+public class BlastWaveAttack : GrowingAEAttack {
 
     public float m_Damage;
 
@@ -21,9 +21,6 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
     public PlayerHittable m_Target;
 
     private IEnumerator m_GrowEnumerator;
-  
-    private bool m_ScarletInFront;
-    private bool m_ScarletInBack;
     private bool m_HasHit;
 
     private BlastWaveDamage m_BlastDamage;
@@ -106,25 +103,6 @@ public class BlastWaveAttack : GrowingAEAttack, GrowingAEFrontWave.FrontWaveCall
     private bool WithinDistanceBounds(float waveSize, float distance)
     {
         return waveSize >= distance && waveSize - m_DistanceBetweenCircles / 4 <= distance;
-    }
-
-    public void NotifyAboutRangeFront(bool isInFront)
-    {
-        m_ScarletInFront = isInFront;
-        if (isInFront)
-            StartCoroutine(CheckHit());
-    }
-
-    private IEnumerator CheckHit()
-    {
-        yield return new WaitForEndOfFrame();
-        if (!m_ScarletInBack && m_ScarletInFront)
-            DealDamage();
-    }
-
-    public void NotifyAboutRangeBack(bool isInBack)
-    {
-        m_ScarletInBack = isInBack;
     }
 
     public override void CancelAttack()

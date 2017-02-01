@@ -12,7 +12,10 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
     public float m_Size;
     public float m_Angle;
 
-    private int m_NumPoints = 11;
+    public bool m_SetFixedNumLines = false;
+    public int m_FixedNumLines = 15;
+
+    private int m_NumPoints;
 
     public override void ShowAttack()
     {
@@ -41,7 +44,9 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         if (m_VolumetricLinePrefab == null)
             return;
 
-        int numLines = (int) Mathf.Max(m_Size, 1);
+        m_NumPoints = Mathf.Max(15, (int) (m_Angle / 10));
+
+        int numLines = (m_SetFixedNumLines)? m_FixedNumLines : (int) Mathf.Max(m_Size, 1) * 2;
         m_Lines = new GameObject[numLines - 1];
 
         for(int i = 1; i < numLines; i++)
@@ -50,10 +55,17 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         }
     }
 
+    public GameObject[] GetLines()
+    {
+        return m_Lines;
+    }
+
     private GameObject CreateSingleLine(int index, int numLines)
     {
         GameObject line = GameObject.Instantiate(m_VolumetricLinePrefab, transform.position, transform.rotation);
+        line.transform.parent = this.transform;
         line.transform.position = line.transform.position + new Vector3(0, 0.25f, 0);
+        line.transform.localScale = new Vector3(1, 1, 1);
 
         VolumetricLines.VolumetricLineStripBehavior behavior = line.GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
         if (behavior == null)
