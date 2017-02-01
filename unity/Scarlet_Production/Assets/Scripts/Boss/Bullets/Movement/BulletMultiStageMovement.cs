@@ -15,6 +15,11 @@ public class BulletMultiStageMovement : BulletMovement {
     {
         if (m_CurrentIndex == -1)
         {
+            for(int i = 0; i < m_Movements.Length; i++)
+            {
+                m_Movements[i] = Instantiate(m_Movements[i]);
+            }
+
             m_TimeSinceStart = 0;
             m_CurrentIndex = 0;
         }

@@ -8,7 +8,8 @@ public class BulletStraightMovement : BulletMovement {
 
     public override void HandleMovement(BulletBehaviour b)
     {
-        b.transform.position += b.transform.forward * m_Speed * Time.deltaTime;
+
+        b.MoveBy(b.transform.forward * m_Speed * Time.deltaTime);
     }
 
 }

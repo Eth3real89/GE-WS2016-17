@@ -31,6 +31,14 @@ public class BulletHomingMovement : BulletMovement {
         }
 
         Vector3 move = b.transform.forward * m_Speed * Time.deltaTime;
+
+
+        if (m_HomingFactor > 1000 && move.magnitude > Vector3.Distance(m_Target.position - new Vector3(0, m_Target.position.y, 0), b.transform.position - new Vector3(0, b.transform.position.y, 0)))
+        {
+            move = m_Target.position - b.transform.position;
+            move.y = 0;
+        }
+
         b.MoveBy(move);
     }
 
