@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwayingAEDamage : ExpandingAEDamage {
+public class SwayingAEDamage : BeamAEDamage {
 
     public int m_NumSways;
 

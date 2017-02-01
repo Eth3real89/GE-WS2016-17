@@ -29,4 +29,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
     {
         m_Interject = interject;
     }
+
+    public HitInterject GetInterject()
+    {
+        return m_Interject;
+    }
 }

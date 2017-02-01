@@ -2490,7 +2490,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211058420233924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.97, y: 0.7, z: 11}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4309062748784360}
@@ -3896,6 +3896,7 @@ MonoBehaviour:
   m_Type: 0
   m_BlockType: 2
   m_Active: 0
+  m_Owner: {fileID: 0}
   m_Damage: 0
 --- !u!114 &114384745881405942
 MonoBehaviour:
@@ -4065,6 +4066,7 @@ MonoBehaviour:
   m_TrailContainer: {fileID: 1701238727433960}
   m_RendererContainer: {fileID: 1198766527106716}
   m_DashAudio: {fileID: 82001845436009432}
+  m_Hittable: {fileID: 114588574810603080}
 --- !u!114 &114717782061925462
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4357,7 +4359,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 0
+  randomSeed: 374410631
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6917,7 +6919,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89

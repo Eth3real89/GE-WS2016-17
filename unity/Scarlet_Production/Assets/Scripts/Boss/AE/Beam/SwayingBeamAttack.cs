@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwayingBeamAttack : RotatingAEAttack {
+public class SwayingBeamAttack : BeamAEAttack {
 
     public int m_NumSways;
 

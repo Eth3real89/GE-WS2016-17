@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDashCommand : PlayerCommand
+public class PlayerDashCommand : PlayerCommand, HitInterject
 {
     public float m_DashDistance = 4.5f;
     public float m_DashTime = 0.05f;
@@ -13,6 +13,9 @@ public class PlayerDashCommand : PlayerCommand
     public GameObject m_RendererContainer;
 
     public AudioSource m_DashAudio;
+
+    public PlayerHittable m_Hittable;
+    private HitInterject m_PrevInterject;
 
     private TrailRenderer m_TrailRenderer;
     private Renderer m_ScarletRenderer;
@@ -28,6 +31,7 @@ public class PlayerDashCommand : PlayerCommand
 
         if (m_RendererContainer != null)
             m_ScarletRenderer = m_RendererContainer.GetComponentInChildren<Renderer>();
+
     }
 
     public override void InitTrigger()
@@ -40,6 +44,11 @@ public class PlayerDashCommand : PlayerCommand
     public override void TriggerCommand()
     {
         DoDash();
+        if (m_Hittable != null)
+        {
+            m_PrevInterject = m_Hittable.GetInterject();
+            m_Hittable.RegisterInterject(this);
+        }
     }
 
     private void DoDash()
@@ -71,6 +80,8 @@ public class PlayerDashCommand : PlayerCommand
 
         OnDashEnd();
         m_Callback.OnCommandEnd(m_CommandName, this);
+        if (m_Hittable != null)
+            m_Hittable.RegisterInterject(m_PrevInterject);
     }
 
     private void OnDashStart()
@@ -108,5 +119,13 @@ public class PlayerDashCommand : PlayerCommand
     // dash cannot be cancelled.
     public override void CancelDelay()
     {
+        if (m_Hittable != null)
+            m_Hittable.RegisterInterject(m_PrevInterject);
+    }
+
+    // scarlet is invincible during dash
+    public bool OnHit(Damage dmg)
+    {
+        return true;
     }
 }

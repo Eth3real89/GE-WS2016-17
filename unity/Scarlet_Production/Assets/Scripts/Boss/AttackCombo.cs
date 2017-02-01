@@ -32,6 +32,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
    
 	protected virtual void Start ()
     {
+
 		foreach(BossAttack attack in m_Attacks)
         {
             attack.m_Boss = m_Boss;

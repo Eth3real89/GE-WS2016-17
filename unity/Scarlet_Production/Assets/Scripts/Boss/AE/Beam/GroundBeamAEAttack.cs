@@ -3,15 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallbacks
+public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbacks
 {
     public float m_ExpandTime = 0.3f;
-    public float m_ExpandScale = 8;
+    public float m_ExpandScale = 3;
 
-    public float m_RotationTime = 3;
-    public float m_RotationAngle = 90;
+    public float m_WaitTimeBetweenExpansions = 1f;
 
-    public ExpandingAEDamage m_Damage;
+    public float m_SecondExpandTime = 2f;
+    public float m_SecondExpandScale = 8;
+
+    public GroundBeamAEDamage m_Damage;
 
     public TurnTowardsScarlet m_InitialTurn;
     public float m_InitialTurnTrackSpeed = 45;
@@ -43,7 +45,7 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
             yield return null;
         }
 
-        m_Damage.SetAngle(-m_RotationAngle / 2);
+        m_Damage.SetAngle(0);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 
         CameraController.Instance.ZoomOut();
@@ -51,10 +53,17 @@ public class RotatingAEAttack : AEAttack, ExpandingAEDamage.ExpandingDamageCallb
 
     public virtual void OnExpansionOver()
     {
-        m_Damage.Rotate(m_RotationTime, m_RotationAngle, this);
+        m_ExpansionEnumerator = WaitBetweenExpansions();
+        StartCoroutine(m_ExpansionEnumerator);
     }
 
-    public virtual void OnRotationOver()
+    private IEnumerator WaitBetweenExpansions()
+    {
+        yield return new WaitForSeconds(m_WaitTimeBetweenExpansions);
+        m_Damage.SecondExpansion(m_SecondExpandTime, m_SecondExpandScale, this);
+    }
+
+    public void OnSecondExpansionOver()
     {
         m_ExpansionEnumerator = RemoveBeamAfterWaiting();
         StartCoroutine(m_ExpansionEnumerator);

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpandingAEDamage : AEAttackDamage
+public class GroundBeamAEDamage : AEAttackDamage
 {
 
     public VolumetricLines.VolumetricLineStripBehavior m_VolumetricBehavior;
@@ -18,7 +18,7 @@ public class ExpandingAEDamage : AEAttackDamage
         transform.localRotation = Quaternion.Euler(0, angle, 0);
     }
 
-    public virtual void Expand(float time, float size, ExpandingDamageCallbacks callback)
+    public virtual void Expand(float time, float size, GroundBeamCallbacks callback)
     {
         m_Active = true;
         m_BoxCollider = GetComponent<BoxCollider>();
@@ -30,18 +30,18 @@ public class ExpandingAEDamage : AEAttackDamage
         StartCoroutine(m_Timer);
     }
 
-    public virtual void Rotate(float time, float angles, ExpandingDamageCallbacks callback)
+    public virtual void SecondExpansion(float time, float size, GroundBeamCallbacks callback)
     {
-        m_Timer = RotationRoutine(time, angles, callback);
+        m_Timer = SecondExpansionRoutine(time, size, callback);
         StartCoroutine(m_Timer);
     }
 
-    protected virtual IEnumerator ExpansionRoutine(float time, float size, ExpandingDamageCallbacks callback)
+    protected virtual IEnumerator ExpansionRoutine(float time, float size, GroundBeamCallbacks callback)
     {
         float t = 0;
 
         Vector3[] points = m_VolumetricBehavior.LineVertices;
-        Vector3 lastPoint = new Vector3(0, 0, 1);
+        Vector3 lastPoint = new Vector3(0, -transform.position.y, 1);
 
         m_BoxCollider.center = new Vector3(0, 0, 0);
         float initialZOffset = m_BoxCollider.center.z;
@@ -65,30 +65,43 @@ public class ExpandingAEDamage : AEAttackDamage
         callback.OnExpansionOver();
     }
 
+    protected virtual IEnumerator SecondExpansionRoutine(float time, float size, GroundBeamCallbacks callback)
+    {
+        float t = 0;
+
+
+        Vector3[] points = m_VolumetricBehavior.LineVertices;
+        Vector3 lastPoint = points[points.Length - 1];
+        float fromSize = lastPoint.z;
+        float toSize = size - fromSize;
+
+        float initialZOffset = m_BoxCollider.center.z;
+
+        while ((t += Time.deltaTime) < time)
+        {
+            float sizeDelta = fromSize + toSize * t / time;
+            lastPoint.z = sizeDelta;
+
+            m_BoxCollider.center = new Vector3(0, 0, initialZOffset + sizeDelta / 2);
+            m_BoxCollider.size = new Vector3(m_BoxCollider.size.x, m_BoxCollider.size.y, sizeDelta);
+
+            points[points.Length - 1] = lastPoint;
+
+            m_VolumetricBehavior.UpdateLineVertices(points);
+
+            yield return null;
+        }
+
+
+        callback.OnSecondExpansionOver();
+    }
+
     internal void CancelDamage()
     {
         m_Active = false;
 
         if (m_Timer != null)
             StopCoroutine(m_Timer);
-    }
-
-    protected virtual IEnumerator RotationRoutine(float time, float angle, ExpandingDamageCallbacks callback)
-    {
-        float t = 0;
-        float prevAngleChange = 0;
-
-        while ((t += Time.deltaTime) < time)
-        {
-            float angleDelta = t / time * angle;
-            transform.Rotate(Vector3.up, angleDelta - prevAngleChange);
-
-            prevAngleChange = angleDelta;
-
-            yield return null;
-        }
-
-        callback.OnRotationOver();
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -127,9 +140,9 @@ public class ExpandingAEDamage : AEAttackDamage
         }
     }
 
-    public interface ExpandingDamageCallbacks
+    public interface GroundBeamCallbacks
     {
         void OnExpansionOver();
-        void OnRotationOver();
+        void OnSecondExpansionOver();
     }
 }
