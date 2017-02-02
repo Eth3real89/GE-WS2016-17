@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerParryCommand : PlayerCommand, HitInterject
 {
+    public static string COMMAND_EVENT_TRIGGER = "user_parry";
 
     public PlayerHittable m_ScarletHittable;
 
@@ -22,6 +23,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     private enum ParryState { TooLate, Perfect, Ok, TooSoon, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
+
 
     private void Start()
     {

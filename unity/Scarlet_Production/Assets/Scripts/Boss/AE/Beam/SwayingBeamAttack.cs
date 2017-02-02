@@ -10,6 +10,7 @@ public class SwayingBeamAttack : BeamAEAttack {
     {
         if (m_Damage is SwayingAEDamage)
         {
+            ((SwayingAEDamage)m_Damage).m_InitiallyAimAtScarlet = this.m_InitiallyAimAtScarlet;
             ((SwayingAEDamage)m_Damage).m_NumSways = this.m_NumSways;
         }
         base.OnExpansionOver();

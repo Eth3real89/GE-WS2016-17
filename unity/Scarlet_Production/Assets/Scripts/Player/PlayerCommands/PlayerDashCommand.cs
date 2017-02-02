@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerDashCommand : PlayerCommand, HitInterject
 {
+    public static string COMMAND_EVENT_TRIGGER = "player_trigger_dash";
+
     public float m_DashDistance = 4.5f;
     public float m_DashTime = 0.05f;
     public float m_DashDelay = 0.15f;
@@ -49,6 +51,8 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
             m_PrevInterject = m_Hittable.GetInterject();
             m_Hittable.RegisterInterject(this);
         }
+
+        EventManager.TriggerEvent(COMMAND_EVENT_TRIGGER);
     }
 
     private void DoDash()

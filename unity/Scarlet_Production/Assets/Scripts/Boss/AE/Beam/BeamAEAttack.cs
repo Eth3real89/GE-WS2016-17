@@ -16,6 +16,9 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     public TurnTowardsScarlet m_InitialTurn;
     public float m_InitialTurnTrackSpeed = 45;
     public float m_TurnTime = 2f;
+
+    public bool m_InitiallyAimAtScarlet = false;
+
     private float m_PrevTurnSpeed;
 
     private IEnumerator m_ExpansionEnumerator;
@@ -43,7 +46,10 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
             yield return null;
         }
 
-        m_Damage.SetAngle(-m_RotationAngle / 2);
+        if (!m_InitiallyAimAtScarlet)
+        {
+            m_Damage.SetAngle(-m_RotationAngle / 2);
+        }
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 
         CameraController.Instance.ZoomOut();

@@ -77,7 +77,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         StartCoroutine(m_NextComboTimer);
     }
 
-    private IEnumerator StartNextComboAfter(float time)
+    protected IEnumerator StartNextComboAfter(float time)
     {
         yield return new WaitForSeconds(time);
         StartNextCombo();

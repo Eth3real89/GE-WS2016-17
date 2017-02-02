@@ -13,6 +13,8 @@ public class BlastWaveAttack : GrowingAEAttack {
     public float m_GrowTime;
     public float m_GrowRate;
 
+    public float m_WaveSize;
+
     public float m_Angles;
     private float m_AngleAtLaunch;
 
@@ -54,21 +56,21 @@ public class BlastWaveAttack : GrowingAEAttack {
         yield return new WaitForEndOfFrame();
         m_Visuals.gameObject.SetActive(true);
 
-        float waveSize = m_InitialFrontSize;
+        m_WaveSize = m_InitialFrontSize;
         m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
 
         float t = 0;
         while((t += Time.deltaTime) < m_GrowTime)
         {
-            waveSize += m_GrowRate * Time.deltaTime;
+            m_WaveSize += m_GrowRate * Time.deltaTime;
             float distance = Vector3.Distance(m_Target.transform.position, m_InitialCenterPos);
 
-            if (WithinDistanceBounds(waveSize, distance) && WithinAngleBounds(m_Angles))
+            if (WithinDistanceBounds(m_WaveSize, distance) && WithinAngleBounds(m_Angles))
             {
                 DealDamage();
             }
 
-            m_Visuals.ScaleUp(waveSize);
+            m_Visuals.ScaleUp(m_WaveSize);
 
             yield return null;
         }
