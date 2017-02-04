@@ -10,6 +10,7 @@ public class EnableFlicker : MonoBehaviour
         RenderSettings.ambientIntensity = 0;
         Camera.main.clearFlags = CameraClearFlags.Color;
         Camera.main.backgroundColor = Color.black;
+        AudioController.Instance.PlaySound("LightsBreaking");
         Destroy(gameObject);
     }
 }

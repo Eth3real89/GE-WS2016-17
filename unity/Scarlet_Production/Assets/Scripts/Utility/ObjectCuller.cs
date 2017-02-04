@@ -23,7 +23,7 @@ public class ObjectCuller : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!m_CulledObjects.Contains(other.transform.gameObject))
+        if (!m_CollidingObjects.Contains(other.transform.gameObject))
             m_CollidingObjects.Add(other.transform.gameObject);
     }
 

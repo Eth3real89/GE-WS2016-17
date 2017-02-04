@@ -78,7 +78,7 @@ public class EffectController : GenericSingletonClass<EffectController>
             m_MoonFlare.brightness = Mathf.Lerp(defaultFlareInt, maxFlareInt, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(1.5f);
         m_LerpTimer.Start(0.25f);
         while (m_MoonFlare.brightness != defaultFlareInt)
         {

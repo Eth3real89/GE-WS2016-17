@@ -5,8 +5,8 @@ using UnityEngine;
 public class JumpTrigger : MonoBehaviour
 {
     public PlayerMoveCommand m_MoveCommand;
-    public float m_JumpSpeedThreshold = 4;
-    public float m_JumpStrength = 200;
+    public float m_JumpSpeedThreshold = 2;
+    public float m_JumpStrengthUp = 200;
 
     void Start()
     {
@@ -27,7 +27,8 @@ public class JumpTrigger : MonoBehaviour
             {
                 return;
             }
-            other.GetComponent<Rigidbody>().AddForce(Vector3.up * m_JumpStrength, ForceMode.Impulse);
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            rb.AddForce(Vector3.up * m_JumpStrengthUp, ForceMode.Impulse);
             StartCoroutine(ReenableJumpTrigger());
             GetComponent<Collider>().enabled = false;
         }

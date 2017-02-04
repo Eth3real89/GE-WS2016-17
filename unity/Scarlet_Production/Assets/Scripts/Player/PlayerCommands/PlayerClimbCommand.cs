@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerClimbCommand : PlayerCommand
 {
-    public float m_ClimbSpeed = 1f;
+    public float m_ClimbSpeed = 0.6f;
 
     private Rigidbody m_ScarletBody;
 
@@ -28,11 +28,9 @@ public class PlayerClimbCommand : PlayerCommand
     private void Climb(float horizontal, float vertical)
     {
         Vector3 movement = new Vector3(horizontal, vertical, 0);
+        movement.Normalize();
 
-        if (movement.magnitude > 1)
-            movement.Normalize();
-
-        m_ScarletBody.velocity = movement;
+        m_ScarletBody.velocity = movement * m_ClimbSpeed;
         m_Animator.SetFloat("ClimbingSpeed", movement.magnitude);
     }
 

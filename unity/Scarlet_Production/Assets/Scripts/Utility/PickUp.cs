@@ -24,6 +24,7 @@ public class PickUp : Interactor
 
     public override void Interact()
     {
+        base.Interact();
         GetComponentInChildren<UIItemPickupController>().OnItemPickedUp();
         foreach (GameObject aura in m_Auras)
         {
