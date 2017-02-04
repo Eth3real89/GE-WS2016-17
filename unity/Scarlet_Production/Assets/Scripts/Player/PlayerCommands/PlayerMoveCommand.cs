@@ -19,10 +19,15 @@ public class PlayerMoveCommand : PlayerCommand
 
     public float m_CurrentSpeed;
 
+    public float m_RaycastRange;
+    public Transform m_RaycastAnchor;
+
     private Rigidbody m_ScarletBody;
+    private int m_LayerMask;
 
     public override void InitTrigger()
     {
+        m_LayerMask = ~(1 << 12);
         m_CommandName = "Move";
         m_Trigger = new MoveTrigger(this);
 
@@ -46,6 +51,9 @@ public class PlayerMoveCommand : PlayerCommand
         float yBefore = m_ScarletBody.velocity.y;
 
         Vector3 movement = new Vector3(horizontal, 0, vertical);
+
+        if (IsRunningIntoWall())
+            movement = Vector3.zero;
 
         if (movement.magnitude > 1)
             movement.Normalize();
@@ -71,6 +79,11 @@ public class PlayerMoveCommand : PlayerCommand
 
         Quaternion rotation = Quaternion.Euler(0f, Mathf.Rad2Deg * angle, 0f);
         m_ScarletBody.MoveRotation(rotation);
+    }
+
+    private bool IsRunningIntoWall()
+    {
+        return Physics.Raycast(m_RaycastAnchor.position, transform.forward, m_RaycastRange, m_LayerMask);
     }
 
     // moving has no delay, cannot be cancelled.

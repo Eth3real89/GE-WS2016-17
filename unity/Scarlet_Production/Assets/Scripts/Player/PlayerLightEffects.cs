@@ -45,6 +45,8 @@ public class PlayerLightEffects : MonoBehaviour
     public void OnPlayerEnterStrongLight(Vector3 retreatDirection)
     {
         EffectController.Instance.EnterStrongLight();
+        AudioController.Instance.AdjustVolume("Atmosphere", 0.3f);
+        AudioController.Instance.FadeIn("EarBuzzing", 0.25f, 1);
         m_Animator.SetLayerWeight(1, 1);
         m_InsideStrongLight = true;
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
@@ -56,11 +58,19 @@ public class PlayerLightEffects : MonoBehaviour
     public void OnPlayerExitStrongLight()
     {
         EffectController.Instance.ExitStrongLight();
+        AudioController.FadeAudioCallback callback = HandleAudioOnLightExit;
+        AudioController.Instance.FadeOut("EarBuzzing", 0.25f, callback);
         m_Animator.SetLayerWeight(1, 0);
         m_PlayerControls.EnableAndUnlock(m_DashCommand, m_AttackCommand, m_SprintCommand);
         m_PlayerControls.EnableAllCommands();
         m_InsideStrongLight = false;
         m_MoveCommand.m_CurrentSpeed = m_RegularMovementSpeed;
+    }
+
+    public void HandleAudioOnLightExit()
+    {
+        AudioController.Instance.StopSound("EarBuzzing");
+        AudioController.Instance.AdjustVolume("Atmosphere", 0.6f);
     }
 
     // let the player step into the light for a bit...
