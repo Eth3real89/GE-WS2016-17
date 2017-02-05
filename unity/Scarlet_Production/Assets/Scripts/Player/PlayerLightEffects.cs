@@ -70,7 +70,7 @@ public class PlayerLightEffects : MonoBehaviour
     public void HandleAudioOnLightExit()
     {
         AudioController.Instance.StopSound("EarBuzzing");
-        AudioController.Instance.AdjustVolume("Atmosphere", 0.6f);
+        AudioController.Instance.FadeTo("Atmosphere", 0.25f, 0.6f);
     }
 
     // let the player step into the light for a bit...

@@ -9,7 +9,7 @@ public class AnimationEventListener : MonoBehaviour
     public AudioSource m_StepsAudio;
     public PlayerMoveCommand m_MoveCommand;
 
-    private float m_MinimumStepDistance = 0.2f;
+    private float m_MinimumStepDistance = 0.30f;
     private float m_StepTimer;
 
     private void Update()

@@ -91,10 +91,16 @@ public class AudioController : GenericSingletonClass<AudioController>
         if (source == null)
             return;
 
-        float targetVol = 0;
-        source.volume = source.volume;
-        source.Play();
-        StartCoroutine(FadeVolume(source, 0, targetVol, time, callback));
+        StartCoroutine(FadeVolume(source, source.volume, 0, time, callback));
+    }
+
+    public void FadeTo(string name, float time, float volume, FadeAudioCallback callback = null)
+    {
+        AudioSource source = GetAudioSource(name);
+        if (source == null)
+            return;
+
+        StartCoroutine(FadeVolume(source, source.volume, volume, time, callback));
     }
 
     IEnumerator FadeVolume(AudioSource source, float volStart, float volEnd, float time, FadeAudioCallback callback)
@@ -104,7 +110,7 @@ public class AudioController : GenericSingletonClass<AudioController>
         timer.Start();
         while (timer.GetLerpProgress() < 1)
         {
-            source.volume = Mathf.Lerp(volStart, volEnd, time);
+            source.volume = Mathf.Lerp(volStart, volEnd, timer.GetLerpProgress());
             yield return null;
         }
         if (callback != null)
