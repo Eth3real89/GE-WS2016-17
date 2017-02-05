@@ -58,4 +58,10 @@ public class BulletFactoryInvoker : MonoBehaviour {
         SpawnIteration(bs);
     }
 
+    public void Cancel()
+    {
+        if (m_LaunchIterationTimer != null)
+            StopCoroutine(m_LaunchIterationTimer);
+    }
+
 }

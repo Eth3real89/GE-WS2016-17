@@ -20,13 +20,8 @@ public class AEAttack : BossAttack {
 
     public override bool OnHit(Damage dmg)
     {
-        if (m_GuardByLight)
-        {
-            dmg.OnBlockDamage();
-            return false;
-        }
-
-        return base.OnHit(dmg);
+        dmg.OnBlockDamage();
+        return true;
     }
 
     private void InitLightGuard()

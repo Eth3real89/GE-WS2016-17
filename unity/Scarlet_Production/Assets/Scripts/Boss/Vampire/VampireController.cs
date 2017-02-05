@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class VampireController : BossController {
 
@@ -17,6 +18,12 @@ public class VampireController : BossController {
 
     public float m_InLightZoneProbability;
 
+    public float m_DashTime = 1f;
+    public float m_PerfectRotationTime = 0.4f;
+    public float m_GatherLightTime = 1.5f;
+
+    private bool m_GatheringLight;
+
     protected IEnumerator m_DashEnumerator;
     protected IEnumerator m_BetweenCombosEnumerator;
 
@@ -24,6 +31,7 @@ public class VampireController : BossController {
     {
         RegisterComboCallback();
         m_LightGuard = m_LightGuardContainer.GetComponent<LightGuard>();
+        m_GatheringLight = false;
 
         m_BossHittable.RegisterInterject(this);
         m_Callback = callbacks;
@@ -51,20 +59,38 @@ public class VampireController : BossController {
 
     public override void OnComboEnd(AttackCombo combo)
     {
+        m_ActiveCombo = null;
+        m_BossHittable.RegisterInterject(this);
+        m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
+
         m_BetweenCombosEnumerator = BetweenCombos(combo);
         StartCoroutine(m_BetweenCombosEnumerator);
     }
 
     protected virtual IEnumerator BetweenCombos(AttackCombo finishedCombo)
     {
+        yield return null;
+        m_NextComboTimer = StartNextComboAfter(0.1f);
+        StartCoroutine(m_NextComboTimer);
+    }
+
+    protected override IEnumerator StartNextComboAfter(float time)
+    {
         Transform t = DecideWhereToDashNext();
-        DashTo(t, 1f);
-        yield return new WaitForSeconds(1f);
+        DashTo(t, m_DashTime);
+        yield return new WaitForSeconds(m_DashTime);
 
-        GatherLight(1f);
-        yield return new WaitForSeconds(1f);
 
-        base.OnComboEnd(finishedCombo);
+        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+        yield return new WaitForSeconds(m_PerfectRotationTime);
+
+        GatherLight(m_GatherLightTime);
+        yield return new WaitForSeconds(m_GatherLightTime);
+
+        yield return base.StartNextComboAfter(time);
     }
 
     protected virtual Transform DecideWhereToDashNext()
@@ -86,14 +112,37 @@ public class VampireController : BossController {
         StartCoroutine(GatherLightRoutine(time));
     }
 
-    private IEnumerator GatherLightRoutine(float time)
+    protected virtual IEnumerator GatherLightRoutine(float time)
     {
+        m_GatheringLight = true;
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
 
         m_LightGuard.m_ExpandLightGuardTime = time;
         yield return new WaitForSeconds(time);
 
         m_VampireAnimator.SetTrigger("StopGatherLightTrigger");
+        m_GatheringLight = false;
+    }
+
+    protected virtual IEnumerator PerfectTrackingRoutine(float time)
+    {
+        m_VampireAnimator.SetTrigger("RotationTrigger");
+
+        float t = 0;
+        while ((t += Time.deltaTime) < time)
+        {
+            float goalRotation = BossTurnCommand.CalculateAngleTowards(transform, m_Scarlet.transform);
+
+            while (goalRotation > 180)
+                goalRotation -= 360;
+            while (goalRotation < -180)
+                goalRotation += 360;
+           
+            transform.Rotate(Vector3.up, goalRotation * t / time);
+            yield return null;
+        }
+
+        m_VampireAnimator.SetTrigger("StopRotationTrigger");
     }
 
     public void ActivateLightShield()
@@ -125,11 +174,43 @@ public class VampireController : BossController {
         }
         else
         {
-            return base.OnHit(dmg);
+            if (m_GatheringLight)
+            {
+                if (m_BetweenCombosEnumerator != null)
+                    StopCoroutine(m_BetweenCombosEnumerator);
+
+                return base.OnHit(dmg);
+            }
+            else
+            {
+                dmg.OnBlockDamage();
+                return true;
+            }
         }
     }
 
-    private IEnumerator ExecuteDash(Transform target, float time)
+    public override void OnTimeWindowClosed()
+    {
+        StartCoroutine(WaitThenDo(1f, StartNextCombo));
+    }
+
+    public override void OnBossStaggerOver()
+    {
+        m_ActiveCombo = null;
+        m_BossHittable.RegisterInterject(this);
+        m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
+
+        m_BetweenCombosEnumerator = StartNextComboAfter(1f);
+        StartCoroutine(m_BetweenCombosEnumerator);
+    }
+
+    protected virtual IEnumerator WaitThenDo(float time, UnityAction action)
+    {
+        yield return new WaitForSeconds(time);
+        action.Invoke();
+    }
+
+    protected virtual IEnumerator ExecuteDash(Transform target, float time)
     {
         Vector3 initialPos = transform.position + new Vector3();
         Vector3 targetPos = target.position - new Vector3(0, target.position.y - initialPos.y, 0);

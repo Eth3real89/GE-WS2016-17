@@ -20,6 +20,14 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
         EventManager.TriggerEvent(START_EVENT_NAME);
 
+        m_Timer = StartAfterShortTime();
+        StartCoroutine(m_Timer);
+    }
+
+    protected virtual IEnumerator StartAfterShortTime()
+    {
+        yield return new WaitForSeconds(0.15f);
+
         m_ActiveCopy = Instantiate(m_BaseSwarm);
         m_ActiveCopy.transform.position = m_BaseSwarm.transform.position;
         m_ActiveCopy.transform.rotation = m_BaseSwarm.transform.rotation;
@@ -27,6 +35,12 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
         m_Timer = MoveOnTimer();
         StartCoroutine(m_Timer);
+    }
+
+    public override bool OnHit(Damage dmg)
+    {
+        dmg.OnBlockDamage();
+        return true;
     }
 
     protected virtual IEnumerator MoveOnTimer()
@@ -37,6 +51,9 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
     public override void CancelAttack()
     {
+        if (m_Timer != null)
+            StopCoroutine(m_Timer);
+
         if (m_ActiveCopy != null)
             m_ActiveCopy.Kill();
     }

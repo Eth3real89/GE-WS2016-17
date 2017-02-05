@@ -24460,6 +24460,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_InLightZoneProbability: 0
+  m_DashTime: 1
+  m_PerfectRotationTime: 0.4
+  m_GatherLightTime: 1.5
   m_BossHealth: {fileID: 114908096663800970}
   m_Refuge: {fileID: 0}
 --- !u!114 &114115266292171352
@@ -24703,6 +24706,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TimeWindowsBeforeBlocks:
+  - 0.6
+  - 0.6
+  - 0.6
   - 0.6
   m_Animator: {fileID: 95405191386343014}
   m_StaggerTime: 1
@@ -25939,6 +25945,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
   m_RendererContainer: {fileID: 1983005882282770}
+  m_MaxBloodTrails: 4
   m_BloodTrailPrefab: {fileID: 1492538519219924, guid: a01b663743693c3478f9c83740245e30,
     type: 2}
   m_BloodTrailPlaneCollider: {fileID: 0}
@@ -26961,6 +26968,9 @@ MonoBehaviour:
   m_InLightZones: []
   m_BetweenLightZones: []
   m_InLightZoneProbability: 0
+  m_DashTime: 1
+  m_PerfectRotationTime: 0.4
+  m_GatherLightTime: 1.5
   m_TutorialVisuals: {fileID: 0}
   m_TutorialSlowMo: 0.01
   m_BlastAttackForDashTutorial: {fileID: 114626744427582168}
@@ -29012,6 +29022,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   m_InLightZoneProbability: 0.75
+  m_DashTime: 1
+  m_PerfectRotationTime: 0.4
+  m_GatherLightTime: 1.5
 --- !u!114 &114997800576396772
 MonoBehaviour:
   m_ObjectHideFlags: 1

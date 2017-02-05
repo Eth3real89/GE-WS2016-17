@@ -16,7 +16,9 @@ public class VampirePhase1Controller : VampireController
     {
         m_EndInitialized = false;
         base.StartPhase(callbacks);
-        StartCoroutine(StartAfterDelay());
+
+        m_NextComboTimer = StartAfterDelay();
+        StartCoroutine(m_NextComboTimer);
     }
 
     private void Update()
@@ -25,6 +27,8 @@ public class VampirePhase1Controller : VampireController
         {
             if (m_ActiveCombo != null)
                 m_ActiveCombo.CancelCombo();
+
+            StopAllCoroutines();
 
             DashTo(m_Refuge, 1f);
             StartCoroutine(EndPhase());
@@ -37,6 +41,9 @@ public class VampirePhase1Controller : VampireController
         Transform t = DecideWhereToDashNext();
         DashTo(t, 1f);
         yield return new WaitForSeconds(1f);
+
+        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+        yield return new WaitForSeconds(m_PerfectRotationTime);
 
         GatherLight(1f);
         yield return new WaitForSeconds(1f);

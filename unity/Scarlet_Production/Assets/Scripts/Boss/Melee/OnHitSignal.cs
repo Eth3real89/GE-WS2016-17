@@ -11,6 +11,7 @@ public class OnHitSignal : MonoBehaviour {
 
     public GameObject m_RendererContainer;
 
+    public int m_MaxBloodTrails = 4;
     public GameObject m_BloodTrailPrefab;
     public GameObject m_BloodTrailPlaneCollider;
 
@@ -71,6 +72,17 @@ public class OnHitSignal : MonoBehaviour {
 
     private void InitBloodTrail(GameObject attacker)
     {
+        GameObject[] existingTrails = GameObject.FindGameObjectsWithTag("Blood");
+        if (existingTrails.Length >= m_MaxBloodTrails)
+        {
+            int num = existingTrails.Length;
+            for(int i = 0; i <= num - m_MaxBloodTrails; i++)
+            {
+                Destroy(existingTrails[i]);
+            }
+        }
+
+
         GameObject bloodTrailWrapper = (GameObject)Instantiate(m_BloodTrailPrefab, transform.position,
             attacker.transform.rotation);
         Transform bloodTrail = bloodTrailWrapper.transform.FindChild("BloodTrail");
@@ -102,6 +114,9 @@ public class OnHitSignal : MonoBehaviour {
 
         while (time < endTime)
         {
+            if (bloodTrail == null)
+                yield break;
+
             bloodTrail.transform.position = transform.position;
 
             float level = time / endTime;
@@ -111,16 +126,22 @@ public class OnHitSignal : MonoBehaviour {
             yield return null;
         }
 
-        emission.rateOverTime = 0;
-
-        emission.SetBursts(new ParticleSystem.Burst[] { });
-
-        while (ps2.particleCount > 0)
+        if (bloodTrail != null)
         {
-            yield return null;
+            emission.rateOverTime = 0;
+            emission.SetBursts(new ParticleSystem.Burst[] { });
+
+            while (ps2 != null && ps2.particleCount > 0)
+            {
+                if (bloodTrail == null)
+                    yield break;
+                yield return null;
+            }
+
+            if (bloodTrail != null)
+               GameObject.Destroy(bloodTrail); // removes all blood instantly
         }
 
-        GameObject.Destroy(bloodTrail); // removes all blood instantly
     }
 
 }

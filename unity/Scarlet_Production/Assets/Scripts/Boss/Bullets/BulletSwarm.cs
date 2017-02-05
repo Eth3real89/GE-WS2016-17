@@ -35,6 +35,8 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     {
         MLog.Log(LogType.AELog, "Killing Bullet Swarm: " + this);
 
+        m_Invoker.Cancel();
+
         m_KillBullet = true;
         foreach (BulletBehaviour b in m_Instances)
         {

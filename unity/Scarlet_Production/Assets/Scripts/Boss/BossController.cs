@@ -77,13 +77,13 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         StartCoroutine(m_NextComboTimer);
     }
 
-    protected IEnumerator StartNextComboAfter(float time)
+    protected virtual IEnumerator StartNextComboAfter(float time)
     {
         yield return new WaitForSeconds(time);
         StartNextCombo();
     }
 
-    private void StartNextCombo()
+    protected virtual void StartNextCombo()
     {
         m_CurrentComboIndex++;
         if (m_CurrentComboIndex >= m_Combos.Length)
@@ -162,14 +162,14 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     }
 
-    public void OnTimeWindowClosed()
+    public virtual void OnTimeWindowClosed()
     {
         MLog.Log(LogType.BattleLog, "On Time Window Was Closed, Controller");
 
         StartNextCombo();
     }
 
-    public void OnBossStaggerOver()
+    public virtual void OnBossStaggerOver()
     {
         MLog.Log(LogType.BattleLog, "On Boss Stagger Over, Controller");
 
