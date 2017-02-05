@@ -3340,7 +3340,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1323103778663350
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -11982,12 +11982,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1323103778663350}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4464962112519544}
-  m_RootOrder: 3
+  m_Father: {fileID: 4768745633812262}
+  m_RootOrder: 75
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4110237287486694
 Transform:
@@ -15232,7 +15232,6 @@ Transform:
   - {fileID: 4768745633812262}
   - {fileID: 4885345668200386}
   - {fileID: 4680974934794066}
-  - {fileID: 4110213182726824}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
@@ -16678,7 +16677,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1201177399410618}
-  m_LocalRotation: {x: 0.87076706, y: -0.32464182, z: -0.3688192, w: -0.018572371}
+  m_LocalRotation: {x: 0.87076694, y: -0.3246418, z: -0.36881918, w: -0.01857237}
   m_LocalPosition: {x: 0.0019417349, y: -0.0006037734, z: 0.008516664}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -18496,6 +18495,7 @@ Transform:
   - {fileID: 4164022668764290}
   - {fileID: 4602128383175890}
   - {fileID: 4730906100515618}
+  - {fileID: 4110213182726824}
   m_Father: {fileID: 4464962112519544}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24449,6 +24449,17 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_LightGuardContainer: {fileID: 1749386754321810}
   m_LightGuard: {fileID: 114724324923778926}
+  m_InLightZones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_BetweenLightZones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_InLightZoneProbability: 0
   m_BossHealth: {fileID: 114908096663800970}
   m_Refuge: {fileID: 0}
 --- !u!114 &114115266292171352
@@ -26947,6 +26958,9 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_LightGuardContainer: {fileID: 1749386754321810}
   m_LightGuard: {fileID: 114724324923778926}
+  m_InLightZones: []
+  m_BetweenLightZones: []
+  m_InLightZoneProbability: 0
   m_TutorialVisuals: {fileID: 0}
   m_TutorialSlowMo: 0.01
   m_BlastAttackForDashTutorial: {fileID: 114626744427582168}
@@ -28987,6 +29001,17 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_LightGuardContainer: {fileID: 1749386754321810}
   m_LightGuard: {fileID: 114724324923778926}
+  m_InLightZones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_BetweenLightZones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  m_InLightZoneProbability: 0.75
 --- !u!114 &114997800576396772
 MonoBehaviour:
   m_ObjectHideFlags: 1

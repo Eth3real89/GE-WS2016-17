@@ -141,7 +141,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
             DisableCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
             m_MoveCommand.StopMoving();
         }
-        else if (command = m_InteractionCommand)
+        else if (command == m_InteractionCommand)
         {
             CancelCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);
             DisableCommands(m_AttackCommand, m_ParryCommand, m_HealCommand, m_DashCommand, m_MoveCommand);

@@ -32,6 +32,18 @@ public class VampirePhase1Controller : VampireController
         }
     }
 
+    protected override IEnumerator StartAfterDelay()
+    {
+        Transform t = DecideWhereToDashNext();
+        DashTo(t, 1f);
+        yield return new WaitForSeconds(1f);
+
+        GatherLight(1f);
+        yield return new WaitForSeconds(1f);
+
+        yield return base.StartAfterDelay();
+    }
+
     private IEnumerator EndPhase()
     {
         yield return new WaitForSeconds(1f);
