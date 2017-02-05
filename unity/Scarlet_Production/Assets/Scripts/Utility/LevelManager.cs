@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class LevelManager : GenericSingletonClass<LevelManager>
@@ -14,16 +14,19 @@ public class LevelManager : GenericSingletonClass<LevelManager>
     public GameObject m_Scarlet;
 
     private PlayerMoveCommand m_ScarletMoveCommand;
+    private Animator m_ScarletAnimator;
 
     void Start()
     {
         m_Scarlet = GameObject.FindGameObjectWithTag("Player");
+        m_ScarletAnimator = m_Scarlet.GetComponent<Animator>();
         m_ScarletMoveCommand = m_Scarlet.GetComponentInChildren<PlayerMoveCommand>();
         SetupPlayerStats();
     }
 
     private void SetupPlayerStats()
     {
+        m_ScarletAnimator.SetInteger("IsCombatMode", Convert.ToInt32(m_ControlMode == ControlMode.Combat));
         if (m_ControlMode == ControlMode.Exploration)
             m_ScarletMoveCommand.m_CurrentSpeed = m_ScarletMoveCommand.m_WalkSpeed;
         if (m_ControlMode == ControlMode.Combat)
