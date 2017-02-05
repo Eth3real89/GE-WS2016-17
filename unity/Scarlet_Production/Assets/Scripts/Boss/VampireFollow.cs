@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class VampireFollow : MonoBehaviour
 {
+    public float m_WalkingSpeed;
+
     private GameObject m_Player;
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
@@ -28,11 +30,11 @@ public class VampireFollow : MonoBehaviour
         transform.LookAt(targetLocation);
 
         if (Vector3.Distance(targetLocation, selfPos) >= 0.5f)
-            moveSpeed = 1.1f;
+            moveSpeed = m_WalkingSpeed + 0.1f;
         else if (Vector3.Distance(targetLocation, selfPos) < 0.2f)
             moveSpeed = 0;
         else
-            moveSpeed = 0.8f;
+            moveSpeed = m_WalkingSpeed - 0.2f;
 
         if (moveSpeed > 0)
         {
