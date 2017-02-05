@@ -98,10 +98,18 @@ public class VampireController : BossController {
 
         dist /= time; // time it takes to get to that place
 
+        // @todo: determine direction for animation
+        m_VampireAnimator.SetInteger("WhichDash", 1);
+        m_VampireAnimator.SetTrigger("DashTrigger");
+
         m_MoveCommand.m_Speed = dist.magnitude;
         m_MoveCommand.DoMove(dist.x, dist.z);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time - 0.5f);
+
+        m_VampireAnimator.SetTrigger("DashWindupTrigger");
+
+        yield return new WaitForSeconds(0.5f - (time - 0.5f));
 
         m_MoveCommand.StopMoving();
     }

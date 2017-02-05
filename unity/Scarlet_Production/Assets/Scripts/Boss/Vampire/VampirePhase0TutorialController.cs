@@ -220,7 +220,7 @@ public class VampirePhase0TutorialController : VampireController {
 
         while (true)
         {
-            float distanceToScarlet = Vector3.Distance(b.transform.position, m_Scarlet.transform.position);
+            float distanceToScarlet = Vector3.Distance(b.transform.position - new Vector3(0, b.transform.position.y, 0), m_Scarlet.transform.position - new Vector3(0, m_Scarlet.transform.position.y, 0));
 
             if (distanceToScarlet < 1)
             {
