@@ -12,8 +12,6 @@ public class BulletHomingMovement : BulletMovement {
 
     public override void HandleMovement(BulletBehaviour b)
     {
-        Vector3 difference = m_Target.position - b.transform.position;
-
         float angle = BossTurnCommand.CalculateAngleTowards(b.transform, m_Target);
 
         if (angle < -180) angle += 360;

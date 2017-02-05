@@ -18,8 +18,6 @@ public class BlastWaveVisuals : MonoBehaviour {
     public VolumetricLines.VolumetricLineStripBehavior m_volumetricBehavior;
     public Material m_VolumetricLineMaterial;
 
-    private float totalGrowth;
-
     public void Setup()
     {
         transform.localScale = transform.localScale.normalized * m_InitialScale;
@@ -34,14 +32,13 @@ public class BlastWaveVisuals : MonoBehaviour {
         }
 
         m_volumetricBehavior.UpdateLineVertices(vertices);
-        totalGrowth = 1;
     }
 
     public void ScaleUp(float totalGrowth)
     {
         //        m_VolumetricLineMaterial.SetFloat(Shader.PropertyToID("_LineWidth"), 1 / m_VolumetricLineMaterial.GetFloat(Shader.PropertyToID("_LineScale")));
 
-        transform.localScale = new Vector3(totalGrowth, totalGrowth, totalGrowth);
+        transform.localScale = new Vector3(totalGrowth, 0.5f, totalGrowth) * 2;
 
         Material m = m_volumetricBehavior.GetComponent<MeshRenderer>().material;
         m.SetFloat(Shader.PropertyToID("_LineWidth"), m_AdjustForLightsaber * m_LineWidthFactor / totalGrowth);

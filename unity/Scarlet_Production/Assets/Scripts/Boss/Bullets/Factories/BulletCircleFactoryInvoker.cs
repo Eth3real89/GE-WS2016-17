@@ -24,9 +24,6 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
     {
         bs.transform.position = new Vector3(m_Center.position.x, m_Center.position.y, m_Center.position.z);
 
-        if (m_CurrentIteration >= m_Iterations)
-            return;
-
         for(int i = 0; i < m_CountPerIteration; i++)
         {
             BulletBehaviour b = CreateBullet(m_CurrentIteration, i);
@@ -36,6 +33,11 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
         }
 
         m_CurrentIteration++;
+        if (m_CurrentIteration >= m_Iterations)
+        {
+            EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
+            return;
+        }
 
         m_LaunchIterationTimer = BetweenIterations(bs);
         StartCoroutine(m_LaunchIterationTimer);

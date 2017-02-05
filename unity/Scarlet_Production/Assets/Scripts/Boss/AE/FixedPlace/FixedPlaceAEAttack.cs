@@ -13,9 +13,6 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
 
     public float m_AttackTime = 0.5f;
 
-    private bool m_Active = false;
-    private bool m_DamageActive = false;
-
     public FixedPlaceSetupVisuals m_SetupVisuals;
     public FixedPlaceAttackVisuals m_AttackVisuals;
 
@@ -54,6 +51,7 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
             m_TurnTowardsScarlet.DoTurn();
             yield return null;
         }
+        m_TurnTowardsScarlet.m_TurnSpeed = m_PreviousSpeed;
     }
 
     public void OnSetupOver()
@@ -71,7 +69,6 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
     {
         base.CancelAttack();
 
-        m_Active = false;
         m_SetupActive = false;
 
         m_SetupVisuals.HideAttack();
@@ -91,7 +88,6 @@ public class FixedPlaceAEAttack : AEAttack, FixedPlaceSetupVisuals.SetupCallback
     {
         yield return new WaitForSeconds(m_AttackTime);
 
-        m_Active = false;
         m_AttackVisuals.HideAttack();
         m_AEDamage.m_Active = false;
 

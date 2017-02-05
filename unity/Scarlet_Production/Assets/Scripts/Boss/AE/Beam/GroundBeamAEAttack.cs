@@ -26,6 +26,8 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     {
         base.StartAttack();
 
+        EventManager.TriggerEvent(BeamAEAttack.START_EVENT_NAME);
+
         m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
         m_InitialTurn.m_TurnSpeed = 9999;
         m_InitialTurn.DoTurn();
@@ -44,6 +46,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
             m_InitialTurn.DoTurn();
             yield return null;
         }
+        m_InitialTurn.m_TurnSpeed = m_PrevTurnSpeed;
 
         m_Damage.SetAngle(0);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
@@ -84,6 +87,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     protected virtual IEnumerator RemoveBeamAfterWaiting()
     {
         yield return new WaitForSeconds(0.5f);
+        EventManager.TriggerEvent(BeamAEAttack.END_EVENT_NAME);
 
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;

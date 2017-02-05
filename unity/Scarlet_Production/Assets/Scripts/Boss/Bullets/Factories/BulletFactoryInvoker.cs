@@ -22,8 +22,6 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
     protected virtual void SpawnIteration(BulletSwarm bs)
     {
-        if (m_CurrentIteration >= m_Iterations)
-            return;
 
         for (int i = 0; i < m_Factories.Length; i++)
         {
@@ -33,6 +31,12 @@ public class BulletFactoryInvoker : MonoBehaviour {
         }
 
         m_CurrentIteration++;
+
+        if (m_CurrentIteration >= m_Iterations)
+        {
+            EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
+            return;
+        }
 
         m_LaunchIterationTimer = BetweenIterations(bs);
         StartCoroutine(m_LaunchIterationTimer);

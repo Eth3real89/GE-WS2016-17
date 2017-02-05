@@ -41,7 +41,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         }
     }
 
-    protected IEnumerator StartAfterDelay()
+    protected virtual IEnumerator StartAfterDelay()
     {
         yield return new WaitForSeconds(0.5f);
 
@@ -129,7 +129,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         StartNextCombo();
     }
 
-    public bool OnHit(Damage dmg)
+    public virtual bool OnHit(Damage dmg)
     {
         MLog.Log(LogType.BattleLog, "On Hit, Controller");
 

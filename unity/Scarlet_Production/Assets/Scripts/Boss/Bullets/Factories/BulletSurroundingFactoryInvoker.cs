@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
+public class BulletSurroundingFactoryInvoker : BulletFactoryInvoker {
 
     public float m_Radius;
     public float m_TimeToGetInFormation;
@@ -19,9 +19,6 @@ public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
 
     protected override void SpawnIteration(BulletSwarm bs)
     {
-        if (m_CurrentIteration >= m_Factories.Length)
-            return;
-
         if (m_CurrentIteration == 0)
         {
             m_Time = 0;
@@ -41,6 +38,11 @@ public class BulletCircularFactoryInvoker : BulletFactoryInvoker {
         bs.m_Instances.Add(b);
 
         m_CurrentIteration++;
+        if (m_CurrentIteration >= m_Factories.Length)
+        {
+            EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
+            return;
+        }
 
         m_LaunchIterationTimer = BetweenIterations(bs);
         StartCoroutine(m_LaunchIterationTimer);

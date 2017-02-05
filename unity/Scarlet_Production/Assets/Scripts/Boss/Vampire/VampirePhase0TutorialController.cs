@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampirePhase0TutorialController : BossController {
+public class VampirePhase0TutorialController : VampireController {
 
-    public BossfightCallbacks m_Callback;
     public TutorialPromptController m_TutorialVisuals;
 
     public float m_TutorialSlowMo = 0.01f;
@@ -13,7 +12,6 @@ public class VampirePhase0TutorialController : BossController {
     public SwayingAEDamage m_BeamDamage;
     
     public Transform m_PlaceToBeAttacked;
-    public BossMoveCommand m_MoveCommand;
 
     public CharacterHealth m_BossHealth;
 
@@ -31,17 +29,33 @@ public class VampirePhase0TutorialController : BossController {
 
     private float m_HealthAtStartOfTutorial;
 
-    public void StartPhase(BossfightCallbacks callbacks)
+    public override void StartPhase(BossfightCallbacks callbacks)
     {
-        RegisterComboCallback();
-
-        m_BossHittable.RegisterInterject(this);
-        m_Callback = callbacks;
-
+        base.StartPhase(callbacks);
         StartCoroutine(StartAfterDelay());
 
         EventManager.StartListening(PlayerDashCommand.COMMAND_EVENT_TRIGGER, OnPlayerDash);
         EventManager.StartListening(PlayerParryCommand.COMMAND_EVENT_TRIGGER, OnPlayerParry);
+    }
+
+    protected override IEnumerator StartAfterDelay()
+    {
+        PlayerControls controls = FindObjectOfType<PlayerControls>();
+
+        if (controls != null)
+            controls.DisableAllCommands();
+
+        yield return new WaitForSeconds(0.5f);
+
+        GatherLight(2f);
+        ActivateLightShield();
+
+        yield return new WaitForSeconds(2f);
+
+        if (controls != null)
+            controls.EnableAllCommands();
+
+        yield return base.StartAfterDelay();
     }
 
     public override void OnComboStart(AttackCombo combo)
@@ -235,22 +249,7 @@ public class VampirePhase0TutorialController : BossController {
 
     private void StartAttackTutorial()
     {
-        StartCoroutine(GetIntoPositionToBeAttacked());
-    }
-
-    private IEnumerator GetIntoPositionToBeAttacked()
-    {
-        Vector3 dist = m_PlaceToBeAttacked.position - transform.position;
-        dist.y = 0;
-
-        dist /= 3; // time it takes to get to that place
-
-        m_MoveCommand.m_Speed = dist.magnitude;
-        m_MoveCommand.DoMove(dist.x, dist.z);
-
-        yield return new WaitForSeconds(3);
-
-        m_MoveCommand.StopMoving();
+        base.DashTo(m_PlaceToBeAttacked, 3);
 
         m_PhaseEndEnumerator = AllowDamageThenMoveOnToNextPhase();
         StartCoroutine(m_PhaseEndEnumerator);
@@ -261,6 +260,8 @@ public class VampirePhase0TutorialController : BossController {
 
     private IEnumerator PlayerAttackTutorial()
     {
+        DeactivateLightShield();
+
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
         m_TutorialVisuals.ShowTutorial("Y", "Go over to the Vampire and hit him!", m_TutorialSlowMo);
         float t = 0;
@@ -304,6 +305,7 @@ public class VampirePhase0TutorialController : BossController {
             StopCoroutine(m_TutorialEnumerator);
         }
 
+        UnRegisterAnimationEvents();
         m_Callback.PhaseEnd(this);
     }
 

@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 {
+    public static string START_EVENT_NAME = "beam_attack_start";
+    public static string END_EVENT_NAME = "beam_attack_end";
+
     public float m_ExpandTime = 0.3f;
     public float m_ExpandScale = 8;
 
@@ -32,6 +35,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         m_InitialTurn.DoTurn();
         m_InitialTurn.m_TurnSpeed = m_InitialTurnTrackSpeed;
 
+        EventManager.TriggerEvent(START_EVENT_NAME);
+
         m_ExpansionEnumerator = BeforeExpansion();
         StartCoroutine(m_ExpansionEnumerator);
     }
@@ -45,6 +50,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
             m_InitialTurn.DoTurn();
             yield return null;
         }
+        m_InitialTurn.m_TurnSpeed = m_PrevTurnSpeed;
 
         if (!m_InitiallyAimAtScarlet)
         {
@@ -81,6 +87,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     protected virtual IEnumerator RemoveBeamAfterWaiting()
     {
         yield return new WaitForSeconds(0.5f);
+
+        EventManager.TriggerEvent(END_EVENT_NAME);
 
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;

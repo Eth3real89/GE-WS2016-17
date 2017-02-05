@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BlastWaveAttack : GrowingAEAttack {
 
+    public static string START_EVENT_NAME = "blast_wave_start";
+
     public float m_Damage;
 
     public Transform m_Center;
@@ -26,16 +28,17 @@ public class BlastWaveAttack : GrowingAEAttack {
     private IEnumerator m_GrowEnumerator;
     private bool m_HasHit;
 
-    private BlastWaveDamage m_BlastDamage;
+    public AEAttackDamage m_BlastDamage;
 
     public override void StartAttack()
     {
         base.StartAttack();
 
+        EventManager.TriggerEvent(START_EVENT_NAME);
+
         m_Visuals.transform.position = new Vector3(m_Center.transform.position.x, m_Visuals.transform.position.y, m_Center.transform.position.z);
         m_InitialCenterPos = new Vector3(m_Center.transform.position.x, m_Center.transform.position.y, m_Center.transform.position.z);
 
-        m_BlastDamage = new BlastWaveDamage();
         m_BlastDamage.m_DamageAmount = this.m_Damage;
 
         m_HasHit = false;
@@ -127,10 +130,5 @@ public class BlastWaveAttack : GrowingAEAttack {
 
         m_Target.Hit(m_BlastDamage);
         m_HasHit = true;
-    }
-
-    private class BlastWaveDamage : AEAttackDamage
-    {
-
     }
 }

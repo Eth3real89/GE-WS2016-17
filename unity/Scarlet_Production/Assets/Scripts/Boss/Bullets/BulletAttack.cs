@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
+    public static string START_EVENT_NAME = "bullet_attack_start";
+    public static string END_EVENT_NAME = "bullet_attack_end";
+
     public BulletSwarm m_BaseSwarm;
     private BulletSwarm m_ActiveCopy;
 
@@ -14,6 +17,8 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
     public override void StartAttack()
     {
         base.StartAttack();
+
+        EventManager.TriggerEvent(START_EVENT_NAME);
 
         m_ActiveCopy = Instantiate(m_BaseSwarm);
         m_ActiveCopy.transform.position = m_BaseSwarm.transform.position;
