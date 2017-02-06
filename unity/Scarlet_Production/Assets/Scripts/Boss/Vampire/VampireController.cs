@@ -83,12 +83,14 @@ public class VampireController : BossController {
         DashTo(t, m_DashTime);
         yield return new WaitForSeconds(m_DashTime);
 
-
         StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
         yield return new WaitForSeconds(m_PerfectRotationTime);
 
         GatherLight(m_GatherLightTime);
         yield return new WaitForSeconds(m_GatherLightTime);
+
+        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+        yield return new WaitForSeconds(m_PerfectRotationTime);
 
         yield return base.StartNextComboAfter(time);
     }

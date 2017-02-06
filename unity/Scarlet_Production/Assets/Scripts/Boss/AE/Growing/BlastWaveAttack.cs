@@ -11,28 +11,33 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     public Transform m_Center;
     public float m_InitialFrontSize;
-    public float m_DistanceBetweenCircles;
+    public float m_DistanceBetweenCirclesStart;
+    public float m_DistanceBetweenCirclesEnd = -1;
+    protected float m_DistanceBetweenCircles;
+
     public float m_GrowTime;
     public float m_GrowRate;
 
     public float m_WaveSize;
 
     public float m_Angles;
-    private float m_AngleAtLaunch;
+    protected float m_AngleAtLaunch;
 
     public BlastWaveVisuals m_Visuals;
 
     public PlayerHittable m_Target;
-    private Vector3 m_InitialCenterPos;
+    protected Vector3 m_InitialCenterPos;
 
     private IEnumerator m_GrowEnumerator;
-    private bool m_HasHit;
+    protected bool m_HasHit;
 
     public AEAttackDamage m_BlastDamage;
 
     public override void StartAttack()
     {
         base.StartAttack();
+
+        m_Visuals.transform.parent = null;
 
         EventManager.TriggerEvent(START_EVENT_NAME);
 
@@ -41,13 +46,25 @@ public class BlastWaveAttack : GrowingAEAttack {
 
         m_BlastDamage.m_DamageAmount = this.m_Damage;
 
+        if (m_DistanceBetweenCirclesEnd < 0)
+            m_DistanceBetweenCirclesEnd = m_DistanceBetweenCirclesStart;
+
         m_HasHit = false;
 
         m_GrowEnumerator = GrowWave();
         StartCoroutine(m_GrowEnumerator);
     }
 
-    private IEnumerator GrowWave()
+    protected virtual IEnumerator GrowWave()
+    {
+        yield return GrowRoutine();
+
+        m_Callback.OnAttackEnd(this);
+        HideLightGuard();
+        m_Visuals.gameObject.SetActive(false);
+    }
+
+    protected virtual IEnumerator GrowRoutine()
     {
         m_AngleAtLaunch = m_Boss.transform.rotation.eulerAngles.y;
         if (m_AngleAtLaunch > 180) m_AngleAtLaunch -= 360;
@@ -60,30 +77,29 @@ public class BlastWaveAttack : GrowingAEAttack {
         m_Visuals.gameObject.SetActive(true);
 
         m_WaveSize = m_InitialFrontSize;
-        m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
+        m_Visuals.m_LineWidthFactor = m_DistanceBetweenCirclesStart;
 
         float t = 0;
-        while((t += Time.deltaTime) < m_GrowTime)
+        while ((t += Time.deltaTime) < m_GrowTime)
         {
             m_WaveSize += m_GrowRate * Time.deltaTime;
-            float distance = Vector3.Distance(m_Target.transform.position, m_InitialCenterPos);
+            float distance = Vector3.Distance(m_Target.transform.position - new Vector3(0, m_Target.transform.position.y, 0), m_InitialCenterPos - new Vector3(0, m_InitialCenterPos.y, 0));
+
+            m_DistanceBetweenCircles = m_DistanceBetweenCirclesStart + (t / m_GrowTime) * (m_DistanceBetweenCirclesEnd - m_DistanceBetweenCirclesStart);
 
             if (WithinDistanceBounds(m_WaveSize, distance) && WithinAngleBounds(m_Angles))
             {
                 DealDamage();
             }
-
+            
+            m_Visuals.m_LineWidthFactor = m_DistanceBetweenCircles;
             m_Visuals.ScaleUp(m_WaveSize);
 
             yield return null;
         }
-
-        m_Callback.OnAttackEnd(this);
-        HideLightGuard();
-        m_Visuals.gameObject.SetActive(false);
     }
 
-    private bool WithinAngleBounds(float angles)
+    protected virtual bool WithinAngleBounds(float angles)
     {
         float angle = BossTurnCommand.CalculateAngleTowards(m_Target.transform.position, m_InitialCenterPos);
         
@@ -108,9 +124,9 @@ public class BlastWaveAttack : GrowingAEAttack {
         return false;
     }
 
-    private bool WithinDistanceBounds(float waveSize, float distance)
+    protected virtual bool WithinDistanceBounds(float waveSize, float distance)
     {
-        return waveSize >= distance && waveSize - m_DistanceBetweenCircles / 4 <= distance;
+        return waveSize >= distance && waveSize - m_DistanceBetweenCirclesStart / 4 <= distance;
     }
 
     public override void CancelAttack()
@@ -123,7 +139,7 @@ public class BlastWaveAttack : GrowingAEAttack {
         m_Visuals.gameObject.SetActive(false);
     }
 
-    private void DealDamage()
+    protected virtual void DealDamage()
     {
         if (m_HasHit)
             return;

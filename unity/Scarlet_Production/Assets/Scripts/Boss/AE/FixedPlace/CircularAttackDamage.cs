@@ -20,6 +20,9 @@ public class CircularAttackDamage : AEAttackDamage {
         while (m_Active)
         {
             float angleTowardsScarlet = m_TurnTowardsScarlet.CalculateAngleTowardsScarlet();
+            while (angleTowardsScarlet < 0)
+                angleTowardsScarlet += 360;
+
             if (Mathf.Abs(angleTowardsScarlet) <= m_Angle / 2 && 
                 Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position) <= m_Distance / 2)
             {

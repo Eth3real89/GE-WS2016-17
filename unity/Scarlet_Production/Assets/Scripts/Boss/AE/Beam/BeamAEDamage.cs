@@ -32,6 +32,9 @@ public class BeamAEDamage : AEAttackDamage
 
     public virtual void Rotate(float time, float angles, ExpandingDamageCallbacks callback)
     {
+        if (m_Timer != null)
+            StopCoroutine(m_Timer);
+
         m_Timer = RotationRoutine(time, angles, callback);
         StartCoroutine(m_Timer);
     }

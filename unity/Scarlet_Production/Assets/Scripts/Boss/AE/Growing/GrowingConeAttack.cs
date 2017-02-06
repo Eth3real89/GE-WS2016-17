@@ -56,7 +56,7 @@ public class GrowingConeAttack : GrowingAEAttack {
             float currentSize = (t / m_GrowTime) * m_EndSize;
 
             m_AttackVisuals.transform.localScale = new Vector3(1, 0, 1) * currentSize;
-            m_Damage.m_Distance = currentSize * 2;
+            m_Damage.m_Distance = currentSize;
 
             for(int i = 0; i < m_LineMaterials.Length; i++)
             {
