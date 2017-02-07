@@ -33,6 +33,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         {
             PhaseEnd(m_Phase1Controller);
         }
+        else if (m_StartPhase == Phase.Phase3)
+        {
+            PhaseEnd(m_Phase2Controller);
+        }
     }
 
     public void PhaseEnd(BossController whichPhase)
@@ -56,7 +60,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
             m_Phase3Controller.enabled = true;
-            m_Phase3Controller.StartPhase();
+            m_Phase3Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase3Controller)
         {
