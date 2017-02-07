@@ -22,7 +22,7 @@ public class VampireController : BossController {
     public float m_PerfectRotationTime = 0.4f;
     public float m_GatherLightTime = 1.5f;
 
-    private bool m_GatheringLight;
+    protected bool m_GatheringLight;
 
     protected IEnumerator m_DashEnumerator;
     protected IEnumerator m_BetweenCombosEnumerator;

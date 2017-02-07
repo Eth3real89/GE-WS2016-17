@@ -108,10 +108,15 @@ public class BeamAEDamage : AEAttackDamage
 
     protected virtual void OnTriggerExit(Collider other)
     {
-        if (!m_Active)
-            return;
-
         Hittable hittable = other.GetComponentInChildren<Hittable>();
+        if (!m_Active)
+        {
+            if (hittable != null && hittable is PlayerHittable)
+                m_Active = true;
+            else
+                return;
+        }
+
         if (hittable != null && hittable is PlayerHittable)
         {
             m_CollisionHandler.HandleScarletLeave(other);

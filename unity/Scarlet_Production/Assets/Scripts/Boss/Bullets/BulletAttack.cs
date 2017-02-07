@@ -11,6 +11,7 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
     public BulletSwarm m_BaseSwarm;
     private BulletSwarm m_ActiveCopy;
 
+    public float m_AnimationStartTime = 0.15f;
     public float m_MoveOnAfter = 1f;
     protected IEnumerator m_Timer;
 
@@ -26,7 +27,7 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
     protected virtual IEnumerator StartAfterShortTime()
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return new WaitForSeconds(m_AnimationStartTime);
 
         m_ActiveCopy = Instantiate(m_BaseSwarm);
         m_ActiveCopy.transform.position = m_BaseSwarm.transform.position;
