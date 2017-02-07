@@ -26,7 +26,7 @@ public class LevelManager : GenericSingletonClass<LevelManager>
 
     private void SetupPlayerStats()
     {
-        m_ScarletAnimator.SetInteger("IsCombatMode", Convert.ToInt32(m_ControlMode == ControlMode.Combat));
+        m_ScarletAnimator.SetFloat("IsCombatMode", Convert.ToInt32(m_ControlMode == ControlMode.Combat));
         if (m_ControlMode == ControlMode.Exploration)
             m_ScarletMoveCommand.m_CurrentSpeed = m_ScarletMoveCommand.m_WalkSpeed;
         if (m_ControlMode == ControlMode.Combat)
