@@ -286,6 +286,7 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void StartAttackTutorial()
     {
+        m_LightGuard.ReattachVisualsToParent();
         base.DashTo(m_PlaceToBeAttacked, 1.5f);
 
         m_AllowHit = true;
