@@ -68,19 +68,14 @@ public class VampireController : BossController {
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
-        m_BetweenCombosEnumerator = BetweenCombos(combo);
-        StartCoroutine(m_BetweenCombosEnumerator);
-    }
-
-    protected virtual IEnumerator BetweenCombos(AttackCombo finishedCombo)
-    {
-        yield return null;
-        m_NextComboTimer = StartNextComboAfter(0.1f);
+        m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
         StartCoroutine(m_NextComboTimer);
     }
 
     protected override IEnumerator StartNextComboAfter(float time)
     {
+        DeactivateLightShield();
+
         Transform t = DecideWhereToDashNext();
         DashTo(t, m_DashTime);
         yield return new WaitForSeconds(m_DashTime);
@@ -91,6 +86,8 @@ public class VampireController : BossController {
         GatherLight(m_GatherLightTime);
         yield return new WaitForSeconds(m_GatherLightTime);
 
+        m_LightGuard.m_ExpandLightGuardTime = m_PerfectRotationTime;
+        ActivateLightShield();
         StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
         yield return new WaitForSeconds(m_PerfectRotationTime);
 
@@ -197,6 +194,12 @@ public class VampireController : BossController {
             {
                 if (m_BetweenCombosEnumerator != null)
                     StopCoroutine(m_BetweenCombosEnumerator);
+                if (m_NextComboTimer != null)
+                {
+                    StopCoroutine(m_NextComboTimer);
+                }
+
+                DeactivateLightShield();
 
                 return base.OnHit(dmg);
             }
@@ -231,6 +234,9 @@ public class VampireController : BossController {
         DashTo(t, m_DashTime);
         yield return new WaitForSeconds(m_DashTime);
 
+        
+        m_LightGuard.m_ExpandLightGuardTime = m_PerfectRotationTime;
+        ActivateLightShield();
         StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
         yield return new WaitForSeconds(m_PerfectRotationTime);
 

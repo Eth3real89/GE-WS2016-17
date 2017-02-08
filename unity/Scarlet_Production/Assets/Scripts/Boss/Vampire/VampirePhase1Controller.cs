@@ -17,7 +17,8 @@ public class VampirePhase1Controller : VampireController
         m_EndInitialized = false;
         base.StartPhase(callbacks);
 
-        m_NextComboTimer = StartAfterDelay();
+        m_CurrentComboIndex = -1;
+        m_NextComboTimer = StartNextComboAfter(0.5f);
         StartCoroutine(m_NextComboTimer);
 
     }
@@ -36,21 +37,6 @@ public class VampirePhase1Controller : VampireController
             m_EndInitialized = true;
             UnRegisterAnimationEvents();
         }
-    }
-
-    protected override IEnumerator StartAfterDelay()
-    {
-        Transform t = DecideWhereToDashNext();
-        DashTo(t, 1f);
-        yield return new WaitForSeconds(1f);
-
-        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
-        yield return new WaitForSeconds(m_PerfectRotationTime);
-
-        GatherLight(1f);
-        yield return new WaitForSeconds(1f);
-
-        yield return base.StartAfterDelay();
     }
 
     private IEnumerator EndPhase()
