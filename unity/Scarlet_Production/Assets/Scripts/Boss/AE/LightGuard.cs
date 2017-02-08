@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LightGuard : MonoBehaviour {
 
-    public BlastWaveVisuals m_LightGuardVisuals;
+    public LightGuardVisuals m_LightGuardVisuals;
 
     public GameObject m_Boss;
 
@@ -39,5 +39,15 @@ public class LightGuard : MonoBehaviour {
             yield return null;
         }
 
+    }
+
+    public void DetachVisualsFromParent()
+    {
+        m_LightGuardVisuals.DetachFromParent();
+    }
+
+    public void ReattachVisualsToParent()
+    {
+        m_LightGuardVisuals.ReattachToParent();
     }
 }

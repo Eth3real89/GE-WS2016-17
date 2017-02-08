@@ -29,6 +29,10 @@ public class VampirePhase0TutorialController : VampireController {
 
     private float m_HealthAtStartOfTutorial;
 
+    private bool m_AllowHit;
+
+    private int m_HitCount;
+
     public PlayerControls m_PlayerControls;
     public PlayerMoveCommand m_PlayerMove;
     public PlayerDashCommand m_PlayerDash;
@@ -40,6 +44,8 @@ public class VampirePhase0TutorialController : VampireController {
     {
         base.StartPhase(callbacks);
         StartCoroutine(StartAfterDelay());
+        m_AllowHit = false;
+        m_HitCount = 0;
 
         EventManager.StartListening(PlayerDashCommand.COMMAND_EVENT_TRIGGER, OnPlayerDash);
         EventManager.StartListening(PlayerParryCommand.COMMAND_EVENT_TRIGGER, OnPlayerParry);
@@ -282,6 +288,8 @@ public class VampirePhase0TutorialController : VampireController {
     {
         base.DashTo(m_PlaceToBeAttacked, 1.5f);
 
+        m_AllowHit = true;
+
         m_PhaseEndEnumerator = AllowDamageThenMoveOnToNextPhase();
         StartCoroutine(m_PhaseEndEnumerator);
 
@@ -369,6 +377,31 @@ public class VampirePhase0TutorialController : VampireController {
                 SlowTime.Instance.StopSlowMo();
                 m_TutorialVisuals.HideTutorial(1);
             }
+        }
+    }
+
+    public override bool OnHit(Damage dmg)
+    {
+        if (dmg is BulletDamage)
+        {
+            return false;
+        }
+
+        if (m_AllowHit)
+        {
+            m_HitCount++;
+            if (m_HitCount == 4)
+            {
+                StopAllCoroutines();
+                UnRegisterAnimationEvents();
+                SlowTime.Instance.StopSlowMo();
+                m_Callback.PhaseEnd(this);
+            }
+            return false;
+        }
+        else
+        {
+            return true;
         }
     }
 }

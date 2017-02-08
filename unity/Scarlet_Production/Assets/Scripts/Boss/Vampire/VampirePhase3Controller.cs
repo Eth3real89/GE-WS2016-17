@@ -73,6 +73,8 @@ public class VampirePhase3Controller : VampireController
 
     protected virtual IEnumerator InitLastDesperateAttemptToKillScarlet() // best method name ever
     {
+        m_LightGuard.ReattachVisualsToParent();
+
         yield return new WaitForSeconds(0.5f);
 
         yield return RotateToDegrees(0.2f, 0);

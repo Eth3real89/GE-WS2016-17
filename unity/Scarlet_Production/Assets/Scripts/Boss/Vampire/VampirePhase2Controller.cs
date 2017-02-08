@@ -13,7 +13,6 @@ public class VampirePhase2Controller : VampireController
         m_EndInitialized = false;
         base.StartPhase(callbacks);
 
-        m_CurrentComboIndex = -1;
         StartCoroutine(StartAfterDelay());
     }
 
