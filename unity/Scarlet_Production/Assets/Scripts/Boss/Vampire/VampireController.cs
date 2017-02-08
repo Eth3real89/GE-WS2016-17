@@ -22,6 +22,8 @@ public class VampireController : BossController {
     public float m_PerfectRotationTime = 0.4f;
     public float m_GatherLightTime = 1.5f;
 
+    private bool m_ForceLightChoice;
+
     protected bool m_GatheringLight;
 
     protected IEnumerator m_DashEnumerator;
@@ -97,7 +99,17 @@ public class VampireController : BossController {
 
     protected virtual Transform DecideWhereToDashNext()
     {
-        bool moveToOpenSpace = UnityEngine.Random.Range(0f, 1f) >= m_InLightZoneProbability;
+        bool moveToOpenSpace;
+        if (m_ForceLightChoice)
+        {
+            moveToOpenSpace = false;
+        }
+        else
+        {
+            moveToOpenSpace = UnityEngine.Random.Range(0f, 1f) >= m_InLightZoneProbability;
+        }
+
+        m_ForceLightChoice = false;
 
         Transform[] possibleTargets = moveToOpenSpace ? m_BetweenLightZones : m_InLightZones;
         
@@ -198,7 +210,7 @@ public class VampireController : BossController {
 
     public override void OnTimeWindowClosed()
     {
-        StartCoroutine(WaitThenDo(1f, StartNextCombo));
+        StartCoroutine(DashIntoLightThenStartAttack());
     }
 
     public override void OnBossStaggerOver()
@@ -207,14 +219,22 @@ public class VampireController : BossController {
         m_BossHittable.RegisterInterject(this);
         m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
 
-        m_BetweenCombosEnumerator = StartNextComboAfter(1f);
+        m_ForceLightChoice = true;
+        m_BetweenCombosEnumerator = StartNextComboAfter(0f);
         StartCoroutine(m_BetweenCombosEnumerator);
     }
 
-    protected virtual IEnumerator WaitThenDo(float time, UnityAction action)
+    protected virtual IEnumerator DashIntoLightThenStartAttack()
     {
-        yield return new WaitForSeconds(time);
-        action.Invoke();
+        m_ForceLightChoice = true;
+        Transform t = DecideWhereToDashNext();
+        DashTo(t, m_DashTime);
+        yield return new WaitForSeconds(m_DashTime);
+
+        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+        yield return new WaitForSeconds(m_PerfectRotationTime);
+
+        yield return base.StartNextComboAfter(0f);
     }
 
     protected virtual IEnumerator ExecuteDash(Transform target, float time)
