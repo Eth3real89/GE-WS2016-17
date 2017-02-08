@@ -19,6 +19,7 @@ public class VampirePhase1Controller : VampireController
 
         m_NextComboTimer = StartAfterDelay();
         StartCoroutine(m_NextComboTimer);
+
     }
 
     private void Update()
@@ -33,6 +34,7 @@ public class VampirePhase1Controller : VampireController
             DashTo(m_Refuge, 1f);
             StartCoroutine(EndPhase());
             m_EndInitialized = true;
+            UnRegisterAnimationEvents();
         }
     }
 

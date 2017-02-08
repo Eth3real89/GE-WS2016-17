@@ -22,7 +22,8 @@ public class BeamAEDamageWonkyMovement : BeamAEDamage {
             yield return null;
         }
 
-        callback.OnRotationOver();
+        callback.OnRotationOver(this);
+        transform.parent = m_OldParent;
     }
 
 

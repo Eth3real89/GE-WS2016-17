@@ -26,12 +26,15 @@ public class SwayingAEDamage : BeamAEDamage {
             }
                         
             transform.Rotate(Vector3.up, -m_CurrentAngleDelta + prevAngleChange);
+            callback.OnRotation(this, transform.eulerAngles.y);
+
             prevAngleChange = m_CurrentAngleDelta;
 
             yield return null;
         }
 
-        callback.OnRotationOver();
+        callback.OnRotationOver(this);
+        this.transform.parent = m_OldParent;
     }
 
     public float GetCurrentAngle()

@@ -31,7 +31,7 @@ public class DoubleSwayingBeamAttack : SwayingBeamAttack
         m_SecondDamage.Expand(m_ExpandTime, m_ExpandScale, this);
     }
 
-    public override void OnExpansionOver()
+    public override void OnExpansionOver(BeamAEDamage dmg)
     {
         if (m_IgnoreNextEvent)
         {
@@ -46,10 +46,10 @@ public class DoubleSwayingBeamAttack : SwayingBeamAttack
         }
         m_IgnoreNextEvent = true;
         m_SecondDamage.Rotate(m_RotationTime, m_RotationAngle, this);
-        base.OnExpansionOver();
+        base.OnExpansionOver(dmg);
     }
 
-    public override void OnRotationOver()
+    public override void OnRotationOver(BeamAEDamage dmg)
     {
         if (m_IgnoreNextEvent)
         {
@@ -58,13 +58,19 @@ public class DoubleSwayingBeamAttack : SwayingBeamAttack
         }
 
         m_IgnoreNextEvent = true;
-        base.OnRotationOver();
+        base.OnRotationOver(dmg);
     }
 
     public override void CancelAttack()
     {
         base.CancelAttack();
         m_SecondDamage.CancelDamage();
+    }
+
+    public override void OnRotation(BeamAEDamage damage, float angle)
+    {
+        if (damage == m_Damage)
+            base.OnRotation(damage, angle - m_AngleBetweenBeams / 2);
     }
 
     protected override IEnumerator RemoveBeamAfterWaiting()

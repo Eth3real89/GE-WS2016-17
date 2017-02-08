@@ -26,7 +26,17 @@ public class VampirePhase2Controller : VampireController
             StopAllCoroutines();
 
             m_BossHealth.m_CurrentHealth = m_BossHealth.m_HealthStart;
-            m_Callback.PhaseEnd(this);
+            StartCoroutine(EndPhase());
+            UnRegisterAnimationEvents();
         }
+    }
+
+    protected virtual IEnumerator EndPhase()
+    {
+        m_EndInitialized = true;
+
+        yield return new WaitForSeconds(0.5f);
+
+        m_Callback.PhaseEnd(this);
     }
 }

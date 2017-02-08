@@ -59,6 +59,7 @@ public class VampirePhase3Controller : VampireController
                 StartCoroutine(StartNextComboAfter(1f));
                 break;
             case 3: // 6 waves over
+                m_BossHittable.RegisterInterject(this);
                 StartCoroutine(MakeVampireKillable());
                 break;
         }

@@ -40,6 +40,9 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
 
     public override bool OnHit(Damage dmg)
     {
+        if (dmg is BulletDamage)
+            return false;
+
         dmg.OnBlockDamage();
         return true;
     }

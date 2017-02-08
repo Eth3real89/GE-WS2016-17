@@ -170,6 +170,11 @@ public class VampireController : BossController {
 
     public override bool OnHit(Damage dmg)
     {
+        if (dmg is BulletDamage)
+        {
+            return false;
+        }
+
         if (m_LightGuardContainer.activeSelf)
         {
             return true;

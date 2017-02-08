@@ -22,10 +22,18 @@ public class BlastWaveVisuals : MonoBehaviour {
     {
         transform.localScale = transform.localScale.normalized * m_InitialScale;
 
-        Vector3[] vertices = new Vector3[m_NumVertices + 1];
+        Vector3[] vertices;
+        if (m_Angles == 360)
+        {
+            vertices = new Vector3[m_NumVertices - 1];
+        }
+        else
+        {
+            vertices = new Vector3[m_NumVertices + 1];
+        }
         float angle = m_Angles / m_NumVertices;
 
-        for(int i = 0; i < vertices.Length; i++)
+        for (int i = 0; i < vertices.Length; i++)
         {
             Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * i - m_Angles / 2, 0) * new Vector3(0, 0, m_InitialScale / 2);
             vertices[i] = vert;

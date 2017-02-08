@@ -38,6 +38,7 @@ public class BlastWaveAttack : GrowingAEAttack {
         base.StartAttack();
 
         m_Visuals.transform.parent = null;
+        m_Visuals.gameObject.SetActive(true);
 
         EventManager.TriggerEvent(START_EVENT_NAME);
 

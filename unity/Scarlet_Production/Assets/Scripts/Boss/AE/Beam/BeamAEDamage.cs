@@ -13,6 +13,8 @@ public class BeamAEDamage : AEAttackDamage
 
     private IEnumerator m_Timer;
 
+    protected Transform m_OldParent;
+
     public virtual void SetAngle(float angle)
     {
         transform.localRotation = Quaternion.Euler(0, angle, 0);
@@ -20,6 +22,9 @@ public class BeamAEDamage : AEAttackDamage
 
     public virtual void Expand(float time, float size, ExpandingDamageCallbacks callback)
     {
+        m_OldParent = this.transform.parent;
+        this.transform.parent = null;
+
         m_Active = true;
         m_BoxCollider = GetComponent<BoxCollider>();
 
@@ -65,7 +70,7 @@ public class BeamAEDamage : AEAttackDamage
         }
 
 
-        callback.OnExpansionOver();
+        callback.OnExpansionOver(this);
     }
 
     internal void CancelDamage()
@@ -85,13 +90,15 @@ public class BeamAEDamage : AEAttackDamage
         {
             float angleDelta = t / time * angle;
             transform.Rotate(Vector3.up, angleDelta - prevAngleChange);
+            callback.OnRotation(this, angleDelta);
 
             prevAngleChange = angleDelta;
 
             yield return null;
         }
 
-        callback.OnRotationOver();
+        callback.OnRotationOver(this);
+        this.transform.parent = m_OldParent;
     }
 
     protected virtual void OnTriggerEnter(Collider other)
@@ -137,7 +144,8 @@ public class BeamAEDamage : AEAttackDamage
 
     public interface ExpandingDamageCallbacks
     {
-        void OnExpansionOver();
-        void OnRotationOver();
+        void OnExpansionOver(BeamAEDamage damage);
+        void OnRotationOver(BeamAEDamage damage);
+        void OnRotation(BeamAEDamage damage, float angle);
     }
 }

@@ -60,6 +60,9 @@ public class VampirePhase0TutorialController : VampireController {
 
     public override void OnComboStart(AttackCombo combo)
     {
+        if (m_TutorialEnumerator != null)
+            StopCoroutine(m_TutorialEnumerator);
+
         base.OnComboStart(combo);
         m_HealthAtStartOfTutorial = GetScarletHealth();
 
@@ -89,7 +92,7 @@ public class VampirePhase0TutorialController : VampireController {
         if (m_TutorialEnumerator != null)
             StopCoroutine(m_TutorialEnumerator);
 
-        switch (m_CurrentComboIndex)
+        switch (m_CurrentComboIndex) // @todo: this is buggy - need a better solution!
         {
             case m_DashTutorialBlast:
             case m_DashTutorialBeam:
@@ -108,9 +111,22 @@ public class VampirePhase0TutorialController : VampireController {
                 }
                 break;
             case m_EvasionTutorial:
+                m_BossHittable.RegisterInterject(this);
                 StartAttackTutorial();
                 break;
         }
+    }
+
+    protected override IEnumerator StartNextComboAfter(float time)
+    {
+        GatherLight(m_GatherLightTime);
+        yield return new WaitForSeconds(m_GatherLightTime);
+
+        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+        yield return new WaitForSeconds(m_PerfectRotationTime);
+
+        yield return new WaitForSeconds(time);
+        StartNextCombo();
     }
 
     private float GetScarletHealth()
@@ -220,6 +236,9 @@ public class VampirePhase0TutorialController : VampireController {
 
         while (true)
         {
+            if (b == null)
+                break;
+
             float distanceToScarlet = Vector3.Distance(b.transform.position - new Vector3(0, b.transform.position.y, 0), m_Scarlet.transform.position - new Vector3(0, m_Scarlet.transform.position.y, 0));
 
             if (distanceToScarlet < 1)
@@ -249,7 +268,7 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void StartAttackTutorial()
     {
-        base.DashTo(m_PlaceToBeAttacked, 3);
+        base.DashTo(m_PlaceToBeAttacked, 1.5f);
 
         m_PhaseEndEnumerator = AllowDamageThenMoveOnToNextPhase();
         StartCoroutine(m_PhaseEndEnumerator);
@@ -260,10 +279,14 @@ public class VampirePhase0TutorialController : VampireController {
 
     private IEnumerator PlayerAttackTutorial()
     {
+        yield return new WaitForSeconds(2f);
+
         DeactivateLightShield();
+        m_GatheringLight = true;
+        m_VampireAnimator.SetTrigger("GatherLightTrigger");
 
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-        m_TutorialVisuals.ShowTutorial("Y", "Go over to the Vampire and hit him!", m_TutorialSlowMo);
+        m_TutorialVisuals.ShowTutorial("Y", "Hit the Vampire while he gathers Light!", m_TutorialSlowMo);
         float t = 0;
         while((t += Time.deltaTime) < 4 * m_TutorialSlowMo && !Input.anyKeyDown)
         {

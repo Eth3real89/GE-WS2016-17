@@ -61,12 +61,12 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         CameraController.Instance.ZoomOut();
     }
 
-    public virtual void OnExpansionOver()
+    public virtual void OnExpansionOver(BeamAEDamage dmg)
     {
         m_Damage.Rotate(m_RotationTime, m_RotationAngle, this);
     }
 
-    public virtual void OnRotationOver()
+    public virtual void OnRotationOver(BeamAEDamage dmg)
     {
         m_ExpansionEnumerator = RemoveBeamAfterWaiting();
         StartCoroutine(m_ExpansionEnumerator);
@@ -94,5 +94,10 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);
         HideLightGuard();
+    }
+
+    public virtual void OnRotation(BeamAEDamage damage, float angle)
+    {
+        m_Boss.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 }
