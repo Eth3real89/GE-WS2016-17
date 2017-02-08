@@ -271,7 +271,7 @@ public class VampirePhase0TutorialController : VampireController {
         if (showTutorial)
         {
             SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-            m_TutorialVisuals.ShowTutorial("X", deflect? "Deflect Bullet" : "Block Bullet", m_TutorialSlowMo);
+            m_TutorialVisuals.ShowTutorial("B", deflect? "Deflect Bullet" : "Block Bullet", m_TutorialSlowMo);
 
             float t = 0;
             while ((t += Time.deltaTime) < 6 * m_TutorialSlowMo)
@@ -307,7 +307,7 @@ public class VampirePhase0TutorialController : VampireController {
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
 
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-        m_TutorialVisuals.ShowTutorial("Y", "Hit the Vampire while he gathers Light!", m_TutorialSlowMo);
+        m_TutorialVisuals.ShowTutorial("X", "Hit the Vampire while he gathers Light!", m_TutorialSlowMo);
         float t = 0;
         while((t += Time.deltaTime) < 4 * m_TutorialSlowMo && !Input.anyKeyDown)
         {
@@ -324,7 +324,7 @@ public class VampirePhase0TutorialController : VampireController {
         m_FirstDamageToBoss = true;
 
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-        m_TutorialVisuals.ShowTutorial("Y", "Press repeatedly for combo attacks", m_TutorialSlowMo);
+        m_TutorialVisuals.ShowTutorial("X", "Press repeatedly for combo attacks", m_TutorialSlowMo);
 
         t = 0;
         while ((t += Time.deltaTime) < 4 * m_TutorialSlowMo && !Input.anyKeyDown)
