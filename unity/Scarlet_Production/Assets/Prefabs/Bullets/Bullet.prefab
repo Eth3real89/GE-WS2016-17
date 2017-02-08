@@ -86,7 +86,7 @@ Transform:
   m_GameObject: {fileID: 1551579658623166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 5.404272, y: 0.26, z: -1.5350165}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4413924585842140}
   - {fileID: 4218206776744742}
@@ -217,6 +217,8 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Damage: {fileID: 114474110879866010}
   m_DamageTrigger: {fileID: 114687623912470180}
+  m_DeflectedMovement: {fileID: 0}
+  m_DeflectedExpiration: {fileID: 0}
 --- !u!114 &114474110879866010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,6 +235,9 @@ MonoBehaviour:
   m_Active: 1
   m_Owner: {fileID: 1551579658623166}
   m_DamageAmount: 15
+  m_Deflectable: 0
+  m_DeflectTarget: {fileID: 0}
+  m_Deflected: 0
 --- !u!114 &114687623912470180
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -29,6 +29,13 @@ public class VampirePhase0TutorialController : VampireController {
 
     private float m_HealthAtStartOfTutorial;
 
+    public PlayerControls m_PlayerControls;
+    public PlayerMoveCommand m_PlayerMove;
+    public PlayerDashCommand m_PlayerDash;
+    public PlayerHealCommand m_PlayerHeal;
+    public PlayerAttackCommand m_PlayerAttack;
+    public PlayerParryCommand m_PlayerParry;
+
     public override void StartPhase(BossfightCallbacks callbacks)
     {
         base.StartPhase(callbacks);
@@ -138,11 +145,15 @@ public class VampirePhase0TutorialController : VampireController {
     {
         bool showTutorial = false;
 
+        m_PlayerMove.StopMoving();
+        m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
+        m_PlayerControls.transform.rotation = Quaternion.Euler(0, 90, 0);
+
         while(true)
         {
             float distanceToScarlet = Vector3.Distance(this.transform.position, m_Scarlet.transform.position);
 
-            if (m_BlastAttackForDashTutorial.m_WaveSize + 1 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
+            if (m_BlastAttackForDashTutorial.m_WaveSize + 2 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
             {
                 showTutorial = true;
                 break;
@@ -154,7 +165,7 @@ public class VampirePhase0TutorialController : VampireController {
         if (showTutorial)
         {
             SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-            m_TutorialVisuals.ShowTutorial("A", "+ Diagonal Right: Dash over Wave", m_TutorialSlowMo);
+            m_TutorialVisuals.ShowTutorial("A", "+ Right: Dash over Wave", m_TutorialSlowMo);
 
             float t = 0;
             while ((t += Time.deltaTime) < 6 * m_TutorialSlowMo)
@@ -164,6 +175,7 @@ public class VampirePhase0TutorialController : VampireController {
 
             SlowTime.Instance.StopSlowMo();
             m_TutorialVisuals.HideTutorial(1);
+            m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
         }
     }
 
@@ -343,6 +355,7 @@ public class VampirePhase0TutorialController : VampireController {
                 m_TutorialVisuals.HideTutorial(1);
             }
 
+            m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
         }
     }
 
