@@ -350,6 +350,8 @@ public class VampirePhase0TutorialController : VampireController {
 
         UnRegisterAnimationEvents();
         m_Callback.PhaseEnd(this);
+
+        m_LightGuard.ReattachVisualsToParent();
     }
 
     private void OnPlayerDash()
@@ -395,6 +397,8 @@ public class VampirePhase0TutorialController : VampireController {
                 StopAllCoroutines();
                 UnRegisterAnimationEvents();
                 SlowTime.Instance.StopSlowMo();
+
+                m_LightGuard.ReattachVisualsToParent();
                 m_Callback.PhaseEnd(this);
             }
             return false;

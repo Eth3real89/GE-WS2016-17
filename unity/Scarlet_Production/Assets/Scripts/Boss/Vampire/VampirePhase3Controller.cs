@@ -15,7 +15,8 @@ public class VampirePhase3Controller : VampireController
         base.StartPhase(callbacks);
         m_Killable = false;
 
-        StartCoroutine(StartAfterDelay());
+        m_CurrentComboIndex = 1;
+        StartCoroutine(InitLastDesperateAttemptToKillScarlet());
     }
 
     protected override IEnumerator StartAfterDelay()
