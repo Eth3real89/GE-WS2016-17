@@ -1275,6 +1275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4644303959300394}
   - component: {fileID: 82146330606723684}
+  - component: {fileID: 114414600724007508}
   m_Layer: 0
   m_Name: StepSounds
   m_TagString: Untagged
@@ -2522,7 +2523,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211058420233924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 7.4, y: 9.998169, z: 50.12468}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4309062748784360}
@@ -3970,6 +3971,24 @@ MonoBehaviour:
   m_MaxHealthGain: 33
   m_NumPotionListenerObject: {fileID: 0}
   m_PlayerHealth: {fileID: 114177473010530202}
+--- !u!114 &114414600724007508
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869584433172338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce111dd8b8a297e48ac847f02436afd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StepSounds:
+  - m_Type: 0
+    m_Sound: {fileID: 8300000, guid: 3725ea1d69c88e14088c0c6819d5138a, type: 3}
+  - m_Type: 1
+    m_Sound: {fileID: 8300000, guid: 33530b27cd616df428cd5cc6bfd5ae74, type: 3}
+  - m_Type: 2
+    m_Sound: {fileID: 8300000, guid: 367b7daf7ec4dc24d9558ee749d7f55b, type: 3}
 --- !u!114 &114484621707054692
 MonoBehaviour:
   m_ObjectHideFlags: 1
