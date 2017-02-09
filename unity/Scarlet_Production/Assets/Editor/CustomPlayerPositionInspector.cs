@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 
 [CustomEditor(typeof(PlayerPosition))]
 public class CustomPlayerPositionInspector : Editor
@@ -16,7 +17,7 @@ public class CustomPlayerPositionInspector : Editor
     public override void OnInspectorGUI()
     {
         m_PlayerPosition.Update();
-        List<Transform> startingPoints = m_PlayerPosition.m_StartingPoint;
+        List<Transform> startingPoints = m_PlayerPosition.m_StartingPoints;
 
         string[] options = new string[startingPoints.Count];
         for (int i = 0; i < startingPoints.Count; i++)
@@ -49,6 +50,10 @@ public class CustomPlayerPositionInspector : Editor
         if (GUILayout.Button(EditorGUIUtility.IconContent("Toolbar Plus"), GUILayout.Width(250)))
         {
             startingPoints.Add(startingPoints[startingPoints.Count - 1]);
+        }
+        if (GUI.changed)
+        {
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
         }
     }
 }
