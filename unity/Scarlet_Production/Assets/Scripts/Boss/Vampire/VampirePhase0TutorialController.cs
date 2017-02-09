@@ -16,11 +16,11 @@ public class VampirePhase0TutorialController : VampireController {
     public CharacterHealth m_BossHealth;
 
     private const int m_DashTutorialBlast = 0;
-    private const int m_DashTutorialBeam = 1;
-    private const int m_ParryTutorialBullet = 2;
-    private const int m_ParryDeflectTutorialBullet = 3;
-    private const int m_EvasionTutorial = 4;
-    private const int m_AttackTutorial = 5;
+    private const int m_ParryTutorialBullet = 1;
+    private const int m_ParryDeflectTutorialBullet = 2;
+    private const int m_BiggerAttackTutorial = 3;
+
+    private bool m_DashTutorialOver;
 
     private IEnumerator m_TutorialEnumerator;
     private IEnumerator m_PhaseEndEnumerator;
@@ -47,8 +47,15 @@ public class VampirePhase0TutorialController : VampireController {
         m_AllowHit = false;
         m_HitCount = 0;
 
+        m_DashTutorialOver = false;
+
+        m_PlayerMove.StopMoving();
+        m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+
         EventManager.StartListening(PlayerDashCommand.COMMAND_EVENT_TRIGGER, OnPlayerDash);
         EventManager.StartListening(PlayerParryCommand.COMMAND_EVENT_TRIGGER, OnPlayerParry);
+        EventManager.StartListening(BlastWaveAttack.ATTACK_HIT_EVENT, OnBlastWaveHit);
+        EventManager.StartListening(Bullet.BULLET_HIT_SCARLET_EVENT, OnBulletHit);
     }
 
     protected override IEnumerator StartAfterDelay()
@@ -65,9 +72,6 @@ public class VampirePhase0TutorialController : VampireController {
 
         yield return new WaitForSeconds(2f);
 
-        if (controls != null)
-            controls.EnableAllCommands();
-
         yield return base.StartAfterDelay();
     }
 
@@ -79,13 +83,12 @@ public class VampirePhase0TutorialController : VampireController {
         base.OnComboStart(combo);
         m_HealthAtStartOfTutorial = GetScarletHealth();
 
+        m_TutorialEnumerator = null;
+
         switch(m_CurrentComboIndex)
         {
             case m_DashTutorialBlast:
                 m_TutorialEnumerator = DashTutorialBlastWave();
-                break;
-            case m_DashTutorialBeam:
-                m_TutorialEnumerator = DashTutorialBeam();
                 break;
             case m_ParryTutorialBullet:
                 m_TutorialEnumerator = BlockTutorial(false);
@@ -95,37 +98,30 @@ public class VampirePhase0TutorialController : VampireController {
                 break;
         }
 
-        StartCoroutine(m_TutorialEnumerator);
+        if (m_TutorialEnumerator != null)
+            StartCoroutine(m_TutorialEnumerator);
     }
 
     public override void OnComboEnd(AttackCombo combo)
     {
+        m_ActiveCombo = null;
+
         float health = GetScarletHealth();
 
         if (m_TutorialEnumerator != null)
             StopCoroutine(m_TutorialEnumerator);
 
-        switch (m_CurrentComboIndex) // @todo: this is buggy - need a better solution!
+        switch (m_CurrentComboIndex)
         {
             case m_DashTutorialBlast:
-            case m_DashTutorialBeam:
-            case m_ParryTutorialBullet:
-            case m_ParryDeflectTutorialBullet:
-                if (health == m_HealthAtStartOfTutorial)
-                {
-                    m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
-                    StartCoroutine(m_NextComboTimer);
-                }
-                else
-                {
-                    m_CurrentComboIndex--;
-                    m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
-                    StartCoroutine(m_NextComboTimer);
-                }
-                break;
-            case m_EvasionTutorial:
-                m_BossHittable.RegisterInterject(this);
+                if (!m_DashTutorialOver)
+                    break;
+                EventManager.StopListening(BlastWaveAttack.ATTACK_HIT_EVENT, OnBlastWaveHit);
                 StartAttackTutorial();
+
+                break;
+            case m_BiggerAttackTutorial:
+                EndPhase();
                 break;
         }
     }
@@ -142,6 +138,19 @@ public class VampirePhase0TutorialController : VampireController {
         StartNextCombo();
     }
 
+    private void EndPhase()
+    {
+        StopAllCoroutines();
+        m_Callback.PhaseEnd(this);
+
+        m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+
+        EventManager.StopListening(PlayerDashCommand.COMMAND_EVENT_TRIGGER, OnPlayerDash);
+        EventManager.StopListening(PlayerParryCommand.COMMAND_EVENT_TRIGGER, OnPlayerParry);
+        EventManager.StopListening(BlastWaveAttack.ATTACK_HIT_EVENT, OnBlastWaveHit);
+        EventManager.StopListening(Bullet.BULLET_HIT_SCARLET_EVENT, OnBulletHit);
+    }
+
     private float GetScarletHealth()
     {
         return m_Scarlet.GetComponentInChildren<CharacterHealth>().m_CurrentHealth;
@@ -151,15 +160,13 @@ public class VampirePhase0TutorialController : VampireController {
     {
         bool showTutorial = false;
 
-        m_PlayerMove.StopMoving();
-        m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
         m_PlayerControls.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-        while(true)
+        while (true)
         {
             float distanceToScarlet = Vector3.Distance(this.transform.position, m_Scarlet.transform.position);
 
-            if (m_BlastAttackForDashTutorial.m_WaveSize + 2 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
+            if (m_BlastAttackForDashTutorial.m_WaveSize + 1.5 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
             {
                 showTutorial = true;
                 break;
@@ -170,6 +177,7 @@ public class VampirePhase0TutorialController : VampireController {
 
         if (showTutorial)
         {
+            m_PlayerControls.EnableAndUnlock(m_PlayerDash);
             SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
             m_TutorialVisuals.ShowTutorial("A", "+ Right: Dash over Wave", m_TutorialSlowMo);
 
@@ -181,7 +189,7 @@ public class VampirePhase0TutorialController : VampireController {
 
             SlowTime.Instance.StopSlowMo();
             m_TutorialVisuals.HideTutorial(1);
-            m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
+            m_PlayerControls.DisableAndLock(m_PlayerDash);
         }
     }
 
@@ -244,9 +252,10 @@ public class VampirePhase0TutorialController : VampireController {
         } */
     }
 
-
     private IEnumerator BlockTutorial(bool deflect)
     {
+        m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+
         bool showTutorial = false;
         Bullet b;
         while ((b = FindObjectOfType<Bullet>()) == null)
@@ -259,7 +268,7 @@ public class VampirePhase0TutorialController : VampireController {
 
             float distanceToScarlet = Vector3.Distance(b.transform.position - new Vector3(0, b.transform.position.y, 0), m_Scarlet.transform.position - new Vector3(0, m_Scarlet.transform.position.y, 0));
 
-            if (distanceToScarlet < 1)
+            if (distanceToScarlet < 1.5)
             {
                 showTutorial = true;
                 break;
@@ -270,6 +279,7 @@ public class VampirePhase0TutorialController : VampireController {
 
         if (showTutorial)
         {
+            m_PlayerControls.EnableAndUnlock(m_PlayerParry);
             SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
             m_TutorialVisuals.ShowTutorial("B", deflect? "Deflect Bullet" : "Block Bullet", m_TutorialSlowMo);
 
@@ -282,6 +292,7 @@ public class VampirePhase0TutorialController : VampireController {
             SlowTime.Instance.StopSlowMo();
             m_TutorialVisuals.HideTutorial(1);
         }
+        m_PlayerControls.DisableAndLock(m_PlayerParry);
     }
 
     private void StartAttackTutorial()
@@ -291,19 +302,22 @@ public class VampirePhase0TutorialController : VampireController {
 
         m_AllowHit = true;
 
-        m_PhaseEndEnumerator = AllowDamageThenMoveOnToNextPhase();
-        StartCoroutine(m_PhaseEndEnumerator);
-
         m_TutorialEnumerator = PlayerAttackTutorial();
         StartCoroutine(m_TutorialEnumerator);
     }
 
     private IEnumerator PlayerAttackTutorial()
     {
-        yield return new WaitForSeconds(2f);
+        m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerDash, m_PlayerParry, m_PlayerAttack, m_PlayerHeal);
+        m_BossHittable.RegisterInterject(this);
 
         DeactivateLightShield();
+        DashTo(m_PlaceToBeAttacked, 1f);
+        yield return new WaitForSeconds(1.3f);
+
         m_GatheringLight = true;
+        m_AllowHit = true;
+        m_VampireAnimator.ResetTrigger("StopGatherLightTrigger");
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
 
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
@@ -313,15 +327,41 @@ public class VampirePhase0TutorialController : VampireController {
         {
             yield return null;
         }
+
         SlowTime.Instance.StopSlowMo();
         m_TutorialVisuals.HideTutorial();
 
-        while(m_BossHealth.m_CurrentHealth == m_BossHealth.m_HealthOld)
+        bool showTutorialAgain = true;
+        t = 0;
+        while((t += Time.deltaTime) < 10)
+        {
+            if (m_BossHealth.m_CurrentHealth == m_BossHealth.m_HealthStart)
+            {
+                yield return null;
+                continue;
+            }
+           
+            showTutorialAgain = false;
+            break;
+        }
+
+        if (showTutorialAgain)
+        {
+            SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
+            m_TutorialVisuals.ShowTutorial("X", "Hit the Vampire while he gathers Light!", m_TutorialSlowMo);
+            t = 0;
+            while ((t += Time.deltaTime) < 4 * m_TutorialSlowMo && !Input.anyKeyDown)
+            {
+                yield return null;
+            }
+            SlowTime.Instance.StopSlowMo();
+            m_TutorialVisuals.HideTutorial();
+        }
+
+        while (m_BossHealth.m_CurrentHealth == m_BossHealth.m_HealthStart)
         {
             yield return null;
         }
-
-        m_FirstDamageToBoss = true;
 
         SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
         m_TutorialVisuals.ShowTutorial("X", "Press repeatedly for combo attacks", m_TutorialSlowMo);
@@ -333,31 +373,16 @@ public class VampirePhase0TutorialController : VampireController {
         }
         SlowTime.Instance.StopSlowMo();
         m_TutorialVisuals.HideTutorial();
-    }
 
-    private IEnumerator AllowDamageThenMoveOnToNextPhase()
-    {
-        while(!m_FirstDamageToBoss)
-        {
-            yield return null;
-        }
+        yield return new WaitForSeconds(1.5f);
 
-        yield return new WaitForSeconds(4f);
-
-        if (m_TutorialEnumerator != null)
-        {
-            StopCoroutine(m_TutorialEnumerator);
-        }
-
-        UnRegisterAnimationEvents();
-        m_Callback.PhaseEnd(this);
-
-        m_LightGuard.ReattachVisualsToParent();
+        m_AllowHit = false;
+        StartCoroutine(BeforeParryTutorial());
     }
 
     private void OnPlayerDash()
     {
-        if (m_CurrentComboIndex == m_DashTutorialBeam || m_CurrentComboIndex == m_DashTutorialBlast)
+        if (m_CurrentComboIndex == m_DashTutorialBlast && m_ActiveCombo == m_Combos[0])
         {
             if (m_TutorialEnumerator != null)
             {
@@ -366,8 +391,90 @@ public class VampirePhase0TutorialController : VampireController {
                 m_TutorialVisuals.HideTutorial(1);
             }
 
-            m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
+            m_DashTutorialOver = true;
+
+            m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+            StartCoroutine(MoveOnAfterWaiting());
         }
+    }
+
+    private void OnBlastWaveHit()
+    {
+        StartCoroutine(TryAgainAfterWaiting());
+    }
+
+    private void OnBulletHit()
+    {
+        StartCoroutine(DecideIfHitWasGood());
+    }
+
+    private IEnumerator DecideIfHitWasGood()
+    {
+        CharacterHealth h = m_Scarlet.GetComponent<CharacterHealth>();
+
+        float health = h.m_CurrentHealth;
+
+        if (m_TutorialEnumerator != null)
+            StopCoroutine(m_TutorialEnumerator);
+
+        if (health != h.m_HealthOld)
+        {
+            // not good
+            StartCoroutine(TryAgainAfterWaiting());
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.2f);
+
+            if (h.m_CurrentHealth != health)
+            {
+                // not good
+                StartCoroutine(TryAgainAfterWaiting());
+            }
+            else
+            {
+                // good
+                StartCoroutine(StartNextComboAfter(1f));
+
+                if (m_CurrentComboIndex == m_ParryDeflectTutorialBullet)
+                {
+                    m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+                }
+            }
+        }
+    }
+
+    private IEnumerator BeforeParryTutorial()
+    {
+        DashTo(m_BetweenLightZones[0], 1f);
+        yield return new WaitForSeconds(1.3f);
+
+        m_LightGuard.m_ExpandLightGuardTime = 0.5f;
+        ActivateLightShield();
+        m_LightGuard.ReattachVisualsToParent();
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartNextCombo();
+    }
+
+    private IEnumerator TryAgainAfterWaiting()
+    {
+        yield return new WaitForSeconds(2f);
+
+        if (m_ActiveCombo != null)   
+            m_ActiveCombo.CancelCombo();
+        m_CurrentComboIndex--;
+        StartCoroutine(StartNextComboAfter(0.5f));
+    }
+
+    private IEnumerator MoveOnAfterWaiting()
+    {
+        if (m_ActiveCombo != null)
+            m_ActiveCombo.CancelCombo();
+        yield return new WaitForSeconds(0.5f);
+
+        OnComboEnd(m_ActiveCombo);
     }
 
     private void OnPlayerParry()
@@ -399,8 +506,12 @@ public class VampirePhase0TutorialController : VampireController {
                 UnRegisterAnimationEvents();
                 SlowTime.Instance.StopSlowMo();
 
-                m_LightGuard.ReattachVisualsToParent();
-                m_Callback.PhaseEnd(this);
+                if (m_TutorialEnumerator != null)
+                    StopCoroutine(m_TutorialEnumerator);
+
+                m_AllowHit = false;
+
+                StartCoroutine(BeforeParryTutorial());
             }
             return false;
         }

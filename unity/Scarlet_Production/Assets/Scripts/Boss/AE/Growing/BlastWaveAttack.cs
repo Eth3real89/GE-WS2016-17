@@ -6,6 +6,7 @@ using UnityEngine;
 public class BlastWaveAttack : GrowingAEAttack {
 
     public static string START_EVENT_NAME = "blast_wave_start";
+    public static string ATTACK_HIT_EVENT = "blast_wave_hit";
 
     public float m_Damage;
 
@@ -145,6 +146,7 @@ public class BlastWaveAttack : GrowingAEAttack {
         if (m_HasHit)
             return;
 
+        EventManager.TriggerEvent(ATTACK_HIT_EVENT);
         m_Target.Hit(m_BlastDamage);
         m_HasHit = true;
     }

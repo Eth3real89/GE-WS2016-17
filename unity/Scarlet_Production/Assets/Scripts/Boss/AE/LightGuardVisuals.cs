@@ -40,9 +40,11 @@ public class LightGuardVisuals : MonoBehaviour {
         {
             float distance = ((m_InitialScale / 2) / m_NumCircles) * (i + 1);
 
+            float yDistance = Mathf.Cos(i * (90 / m_NumCircles) * Mathf.Deg2Rad) * m_InitialScale * 1.5f;
+
             for (int j = 0; j < vertices.Length / m_NumCircles; j++)
             {
-                Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * j - m_Angles / 2, 0) * new Vector3(0, 0, distance);
+                Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * j - m_Angles / 2, 0) * new Vector3(0, yDistance, distance);
                 vertices[(i * vertices.Length / m_NumCircles) + j] = vert;
             }
         }

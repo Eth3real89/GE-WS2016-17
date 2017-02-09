@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback, Damage.DamageCallback
 {
+    public static string BULLET_HIT_SCARLET_EVENT = "bullet_hit_scarlet";
 
     public BulletDamage m_Damage;
     public BulletDamageTrigger m_DamageTrigger;
@@ -47,6 +48,7 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
             PlayerHittable hittable = scarlet.GetComponentInChildren<PlayerHittable>();
             if (hittable != null)
             {
+                EventManager.TriggerEvent(BULLET_HIT_SCARLET_EVENT);
                 hittable.Hit(m_Damage);
             }
         }
