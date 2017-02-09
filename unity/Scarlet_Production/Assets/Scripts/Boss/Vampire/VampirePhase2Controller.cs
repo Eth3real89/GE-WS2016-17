@@ -13,7 +13,11 @@ public class VampirePhase2Controller : VampireController
         m_EndInitialized = false;
         base.StartPhase(callbacks);
 
-        StartCoroutine(StartAfterDelay());
+        m_LightGuard.ReattachVisualsToParent();
+
+        m_CurrentComboIndex = -1;
+        m_NextComboTimer = StartNextComboAfter(0.5f);
+        StartCoroutine(m_NextComboTimer);
     }
 
     private void Update()
@@ -25,8 +29,9 @@ public class VampirePhase2Controller : VampireController
 
             StopAllCoroutines();
 
-            m_BossHealth.m_CurrentHealth = m_BossHealth.m_HealthStart;
+            DashTo(m_InLightZones[0], 1f);
             StartCoroutine(EndPhase());
+            
             UnRegisterAnimationEvents();
         }
     }
@@ -35,7 +40,13 @@ public class VampirePhase2Controller : VampireController
     {
         m_EndInitialized = true;
 
-        yield return new WaitForSeconds(0.5f);
+        float t = 0;
+        while ((t += Time.deltaTime) < 1.5f)
+        {
+            m_BossHealth.m_CurrentHealth += m_BossHealth.m_MaxHealth * (t / 1.5f);
+            yield return null;
+        }
+        m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
 
         m_Callback.PhaseEnd(this);
     }
