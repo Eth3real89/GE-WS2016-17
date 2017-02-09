@@ -15,14 +15,16 @@ public class AudioController : GenericSingletonClass<AudioController>
     {
         public string name;
         public AudioClip file;
+        [Range(0f, 1f)]
+        public float volume;
         public bool loop;
+        public bool autoplay;
     }
 
     private void Start()
     {
         m_AudioDict = new Dictionary<string, AudioSource>();
         CreateAudioDictionary();
-        PlaySound("Atmosphere", 0.6f);
     }
 
     private void CreateAudioDictionary()
@@ -32,7 +34,10 @@ public class AudioController : GenericSingletonClass<AudioController>
             AudioSource source = gameObject.AddComponent<AudioSource>() as AudioSource;
             source.loop = file.loop;
             source.clip = file.file;
+            source.volume = file.volume;
             m_AudioDict.Add(file.name, source);
+            if (file.autoplay)
+                source.Play();
         }
     }
 
