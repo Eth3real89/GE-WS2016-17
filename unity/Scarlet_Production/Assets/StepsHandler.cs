@@ -36,4 +36,15 @@ public class StepsHandler : MonoBehaviour
     {
         m_Source.clip = m_StepMapping[type];
     }
+
+    public void OnHitGround()
+    {
+        m_Source.volume = 1;
+        m_Source.Play();
+    }
+
+    public void OnLoseGround()
+    {
+        m_Source.volume = 0;
+    }
 }
