@@ -7,10 +7,11 @@ using UnityEditor.SceneManagement;
 public class CustomPlayerPositionInspector : Editor
 {
     private PlayerPosition m_PlayerPosition;
-    private int m_Selected = 0;
+    private int m_Selected;
 
     private void OnEnable()
     {
+        m_Selected = EditorPrefs.GetInt("PlayerPosition.Selected", 0);
         m_PlayerPosition = (PlayerPosition)target;
     }
 
@@ -53,7 +54,8 @@ public class CustomPlayerPositionInspector : Editor
         }
         if (GUI.changed)
         {
-            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
+            EditorPrefs.SetInt("PlayerPosition.Selected", m_Selected);
+            EditorUtility.SetDirty(target);
         }
     }
 }
