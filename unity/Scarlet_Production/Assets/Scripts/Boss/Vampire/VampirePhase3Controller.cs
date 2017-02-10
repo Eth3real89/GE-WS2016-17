@@ -16,6 +16,8 @@ public class VampirePhase3Controller : VampireController
         m_Killable = false;
 
         StartCoroutine(StartAfterDelay());
+
+        StartCoroutine(SlowlyDrainHealth());
     }
 
     protected override IEnumerator StartAfterDelay()
@@ -43,6 +45,20 @@ public class VampirePhase3Controller : VampireController
             controls.EnableAllCommands();
 
         yield return base.StartAfterDelay();
+    }
+
+    private IEnumerator SlowlyDrainHealth()
+    {
+        float t = 0;
+        float totalTime = 65; // probably better if that would be based on some dynamic calculation... but it isn't :(
+        CharacterHealth health = GetComponentInChildren<CharacterHealth>();
+        while ((t += Time.deltaTime) < totalTime)
+        {
+            if (health != null)
+                health.m_CurrentHealth = Mathf.Lerp(health.m_MaxHealth, 10, t / totalTime);
+
+            yield return null;
+        }
     }
 
     public override void OnComboEnd(AttackCombo combo)
@@ -94,11 +110,6 @@ public class VampirePhase3Controller : VampireController
         m_Killable = true;
         m_VampireAnimator.SetTrigger("KillableTrigger");
         DeactivateLightShield();
-
-        CharacterHealth health = GetComponentInChildren<CharacterHealth>();
-        if (health != null)
-            health.m_CurrentHealth = 10;
-
         yield return null;
     }
 

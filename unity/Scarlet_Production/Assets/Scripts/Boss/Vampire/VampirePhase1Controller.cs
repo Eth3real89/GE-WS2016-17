@@ -27,7 +27,7 @@ public class VampirePhase1Controller : VampireController
 
     private void Update()
     {
-        if (m_BossHealth.m_CurrentHealth == 0 && !m_EndInitialized)
+        if (m_BossHealth.m_CurrentHealth <= 0 && !m_EndInitialized)
         {
             if (m_ActiveCombo != null)
                 m_ActiveCombo.CancelCombo();

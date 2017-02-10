@@ -18173,7 +18173,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1081322296472368}
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 4.36, y: 0, z: -0.04}
+  m_LocalPosition: {x: 5.35, y: 0, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4768745633812262}
@@ -29910,7 +29910,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114187523267049936}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 2.5
+  m_MoveOnAfter: 3.5
 --- !u!114 &114077483711719734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30017,8 +30017,8 @@ MonoBehaviour:
   m_NumVertices: 40
   m_InitialScale: 1
   m_Angles: 360
-  m_NumCircles: 6
-  m_LineWidthFactor: 0.6
+  m_NumCircles: 8
+  m_LineWidthFactor: 0.05
   m_AdjustForLightsaber: 0.7
   m_Center: {fileID: 4110213182726824}
   m_volumetricBehavior1: {fileID: 114442498576228084}
@@ -30910,7 +30910,7 @@ MonoBehaviour:
   m_DistanceBetweenCirclesStart: 2
   m_DistanceBetweenCirclesEnd: -1
   m_GrowTime: 3
-  m_GrowRate: 1.25
+  m_GrowRate: 2.5
   m_WaveSize: 0
   m_Angles: 360
   m_Visuals: {fileID: 114100437861404942}
@@ -31211,7 +31211,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114525871481129392}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 5
+  m_MoveOnAfter: 9999
 --- !u!114 &114260675613149448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33722,7 +33722,7 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114626744427582168}
-  m_TimeAfterCombo: 1.5
+  m_TimeAfterCombo: 9999
   m_BlockingBehaviour: {fileID: 0}
   m_MaxBlocksBeforeParry: 3
 --- !u!114 &114588124092829558
@@ -33790,7 +33790,6 @@ MonoBehaviour:
   m_Scarlet: {fileID: 0}
   m_Combos:
   - {fileID: 114587945440147118}
-  - {fileID: 114268919964695586}
   - {fileID: 114741691281301176}
   - {fileID: 114723814255683000}
   - {fileID: 114115266292171352}
@@ -33803,7 +33802,8 @@ MonoBehaviour:
   m_LightGuardContainer: {fileID: 1749386754321810}
   m_LightGuard: {fileID: 114724324923778926}
   m_InLightZones: []
-  m_BetweenLightZones: []
+  m_BetweenLightZones:
+  - {fileID: 0}
   m_InLightZoneProbability: 0
   m_DashTime: 1
   m_PerfectRotationTime: 0.4
@@ -34377,7 +34377,7 @@ MonoBehaviour:
   - 1.3
   - 1.1
   - 0.9
-  - 0.7
+  - 0.5
 --- !u!114 &114646052968070520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34888,7 +34888,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114076175794458634}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 5
+  m_MoveOnAfter: 9999
 --- !u!114 &114717131830960064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34960,7 +34960,7 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114254947287075300}
-  m_TimeAfterCombo: 1
+  m_TimeAfterCombo: 0.01
   m_BlockingBehaviour: {fileID: 0}
   m_MaxBlocksBeforeParry: 3
 --- !u!114 &114724324923778926
@@ -35100,7 +35100,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114961360575974246}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 5
+  m_MoveOnAfter: 6.5
 --- !u!114 &114736031866504772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35198,7 +35198,7 @@ MonoBehaviour:
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114716634008685906}
-  m_TimeAfterCombo: 1
+  m_TimeAfterCombo: 0.01
   m_BlockingBehaviour: {fileID: 0}
   m_MaxBlocksBeforeParry: 3
 --- !u!114 &114746002458189696
@@ -36682,7 +36682,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114236050090334934}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 5
+  m_MoveOnAfter: 6.5
 --- !u!114 &114932921777545328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36783,7 +36783,7 @@ MonoBehaviour:
   m_LightGuard: {fileID: 0}
   m_GuardByLight: 0
   m_ExpandTime: 1
-  m_ExpandScale: 8
+  m_ExpandScale: 18
   m_RotationTime: 7
   m_RotationAngle: 90
   m_Damage: {fileID: 114655342313697568}
@@ -37383,7 +37383,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135128892833899700
 SphereCollider:
@@ -37395,7 +37395,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135187345911536268
 SphereCollider:
@@ -37407,7 +37407,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135193281632528736
 SphereCollider:
@@ -37419,7 +37419,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135225882746590090
 SphereCollider:
@@ -37431,7 +37431,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135250984004617708
 SphereCollider:
@@ -37443,7 +37443,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135296352598388548
 SphereCollider:
@@ -37455,7 +37455,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135355657263273474
 SphereCollider:
@@ -37467,7 +37467,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135439057434446000
 SphereCollider:
@@ -37479,7 +37479,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135443842230329056
 SphereCollider:
@@ -37491,7 +37491,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135485011062769354
 SphereCollider:
@@ -37503,7 +37503,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135556996439910664
 SphereCollider:
@@ -37515,7 +37515,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135651149048314204
 SphereCollider:
@@ -37527,7 +37527,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135652149002692714
 SphereCollider:
@@ -37539,7 +37539,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135680637357125432
 SphereCollider:
@@ -37551,7 +37551,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135760305299372628
 SphereCollider:
@@ -37563,7 +37563,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135766462521735228
 SphereCollider:
@@ -37575,7 +37575,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135994847208459432
 SphereCollider:
@@ -37587,7 +37587,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136565923710218312
 CapsuleCollider:
