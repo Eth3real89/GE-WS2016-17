@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +8,6 @@ public class MenuButtonHighlightController : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GetComponentInParent<IngameMenuController>().SelectItem(index);
+        GetComponentInParent<MenuController>().SelectItem(index);
     }
-
 }

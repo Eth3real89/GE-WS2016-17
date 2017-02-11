@@ -104,31 +104,45 @@ public class IngameMenuController : MonoBehaviour
 
     public void OnResume()
     {
-        menuVisible = false;
-        menu.SetActive(false);
-        SetScarletControlsEnabled(true);
+        if(selected == 0)
+        {
+            menuVisible = false;
+            menu.SetActive(false);
+            SetScarletControlsEnabled(true);
+        }
     }
 
     private void OnChangeMusicVolume(int volume)
     {
-        //Musik Lautstärke auf den übergebenen Wert setzen
+        if(selected == 1)
+        {
+            //Musik Lautstärke auf den übergebenen Wert setzen
+        }
     }
 
     private void OnChangeSoundVolume(int volume)
     {
-        //Sounds Lautstärke auf den übergebebenen Wert setzen
+        if (selected == 2)
+        {
+            //Sounds Lautstärke auf den übergebebenen Wert setzen
+        }
     }
 
 
     public void ToggleControllerInput() {
-        //Je nach Wert die Steuerung invertieren oder nicht
+        if (selected == 3)
+        {
+            //Je nach Wert die Steuerung invertieren oder nicht
+        }
     }
 
     private void BackToMain()
     {
-        SceneManager.LoadScene("userinterface_menu");
-
-        //Zurück zum Hauptmenü
+        if (selected == 4)
+        {
+            //Zurück zum Hauptmenü
+            SceneManager.LoadScene("userinterface_menu");
+        }
     }
 
     private void SetScarletControlsEnabled(bool enabled)
