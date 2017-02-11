@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: VolumeClouds_ShadowCast2
+  m_Shader: {fileID: 4800000, guid: 719702b43b4253b46baedc47229b26b8, type: 3}
+  m_ShaderKeywords: CV_DEPTHBLEND_OFF CV_HORIZONBLEND_OFF CV_LIGHTING_ON
+  m_LightmapFlags: 1
+  m_CustomRenderQueue: 2000
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _CloudMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 8394bb91e18d8444487c6cfa818ec84c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _CloudsMap
+      second:
+        m_Texture: {fileID: 2800000, guid: cd7cac6dbb7c37d45b6a84e3f6dc6851, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _PerlinNormalMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 8394bb91e18d8444487c6cfa818ec84c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Alpha
+      second: 0.84
+    - first:
+        name: _AlphaCut
+      second: 0.01
+    - first:
+        name: _BackLightingIntensity
+      second: 1.11
+    - first:
+        name: _CloudAlpha
+      second: 2.000012
+    - first:
+        name: _CloudAlphaCut
+      second: -0.15
+    - first:
+        name: _CloudCover
+      second: 0.39999852
+    - first:
+        name: _CloudsDepth
+      second: 0.5
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _Density
+      second: 45.6
+    - first:
+        name: _DepthBlendMul
+      second: 0.81
+    - first:
+        name: _DepthBlendMult
+      second: 2
+    - first:
+        name: _DepthColor
+      second: 0
+    - first:
+        name: _DepthIntensity
+      second: 0.5
+    - first:
+        name: _DirectLightIntensity
+      second: 0.23
+    - first:
+        name: _DirectLightRange
+      second: 4.78
+    - first:
+        name: _Dithering
+      second: 0
+    - first:
+        name: _EdgeBlend
+      second: 0
+    - first:
+        name: _IndirectContribution
+      second: 0
+    - first:
+        name: _MipLevel
+      second: 0
+    - first:
+        name: _Normalized
+      second: 1
+    - first:
+        name: _ObjectSpaceMapping
+      second: 0
+    - first:
+        name: _Offset
+      second: 0.5
+    - first:
+        name: _Scale
+      second: 1400
+    - first:
+        name: _Speed
+      second: 1.6770945
+    - first:
+        name: _Speed1
+      second: 2
+    - first:
+        name: _Speed1Layer
+      second: 1.2094988
+    - first:
+        name: _Speed2
+      second: 6.088035
+    - first:
+        name: _Speed2Layer
+      second: 4.042512
+    - first:
+        name: _SpeedSecondLayer
+      second: 6.49
+    - first:
+        name: _Tiling
+      second: 2500
+    - first:
+        name: _TimeMult
+      second: 1
+    - first:
+        name: _TimeMultSecondLayer
+      second: 4
+    - first:
+        name: _ditherTiling
+      second: 1
+    - first:
+        name: _node_6051
+      second: -0.1
+    - first:
+        name: _node_8768
+      second: 21.07
+    - first:
+        name: _shadowAlpha
+      second: -0.5
+    - first:
+        name: _shadowSharpness
+      second: -0.45
+    m_Colors:
+    - first:
+        name: _BackLighting
+      second: {r: 0.84013844, g: 0.83344257, b: 0.8158661, a: 1}
+    - first:
+        name: _BaseColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _CloudNormals
+      second: {r: 1, g: 1, b: -1, a: 0}
+    - first:
+        name: _CloudNormalsDirection
+      second: {r: 1, g: -1, b: -1, a: 0}
+    - first:
+        name: _DirectLightColor
+      second: {r: 0.88105536, g: 0.8743595, b: 0.856783, a: 1}
+    - first:
+        name: _LightColor
+      second: {r: 0.70980394, g: 0.77254903, b: 0.8313725, a: 1}
+    - first:
+        name: _Shading
+      second: {r: 0.44117647, g: 0.44117647, b: 0.44117647, a: 0.378}
+    - first:
+        name: _ShadingColor
+      second: {r: 0.9044118, g: 0.9044118, b: 0.9044118, a: 1}
+    - first:
+        name: _WindDir
+      second: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - first:
+        name: _WindDirection
+      second: {r: 1, g: 0, b: 1, a: 0}

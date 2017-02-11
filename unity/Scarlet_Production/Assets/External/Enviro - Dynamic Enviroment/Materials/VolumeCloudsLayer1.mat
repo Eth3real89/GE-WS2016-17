@@ -1,0 +1,404 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: VolumeCloudsLayer1
+  m_Shader: {fileID: 4800000, guid: b8514a0792b3d9d438adb42b15702900, type: 3}
+  m_ShaderKeywords: CV_DEPTHBLEND_OFF CV_HORIZONBLEND_OFF CV_LIGHTING_ON HDR HDR_OFF
+    HDR_ON
+  m_LightmapFlags: 5
+  m_CustomRenderQueue: 2999
+  stringTagMap: {}
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+    - first:
+        name: _BumpMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _CloudMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 364c0ef959246b647a0f90aaf8f548f1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _CloudsMap
+      second:
+        m_Texture: {fileID: 2800000, guid: cd7cac6dbb7c37d45b6a84e3f6dc6851, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _CloudsMap1
+      second:
+        m_Texture: {fileID: 2800000, guid: 8394bb91e18d8444487c6cfa818ec84c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailAlbedoMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailMask
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _DetailNormalMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _EmissionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MainTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _NoiseTexture
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _NoiseTexture2
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _OcclusionMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _PerlinNormalMap
+      second:
+        m_Texture: {fileID: 2800000, guid: 8394bb91e18d8444487c6cfa818ec84c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _colorTexture
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _icyNormals
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _mainNormals
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - first:
+        name: _Alpha
+      second: 0.94
+    - first:
+        name: _AlphaCut
+      second: 0
+    - first:
+        name: _BackLightingIntensity
+      second: 1.11
+    - first:
+        name: _BumpScale
+      second: 1
+    - first:
+        name: _CloudAlpha
+      second: 2.0198884
+    - first:
+        name: _CloudAlphaCut
+      second: 0
+    - first:
+        name: _CloudCover
+      second: -0.019304
+    - first:
+        name: _CloudDensity
+      second: 1
+    - first:
+        name: _CloudDepth
+      second: 1
+    - first:
+        name: _CloudScale1
+      second: 12
+    - first:
+        name: _CloudScale2
+      second: 13
+    - first:
+        name: _CloudSharpness
+      second: 1
+    - first:
+        name: _CloudSpeed1
+      second: 1
+    - first:
+        name: _CloudSpeed2
+      second: 1.5
+    - first:
+        name: _CloudTime
+      second: 1
+    - first:
+        name: _CloudTone
+      second: 1
+    - first:
+        name: _CloudsDepth
+      second: 0.5
+    - first:
+        name: _Cutoff
+      second: 0.5
+    - first:
+        name: _Density
+      second: 0.098009996
+    - first:
+        name: _DensityColor
+      second: 0.5
+    - first:
+        name: _DepthBlendMul
+      second: 0.81
+    - first:
+        name: _DepthBlendMult
+      second: 0.38
+    - first:
+        name: _DepthColor
+      second: -0.3
+    - first:
+        name: _DepthIntensity
+      second: 0.5
+    - first:
+        name: _DetailNormalMapScale
+      second: 1
+    - first:
+        name: _DirectLightIntensity
+      second: 0.2
+    - first:
+        name: _DirectLightRange
+      second: 5
+    - first:
+        name: _Dithering
+      second: -4.46
+    - first:
+        name: _DstBlend
+      second: 0
+    - first:
+        name: _EdgeBlend
+      second: 0.03
+    - first:
+        name: _Exposure
+      second: 1
+    - first:
+        name: _Glossiness
+      second: 0.5
+    - first:
+        name: _HorizonBlend
+      second: 0.1
+    - first:
+        name: _HorizontBlending
+      second: 0.57
+    - first:
+        name: _IndirectContribution
+      second: 0.24
+    - first:
+        name: _LightIntensity
+      second: 1.799988
+    - first:
+        name: _LightIntesity
+      second: 1.3
+    - first:
+        name: _LightRange
+      second: 42.5
+    - first:
+        name: _Metallic
+      second: 0
+    - first:
+        name: _MipLevel
+      second: 0
+    - first:
+        name: _Mode
+      second: 0
+    - first:
+        name: _Normalized
+      second: 1.92
+    - first:
+        name: _ObjectSpaceMapping
+      second: 0
+    - first:
+        name: _OcclusionStrength
+      second: 1
+    - first:
+        name: _Offset
+      second: 1
+    - first:
+        name: _Parallax
+      second: 0.02
+    - first:
+        name: _Scale
+      second: 420
+    - first:
+        name: _Speed
+      second: 1.8504276
+    - first:
+        name: _Speed1
+      second: 0.1
+    - first:
+        name: _Speed1Layer
+      second: 1.2031734
+    - first:
+        name: _Speed2
+      second: 7.318905
+    - first:
+        name: _Speed2Layer
+      second: 4.0333133
+    - first:
+        name: _SpeedSecondLayer
+      second: 6.49
+    - first:
+        name: _SrcBlend
+      second: 1
+    - first:
+        name: _Tiling
+      second: 5829.46
+    - first:
+        name: _TimeMult
+      second: 1
+    - first:
+        name: _TimeMultSecondLayer
+      second: 2
+    - first:
+        name: _UVSec
+      second: 0
+    - first:
+        name: _Weight
+      second: 0.5
+    - first:
+        name: _ZWrite
+      second: 1
+    - first:
+        name: _ambient
+      second: 0.99005
+    - first:
+        name: _direct
+      second: 0.9821017
+    - first:
+        name: _ditherTiling
+      second: 1
+    - first:
+        name: _glossiness
+      second: 0.5
+    - first:
+        name: _icyness
+      second: 0.5
+    - first:
+        name: _nightColorMod
+      second: 22.843359
+    - first:
+        name: _node_2542
+      second: 37.62
+    - first:
+        name: _node_6051
+      second: -0.1
+    - first:
+        name: _node_8768
+      second: 21.07
+    - first:
+        name: _node_8964
+      second: 4696.1
+    - first:
+        name: _shadowAlpha
+      second: 1
+    - first:
+        name: _shadowSharpness
+      second: 8.5
+    m_Colors:
+    - first:
+        name: _BackLighting
+      second: {r: 0.84013844, g: 0.83344257, b: 0.8158661, a: 1}
+    - first:
+        name: _BaseColor
+      second: {r: 0.99590296, g: 0.99590296, b: 0.99590296, a: 1}
+    - first:
+        name: _CloudNormals
+      second: {r: 1, g: 1, b: -1, a: 0}
+    - first:
+        name: _CloudNormalsDirection
+      second: {r: 1, g: -1, b: -1, a: 0}
+    - first:
+        name: _Color
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _DirectLightColor
+      second: {r: 0.88105536, g: 0.8743595, b: 0.856783, a: 1}
+    - first:
+        name: _EmissionColor
+      second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _FirstColor
+      second: {r: 0.93381757, g: 0.93381757, b: 0.93381757, a: 1}
+    - first:
+        name: _LightColor
+      second: {r: 1, g: 0.9882353, b: 0.9529412, a: 1}
+    - first:
+        name: _LightDirection
+      second: {r: 0, g: 0, b: 0, a: 0}
+    - first:
+        name: _SecondColor
+      second: {r: 0.99999404, g: 0.99999404, b: 0.99999404, a: 0.99999404}
+    - first:
+        name: _Shading
+      second: {r: 0.52205884, g: 0.52205884, b: 0.52205884, a: 1}
+    - first:
+        name: _ShadingColor
+      second: {r: 0.9852213, g: 0.9852213, b: 0.9852213, a: 1}
+    - first:
+        name: _ShadingDirection
+      second: {r: 1, g: 1, b: -1, a: 0}
+    - first:
+        name: _ViewDirection
+      second: {r: 1, g: 1, b: 1, a: 7.77}
+    - first:
+        name: _WindDir
+      second: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - first:
+        name: _WindDirection
+      second: {r: 1, g: 0, b: 1, a: 0}
+    - first:
+        name: _icyColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _node_5873
+      second: {r: 0, g: 0, b: 2.64, a: 0}
+    - first:
+        name: _specularColor
+      second: {r: 1, g: 1, b: 1, a: 1}
