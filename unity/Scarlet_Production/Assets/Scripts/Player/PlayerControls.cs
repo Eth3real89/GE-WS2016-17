@@ -16,6 +16,9 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     private PlayerStaggerCommand m_StaggerCommand;
     private PlayerInteractionCommand m_InteractionCommand;
 
+    public ControlsActivator m_Activator;
+    private bool m_HasCalledActivate = false;
+
     private PlayerCommand m_ActiveCommand;
 
     private List<PlayerCommand> m_LockedCommands;
@@ -63,6 +66,19 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
     void Start()
     {
+        if (m_Activator == null)
+            ActivateInitially();
+    }
+
+    /// <summary>
+    /// Can only be called once (& takes care of that initially. Call as often as you want, but 2nd time etc. won't work)
+    /// </summary>
+    public void ActivateInitially()
+    {
+        if (m_HasCalledActivate)
+            return;
+
+        m_HasCalledActivate = true;
         m_PlayerCommands = GetComponentsInChildren<PlayerCommand>();
         m_LockedCommands = new List<PlayerCommand>();
 

@@ -131,6 +131,8 @@ public class MainMenuController : MonoBehaviour
             GetComponent<MainMenuController>().enabled = false;
             GetComponentInParent<IngameMenuController>().enabled = true;
             GetComponent<AreaEnterTextController>().StartFadeIn();
+
+            ActivateScarletControls();
         }
     }
 
@@ -144,6 +146,8 @@ public class MainMenuController : MonoBehaviour
             GetComponent<MainMenuController>().enabled = false;
             GetComponentInParent<IngameMenuController>().enabled = true;
             GetComponent<AreaEnterTextController>().StartFadeIn();
+
+            ActivateScarletControls();
         }
     }
 
@@ -161,6 +165,13 @@ public class MainMenuController : MonoBehaviour
     public void Activate()
     {
         Menu.SetActive(true);
+    }
+
+    private void ActivateScarletControls()
+    {
+        ControlsActivator activator = FindObjectOfType<ControlsActivator>();
+        if (activator != null)
+            activator.ActivateControls();
     }
 
     public void CloseGame()
