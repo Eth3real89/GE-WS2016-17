@@ -34,7 +34,7 @@ public class LightGuard : MonoBehaviour {
             m_LightGuardVisuals.ScaleUp(scale);
             if (c != null)
             {
-                c.transform.localScale = new Vector3(scale * 2, c.transform.localScale.y, scale * 2);   
+                c.transform.localScale = new Vector3(scale * 2, scale * 2, scale * 2);   
             }
             yield return null;
         }

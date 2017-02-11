@@ -405,7 +405,8 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void OnBulletHit()
     {
-        StartCoroutine(DecideIfHitWasGood());
+        if (m_CurrentComboIndex == m_ParryDeflectTutorialBullet || m_CurrentComboIndex == m_ParryTutorialBullet)
+            StartCoroutine(DecideIfHitWasGood());
     }
 
     private IEnumerator DecideIfHitWasGood()
@@ -439,6 +440,7 @@ public class VampirePhase0TutorialController : VampireController {
                 if (m_CurrentComboIndex == m_ParryDeflectTutorialBullet)
                 {
                     m_PlayerControls.EnableAndUnlock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+                    EventManager.StopListening(Bullet.BULLET_HIT_SCARLET_EVENT, OnBulletHit);
                 }
             }
         }
