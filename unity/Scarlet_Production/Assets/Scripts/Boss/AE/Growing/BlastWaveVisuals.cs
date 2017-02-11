@@ -23,14 +23,7 @@ public class BlastWaveVisuals : MonoBehaviour {
         transform.localScale = transform.localScale.normalized * m_InitialScale;
 
         Vector3[] vertices;
-        if (m_Angles == 360)
-        {
-            vertices = new Vector3[m_NumVertices - 1];
-        }
-        else
-        {
-            vertices = new Vector3[m_NumVertices + 1];
-        }
+        vertices = new Vector3[m_NumVertices + 1];
         float angle = m_Angles / m_NumVertices;
 
         for (int i = 0; i < vertices.Length; i++)

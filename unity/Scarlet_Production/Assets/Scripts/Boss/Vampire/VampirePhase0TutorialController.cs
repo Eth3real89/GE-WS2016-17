@@ -414,6 +414,9 @@ public class VampirePhase0TutorialController : VampireController {
         CharacterHealth h = m_Scarlet.GetComponent<CharacterHealth>();
 
         float health = h.m_CurrentHealth;
+        
+        if (m_ActiveCombo != null)
+            m_ActiveCombo.CancelCombo();
 
         if (m_TutorialEnumerator != null)
             StopCoroutine(m_TutorialEnumerator);
