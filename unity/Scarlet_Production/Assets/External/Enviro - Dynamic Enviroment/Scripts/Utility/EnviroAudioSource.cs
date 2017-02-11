@@ -19,14 +19,18 @@ public class EnviroAudioSource : MonoBehaviour {
 
 	public float fadingSpeed = 0.1f;
 
-
+    private float audioSourceMaxVol;
 
 	void Start ()
 	{
-		if (audiosrc == null)
-		audiosrc = GetComponent<AudioSource> ();
-		
-		if (myFunction == AudioSourceFunction.Weather1 || myFunction == AudioSourceFunction.Weather2) 
+        if (audiosrc == null)
+        {
+            audiosrc = GetComponent<AudioSource>();
+        }
+
+        audioSourceMaxVol = audiosrc.volume;
+
+        if (myFunction == AudioSourceFunction.Weather1 || myFunction == AudioSourceFunction.Weather2) 
 		{
 			audiosrc.loop = true;
 			audiosrc.volume = 0f;
@@ -53,7 +57,7 @@ public class EnviroAudioSource : MonoBehaviour {
 
 	void Update ()
 	{
-		if (isFadingIn && audiosrc.volume < 1f)
+		if (isFadingIn && audiosrc.volume < audioSourceMaxVol)
 		{
 			audiosrc.volume += fadingSpeed * Time.deltaTime;
 		}

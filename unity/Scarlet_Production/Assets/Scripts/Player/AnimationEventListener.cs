@@ -23,7 +23,6 @@ public class AnimationEventListener : MonoBehaviour
         {
             return;
         }
-        m_StepsAudio.volume = 0.2f + (m_MoveCommand.m_CurrentSpeed / 5) * 0.3f;
         m_StepsAudio.Play();
         m_StepTimer = m_MinimumStepDistance;
     }
