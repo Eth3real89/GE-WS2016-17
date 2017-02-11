@@ -6303,6 +6303,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1484479441765878
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4415905555318418}
+  - component: {fileID: 114520699760909594}
+  m_Layer: 9
+  m_Name: BulletMoveStraightFast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1485207540467472
 GameObject:
   m_ObjectHideFlags: 1
@@ -12821,22 +12837,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1984551931927612
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4331954940285778}
-  - component: {fileID: 114174794653431172}
-  m_Layer: 9
-  m_Name: BulletHomingMovement
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1985894814621088
 GameObject:
   m_ObjectHideFlags: 1
@@ -15147,7 +15147,6 @@ Transform:
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children:
   - {fileID: 4238471251345458}
-  - {fileID: 4331954940285778}
   m_Father: {fileID: 4602400087019318}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -15614,6 +15613,7 @@ Transform:
   - {fileID: 4286894137398588}
   - {fileID: 4715551894184444}
   - {fileID: 4368292097400738}
+  - {fileID: 4415905555318418}
   m_Father: {fileID: 4768745633812262}
   m_RootOrder: 72
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16790,19 +16790,6 @@ Transform:
   m_Father: {fileID: 4200424548572812}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4331954940285778
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984551931927612}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4181483495876824}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4332305198248810
 Transform:
   m_ObjectHideFlags: 1
@@ -17675,6 +17662,19 @@ Transform:
   - {fileID: 4781981198233220}
   m_Father: {fileID: 4238797420405780}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4415905555318418
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484479441765878}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4228206843243152}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4416016743445704
 Transform:
@@ -30687,20 +30687,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb69e704d3eccb4f9e64486248ae507, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114174794653431172
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984551931927612}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c05312557f3cdf7489edfa83f55e8ccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Target: {fileID: 0}
-  m_HomingFactor: 120
-  m_Speed: 8
 --- !u!114 &114177509599141850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31365,10 +31351,10 @@ MonoBehaviour:
   m_LightGuard: {fileID: 0}
   m_GuardByLight: 0
   m_ExpandTime: 0.2
-  m_ExpandScale: 2
-  m_WaitTimeBetweenExpansions: 0.25
-  m_SecondExpandTime: 3
-  m_SecondExpandScale: 10
+  m_ExpandScale: 0.5
+  m_WaitTimeBetweenExpansions: 1
+  m_SecondExpandTime: 0.5
+  m_SecondExpandScale: 18
   m_Damage: {fileID: 114625454773675074}
   m_InitialTurn: {fileID: 114861046359600038}
   m_InitialTurnTrackSpeed: 45
@@ -33053,8 +33039,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Base: {fileID: 114965952025593422}
-  m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
-    type: 2}
+  m_Movement: {fileID: 114520699760909594}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
     type: 2}
@@ -33294,6 +33279,18 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114998706180009938}
+--- !u!114 &114520699760909594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1484479441765878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399b986947774814390d811394c5e524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Speed: 7
 --- !u!114 &114521718900434742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33503,7 +33500,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114683366770806412}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 5
+  m_MoveOnAfter: 4
 --- !u!114 &114536280130258078
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34291,7 +34288,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114795930951624464}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 6
+  m_MoveOnAfter: 5
 --- !u!114 &114625454773675074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35756,7 +35753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 504da2b452b1ac44b81db6c5fdff2229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Movement: {fileID: 114059532995959638}
+  m_Movement: {fileID: 114401888523447138}
   m_Expiration: {fileID: 114431292863497536}
   m_OnExpire: {fileID: 114137130135644418}
   m_KillBullet: 0
@@ -36754,8 +36751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Base: {fileID: 114226934631039844}
-  m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
-    type: 2}
+  m_Movement: {fileID: 114520699760909594}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
     type: 2}
