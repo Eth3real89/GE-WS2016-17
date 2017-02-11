@@ -11,8 +11,8 @@ public class LevelManager : GenericSingletonClass<LevelManager>
     }
 
     public ControlMode m_ControlMode = ControlMode.Exploration;
-    public GameObject m_Scarlet;
 
+    private GameObject m_Scarlet;
     private PlayerMoveCommand m_ScarletMoveCommand;
     private Animator m_ScarletAnimator;
 
