@@ -6,16 +6,19 @@ using UnityEngine.UI;
 
 public class IngameMenuController : MonoBehaviour
 {
-
+    public TrackingBehaviour menuCamera;
     public GameObject[] MenuItems;
-
     public GameObject menu;
+
     private bool menuVisible = false;
     private int selected;
+    private CameraTracking cameraTracking;
+    private TrackingBehaviour previousTracking;
 
     // Use this for initialization
     void Start()
     {
+        cameraTracking = Camera.main.GetComponent<CameraTracking>();
         selected = 0;
         SelectItem(selected);
     }
@@ -27,15 +30,11 @@ public class IngameMenuController : MonoBehaviour
         {
             if (menuVisible)
             {
-                menuVisible = false;
-                menu.SetActive(false);
-                SetScarletControlsEnabled(true);
+                ContinueGame();
             }
             else
             {
-                menuVisible = true;
-                menu.SetActive(true);
-                SetScarletControlsEnabled(false);
+                PauseGame();
             }
         }
         if (menuVisible)
@@ -107,13 +106,28 @@ public class IngameMenuController : MonoBehaviour
         }
     }
 
+    private void ContinueGame()
+    {
+        cameraTracking.m_TrackingBehaviour = previousTracking;
+        menuVisible = false;
+        menu.SetActive(false);
+        SetScarletControlsEnabled(true);
+    }
+
+    private void PauseGame()
+    {
+        previousTracking = cameraTracking.m_TrackingBehaviour;
+        cameraTracking.m_TrackingBehaviour = menuCamera;
+        menuVisible = true;
+        menu.SetActive(true);
+        SetScarletControlsEnabled(false);
+    }
+
     public void OnResume()
     {
         if (selected == 0)
         {
-            menuVisible = false;
-            menu.SetActive(false);
-            SetScarletControlsEnabled(true);
+            ContinueGame();
         }
     }
 
@@ -149,8 +163,8 @@ public class IngameMenuController : MonoBehaviour
             menu.SetActive(false);
             menuVisible = false;
             GetComponent<IngameMenuController>().enabled = false;
-            GetComponentInChildren<MenuController>().enabled = true;
-            GetComponentInChildren<MenuController>().Activate();
+            GetComponentInChildren<MainMenuController>().enabled = true;
+            GetComponentInChildren<MainMenuController>().Activate();
         }
     }
 

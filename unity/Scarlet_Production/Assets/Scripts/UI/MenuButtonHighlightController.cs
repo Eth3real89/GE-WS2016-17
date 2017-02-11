@@ -8,6 +8,6 @@ public class MenuButtonHighlightController : MonoBehaviour, IPointerEnterHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        GetComponentInParent<MenuController>().SelectItem(index);
+        GetComponentInParent<MainMenuController>().SelectItem(index);
     }
 }
