@@ -38,73 +38,78 @@ public class IngameMenuController : MonoBehaviour
                 SetScarletControlsEnabled(false);
             }
         }
-        if(Input.GetButtonDown("Vertical"))
+        if (menuVisible)
         {
-            if (Input.GetAxis("Vertical") < 0)
+            if (Input.GetButtonDown("Vertical"))
             {
-                if(selected == MenuItems.Length - 1)
+                if (Input.GetAxis("Vertical") < 0)
                 {
-                    selected = 0;
-                } else
-                {
-                    selected += 1;
+                    if (selected == MenuItems.Length - 1)
+                    {
+                        selected = 0;
+                    }
+                    else
+                    {
+                        selected += 1;
+                    }
                 }
+                else
+                {
+                    if (selected == 0)
+                    {
+                        selected = MenuItems.Length - 1;
+                    }
+                    else
+                    {
+                        selected -= 1;
+                    }
+                }
+                SelectItem(selected);
             }
-            else
+            if (Input.GetButtonDown("Horizontal"))
+            {
+                if (selected == 1)
+                {
+                    if (Input.GetAxis("Horizontal") < 0)
+                    {
+                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                    }
+                    else
+                    {
+                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                    }
+                }
+                else if (selected == 2)
+                {
+                    if (Input.GetAxis("Horizontal") < 0)
+                    {
+                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                    }
+                    else
+                    {
+                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                    }
+
+                }
+
+            }
+            if (Input.GetButtonDown("Submit"))
             {
                 if (selected == 0)
                 {
-                    selected = MenuItems.Length - 1;
+                    OnResume();
                 }
-                else
+                else if (selected == 4)
                 {
-                    selected -= 1;
+                    BackToMain();
                 }
-            }
-            SelectItem(selected);
-        }
-        if(Input.GetButtonDown("Horizontal"))
-        {
-            if (selected == 1)
-            {
-                if(Input.GetAxis("Horizontal") < 0)
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
-                } else
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
-                }
-            }
-            else if (selected == 2)
-            {
-                if (Input.GetAxis("Horizontal") < 0)
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
-                }
-                else
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
-                }
-
-            }
-
-        }
-        if (Input.GetButtonDown("Submit"))
-        {
-            if (selected == 0)
-            {
-                OnResume();
-            }
-            else if (selected == 4)
-            {
-                BackToMain();
             }
         }
     }
 
     public void OnResume()
     {
-        if(selected == 0)
+        if (selected == 0)
         {
             menuVisible = false;
             menu.SetActive(false);
@@ -136,12 +141,16 @@ public class IngameMenuController : MonoBehaviour
         }
     }
 
-    private void BackToMain()
+    public void BackToMain()
     {
         if (selected == 4)
         {
             //Zurück zum Hauptmenü
-            SceneManager.LoadScene("userinterface_menu");
+            menu.SetActive(false);
+            menuVisible = false;
+            GetComponent<IngameMenuController>().enabled = false;
+            GetComponentInChildren<MenuController>().enabled = true;
+            GetComponentInChildren<MenuController>().Activate();
         }
     }
 

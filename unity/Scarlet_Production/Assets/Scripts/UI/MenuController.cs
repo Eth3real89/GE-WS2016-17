@@ -9,7 +9,8 @@ public class MenuController : MonoBehaviour {
     //Main 0=Start; 1=Load; 2=Options; 3=Leave
     public GameObject[] MenuItems;
     
-    public GameObject menu;
+    public GameObject Menu;
+
     private int selected;
 
 
@@ -116,7 +117,10 @@ public class MenuController : MonoBehaviour {
         if(selected == 0)
         {
             ZoomToScarlet();
-            menu.SetActive(false);
+            Menu.SetActive(false);
+            GetComponent<MenuController>().enabled = false;
+            GetComponentInParent<IngameMenuController>().enabled = true;
+            GetComponent<AreaEnterTextController>().StartFadeIn();
         }
     }
 
@@ -124,8 +128,12 @@ public class MenuController : MonoBehaviour {
     {
         if (selected == 1)
         {
+            //TODO: Loadgame instead of new
             ZoomToScarlet();
-            menu.SetActive(false);
+            Menu.SetActive(false);
+            GetComponent<MenuController>().enabled = false;
+            GetComponentInParent<IngameMenuController>().enabled = true;
+            GetComponent<AreaEnterTextController>().StartFadeIn();
         }
     }
 
@@ -133,7 +141,7 @@ public class MenuController : MonoBehaviour {
     {
         if (selected == 2)
         {
-            menu.SetActive(false);
+            Menu.SetActive(false);
             GetComponent<OptionsMenuController>().enabled = true;
             GetComponent<OptionsMenuController>().Activate();
             GetComponent<MenuController>().enabled = false;
@@ -142,7 +150,7 @@ public class MenuController : MonoBehaviour {
 
     public void Activate()
     {
-        menu.SetActive(true);
+        Menu.SetActive(true);
     }
 
     public void CloseGame()

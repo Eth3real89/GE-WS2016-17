@@ -15,24 +15,36 @@ public class AreaEnterTextController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        fadeIn = true;
+        fadeIn = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        time += Time.deltaTime;
-        if(time > delay && fadeIn)
+        if(fadeIn)
         {
-            StartCoroutine(FadeTo(1.0f, 0.6f));
-            fadeIn = false;
-            fadeOut = true;
-            time = 0;
+            time += Time.deltaTime;
+            if (time > delay)
+            {
+                StartCoroutine(FadeTo(1.0f, 0.6f));
+                fadeIn = false;
+                fadeOut = true;
+                time = 0;
+            }
         }
-        if(time > timeShowHint && fadeOut)
+        if(fadeOut)
         {
-            fadeOut = false;
-            StartCoroutine(FadeTo(0.0f, 0.6f));
+            time += Time.deltaTime;
+            if (time > timeShowHint)
+            {
+                fadeOut = false;
+                StartCoroutine(FadeTo(0.0f, 0.6f));
+            }
         }
+    }
+
+    public void StartFadeIn()
+    {
+        fadeIn = true;
     }
     
 
