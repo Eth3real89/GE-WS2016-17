@@ -67,11 +67,8 @@ public class UIItemPickupController : MonoBehaviour {
         float alphaBlack = images[0].color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
-            //Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
-            //Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue / 1.75f, t));
             Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue, t));
-            //arrowHint.GetComponent<SpriteRenderer>().color = newColor;
             if(charging)
             {
                 images[0].color = newColorBlack;
@@ -86,7 +83,6 @@ public class UIItemPickupController : MonoBehaviour {
 
             yield return null;
         }
-        //images[0].color = new Color(0, 0, 0, aValue / 1.75f);
         if(charging)
         {
             images[0].color = new Color(0, 0, 0, aValue);
