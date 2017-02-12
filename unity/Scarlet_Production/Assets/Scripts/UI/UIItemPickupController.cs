@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class UIItemPickupController : MonoBehaviour {
     
     public GameObject textHint;
+    public bool charging;
+
     private Text textField;
     private Image[] images;
-
-
+    
     void Start()
     {
         images = textHint.GetComponentsInChildren<Image>();
@@ -38,13 +39,27 @@ public class UIItemPickupController : MonoBehaviour {
     {
         //StartCoroutine(FadeTo(0.0f, 0.6f));
         //Fade doesn't work because Gameobject is destroyed/invisible
-
-        images[0].color = new Color(0, 0, 0, 0);
-        images[1].color = new Color(0.65f, 0, 0, 0);
+        if(charging)
+        {
+            images[0].color = new Color(0, 0, 0, 0);
+            images[1].color = new Color(0, 0, 0, 0);
+            images[2].color = new Color(0.65f, 0, 0, 0);
+        }
+        else
+        {
+            images[0].color = new Color(0, 0, 0, 0);
+            images[1].color = new Color(0.65f, 0, 0, 0);
+        }
         textField.color = new Color(0.65f, 0, 0, 0);
 
         textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
     }
+
+    public void UpdatePickup(float floatcurrentTime)
+    {
+        images[1].fillAmount = Mathf.Lerp(0.0f, 1.0f, floatcurrentTime);
+    }
+    
 
     IEnumerator FadeTo(float aValue, float aTime)
     {
@@ -54,16 +69,33 @@ public class UIItemPickupController : MonoBehaviour {
         {
             //Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
-            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue / 1.75f, t));
+            //Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue / 1.75f, t));
+            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue, t));
             //arrowHint.GetComponent<SpriteRenderer>().color = newColor;
-            images[0].color = newColorBlack;
-            images[1].color = newColorRed;
+            if(charging)
+            {
+                images[0].color = newColorBlack;
+                images[2].color = newColorRed;
+            }
+            else
+            {
+                images[0].color = newColorBlack;
+                images[1].color = newColorRed;
+            }
             textField.color = newColorRed;
 
             yield return null;
         }
-        images[0].color = new Color(0, 0, 0, aValue / 1.75f);
-        images[1].color = new Color(0.65f, 0, 0, aValue);
+        //images[0].color = new Color(0, 0, 0, aValue / 1.75f);
+        if(charging)
+        {
+            images[0].color = new Color(0, 0, 0, aValue);
+            images[2].color = new Color(0.65f, 0, 0, aValue);
+        } else
+        {
+            images[0].color = new Color(0, 0, 0, aValue);
+            images[1].color = new Color(0.65f, 0, 0, aValue);
+        }
         textField.color = new Color(0.65f, 0, 0, aValue);
     }
 

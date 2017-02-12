@@ -33,6 +33,7 @@ public class PlayerInteractionCommand : PlayerCommand
                 isInteracting = true;
                 m_Animator.SetBool("IsInteracting", true);
                 m_CurrentInteraction -= Time.deltaTime;
+                FindObjectOfType<UIItemPickupController>().UpdatePickup(m_InteractionTime - m_CurrentInteraction);
                 if (m_CurrentInteraction < 0)
                 {
                     hit.transform.GetComponent<Interactor>().Interact();
@@ -49,6 +50,10 @@ public class PlayerInteractionCommand : PlayerCommand
     // used for "Cancel Timer"
     public override void CancelDelay()
     {
+        if(FindObjectOfType<UIItemPickupController>() != null)
+        {
+            FindObjectOfType<UIItemPickupController>().UpdatePickup(0.0f);
+        }
         m_Callback.OnCommandEnd(m_CommandName, this);
         m_CurrentInteraction = m_InteractionTime;
         m_Animator.SetBool("IsInteracting", false);
