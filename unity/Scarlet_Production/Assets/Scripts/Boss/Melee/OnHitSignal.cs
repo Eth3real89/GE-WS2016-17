@@ -19,6 +19,9 @@ public class OnHitSignal : MonoBehaviour {
     public float m_TimeBleedAfterHit;
 
     public Material m_HitMaterial;
+
+    public bool m_IgnoreChildren = false;
+
     private IEnumerator m_ColorChangeEnumerator;
     private IDictionary<Renderer, Material> m_OriginalMaterialDictionary;
 
@@ -30,7 +33,8 @@ public class OnHitSignal : MonoBehaviour {
     private void InitOriginalColorDictionary()
     {
         m_OriginalMaterialDictionary = new System.Collections.Generic.Dictionary<Renderer, Material>();
-        foreach (Renderer r in m_RendererContainer.GetComponentsInChildren<Renderer>())
+        
+        foreach (Renderer r in GetRenderers())
         {
             m_OriginalMaterialDictionary.Add(r, r.material);
         }
@@ -42,9 +46,21 @@ public class OnHitSignal : MonoBehaviour {
         ColorBossRed();
     }
 
+    private Renderer[] GetRenderers()
+    {
+        if (m_IgnoreChildren)
+        {
+            return m_RendererContainer.GetComponents<Renderer>();
+        }
+        else
+        {
+            return m_RendererContainer.GetComponentsInChildren<Renderer>();
+        }
+    }
+
     private void ColorBossRed()
     {
-        foreach (Renderer r in m_RendererContainer.GetComponentsInChildren<Renderer>())
+        foreach (Renderer r in GetRenderers())
         {
             r.material = m_HitMaterial;
         }
@@ -61,7 +77,7 @@ public class OnHitSignal : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.3f);
 
-        foreach (Renderer r in m_RendererContainer.GetComponentsInChildren<Renderer>())
+        foreach (Renderer r in GetRenderers())
         {
             if (m_OriginalMaterialDictionary.ContainsKey(r))
             {
