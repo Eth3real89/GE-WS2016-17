@@ -58,7 +58,7 @@ public class TriggerHint : MonoBehaviour {
         {
             //Color newColor = new Color(1, 1, 1, Mathf.Lerp(alpha, aValue, t));
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
-            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue/1.75f, t));
+            Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue, t));
             //arrowHint.GetComponent<SpriteRenderer>().color = newColor;
             images[0].color = newColorBlack;
             images[1].color = newColorRed;
@@ -66,7 +66,7 @@ public class TriggerHint : MonoBehaviour {
 
             yield return null;
         }
-        images[0].color = new Color(0,0,0, aValue/ 1.75f);
+        images[0].color = new Color(0,0,0, aValue);
         images[1].color = new Color(0.65f, 0, 0, aValue);
         textField.color = new Color(0.65f, 0, 0, aValue);
     }

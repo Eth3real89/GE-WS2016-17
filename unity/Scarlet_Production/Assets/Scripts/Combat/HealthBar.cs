@@ -56,6 +56,6 @@ public class HealthBar : MonoBehaviour {
         m_LossBar.value = m_Health.m_HealthOld / m_Health.m_MaxHealth;
         m_HealthBar.value = m_Health.m_CurrentHealth / m_Health.m_MaxHealth;
 
-        m_ImgHealth.color = Color.Lerp(Color.black, Color.red, m_HealthBar.value);
+        //m_ImgHealth.color = Color.Lerp(Color.black, Color.red, m_HealthBar.value);
     }
 }
