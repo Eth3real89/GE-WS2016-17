@@ -184,4 +184,10 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     public virtual void OnComboRiposted(AttackCombo combo)
     {
     }
+
+    public virtual void CancelComboIfActive()
+    {
+        if (m_ActiveCombo != null)
+            m_ActiveCombo.CancelCombo();
+    }
 }
