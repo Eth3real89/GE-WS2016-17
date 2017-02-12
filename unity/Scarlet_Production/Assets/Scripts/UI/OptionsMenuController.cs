@@ -17,8 +17,9 @@ public class OptionsMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-		
-	}
+        selected = 0;
+        SelectItem(selected);
+    }
 	
 	// Update is called once per frame
 	void Update () {
