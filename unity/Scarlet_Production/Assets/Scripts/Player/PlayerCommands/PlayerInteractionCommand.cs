@@ -33,7 +33,10 @@ public class PlayerInteractionCommand : PlayerCommand
                 isInteracting = true;
                 m_Animator.SetBool("IsInteracting", true);
                 m_CurrentInteraction -= Time.deltaTime;
-                FindObjectOfType<UIItemPickupController>().UpdatePickup(m_InteractionTime - m_CurrentInteraction);
+                if (FindObjectOfType<UIItemPickupController>() != null)
+                {
+                    FindObjectOfType<UIItemPickupController>().UpdatePickup(m_InteractionTime - m_CurrentInteraction);
+                }
                 if (m_CurrentInteraction < 0)
                 {
                     hit.transform.GetComponent<Interactor>().Interact();
