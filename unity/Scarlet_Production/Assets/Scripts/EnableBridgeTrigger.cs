@@ -8,6 +8,7 @@ public class EnableBridgeTrigger : Interactor
 
     public override void Interact()
     {
+        GetComponentInChildren<UIItemPickupController>().OnItemPickedUp();
         m_OtherInteractor.SetActive(true);
         Destroy(gameObject);
     }

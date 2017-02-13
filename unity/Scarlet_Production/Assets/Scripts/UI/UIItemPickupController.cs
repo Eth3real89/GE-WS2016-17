@@ -37,9 +37,8 @@ public class UIItemPickupController : MonoBehaviour {
 
     public void OnItemPickedUp()
     {
-        //StartCoroutine(FadeTo(0.0f, 0.6f));
         //Fade doesn't work because Gameobject is destroyed/invisible
-        if(charging)
+        if (charging)
         {
             images[0].color = new Color(0, 0, 0, 0);
             images[1].color = new Color(0, 0, 0, 0);
@@ -51,8 +50,8 @@ public class UIItemPickupController : MonoBehaviour {
             images[1].color = new Color(0.65f, 0, 0, 0);
         }
         textField.color = new Color(0.65f, 0, 0, 0);
-
-        textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
+        textHint.GetComponentInChildren<ButtonPromptController>().enabled = false;
+        //textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
     }
 
     public void UpdatePickup(float floatcurrentTime)
