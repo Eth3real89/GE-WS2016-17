@@ -8,8 +8,6 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
     public AEFairyController m_AEFairyController;
     public ArmorFairyController m_ArmorFairyController;
 
-    private IEnumerator m_ComboEndEnumerator;
-
     public virtual void StartPhase(FairyBossfight bossfight)
     {
         m_AEFairyController.Initialize(this);
@@ -24,33 +22,19 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
         m_ArmorFairyController.StartCombo(0);
     }
 
-    public void OnComboStart(BossController controller)
+    public void OnComboStart(FairyController controller)
     {
-
+        MLog.Log(LogType.FairyLog, 0, "OnComboStart, Phase, " + controller);
     }
 
-    public virtual void OnComboEnd(BossController controller)
+    public virtual void OnComboEnd(FairyController controller)
     {
         MLog.Log(LogType.FairyLog, 0, "OnComboEnd, Phase, " + controller);
 
-        if (m_ComboEndEnumerator != null)
-        {
-            StopCoroutine(m_ComboEndEnumerator);
-            StartCombo();
-        }
-        else
-        {
-            m_ComboEndEnumerator = WaitForOtherComboToEnd();
-            StartCoroutine(m_ComboEndEnumerator);
-        }
-    }
 
-    private IEnumerator WaitForOtherComboToEnd()
-    {
-        while (true)
-            yield return null;
+        controller.Continue();
     }
-
+    
     public virtual void EndCombo()
     {
         m_AEFairyController.CancelComboIfActive();
@@ -61,6 +45,6 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
 
 public interface FairyControllerCallbacks
 {
-    void OnComboStart(BossController controller);
-    void OnComboEnd(BossController controller);
+    void OnComboStart(FairyController controller);
+    void OnComboEnd(FairyController controller);
 }
