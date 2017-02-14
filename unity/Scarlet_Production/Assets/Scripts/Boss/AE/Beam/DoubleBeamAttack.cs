@@ -17,8 +17,8 @@ public class DoubleBeamAttack : BeamAEAttack {
 
     protected override IEnumerator BeforeExpansion()
     {
+        // @todo test this!
         yield return base.BeforeExpansion();
-
 
         if (!m_InitiallyAimAtScarlet)
         {
@@ -26,6 +26,7 @@ public class DoubleBeamAttack : BeamAEAttack {
         }
 
         m_Damage.transform.Rotate(Vector3.up, m_AngleBetweenBeams / 2);
+        m_SecondDamage.gameObject.SetActive(true);
         m_SecondDamage.transform.Rotate(Vector3.up, -m_AngleBetweenBeams / 2);
         m_SecondDamage.Expand(m_ExpandTime, m_ExpandScale, this);
     }
@@ -59,6 +60,7 @@ public class DoubleBeamAttack : BeamAEAttack {
     {
         base.CancelAttack();
         m_SecondDamage.CancelDamage();
+        m_SecondDamage.gameObject.SetActive(false);
     }
 
 

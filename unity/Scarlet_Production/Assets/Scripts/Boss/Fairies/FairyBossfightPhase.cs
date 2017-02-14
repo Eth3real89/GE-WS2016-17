@@ -8,12 +8,31 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
     public AEFairyController m_AEFairyController;
     public ArmorFairyController m_ArmorFairyController;
 
-    public virtual void StartPhase(FairyBossfight bossfight)
+    protected bool m_Active = false;
+    protected FairyPhaseCallbacks m_Callback;
+
+    public virtual void StartPhase(FairyPhaseCallbacks callbacks)
     {
+        m_Active = true;
+        m_Callback = callbacks;
+
         m_AEFairyController.Initialize(this);
         m_ArmorFairyController.Initialize(this);
 
+        m_Callback.OnPhaseStart(this);
+
         StartCombo();
+    }
+
+    protected virtual void Update()
+    {
+        if (!m_Active)
+            return;
+    }
+
+    protected virtual void EndPhase()
+    {
+        m_Callback.OnPhaseEnd(this);
     }
 
     public virtual void StartCombo()
@@ -31,8 +50,8 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
     {
         MLog.Log(LogType.FairyLog, 0, "OnComboEnd, Phase, " + controller);
 
-
-        controller.Continue();
+        if (m_Active)
+           controller.Continue();
     }
     
     public virtual void EndCombo()
@@ -47,4 +66,10 @@ public interface FairyControllerCallbacks
 {
     void OnComboStart(FairyController controller);
     void OnComboEnd(FairyController controller);
+}
+
+public interface FairyPhaseCallbacks
+{
+    void OnPhaseStart(FairyBossfightPhase phase);
+    void OnPhaseEnd(FairyBossfightPhase phase);
 }

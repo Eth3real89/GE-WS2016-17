@@ -157,39 +157,16 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
         if (m_ComboActive)
         {
-            CancelComboIfActive();
-
-            if (dmg.m_Type == Damage.DamageType.Riposte)
-            {
-
-                m_TimeWindowManager.ActivateViaRiposte(this);
-                m_BossHittable.RegisterInterject(m_TimeWindowManager);
-
-                return false;
-            }
-            else
-            {
-                if (IsBackAttack(dmg) && !m_OnlyJustStaggered)
-                {
-                    MLog.Log(LogType.BattleLog, 0, "Back Attack! " + this);
-
-                    if (m_TimeWindowManager != null)
-                    {
-                        m_TimeWindowManager.Activate(this);
-                        m_BossHittable.RegisterInterject(m_TimeWindowManager);
-                    }
-                    return false;
-                }
-                else
-                {
-                    m_BlockingBehaviour.Activate(this);
-                    m_BossHittable.RegisterInterject(m_BlockingBehaviour);
-                }
-            }
-
-            return true;
+            return HandleHitDuringCombo(dmg);
         }
+        else
+        {
+           return HandleHitOutsideOfCombo(dmg);
+        }
+    }
 
+    protected virtual bool HandleHitOutsideOfCombo(Damage dmg)
+    {
         if (m_TimeWindowManager != null)
         {
             m_TimeWindowManager.Activate(this);
@@ -204,9 +181,48 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         return false;
     }
 
-    private bool IsBackAttack(Damage dmg)
+    protected virtual bool HandleHitDuringCombo(Damage dmg)
     {
-        float angle = BossTurnCommand.CalculateAngleTowards(this.transform, dmg.m_Owner.transform);
+        CancelComboIfActive();
+
+        if (dmg.m_Type == Damage.DamageType.Riposte)
+        {
+            dmg.OnSuccessfulHit();
+            m_TimeWindowManager.ActivateViaRiposte(this);
+            m_BossHittable.RegisterInterject(m_TimeWindowManager);
+
+            return false;
+        }
+        else
+        {
+            if (IsBackAttack(dmg) && !m_OnlyJustStaggered)
+            {
+                MLog.Log(LogType.BattleLog, 0, "Back Attack! " + this);
+
+                dmg.OnSuccessfulHit();
+
+                if (m_TimeWindowManager != null)
+                {
+                    m_TimeWindowManager.Activate(this);
+                    m_BossHittable.RegisterInterject(m_TimeWindowManager);
+                }
+                return false;
+            }
+            else
+            {
+                dmg.OnBlockDamage();
+
+                m_BlockingBehaviour.Activate(this);
+                m_BossHittable.RegisterInterject(m_BlockingBehaviour);
+            }
+        }
+
+        return true;
+    }
+
+    protected virtual bool IsBackAttack(Damage dmg)
+    {
+        float angle = BossTurnCommand.CalculateAngleTowards(m_BossHittable.transform, dmg.m_Owner.transform);
 
         while (angle < -180)
             angle += 360;
@@ -231,6 +247,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
         CancelComboIfActive();
         StartNextCombo();
+
+        m_IFramesAfterStaggerTimer = InvulnerableAfterStagger();
+        StartCoroutine(m_IFramesAfterStaggerTimer);
     }
 
     public virtual void OnBossStaggerOver()

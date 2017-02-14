@@ -62,4 +62,14 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
             StopCoroutine(m_AttackTimer);
     }
 
+    public override void CancelCombo()
+    {
+        foreach(BossAttack attack in m_Attacks)
+        {
+            attack.CancelAttack();
+        }
+
+
+    }
+
 }

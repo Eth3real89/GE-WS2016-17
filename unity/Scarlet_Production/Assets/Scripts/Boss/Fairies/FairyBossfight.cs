@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FairyBossfight : MonoBehaviour {
+public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
 
     public enum Phase {Phase1, Phase2, Phase3 };
 
@@ -28,15 +29,15 @@ public class FairyBossfight : MonoBehaviour {
         }
         else if (m_StartPhase == Phase.Phase2)
         {
-            PhaseEnd(m_Phase1);
+            OnPhaseEnd(m_Phase1);
         }
         else if (m_StartPhase == Phase.Phase3)
         {
-            PhaseEnd(m_Phase2);
+            OnPhaseEnd(m_Phase2);
         }
     }
 
-    public void PhaseEnd(FairyBossfightPhase whichPhase)
+    public void OnPhaseEnd(FairyBossfightPhase whichPhase)
     {
         if (whichPhase == m_Phase1)
         {
@@ -56,5 +57,9 @@ public class FairyBossfight : MonoBehaviour {
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 3 over " + this);
         }
+    }
+
+    public void OnPhaseStart(FairyBossfightPhase phase)
+    {
     }
 }

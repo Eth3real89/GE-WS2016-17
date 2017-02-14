@@ -13,7 +13,7 @@ public class GrowingConeAttack : GrowingAEAttack {
     public float m_EndSize;
     public float m_GrowTime;
 
-    private IEnumerator m_GrowEnumerator;
+    protected IEnumerator m_GrowEnumerator;
 
     private Material[] m_LineMaterials;
 
@@ -66,6 +66,11 @@ public class GrowingConeAttack : GrowingAEAttack {
             yield return null;
         }
 
+        AfterGrow();
+    }
+
+    protected virtual void AfterGrow()
+    {
         m_Damage.DisableDamage();
         m_AttackVisuals.HideAttack();
 
@@ -76,6 +81,7 @@ public class GrowingConeAttack : GrowingAEAttack {
     {
         base.CancelAttack();
 
+        m_AttackVisuals.HideAttack();
         m_Damage.DisableDamage();
         m_Damage.m_Active = false;
 

@@ -48,6 +48,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         }
         m_InitialTurn.m_TurnSpeed = m_PrevTurnSpeed;
 
+        m_Damage.gameObject.SetActive(true);
         m_Damage.SetAngle(0);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 

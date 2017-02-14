@@ -56,6 +56,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         {
             m_Damage.SetAngle(-m_RotationAngle / 2);
         }
+        m_Damage.gameObject.SetActive(true);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 
         CameraController.Instance.ZoomOut();
@@ -90,8 +91,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 
         EventManager.TriggerEvent(END_EVENT_NAME);
 
+        m_Damage.CancelDamage();
         m_Damage.gameObject.SetActive(false);
-        m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);
         HideLightGuard();
     }
