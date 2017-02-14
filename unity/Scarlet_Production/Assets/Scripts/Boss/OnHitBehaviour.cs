@@ -6,6 +6,7 @@ using UnityEngine;
 public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
     public float[] m_TimeWindowsBeforeBlocks;
+    public float m_RipostedTimeWindow = 1.5f;
 
     public Animator m_Animator;
 
@@ -23,16 +24,35 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
 
     public TurnTowardsScarlet m_TurnCommand;
 
+    private bool m_IsRiposted = false;
+
     public void Activate(BossHitCallbacks callbacks)
     {
+        MLog.Log(LogType.BattleLog, 0, "Activating OnHitBehaviour!");
+
         m_Animator.SetTrigger("StunTrigger");
         m_CurrentHit = 0;
 
         m_Active = true;
         m_IsStaggered = false;
+        m_IsRiposted = false;
         m_Callbacks = callbacks;
 
         m_TimeWindowTimer = QuitAfter(m_TimeWindowsBeforeBlocks[m_CurrentHit]);
+        StartCoroutine(m_TimeWindowTimer);
+    }
+
+    public void ActivateViaRiposte(BossHitCallbacks callbacks)
+    {
+        m_Animator.SetTrigger("RipostedTrigger");
+        m_CurrentHit = 0;
+
+        m_Active = true;
+        m_IsStaggered = false;
+        m_Callbacks = callbacks;
+        m_IsRiposted = true;
+
+        m_TimeWindowTimer = QuitAfter(m_RipostedTimeWindow);
         StartCoroutine(m_TimeWindowTimer);
     }
 
@@ -40,7 +60,7 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
     {
         MLog.Log(LogType.BattleLog, "OnHit, OnHitBehaviour");
 
-        if (!m_Active || m_IsStaggered)
+        if (!m_Active || m_IsStaggered || m_IsRiposted)
             return false;
         
         if (dmg is BulletDamage)

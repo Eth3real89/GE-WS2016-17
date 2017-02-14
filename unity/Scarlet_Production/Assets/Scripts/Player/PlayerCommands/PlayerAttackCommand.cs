@@ -85,6 +85,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
             Hittable hittable = ((m_RiposteTarget == null) ? null : m_RiposteTarget.GetComponent<Hittable>());
             if (hittable != null)
                 hittable.Hit(m_PlayerDamage);
+
             LookAtTarget();
 
             if (m_AttackCallback != null)

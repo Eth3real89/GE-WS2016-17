@@ -23,7 +23,8 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
 
     public void Activate(BossBlockCallback callback)
     {
-        // @todo block stance
+        MLog.Log(LogType.BattleLog, 0, "Activating BlockBehaviour!");
+        m_Animator.SetTrigger("BlockTrigger");
         m_Callback = callback;
 
         m_Active = true;

@@ -218,11 +218,11 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         SlowTime.Instance.StartSlowMo();
 
         m_SlowMoEnumerator = PerfectParryEnumerator();
-
         StartCoroutine(m_SlowMoEnumerator);
 
         CameraController.Instance.ZoomIn();
         DisableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
+        EnableCommand(m_AttackCommand);
     }
 
     private IEnumerator PerfectParryEnumerator()
@@ -238,7 +238,7 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         // (these things need to be enabled, but not necessarily here!)
         if (m_ActiveCommand == null)
             EnableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
-    }
+   }
 
     public void OnBlock()
     {// do nothing special

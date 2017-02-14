@@ -38,15 +38,6 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
         StartCoroutine(m_Timer);
     }
 
-    public override bool OnHit(Damage dmg)
-    {
-        if (dmg is BulletDamage)
-            return false;
-
-        dmg.OnBlockDamage();
-        return true;
-    }
-
     protected virtual IEnumerator MoveOnTimer()
     {
         yield return new WaitForSeconds(m_MoveOnAfter);

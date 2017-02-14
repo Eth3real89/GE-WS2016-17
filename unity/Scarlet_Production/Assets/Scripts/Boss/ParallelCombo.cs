@@ -41,13 +41,6 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
         m_OpenAttacks.Remove(attack);
     }
 
-    public new void OnBlockPlayerAttack(BossAttack attack)
-    {
-        base.OnBlockPlayerAttack(attack);
-        if (m_AttackTimer != null)
-            StopCoroutine(m_AttackTimer);
-    }
-
     public new void OnAttackEndUnsuccessfully(BossAttack attack)
     {
         base.OnAttackEndUnsuccessfully(attack);
@@ -65,13 +58,6 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
     public new void OnAttackParried(BossAttack attack)
     {
         base.OnAttackParried(attack);
-        if (m_AttackTimer != null)
-            StopCoroutine(m_AttackTimer);
-    }
-
-    public new void OnAttackRiposted(BossAttack attack)
-    {
-        base.OnAttackRiposted(attack);
         if (m_AttackTimer != null)
             StopCoroutine(m_AttackTimer);
     }

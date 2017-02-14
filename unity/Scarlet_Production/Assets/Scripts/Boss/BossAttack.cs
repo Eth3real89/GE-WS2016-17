@@ -7,7 +7,9 @@ using UnityEngine;
 /// Generally, attacks are part of a combo and consist of general commands and their own
 /// specific effects / behaviour.
 /// </summary>
-public abstract class BossAttack : MonoBehaviour, HitInterject {
+public abstract class BossAttack : MonoBehaviour {
+
+    public static string ATTACK_START_EVENT = "boss_attack_start";
 
     public static AudioClip m_BlockAudio;
     public static AudioSource m_ParryBlockAudioSource;
@@ -34,45 +36,9 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
     {
         MLog.Log(LogType.BattleLog, 2, "Starting Attack, Attack, " + this);
 
-        m_BossHittable.RegisterInterject(this);
+        EventManager.TriggerEvent(ATTACK_START_EVENT);
+
         m_Callback.OnAttackStart(this);
-    }
-
-    public virtual bool OnHit(Damage dmg)
-    {
-        MLog.Log(LogType.BattleLog, 2, "On Hit, Attack, " + this);
-
-        if (m_FullTurnCommand != null)
-            m_FullTurnCommand.DoTurn();
-        CameraController.Instance.Shake();
-
-        if (dmg is BulletDamage)
-        {
-            dmg.OnSuccessfulHit();
-            return false;
-        }
-
-        if (dmg.m_Type == Damage.DamageType.Riposte)
-        {
-            m_Callback.OnAttackRiposted(this);
-            return false;
-        }
-        if (CheckBlock(dmg))
-        {
-            dmg.OnBlockDamage();
-
-            m_Callback.OnBlockPlayerAttack(this);
-            PlaySound(m_BlockAudio);
-
-            return true;
-        }
-        if (CheckInterrupt(dmg))
-        {
-            m_Callback.OnAttackInterrupted(this);
-            return false;
-        }
-
-        return false;
     }
 
     private void PlaySound(AudioClip clip)
@@ -83,17 +49,6 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
             m_ParryBlockAudioSource.Play();
         }
     }
-
-    private bool CheckInterrupt(Damage dmg)
-    {
-        return CheckIfAttackTypeApplies(dmg, m_TriggerInterrupt);
-    }
-
-    private bool CheckBlock(Damage dmg)
-    {
-        return CheckIfAttackTypeApplies(dmg, m_TriggerBlock);
-    }
-
 
     private bool CheckIfAttackTypeApplies(Damage dmg, PlayerAttackType type)
     {
@@ -119,11 +74,7 @@ public abstract class BossAttack : MonoBehaviour, HitInterject {
 
         void OnAttackInterrupted(BossAttack attack);
 
-        void OnBlockPlayerAttack(BossAttack attack);
-
         void OnAttackParried(BossAttack attack);
-
-        void OnAttackRiposted(BossAttack attack);
     }
 
 }

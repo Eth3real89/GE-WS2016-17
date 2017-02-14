@@ -29,6 +29,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     protected IEnumerator m_ParriedTimer;
 
+    protected bool m_Cancelled;
    
 	protected virtual void Start ()
     {
@@ -45,6 +46,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
     public virtual void LaunchCombo()
     {
+        m_Cancelled = false;
+
         MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
 
         if (m_BlockingBehaviour != null)
@@ -60,7 +63,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Attack Start, Combo, " + this + " " + attack);
 
-        if (m_CurrentAttack != null)
+        if (m_CurrentAttack != null || m_Cancelled)
             attack.CancelAttack();
         else
         {
@@ -81,7 +84,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         {
             m_Callback.OnComboEnd(this);
         }
-        else
+        else if (!m_Cancelled)
         {
             m_AttackTimer = StartNextAttackAfter(m_Attacks[m_CurrentAttackIndex - 1].m_TimeAfterAttack);
             StartCoroutine(m_AttackTimer);
@@ -92,32 +95,16 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         yield return new WaitForSeconds(time);
 
-        if (m_CurrentAttackIndex < m_Attacks.Length)
-            m_Attacks[m_CurrentAttackIndex].StartAttack();
+        if (!m_Cancelled)
+        {
+            if (m_CurrentAttackIndex < m_Attacks.Length)
+                m_Attacks[m_CurrentAttackIndex].StartAttack();
+        }
     }
 
     public virtual void OnAttackEndUnsuccessfully(BossAttack attack)
     {
         OnAttackEnd(attack);
-    }
-
-    public virtual void OnBlockPlayerAttack(BossAttack attack)
-    {
-        MLog.Log(LogType.BattleLog, 1, "Blocked Player Attack, Combo, " + this);
-
-        m_Animator.SetTrigger("BlockTrigger");
-        if (m_MoveCommand != null)
-            m_MoveCommand.StopMoving();
-
-        if (m_AttackTimer != null)
-            StopCoroutine(m_AttackTimer);
-
-        if (m_CurrentAttack != null)
-        {
-            m_CurrentAttack.CancelAttack();
-        }
-
-        m_Callback.OnActivateBlock(this);
     }
 
     public virtual void OnAttackParried(BossAttack attack)
@@ -135,30 +122,16 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         StartCoroutine(m_ParriedTimer);
     }
 
-    public virtual void OnAttackRiposted(BossAttack attack)
-    {
-        MLog.Log(LogType.BattleLog, 1, "Attack was Riposted, Combo, " + this);
-
-        if (m_ParriedTimer != null)
-            StopCoroutine(m_ParriedTimer);
-
-        m_Callback.OnComboRiposted(this);
-
-        m_BossStagger.DoStagger("RipostedTrigger");
-        m_BossHittable.RegisterInterject(null);
-
-        // @todo make method WaitAfterRiposted
-        m_ParriedTimer = WaitAfterParried();
-        StartCoroutine(m_ParriedTimer);
-    }
-
     public virtual void CancelCombo()
     {
         MLog.Log(LogType.BattleLog, 1, "Cancelling Combo, Combo, " + this);
 
+        m_Cancelled = true;
+
         if (m_CurrentAttack != null)
         {
             m_CurrentAttack.CancelAttack();
+            m_CurrentAttack.StopAllCoroutines();
         }
 
         StopAllCoroutines();
@@ -192,9 +165,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         /// </summary>
         /// <param name="combo"></param>
         void OnComboParried(AttackCombo combo);
-        void OnComboRiposted(AttackCombo combo);
 
-        void OnActivateBlock(AttackCombo combo);
         void OnInterruptCombo(AttackCombo combo);
     }
 

@@ -82,6 +82,12 @@ public class WerewolfRagemodeController : BossController
         combo.LaunchCombo();
     }
 
+    public override bool OnHit(Damage dmg)
+    {
+        dmg.OnBlockDamage();
+        return false;
+    }
+
     private void IncreaseAttackCount(AttackCombo combo)
     {
         if (combo == m_HitCombo)

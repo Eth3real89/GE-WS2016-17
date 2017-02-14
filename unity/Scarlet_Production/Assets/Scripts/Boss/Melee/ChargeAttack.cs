@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
+public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     private enum State {None, Aim, Run};
     private State m_State;
@@ -45,8 +45,6 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler, HitInterject {
         m_MoveCommand.m_Speed = m_ChargeSpeed;
 
         m_CarryingScarlet = false;
-
-        m_BossHittable.RegisterInterject(this);
 
         ReferenceColliders();
     }

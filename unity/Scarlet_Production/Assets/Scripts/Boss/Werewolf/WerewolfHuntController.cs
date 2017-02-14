@@ -72,12 +72,6 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
                 if (m_Callbacks != null)
                     m_Callbacks.PhaseEnd(this);
             }
-
-            if (m_BossHealth.m_CurrentHealth < m_BossHealth.m_HealthOld)
-            {
-                m_SuccessfullyRiposted = true;
-                EventManager.StopListening("user_parry", OnUserFirstParry);
-            }
         }
 
         if (m_Active && m_Hunting)
@@ -231,9 +225,31 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         StartCoroutine(m_HuntTimer);
     }
 
-    // doesn't matter at all (JumpAttack will always take care of that)
-    public new bool OnHit(Damage dmg)
+    public override bool OnHit(Damage dmg)
     {
+        if (dmg.m_Type == Damage.DamageType.Riposte)
+        {
+            dmg.OnSuccessfulHit();
+
+            if (!m_SuccessfullyRiposted)
+            {
+                if (m_SlowMoTimer != null)
+                {
+                    StopCoroutine(m_SlowMoTimer);
+                    SlowTime.Instance.StopSlowMo();
+
+                    m_Tutorial.HideTutorial(m_SlowMoAmount);
+                }
+            }
+            m_SuccessfullyRiposted = true;
+            SlowTime.Instance.m_PreventChanges = false;
+            EventManager.StopListening("user_parry", OnUserFirstParry);
+
+            if (m_HuntTimer != null)
+                StopCoroutine(m_HuntTimer);
+            return false;
+        }
+
         dmg.OnBlockDamage();
         return true;
     }
@@ -268,25 +284,6 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
             SlowTime.Instance.m_PreventChanges = true;
 
             m_Tutorial.ShowTutorial("Y", "Riposte", m_SlowMoAmount);
-        }
-
-        if (m_HuntTimer == null)
-            StopCoroutine(m_HuntTimer);
-    }
-
-    public override void OnComboRiposted(AttackCombo combo)
-    {
-        base.OnComboRiposted(combo);
-        if (!m_SuccessfullyRiposted)
-        {
-            if (m_SlowMoTimer != null)
-            {
-                StopCoroutine(m_SlowMoTimer);
-                SlowTime.Instance.m_PreventChanges = false;
-                SlowTime.Instance.StopSlowMo();
-
-                m_Tutorial.HideTutorial(m_SlowMoAmount);
-            }
         }
 
         if (m_HuntTimer == null)
