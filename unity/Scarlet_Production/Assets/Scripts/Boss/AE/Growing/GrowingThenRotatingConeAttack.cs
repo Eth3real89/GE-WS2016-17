@@ -13,7 +13,7 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
 
     protected override IEnumerator Grow()
     {
-        if (m_TakeOverCone)
+        if (m_TakeOverCone && m_AttackVisuals.m_Angle != 0)
         {
             yield return AdjustCone();
         }
