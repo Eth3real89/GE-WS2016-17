@@ -35,6 +35,9 @@ public class CircularAttackDamage : AEAttackDamage {
 
     protected virtual bool WithinAngleBounds(float angles)
     {
+        if (m_Angle == 0)
+            return false;
+
         float angle = BossTurnCommand.CalculateAngleTowards(transform, m_TurnTowardsScarlet.m_Scarlet.transform);
 
         if (transform.rotation.eulerAngles.y < 0)

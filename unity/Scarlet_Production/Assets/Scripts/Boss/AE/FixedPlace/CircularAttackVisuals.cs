@@ -21,6 +21,12 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
     {
         base.ShowAttack();
 
+        if (m_Angle == 0)
+        {
+            m_Lines = new GameObject[0];
+            return;
+        }
+            
         CreateLines();
     }
 
@@ -55,6 +61,19 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         }
     }
 
+    public void UpdateLines()
+    {
+        if (m_VolumetricLinePrefab == null)
+            return;
+
+        m_NumPoints = Mathf.Max(15, (int)(m_Angle / 10));
+
+        for (int i = 1; i < m_Lines.Length; i++)
+        {
+            UpdateSingleLine(i, m_Lines.Length);
+        }
+    }
+
     public GameObject[] GetLines()
     {
         return m_Lines;
@@ -85,6 +104,22 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         return line;
     }
 
+    private void UpdateSingleLine(int index, int numLines)
+    {
+        VolumetricLines.VolumetricLineStripBehavior behavior = m_Lines[index].GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
+
+        float angleStep = m_Angle / m_NumPoints;
+        Vector3[] vertices = new Vector3[m_NumPoints];
+
+        for (int i = 0; i < m_NumPoints; i++)
+        {
+            vertices[i] = CalculateLinePoint(index, i, angleStep, numLines);
+        }
+
+        behavior.UpdateLineVertices(vertices);
+    }
+
+    
     private Vector3 CalculateLinePoint(int lineIndex, int pointIndex, float angleStep, int numLines)
     {
         float distance = lineIndex / (float) numLines * m_Size / 2;

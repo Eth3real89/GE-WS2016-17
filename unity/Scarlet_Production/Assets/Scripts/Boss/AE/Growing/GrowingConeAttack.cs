@@ -14,24 +14,24 @@ public class GrowingConeAttack : GrowingAEAttack {
     public float m_GrowTime;
 
     protected IEnumerator m_GrowEnumerator;
+    protected Material[] m_LineMaterials;
 
-    private Material[] m_LineMaterials;
+    public bool m_LeaveCone = false;
 
     public override void StartAttack()
     {
         base.StartAttack();
-
-        m_AttackVisuals.m_Angle = m_Angle;
-        
-        m_Damage.m_Angle = m_Angle;
 
         m_GrowEnumerator = Grow();
         StartCoroutine(m_GrowEnumerator);
     }
 
 
-    private IEnumerator Grow()
+    protected virtual IEnumerator Grow()
     {
+        m_AttackVisuals.m_Angle = m_Angle;
+        m_Damage.m_Angle = m_Angle;
+
         m_AttackVisuals.m_SetFixedNumLines = true;
         m_AttackVisuals.m_FixedNumLines = 30;
 
@@ -71,6 +71,12 @@ public class GrowingConeAttack : GrowingAEAttack {
 
     protected virtual void AfterGrow()
     {
+        if (m_LeaveCone)
+        {
+            m_Callback.OnAttackEnd(this);
+            return;
+        }
+
         m_Damage.DisableDamage();
         m_AttackVisuals.HideAttack();
 
