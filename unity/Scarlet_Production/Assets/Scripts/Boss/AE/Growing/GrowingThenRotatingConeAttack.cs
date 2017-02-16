@@ -13,7 +13,7 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
 
     protected override IEnumerator Grow()
     {
-        if (m_TakeOverCone && m_AttackVisuals.m_Angle != 0)
+        if (m_TakeOverCone && m_AttackVisuals.GetAngle() != 0)
         {
             yield return AdjustCone();
         }
@@ -23,22 +23,20 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
         }
     }
 
-    private IEnumerator AdjustCone()
+    protected IEnumerator AdjustCone()
     {
-        float initialAngle = m_AttackVisuals.m_Angle;
+        float initialAngle = m_AttackVisuals.GetAngle();
 
         if (initialAngle == 0 && m_Angle != 0)
         {
             initialAngle = 1f;
-            m_AttackVisuals.m_Angle = initialAngle;
+            m_AttackVisuals.SetAngle(initialAngle);
 
-            m_AttackVisuals.transform.localScale = new Vector3(1, 0, 1) * m_EndSize;
+            m_AttackVisuals.ScaleTo(new Vector3(1, 0, 1) * m_EndSize);
             m_Damage.m_Distance = m_EndSize;
 
             m_AttackVisuals.ShowAttack();
             yield return null;
-
-            NormalizeLines();
         }
 
         float t = 0;
@@ -47,8 +45,8 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
             if (initialAngle != 0)
             {
                 float angle = Mathf.Lerp(initialAngle, m_Angle, t / m_GrowTime);
-                m_AttackVisuals.m_Angle = angle;
-                m_AttackVisuals.UpdateLines();
+                m_AttackVisuals.SetAngle(angle);
+                m_AttackVisuals.UpdateVisuals();
                 m_Damage.m_Angle = m_Angle;
             }
 
@@ -60,27 +58,10 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
             m_AttackVisuals.HideAttack();
         }
 
-        m_AttackVisuals.m_Angle = m_Angle;
+        m_AttackVisuals.SetAngle(m_Angle);
         m_Damage.m_Angle = m_Angle;
 
         AfterGrow();
-    }
-
-    private void NormalizeLines()
-    {
-        GameObject[] lines = m_AttackVisuals.GetLines();
-        m_LineMaterials = new Material[lines.Length];
-        for (int i = 0; i < lines.Length; i++)
-        {
-            m_LineMaterials[i] = lines[i].GetComponent<MeshRenderer>().material;
-        }
-        int id = Shader.PropertyToID("_LineWidth");
-        int id2 = Shader.PropertyToID("_LineScale");
-
-        for (int i = 0; i < m_LineMaterials.Length; i++)
-        {
-            m_LineMaterials[i].SetFloat(id, 1 / m_LineMaterials[i].GetFloat(id2));
-        }
     }
 
     protected override void AfterGrow()
