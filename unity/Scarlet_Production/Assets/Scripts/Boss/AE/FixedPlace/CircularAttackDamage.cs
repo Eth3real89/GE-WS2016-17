@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class CircularAttackDamage : AEAttackDamage {
@@ -7,6 +8,8 @@ public class CircularAttackDamage : AEAttackDamage {
 
     public float m_Angle;
     public float m_Distance;
+
+    public float m_MinDistance = 0;
 
     public override void Activate()
     {
@@ -20,7 +23,7 @@ public class CircularAttackDamage : AEAttackDamage {
         while (m_Active)
         {
             if (WithinAngleBounds(m_Angle) && 
-                Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position) <= m_Distance / 2)
+                WithinDistanceBounds())
             {
                 Hittable hittable = m_TurnTowardsScarlet.m_Scarlet.GetComponentInChildren<Hittable>();
                 if (hittable != null)
@@ -31,6 +34,14 @@ public class CircularAttackDamage : AEAttackDamage {
 
             yield return null;
         }
+    }
+
+    private bool WithinDistanceBounds()
+    {
+        float dist = Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position);
+
+        return dist <= m_Distance / 2 &&
+               dist >= m_MinDistance / 2;
     }
 
     protected virtual bool WithinAngleBounds(float angles)

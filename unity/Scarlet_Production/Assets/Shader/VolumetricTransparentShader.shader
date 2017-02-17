@@ -21,6 +21,8 @@ Shader "Custom/VolumetricTransparent" {
         _LineWidth ("Line Width", Range(0.01, 100)) = 1.0
         _LineScale ("Line Scale", Float) = 1.0
         _LightSaberFactor ("LightSaberFactor", Range(0.0, 1.0)) = 0.9
+
+		_CutUpTo("Cut Up To", Range(0.0, 1.0)) = 0.0
     }
     SubShader {
         Tags { "RenderType"="Geometry" "Queue" = "Transparent" }
@@ -48,6 +50,7 @@ Shader "Custom/VolumetricTransparent" {
             float _LineWidth;
             float _LineScale;
             float _LightSaberFactor;
+			float _CutUpTo;
 			float _CAMERA_FOV = 60.0f;
  
             struct a2v
@@ -87,17 +90,14 @@ Shader "Custom/VolumetricTransparent" {
             float4 frag(v2f i) : COLOR
             {
                 float4 tx = tex2D (_MainTex, i.uv);
-                         
+                
+				float dist = (i.uv.x - 0.5) * (i.uv.x - 0.5) + (i.uv.y - 0.5) * (i.uv.y - 0.5);
+				if (dist <= _CutUpTo * _CutUpTo)
+				{
+					return float4(0.0, 0.0, 0.0, 0.0);
+				}
+
 				return tx * _Color;
-				
-                /*if (tx.a > _LightSaberFactor)
-                {
-                	return 0.3 * tx * _Color + 0.7 * float4(1.0, 1.0, 1.0, tx.a);
-                }
-                else 
-                {
-					return tx * _Color;
-				}*/
             }
  
             ENDCG

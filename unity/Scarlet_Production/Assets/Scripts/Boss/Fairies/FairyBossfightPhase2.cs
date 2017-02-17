@@ -19,6 +19,9 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
     {
         EndCombo();
 
+        m_AEFairyController.StopAllCoroutines();
+        m_ArmorFairyController.StopAllCoroutines();
+
         m_Active = false;
         m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
 

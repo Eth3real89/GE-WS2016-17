@@ -19,6 +19,13 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     public bool m_FlickerOut = false;
 
+    public float m_MinDistance = 0;
+
+    /// <summary>
+    /// how long flicker out lasts relative to flicker in.
+    /// </summary>
+    public float m_FadeInOutRatio = 4f;
+
     protected Color m_LastColor;
 
     protected override IEnumerator Grow()
@@ -27,16 +34,23 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         m_Damage.m_Angle = m_Angle;
 
         m_Damage.m_Distance = m_EndSize;
+        m_Damage.m_MinDistance = m_MinDistance;
+
         m_AttackVisuals.SetRadius(m_EndSize);
         m_AttackVisuals.ShowAttack();
 
+
         int colorId = Shader.PropertyToID("_Color");
+        Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
+        m_AttackVisualsContainer.GetComponentInChildren<Image>().material = Instantiate(m);
+
+        m_AttackVisualsContainer.GetComponentInChildren<Image>().material.SetFloat(Shader.PropertyToID("_CutUpTo"), m_MinDistance / m_EndSize * .25f);
 
         float t = 0;
         while ((t += Time.deltaTime) < m_GrowTime)
         {
 
-            Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
+            m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
             float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_GrowTime * (m_FlickerTimesSetup + 0.5f) * 180 * Mathf.Deg2Rad));
             m.SetColor(colorId, Color.Lerp(m_FlickerFromColorSetup, m_FlickerToColorSetup, colorDeterminer));
 
@@ -101,10 +115,10 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         int colorId = Shader.PropertyToID("_Color");
 
         float t = 0;
-        while ((t += Time.deltaTime) < m_GrowTime / 2)
+        while ((t += Time.deltaTime) < m_GrowTime / m_FadeInOutRatio)
         {
             Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
-            m.SetColor(colorId, Color.Lerp(m_FlickerToColorSetup, Color.black, t / (m_GrowTime / 2)));
+            m.SetColor(colorId, Color.Lerp(m_FlickerToColorSetup, Color.black, t / (m_GrowTime / m_FadeInOutRatio)));
 
             yield return null;
         }
