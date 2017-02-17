@@ -1,9 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ArmorFairyController : FairyController {
 
+    public ArmorFairyParryDamage m_ParryDamage;
+
+    public override void Initialize(FairyControllerCallbacks callbacks)
+    {
+        base.Initialize(callbacks);
+    }
 
     protected override bool HandleHitOutsideOfCombo(Damage dmg)
     {
@@ -34,4 +41,19 @@ public class ArmorFairyController : FairyController {
         }
     }
 
+    public override void OnBossParries()
+    {
+        CancelComboIfActive();
+
+        MLog.Log(LogType.FairyLog, 1, "Boss Parries: Armor " + this);
+
+        Hittable hittable = m_Scarlet.GetComponent<Hittable>();
+        if (hittable != null)
+        {
+            hittable.Hit(m_ParryDamage);
+        }
+
+        m_NextComboTimer = StartNextComboAfter(1f);
+        StartCoroutine(m_NextComboTimer);
+    }
 }

@@ -130,14 +130,14 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
     }
 
-    public void OnBossParries()
+    public virtual void OnBossParries()
     {
         MLog.Log(LogType.BattleLog, "On Boss Parries, Controller");
         CancelComboIfActive();
         StartNextCombo();
     }
 
-    public void OnBlockingOver()
+    public virtual void OnBlockingOver()
     {
         MLog.Log(LogType.BattleLog, "On Blocking Over, Controller");
         CancelComboIfActive();

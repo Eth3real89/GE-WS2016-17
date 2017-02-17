@@ -6,6 +6,8 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
 
     public CharacterHealth m_ArmorHealth;
 
+    public Animator m_ArmorAnimator;
+
     protected override void Update()
     {
         if (!m_Active)
@@ -23,7 +25,14 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
         m_ArmorFairyController.StopAllCoroutines();
 
         m_Active = false;
-        m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
+        StartCoroutine(PlayArmorDeath());
+    }
+
+    protected virtual IEnumerator PlayArmorDeath()
+    {
+        m_ArmorAnimator.SetTrigger("DeathTriggerFront");
+
+        yield return new WaitForSeconds(2f);
 
         base.EndPhase();
     }
