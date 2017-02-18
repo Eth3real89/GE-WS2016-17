@@ -613,12 +613,12 @@ public class EnviroSky : MonoBehaviour
 		RenderSettings.fogMode = Fog.Fogmode;
 
 		// Setup Skybox Material
-		RenderSettings.skybox = Components.sky;
-		RenderSettings.ambientMode = Lighting.ambientMode;
+		// RenderSettings.skybox = Components.sky;
+		// RenderSettings.ambientMode = Lighting.ambientMode;
 		// Setup Camera
-		if(PlayerCamera != null)
-			PlayerCamera.clearFlags = CameraClearFlags.Skybox;
-
+		//if(PlayerCamera != null)
+		//	PlayerCamera.clearFlags = CameraClearFlags.Skybox;
+        
 		InitClouds ();
 
 		if (Components.Sun)
@@ -1047,7 +1047,6 @@ public class EnviroSky : MonoBehaviour
         UpdateTime();
 		ValidateParameters();
 		UpdateQuality ();
-		UpdateAmbientLight ();
 		UpdateWeather ();
 
 		if(EffectsHolder != null)
@@ -1105,7 +1104,6 @@ public class EnviroSky : MonoBehaviour
 
         // Update sun and fog color according to the new position of the sun
 		SetupSunAndMoonColor(coord);
-		SetupShader(coord);
 
 		if (PlayerCamera != null)
         {
