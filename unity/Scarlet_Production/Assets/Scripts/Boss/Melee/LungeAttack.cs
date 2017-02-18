@@ -22,6 +22,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     public float m_TrackTime = 4f;
     public float m_HesitateTime = 0.1f;
     public float m_TimeAfterLand = 0.5f;
+    public float m_MaxDistance = 9999f;
     public bool m_DamageInAir = false;
 
     private enum State {None, Aim, Jump, Land};
@@ -65,8 +66,18 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
             yield return null;
         }
 
-        m_StateTimer = JumpAtTarget();
-        StartCoroutine(m_StateTimer);
+        float dist = Vector3.Distance(this.transform.position, m_Scarlet.transform.position);
+
+        if (dist > m_MaxDistance)
+        {
+            m_Animator.SetTrigger("UprightTrigger");
+            m_Callback.OnAttackEnd(this);
+        }
+        else
+        {
+            m_StateTimer = JumpAtTarget();
+            StartCoroutine(m_StateTimer);
+        }
     }
 
     private void UpdateLungeTarget(float deltaTime)
