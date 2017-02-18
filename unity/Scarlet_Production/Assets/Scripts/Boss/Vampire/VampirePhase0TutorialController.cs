@@ -25,10 +25,6 @@ public class VampirePhase0TutorialController : VampireController {
     private IEnumerator m_TutorialEnumerator;
     private IEnumerator m_PhaseEndEnumerator;
 
-    private bool m_FirstDamageToBoss = false;
-
-    private float m_HealthAtStartOfTutorial;
-
     private bool m_AllowHit;
 
     private int m_HitCount;
@@ -81,7 +77,6 @@ public class VampirePhase0TutorialController : VampireController {
             StopCoroutine(m_TutorialEnumerator);
 
         base.OnComboStart(combo);
-        m_HealthAtStartOfTutorial = GetScarletHealth();
 
         m_TutorialEnumerator = null;
 
@@ -105,8 +100,6 @@ public class VampirePhase0TutorialController : VampireController {
     public override void OnComboEnd(AttackCombo combo)
     {
         m_ActiveCombo = null;
-
-        float health = GetScarletHealth();
 
         if (m_TutorialEnumerator != null)
             StopCoroutine(m_TutorialEnumerator);

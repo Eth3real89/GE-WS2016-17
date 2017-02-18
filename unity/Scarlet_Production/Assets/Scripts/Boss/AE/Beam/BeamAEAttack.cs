@@ -23,6 +23,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     public bool m_InitiallyAimAtScarlet = false;
     public bool m_DoNotTurnBoss = false;
 
+    public bool m_PerfectTrackingAtStart = true;
+
     private float m_PrevTurnSpeed;
 
     private IEnumerator m_ExpansionEnumerator;
@@ -31,10 +33,13 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     {
         base.StartAttack();
 
-        m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
-        m_InitialTurn.m_TurnSpeed = 9999;
-        m_InitialTurn.DoTurn();
-        m_InitialTurn.m_TurnSpeed = m_InitialTurnTrackSpeed;
+        if (m_PerfectTrackingAtStart)
+        {
+            m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
+            m_InitialTurn.m_TurnSpeed = 9999;
+            m_InitialTurn.DoTurn();
+            m_InitialTurn.m_TurnSpeed = m_InitialTurnTrackSpeed;
+        }
 
         EventManager.TriggerEvent(START_EVENT_NAME);
 

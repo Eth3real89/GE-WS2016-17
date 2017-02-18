@@ -74,7 +74,14 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         float t = 0;
         while ((t += Time.deltaTime) < m_RotationTime)
         {
-            m_Boss.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            if (m_DontRotateBoss)
+            {
+                m_Damage.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            }
+            else
+            {
+                m_Boss.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            }
 
             Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
             float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_RotationTime * (m_FlickerTimesAttack + 0.5f) * 180 * Mathf.Deg2Rad));

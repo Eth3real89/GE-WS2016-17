@@ -10,6 +10,7 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
     public float m_RotationAngle = 360;
 
     public bool m_TakeOverCone;
+    public bool m_DontRotateBoss = false;
 
     protected override IEnumerator Grow()
     {
@@ -75,7 +76,15 @@ public class GrowingThenRotatingConeAttack : GrowingConeAttack
         float t = 0;
         while((t += Time.deltaTime) < m_RotationTime)
         {
-            m_Boss.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            if (m_DontRotateBoss)
+            {
+                m_Damage.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            }
+            else
+            {
+                m_Boss.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
+            }
+
             yield return null;
         }
 
