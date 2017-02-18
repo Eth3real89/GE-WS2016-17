@@ -9,12 +9,24 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
     public AudioSource m_OnHitAudio;
 
-    private HitInterject m_Interject;
+    protected HitInterject m_Interject;
+
+    public float m_InvulerableSecondsAfterHit = 0.5f;
+    protected IEnumerator m_InvulernabilityEnumerator;
+    protected bool m_Invulnerable;
+
+    protected virtual void Start()
+    {
+        m_Invulnerable = false;
+    }
 
     public void Hit(Damage damage)
     {
         if (m_Interject == null || !m_Interject.OnHit(damage))
         {
+            if (m_Invulnerable)
+                return;
+
             m_Health.m_CurrentHealth -= damage.DamageAmount();
             damage.OnSuccessfulHit();
 
@@ -22,6 +34,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
                 m_OnHitAudio.Play();
 
             CameraController.Instance.Shake();
+
+            m_InvulernabilityEnumerator = GrantInvulnerability();
+            StartCoroutine(m_InvulernabilityEnumerator);
         }
     }
 
@@ -33,5 +48,12 @@ public class PlayerHittable : MonoBehaviour, Hittable {
     public HitInterject GetInterject()
     {
         return m_Interject;
+    }
+
+    private IEnumerator GrantInvulnerability()
+    {
+        m_Invulnerable = true;
+        yield return new WaitForSeconds(m_InvulerableSecondsAfterHit);
+        m_Invulnerable = false;
     }
 }

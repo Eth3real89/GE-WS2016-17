@@ -67,7 +67,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         if (!m_Active)
             return;
 
-        if (m_ArmorHealth.m_CurrentHealth < 0)
+        if (m_ArmorHealth.m_CurrentHealth <= 0)
             EndPhase();
     }
 
