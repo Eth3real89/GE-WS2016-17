@@ -24,8 +24,15 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
         m_CurrentAttackIndex++;
         if (m_Attacks.Length > m_CurrentAttackIndex)
         {
-            m_AttackTimer = StartNextAttackAfter(m_WaitTimes[m_CurrentAttackIndex - 1]);
-            StartCoroutine(m_AttackTimer);
+            if (m_WaitTimes[m_CurrentAttackIndex - 1] <= 0)
+            {
+                m_Attacks[m_CurrentAttackIndex].StartAttack();
+            }
+            else
+            {
+                m_AttackTimer = StartNextAttackAfter(m_WaitTimes[m_CurrentAttackIndex - 1]);
+                StartCoroutine(m_AttackTimer);
+            }
         }
 
         m_OpenAttacks.Add(attack);

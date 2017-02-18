@@ -34,11 +34,10 @@ public abstract class BossAttack : MonoBehaviour {
 
     public virtual void StartAttack()
     {
+        m_Callback.OnAttackStart(this);
         MLog.Log(LogType.BattleLog, 2, "Starting Attack, Attack, " + this);
 
         EventManager.TriggerEvent(ATTACK_START_EVENT);
-
-        m_Callback.OnAttackStart(this);
     }
 
     private void PlaySound(AudioClip clip)

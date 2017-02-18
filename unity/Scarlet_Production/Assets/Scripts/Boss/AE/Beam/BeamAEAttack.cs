@@ -21,6 +21,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     public float m_TurnTime = 2f;
 
     public bool m_InitiallyAimAtScarlet = false;
+    public bool m_DoNotTurnBoss = false;
 
     private float m_PrevTurnSpeed;
 
@@ -99,6 +100,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 
     public virtual void OnRotation(BeamAEDamage damage, float angle)
     {
-        m_Boss.transform.rotation = Quaternion.Euler(0, angle, 0);
+        if (!m_DoNotTurnBoss)
+            m_Boss.transform.rotation = Quaternion.Euler(0, angle, 0);
     }
 }
