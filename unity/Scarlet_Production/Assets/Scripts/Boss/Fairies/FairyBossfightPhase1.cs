@@ -39,6 +39,10 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_Shield.gameObject.SetActive(true);
         m_Sword.gameObject.SetActive(true);
 
+        MakeSwordAndShieldShiny(true);
+
+        yield return new WaitForEndOfFrame();
+
         m_ArmorAnimator.SetTrigger("EquipSwordShieldTrigger");
 
         float t = 0;
@@ -54,12 +58,26 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_Sword.transform.localScale = prefScaleSword;
 
         yield return new WaitForSeconds(0.5f);
+
+        MakeSwordAndShieldShiny(false);
+
         m_AEFairyController.ExpandLightGuard();
         m_PlayerControls.EnableAllCommands();
 
         yield return new WaitForSeconds(m_AEFairyController.m_LightGuard.m_ExpandLightGuardTime);
 
         StartCombo();
+    }
+
+    private void MakeSwordAndShieldShiny(bool v)
+    {
+        Renderer swordRenderer = m_Sword.GetComponent<Renderer>();
+        swordRenderer.material.SetColor("_EmissionColor", v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+        Renderer shieldRenderer = m_Shield.GetComponent<Renderer>();
+        shieldRenderer.material.SetColor("_EmissionColor", v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+
+        DynamicGI.UpdateMaterials(shieldRenderer);
+        DynamicGI.UpdateMaterials(swordRenderer);
     }
 
     protected override void Update()

@@ -66,6 +66,7 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
             yield return null;
         }
 
+        m_ArmorAnimator.SetBool("Dead", false);
         m_ArmorAnimator.SetTrigger("ReanimationTrigger");
 
         float reanimateTime = 2f;

@@ -7,6 +7,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public GameObject m_Scarlet;
 
+    public bool m_NotDeactivated = true;
+
     /// <summary>
     /// 
     /// </summary>
@@ -70,6 +72,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         {
             m_Combos[0].LaunchCombo();
         }
+
+        m_NotDeactivated = true;
     }
 
     public virtual void OnComboStart(AttackCombo combo)
@@ -109,6 +113,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     protected virtual void StartNextCombo()
     {
+        if (!m_NotDeactivated)
+            return;
+
         m_BossHittable.RegisterInterject(this);
         m_CurrentComboIndex++;
         if (m_CurrentComboIndex >= m_Combos.Length)
@@ -138,6 +145,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
+        if (!m_NotDeactivated)
+            return;
         StartNextCombo();
     }
 
@@ -149,12 +158,16 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
+        if (!m_NotDeactivated)
+            return;
         StartNextCombo();
     }
 
     public virtual bool OnHit(Damage dmg)
     {
         MLog.Log(LogType.BattleLog, "On Hit, Controller");
+        if (!m_NotDeactivated)
+            return true;
 
         if (dmg is BulletDamage)
         {
@@ -254,10 +267,12 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
-
         CancelComboIfActive();
-        StartNextCombo();
 
+        if (!m_NotDeactivated)
+            return;
+
+        StartNextCombo();
         m_IFramesAfterStaggerTimer = InvulnerableAfterStagger();
         StartCoroutine(m_IFramesAfterStaggerTimer);
     }
@@ -270,10 +285,12 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
-
         CancelComboIfActive();
-        StartNextCombo();
 
+        if (!m_NotDeactivated)
+            return;
+
+        StartNextCombo();
         m_IFramesAfterStaggerTimer = InvulnerableAfterStagger();
         StartCoroutine(m_IFramesAfterStaggerTimer);
     }
@@ -301,6 +318,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
             m_ActiveCombo.CancelCombo();
 
         m_ActiveCombo = null;
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
     }
 
     protected void OnAttackStart()

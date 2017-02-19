@@ -10,6 +10,8 @@ public class ArmorFairyController : FairyController {
     public override void Initialize(FairyControllerCallbacks callbacks)
     {
         base.Initialize(callbacks);
+
+        m_NotDeactivated = true;
     }
 
     protected override bool HandleHitOutsideOfCombo(Damage dmg)

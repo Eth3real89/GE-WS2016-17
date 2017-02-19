@@ -26,6 +26,8 @@ public class AEFairyController : FairyController
                 }
             }
         }
+
+        m_NotDeactivated = true;
     }
 
     public virtual void ExpandLightGuard()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +55,8 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         Vector3 prefScaleBigSword = new Vector3(m_BigSword.transform.localScale.x, m_BigSword.transform.localScale.y, m_BigSword.transform.localScale.z);
         m_BigSword.transform.localScale = new Vector3(0, 0, 0);
 
+        MakeSwordShiny(true);
+
         t = 0;
         equipTime = 2f;
         while ((t += Time.deltaTime) < equipTime)
@@ -64,10 +67,19 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
         yield return new WaitForSeconds(0.5f);
 
+        MakeSwordShiny(false);
+
         m_PlayerControls.EnableAllCommands();
 
         yield return new WaitForSeconds(0.5f);
         StartCombo();
+    }
+
+    private void MakeSwordShiny(bool v)
+    {
+        Renderer swordRenderer = m_BigSword.GetComponent<Renderer>();
+        swordRenderer.material.SetColor("_EmissionColor", v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+        DynamicGI.UpdateMaterials(swordRenderer);
     }
 
     public override void StartCombo()
@@ -100,7 +112,8 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
     }
 
     protected virtual IEnumerator Die()
-    { 
+    {
+        m_ArmorAnimator.SetBool("Dead", true);
         m_ArmorAnimator.SetTrigger("DeathTriggerBack");
         m_ArmorFairyController.m_BossHittable.RegisterInterject(null);
         yield return new WaitForSeconds(1f);

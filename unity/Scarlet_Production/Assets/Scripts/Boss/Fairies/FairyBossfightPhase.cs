@@ -33,6 +33,12 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
     protected virtual void EndPhase()
     {
         m_Callback.OnPhaseEnd(this);
+
+        if (m_AEFairyController != null)
+            m_AEFairyController.m_NotDeactivated = false;
+
+        if (m_ArmorFairyController != null)
+            m_ArmorFairyController.m_NotDeactivated = false;
     }
 
     public virtual void StartCombo()

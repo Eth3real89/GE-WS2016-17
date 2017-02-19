@@ -5,7 +5,7 @@ using UnityEngine;
 public class MLog : MonoBehaviour {
 
     // same order in which they appear in LogType
-    private static bool[] s_EnabledTypes = {false, true, false, true, true, false, true};
+    private static bool[] s_EnabledTypes = {false, true, false, true, false, false, false };
 
     public static bool m_LogTime = true;
 
