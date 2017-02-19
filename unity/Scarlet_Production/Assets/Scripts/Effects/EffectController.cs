@@ -6,6 +6,7 @@ public class EffectController : GenericSingletonClass<EffectController>
 {
     public LensFlare m_MoonFlare;
     public Bloom m_Bloom;
+    public MorePPEffects.Dreamy m_Dreamy;
 
     private Bloom.Settings m_DefaultBloomSettings;
     private Coroutine m_CurrentCoroutine;
@@ -50,7 +51,13 @@ public class EffectController : GenericSingletonClass<EffectController>
     public void Empowered()
     {
         StopCurrentCoroutine();
-        StartCoroutine(EmpoweredPeak());
+        m_CurrentCoroutine = StartCoroutine(EmpoweredPeak());
+    }
+
+    public void SwitchWorld(WorldSwitcher.SwitchWorldCallback callback)
+    {
+        StopCurrentCoroutine();
+        m_CurrentCoroutine = StartCoroutine(SwitchWorldEffect(callback));
     }
 
     IEnumerator FadeBloom(float intensity, float radius, float time)
@@ -83,6 +90,28 @@ public class EffectController : GenericSingletonClass<EffectController>
         while (m_MoonFlare.brightness != defaultFlareInt)
         {
             m_MoonFlare.brightness = Mathf.Lerp(maxFlareInt, defaultFlareInt, m_LerpTimer.GetLerpProgress());
+            yield return null;
+        }
+    }
+
+    IEnumerator SwitchWorldEffect(WorldSwitcher.SwitchWorldCallback callback)
+    {
+        float maxDreamyEffect = 10;
+        float defaultFlareInt = m_MoonFlare.brightness;
+        m_LerpTimer.Start(1f);
+
+        while (m_Dreamy.strength != maxDreamyEffect)
+        {
+            m_Dreamy.strength = Mathf.Lerp(0, maxDreamyEffect, m_LerpTimer.GetLerpProgress());
+            yield return null;
+        }
+        callback();
+        yield return new WaitForSeconds(0.25f);
+
+        m_LerpTimer.Start(1f);
+        while (m_Dreamy.strength != 0)
+        {
+            m_Dreamy.strength = Mathf.Lerp(maxDreamyEffect, 0, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
     }

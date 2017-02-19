@@ -44,8 +44,6 @@ Shader "MorePPEffects/Dreamy" {
 		result += tex2D(_MainTex, i.uv - 0.007f * strength);
 		result += tex2D(_MainTex, i.uv - 0.009f * strength);
 		result += tex2D(_MainTex, i.uv - 0.011f * strength);
-		 
-		result.rgb = (float3)((result.r + result.g + result.b) / 3.0f);
 		result = result / 8.5f;
 		return result;
 	}
