@@ -20,7 +20,7 @@ public class FairyController : BossController {
 
     public override void OnComboEnd(AttackCombo combo)
     {
-        MLog.Log(LogType.FairyLog, 1, "Combo End, Armor Fairy Controller, " + combo);
+        MLog.Log(LogType.FairyLog, 1, "Combo End, Fairy Controller, " + combo);
 
         m_ActiveCombo = null;
 

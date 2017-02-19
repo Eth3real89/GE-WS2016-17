@@ -41,6 +41,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
 
     protected virtual IEnumerator PlayArmorDeath()
     {
+        m_ArmorAnimator.SetBool("Dead", true);
         m_ArmorAnimator.SetTrigger("DeathTriggerFront");
         m_ArmorFairyController.m_BossHittable.RegisterInterject(null);
         yield return new WaitForSeconds(2f);

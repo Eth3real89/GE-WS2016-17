@@ -28,6 +28,9 @@ public class GroundControl : MonoBehaviour
 
     void Update()
     {
+        if (LevelManager.Instance.m_ControlMode == LevelManager.ControlMode.Combat)
+            return;
+
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, m_GroundCheckThreshold))
         {
