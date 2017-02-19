@@ -13,6 +13,11 @@ public class BossJumpCommand : BossCommand {
 
     public AudioSource m_JumpAudio;
 
+    /// <summary>
+    /// Because of, frankly, odd requirements...
+    /// </summary>
+    public bool m_DoNotActuallyMove = false;
+
     public void JumpAt(Transform target, JumpCallback callback = null)
     {
         float jumpTime = 0f;
@@ -20,6 +25,11 @@ public class BossJumpCommand : BossCommand {
         Vector3 force = CalculateRequiredForce(m_Boss.transform, target, ref jumpTime);
         m_Animator.SetTrigger("JumpTrigger");
 
+        if (m_DoNotActuallyMove)
+        {
+            force.x = 0;
+            force.z = 0;
+        }
 
         m_Boss.GetComponentInChildren<Rigidbody>().AddForce(
             force * m_Boss.GetComponentInChildren<Rigidbody>().mass,

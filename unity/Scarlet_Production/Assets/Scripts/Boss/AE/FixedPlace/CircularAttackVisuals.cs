@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircularAttackVisuals : FixedPlaceAttackVisuals {
+public class CircularAttackVisuals : FixedPlaceAttackVisuals, GrowingConeAttackVisuals {
 
     public GameObject m_VolumetricLinePrefab;
 
-    private GameObject[] m_Lines;
+    protected GameObject[] m_Lines;
+    protected Material[] m_LineMaterials;
 
     public float m_Size;
     public float m_Angle;
@@ -17,9 +18,15 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
 
     private int m_NumPoints;
 
+    protected int m_LineWidthId;
+    protected int m_LineScaleId;
+
     public override void ShowAttack()
     {
         base.ShowAttack();
+
+        m_LineWidthId = Shader.PropertyToID("_LineWidth");
+        m_LineScaleId = Shader.PropertyToID("_LineScale");
 
         if (m_Angle == 0)
         {
@@ -86,10 +93,6 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         line.transform.position = line.transform.position + new Vector3(0, 0.25f, 0);
         line.transform.localScale = new Vector3(1, 1, 1);
 
-        VolumetricLines.VolumetricLineStripBehavior behavior = line.GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
-        if (behavior == null)
-            return null;
-
         float angleStep = m_Angle / m_NumPoints;
 
         Vector3[] vertices = new Vector3[m_NumPoints];
@@ -99,6 +102,9 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
             vertices[i] = CalculateLinePoint(index, i, angleStep, numLines);
         }
 
+        VolumetricLines.VolumetricLineStripBehavior behavior = line.GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
+        if (behavior == null)
+            return null;
         behavior.UpdateLineVertices(vertices);
 
         return line;
@@ -106,7 +112,6 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
 
     private void UpdateSingleLine(int index, int numLines)
     {
-        VolumetricLines.VolumetricLineStripBehavior behavior = m_Lines[index].GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
 
         float angleStep = m_Angle / m_NumPoints;
         Vector3[] vertices = new Vector3[m_NumPoints];
@@ -116,6 +121,7 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
             vertices[i] = CalculateLinePoint(index, i, angleStep, numLines);
         }
 
+        VolumetricLines.VolumetricLineStripBehavior behavior = m_Lines[index].GetComponent<VolumetricLines.VolumetricLineStripBehavior>();
         behavior.UpdateLineVertices(vertices);
     }
 
@@ -129,5 +135,40 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals {
         Vector3 relativePos = Quaternion.Euler(0, angleMultiplier * angleStep, 0) * new Vector3(0, 0, distance);
 
         return relativePos;
+    }
+
+    public void SetAngle(float angle)
+    {
+        m_Angle = angle;
+    }
+
+    public void SetRadius(float radius)
+    {
+        m_Size = radius;
+    }
+
+    public void ScaleTo(Vector3 scale)
+    {
+        transform.localScale = new Vector3(scale.x, 0, scale.z);
+
+        m_LineMaterials = new Material[m_Lines.Length];
+        for (int i = 0; i < m_Lines.Length; i++)
+        {
+            m_LineMaterials[i] = m_Lines[i].GetComponent<MeshRenderer>().material;
+        }
+        for (int i = 0; i < m_LineMaterials.Length; i++)
+        {
+            m_LineMaterials[i].SetFloat(m_LineWidthId, 1f / m_LineMaterials[i].GetFloat(m_LineScaleId) );
+        }
+    }
+
+    public float GetAngle()
+    {
+        return m_Angle;
+    }
+
+    public void UpdateVisuals()
+    {
+        UpdateLines();
     }
 }

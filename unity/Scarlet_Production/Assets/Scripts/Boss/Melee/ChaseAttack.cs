@@ -31,6 +31,8 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     public float m_DamageAmount = 30f;
     public int m_AttackAnimation = 0;
 
+    public bool m_SkipAttack = false;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -129,6 +131,15 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     void StartHit()
     {
+        if (m_SkipAttack)
+        {
+            m_BossMove.StopMoving();
+            m_State = AttackState.None;
+            m_Callback.OnAttackEnd(this);
+
+            return;
+        }
+
         m_State = AttackState.Attack;
         m_BossHit.DoHit(this, null, m_AttackAnimation);
         m_RangeTrigger.m_Blockable = this.m_Blockable;
