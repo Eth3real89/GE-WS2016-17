@@ -13,7 +13,7 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
     {
         int count = m_IterationBulletCounts[m_CurrentIteration];
 
-        float angleStep = (count > 1)? m_Angle / (count - 1) : 0;
+        float angleStep = (count > 1)? ((m_Angle) / ((m_Angle == 360)? count : count - 1)) : 0;
 
         for(int i = 0; i < m_IterationBulletCounts[m_CurrentIteration]; i++)
         {

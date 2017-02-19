@@ -40,8 +40,8 @@ public class CircularAttackDamage : AEAttackDamage {
     {
         float dist = Vector3.Distance(m_TurnTowardsScarlet.m_Scarlet.transform.position, transform.position);
 
-        return dist <= m_Distance / 2 &&
-               dist >= m_MinDistance / 2;
+        return dist <= m_Distance / 2 - 0.05 &&
+               dist >= m_MinDistance / 2 + 0.05;
     }
 
     protected virtual bool WithinAngleBounds(float angles)
@@ -75,6 +75,11 @@ public class CircularAttackDamage : AEAttackDamage {
         angle += 180;
         if (angle > 180)
             angle -= 360;
+
+        if (angles != 360)
+        {
+            angles -= 3; // because the "hitbox" should be smaller than the visuals.
+        }
 
         if (Mathf.Abs(360 - angles) / 2 <= Mathf.Abs(angle))
             return true;
