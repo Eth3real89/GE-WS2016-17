@@ -8,6 +8,9 @@ public class AEFairyPhase3Controller : AEFairyController {
 
     public int m_NumHits = 4;
     public CharacterHealth m_AEFairyHealth;
+
+    public float m_AttackWindow = 3f;
+
     private int m_CurrentHits;
 
     private bool m_Vulnerable;
@@ -39,7 +42,7 @@ public class AEFairyPhase3Controller : AEFairyController {
             m_Vulnerable = true;
             DisableLightGuard();
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(m_AttackWindow);
 
             m_Vulnerable = false;
             ExpandLightGuard();

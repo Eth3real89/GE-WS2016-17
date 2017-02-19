@@ -7,7 +7,7 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public BossMeleeDamage m_DamageTrigger;
 
-    public GameObject[] m_HitSignals;
+    public HitWarning m_HitWarning;
 
     private IEnumerator m_Timer;
     private IEnumerator m_DamageTimer;
@@ -54,9 +54,16 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     private void SetHitSignalState(bool active)
     {
-        if (m_HitSignals != null && m_HitSignals.Length > m_CurrentAnimation && m_HitSignals[m_CurrentAnimation] != null)
+        if (m_HitWarning == null)
+            return;
+
+        if (active)
         {
-            m_HitSignals[m_CurrentAnimation].SetActive(active);
+            m_HitWarning.ShowWarning(m_CurrentAnimation);
+        }
+        else
+        {
+            m_HitWarning.HideWarning(m_CurrentAnimation);
         }
     }
 
