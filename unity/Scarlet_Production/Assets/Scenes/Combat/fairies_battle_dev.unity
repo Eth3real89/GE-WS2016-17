@@ -633,6 +633,8 @@ MonoBehaviour:
   m_ArmorFairyController: {fileID: 1052316987}
   m_ArmorHealth: {fileID: 1302135718}
   m_ArmorAnimator: {fileID: 1509072877}
+  m_Sword: {fileID: 1278711848}
+  m_Shield: {fileID: 61308854}
 --- !u!1 &267519953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1670,41 +1672,46 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114806726161590732, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114120892672565524, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114682828495071264, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114594849195863668, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114056673499032558, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114058896025588166, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114109208996709170, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114058896025588166, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
-      propertyPath: m_BossTurn
+      propertyPath: m_BloodTrailPlaneCollider
       value: 
-      objectReference: {fileID: 210076338}
-    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+      objectReference: {fileID: 1806225608}
+    - target: {fileID: 114458587893714778, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 638130663}
+    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.2740786
+      value: 0.3405687
       objectReference: {fileID: 0}
-    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.56731784
+      value: 0.60143304
       objectReference: {fileID: 0}
-    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.7133006
+      value: -0.047607053
       objectReference: {fileID: 0}
-    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.306975
+      value: 0.72112745
       objectReference: {fileID: 0}
     - target: {fileID: 4018242195037804, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1722,43 +1729,38 @@ Prefab:
       propertyPath: m_LocalRotation.w
       value: 0.16045555
       objectReference: {fileID: 0}
-    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.3405687
+      value: -0.2740786
       objectReference: {fileID: 0}
-    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.60143304
+      value: 0.56731784
       objectReference: {fileID: 0}
-    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.04760706
+      value: 0.7133006
       objectReference: {fileID: 0}
-    - target: {fileID: 4945871242675494, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+    - target: {fileID: 4275525037401126, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.72112745
+      value: -0.306975
       objectReference: {fileID: 0}
-    - target: {fileID: 114458587893714778, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114109208996709170, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_BossTurn
+      value: 
+      objectReference: {fileID: 210076338}
+    - target: {fileID: 114056673499032558, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114058896025588166, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114806726161590732, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114058896025588166, guid: e2c38e6550dc81348be55dcf2fb78481,
-        type: 2}
-      propertyPath: m_BloodTrailPlaneCollider
-      value: 
-      objectReference: {fileID: 1806225608}
-    - target: {fileID: 114594849195863668, guid: e2c38e6550dc81348be55dcf2fb78481,
-        type: 2}
-      propertyPath: m_Scarlet
-      value: 
-      objectReference: {fileID: 638130663}
-    - target: {fileID: 114120892672565524, guid: e2c38e6550dc81348be55dcf2fb78481,
+    - target: {fileID: 114682828495071264, guid: e2c38e6550dc81348be55dcf2fb78481,
         type: 2}
       propertyPath: m_Scarlet
       value: 

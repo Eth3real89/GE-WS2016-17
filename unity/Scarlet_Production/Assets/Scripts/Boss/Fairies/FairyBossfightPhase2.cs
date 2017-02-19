@@ -7,6 +7,17 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
     public CharacterHealth m_ArmorHealth;
 
     public Animator m_ArmorAnimator;
+    public GameObject m_Sword;
+    public GameObject m_Shield;
+
+    public override void StartPhase(FairyPhaseCallbacks callbacks)
+    {
+        base.StartPhase(callbacks);
+
+        // just in case the game is started from phase 2:
+        m_Sword.gameObject.SetActive(true);
+        m_Shield.gameObject.SetActive(true);
+    }
 
     protected override void Update()
     {

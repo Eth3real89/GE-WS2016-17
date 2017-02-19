@@ -17,6 +17,8 @@ public class ArmorFairyController : FairyController {
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
+        CancelComboIfActive();
+
         if (IsBackAttack(dmg) && !m_OnlyJustStaggered)
         {
             MLog.Log(LogType.BattleLog, 0, "Back Attack! " + this);
@@ -44,6 +46,9 @@ public class ArmorFairyController : FairyController {
     public override void OnBossParries()
     {
         CancelComboIfActive();
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
 
         MLog.Log(LogType.FairyLog, 1, "Boss Parries: Armor " + this);
 

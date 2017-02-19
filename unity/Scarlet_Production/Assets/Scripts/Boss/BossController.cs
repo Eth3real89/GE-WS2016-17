@@ -134,6 +134,10 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
         MLog.Log(LogType.BattleLog, "On Boss Parries, Controller");
         CancelComboIfActive();
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
+
         StartNextCombo();
     }
 
@@ -141,6 +145,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
         MLog.Log(LogType.BattleLog, "On Blocking Over, Controller");
         CancelComboIfActive();
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
 
         StartNextCombo();
     }
@@ -245,6 +252,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
         MLog.Log(LogType.BattleLog, "On Time Window Was Closed, Controller");
 
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
+
         CancelComboIfActive();
         StartNextCombo();
 
@@ -257,6 +267,9 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         MLog.Log(LogType.BattleLog, "On Boss Stagger Over, Controller");
 
         m_OnlyJustStaggered = true;
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
 
         CancelComboIfActive();
         StartNextCombo();

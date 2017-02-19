@@ -133,6 +133,7 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
     {
         if (m_SkipAttack)
         {
+            m_BossMove.StopMoving();
             m_State = AttackState.None;
             m_Callback.OnAttackEnd(this);
 
