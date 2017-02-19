@@ -89,7 +89,7 @@ public class BlastWaveAttack : GrowingAEAttack {
 
             m_DistanceBetweenCircles = m_DistanceBetweenCirclesStart + (t / m_GrowTime) * (m_DistanceBetweenCirclesEnd - m_DistanceBetweenCirclesStart);
 
-            if (WithinDistanceBounds(m_WaveSize, distance) && WithinAngleBounds(m_Angles))
+            if (WithinDistanceBounds(m_WaveSize, distance, m_DistanceBetweenCircles) && WithinAngleBounds(m_Angles))
             {
                 DealDamage();
             }
@@ -103,7 +103,7 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     protected virtual bool WithinAngleBounds(float angles)
     {
-        float angle = BossTurnCommand.CalculateAngleTowards(m_Target.transform.position, m_InitialCenterPos);
+        float angle = BossTurnCommand.CalculateAngleTowards(m_InitialCenterPos, m_Target.transform.position);
         
         if (m_AngleAtLaunch < 0)
         {
@@ -126,9 +126,9 @@ public class BlastWaveAttack : GrowingAEAttack {
         return false;
     }
 
-    protected virtual bool WithinDistanceBounds(float waveSize, float distance)
+    protected virtual bool WithinDistanceBounds(float waveSize, float distance, float distanceBetweenCircles)
     {
-        return waveSize >= distance && waveSize - m_DistanceBetweenCirclesStart / 4 <= distance;
+        return waveSize >= distance && waveSize - distanceBetweenCircles <= distance;
     }
 
     public override void CancelAttack()

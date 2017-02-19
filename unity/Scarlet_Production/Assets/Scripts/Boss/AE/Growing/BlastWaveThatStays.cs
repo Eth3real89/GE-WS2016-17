@@ -18,7 +18,7 @@ public class BlastWaveThatStays : BlastWaveAttack {
         {
             float distance = Vector3.Distance(m_Target.transform.position - new Vector3(0, m_Target.transform.position.y, 0), m_InitialCenterPos - new Vector3(0, m_InitialCenterPos.y, 0));
 
-            if (WithinDistanceBounds(m_WaveSize, distance) && WithinAngleBounds(m_Angles))
+            if (WithinDistanceBounds(m_WaveSize, distance, m_DistanceBetweenCirclesStart) && WithinAngleBounds(m_Angles))
             {
                 DealDamage();
             }

@@ -100,7 +100,9 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
     }
 
     protected virtual IEnumerator Die()
-    {
+    { 
+        m_ArmorAnimator.SetTrigger("DeathTriggerBack");
+        m_ArmorFairyController.m_BossHittable.RegisterInterject(null);
         yield return new WaitForSeconds(1f);
 
         base.EndPhase();

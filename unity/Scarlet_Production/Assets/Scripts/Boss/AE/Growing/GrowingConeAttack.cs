@@ -71,7 +71,8 @@ public class GrowingConeAttack : GrowingAEAttack {
     {
         base.CancelAttack();
 
-        m_AttackVisuals.HideAttack();
+        if (m_AttackVisuals != null)
+            m_AttackVisuals.HideAttack();
         m_Damage.DisableDamage();
         m_Damage.m_Active = false;
 

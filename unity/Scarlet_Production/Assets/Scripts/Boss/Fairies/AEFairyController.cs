@@ -30,9 +30,12 @@ public class AEFairyController : FairyController
 
     public virtual void ExpandLightGuard()
     {
-        m_LightGuardContainer.SetActive(true);
-        if (m_LightGuard != null)
-            m_LightGuard.Enable();
+        if (!m_LightGuard.gameObject.activeSelf)
+        {
+            m_LightGuardContainer.SetActive(true);
+            if (m_LightGuard != null)
+                m_LightGuard.Enable();
+        }
     }
 
     public virtual void DisableLightGuard()

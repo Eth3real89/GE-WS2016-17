@@ -23,10 +23,7 @@ public class AEFairyPhase3Controller : AEFairyController {
 
         m_CurrentHits = 0;
 
-        if (!m_LightGuard.gameObject.activeSelf)
-        {
-            ExpandLightGuard();
-        }
+        ExpandLightGuard();
     }
 
     public override void OnComboEnd(AttackCombo combo)
