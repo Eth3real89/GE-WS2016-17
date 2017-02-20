@@ -49,11 +49,12 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         float t = 0;
         while ((t += Time.deltaTime) < m_GrowTime)
         {
-
-            m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
-            float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_GrowTime * (m_FlickerTimesSetup + 0.5f) * 180 * Mathf.Deg2Rad));
-            m.SetColor(colorId, Color.Lerp(m_FlickerFromColorSetup, m_FlickerToColorSetup, colorDeterminer));
-
+            if (m_Angle != 0)
+            {
+                m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
+                float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_GrowTime * (m_FlickerTimesSetup + 0.5f) * 180 * Mathf.Deg2Rad));
+                m.SetColor(colorId, Color.Lerp(m_FlickerFromColorSetup, m_FlickerToColorSetup, colorDeterminer));
+            }
             yield return null;
         }
 
