@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class EffectController : GenericSingletonClass<EffectController>
 {
+    public delegate void EffectEvent();
+
+    public static EffectEvent EnteredOtherWorld;
+
     public LensFlare m_MoonFlare;
     public Bloom m_Bloom;
     public MorePPEffects.Dreamy m_Dreamy;
+    public UnityStandardAssets.ImageEffects.NoiseAndScratches m_Noise;
+    public UnityStandardAssets.ImageEffects.EdgeDetection m_EdgeDetection;
 
     private Bloom.Settings m_DefaultBloomSettings;
     private Coroutine m_CurrentCoroutine;
@@ -106,6 +112,8 @@ public class EffectController : GenericSingletonClass<EffectController>
             yield return null;
         }
         callback();
+        m_EdgeDetection.enabled = !m_EdgeDetection.enabled;
+        m_Noise.enabled = !m_Noise.enabled;
         yield return new WaitForSeconds(0.25f);
 
         m_LerpTimer.Start(1f);
@@ -114,5 +122,7 @@ public class EffectController : GenericSingletonClass<EffectController>
             m_Dreamy.strength = Mathf.Lerp(maxDreamyEffect, 0, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
+
+        EnteredOtherWorld();
     }
 }
