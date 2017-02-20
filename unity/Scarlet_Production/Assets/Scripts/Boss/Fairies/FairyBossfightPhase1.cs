@@ -6,6 +6,8 @@ using UnityEngine;
 public class FairyBossfightPhase1 : FairyBossfightPhase {
 
     public CharacterHealth m_ArmorHealth;
+    public CharacterHealth m_AEFairyHealth;
+    public Collider m_AEFairyCollider;
 
     public Animator m_ArmorAnimator;
     public GameObject m_Sword;
@@ -13,9 +15,12 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
 
     public PlayerControls m_PlayerControls;
 
+    protected bool m_EndInitialized = false;
+
     public override void StartPhase(FairyPhaseCallbacks callbacks)
     {
         m_Active = true;
+        m_EndInitialized = false;
         m_Callback = callbacks;
 
         m_AEFairyController.Initialize(this);
@@ -72,12 +77,14 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
     private void MakeSwordAndShieldShiny(bool v)
     {
         Renderer swordRenderer = m_Sword.GetComponent<Renderer>();
-        swordRenderer.material.SetColor("_EmissionColor", v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
         Renderer shieldRenderer = m_Shield.GetComponent<Renderer>();
-        shieldRenderer.material.SetColor("_EmissionColor", v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+        
 
-        DynamicGI.UpdateMaterials(shieldRenderer);
+        DynamicGI.SetEmissive(swordRenderer, v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+        DynamicGI.SetEmissive(shieldRenderer, v ? new Color(1, 1, 1, 1) : new Color(0, 0, 0, 0));
+
         DynamicGI.UpdateMaterials(swordRenderer);
+        DynamicGI.UpdateMaterials(shieldRenderer);
     }
 
     protected override void Update()
@@ -85,21 +92,68 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         if (!m_Active)
             return;
 
-        if (m_ArmorHealth.m_CurrentHealth <= 0)
+        if (!m_EndInitialized && m_ArmorHealth.m_CurrentHealth <= 0)
+            MakeAEFairyVulnerable();
+
+        if (m_AEFairyHealth.m_CurrentHealth < m_AEFairyHealth.m_HealthOld)
             EndPhase();
     }
 
-    protected override void EndPhase()
+    protected virtual void MakeAEFairyVulnerable()
     {
+        m_EndInitialized = true;
+
         EndCombo();
 
         m_AEFairyController.StopAllCoroutines();
         m_ArmorFairyController.StopAllCoroutines();
 
+        m_AEFairyController.m_NotDeactivated = false;
+        m_ArmorFairyController.m_NotDeactivated = false;
+
+        m_AEFairyController.DisableLightGuard();
+
+        m_ArmorAnimator.SetBool("Dead", true);
+        m_ArmorAnimator.SetTrigger("DeathTriggerFront");
+
+        m_AEFairyCollider.isTrigger = false;
+        m_AEFairyCollider.enabled = true;
+    }
+
+    protected override void EndPhase()
+    {
         m_Active = false;
         m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
 
+        m_ArmorAnimator.SetBool("Dead", false);
+        m_ArmorAnimator.SetTrigger("ReanimationTrigger");
+
+        StartCoroutine(RegenerateThenEnd());
+    }
+
+    protected virtual IEnumerator RegenerateThenEnd()
+    {
+        m_AEFairyCollider.isTrigger = false;
+        m_AEFairyCollider.enabled = true;
+
+        m_PlayerControls.DisableAllCommands();
+        m_AEFairyController.ExpandLightGuard();
+
+        float t = 0;
+        float reanimateTime = 2f;
+        while ((t += Time.deltaTime) < reanimateTime)
+        {
+            m_ArmorHealth.m_CurrentHealth = t / reanimateTime * m_ArmorHealth.m_MaxHealth;
+            m_AEFairyHealth.m_CurrentHealth = Mathf.Lerp(m_AEFairyHealth.m_CurrentHealth, m_AEFairyHealth.m_MaxHealth, t / reanimateTime);
+            yield return null;
+        }
+
+        m_AEFairyHealth.m_CurrentHealth = m_AEFairyHealth.m_MaxHealth;
+        m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
+
         base.EndPhase();
+
+        m_PlayerControls.EnableAllCommands();
     }
 
 }

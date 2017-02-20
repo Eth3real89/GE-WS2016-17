@@ -76,7 +76,8 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
             attack.CancelAttack();
         }
 
-
+        if (m_AttackTimer != null)
+            StopCoroutine(m_AttackTimer);
     }
 
 }

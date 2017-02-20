@@ -30,5 +30,18 @@ public class AEFairyController : FairyController
     {
         m_LightGuardContainer.SetActive(false);
     }
-       
+
+    public override bool OnHit(Damage dmg)
+    {
+        if (!m_LightGuardContainer.activeSelf)
+        {
+            dmg.OnSuccessfulHit();
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
 }

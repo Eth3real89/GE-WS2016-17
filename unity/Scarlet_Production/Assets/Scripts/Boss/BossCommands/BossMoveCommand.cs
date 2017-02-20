@@ -15,6 +15,9 @@ public class BossMoveCommand : BossCommand {
 
     public void DoMove(float horizontal, float vertical)
     {
+        if (m_BossBody == null)
+            return;
+
         Vector3 movement = new Vector3(horizontal, 0, vertical);
 
         if (movement.magnitude > 1)
@@ -37,6 +40,9 @@ public class BossMoveCommand : BossCommand {
 
     public void DoMove(float horizontal, float vertical, Vector3 target)
     {
+        if (m_BossBody == null)
+            return;
+
         Vector3 movement = new Vector3(horizontal, 0, vertical);
 
         if (movement.magnitude > 1)
