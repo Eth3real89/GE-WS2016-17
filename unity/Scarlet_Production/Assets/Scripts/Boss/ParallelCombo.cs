@@ -22,6 +22,7 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
         m_BetweenAttacks = false;
 
         m_CurrentAttackIndex++;
+
         if (m_Attacks.Length > m_CurrentAttackIndex)
         {
             if (m_WaitTimes[m_CurrentAttackIndex - 1] <= 0)
