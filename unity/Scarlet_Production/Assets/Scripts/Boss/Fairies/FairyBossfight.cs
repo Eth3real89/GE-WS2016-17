@@ -16,6 +16,7 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
 
     void Start()
     {
+
         StartCoroutine(StartAfterShortDelay());
     }
 

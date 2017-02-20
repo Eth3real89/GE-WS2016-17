@@ -8,16 +8,13 @@ public class AEFairyPhase1Controller : AEFairyController {
     {
         int before = m_CurrentComboIndex - 1;
 
-        if (before != -1)
+        while (true)
         {
-            while (true)
-            {
-                m_CurrentComboIndex = Random.Range(0, m_Combos.Length - 1);
-                if (m_CurrentComboIndex != before && (m_CurrentComboIndex) % 3 != (before) % 3)
-                    break;
-            }
+            m_CurrentComboIndex = Random.Range(-1, m_Combos.Length - 1);
+            if (m_CurrentComboIndex != before && (m_CurrentComboIndex) % 3 != (before) % 3)
+                break;
         }
-
+ 
         base.Continue();
     }
 
