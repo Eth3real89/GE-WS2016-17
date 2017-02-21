@@ -1,8 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonHunterPhase2Controller : DemonHunterController {
+public class DemonHunterPhase2Controller : DemonHunterController
+{
 
-	// Use this for initialization
+    protected override IEnumerator PrepareAttack(int attackIndex)
+    {
+        yield return null;
+    }
 }
