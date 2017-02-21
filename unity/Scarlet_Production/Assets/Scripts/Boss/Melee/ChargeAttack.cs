@@ -89,7 +89,13 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     private IEnumerator StopAimingAfter(float time)
     {
+        m_Animator.SetTrigger("TurnTrigger");
+
         yield return new WaitForSeconds(time);
+
+        m_Animator.SetTrigger("ChargeStartTrigger");
+        yield return new WaitForSeconds(0.5f);
+
         m_State = State.Run;
 
         m_BossCollider.m_Handler = this;
@@ -100,6 +106,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
         m_StateTimer = StopRunnigAfter(m_MaxRunTime);
         StartCoroutine(m_StateTimer);
+        m_Animator.SetTrigger("ChargeTrigger");
     }
 
     private void Run()
@@ -121,19 +128,26 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     {
         yield return new WaitForSeconds(time);
         m_State = State.None;
-        m_MoveCommand.StopMoving();
-
-        m_Callback.OnAttackEnd(this);
-        m_MoveCommand.m_Speed = m_RunSpeedBefore;
 
         m_DamageTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
 
         if (m_CarryingScarlet)
         {
+            m_Animator.SetTrigger("ChargePinTrigger");
+            yield return new WaitForSeconds(0.5f);
+            DealDamageToScarlet(m_Scarlet, new ChargeHitWallDamage());
+            yield return new WaitForSeconds(0.5f);
+
             EnableScarletControls();
             MoveScarlet(); // in this case: break!
         }
+
+        m_MoveCommand.StopMoving();
+        m_MoveCommand.m_Speed = m_RunSpeedBefore;
+
+        m_Callback.OnAttackEnd(this);
+
         m_CarryingScarlet = false;
     }
 
@@ -198,6 +212,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     {
         DealDamageToScarlet(m_Scarlet, new ChargePickUpDamage());
         DisableScarletControls();
+
+        m_DamageTrigger.m_Active = false;
+        m_BossCollider.m_Active = false;
     }
 
     private void DealDamageToScarlet(GameObject other, Damage damage)
@@ -230,6 +247,21 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         }
     }
 
+    private void StopScarletMovement()
+    {
+        PlayerMoveCommand move = m_Scarlet.GetComponentInChildren<PlayerMoveCommand>();
+        if (move != null)
+        {
+            move.StopMoving();
+        }
+
+        Rigidbody scarletBody = m_Scarlet.GetComponent<Rigidbody>();
+        if (scarletBody != null )
+        {
+            scarletBody.velocity = new Vector3(0, 0, 0);
+        }
+    }
+
     public void HandleScarletLeave(Collider other)
     {
     }
@@ -256,7 +288,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
         public override float DamageAmount()
         {
-            return 60;
+            return 30f;
         }
     }
 
