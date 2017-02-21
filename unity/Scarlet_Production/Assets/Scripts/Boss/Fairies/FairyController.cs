@@ -38,7 +38,7 @@ public class FairyController : BossController {
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
-        if (this is AEFairyController)
+        if (this is AEFairyController && !(this is AEFairyPhase3Controller))
         {
             m_NextComboTimer = StartNextComboAfter(m_Combos[m_CurrentComboIndex + 1].m_TimeAfterCombo);
         }

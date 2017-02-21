@@ -184,6 +184,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
                 m_MoveCommand.StopMoving();
                 m_MoveCommand.m_Speed = m_RunSpeedBefore;
 
+                m_DamageTrigger.m_Active = false;
+                m_BossCollider.m_Active = false;
+
                 if (m_CarryingScarlet)
                 {
                     EnableScarletControls();
@@ -204,6 +207,10 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     private IEnumerator WaitWhileStaggering()
     {
+        m_MoveCommand.StopMoving();
+        yield return new WaitForEndOfFrame();
+        m_MoveCommand.StopMoving();
+
         yield return new WaitForSeconds(m_StaggerTimeOnWallHit);
         m_Callback.OnAttackEnd(this);
     }
@@ -304,10 +311,10 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
         public void HandleCollision(Collider other, bool initialCollision)
         {
-            if (m_Attack.m_CarryingScarlet)
-            {
+            //if (m_Attack.m_CarryingScarlet)
+            //{
                 m_Attack.HandleCollision(other, initialCollision);
-            }
+           // }
         }
 
         public void HandleScarletCollision(Collider other)

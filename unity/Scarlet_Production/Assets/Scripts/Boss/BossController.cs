@@ -29,7 +29,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     protected bool m_ComboActive;
 
     // any angle bigger than that = back attack!
-    protected float m_ForwardAngle = 110f;
+    protected float m_ForwardAngle = 70f;
 
     protected bool m_OnlyJustStaggered;
     protected IEnumerator m_IFramesAfterStaggerTimer;

@@ -152,6 +152,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
 
         base.EndPhase();
+        m_AEFairyHealth.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         m_PlayerControls.EnableAllCommands();
     }

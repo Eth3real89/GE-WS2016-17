@@ -74,6 +74,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
         }
 
         m_AEFairyHealth.m_CurrentHealth = m_AEFairyHealth.m_MaxHealth;
+        m_AEFairyHealth.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         base.EndPhase();
     }

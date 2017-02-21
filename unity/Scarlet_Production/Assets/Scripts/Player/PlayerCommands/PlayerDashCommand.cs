@@ -11,6 +11,8 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
     public float m_DashTime = 0.05f;
     public float m_DashDelay = 0.15f;
 
+    public float m_InvulernabilityAfterDash = 0.1f;
+
     public GameObject m_TrailContainer;
     public GameObject m_RendererContainer;
 
@@ -84,6 +86,8 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
 
         OnDashEnd();
         m_Callback.OnCommandEnd(m_CommandName, this);
+
+        yield return new WaitForSeconds(m_InvulernabilityAfterDash);
         if (m_Hittable != null)
             m_Hittable.RegisterInterject(m_PrevInterject);
     }
