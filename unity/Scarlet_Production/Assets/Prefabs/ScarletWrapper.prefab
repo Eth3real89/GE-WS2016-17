@@ -3225,20 +3225,26 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 2
-        time: 0.0048076925
-        value: 0.41509432
+        time: 0.0006410256
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.081882805
-        value: 1
+        time: 0.044382803
+        value: 0.9090909
         inSlope: -0.17240644
         outSlope: -0.17240644
         tangentMode: 0
       - serializedVersion: 2
-        time: 0.86538464
-        value: 0.33962262
+        time: 0.29038462
+        value: 0.41538018
+        inSlope: -0.9893417
+        outSlope: -0.9893417
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.98333335
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3289,11 +3295,11 @@ TrailRenderer:
       m_Mode: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 5
+    numCapVertices: 5
     alignment: 0
     textureMode: 0
-  m_MinVertexDistance: 0
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
 --- !u!114 &114072412852494062
 MonoBehaviour:
@@ -3575,7 +3581,7 @@ MonoBehaviour:
   m_Scarlet: {fileID: 0}
   m_Animator: {fileID: 0}
   m_DashDistance: 3.5
-  m_DashTime: 0.05
+  m_DashTime: 0.1
   m_DashDelay: 0.15
   m_InvulernabilityAfterDash: 0.1
   m_TrailContainer: {fileID: 1903931880218066}

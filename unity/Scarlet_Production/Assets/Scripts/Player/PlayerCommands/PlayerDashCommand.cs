@@ -76,14 +76,29 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
         float t = 0;
         OnDashStart();
 
+        Vector3 initialPos = new Vector3(dashStart.x, dashStart.y, dashStart.z);
+
         while (t < m_DashTime)
         {
-            yield return null;
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-            m_ScarletBody.MovePosition(Vector3.Lerp(dashStart, dashTarget, t / m_DashTime));
+
+            if (horizontal > 0.1 || vertical > 0.1)
+            {
+                float angle = Mathf.Atan2(horizontal, vertical);
+                Quaternion rotation = Quaternion.Euler(0f, Mathf.Rad2Deg * angle, 0f);
+                m_ScarletBody.MoveRotation(rotation);
+
+                dashTarget = initialPos + m_ScarletBody.transform.forward * m_DashDistance;
+
+            }
+
+            m_ScarletBody.MovePosition(Vector3.Lerp(m_ScarletBody.position, dashTarget, t / m_DashTime));
             t += Time.deltaTime;
-        }
 
+            yield return null;
+        }
         OnDashEnd();
         m_Callback.OnCommandEnd(m_CommandName, this);
 
