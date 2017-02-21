@@ -12,10 +12,13 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
     public Animator m_ArmorAnimator;
     public GameObject m_Armor;
+    public GameObject m_Scarlet;
 
     public GameObject m_Sword;
     public GameObject m_Shield;
     public GameObject m_BigSword;
+
+    public CombatCamera[] m_Cameras;
 
     public PlayerControls m_PlayerControls;
 
@@ -31,6 +34,11 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
         m_Callback.OnPhaseStart(this);
         StartCoroutine(EquipTwoHandedSword());
+
+        foreach (CombatCamera c in m_Cameras)
+        {
+            c.m_Targets = new GameObject[] {m_Scarlet, m_Armor};
+        }
     }
 
     private IEnumerator EquipTwoHandedSword()
@@ -115,6 +123,7 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         EndCombo();
 
         m_ArmorFairyController.StopAllCoroutines();
+        m_ArmorFairyController.m_NotDeactivated = false;
 
         m_Active = false;
         StartCoroutine(Die());
