@@ -7,6 +7,9 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
     public CharacterHealth m_ArmorFairyHealth;
 
+    public RectTransform m_ArmorHealthBar;
+    public RectTransform m_AEFairyHealthBar;
+
     public Animator m_ArmorAnimator;
     public GameObject m_Armor;
 
@@ -21,7 +24,10 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         m_Active = true;
         m_Callback = callbacks;
 
+        m_ArmorFairyHealth.m_CurrentHealth = m_ArmorFairyHealth.m_MaxHealth / 2;
         m_ArmorFairyController.Initialize(this);
+
+        m_AEFairyHealthBar.gameObject.SetActive(false);
 
         m_Callback.OnPhaseStart(this);
         StartCoroutine(EquipTwoHandedSword());
@@ -43,6 +49,9 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         {
             m_Shield.transform.localScale = Vector3.Lerp(prefScaleShield, Vector3.zero, t / equipTime);
             m_Sword.transform.localScale = Vector3.Lerp(prefScaleSword, Vector3.zero, t / equipTime);
+
+            Vector3 hbPos = m_ArmorHealthBar.localPosition;
+            m_ArmorHealthBar.localPosition = Vector3.Lerp(new Vector3(hbPos.x, hbPos.y, hbPos.z), new Vector3(hbPos.x, 25, hbPos.z), t / equipTime);
             yield return null;
         }
 

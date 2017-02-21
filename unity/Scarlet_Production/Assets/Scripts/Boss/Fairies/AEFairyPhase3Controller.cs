@@ -42,10 +42,15 @@ public class AEFairyPhase3Controller : AEFairyController {
             m_Vulnerable = true;
             DisableLightGuard();
 
-            yield return new WaitForSeconds(m_AttackWindow);
+            while(m_AEFairyHealth.m_CurrentHealth == m_AEFairyHealth.m_HealthOld)
+            {
+                yield return null;
+            }
 
             m_Vulnerable = false;
             ExpandLightGuard();
+
+            yield return new WaitForSeconds(1f);
         }
 
         yield return base.StartNextComboAfter(time);
@@ -60,7 +65,7 @@ public class AEFairyPhase3Controller : AEFairyController {
             m_Vulnerable = false;
             ExpandLightGuard();
             dmg.OnSuccessfulHit();
-            m_AEFairyHealth.m_CurrentHealth = (m_AEFairyHealth.m_MaxHealth) * (1f - (m_CurrentHits / (float) m_NumHits));
+            m_AEFairyHealth.m_CurrentHealth =  (m_AEFairyHealth.m_MaxHealth * 0.5f) + 0.5f * (m_AEFairyHealth.m_MaxHealth) * (1f - (m_CurrentHits / (float) m_NumHits));
             return true;
         }
         else

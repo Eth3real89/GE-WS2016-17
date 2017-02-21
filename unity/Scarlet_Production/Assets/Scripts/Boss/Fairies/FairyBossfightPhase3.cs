@@ -35,7 +35,7 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
         if (!m_Active)
             return;
 
-        if (m_AEFairyHealth.m_CurrentHealth <= 0)
+        if (m_AEFairyHealth.m_CurrentHealth <= m_AEFairyHealth.m_MaxHealth *  0.5f +1)
             EndPhase();
     }
 
@@ -74,11 +74,13 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
         while ((t += Time.deltaTime) < reanimateTime)
         {
             m_AEFairy.transform.localScale = Vector3.Lerp(new Vector3(1, 1, 1), Vector3.zero, t / reanimateTime);
-            m_ArmorFairyHealth.m_CurrentHealth = t / reanimateTime * m_ArmorFairyHealth.m_MaxHealth;
+            m_AEFairyHealth.m_CurrentHealth = Mathf.Lerp(m_AEFairyHealth.m_CurrentHealth, 0f, t / reanimateTime);
+            m_ArmorFairyHealth.m_CurrentHealth = Mathf.Lerp(0, m_ArmorFairyHealth.m_MaxHealth / 2f,  t / reanimateTime);
             yield return null;
         }
 
-        m_ArmorFairyHealth.m_CurrentHealth = m_ArmorFairyHealth.m_MaxHealth;
+        m_AEFairyHealth.m_CurrentHealth = 0;
+        m_ArmorFairyHealth.m_CurrentHealth = m_ArmorFairyHealth.m_MaxHealth / 2;
 
         m_AEFairy.gameObject.SetActive(false);
 

@@ -10,12 +10,12 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
     public Color m_FlickerFromColorSetup = Color.black;
     public Color m_FlickerToColorSetup = Color.white;
     
-    public int m_FlickerTimesSetup;
+    public float m_FlickerTimesSetup;
 
     public Color m_FlickerFromColorAttack = Color.gray;
     public Color m_FlickerToColorAttack = Color.white;
 
-    public int m_FlickerTimesAttack;
+    public float m_FlickerTimesAttack;
 
     public bool m_FlickerOut = false;
 
