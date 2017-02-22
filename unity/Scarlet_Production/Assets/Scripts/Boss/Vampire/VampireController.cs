@@ -74,24 +74,27 @@ public class VampireController : BossController {
 
     protected override IEnumerator StartNextComboAfter(float time)
     {
-        DeactivateLightShield();
+        if (m_NotDeactivated)
+        {
+            DeactivateLightShield();
 
-        Transform t = DecideWhereToDashNext();
-        DashTo(t, m_DashTime);
-        yield return new WaitForSeconds(m_DashTime);
+            Transform t = DecideWhereToDashNext();
+            DashTo(t, m_DashTime);
+            yield return new WaitForSeconds(m_DashTime);
 
-        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
-        yield return new WaitForSeconds(m_PerfectRotationTime);
+            StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+            yield return new WaitForSeconds(m_PerfectRotationTime);
 
-        GatherLight(m_GatherLightTime);
-        yield return new WaitForSeconds(m_GatherLightTime);
+            GatherLight(m_GatherLightTime);
+            yield return new WaitForSeconds(m_GatherLightTime);
 
-        m_LightGuard.m_ExpandLightGuardTime = m_PerfectRotationTime;
-        ActivateLightShield();
-        StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
-        yield return new WaitForSeconds(m_PerfectRotationTime);
+            m_LightGuard.m_ExpandLightGuardTime = m_PerfectRotationTime;
+            ActivateLightShield();
+            StartCoroutine(PerfectTrackingRoutine(m_PerfectRotationTime));
+            yield return new WaitForSeconds(m_PerfectRotationTime);
 
-        yield return base.StartNextComboAfter(time);
+            yield return base.StartNextComboAfter(time);
+        }
     }
 
     protected virtual Transform DecideWhereToDashNext()
@@ -204,7 +207,14 @@ public class VampireController : BossController {
 
                 DeactivateLightShield();
 
-                return base.OnHit(dmg);
+                if (m_TimeWindowManager != null)
+                {
+                    m_TimeWindowManager.Activate(this);
+                    m_BossHittable.RegisterInterject(m_TimeWindowManager);
+                }
+
+                CameraController.Instance.Shake();
+                return false;
             }
             else
             {

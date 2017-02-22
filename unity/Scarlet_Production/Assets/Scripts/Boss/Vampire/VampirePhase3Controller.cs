@@ -50,7 +50,7 @@ public class VampirePhase3Controller : VampireController
     private IEnumerator SlowlyDrainHealth()
     {
         float t = 0;
-        float totalTime = 65; // probably better if that would be based on some dynamic calculation... but it isn't :(
+        float totalTime = 63; // probably better if that would be based on some dynamic calculation... but it isn't :(
         CharacterHealth health = GetComponentInChildren<CharacterHealth>();
         while ((t += Time.deltaTime) < totalTime)
         {
