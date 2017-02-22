@@ -6,6 +6,8 @@ public abstract class DemonHunterController : BossController {
 
     public enum AttackType {Pistols, Rifle, Grenade };
 
+    public Animator m_DHAnimator;
+
     public BossfightCallbacks m_Callback;
     public float m_ReloadPistolTime;
     public float m_ReloadRifleTime;
@@ -18,6 +20,11 @@ public abstract class DemonHunterController : BossController {
     {
         this.m_Callback = callback;
         m_Reloading = false;
+
+        RegisterComboCallback();
+
+        m_CurrentComboIndex = -1;
+        StartCoroutine(StartNextComboAfter(0.5f));
     }
 
     protected virtual void RegisterListeners()
@@ -28,6 +35,14 @@ public abstract class DemonHunterController : BossController {
     protected virtual void UnregisterListeners()
     {
 
+    }
+
+    protected override IEnumerator StartNextComboAfter(float time)
+    {
+        yield return PrepareAttack(m_CurrentComboIndex + 1);
+
+        yield return new WaitForSeconds(time);
+        StartNextCombo();
     }
 
     protected abstract IEnumerator PrepareAttack(int attackIndex);

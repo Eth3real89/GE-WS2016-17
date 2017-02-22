@@ -7,7 +7,11 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
-        yield return null;
+        if (m_Types[attackIndex] == AttackType.Pistols)
+        {
+            m_DHAnimator.SetTrigger("EquipPistolsTrigger");
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     protected override IEnumerator StartNextComboAfter(float time)

@@ -48,6 +48,9 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
         b.transform.position = m_Base.transform.position;
         b.transform.rotation = m_Base.transform.rotation;
+
+        b.transform.rotation = Quaternion.Euler(0, b.transform.rotation.eulerAngles.y, 0);
+
         return b;
     }
 
