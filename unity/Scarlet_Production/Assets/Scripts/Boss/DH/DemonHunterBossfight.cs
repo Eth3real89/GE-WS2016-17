@@ -5,11 +5,12 @@ using UnityEngine;
 public class DemonHunterBossfight : BossFight, BossfightCallbacks
 {
 
-    public enum Phase { Phase1, Phase2 };
+    public enum Phase { Phase1, Phase2, Phase3 };
     public Phase m_StartPhase;
 
     public DemonHunterPhase1Controller m_Phase1Controller;
     public DemonHunterPhase2Controller m_Phase2Controller;
+    public DemonHunterPhase2Controller m_Phase3Controller;
 
     void Start()
     {
@@ -28,6 +29,10 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         {
             PhaseEnd(m_Phase1Controller);
         }
+        else if (m_StartPhase == Phase.Phase3)
+        {
+            PhaseEnd(m_Phase2Controller);
+        }
     }
 
     public void PhaseEnd(BossController whichPhase)
@@ -43,6 +48,13 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
+            m_Phase3Controller.enabled = true;
+            m_Phase3Controller.StartPhase(this);
+        }
+        else if (whichPhase == m_Phase3Controller)
+        {
+            MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
+            m_Phase3Controller.enabled = false;
         }
     }
 

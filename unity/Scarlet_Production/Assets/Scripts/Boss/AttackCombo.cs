@@ -55,8 +55,11 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
         m_Callback.OnComboStart(this);
 
-        m_CurrentAttackIndex = 0;
-        m_Attacks[m_CurrentAttackIndex].StartAttack();
+        if (!m_Cancelled)
+        {
+            m_CurrentAttackIndex = 0;
+            m_Attacks[m_CurrentAttackIndex].StartAttack();
+        }
     }
 
     public virtual void OnAttackStart(BossAttack attack)

@@ -34,10 +34,13 @@ public abstract class BossAttack : MonoBehaviour {
 
     public virtual void StartAttack()
     {
-        m_Callback.OnAttackStart(this);
-        MLog.Log(LogType.BattleLog, 2, "Starting Attack, Attack, " + this);
+        if (m_Callback != null) // can be the case - e.g. if it was cancelled before this really starts.
+        {
+            m_Callback.OnAttackStart(this);
+            MLog.Log(LogType.BattleLog, 2, "Starting Attack, Attack, " + this);
 
-        EventManager.TriggerEvent(ATTACK_START_EVENT);
+            EventManager.TriggerEvent(ATTACK_START_EVENT);
+        }
     }
 
     private void PlaySound(AudioClip clip)

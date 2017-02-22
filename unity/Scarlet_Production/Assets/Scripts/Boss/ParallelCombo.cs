@@ -23,7 +23,8 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
 
         m_CurrentAttackIndex++;
 
-        if (m_Attacks.Length > m_CurrentAttackIndex)
+
+        if (m_Attacks.Length > m_CurrentAttackIndex && !m_Cancelled)
         {
             if (m_WaitTimes[m_CurrentAttackIndex - 1] <= 0)
             {
@@ -72,6 +73,8 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
 
     public override void CancelCombo()
     {
+        m_Cancelled = true;
+
         foreach(BossAttack attack in m_Attacks)
         {
             attack.CancelAttack();
