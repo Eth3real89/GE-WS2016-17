@@ -251,7 +251,6 @@ public abstract class DemonHunterController : BossController {
     public override void OnComboEnd(AttackCombo combo)
     {
         StopCoroutine(m_RangeCheck);
-        CancelComboIfActive();
         m_ShootingPistols = false;
 
         base.OnComboEnd(combo);

@@ -9,6 +9,8 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
 
     public BulletFactoryInvoker m_Invoker;
 
+    public bool m_KillAllChildren = false; // category: variable names that sound really, really wrong
+
     public override void Launch(BulletCallbacks callbacks)
     {
         this.m_BulletCallbacks = callbacks;
@@ -38,9 +40,13 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
         m_Invoker.Cancel();
 
         m_KillBullet = true;
-        foreach (BulletBehaviour b in m_Instances)
+
+        if (m_KillAllChildren)
         {
-            b.Kill();
+            foreach (BulletBehaviour b in m_Instances)
+            {
+                b.Kill();
+            }
         }
 
         if (m_Movement != null)

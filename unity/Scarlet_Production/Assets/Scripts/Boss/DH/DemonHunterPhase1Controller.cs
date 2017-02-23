@@ -6,7 +6,7 @@ using UnityEngine;
 public class DemonHunterPhase1Controller : DemonHunterController {
 
     private const float m_FirstAttackShootSpeed = 2f;
-
+    private const float m_SecondAttackShootSpeed = 4f;
 
     public override void StartPhase(BossfightCallbacks callback)
     {
@@ -24,6 +24,10 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         if (m_CurrentComboIndex == 0)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FirstAttackShootSpeed);
+        }
+        else if (m_CurrentComboIndex == 1)
+        {
+            m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
         }
 
 

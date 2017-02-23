@@ -50,7 +50,10 @@ public class BulletAttack : BossAttack, BulletBehaviour.BulletCallbacks {
             StopCoroutine(m_Timer);
 
         if (m_ActiveCopy != null)
+        {
+            m_ActiveCopy.m_KillAllChildren = true;
             m_ActiveCopy.Kill();
+        }
     }
 
     public void OnBulletCreated(BulletBehaviour bullet)
