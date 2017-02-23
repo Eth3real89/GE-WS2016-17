@@ -37,14 +37,19 @@ public abstract class DemonHunterController : BossController {
 
     protected bool m_SkipReload;
 
+    protected bool m_RunAwayInstead;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         this.m_Callback = callback;
         m_Reloading = false;
         m_ShootingPistols = false;
         m_SkipReload = false;
+        m_RunAwayInstead = false;
 
         RegisterComboCallback();
+
+        m_BossHittable.RegisterInterject(this);
 
         m_CurrentComboIndex = -1;
         StartCoroutine(StartNextComboAfter(0.5f));
@@ -60,6 +65,20 @@ public abstract class DemonHunterController : BossController {
 
     }
 
+    protected override void StartNextCombo()
+    {
+        if (m_RunAwayInstead)
+        {
+            m_NextComboTimer = RunToNextSpot();
+            StartCoroutine(m_NextComboTimer);
+            m_RunAwayInstead = false;
+        }
+        else
+        {
+            base.StartNextCombo();
+        }
+    }
+
     protected override IEnumerator StartNextComboAfter(float time)
     {
         yield return new WaitForSeconds(time);
@@ -67,7 +86,7 @@ public abstract class DemonHunterController : BossController {
         if (m_RangeCheck != null)
             StopCoroutine(m_RangeCheck);
 
-        yield return null;
+        yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
 
         if (m_CurrentComboIndex + 1 >= m_Combos.Length)
         {
@@ -78,14 +97,16 @@ public abstract class DemonHunterController : BossController {
             yield return PrepareAttack(m_CurrentComboIndex + 1);
         }
 
+        yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
         StartNextCombo();
     }
 
     protected virtual IEnumerator PrepareAttack(int attackIndex)
     {
-
         if (m_Types[attackIndex] == AttackType.Pistols)
         {
+
+
             if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
             {
                 if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
@@ -102,11 +123,13 @@ public abstract class DemonHunterController : BossController {
 
             if (!m_SkipReload)
             {
+                m_Reloading = true;
                 m_DHAnimator.SetTrigger("ReloadTrigger");
 
                 yield return new WaitForSeconds(0.2f);
                 while (!CheckAnimation(ANIM_AFTER_RELOAD_PISTOLS))
                     yield return null;
+                m_Reloading = false;
             }
             m_SkipReload = false;
         }
@@ -131,6 +154,13 @@ public abstract class DemonHunterController : BossController {
             while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
                 yield return null;
         }
+    }
+
+    protected virtual IEnumerator RunToNextSpot()
+    {
+        yield return m_EvasionCommand.ReachSpot(GetFurthestSpotFromScarlet());
+        m_NextComboTimer = StartNextComboAfter(0.1f);
+        StartCoroutine(m_NextComboTimer);
     }
 
     protected virtual IEnumerator ReloadPistols(IEnumerator then)
@@ -227,11 +257,36 @@ public abstract class DemonHunterController : BossController {
         base.OnComboEnd(combo);
     }
 
+    public override void OnBossStaggerOver()
+    {
+        m_RunAwayInstead = true;
+        base.OnBossStaggerOver();
+    }
+
+    public override void OnTimeWindowClosed()
+    {
+        m_RunAwayInstead = true;
+        base.OnTimeWindowClosed();
+    }
+
     public override bool OnHit(Damage dmg)
     {
         if (m_Reloading)
-        {
+        { 
+            CancelComboIfActive();
+            if (m_RangeCheck != null)
+                StopCoroutine(m_RangeCheck);
+
             dmg.OnSuccessfulHit();
+
+            if (m_TimeWindowManager != null)
+            {
+                m_TimeWindowManager.Activate(this);
+                m_BossHittable.RegisterInterject(m_TimeWindowManager);
+            }
+
+            CameraController.Instance.Shake();
+
             return false;
         }
         else
