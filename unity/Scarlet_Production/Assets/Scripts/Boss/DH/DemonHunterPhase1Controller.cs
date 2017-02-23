@@ -20,7 +20,11 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     public override void OnComboStart(AttackCombo combo)
     {
-        m_DHAnimator.SetTrigger("ShootTrigger");
+        if (m_Types[m_CurrentComboIndex] == AttackType.Pistols)
+        {
+            m_DHAnimator.SetTrigger("ShootTrigger");
+        }
+
         if (m_CurrentComboIndex == 0)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FirstAttackShootSpeed);

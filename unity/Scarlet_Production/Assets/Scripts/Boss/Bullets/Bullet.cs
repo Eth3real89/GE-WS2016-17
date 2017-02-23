@@ -25,6 +25,9 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
     public override void Kill()
     {
         m_KillBullet = true;
+
+        m_OnExpire.OnBulletExpires(this);
+
         if (this.gameObject != null)
             Destroy(this.gameObject);
     }

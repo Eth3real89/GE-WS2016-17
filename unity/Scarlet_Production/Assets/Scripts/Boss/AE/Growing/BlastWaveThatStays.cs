@@ -24,7 +24,6 @@ public class BlastWaveThatStays : BlastWaveAttack {
             }
             yield return null;
         }
-        HideLightGuard();
         m_Visuals.gameObject.SetActive(false);
     }
 

@@ -100,7 +100,6 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         m_Damage.CancelDamage();
         m_Damage.gameObject.SetActive(false);
         m_Callback.OnAttackEnd(this);
-        HideLightGuard();
     }
 
     public virtual void OnRotation(BeamAEDamage damage, float angle)

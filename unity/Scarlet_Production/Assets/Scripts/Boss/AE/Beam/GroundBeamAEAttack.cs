@@ -93,6 +93,5 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);
-        HideLightGuard();
     }
 }

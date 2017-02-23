@@ -70,7 +70,7 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
 
         bullet.Kill();
 
-        if (m_Instances.Count == 0)
+        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
             Kill();
     }
 
@@ -84,7 +84,7 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
         if (m_Instances.Contains(bullet))
             m_Instances.Remove(bullet);
 
-        if (m_Instances.Count == 0)
+        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
             Kill();
     }
 
@@ -93,7 +93,7 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
         if (m_Instances.Contains(bullet))
             m_Instances.Remove(bullet);
 
-        if (m_Instances.Count == 0)
+        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
             Kill();
     }
 }

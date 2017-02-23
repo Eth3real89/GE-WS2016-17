@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class DemonHunterController : BossController {
 
-    public enum AttackType {Pistols, Rifle, Grenade };
+    public enum AttackType {Pistols, Rifle, Grenade, DropGrenade };
 
     protected static string ANIM_AFTER_UNEQUIP_PISTOLS = "UnarmedIdle";
     protected static string ANIM_AFTER_EQUIP_PISTOLS = "PistolsIdle";
@@ -14,6 +14,8 @@ public abstract class DemonHunterController : BossController {
     protected static string ANIM_AFTER_UNEQUIP_RIFLE = "UnarmedIdle";
     protected static string ANIM_AFTER_EQUIP_RIFLE = "RifleIdle";
     protected static string ANIM_AFTER_RELOAD_RIFLE = "RifleIdle";
+
+    protected static string ANIM_AFTER_THROW_GRENADE = "GrenadeThrown";
 
     public Animator m_DHAnimator;
 
@@ -34,10 +36,14 @@ public abstract class DemonHunterController : BossController {
     public DemonHunterEvasionCommand m_EvasionCommand;
 
     public Transform[] m_AttackSpots;
+    protected bool[] m_BlockedByGrenade;
 
     protected bool m_SkipReload;
 
     protected bool m_RunAwayInstead;
+    protected int m_TimesFled;
+
+    public LightGuardAttack m_DropGrenadeAttack;
 
     public virtual void StartPhase(BossfightCallbacks callback)
     {
@@ -46,6 +52,11 @@ public abstract class DemonHunterController : BossController {
         m_ShootingPistols = false;
         m_SkipReload = false;
         m_RunAwayInstead = false;
+        m_BlockedByGrenade = new bool[m_AttackSpots.Length];
+        m_TimesFled = 0;
+        for (int i = 0; i < m_BlockedByGrenade.Length; i++)
+            m_BlockedByGrenade[i] = false;
+    
 
         RegisterComboCallback();
 
@@ -88,6 +99,12 @@ public abstract class DemonHunterController : BossController {
 
         yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
 
+        if (m_TimesFled >= 2)
+        {
+            m_TimesFled = 0;
+            yield return DropProtectiveGrenade();
+        }
+
         if (m_CurrentComboIndex + 1 >= m_Combos.Length)
         {
             yield return PrepareAttack(0);
@@ -105,55 +122,89 @@ public abstract class DemonHunterController : BossController {
     {
         if (m_Types[attackIndex] == AttackType.Pistols)
         {
-
-
-            if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
-            {
-                if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
-                {
-                    m_DHAnimator.SetTrigger("UnequipRifleTrigger");
-                    while (!CheckAnimation(ANIM_AFTER_UNEQUIP_RIFLE))
-                        yield return null;
-                }
-
-                m_DHAnimator.SetTrigger("EquipPistolsTrigger");
-                while (!CheckAnimation(ANIM_AFTER_EQUIP_PISTOLS))
-                    yield return null;
-            }
-
-            if (!m_SkipReload)
-            {
-                m_Reloading = true;
-                m_DHAnimator.SetTrigger("ReloadTrigger");
-
-                yield return new WaitForSeconds(0.2f);
-                while (!CheckAnimation(ANIM_AFTER_RELOAD_PISTOLS))
-                    yield return null;
-                m_Reloading = false;
-            }
-            m_SkipReload = false;
+            yield return PreparePistols();
         }
         else if (m_Types[attackIndex] == AttackType.Rifle)
         {
-            if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
-            {
-                if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
-                {
-                    m_DHAnimator.SetTrigger("UnequipPistolsTrigger");
-                    while (!CheckAnimation(ANIM_AFTER_UNEQUIP_PISTOLS))
-                        yield return null;
-                }
+            yield return PrepareRifle();
+        }
+        else if (m_Types[attackIndex] == AttackType.Grenade)
+        {
+            yield return PrepareGrenade();
+        }
+    }
 
-                m_DHAnimator.SetTrigger("EquipRifleTrigger");
-                while (!CheckAnimation(ANIM_AFTER_EQUIP_RIFLE))
+    protected IEnumerator PreparePistols()
+    {
+        if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
+        {
+            if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
+            {
+                m_DHAnimator.SetTrigger("UnequipRifleTrigger");
+                while (!CheckAnimation(ANIM_AFTER_UNEQUIP_RIFLE))
                     yield return null;
             }
-            
-            m_DHAnimator.SetTrigger("ReloadTrigger");
-            yield return new WaitForSeconds(0.2f);
-            while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
+
+            m_DHAnimator.SetTrigger("EquipPistolsTrigger");
+            while (!CheckAnimation(ANIM_AFTER_EQUIP_PISTOLS))
                 yield return null;
         }
+
+        if (!m_SkipReload)
+        {
+            m_Reloading = true;
+            m_DHAnimator.SetTrigger("ReloadTrigger");
+
+            yield return new WaitForSeconds(0.2f);
+            while (!CheckAnimation(ANIM_AFTER_RELOAD_PISTOLS))
+                yield return null;
+            m_Reloading = false;
+        }
+        m_SkipReload = false;
+    }
+
+    protected IEnumerator PrepareRifle()
+    {
+        if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
+        {
+            if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
+            {
+                m_DHAnimator.SetTrigger("UnequipPistolsTrigger");
+                while (!CheckAnimation(ANIM_AFTER_UNEQUIP_PISTOLS))
+                    yield return null;
+            }
+
+            m_DHAnimator.SetTrigger("EquipRifleTrigger");
+            while (!CheckAnimation(ANIM_AFTER_EQUIP_RIFLE))
+                yield return null;
+        }
+
+        m_DHAnimator.SetTrigger("ReloadTrigger");
+        yield return new WaitForSeconds(0.2f);
+        while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
+            yield return null;
+    }
+
+    protected IEnumerator PrepareGrenade()
+    {
+        if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
+        {
+            if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
+            {
+                m_DHAnimator.SetTrigger("UnequipRifleTrigger");
+                while (!CheckAnimation(ANIM_AFTER_UNEQUIP_RIFLE))
+                    yield return null;
+            }
+
+            m_DHAnimator.SetTrigger("EquipPistolsTrigger");
+            while (!CheckAnimation(ANIM_AFTER_EQUIP_PISTOLS))
+                yield return null;
+        }
+
+        m_DHAnimator.SetTrigger("ThrowGrenadeTrigger");
+        yield return new WaitForSeconds(0.1f);
+        while (!CheckAnimation(ANIM_AFTER_THROW_GRENADE))
+            yield return null;
     }
 
     protected virtual IEnumerator RunToNextSpot()
@@ -188,7 +239,7 @@ public abstract class DemonHunterController : BossController {
         while(true)
         {
             float dist = Vector3.Distance(transform.position, m_Scarlet.transform.position);
-            if (dist <= m_DangerousDistance)
+            if (dist <= m_DangerousDistance && !m_DropGrenadeAttack.IsActive())
             {
                 OnScarletTooClose();
             }
@@ -197,12 +248,21 @@ public abstract class DemonHunterController : BossController {
         }
     }
 
+    protected IEnumerator DropProtectiveGrenade()
+    {
+        print("!!!!");
+        m_CurrentComboIndex = 3;
+        yield return null;
+    }
+
     protected virtual void OnScarletTooClose()
     {
-        StopCoroutine(m_RangeCheck);
+        if (m_RangeCheck != null)
+            StopCoroutine(m_RangeCheck);
         CancelComboIfActive();
 
         m_SkipReload = true;
+        m_TimesFled++;
 
         m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
     }
@@ -250,7 +310,8 @@ public abstract class DemonHunterController : BossController {
 
     public override void OnComboEnd(AttackCombo combo)
     {
-        StopCoroutine(m_RangeCheck);
+        if (m_RangeCheck != null)
+            StopCoroutine(m_RangeCheck);
         m_ShootingPistols = false;
 
         base.OnComboEnd(combo);
@@ -277,14 +338,9 @@ public abstract class DemonHunterController : BossController {
                 StopCoroutine(m_RangeCheck);
 
             dmg.OnSuccessfulHit();
-
-            if (m_TimeWindowManager != null)
-            {
-                m_TimeWindowManager.Activate(this);
-                m_BossHittable.RegisterInterject(m_TimeWindowManager);
-            }
-
             CameraController.Instance.Shake();
+
+            m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
 
             return false;
         }

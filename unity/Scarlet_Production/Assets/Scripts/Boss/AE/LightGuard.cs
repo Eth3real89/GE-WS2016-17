@@ -6,7 +6,7 @@ public class LightGuard : MonoBehaviour {
 
     public LightGuardVisuals m_LightGuardVisuals;
 
-    public GameObject m_Boss;
+    public GameObject m_Center;
 
     public float m_LightGuardRadius = 0;
     public float m_ExpandLightGuardTime = 0.01f;
@@ -26,7 +26,7 @@ public class LightGuard : MonoBehaviour {
         Collider c = GetComponentInChildren<Collider>();
 
         m_LightGuardVisuals.Setup();
-        m_LightGuardVisuals.transform.position = new Vector3(m_Boss.transform.position.x, m_LightGuardVisuals.transform.position.y, m_Boss.transform.position.z);
+        m_LightGuardVisuals.transform.position = new Vector3(m_Center.transform.position.x, m_LightGuardVisuals.transform.position.y, m_Center.transform.position.z);
 
         while ((t += Time.deltaTime) < m_ExpandLightGuardTime)
         {

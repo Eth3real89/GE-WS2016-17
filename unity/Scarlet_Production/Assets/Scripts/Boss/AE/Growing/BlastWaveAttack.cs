@@ -62,7 +62,6 @@ public class BlastWaveAttack : GrowingAEAttack {
         yield return GrowRoutine();
 
         m_Callback.OnAttackEnd(this);
-        HideLightGuard();
         m_Visuals.gameObject.SetActive(false);
     }
 
