@@ -58,14 +58,17 @@ public class DemonHunterEvasionCommand : BossCommand {
             StopCoroutine(m_Enumerator);
     }
 
-    public virtual IEnumerator QuickPerfectRotationRoutine(float time)
+    public virtual IEnumerator QuickPerfectRotationRoutine(float time, Transform goal = null)
     {
+        if (goal == null)
+            goal = m_Scarlet.transform;
+
         m_Animator.SetTrigger("RotationTrigger");
 
         float t = 0;
         while ((t += Time.deltaTime) < time)
         {
-            float goalRotation = BossTurnCommand.CalculateAngleTowards(m_Boss.transform, m_Scarlet.transform);
+            float goalRotation = BossTurnCommand.CalculateAngleTowards(m_Boss.transform, goal);
 
             while (goalRotation > 180)
                 goalRotation -= 360;

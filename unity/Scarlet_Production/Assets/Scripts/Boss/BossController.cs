@@ -13,7 +13,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     /// 
     /// </summary>
     public AttackCombo[] m_Combos;
-    public WerewolfHittable m_BossHittable;
+    public BossHittable m_BossHittable;
 
     protected int m_CurrentComboIndex;
 

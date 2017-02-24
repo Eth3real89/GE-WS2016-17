@@ -45,6 +45,8 @@ public abstract class DemonHunterController : BossController {
 
     public LightGuardAttack m_DropGrenadeAttack;
 
+    public int m_NumHits = 10;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         this.m_Callback = callback;
@@ -54,6 +56,8 @@ public abstract class DemonHunterController : BossController {
         m_RunAwayInstead = false;
         m_BlockedByGrenade = new bool[m_AttackSpots.Length];
         m_TimesFled = 0;
+        ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;
+
         for (int i = 0; i < m_BlockedByGrenade.Length; i++)
             m_BlockedByGrenade[i] = false;
     
@@ -113,8 +117,7 @@ public abstract class DemonHunterController : BossController {
         {
             yield return PrepareAttack(m_CurrentComboIndex + 1);
         }
-
-        yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
+        
         StartNextCombo();
     }
 
@@ -123,14 +126,16 @@ public abstract class DemonHunterController : BossController {
         if (m_Types[attackIndex] == AttackType.Pistols)
         {
             yield return PreparePistols();
+            yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
         }
         else if (m_Types[attackIndex] == AttackType.Rifle)
         {
             yield return PrepareRifle();
+            yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
         }
         else if (m_Types[attackIndex] == AttackType.Grenade)
         {
-            yield return PrepareGrenade();
+            yield return PrepareGrenade(attackIndex);
         }
     }
 
@@ -185,7 +190,7 @@ public abstract class DemonHunterController : BossController {
             yield return null;
     }
 
-    protected IEnumerator PrepareGrenade()
+    protected IEnumerator PrepareGrenade(int attackIndex)
     {
         if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
         {
@@ -205,6 +210,9 @@ public abstract class DemonHunterController : BossController {
         yield return new WaitForSeconds(0.1f);
         while (!CheckAnimation(ANIM_AFTER_THROW_GRENADE))
             yield return null;
+        
+        Transform t = ChooseGrenadeSpot(m_Combos[attackIndex]);
+        yield return m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, t);
     }
 
     protected virtual IEnumerator RunToNextSpot()
@@ -250,7 +258,6 @@ public abstract class DemonHunterController : BossController {
 
     protected IEnumerator DropProtectiveGrenade()
     {
-        print("!!!!");
         m_CurrentComboIndex = 3;
         yield return null;
     }
@@ -272,10 +279,11 @@ public abstract class DemonHunterController : BossController {
         Transform maxDistTransform = null;
         float maxDist = -1;
 
-        foreach(Transform t in m_AttackSpots)
+        for(int i = 0; i < m_AttackSpots.Length; i++)
         {
+            Transform t = m_AttackSpots[i];
             float dist = Vector3.Distance(t.position, m_Scarlet.transform.position);
-            if (dist > maxDist)
+            if (dist > maxDist && !m_BlockedByGrenade[i])
             {
                 maxDistTransform = t;
                 maxDist = dist;
@@ -306,6 +314,46 @@ public abstract class DemonHunterController : BossController {
             m_RangeCheck = RangeCheck();
             StartCoroutine(m_RangeCheck);
         }
+    }
+
+    protected virtual Transform ChooseGrenadeSpot(AttackCombo attackCombo)
+    {
+        Transform furthestFromBossThatIsntBlocked = null;
+        float maxDist = -1;
+        int spotIndex = -1;
+
+        for(int i = 0; i < m_AttackSpots.Length; i++)
+        {
+            float dist = Vector3.Distance(transform.position, m_AttackSpots[i].position);
+            if (dist > maxDist && !m_BlockedByGrenade[i])
+            {
+                maxDist = dist;
+                spotIndex = i;
+                furthestFromBossThatIsntBlocked = m_AttackSpots[i];
+            }
+        }
+
+        for(int i = 0; i < attackCombo.m_Attacks.Length; i++)
+        {
+            if (attackCombo.m_Attacks[i] is BulletAttack)
+            {
+                BulletMovement m = (((BulletAttack)attackCombo.m_Attacks[i]).m_BaseSwarm.m_Invoker.m_Factories[0].m_Movement);
+                if (m is BulletGrenadeMovement)
+                {
+                    ((BulletGrenadeMovement)m).m_Goal = furthestFromBossThatIsntBlocked;
+                    break;
+                }
+            }
+        }
+
+        return furthestFromBossThatIsntBlocked;
+    }
+
+    protected virtual IEnumerator BlockAttackSpot(int spotIndex, float howLong)
+    {
+        m_BlockedByGrenade[spotIndex] = true;
+        yield return new WaitForSeconds(howLong);
+        m_BlockedByGrenade[spotIndex] = false;
     }
 
     public override void OnComboEnd(AttackCombo combo)
