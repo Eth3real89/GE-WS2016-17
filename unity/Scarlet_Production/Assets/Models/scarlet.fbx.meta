@@ -767,6 +767,10 @@ ModelImporter:
     101518: ORG-thumb.03.R_end
     101520: ORG-toe.L_end
     101522: ORG-toe.R_end
+    101524: claw_l
+    101526: claw_r
+    101528: hand_l
+    101530: hand_r
     400000: back:_piece
     400002: body
     400004: Camera
@@ -1529,6 +1533,10 @@ ModelImporter:
     401518: ORG-thumb.03.R_end
     401520: ORG-toe.L_end
     401522: ORG-toe.R_end
+    401524: claw_l
+    401526: claw_r
+    401528: hand_l
+    401530: hand_r
     2300000: WGT-chest
     2300002: WGT-elbow_hose.L
     2300004: WGT-elbow_hose.R
@@ -1842,11 +1850,20 @@ ModelImporter:
     4300208: front_piece
     4300210: back:_piece
     4300212: skirt
+    4300214: claw_r
+    4300216: hand_l
+    4300218: claw_l
+    4300220: hand_r
+    7400000: rig|hi
     9500000: //RootNode
     13700000: back:_piece
     13700002: body
     13700004: front_piece
     13700006: skirt
+    13700008: claw_l
+    13700010: claw_r
+    13700012: hand_l
+    13700014: hand_r
   materials:
     importMaterials: 1
     materialName: 0
@@ -1858,7 +1875,11 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'rig|hi' has import animation warnings that might
+      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
+      retargeting quality.\n\t'ORG-hips' has translation animation that will be discarded.\n\t'ORG-upper_arm.L'
+      has scale animation that will be discarded.\n\t'ORG-hand.L' has scale animation
+      that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3

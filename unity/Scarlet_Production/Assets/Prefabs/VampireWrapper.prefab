@@ -29641,8 +29641,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -29928,6 +29926,7 @@ MonoBehaviour:
   m_TurnTowardsScarlet: {fileID: 114861046359600038}
   m_Angle: 270
   m_Distance: 2.5
+  m_MinDistance: 0
 --- !u!114 &114075243957754246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -29961,6 +29960,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114196058523513114}
+  m_KillAllChildren: 0
 --- !u!114 &114077312730306858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30045,8 +30045,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 1
   m_ExpandScale: 18
   m_RotationTime: 7
@@ -30056,6 +30054,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 0.5
   m_InitiallyAimAtScarlet: 1
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_NumSways: 4
 --- !u!114 &114098038835961874
 MonoBehaviour:
@@ -30074,6 +30074,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114810996165298828}
+  m_KillAllChildren: 0
 --- !u!114 &114099844771938388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30183,6 +30184,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 114911277352744432}
   - {fileID: 114988042908617534}
@@ -30365,6 +30367,7 @@ MonoBehaviour:
   m_TurnTowardsScarlet: {fileID: 114861046359600038}
   m_Angle: 270
   m_Distance: 2.5
+  m_MinDistance: 0
 --- !u!114 &114127326016988612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30382,6 +30385,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114214804846491568}
+  m_KillAllChildren: 0
 --- !u!114 &114134229123196424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30467,6 +30471,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114774479667657812}
+  m_KillAllChildren: 0
 --- !u!114 &114137130135644418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30513,6 +30518,7 @@ MonoBehaviour:
   m_TurnTowardsScarlet: {fileID: 114861046359600038}
   m_Angle: 270
   m_Distance: 2.5
+  m_MinDistance: 0
 --- !u!114 &114150415048214962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30627,8 +30633,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -30723,6 +30727,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114295649720065040}
+  m_KillAllChildren: 0
 --- !u!114 &114189622639122110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30757,8 +30762,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 0.3
   m_ExpandScale: 12
   m_RotationTime: 10
@@ -30768,6 +30771,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 2
   m_InitiallyAimAtScarlet: 0
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_SecondDamage: {fileID: 114122820240685786}
   m_AngleBetweenBeams: 180
 --- !u!114 &114195864000896964
@@ -30990,8 +30995,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 40
   m_Center: {fileID: 0}
   m_InitialFrontSize: 2
@@ -31090,6 +31093,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114274397889140608}
+  m_KillAllChildren: 0
 --- !u!114 &114234928737923808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31125,6 +31129,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114567221549031116}
+  m_KillAllChildren: 0
 --- !u!114 &114238104670519904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31226,8 +31231,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 0}
   m_InitialFrontSize: 10
@@ -31278,8 +31281,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_AttackVisualsContainer: {fileID: 1403713503347446}
   m_Damage: {fileID: 114125437962506036}
   m_Angle: 45
@@ -31349,8 +31350,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 0.2
   m_ExpandScale: 0.5
   m_WaitTimeBetweenExpansions: 1
@@ -31418,8 +31417,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -31509,6 +31506,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114959183064880168}
+  m_KillAllChildren: 0
 --- !u!114 &114269578688079644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31526,6 +31524,7 @@ MonoBehaviour:
   m_TimeSpentInAir: 0.15
   m_Speed: 3
   m_JumpAudio: {fileID: 0}
+  m_DoNotActuallyMove: 0
 --- !u!114 &114269622643039738
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31814,10 +31813,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_DamageTrigger: {fileID: 0}
-  m_HitSignals:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_HitWarning: {fileID: 0}
   m_UpswingTime: 0.3
   m_HoldTime: 0.15
   m_DownswingTime: 0.3
@@ -31894,8 +31890,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -32106,8 +32100,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -32160,8 +32152,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 1
   m_ExpandScale: 13
   m_RotationTime: 3
@@ -32171,6 +32161,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 0.5
   m_InitiallyAimAtScarlet: 0
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_NumSways: 2
 --- !u!114 &114361241896600960
 MonoBehaviour:
@@ -32248,8 +32240,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -32381,8 +32371,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -32535,6 +32523,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114434687376260142}
+  m_KillAllChildren: 0
 --- !u!114 &114413516402850294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32573,8 +32562,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -32993,6 +32980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 0}
   m_BossHittable: {fileID: 114492784845437806}
@@ -33017,8 +33005,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 0.3
   m_ExpandScale: 8
   m_RotationTime: 1
@@ -33028,6 +33014,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 0.5
   m_InitiallyAimAtScarlet: 0
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_NumSways: 1
 --- !u!114 &114477814887334716
 MonoBehaviour:
@@ -33252,6 +33240,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114040118406134508}
+  m_KillAllChildren: 0
 --- !u!114 &114514018611618342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33281,6 +33270,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114998706180009938}
+  m_KillAllChildren: 0
 --- !u!114 &114520699760909594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33375,6 +33365,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114135230708664260}
+  m_KillAllChildren: 0
 --- !u!114 &114525928946906290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33622,6 +33613,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114784784744752300}
+  m_KillAllChildren: 0
 --- !u!114 &114563240790438026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33904,6 +33896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 114587945440147118}
   - {fileID: 114741691281301176}
@@ -33975,8 +33968,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -34030,8 +34021,6 @@ MonoBehaviour:
   m_Animator: {fileID: 95405191386343014}
   m_Boss: {fileID: 1451053585669960}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 30
   m_Center: {fileID: 4662257462269110}
   m_InitialFrontSize: 1
@@ -34062,8 +34051,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_AttackVisualsContainer: {fileID: 1340776942809016}
   m_Damage: {fileID: 114148422316609334}
   m_Angle: 90
@@ -34184,8 +34171,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -34326,8 +34311,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -34401,8 +34384,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -34432,6 +34413,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114563254173257964}
+  m_KillAllChildren: 0
 --- !u!114 &114636693034012200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34770,6 +34752,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114241452734224892}
+  m_KillAllChildren: 0
 --- !u!114 &114674007769702200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34815,6 +34798,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114548177647115734}
+  m_KillAllChildren: 0
 --- !u!114 &114683806011421026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35103,7 +35087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LightGuardVisuals: {fileID: 114099844771938388}
-  m_Boss: {fileID: 1451053585669960}
+  m_Center: {fileID: 1451053585669960}
   m_LightGuardRadius: 2
   m_ExpandLightGuardTime: 0.01
 --- !u!114 &114725489104340480
@@ -35196,8 +35180,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 1
   m_ExpandScale: 18
   m_RotationTime: 8
@@ -35207,6 +35189,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 0.5
   m_InitiallyAimAtScarlet: 1
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_NumSways: 8
 --- !u!114 &114733041516334488
 MonoBehaviour:
@@ -35584,6 +35568,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114604207504831004}
+  m_KillAllChildren: 0
 --- !u!114 &114784784744752300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35683,6 +35668,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114866525500264966}
+  m_KillAllChildren: 0
 --- !u!114 &114790309753883616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35761,6 +35747,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114796220763726046}
+  m_KillAllChildren: 0
 --- !u!114 &114796220763726046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35795,8 +35782,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -35894,6 +35879,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 114671664214179004}
   - {fileID: 114739053960397594}
@@ -36139,8 +36125,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 0.2
   m_ExpandScale: 0.5
   m_WaitTimeBetweenExpansions: 1
@@ -36812,8 +36796,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -36844,8 +36826,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -36911,8 +36891,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_ExpandTime: 1
   m_ExpandScale: 18
   m_RotationTime: 7
@@ -36922,6 +36900,8 @@ MonoBehaviour:
   m_InitialTurnTrackSpeed: 45
   m_TurnTime: 2
   m_InitiallyAimAtScarlet: 1
+  m_DoNotTurnBoss: 0
+  m_PerfectTrackingAtStart: 1
   m_NumSways: 4
   m_SecondDamage: {fileID: 114839177589697696}
   m_AngleBetweenBeams: 45
@@ -37060,8 +37040,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -37126,6 +37104,7 @@ MonoBehaviour:
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114894859213216746}
+  m_KillAllChildren: 0
 --- !u!114 &114964073642431606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37346,8 +37325,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -37394,8 +37371,6 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LightGuard: {fileID: 0}
-  m_GuardByLight: 0
   m_Damage: 20
   m_Center: {fileID: 4110213182726824}
   m_InitialFrontSize: 1
@@ -37420,6 +37395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 114754321439110372}
   - {fileID: 114792737045698328}
