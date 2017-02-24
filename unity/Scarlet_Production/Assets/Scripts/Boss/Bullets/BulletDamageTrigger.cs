@@ -17,7 +17,7 @@ public class BulletDamageTrigger : MonoBehaviour {
             if (m_Callback != null)
                 m_Callback.OnScarletCollidesWithBullet(other.gameObject);
         }
-        else if (other.GetComponentInChildren<WerewolfHittable>() != null)
+        else if (other.GetComponentInChildren<BossHittable>() != null)
         {
             if (m_Callback != null)
                 m_Callback.OnBossCollidesWithBullet(other.gameObject);
@@ -37,7 +37,7 @@ public class BulletDamageTrigger : MonoBehaviour {
             if (m_Callback != null)
                 m_Callback.OnScarletCollidesWithBullet(other.gameObject);
         }
-        else if (other.GetComponentInChildren<WerewolfHittable>() != null)
+        else if (other.GetComponentInChildren<BossHittable>() != null)
         {
             if (m_Callback != null)
                 m_Callback.OnBossCollidesWithBullet(other.gameObject);

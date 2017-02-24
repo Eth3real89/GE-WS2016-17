@@ -12,8 +12,9 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     {
         GameObject empty = GameObject.Instantiate(m_LeftOverEmptyObject);
         empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
+        empty.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
 
-        foreach(BossAttack attack in m_Combo.m_Attacks)
+        foreach (BossAttack attack in m_Combo.m_Attacks)
         {
             if (attack is BlastWaveAttack)
             {
@@ -29,7 +30,8 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             }
         }
 
-
+        m_Combo = GameObject.Instantiate(m_Combo);
+        
         m_Combo.m_Callback = this;
         m_Combo.LaunchCombo();
     }

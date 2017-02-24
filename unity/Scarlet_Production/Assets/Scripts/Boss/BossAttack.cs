@@ -26,7 +26,6 @@ public abstract class BossAttack : MonoBehaviour {
     public Animator m_Animator;
     public GameObject m_Boss;
     public TurnTowardsScarlet m_FullTurnCommand;
-    public Hittable m_BossHittable;
 
     public AttackCallback m_Callback;
 

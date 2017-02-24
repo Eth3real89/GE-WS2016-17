@@ -13,6 +13,11 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
 
     public override void LaunchCombo()
     {
+        foreach (BossAttack attack in m_Attacks)
+        {
+            attack.m_Callback = this;
+        }
+
         m_OpenAttacks = new HashSet<BossAttack>();
         base.LaunchCombo();
     }

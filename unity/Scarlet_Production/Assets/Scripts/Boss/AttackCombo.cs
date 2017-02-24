@@ -8,7 +8,6 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     public GameObject m_Boss;
     public Animator m_Animator;
     public TurnTowardsScarlet m_FullTurnCommand;
-    public WerewolfHittable m_BossHittable;
     public BossStaggerCommand m_BossStagger;
 
     public BossMoveCommand m_MoveCommand;
@@ -16,9 +15,6 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     public BossAttack[] m_Attacks;
 
     public float m_TimeAfterCombo;
-
-    public BlockingBehaviour m_BlockingBehaviour;
-    public int m_MaxBlocksBeforeParry = 3;
 
     public ComboCallback m_Callback;
     protected BossAttack m_CurrentAttack;
@@ -39,7 +35,6 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
             attack.m_Boss = m_Boss;
             attack.m_Animator = m_Animator;
             attack.m_Callback = this;
-            attack.m_BossHittable = m_BossHittable;
             attack.m_FullTurnCommand = m_FullTurnCommand;
         }
 	}
@@ -49,9 +44,6 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         m_Cancelled = false;
 
         MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
-
-        if (m_BlockingBehaviour != null)
-            m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
 
         m_Callback.OnComboStart(this);
 

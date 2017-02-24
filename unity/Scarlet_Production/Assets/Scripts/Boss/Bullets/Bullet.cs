@@ -63,7 +63,7 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
         {
             m_DamageTrigger.m_Active = false;
 
-            WerewolfHittable hittable = boss.GetComponentInChildren<WerewolfHittable>();
+            BossHittable hittable = boss.GetComponentInChildren<BossHittable>();
             if (hittable != null)
             {
                 hittable.Hit(m_Damage);

@@ -33,11 +33,15 @@ public class LightGuardAttack : AEAttack {
     public override void CancelAttack()
     {
         base.CancelAttack();
-        if (m_Timer != null)
-            StopCoroutine(m_Timer);
 
-        m_LightGuard.ReattachVisualsToParent();
-        m_LightGuard.gameObject.SetActive(false);
+        if (m_LightGuard.gameObject.activeSelf)
+        {
+            if (m_Timer != null)
+                StopCoroutine(m_Timer);
+
+            m_LightGuard.ReattachVisualsToParent();
+            m_LightGuard.gameObject.SetActive(false);
+        }
     }
 
     public bool IsActive()
