@@ -31,6 +31,19 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
+        if (attackIndex == 3 || attackIndex == 1)
+        {
+            GameObject t = GameObject.Find("_MainObject");
+            if (t != null)
+            {
+                m_PerfectRotationTarget = t.transform;
+            }
+        }
+        else
+        {
+            m_PerfectRotationTarget = m_Scarlet.transform;
+        }
+
         yield return base.PrepareAttack(attackIndex);
     }
 

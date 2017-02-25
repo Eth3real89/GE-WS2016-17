@@ -35,6 +35,7 @@ public abstract class DemonHunterController : BossController {
     protected IEnumerator m_PreparationRoutine;
 
     public DemonHunterEvasionCommand m_EvasionCommand;
+    protected bool m_Evading;
 
     public Transform[] m_AttackSpots;
     protected bool[] m_BlockedByGrenade;
@@ -50,6 +51,8 @@ public abstract class DemonHunterController : BossController {
 
     public int m_StartAttackIndex = 0;
 
+    public Transform m_PerfectRotationTarget;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         MLog.Log(LogType.DHLog, "Starting Phase, DH, " + this);
@@ -58,30 +61,21 @@ public abstract class DemonHunterController : BossController {
         m_ShootingPistols = false;
         m_SkipReload = false;
         m_BlockedByGrenade = new bool[m_AttackSpots.Length];
+        m_Evading = false;
         m_TimesFled = 0;
-        ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;
+        m_PerfectRotationTarget = m_Scarlet.transform;
 
+        ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;
 
         for (int i = 0; i < m_BlockedByGrenade.Length; i++)
             m_BlockedByGrenade[i] = false;
     
-
         RegisterComboCallback();
 
         m_BossHittable.RegisterInterject(this);
 
         m_CurrentComboIndex = m_StartAttackIndex -1;
         StartCoroutine(StartNextComboAfter(0.5f));
-    }
-
-    protected virtual void RegisterListeners()
-    {
-
-    }
-
-    protected virtual void UnregisterListeners()
-    {
-
     }
 
     protected override IEnumerator StartNextComboAfter(float time)
@@ -95,7 +89,7 @@ public abstract class DemonHunterController : BossController {
         if (m_PreparationRoutine != null)
             StopCoroutine(m_PreparationRoutine);
 
-        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
+        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, m_PerfectRotationTarget);
         yield return StartCoroutine(m_PreparationRoutine);
 
         if (m_TimesFled >= 2)
@@ -176,7 +170,7 @@ public abstract class DemonHunterController : BossController {
             m_SkipReload = false;
         }
 
-        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
+        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, m_PerfectRotationTarget);
         yield return m_PreparationRoutine;
 
         MLog.Log(LogType.DHLog, "Done preparing pistols, DH, " + this);
@@ -204,7 +198,7 @@ public abstract class DemonHunterController : BossController {
         while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
             yield return null;
 
-        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
+        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, m_PerfectRotationTarget);
         yield return m_PreparationRoutine;
         m_SkipReload = false;
 
@@ -234,7 +228,7 @@ public abstract class DemonHunterController : BossController {
         
         Transform t = ChooseGrenadeSpot(m_Combos[attackIndex]);
 
-        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f);
+        m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, t);
         yield return m_PreparationRoutine;
 
         m_SkipReload = false;
@@ -263,20 +257,12 @@ public abstract class DemonHunterController : BossController {
         m_SkipReload = false;
     }
 
-    protected virtual IEnumerator RunToNextSpot()
-    {
-        yield return m_EvasionCommand.ReachSpot(GetFurthestSpotFromScarlet());
-
-        m_NextComboTimer = StartNextComboAfter(0.1f);
-        StartCoroutine(m_NextComboTimer);
-    }
-
     protected virtual IEnumerator RangeCheck()
     {
         while(true)
         {
             float dist = Vector3.Distance(transform.position, m_Scarlet.transform.position);
-            if (dist <= m_DangerousDistance && !m_DropGrenadeAttack.IsActive())
+            if (dist <= m_DangerousDistance && !m_DropGrenadeAttack.IsActive() && !m_Evading)
             {
                 OnScarletTooClose();
             }
@@ -308,6 +294,7 @@ public abstract class DemonHunterController : BossController {
         m_SkipReload = true;
         m_TimesFled++;
 
+        m_Evading = true;
         m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
     }
 
@@ -333,6 +320,7 @@ public abstract class DemonHunterController : BossController {
 
     protected virtual IEnumerator OnEvasionFinished()
     {
+        m_Evading = false;
         yield return null;
         MLog.Log(LogType.DHLog, "On Evasion Finished,  DH, " + this);
 
@@ -455,6 +443,7 @@ public abstract class DemonHunterController : BossController {
         else
         {
             MLog.Log(LogType.DHLog, "Starting next combo from AfterCombo, DH, After Evasion, " + this);
+            m_Evading = true;
             m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
         }
     }
@@ -483,6 +472,7 @@ public abstract class DemonHunterController : BossController {
 
             m_CurrentComboIndex++;
 
+            m_Evading = true;
             m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
 
             return false;

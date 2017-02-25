@@ -15,7 +15,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
         m_Destroy = false;
 
         GameObject empty = GameObject.Instantiate(m_LeftOverEmptyObject);
-        empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
+        empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y + 0.5f, b.transform.position.z);
         empty.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
 
         foreach (BossAttack attack in m_Combo.m_Attacks)
