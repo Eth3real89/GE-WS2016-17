@@ -13,6 +13,8 @@ public class DemonHunterEvasionCommand : BossCommand {
 
     public void EvadeTowards(Transform goal, MonoBehaviour owner, IEnumerator onEvasionFinished)
     {
+        MLog.Log(LogType.DHLog, "Evading towards goal, EvadeCommand, " + this);
+
         m_Enumerator = EvasionRoutine(goal, owner, onEvasionFinished);
         StartCoroutine(m_Enumerator);
     }

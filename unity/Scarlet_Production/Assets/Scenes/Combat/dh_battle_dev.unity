@@ -187,6 +187,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1265097020}
   m_Script: {fileID: 11500000, guid: 96a656c58bf8b134d973fed0164b9792, type: 3}
+--- !u!114 &10650786 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114127871605041426, guid: 4fc929c026192934ca709c3d01c6e650,
+    type: 2}
+  m_PrefabInternal: {fileID: 1265097020}
+  m_Script: {fileID: 11500000, guid: 26049ee00e266034b9897189103f60b8, type: 3}
 --- !u!1 &11458271
 GameObject:
   m_ObjectHideFlags: 0
@@ -3688,7 +3694,43 @@ Prefab:
       propertyPath: m_BloodTrailPlaneCollider
       value: 
       objectReference: {fileID: 223304240}
-    m_RemovedComponents: []
+    - target: {fileID: 114510561704608504, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_DHHealth
+      value: 
+      objectReference: {fileID: 10650786}
+    - target: {fileID: 114029304743515472, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_DHHealth
+      value: 
+      objectReference: {fileID: 10650786}
+    - target: {fileID: 114326994330050068, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_DHHealth
+      value: 
+      objectReference: {fileID: 10650786}
+    - target: {fileID: 114332413090641916, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_TimeAfterCombo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114166713464630638, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_Active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 135809537289550050, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 135809537289550050, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 135809537289550050, guid: 4fc929c026192934ca709c3d01c6e650, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 4fc929c026192934ca709c3d01c6e650, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1268947407

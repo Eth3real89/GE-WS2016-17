@@ -398,7 +398,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4438993428032618}
   - component: {fileID: 33758065954393900}
-  - component: {fileID: 135809537289550050}
   - component: {fileID: 23403580423566784}
   - component: {fileID: 114457253967063276}
   - component: {fileID: 114166713464630638}
@@ -37798,6 +37797,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_DropGrenadeAttack: {fileID: 0}
   m_NumHits: 9
+  m_DHHealth: {fileID: 114127871605041426}
   m_StartAttackIndex: 0
 --- !u!114 &114030639765888542
 MonoBehaviour:
@@ -39023,6 +39023,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_DropGrenadeAttack: {fileID: 0}
   m_NumHits: 1
+  m_DHHealth: {fileID: 114127871605041426}
   m_StartAttackIndex: 0
 --- !u!114 &114327958577074464
 MonoBehaviour:
@@ -39101,7 +39102,7 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114526234206361042}
   - {fileID: 114564799314944534}
-  m_TimeAfterCombo: 2
+  m_TimeAfterCombo: 1
   m_WaitTimes:
   - 0.1
 --- !u!114 &114332945690417202
@@ -39790,6 +39791,7 @@ MonoBehaviour:
   - {fileID: 0}
   m_DropGrenadeAttack: {fileID: 114428049768693942}
   m_NumHits: 7
+  m_DHHealth: {fileID: 114127871605041426}
   m_StartAttackIndex: 0
 --- !u!114 &114514570711515056
 MonoBehaviour:
@@ -42374,18 +42376,6 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1768609937230306}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135809537289550050
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1020094250594314}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1

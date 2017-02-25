@@ -8,8 +8,12 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     public AttackCombo m_Combo;
     public GameObject m_LeftOverEmptyObject;
 
+    protected bool m_Destroy;
+
     public override void OnBulletExpires(BulletBehaviour b)
     {
+        m_Destroy = false;
+
         GameObject empty = GameObject.Instantiate(m_LeftOverEmptyObject);
         empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
         empty.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
@@ -34,10 +38,13 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
         
         m_Combo.m_Callback = this;
         m_Combo.LaunchCombo();
+
+        StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject));
     }
 
     public void OnComboEnd(AttackCombo combo)
     {
+        m_Destroy = true;
     }
 
     public void OnComboParried(AttackCombo combo)
@@ -46,6 +53,22 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
 
     public void OnComboStart(AttackCombo combo)
     {
+    }
+
+    protected virtual IEnumerator DestroyOnFinish(GameObject go, GameObject comboCopy)
+    {
+        while(!m_Destroy)
+        {
+            yield return null;
+        }
+        // just to be safe
+        yield return new WaitForSeconds(5f);
+
+        if (go != null)
+            GameObject.Destroy(go);
+
+        if (comboCopy != null)
+            GameObject.Destroy(comboCopy);
     }
 
     public void OnInterruptCombo(AttackCombo combo)

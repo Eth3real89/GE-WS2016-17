@@ -9,9 +9,24 @@ public class DemonHunterPhase1Controller : DemonHunterController {
     private const float m_SecondAttackShootSpeed = 4f;
     private const float m_FifthAttackShootSpeed = 0.3f;
 
+    protected bool m_EndInitialized;
+
     public override void StartPhase(BossfightCallbacks callback)
     {
+        m_EndInitialized = false;
         base.StartPhase(callback);
+    }
+
+    private void Update()
+    {
+        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0)
+        {
+            m_EndInitialized = true;
+            m_NotDeactivated = false;
+            CancelComboIfActive();
+            StopAllCoroutines();
+            m_Callback.PhaseEnd(this);
+        }
     }
 
     protected override IEnumerator PrepareAttack(int attackIndex)
