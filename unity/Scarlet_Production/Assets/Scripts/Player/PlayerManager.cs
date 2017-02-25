@@ -23,10 +23,13 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerClimbingHandler m_ClimbingHandler;
     public PlayerControls m_PlayerControls;
 
+    public bool m_BeforeAuraPickUp;
+
     private bool m_IsClimbing;
     private List<GameObject> m_TrackLightFields;
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
+    private GameObject m_Collectible;
 
     // Use this for initialization
     void Start()
@@ -34,6 +37,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         m_TrackLightFields = new List<GameObject>();
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_Collectible = GameObject.Find("Collectible");
+
         if (m_PlayerDamage != null)
         {
             m_PlayerDamage.m_Callback = this;
@@ -63,11 +68,19 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
     public void OnEnterLightField(GameObject lightField)
     {
+        if ((m_Collectible == null || m_Collectible.activeSelf == false) && m_BeforeAuraPickUp)
+        {
+            m_BeforeAuraPickUp = false;
+        }
         Vector3 retreatDirection = lightField.GetComponent<LightField>().GetVectorFromDirection(m_Rigidbody.velocity);
         LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
         if (!m_TrackLightFields.Contains(lightField))
             m_TrackLightFields.Add(lightField);
 
+        if(!m_BeforeAuraPickUp)
+        {
+            transform.Find("DarknessAura").gameObject.SetActive(false);
+        }
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
@@ -80,9 +93,18 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
     public void OnExitLightField(GameObject lightField)
     {
+        if ((m_Collectible == null || m_Collectible.activeSelf == false) && m_BeforeAuraPickUp)
+        {
+            m_BeforeAuraPickUp = false;
+        }
         LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
         if (m_TrackLightFields.Contains(lightField))
             m_TrackLightFields.Remove(lightField);
+
+        if (!m_BeforeAuraPickUp)
+        {
+            transform.Find("DarknessAura").gameObject.SetActive(true);
+        }
 
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerExitsLight();
