@@ -31,6 +31,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     private Rigidbody m_Rigidbody;
     private GameObject m_Collectible;
 
+    private ParticleSystem m_ScarletAura;
+
     // Use this for initialization
     void Start()
     {
@@ -38,6 +40,7 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         m_Animator = GetComponent<Animator>();
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Collectible = GameObject.Find("Collectible");
+        m_ScarletAura = transform.Find("DarknessAura").gameObject.GetComponent<ParticleSystem>();
 
         if (m_PlayerDamage != null)
         {
@@ -79,7 +82,9 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
         if(!m_BeforeAuraPickUp)
         {
-            transform.Find("DarknessAura").gameObject.SetActive(false);
+            var main = m_ScarletAura.main;
+            main.simulationSpeed = 3f;
+            m_ScarletAura.Stop();
         }
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
@@ -103,7 +108,9 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
         if (!m_BeforeAuraPickUp)
         {
-            transform.Find("DarknessAura").gameObject.SetActive(true);
+            var main = m_ScarletAura.main;
+            main.simulationSpeed = 1f;
+            m_ScarletAura.Play();
         }
 
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
