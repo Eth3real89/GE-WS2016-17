@@ -12,6 +12,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
     public DemonHunterPhase2Controller m_Phase2Controller;
     public DemonHunterPhase2Controller m_Phase3Controller;
 
+    public CharacterHealth m_DHHealth;
+
     void Start()
     {
         StartCoroutine(StartAfterShortDelay());
@@ -40,6 +42,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         if (whichPhase == m_Phase1Controller)
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 1 over " + this);
+            m_DHHealth.m_CurrentHealth = m_DHHealth.m_MaxHealth;
+
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             m_Phase2Controller.StartPhase(this);

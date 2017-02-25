@@ -298,7 +298,7 @@ public abstract class DemonHunterController : BossController {
         m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
     }
 
-    private Transform GetFurthestSpotFromScarlet()
+    protected virtual Transform GetFurthestSpotFromScarlet()
     {
         Transform maxDistTransform = null;
         float maxDist = -1;
@@ -434,6 +434,11 @@ public abstract class DemonHunterController : BossController {
         if (m_PreparationRoutine != null)
             StopCoroutine(m_PreparationRoutine);
 
+        InitNextAttack();
+    }
+
+    protected virtual void InitNextAttack()
+    {
         if (m_Types[m_CurrentComboIndex] == AttackType.DropGrenade)
         {
             MLog.Log(LogType.DHLog, "Starting next combo from AfterCombo, DH, After Grenade, " + this);
