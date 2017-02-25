@@ -9,12 +9,21 @@ public class DemonHunterEvasionCommand : BossCommand {
 
     public BossMoveCommand m_MoveCommand;
 
-    protected IEnumerator m_Enumerator;
+    protected IEnumerator m_GeneralEnumerator;
+    protected IEnumerator m_ReachSpotEnumerator;
 
     public void EvadeTowards(Transform goal, MonoBehaviour owner, IEnumerator onEvasionFinished)
     {
-        m_Enumerator = EvasionRoutine(goal, owner, onEvasionFinished);
-        StartCoroutine(m_Enumerator);
+        MLog.Log(LogType.DHLog, "Evading towards goal, EvadeCommand, " + this);
+
+        if (m_GeneralEnumerator != null)
+            StopCoroutine(m_GeneralEnumerator);
+
+        if (m_ReachSpotEnumerator != null)
+            StopCoroutine(m_ReachSpotEnumerator);
+
+        m_GeneralEnumerator = EvasionRoutine(goal, owner, onEvasionFinished);
+        StartCoroutine(m_GeneralEnumerator);
     }
 
     protected virtual IEnumerator EvasionRoutine(Transform goal, MonoBehaviour owner, IEnumerator onEvasionFinished)
@@ -23,7 +32,8 @@ public class DemonHunterEvasionCommand : BossCommand {
 
         yield return new WaitForSeconds(0.3f);
 
-        yield return ReachSpot(goal);
+        m_ReachSpotEnumerator = ReachSpot(goal);
+        yield return StartCoroutine(m_ReachSpotEnumerator);
 
         owner.StartCoroutine(onEvasionFinished);
     }
@@ -54,8 +64,11 @@ public class DemonHunterEvasionCommand : BossCommand {
 
     public void Cancel()
     {
-        if (m_Enumerator != null)
-            StopCoroutine(m_Enumerator);
+        if (m_GeneralEnumerator != null)
+            StopCoroutine(m_GeneralEnumerator);
+
+        if (m_ReachSpotEnumerator != null)
+            StopCoroutine(m_GeneralEnumerator);
     }
 
     public virtual IEnumerator QuickPerfectRotationRoutine(float time, Transform goal = null)

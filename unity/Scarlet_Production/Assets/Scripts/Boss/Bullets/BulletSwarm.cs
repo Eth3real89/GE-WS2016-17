@@ -10,6 +10,7 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     public BulletFactoryInvoker m_Invoker;
 
     public bool m_KillAllChildren = false; // category: variable names that sound really, really wrong
+    public bool m_KillChildrenOnCancel = true;
 
     public override void Launch(BulletCallbacks callbacks)
     {
@@ -37,11 +38,12 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     {
         MLog.Log(LogType.AELog, "Killing Bullet Swarm: " + this);
 
-        m_Invoker.Cancel();
+        if (m_Invoker != null)
+            m_Invoker.Cancel();
 
         m_KillBullet = true;
 
-        if (m_KillAllChildren)
+        if (m_KillAllChildren && m_KillChildrenOnCancel)
         {
             foreach (BulletBehaviour b in m_Instances)
             {

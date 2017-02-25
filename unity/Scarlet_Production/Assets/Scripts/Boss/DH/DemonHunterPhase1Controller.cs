@@ -7,14 +7,43 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     private const float m_FirstAttackShootSpeed = 2f;
     private const float m_SecondAttackShootSpeed = 4f;
+    private const float m_FifthAttackShootSpeed = 0.3f;
+
+    protected bool m_EndInitialized;
 
     public override void StartPhase(BossfightCallbacks callback)
     {
+        m_EndInitialized = false;
         base.StartPhase(callback);
+    }
+
+    private void Update()
+    {
+        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0)
+        {
+            m_EndInitialized = true;
+            m_NotDeactivated = false;
+            CancelComboIfActive();
+            StopAllCoroutines();
+            m_Callback.PhaseEnd(this);
+        }
     }
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
+        if (attackIndex == 3 || attackIndex == 1)
+        {
+            GameObject t = GameObject.Find("_MainObject");
+            if (t != null)
+            {
+                m_PerfectRotationTarget = t.transform;
+            }
+        }
+        else
+        {
+            m_PerfectRotationTarget = m_Scarlet.transform;
+        }
+
         yield return base.PrepareAttack(attackIndex);
     }
 
@@ -22,7 +51,7 @@ public class DemonHunterPhase1Controller : DemonHunterController {
     {
         if (m_CurrentComboIndex == 3)
         {
-
+            m_DHAnimator.SetTrigger("PistolsPullTogetherTrigger");
         }
         else if (m_Types[m_CurrentComboIndex] == AttackType.Pistols)
         {
@@ -36,6 +65,10 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         else if (m_CurrentComboIndex == 1)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
+        }
+        else if (m_CurrentComboIndex == 5)
+        {
+            m_DHAnimator.SetFloat("ShootingSpeed", m_FifthAttackShootSpeed);
         }
 
 
@@ -56,6 +89,11 @@ public class DemonHunterPhase1Controller : DemonHunterController {
     protected override IEnumerator StartNextComboAfter(float time)
     {
         return base.StartNextComboAfter(time);
+    }
+
+    protected override IEnumerator AfterCombo(AttackCombo combo)
+    {
+        yield return base.AfterCombo(combo);
     }
 
 }
