@@ -47,7 +47,7 @@ public class ControlHitVisualisation : MonoBehaviour {
     }
 
 
-    public void DisableVisualisation()
+    public void DisableVisualisationLeft()
     {
         foreach (ParticleSystem particles in m_Particles_Left)
         {
@@ -58,6 +58,11 @@ public class ControlHitVisualisation : MonoBehaviour {
             trail.enabled = false;
         }
 
+    }
+
+
+    public void DisableVisualisationRight()
+    {
         foreach (ParticleSystem particles in m_Particles_Right)
         {
             particles.Stop();
@@ -87,7 +92,8 @@ public class ControlHitVisualisation : MonoBehaviour {
     //both hands disable
     public void AttackAnimationEnd()
     {
-        DisableVisualisation();
+        DisableVisualisationRight();
+        DisableVisualisationLeft();
     }
 
 }
