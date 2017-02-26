@@ -207,15 +207,8 @@ public abstract class DemonHunterController : BossController {
 
     protected IEnumerator PrepareGrenade(int attackIndex)
     {
-        if (m_WeaponChanges.m_CurrentlyEquipped != DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
+        if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_NOTHING_EQUIPPED)
         {
-            if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_RIFLE_EQUIPPED)
-            {
-                m_DHAnimator.SetTrigger("UnequipRifleTrigger");
-                while (!CheckAnimation(ANIM_AFTER_UNEQUIP_RIFLE))
-                    yield return null;
-            }
-
             m_DHAnimator.SetTrigger("EquipPistolsTrigger");
             while (!CheckAnimation(ANIM_AFTER_EQUIP_PISTOLS))
                 yield return null;
@@ -223,8 +216,16 @@ public abstract class DemonHunterController : BossController {
 
         m_DHAnimator.SetTrigger("ThrowGrenadeTrigger");
         yield return new WaitForSeconds(0.1f);
-        while (!CheckAnimation(ANIM_AFTER_THROW_GRENADE))
-            yield return null;
+
+        if (m_WeaponChanges.m_CurrentlyEquipped == DemonHunterWeaponChanges.S_PISTOLS_EQUIPPED)
+        {
+            while (!CheckAnimation(ANIM_AFTER_THROW_GRENADE))
+                yield return null;
+        }
+        else
+        {
+            yield return new WaitForSeconds(0.35f);
+        }
         
         Transform t = ChooseGrenadeSpot(m_Combos[attackIndex]);
 
@@ -455,6 +456,11 @@ public abstract class DemonHunterController : BossController {
 
     public override bool OnHit(Damage dmg)
     {
+        if (dmg is BulletDamage)
+        {
+            return false;
+        }
+
         if (m_Reloading)
         {
             MLog.Log(LogType.DHLog, "Successful hit, DH, " + this);
