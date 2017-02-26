@@ -5,37 +5,89 @@
 /// </summary>
 public class ControlHitVisualisation : MonoBehaviour {
 
-    private TrailRenderer[] m_Trails;
-    private ParticleSystem[] m_Particles;
+    public GameObject m_LeftHand;
+    public GameObject m_RightHand;
+
+    private TrailRenderer[] m_Trails_Left;
+    private TrailRenderer[] m_Trails_Right;
+    private ParticleSystem[] m_Particles_Left;
+    private ParticleSystem[] m_Particles_Right;
 
     // Use this for initialization
     void Start () {
-        m_Trails = gameObject.transform.Find("Model").GetComponentsInChildren<TrailRenderer>();
-        m_Particles = gameObject.transform.Find("Model").GetComponentsInChildren<ParticleSystem>();
+        m_Trails_Left = m_LeftHand.GetComponentsInChildren<TrailRenderer>(true);
+        m_Trails_Right = m_RightHand.GetComponentsInChildren<TrailRenderer>(true);
+        
+        m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
+        m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
     }
 
-    public void EnableVisualisation()
+    public void EnableVisualisationLeft()
     {
-        foreach (ParticleSystem particles in m_Particles)
+        foreach (ParticleSystem particles in m_Particles_Left)
         {
             particles.Play();
         }
-        foreach (TrailRenderer trail in m_Trails)
+        foreach (TrailRenderer trail in m_Trails_Left)
         {
             trail.enabled = true;
         }
     }
 
+    public void EnableVisualisationRight()
+    {
+        foreach (ParticleSystem particles in m_Particles_Right)
+        {
+            particles.Play();
+        }
+        foreach (TrailRenderer trail in m_Trails_Right)
+        {
+            trail.enabled = true;
+        }
+    }
+
+
     public void DisableVisualisation()
     {
-        foreach (ParticleSystem particles in m_Particles)
+        foreach (ParticleSystem particles in m_Particles_Left)
         {
             particles.Stop();
         }
-        foreach (TrailRenderer trail in m_Trails)
+        foreach (TrailRenderer trail in m_Trails_Left)
         {
             trail.enabled = false;
         }
+
+        foreach (ParticleSystem particles in m_Particles_Right)
+        {
+            particles.Stop();
+        }
+        foreach (TrailRenderer trail in m_Trails_Right)
+        {
+            trail.enabled = false;
+        }
+    }
+
+    // handside: 0=right 1=left 2=both
+    public void AttackAnimationStart(int handSide)
+    {
+        if(handSide == 0)
+        {
+            EnableVisualisationRight();
+        } else if(handSide == 1)
+        {
+            EnableVisualisationLeft();
+        } else if(handSide == 2)
+        {
+            EnableVisualisationRight();
+            EnableVisualisationLeft();
+        }
+    }
+
+    //both hands disable
+    public void AttackAnimationEnd()
+    {
+        DisableVisualisation();
     }
 
 }

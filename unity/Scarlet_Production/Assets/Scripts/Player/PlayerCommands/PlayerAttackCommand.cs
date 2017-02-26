@@ -61,7 +61,6 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
 
     private void DoAttack()
     {
-        GetComponentInParent<ControlHitVisualisation>().EnableVisualisation();
         m_Callback.OnCommandStart(m_CommandName, this);
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
 
