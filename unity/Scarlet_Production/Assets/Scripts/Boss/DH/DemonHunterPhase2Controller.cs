@@ -20,6 +20,8 @@ public class DemonHunterPhase2Controller : DemonHunterController
         m_LastAttacks = new List<int>();
         m_EndInitialized = false;
 
+//        Time.timeScale = 3;
+
         base.StartPhase(callback);
     }
 
@@ -37,10 +39,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected override IEnumerator StartNextComboAfter(float time)
     {
-        if (m_CurrentComboIndex < 3)
-        {
-            m_DropGrenadeAttack.CancelAttack();
-        }
+        m_TimesFled = 0;
 
         yield return base.StartNextComboAfter(time);
 
@@ -68,14 +67,15 @@ public class DemonHunterPhase2Controller : DemonHunterController
         else
         {
             MLog.Log(LogType.DHLog, "Starting next combo from AfterCombo, DH, After Evasion, " + this);
+
+            m_DropGrenadeAttack.CancelAttack();
             m_Evading = true;
-            m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, OnEvasionFinished());
+            m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, base.OnEvasionFinished());
         }
     }
 
     protected void DecideOnNextAttack()
     {
-
         // these names are actually wrong, but that's what it comes down to ~
         int[] runAroundAttacks = { 0, 1, 2, 3 };
         int[] attacksInBubble = { 5, 6, 9};
@@ -174,6 +174,18 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
 
         base.OnComboStart(combo);
+    }
+
+    protected override IEnumerator OnEvasionFinished()
+    {
+        m_Evading = false;
+        yield return null;
+        MLog.Log(LogType.DHLog, "On Evasion Finished,  DH, " + this);
+
+        DecideOnNextAttack();
+
+        m_NextComboTimer = StartNextComboAfter(0.01f);
+        StartCoroutine(m_NextComboTimer);
     }
 
     protected override IEnumerator AfterCombo(AttackCombo combo)

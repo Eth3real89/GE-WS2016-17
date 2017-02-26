@@ -8,6 +8,8 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     public AttackCombo m_Combo;
     public GameObject m_LeftOverEmptyObject;
 
+    public bool m_DontCopy = false;
+
     protected bool m_Destroy;
 
     public override void OnBulletExpires(BulletBehaviour b)
@@ -34,12 +36,14 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             }
         }
 
-        m_Combo = GameObject.Instantiate(m_Combo);
+        if (!m_DontCopy)
+            m_Combo = GameObject.Instantiate(m_Combo);
         
         m_Combo.m_Callback = this;
         m_Combo.LaunchCombo();
 
-        StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject));
+        if (!m_DontCopy)
+            StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject));
     }
 
     public void OnComboEnd(AttackCombo combo)
