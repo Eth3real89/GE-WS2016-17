@@ -10,6 +10,8 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
     protected override void StartFirstCombo()
     {
+        m_NotDeactivated = true;
+
        // Time.timeScale = 3f;
 
         m_NextComboTimer = SetupFinalPhase();
@@ -40,8 +42,6 @@ public class DemonHunterPhase3Controller : DemonHunterController {
     protected override IEnumerator StartNextComboAfter(float time)
     {
         yield return new WaitForSeconds(time);
-
-        print("Starting combo: " + (m_CurrentComboIndex + 1));
 
         SetCurrentTargetFromAttack();
 

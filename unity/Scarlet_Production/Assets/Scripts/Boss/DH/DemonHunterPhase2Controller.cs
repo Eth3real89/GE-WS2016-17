@@ -22,6 +22,8 @@ public class DemonHunterPhase2Controller : DemonHunterController
         m_LastActualAttacks = new List<int>();
         m_EndInitialized = false;
 
+        m_NotDeactivated = true;
+
 //        Time.timeScale = 3;
 
         base.StartPhase(callback);
@@ -184,6 +186,9 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
+        if (!m_NotDeactivated)
+            yield break;
+
         if (attackIndex == 5 || attackIndex == 1)
         {
             GameObject t = GameObject.Find("_MainObject");
@@ -233,6 +238,9 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected override IEnumerator OnEvasionFinished()
     {
+        if (!m_NotDeactivated)
+            yield break;
+
         m_Evading = false;
         yield return null;
         MLog.Log(LogType.DHLog, "On Evasion Finished,  DH, " + this);
@@ -245,6 +253,8 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected override IEnumerator AfterCombo(AttackCombo combo)
     {
+        if (!m_NotDeactivated)
+            yield break;
 
         m_TimesFled = 0;
 

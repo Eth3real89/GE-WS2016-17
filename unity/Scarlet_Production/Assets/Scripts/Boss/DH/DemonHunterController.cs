@@ -84,6 +84,9 @@ public abstract class DemonHunterController : BossController {
 
     protected override IEnumerator StartNextComboAfter(float time)
     {
+        if (!m_NotDeactivated)
+            yield break;
+
         yield return new WaitForSeconds(time);
         MLog.Log(LogType.DHLog, "Start Next Combo After, DH, " + this);
 
@@ -351,6 +354,9 @@ public abstract class DemonHunterController : BossController {
 
     protected virtual IEnumerator OnEvasionFinished()
     {
+        if (!m_NotDeactivated)
+            yield break;
+
         m_Evading = false;
         yield return null;
         MLog.Log(LogType.DHLog, "On Evasion Finished,  DH, " + this);
@@ -415,6 +421,9 @@ public abstract class DemonHunterController : BossController {
 
     public override void OnComboEnd(AttackCombo combo)
     {
+        if (!m_NotDeactivated)
+            return;
+
         MLog.Log(LogType.DHLog, "On Combo End,  DH, " + combo + " " + this);
 
         if (m_RangeCheck != null)
@@ -436,6 +445,9 @@ public abstract class DemonHunterController : BossController {
 
     protected virtual IEnumerator AfterCombo(AttackCombo combo)
     {
+        if (!m_NotDeactivated)
+            yield break;
+
         if (m_CurrentComboIndex > 1 && m_Types[m_CurrentComboIndex - 1] == AttackType.DropGrenade)
         {
             m_DropGrenadeAttack.CancelAttack();

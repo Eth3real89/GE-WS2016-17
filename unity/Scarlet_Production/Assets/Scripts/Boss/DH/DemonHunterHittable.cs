@@ -5,7 +5,7 @@ using UnityEngine;
 public class DemonHunterHittable : BossHittable { 
 
     public int m_NumHits = 5;
-    protected int m_HitCount = 0;
+    public int m_HitCount = 0;
 
     // @todo it is a weird place for those to be here, but still kind of the best...
 

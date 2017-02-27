@@ -14,19 +14,9 @@ public class DemonHunterPhase1Controller : DemonHunterController {
     public override void StartPhase(BossfightCallbacks callback)
     {
         m_EndInitialized = false;
-        base.StartPhase(callback);
-    }
+        m_NotDeactivated = true;
 
-    private void Update()
-    {
-        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0)
-        {
-            m_EndInitialized = true;
-            m_NotDeactivated = false;
-            CancelComboIfActive();
-            StopAllCoroutines();
-            m_Callback.PhaseEnd(this);
-        }
+        base.StartPhase(callback);
     }
 
     protected override IEnumerator PrepareAttack(int attackIndex)
@@ -89,6 +79,24 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         }
 
         base.OnComboEnd(combo);
+    }
+
+    protected override IEnumerator OnEvasionFinished()
+    {
+        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0)
+        {
+            m_EndInitialized = true;
+            m_NotDeactivated = false;
+            CancelComboIfActive();
+            StopAllCoroutines();
+            m_Callback.PhaseEnd(this);
+
+            yield break;
+        }
+        else
+        {
+            yield return base.OnEvasionFinished();
+        }
     }
 
 }

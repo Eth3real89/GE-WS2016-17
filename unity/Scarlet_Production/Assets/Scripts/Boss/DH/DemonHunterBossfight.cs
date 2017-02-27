@@ -18,6 +18,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
     {
         StartCoroutine(StartAfterShortDelay());
     }
+
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
@@ -43,7 +44,10 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 1 over " + this);
             m_DHHealth.m_CurrentHealth = m_DHHealth.m_MaxHealth;
-
+            DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
+            if (hittable != null)
+                hittable.m_HitCount = 0;
+            
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             m_Phase2Controller.StartPhase(this);
