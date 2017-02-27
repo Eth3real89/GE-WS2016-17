@@ -69,12 +69,16 @@ public abstract class DemonHunterController : BossController {
 
         for (int i = 0; i < m_BlockedByGrenade.Length; i++)
             m_BlockedByGrenade[i] = false;
-    
+
         RegisterComboCallback();
 
         m_BossHittable.RegisterInterject(this);
+        StartFirstCombo();
+    }
 
-        m_CurrentComboIndex = m_StartAttackIndex -1;
+    protected virtual void StartFirstCombo()
+    {
+        m_CurrentComboIndex = m_StartAttackIndex - 1;
         StartCoroutine(StartNextComboAfter(0.5f));
     }
 
@@ -193,10 +197,18 @@ public abstract class DemonHunterController : BossController {
                 yield return null;
         }
 
-        m_DHAnimator.SetTrigger("ReloadTrigger");
-        yield return new WaitForSeconds(0.2f);
-        while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
-            yield return null;
+
+        if (!m_SkipReload)
+        {
+            m_DHAnimator.SetTrigger("ReloadTrigger");
+            yield return new WaitForSeconds(0.2f);
+            while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
+                yield return null;
+        }
+        else
+        {
+            m_SkipReload = false;
+        }
 
         m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, m_PerfectRotationTarget);
         yield return m_PreparationRoutine;

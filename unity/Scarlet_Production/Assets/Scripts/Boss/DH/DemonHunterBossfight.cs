@@ -10,7 +10,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     public DemonHunterPhase1Controller m_Phase1Controller;
     public DemonHunterPhase2Controller m_Phase2Controller;
-    public DemonHunterPhase2Controller m_Phase3Controller;
+    public DemonHunterPhase3Controller m_Phase3Controller;
 
     public CharacterHealth m_DHHealth;
 
