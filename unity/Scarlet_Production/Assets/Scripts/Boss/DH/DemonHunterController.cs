@@ -102,6 +102,8 @@ public abstract class DemonHunterController : BossController {
             MakeProtectiveGrenadeNext();
         }
 
+        InitRangeCheck();
+
         if (m_CurrentComboIndex + 1 >= m_Combos.Length)
         {
             m_PreparationRoutine = PrepareAttack(0);
@@ -111,8 +113,23 @@ public abstract class DemonHunterController : BossController {
             m_PreparationRoutine = PrepareAttack(m_CurrentComboIndex + 1);
         }
         yield return StartCoroutine(m_PreparationRoutine);
-        
+
         StartNextCombo();
+    }
+
+    protected virtual void InitRangeCheck()
+    {
+        int nextCombo = m_CurrentComboIndex + 1 >= m_Combos.Length ? 0 : m_CurrentComboIndex + 1;
+        if (InitRangeCheckCondition(nextCombo))
+        {
+            m_RangeCheck = RangeCheck();
+            StartCoroutine(m_RangeCheck);
+        }
+    }
+
+    protected virtual bool InitRangeCheckCondition(int nextCombo)
+    {
+        return m_Types[nextCombo] == AttackType.Pistols || m_Types[nextCombo] == AttackType.ThrowGrenade;
     }
 
     protected virtual IEnumerator PrepareAttack(int attackIndex)
@@ -236,7 +253,7 @@ public abstract class DemonHunterController : BossController {
         }
         else
         {
-            yield return new WaitForSeconds(0.35f);
+            yield return new WaitForSeconds(0.6f);
         }
         
         Transform t = ChooseGrenadeSpot(m_Combos[attackIndex]);
@@ -270,14 +287,15 @@ public abstract class DemonHunterController : BossController {
         m_SkipReload = false;
     }
 
-    protected virtual IEnumerator RangeCheck()
+    protected virtual IEnumerator RangeCheck(bool triggerSkipReload = true)
     {
         while(true)
         {
             float dist = Vector3.Distance(transform.position, m_Scarlet.transform.position);
-            if (dist <= m_DangerousDistance && !m_DropGrenadeAttack.IsActive() && !m_Evading)
+
+            if (dist <= m_DangerousDistance && !m_DropGrenadeAttack.IsActive() && !m_Evading && !m_Reloading)
             {
-                OnScarletTooClose();
+                OnScarletTooClose(triggerSkipReload);
             }
 
             yield return null;
@@ -289,7 +307,7 @@ public abstract class DemonHunterController : BossController {
         m_CurrentComboIndex = 3;
     }
 
-    protected virtual void OnScarletTooClose()
+    protected virtual void OnScarletTooClose(bool skipReload)
     {
         MLog.Log(LogType.DHLog, "On Scarlet Too Close,  DH, " + this);
 
@@ -304,7 +322,7 @@ public abstract class DemonHunterController : BossController {
 
         CancelComboIfActive();
 
-        m_SkipReload = true;
+        m_SkipReload = skipReload;
         m_TimesFled++;
 
         m_Evading = true;
@@ -350,12 +368,6 @@ public abstract class DemonHunterController : BossController {
     {
         MLog.Log(LogType.DHLog, "On Combo Start,  DH, " + combo + " " + this);
         base.OnComboStart(combo);
-
-        if (m_Types[m_CurrentComboIndex] == AttackType.Pistols)
-        {
-            m_RangeCheck = RangeCheck();
-            StartCoroutine(m_RangeCheck);
-        }
     }
 
     protected virtual Transform ChooseGrenadeSpot(AttackCombo attackCombo)
@@ -428,13 +440,9 @@ public abstract class DemonHunterController : BossController {
         {
             m_DropGrenadeAttack.CancelAttack();
         }
-
-        // if the next attack is "drop grenade": don't even try to flee
-        if (m_Combos.Length > m_CurrentComboIndex + 1 && m_Types[m_CurrentComboIndex + 1] != AttackType.DropGrenade)
-        {
-            m_RangeCheck = RangeCheck();
-            StartCoroutine(m_RangeCheck);
-        }
+        
+        m_RangeCheck = RangeCheck(false);
+        StartCoroutine(m_RangeCheck);
 
         yield return new WaitForSeconds(combo.m_TimeAfterCombo);
 

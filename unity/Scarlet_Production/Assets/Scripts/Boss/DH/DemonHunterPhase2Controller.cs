@@ -13,11 +13,13 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected bool m_EndInitialized;
 
-    protected List<int> m_LastAttacks;
+    protected List<int> m_LastAttackTypes;
+    protected List<int> m_LastActualAttacks;
 
     public override void StartPhase(BossfightCallbacks callback)
     {
-        m_LastAttacks = new List<int>();
+        m_LastAttackTypes = new List<int>();
+        m_LastActualAttacks = new List<int>();
         m_EndInitialized = false;
 
 //        Time.timeScale = 3;
@@ -39,19 +41,29 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected override IEnumerator StartNextComboAfter(float time)
     {
+        // this reset is necessary in this phase (attacks are decided randomly here!)
         m_TimesFled = 0;
+        int nextCombo = m_CurrentComboIndex + 1 >= m_Combos.Length ? 0 : m_CurrentComboIndex + 1;
+
+        // this is being nice to the player, attack opportunities are rare enough in this phase.
+        if (m_Types[nextCombo] == AttackType.Pistols && !m_SkipReload)
+        {
+            m_Reloading = true;
+        }
 
         yield return base.StartNextComboAfter(time);
 
-        if (m_CurrentComboIndex != 4)
-        {
-            m_LastAttacks.Add(m_CurrentComboIndex > 4? 1 : 0);
-        }
+        if (m_CurrentComboIndex != 4 && m_CurrentComboIndex != 8 && m_CurrentComboIndex != 9)
+            m_LastAttackTypes.Add(m_CurrentComboIndex > 4? 1 : 0);
+        
+        if (m_LastAttackTypes.Count > 5)
+            m_LastAttackTypes.RemoveAt(0);
+        
+        if (m_CurrentComboIndex != 8 && m_CurrentComboIndex != 9)
+            m_LastActualAttacks.Add(m_CurrentComboIndex);
 
-        if (m_LastAttacks.Count > 4)
-        {
-            m_LastAttacks.RemoveAt(0);
-        }
+        if (m_LastActualAttacks.Count > 10)
+            m_LastActualAttacks.RemoveAt(0);
     }
 
     protected override void InitNextAttack()
@@ -68,10 +80,21 @@ public class DemonHunterPhase2Controller : DemonHunterController
         {
             MLog.Log(LogType.DHLog, "Starting next combo from AfterCombo, DH, After Evasion, " + this);
 
-            m_DropGrenadeAttack.CancelAttack();
-            m_Evading = true;
-            m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, base.OnEvasionFinished());
+            m_NextComboTimer = EquipPistolsThenRun();
+            StartCoroutine(m_NextComboTimer);
         }
+    }
+
+    private IEnumerator EquipPistolsThenRun()
+    {
+        m_SkipReload = true;
+        m_PreparationRoutine = PreparePistols();
+        yield return StartCoroutine(m_PreparationRoutine);
+        m_SkipReload = false;
+
+        m_DropGrenadeAttack.CancelAttack();
+        m_Evading = true;
+        m_EvasionCommand.EvadeTowards(GetFurthestSpotFromScarlet(), this, base.OnEvasionFinished());
     }
 
     protected void DecideOnNextAttack()
@@ -79,6 +102,12 @@ public class DemonHunterPhase2Controller : DemonHunterController
         // these names are actually wrong, but that's what it comes down to ~
         int[] runAroundAttacks = { 0, 1, 2, 3 };
         int[] attacksInBubble = { 5, 6, 9};
+
+        // cancelled before first attack -> just act as if it had happened
+        if (m_CurrentComboIndex == -1)
+        {
+            m_CurrentComboIndex = 0;
+        }
 
         if (m_Types[m_CurrentComboIndex] == AttackType.DropGrenade)
         {
@@ -93,7 +122,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
         {
             if (m_CurrentComboIndex >= 5)
             { // attacks in bubble
-                if (LastTwoAttacksWereTheSame())
+                if (LastNAttacksWereTheSame(2))
                 {
                     m_CurrentComboIndex = ChooseNextAttackFrom(runAroundAttacks) - 1;
                     return;
@@ -105,7 +134,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
             }
             else // pistol / move-around-y atack
             {
-                if (LastTwoAttacksWereTheSame())
+                if (LastNAttacksWereTheSame(3))
                 {
                     m_CurrentComboIndex = 3;
                 }
@@ -117,22 +146,45 @@ public class DemonHunterPhase2Controller : DemonHunterController
         }
     }
 
-    protected bool LastTwoAttacksWereTheSame()
+    protected bool LastNAttacksWereTheSame(int n)
     {
-        if (m_LastAttacks.Count < 2)
+        if (m_LastAttackTypes.Count < n)
             return false;
 
-        return m_LastAttacks[m_LastAttacks.Count - 1] == m_LastAttacks[m_LastAttacks.Count - 2];
+        for(int i = 1; i < n; i++)
+        {
+            if (m_LastAttackTypes[m_LastAttackTypes.Count - i] != m_LastAttackTypes[m_LastAttackTypes.Count - i - 1])
+                return false;
+        }
+
+        // throwing a grenade doesn't really count, so even if the attacks were of the same type (pistol), if they only were that because there was a grenade,
+        // that's still a "nope"
+
+        return m_LastActualAttacks[m_LastActualAttacks.Count -1] != 2 && m_LastActualAttacks[m_LastActualAttacks.Count - 2] != 2 ;
     }
 
     protected int ChooseNextAttackFrom(params int[] possibilites)
     {
-        return possibilites[UnityEngine.Random.Range(0, possibilites.Length)];
+        int choice = possibilites[UnityEngine.Random.Range(0, possibilites.Length)];
+        int maxTries = 5;
+
+        if (m_LastActualAttacks.Count > 2)
+        {
+            for (int i = 0; i < maxTries; i++)
+            {
+                if (m_LastActualAttacks[m_LastActualAttacks.Count - 1] == choice || m_LastActualAttacks[m_LastActualAttacks.Count - 2] == choice)
+                    choice = possibilites[UnityEngine.Random.Range(0, possibilites.Length)];
+                else
+                    break;
+            }
+        }
+
+        return choice;
     }
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
-        if (attackIndex == 3 || attackIndex == 1)
+        if (attackIndex == 5 || attackIndex == 1)
         {
             GameObject t = GameObject.Find("_MainObject");
             if (t != null)
@@ -145,7 +197,10 @@ public class DemonHunterPhase2Controller : DemonHunterController
             m_PerfectRotationTarget = m_Scarlet.transform;
         }
 
-        yield return base.PrepareAttack(attackIndex);
+        if (attackIndex != 9)
+        {
+            yield return base.PrepareAttack(attackIndex);
+        }
     }
 
     public override void OnComboStart(AttackCombo combo)
@@ -193,12 +248,8 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
         m_TimesFled = 0;
 
-        // if the next attack is "drop grenade": don't even try to flee
-        if (m_Combos.Length > m_CurrentComboIndex + 1 && m_Types[m_CurrentComboIndex + 1] != AttackType.DropGrenade)
-        {
-            m_RangeCheck = RangeCheck();
-            StartCoroutine(m_RangeCheck);
-        }
+        m_RangeCheck = RangeCheck();
+        StartCoroutine(m_RangeCheck);
 
         yield return new WaitForSeconds(combo.m_TimeAfterCombo);
 
@@ -223,6 +274,16 @@ public class DemonHunterPhase2Controller : DemonHunterController
         }
 
         base.OnComboEnd(combo);
+    }
+
+    protected override void OnScarletTooClose(bool skipReload)
+    {
+        base.OnScarletTooClose(skipReload);
+
+        if (m_CurrentComboIndex == 2)
+        {
+            m_SkipReload = false;
+        }
     }
 
 }

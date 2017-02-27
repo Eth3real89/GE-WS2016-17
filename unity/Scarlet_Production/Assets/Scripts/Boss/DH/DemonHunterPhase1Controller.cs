@@ -31,7 +31,7 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     protected override IEnumerator PrepareAttack(int attackIndex)
     {
-        if (attackIndex == 3 || attackIndex == 1)
+        if (attackIndex == 5 || attackIndex == 1)
         {
             GameObject t = GameObject.Find("_MainObject");
             if (t != null)
@@ -45,6 +45,11 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         }
 
         yield return base.PrepareAttack(attackIndex);
+    }
+
+    protected override bool InitRangeCheckCondition(int nextCombo)
+    {
+        return base.InitRangeCheckCondition(nextCombo);
     }
 
     public override void OnComboStart(AttackCombo combo)
@@ -84,16 +89,6 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         }
 
         base.OnComboEnd(combo);
-    }
-
-    protected override IEnumerator StartNextComboAfter(float time)
-    {
-        return base.StartNextComboAfter(time);
-    }
-
-    protected override IEnumerator AfterCombo(AttackCombo combo)
-    {
-        yield return base.AfterCombo(combo);
     }
 
 }

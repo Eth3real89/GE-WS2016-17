@@ -34,11 +34,14 @@ public class LightGuardAttack : AEAttack {
     {
         base.CancelAttack();
 
+        if (m_Timer != null)
+        {
+            StopCoroutine(m_Timer);
+            m_Timer = null;
+        }
+
         if (m_LightGuard.gameObject.activeSelf)
         {
-            if (m_Timer != null)
-                StopCoroutine(m_Timer);
-
             m_LightGuard.ReattachVisualsToParent();
             m_LightGuard.gameObject.SetActive(false);
         }

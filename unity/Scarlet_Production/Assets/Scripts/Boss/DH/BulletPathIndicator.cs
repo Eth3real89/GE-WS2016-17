@@ -35,9 +35,6 @@ public class BulletPathIndicator : BossAttack
     {
         Renderer r = m_Indicator.GetComponentInChildren<Renderer>();
 
-        m_Indicator.transform.position = (m_StartPoint.transform.position);
-        m_Indicator.transform.rotation = Quaternion.Euler(0, BossTurnCommand.CalculateAngleTowards(m_StartPoint.transform.position, m_EndPoint.transform.position), 0);
-
         float t = 0;
         while((t += Time.deltaTime) < time)
         {
