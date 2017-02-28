@@ -15,6 +15,10 @@ public class BossMeleeDamage : Damage {
         return m_Blockable;
     }
 
+    private void Start()
+    {
+    }
+
     public override float DamageAmount()
     {
         return m_Amount;

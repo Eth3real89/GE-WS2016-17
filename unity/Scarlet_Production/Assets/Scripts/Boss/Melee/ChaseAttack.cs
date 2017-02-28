@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler, Damage.DamageCallback {
+public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler, Damage.DamageCallback {
 
     public BossMoveCommand m_BossMove;
     public TurnTowardsScarlet m_BossTurn;
@@ -131,6 +131,12 @@ public class ChaseAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Dam
 
     void StartHit()
     {
+        if (m_SuccessCallback != null)
+        {
+            m_SuccessLevel = 0;
+            m_SuccessCallback.ReportResult(this);
+        }
+
         if (m_SkipAttack)
         {
             m_BossMove.StopMoving();
