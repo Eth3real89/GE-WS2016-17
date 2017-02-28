@@ -44,6 +44,7 @@ public class BlastWaveAttack : GrowingAEAttack {
         EventManager.TriggerEvent(START_EVENT_NAME);
 
         m_Visuals.transform.position = new Vector3(m_Center.transform.position.x, m_Visuals.transform.position.y, m_Center.transform.position.z);
+        m_Visuals.transform.rotation = Quaternion.Euler(m_Center.eulerAngles);
         m_InitialCenterPos = new Vector3(m_Center.transform.position.x, m_Center.transform.position.y, m_Center.transform.position.z);
 
         m_BlastDamage.m_DamageAmount = this.m_Damage;

@@ -8,16 +8,19 @@ public class DemonHunterPhase3Controller : DemonHunterController {
     public float m_BasicTimeRhythm = 3f;
     public ParallelCombo[] m_CombosForRhythm;
 
+    protected bool m_CanDie;
+
     protected override void StartFirstCombo()
     {
         m_NotDeactivated = true;
+        m_CanDie = false;
 
-       // Time.timeScale = 3f;
+        //Time.timeScale = 3f;
 
         m_NextComboTimer = SetupFinalPhase();
         StartCoroutine(m_NextComboTimer);
 
-        SetRelevantTimesTo(m_BasicTimeRhythm);
+        SetWaveTimes(m_BasicTimeRhythm);
     }
 
     protected virtual IEnumerator SetupFinalPhase()
@@ -74,8 +77,32 @@ public class DemonHunterPhase3Controller : DemonHunterController {
     {
         m_ActiveCombo = null;
 
-        m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
+        if (m_CurrentComboIndex == 8)
+        {
+            m_NextComboTimer = InitEnd();
+        }
+        else
+        {
+            m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
+        }
+
         StartCoroutine(m_NextComboTimer);   
+    }
+
+    protected virtual IEnumerator InitEnd()
+    {
+        ParallelCombo[] combos = FindObjectsOfType<ParallelCombo>();
+        foreach(ParallelCombo c in combos)
+        {
+            try
+            {
+                c.CancelCombo();
+            }
+            catch { /* well then it probably wasn't active :> */ }
+        }
+
+        m_CanDie = true;
+        yield return new WaitForSeconds(3f);
     }
 
     protected virtual void SetCurrentTargetFromAttack()
@@ -113,12 +140,27 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
     public override bool OnHit(Damage dmg)
     {
-        return true;
+        if (m_CanDie)
+        {
+            m_BossHittable.m_Health.m_CurrentHealth = -1f;
+
+            m_NotDeactivated = false;
+            StopAllCoroutines();
+            m_Callback.PhaseEnd(this);
+            
+            return true;
+        }
+        else
+        {
+            return true;
+        }
     }
 
-    protected void SetRelevantTimesTo(float m_BasicTimeRhythm)
+    protected void SetWaveTimes(float m_BasicTimeRhythm)
     {
         int[] m_Repetitions = { 40, 36, 32, 20, 18 };
+
+        // Basic Setup:
 
         for (int i = 0; i < m_CombosForRhythm.Length; i++)
         {
@@ -145,9 +187,27 @@ public class DemonHunterPhase3Controller : DemonHunterController {
             }
 
             combo.m_TimeAfterCombo = m_BasicTimeRhythm;
-
-
         }
+
+        // For Fairness: (values via trial & error), slows waves down / makes them not all simultaneous
+        m_CombosForRhythm[0].m_WaitTimes[4] = 12f;
+
+        for(int i = 0; i < 7; i++)
+        {
+            m_CombosForRhythm[1].m_WaitTimes[8 + i] *= 2;
+            m_CombosForRhythm[2].m_WaitTimes[7 + i] *= 2;
+        }
+
+        for (int i = 0; i < 5; i++)
+        {
+            int startPoint = (new int[] {14, 16, 15, 1, 0})[i];
+
+            for(int j = startPoint; j < m_CombosForRhythm[i].m_WaitTimes.Length; j++)
+            {
+                m_CombosForRhythm[i].m_WaitTimes[j] *= 3f;
+            }
+        }
+
     }
 
 

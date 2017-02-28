@@ -31,7 +31,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     private void Update()
     {
-        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0.11 * m_DHHealth.m_CurrentHealth) // 0.11: Avoid "rounding" bugs
+        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0.11 * m_DHHealth.m_MaxHealth) // 0.11: Avoid "rounding" bugs
         {
             m_EndInitialized = true;
             m_NotDeactivated = false;
