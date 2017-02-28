@@ -15,7 +15,7 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         m_NotDeactivated = true;
         m_CanDie = false;
 
-        //Time.timeScale = 3f;
+       // Time.timeScale = 3f;
 
         m_NextComboTimer = SetupFinalPhase();
         StartCoroutine(m_NextComboTimer);
@@ -200,11 +200,11 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
         for (int i = 0; i < 5; i++)
         {
-            int startPoint = (new int[] {14, 16, 15, 1, 0})[i];
+            int startPoint = (new int[] {14, 16, 15, 0, 0})[i];
 
             for(int j = startPoint; j < m_CombosForRhythm[i].m_WaitTimes.Length; j++)
             {
-                m_CombosForRhythm[i].m_WaitTimes[j] *= 3f;
+                m_CombosForRhythm[i].m_WaitTimes[j] = m_CombosForRhythm[i].m_WaitTimes[j] * (j % 3) + 2.5f;
             }
         }
 

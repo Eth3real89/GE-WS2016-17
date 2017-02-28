@@ -332,4 +332,17 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     {
         m_AttackActive = false;
     }
+
+    protected virtual void ExtremelyDangerousCancelAllCombosEver()
+    {
+        try
+        {
+            AttackCombo[] combos = FindObjectsOfType<AttackCombo>();
+            foreach(AttackCombo c in combos)
+            {
+                c.CancelCombo();
+            }
+        }
+        catch { }
+    }
 }

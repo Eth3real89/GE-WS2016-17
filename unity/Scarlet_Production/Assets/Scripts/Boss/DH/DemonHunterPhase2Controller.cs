@@ -31,7 +31,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     private void Update()
     {
-        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0.11 * m_DHHealth.m_MaxHealth) // 0.11: Avoid "rounding" bugs
+        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= (1 / (float) m_NumHits)  * m_DHHealth.m_MaxHealth + 5) // +5: Avoid "rounding" bugs 
         {
             m_EndInitialized = true;
             m_NotDeactivated = false;
@@ -45,14 +45,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
     {
         // this reset is necessary in this phase (attacks are decided randomly here!)
         m_TimesFled = 0;
-        int nextCombo = m_CurrentComboIndex + 1 >= m_Combos.Length ? 0 : m_CurrentComboIndex + 1;
-
-        // this is being nice to the player, attack opportunities are rare enough in this phase.
-        if (m_Types[nextCombo] == AttackType.Pistols && !m_SkipReload)
-        {
-            m_Reloading = true;
-        }
-
+        
         yield return base.StartNextComboAfter(time);
 
         if (m_CurrentComboIndex != 4 && m_CurrentComboIndex != 8 && m_CurrentComboIndex != 9)
@@ -101,9 +94,6 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected void DecideOnNextAttack()
     {
-        // these names are actually wrong, but that's what it comes down to ~
-        int[] runAroundAttacks = { 0, 1, 2, 3 };
-        int[] attacksInBubble = { 5, 6, 9};
 
         // cancelled before first attack -> just act as if it had happened
         if (m_CurrentComboIndex == -1)
@@ -124,19 +114,12 @@ public class DemonHunterPhase2Controller : DemonHunterController
         {
             if (m_CurrentComboIndex >= 5)
             { // attacks in bubble
-                if (LastNAttacksWereTheSame(2))
-                {
-                    m_CurrentComboIndex = ChooseNextAttackFrom(runAroundAttacks) - 1;
-                    return;
-                }
-                else
-                {
-                    m_CurrentComboIndex = ChooseNextAttackFrom(0, 1, 2, 3, 5, 6, 7) - 1;
-                }
+                m_CurrentComboIndex = ChooseNextAttackFrom(0, 1, 2, 3) - 1;
+                return;
             }
             else // pistol / move-around-y atack
             {
-                if (LastNAttacksWereTheSame(3))
+                if (LastNAttacksWereTheSame(5))
                 {
                     m_CurrentComboIndex = 3;
                 }
@@ -170,11 +153,11 @@ public class DemonHunterPhase2Controller : DemonHunterController
         int choice = possibilites[UnityEngine.Random.Range(0, possibilites.Length)];
         int maxTries = 5;
 
-        if (m_LastActualAttacks.Count > 2)
+        if (m_LastActualAttacks.Count > 3)
         {
             for (int i = 0; i < maxTries; i++)
             {
-                if (m_LastActualAttacks[m_LastActualAttacks.Count - 1] == choice || m_LastActualAttacks[m_LastActualAttacks.Count - 2] == choice)
+                if (m_LastActualAttacks.GetRange(m_LastActualAttacks.Count - 4, 3).Contains(choice))
                     choice = possibilites[UnityEngine.Random.Range(0, possibilites.Length)];
                 else
                     break;
@@ -284,16 +267,6 @@ public class DemonHunterPhase2Controller : DemonHunterController
         }
 
         base.OnComboEnd(combo);
-    }
-
-    protected override void OnScarletTooClose(bool skipReload)
-    {
-        base.OnScarletTooClose(skipReload);
-
-        if (m_CurrentComboIndex == 2)
-        {
-            m_SkipReload = false;
-        }
     }
 
 }

@@ -101,8 +101,17 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
             m_DamageTrigger.m_Active = true;
             m_BulletCallbacks.LoseBullet(this);
 
+            float speed = -1;
+            if (m_Movement is BulletStraightMovement)
+                speed = ((BulletStraightMovement)m_Movement).m_Speed;
+            else if (m_Movement is BulletHomingMovement)
+                speed = ((BulletHomingMovement)m_Movement).m_Speed;
+
             m_Movement = Instantiate(m_DeflectedMovement);
             ((BulletHomingMovement)m_Movement).m_Target = m_Damage.m_DeflectTarget.transform;
+            ((BulletHomingMovement)m_Movement).m_Speed = (speed < 0) ? ((BulletHomingMovement)m_Movement).m_Speed : speed;
+
+
             m_Expiration.CancelBehaviour(this);
             m_Expiration = m_DeflectedExpiration;
 
