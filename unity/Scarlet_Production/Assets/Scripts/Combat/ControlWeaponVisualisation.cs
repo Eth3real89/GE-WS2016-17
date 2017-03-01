@@ -1,9 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-/// <summary>
-/// Attach to Character to control visualisation of hits. 
-/// </summary>
-public class ControlHitVisualisation : MonoBehaviour {
+public class ControlWeaponVisualisation : MonoBehaviour {
 
     public GameObject m_LeftHand;
     public GameObject m_RightHand;
@@ -17,7 +16,7 @@ public class ControlHitVisualisation : MonoBehaviour {
     void Start () {
         m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
         m_Trails_Right = m_RightHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
-        
+
         m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
     }
@@ -74,15 +73,18 @@ public class ControlHitVisualisation : MonoBehaviour {
     }
 
     // handside: 0=right 1=left 2=both
-    public void AttackAnimationStart(int handSide)
+    public void AttackWeaponStart(int handSide)
     {
-        if(handSide == 0)
+        Debug.Log("Start");
+        if (handSide == 0)
         {
             EnableVisualisationRight();
-        } else if(handSide == 1)
+        }
+        else if (handSide == 1)
         {
             EnableVisualisationLeft();
-        } else if(handSide == 2)
+        }
+        else if (handSide == 2)
         {
             EnableVisualisationRight();
             EnableVisualisationLeft();
@@ -90,8 +92,10 @@ public class ControlHitVisualisation : MonoBehaviour {
     }
 
     //both hands disable
-    public void AttackAnimationEnd()
+    public void AttackWeaponEnd()
     {
+        Debug.Log("End");
+
         DisableVisualisationRight();
         DisableVisualisationLeft();
     }
