@@ -398,6 +398,9 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void OnBulletHit()
     {
+        m_ComboActive = false;
+        m_ActiveCombo = null;
+
         if (m_CurrentComboIndex == m_ParryDeflectTutorialBullet || m_CurrentComboIndex == m_ParryTutorialBullet)
             StartCoroutine(DecideIfHitWasGood());
     }
