@@ -481,24 +481,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1040192507130190
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4077460351812916}
-  - component: {fileID: 33668647030722414}
-  - component: {fileID: 23368448780764572}
-  - component: {fileID: 114104805994042732}
-  m_Layer: 9
-  m_Name: Visuals
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1040726430121164
 GameObject:
   m_ObjectHideFlags: 1
@@ -5964,26 +5946,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1467269988713474
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4449554651494224}
-  - component: {fileID: 33892349114924042}
-  - component: {fileID: 135766462521735228}
-  - component: {fileID: 23986749850448552}
-  - component: {fileID: 114599508676254726}
-  - component: {fileID: 114311161800661318}
-  m_Layer: 9
-  m_Name: Bullet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1467303378876640
 GameObject:
   m_ObjectHideFlags: 1
@@ -8753,10 +8715,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4295905344258774}
   - component: {fileID: 114076175794458634}
-  - component: {fileID: 114646839677507156}
   - component: {fileID: 114221159092708912}
   - component: {fileID: 114196058523513114}
   - component: {fileID: 114770196465288502}
+  - component: {fileID: 114203377941788492}
   m_Layer: 9
   m_Name: BaseSwarm
   m_TagString: Untagged
@@ -11081,22 +11043,6 @@ GameObject:
   - component: {fileID: 4569137477893440}
   m_Layer: 9
   m_Name: MCH-head.02
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1866100381524112
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4505547828900992}
-  - component: {fileID: 114568263443785362}
-  m_Layer: 9
-  m_Name: Damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14010,19 +13956,6 @@ Transform:
   m_Children:
   - {fileID: 4247116333401874}
   m_Father: {fileID: 4758083562927802}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4077460351812916
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040192507130190}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4449554651494224}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4078038124885746
@@ -18077,21 +18010,6 @@ Transform:
   m_Father: {fileID: 4770214711402704}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4449554651494224
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.404273, y: 0.26, z: -1.5350167}
-  m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
-  m_Children:
-  - {fileID: 4505547828900992}
-  - {fileID: 4077460351812916}
-  m_Father: {fileID: 4860372008104918}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4451470700682990
 Transform:
   m_ObjectHideFlags: 1
@@ -18610,19 +18528,6 @@ Transform:
   - {fileID: 4563604283846346}
   m_Father: {fileID: 4083889607847520}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4505547828900992
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866100381524112}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4449554651494224}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4506317980339628
 Transform:
@@ -22919,8 +22824,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4449554651494224}
+  m_Children: []
   m_Father: {fileID: 4907597086397028}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26075,37 +25979,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23368448780764572
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040192507130190}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: ed7c7e09fb2e52549a00148d51653b80, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
 --- !u!23 &23372963006091278
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -28462,37 +28335,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23986749850448552
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_Materials:
-  - {fileID: 2100000, guid: cdef637bd45b10845b08e24d46cce62d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
 --- !u!23 &23997618835628154
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -29077,13 +28919,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953051633529186}
   m_Mesh: {fileID: 0}
---- !u!33 &33668647030722414
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040192507130190}
-  m_Mesh: {fileID: 0}
 --- !u!33 &33672625006381190
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -29286,13 +29121,6 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1338797233689786}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33892349114924042
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33894885661122168
 MeshFilter:
@@ -29615,14 +29443,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114731840224100692}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114020768317204102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -29678,15 +29503,12 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114981824601135126}
   - {fileID: 114041346690403882}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 2
 --- !u!114 &114036455793816008
@@ -29955,12 +29777,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Movement: {fileID: 114770196465288502}
-  m_Expiration: {fileID: 114646839677507156}
+  m_Expiration: {fileID: 114203377941788492}
   m_OnExpire: {fileID: 114221159092708912}
   m_KillBullet: 0
   m_Instances: []
   m_Invoker: {fileID: 114196058523513114}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114077312730306858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30075,6 +29898,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114810996165298828}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114099844771938388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30136,24 +29960,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d649f41ef2264648bfd9f22cdb02943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114104805994042732
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1040192507130190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9efc33befc68374c889396a73a00a5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_setLineColorAtStart: 0
-  m_lineColor: {r: 0.52404237, g: 0.1362457, b: 0.66176474, a: 0}
-  m_lineWidth: 1
-  m_lineVertices:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0.1}
-  - {x: 0, y: 0, z: 0.2}
 --- !u!114 &114105615988685952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30252,7 +30058,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -30261,8 +30066,6 @@ MonoBehaviour:
   - {fileID: 114316865765450864}
   - {fileID: 114932921777545328}
   m_TimeAfterCombo: 2
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 6
   - 6
@@ -30386,6 +30189,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114214804846491568}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114134229123196424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30400,14 +30204,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114097316460061984}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114134572622928526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30472,6 +30273,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114774479667657812}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114137130135644418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30494,7 +30296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114371200073772022}
+  m_Type: 1
   m_Movement: {fileID: 114943822063286858}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -30728,6 +30530,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114295649720065040}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114189622639122110
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -30832,10 +30635,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
+  m_Type: 1
   m_Movement: {fileID: 114698876352908274}
   m_Expire: {fileID: 114890807269350732}
   m_OnExpire: {fileID: 114980427227362248}
+--- !u!114 &114203377941788492
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1708556626454234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22a7977da094b0e458cd498ee5759bfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Time: 500
 --- !u!114 &114205226266083820
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31049,7 +30864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114286035456320690}
+  m_Type: 0
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -31094,6 +30909,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114274397889140608}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114234928737923808
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31130,6 +30946,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114567221549031116}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114238104670519904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31152,7 +30969,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
+  m_Type: 0
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -31459,14 +31276,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114355567553665272}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114269124628524572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31481,14 +31295,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114607407006111210}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114269516105389050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31507,6 +31318,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114959183064880168}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114269578688079644
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31819,18 +31631,6 @@ MonoBehaviour:
   m_DownswingTime: 0.3
   m_TimeBeforeDownswingCausesDamage: 0.2
   m_HitAudio: {fileID: 0}
---- !u!114 &114311161800661318
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e67733cbf9de554090df1c11456d166, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Active: 1
 --- !u!114 &114314822284469876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32178,14 +31978,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114261064684857626}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114366134932122404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32428,7 +32225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114434981785100146}
+  m_Type: 1
   m_Movement: {fileID: 114048964600465810}
   m_Expire: {fileID: 114964311640830556}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -32498,14 +32295,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114887685505700692}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114409973241029348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32524,6 +32318,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114434687376260142}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114413516402850294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32623,7 +32418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114880215651200876}
+  m_Type: 1
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -32723,14 +32518,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114219006037312900}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114621388193966456}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes: []
 --- !u!114 &114439669493782766
 MonoBehaviour:
@@ -32779,14 +32571,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114414438172824112}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114621388193966456}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes: []
 --- !u!114 &114442498576228084
 MonoBehaviour:
@@ -32872,7 +32661,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
+  m_Type: 0
   m_Movement: {fileID: 114971984060042642}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -32891,14 +32680,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114939942632555080}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114465195722761210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33028,7 +32814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114965952025593422}
+  m_Type: 1
   m_Movement: {fileID: 114520699760909594}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -33241,6 +33027,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114040118406134508}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114514018611618342
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33271,6 +33058,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114998706180009938}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114520699760909594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33366,6 +33154,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114135230708664260}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114525928946906290
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33399,14 +33188,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114846432180515554}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114528915708302734
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33614,6 +33400,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114784784744752300}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114563240790438026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33625,7 +33412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
+  m_Type: 0
   m_Movement: {fileID: 114150415048214962}
   m_Expire: {fileID: 114264921364385144}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -33689,25 +33476,6 @@ MonoBehaviour:
   m_IterationBulletCounts: 08000000090000000a0000000b0000000c0000000d0000000e0000000f000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000010000000
   m_Angle: 360
   m_InitialDistance: 0.25
---- !u!114 &114568263443785362
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866100381524112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c7e4101ed66ff945b109419faf9ae70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Type: 1
-  m_BlockType: 1
-  m_Active: 1
-  m_Owner: {fileID: 1467269988713474}
-  m_DamageAmount: 15
-  m_Deflectable: 0
-  m_DeflectTarget: {fileID: 1451053585669960}
-  m_Deflected: 0
 --- !u!114 &114568832434264344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33825,14 +33593,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114626744427582168}
   m_TimeAfterCombo: 9999
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114588124092829558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33929,27 +33694,6 @@ MonoBehaviour:
   m_PlayerHeal: {fileID: 0}
   m_PlayerAttack: {fileID: 0}
   m_PlayerParry: {fileID: 0}
---- !u!114 &114599508676254726
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da604b0c725c1e6428f1bb970155e9cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Movement: {fileID: 0}
-  m_Expiration: {fileID: 0}
-  m_OnExpire: {fileID: 0}
-  m_KillBullet: 0
-  m_Damage: {fileID: 114568263443785362}
-  m_DamageTrigger: {fileID: 114311161800661318}
-  m_DeflectedMovement: {fileID: 114403023496469164, guid: fc495f2abe7c1de42af74d8140031d70,
-    type: 2}
-  m_DeflectedExpiration: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef,
-    type: 2}
 --- !u!114 &114601513456069588
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34100,7 +33844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114036455793816008}
+  m_Type: 1
   m_Movement: {fileID: 114077483711719734}
   m_Expire: {fileID: 114636693034012200}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -34414,6 +34158,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114563254173257964}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114636693034012200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34473,7 +34218,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -34484,8 +34228,6 @@ MonoBehaviour:
   - {fileID: 114798806519512160}
   - {fileID: 114988132154048914}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114621388193966456}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 1.5
   - 1.3
@@ -34506,7 +34248,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -34533,8 +34274,6 @@ MonoBehaviour:
   - {fileID: 114874786224063412}
   - {fileID: 114934513251158560}
   m_TimeAfterCombo: 3
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 0
   - 0
@@ -34557,17 +34296,6 @@ MonoBehaviour:
   - 0.2
   - 1
   - 0.2
---- !u!114 &114646839677507156
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1708556626454234}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d649f41ef2264648bfd9f22cdb02943, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114650458625884966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34579,7 +34307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114280402722270042}
+  m_Type: 0
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -34704,7 +34432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114977959193490332}
+  m_Type: 1
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -34724,7 +34452,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -34733,8 +34460,6 @@ MonoBehaviour:
   - {fileID: 114077312730306858}
   - {fileID: 114737734969458282}
   m_TimeAfterCombo: 3
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114673498870469982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34753,6 +34478,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114241452734224892}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114674007769702200
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34799,6 +34525,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114548177647115734}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114683806011421026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34910,14 +34637,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114374202296894678}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114704322559767182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -34929,7 +34653,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114599508676254726}
+  m_Type: 1
   m_Movement: {fileID: 114701833853613654}
   m_Expire: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -34945,7 +34669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114851332063829126}
+  m_Type: 1
   m_Movement: {fileID: 114587914694850516}
   m_Expire: {fileID: 114636693034012200}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -35015,14 +34739,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114247248438356298}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114718075633081766
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35067,14 +34788,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114254947287075300}
   m_TimeAfterCombo: 0.01
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114724324923778926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35117,7 +34835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114873592532236936}
+  m_Type: 1
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -35154,14 +34872,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114536280130258078}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114731840224100692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35283,14 +34998,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114190452523005816}
   m_TimeAfterCombo: 3
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114741691281301176
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35305,14 +35017,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114716634008685906}
   m_TimeAfterCombo: 0.01
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114746002458189696
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35373,14 +35082,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114242830771106074}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114754321439110372
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35395,14 +35101,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114536000031457606}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114758626313579858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35501,7 +35204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114465444223870120}
+  m_Type: 1
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -35569,6 +35272,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114604207504831004}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114784784744752300
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35604,7 +35308,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -35612,8 +35315,6 @@ MonoBehaviour:
   - {fileID: 114992972205374924}
   - {fileID: 114631555804529400}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114621388193966456}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 1.5
   - 1.5
@@ -35669,6 +35370,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114866525500264966}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114790309753883616
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35704,14 +35406,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114623921052670500}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114795148065103056
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -35748,6 +35447,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114796220763726046}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114796220763726046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36260,7 +35960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114835827247201978}
+  m_Type: 0
   m_Movement: {fileID: 114590292246913098, guid: 0fc29edda1dfd924a80b2105f9a2e279,
     type: 2}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
@@ -36511,7 +36211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114534528832610138}
+  m_Type: 1
   m_Movement: {fileID: 114765955719129880}
   m_Expire: {fileID: 114636693034012200}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -36538,7 +36238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114217435054956648}
+  m_Type: 2
   m_Movement: {fileID: 114241477546519534}
   m_Expire: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -36688,14 +36388,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114790309753883616}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114913129311812964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -36736,7 +36433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114226934631039844}
+  m_Type: 1
   m_Movement: {fileID: 114520699760909594}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -36869,7 +36566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114368190881180798, guid: 6c9675a3c3a9cf844869428abd73bffc, type: 2}
+  m_Type: 1
   m_Movement: {fileID: 114105615988685952}
   m_Expire: {fileID: 114984280442312700}
   m_OnExpire: {fileID: 114465195722761210}
@@ -36919,7 +36616,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
@@ -36927,8 +36623,6 @@ MonoBehaviour:
   - {fileID: 114953699621038830}
   - {fileID: 114368994422830648}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114621388193966456}
-  m_MaxBlocksBeforeParry: 3
   m_WaitTimes:
   - 1.5
   - 1.5
@@ -36943,7 +36637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114153702076420638}
+  m_Type: 1
   m_Movement: {fileID: 114618753840178564}
   m_Expire: {fileID: 114636693034012200}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -37105,6 +36799,7 @@ MonoBehaviour:
   m_Instances: []
   m_Invoker: {fileID: 114894859213216746}
   m_KillAllChildren: 0
+  m_KillChildrenOnCancel: 1
 --- !u!114 &114964073642431606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37167,7 +36862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114205226266083820}
+  m_Type: 1
   m_Movement: {fileID: 114879266633723526}
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -37299,14 +36994,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1451053585669960}
   m_Animator: {fileID: 95405191386343014}
   m_FullTurnCommand: {fileID: 114036711988178836}
-  m_BossHittable: {fileID: 114492784845437806}
   m_BossStagger: {fileID: 114570929636216580}
   m_MoveCommand: {fileID: 114261205144663682}
   m_Attacks:
   - {fileID: 114316851593452536}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114988132154048914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -37634,18 +37326,6 @@ SphereCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1269723363237976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.4
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &135766462521735228
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1467269988713474}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
