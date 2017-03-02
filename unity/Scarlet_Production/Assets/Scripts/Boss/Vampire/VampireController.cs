@@ -31,6 +31,7 @@ public class VampireController : BossController {
 
     public virtual void StartPhase(BossfightCallbacks callbacks)
     {
+        m_NotDeactivated = true;
         RegisterComboCallback();
         m_LightGuard = m_LightGuardContainer.GetComponent<LightGuard>();
         m_GatheringLight = false;

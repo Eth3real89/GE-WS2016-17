@@ -103,18 +103,21 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     protected virtual bool WithinAngleBounds(float angles)
     {
+        if (m_Angles == 360)
+            return true;
+
         float angle = BossTurnCommand.CalculateAngleTowards(m_InitialCenterPos, m_Target.transform.position);
         
         if (m_AngleAtLaunch < 0)
         {
-            while (angle > 0)
+            while (angle > 180)
             {
                 angle -= 360;
             }
         }
         else
         {
-            while (angle < 0)
+            while (angle < -180)
             {
                 angle += 360;
             }
@@ -128,7 +131,7 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     protected virtual bool WithinDistanceBounds(float waveSize, float distance, float distanceBetweenCircles)
     {
-        return waveSize >= distance && waveSize - distanceBetweenCircles <= distance;
+        return waveSize + (distanceBetweenCircles / 4f) >= distance && waveSize - (distanceBetweenCircles / 4f) <= distance;
     }
 
     public override void CancelAttack()

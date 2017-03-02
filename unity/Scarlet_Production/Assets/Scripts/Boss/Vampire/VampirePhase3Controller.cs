@@ -16,16 +16,25 @@ public class VampirePhase3Controller : VampireController
         m_Killable = false;
 
         StartCoroutine(StartAfterDelay());
-
-        StartCoroutine(SlowlyDrainHealth());
     }
 
     protected override IEnumerator StartAfterDelay()
     {
+        ((VampireHittable)m_BossHittable).m_DontPlaySound = true;
+
         PlayerControls controls = FindObjectOfType<PlayerControls>();
         if (controls != null)
             controls.DisableAllCommands();
 
+        if (FancyAudio.s_UseAudio)
+        {
+            //Cutscene??
+            new FARQ().ClipName("vampire").Location(transform).StartTime(67).EndTime(74).Volume(1).Play();
+            //
+            yield return new WaitForSeconds(74 - 67);
+        }
+
+        StartCoroutine(SlowlyDrainHealth());
 
         DashTo(m_ArenaCenter, 0.5f);
         yield return new WaitForSeconds(0.5f);
@@ -37,7 +46,10 @@ public class VampirePhase3Controller : VampireController
         ActivateLightShield();
 
         StartCoroutine(PerfectTrackingRoutine(0.5f));
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
+        new FARQ().ClipName("vampire").Location(transform).StartTime(165).EndTime(171).Volume(1).Play();
+        yield return new WaitForSeconds(0.5f);
+
         m_VampireAnimator.SetBool("RageModeActive", true);
         m_VampireAnimator.SetTrigger("RageModeTrigger");
 
@@ -45,6 +57,7 @@ public class VampirePhase3Controller : VampireController
             controls.EnableAllCommands();
 
         yield return base.StartAfterDelay();
+        
     }
 
     private IEnumerator SlowlyDrainHealth()
@@ -59,10 +72,18 @@ public class VampirePhase3Controller : VampireController
 
             yield return null;
         }
+
+        new FARQ().ClipName("vampire").Location(transform).StartTime(79).EndTime(95).Play();
+        yield return new WaitForSeconds(95 - 79 - 2);
+
+        StartCoroutine(MakeVampireKillable());
     }
 
     public override void OnComboEnd(AttackCombo combo)
     {
+        m_ActiveCombo = null;
+        m_ComboActive = false;
+
         switch (m_CurrentComboIndex)
         {
             case 0: // spiral bullet attack over
@@ -76,7 +97,6 @@ public class VampirePhase3Controller : VampireController
                 break;
             case 3: // 6 waves over
                 m_BossHittable.RegisterInterject(this);
-                StartCoroutine(MakeVampireKillable());
                 break;
         }
     }
@@ -84,6 +104,12 @@ public class VampirePhase3Controller : VampireController
     protected override IEnumerator StartNextComboAfter(float time)
     {
         yield return new WaitForSeconds(time);
+
+        if (m_CurrentComboIndex == 0)
+        {
+            new FARQ().ClipName("vampire").Location(transform).StartTime(171.5f).EndTime(179).Volume(1).Play();
+        }
+
         StartNextCombo();
     }
 
@@ -101,7 +127,9 @@ public class VampirePhase3Controller : VampireController
         yield return RotateToDegrees(0.2f, 180);
 
         m_VampireAnimator.SetTrigger("DesperationTrigger");
-        
+
+        new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(119f).Volume(1).Play();
+
         StartCoroutine(StartNextComboAfter(1f));   
     }
     
@@ -116,7 +144,11 @@ public class VampirePhase3Controller : VampireController
     public override bool OnHit(Damage dmg)
     {
         if (!m_Killable)
+        {
+            new FARQ().ClipName("vampire").Location(transform).StartTime(149).EndTime(151f).Volume(1).Play();
+            m_Killable = false;
             return true;
+        }
         return false;
     }
 

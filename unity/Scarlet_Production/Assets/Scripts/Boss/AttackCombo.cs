@@ -29,15 +29,19 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
    
 	protected virtual void Start ()
     {
-
 		foreach(BossAttack attack in m_Attacks)
         {
-            attack.m_Boss = m_Boss;
-            attack.m_Animator = m_Animator;
-            attack.m_Callback = this;
-            attack.m_FullTurnCommand = m_FullTurnCommand;
+            SetupAttack(attack);
         }
-	}
+    }
+
+    protected virtual void SetupAttack(BossAttack attack)
+    {
+        attack.m_Boss = m_Boss;
+        attack.m_Animator = m_Animator;
+        attack.m_Callback = this;
+        attack.m_FullTurnCommand = m_FullTurnCommand;
+    }
 
     public virtual void LaunchCombo()
     {

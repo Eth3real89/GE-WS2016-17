@@ -8,15 +8,15 @@ public class ControlHitVisualisation : MonoBehaviour {
     public GameObject m_LeftHand;
     public GameObject m_RightHand;
 
-    private TrailRenderer[] m_Trails_Left;
-    private TrailRenderer[] m_Trails_Right;
+    private MeleeWeaponTrail[] m_Trails_Left;
+    private MeleeWeaponTrail[] m_Trails_Right;
     private ParticleSystem[] m_Particles_Left;
     private ParticleSystem[] m_Particles_Right;
 
     // Use this for initialization
     void Start () {
-        m_Trails_Left = m_LeftHand.GetComponentsInChildren<TrailRenderer>(true);
-        m_Trails_Right = m_RightHand.GetComponentsInChildren<TrailRenderer>(true);
+        m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
+        m_Trails_Right = m_RightHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
         
         m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
@@ -28,9 +28,9 @@ public class ControlHitVisualisation : MonoBehaviour {
         {
             particles.Play();
         }
-        foreach (TrailRenderer trail in m_Trails_Left)
+        foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.enabled = true;
+            trail.Emit = true;
         }
     }
 
@@ -40,9 +40,9 @@ public class ControlHitVisualisation : MonoBehaviour {
         {
             particles.Play();
         }
-        foreach (TrailRenderer trail in m_Trails_Right)
+        foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.enabled = true;
+            trail.Emit = true;
         }
     }
 
@@ -53,9 +53,9 @@ public class ControlHitVisualisation : MonoBehaviour {
         {
             particles.Stop();
         }
-        foreach (TrailRenderer trail in m_Trails_Left)
+        foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.enabled = false;
+            trail.Emit = false;
         }
 
     }
@@ -67,9 +67,9 @@ public class ControlHitVisualisation : MonoBehaviour {
         {
             particles.Stop();
         }
-        foreach (TrailRenderer trail in m_Trails_Right)
+        foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.enabled = false;
+            trail.Emit = false;
         }
     }
 
