@@ -10,18 +10,23 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
     public float m_RotateAngles;
     public float m_RotationTime;
     public float m_UpSpeed;
+    protected float m_ForwardSpeed;
 
-    public float m_SwingTimeBeforeDamage;
+    public float m_TimeStuckInAir;
+
+    public float m_DownwardsTime;
 
     public float m_TimeDamageActive;
-
     public float m_TimeEnd;
 
     protected IEnumerator m_Timer;
 
     public BossMeleeDamage m_ScytheRangeTrigger;
+    public GameObject m_Scarlet;
     public AngelDamage m_RotationDamage;
-    public AngelDamage m_DownswingDamage; 
+    public AngelDamage m_DownswingDamage;
+
+    protected float m_YPosBefore;
 
     public override void StartAttack()
     {
@@ -47,9 +52,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
     protected virtual IEnumerator Rotate()
     {
         float initialYRotation = m_Boss.transform.rotation.eulerAngles.y;
-        Vector3 posBefore = m_Boss.transform.position + Vector3.zero;
+        m_YPosBefore = m_Boss.transform.position.y;
 
-        bool overheadStarted = false;
+        m_ForwardSpeed = Vector3.Distance(m_Boss.transform.position, m_Scarlet.transform.position) / (m_RotationTime + m_DownwardsTime);
         
         m_ScytheRangeTrigger.m_CollisionHandler = this;
         m_ScytheRangeTrigger.m_Active = true;
@@ -57,47 +62,68 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         m_RotationDamage.m_Active = true;        
 
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
+        b.useGravity = false;
 
-        float stopUpwardsTime = 0.5f;
+        float yVelocity = 0;
+
         float t = 0;
         while((t += Time.deltaTime) < m_RotationTime)
         {
-            m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * (t / m_RotationTime), 0);
-            
-            if (!overheadStarted && t > m_RotationTime - stopUpwardsTime)
-            {
-                m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
-                overheadStarted = true;
-            }
+            yVelocity += ((t > m_RotationTime / 2)? -1 : 1) * Time.deltaTime * m_UpSpeed;
+            m_Boss.transform.position += new Vector3(0, yVelocity, 0) + m_Boss.transform.forward * m_ForwardSpeed * Time.deltaTime;
 
-            if (overheadStarted)
-            {
-                m_Boss.transform.position = Vector3.Lerp(m_Boss.transform.position, posBefore, (t - (m_RotationTime - 0.15f)) / stopUpwardsTime);
-            }
-            else
-            {
-                m_Boss.transform.position += Vector3.up * m_UpSpeed * Time.deltaTime;
-            }
-
+            m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * Mathf.Sin(t / m_RotationTime * Mathf.PI / 2), 0);
             yield return null;
         }
 
         m_Boss.transform.rotation = Quaternion.Euler(0, m_RotateAngles + initialYRotation, 0);
-        m_Boss.transform.position = posBefore;
 
         m_RotationDamage.m_Active = false;
 
-        if (!overheadStarted)
-            m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
-
-        m_Timer = SwingScythe();
+        m_Timer = AtHighestPoint();
         StartCoroutine(m_Timer);
     }
 
-    protected virtual IEnumerator SwingScythe()
+    protected virtual IEnumerator AtHighestPoint()
     {
-        yield return new WaitForSeconds(m_SwingTimeBeforeDamage);
+        m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
+
+        float t = 0;
+        while((t += Time.deltaTime) < m_TimeStuckInAir)
+        {
+            float angle = BossTurnCommand.CalculateAngleTowards(m_Boss.transform, m_Scarlet.transform);
+            m_Boss.transform.Rotate(Vector3.up, angle);
+            
+            yield return null;
+        }
+
+        m_Timer = ComeCrashingDown();
+        StartCoroutine(m_Timer);
+    }
+
+    protected virtual IEnumerator ComeCrashingDown()
+    {
         m_DownswingDamage.m_Active = true;
+
+        Vector3 xzAfter = new Vector3(m_Scarlet.transform.position.x, 0, m_Scarlet.transform.position.z);
+
+        Vector3 posBefore = m_Boss.transform.position + Vector3.zero;
+
+        float t = 0;
+        while ((t += Time.deltaTime) < m_DownwardsTime)
+        {
+            Vector3 newPos = Vector3.Lerp(posBefore, xzAfter, t / m_DownwardsTime);
+            newPos.y = Mathf.Lerp(posBefore.y, m_YPosBefore, Mathf.Sin(t / m_DownwardsTime * Mathf.PI / 2));
+
+            m_Boss.transform.position = newPos;
+
+            yield return null;
+        }
+
+        m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
+
+        Rigidbody b = m_Boss.GetComponent<Rigidbody>();
+        b.useGravity = true;
 
         yield return new WaitForSeconds(m_TimeDamageActive);
         m_DownswingDamage.m_Active = false;
@@ -116,6 +142,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator EndAttack()
     {
+        Rigidbody b = m_Boss.GetComponent<Rigidbody>();
+        b.useGravity = false;
+
         yield return new WaitForSeconds(m_TimeEnd);
 
         m_Animator.SetTrigger("IdleTrigger");
@@ -134,6 +163,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         m_RotationDamage.m_Callback = null;
         m_RotationDamage.m_Active = false;
+
+        Rigidbody b = m_Boss.GetComponent<Rigidbody>();
+        b.useGravity = true;
     }
 
     public override void CancelAttack()

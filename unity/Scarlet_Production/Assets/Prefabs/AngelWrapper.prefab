@@ -7899,7 +7899,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1662881076311698}
-  m_LocalRotation: {x: -0.013170122, y: -0.68699205, z: 0.72634023, w: 0.017272044}
+  m_LocalRotation: {x: -0.013170118, y: -0.68699205, z: 0.72634023, w: 0.017272044}
   m_LocalPosition: {x: -0.0000000015832483, y: 2.2351741e-10, z: 0.0000000016763806}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -13535,7 +13535,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1481857524605116}
-  m_LocalRotation: {x: 0.013170871, y: -0.6869926, z: 0.7263397, w: -0.01727207}
+  m_LocalRotation: {x: 0.013170867, y: -0.6869926, z: 0.7263397, w: -0.01727207}
   m_LocalPosition: {x: -0.0000000019930302, y: 2.2351741e-10, z: -7.8231094e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -17809,13 +17809,15 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_SuccessLevel: 0
   m_TimeBeforeRotation: 0.9
-  m_RotateAngles: -360
+  m_RotateAngles: -1080
   m_RotationTime: 0.7
-  m_UpSpeed: 2
-  m_SwingTimeBeforeDamage: 0.06
-  m_TimeDamageActive: 0.21
+  m_UpSpeed: 0.35
+  m_TimeStuckInAir: 0.39
+  m_DownwardsTime: 0.48
+  m_TimeDamageActive: 0.03
   m_TimeEnd: 0.5
   m_ScytheRangeTrigger: {fileID: 114171574404771862}
+  m_Scarlet: {fileID: 0}
   m_RotationDamage: {fileID: 114693543173812268}
   m_DownswingDamage: {fileID: 114756827733954006}
 --- !u!114 &114461527476852674
@@ -17848,7 +17850,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63947af201114949a9bf1aed13c1834, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Base: {fileID: 114005739807821190}
+  m_BulletScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_Type: 0
   m_Movement: {fileID: 114271046904529726}
   m_Expire: {fileID: 114304397046648152}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
@@ -18195,6 +18198,7 @@ MonoBehaviour:
   m_AssociatedTip: 0
   m_ComboType: 0
   m_Success: 0
+  m_SkipFind: 1
 --- !u!114 &114899832075154840
 MonoBehaviour:
   m_ObjectHideFlags: 1
