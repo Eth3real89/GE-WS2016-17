@@ -8057,6 +8057,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1952686509482506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4687599433719844}
+  - component: {fileID: 114298627053410160}
+  m_Layer: 0
+  m_Name: HitWarnings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1953702823100630
 GameObject:
   m_ObjectHideFlags: 1
@@ -13061,6 +13077,7 @@ Transform:
   - {fileID: 4633375331315010}
   - {fileID: 4654940563277500}
   - {fileID: 4274717706777696}
+  - {fileID: 4687599433719844}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -13579,6 +13596,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4399738260628604}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4687599433719844
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952686509482506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4608113132614596}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4689349338964478
 Transform:
@@ -19125,7 +19155,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -19323,6 +19353,8 @@ MonoBehaviour:
   m_TrackTime: 0.6
   m_HesitateTime: 0.1
   m_TimeAfterLand: 0.5
+  m_MaxDistance: 9999
+  m_DamageInAir: 1
 --- !u!114 &114103438683500270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19365,22 +19397,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos: []
   m_BossHittable: {fileID: 114950054383899724}
   m_BlockingBehaviour: {fileID: 114777111829272916}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114969317741959328}
   m_JumpCombo: {fileID: 114146198509951154}
+  m_LungeAttack: {fileID: 114321522944543970}
   m_HuntCenter: {fileID: 0}
   m_HuntDistance: 4
-  m_NumParryRequired: 1
+  m_NumParryRequired: 2
   m_PlayerAttackCommand: {fileID: 0}
   m_PlayerParryCommand: {fileID: 0}
-  m_MinHuntTime: 5
-  m_MaxHuntTime: 9
+  m_MinHuntTime: 1
+  m_MaxHuntTime: 2
   m_BossHealth: {fileID: 114344973080775448}
   m_BossTurn: {fileID: 114503801396500242}
   m_BossMove: {fileID: 114647882146185228}
+  m_Tutorial: {fileID: 0}
+  m_SlowMoAmount: 0.01
+  m_SlowMoTime: 3
+  m_SuccessfullyRiposted: 0
 --- !u!114 &114110285375122400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19440,15 +19478,12 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114693371607293782}
   - {fileID: 114567635188264706}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114138719884506348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19467,6 +19502,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -19480,6 +19516,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
+  m_SkipAttack: 0
 --- !u!114 &114139256987896248
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19509,14 +19546,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114321522944543970}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114161216010809832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19529,6 +19563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos:
   - {fileID: 114607010596079592}
   - {fileID: 114671106069986586}
@@ -19570,14 +19605,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114026543923882718}
   m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114393432002047332}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114193452035759802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19596,6 +19628,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -19609,6 +19642,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
+  m_SkipAttack: 0
 --- !u!114 &114217175205514184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19623,14 +19657,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114085457215741546}
   m_TimeAfterCombo: 0
-  m_BlockingBehaviour: {fileID: 114777111829272916}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114277282232704426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19660,6 +19691,8 @@ MonoBehaviour:
   m_TrackTime: 0.2
   m_HesitateTime: 0.4
   m_TimeAfterLand: 0.5
+  m_MaxDistance: 9999
+  m_DamageInAir: 1
 --- !u!114 &114279377889857850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19678,6 +19711,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -19691,6 +19725,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
+  m_SkipAttack: 0
 --- !u!114 &114297121066627016
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19704,6 +19739,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Boss: {fileID: 1193509061937176}
   m_BossAnimator: {fileID: 95054891618251640}
+--- !u!114 &114298627053410160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952686509482506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82731407029f5c14ebe304ff446191bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HitWarnings:
+  - {fileID: 1070515624122300}
+  - {fileID: 1600372529577554}
+  - {fileID: 1070515624122300}
 --- !u!114 &114321522944543970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19733,6 +19783,8 @@ MonoBehaviour:
   m_TrackTime: 0.6
   m_HesitateTime: 1.13
   m_TimeAfterLand: 0.5
+  m_MaxDistance: 9999
+  m_DamageInAir: 0
 --- !u!114 &114344973080775448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19796,6 +19848,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114772424159283458}
   m_BossTurn: {fileID: 114139256987896248}
   m_BossHit: {fileID: 114632248095850534}
@@ -19809,6 +19862,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 0
+  m_SkipAttack: 0
 --- !u!114 &114401377155765932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19851,6 +19905,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
+  m_NotDeactivated: 1
   m_Combos: []
   m_BossHittable: {fileID: 114950054383899724}
   m_BlockingBehaviour: {fileID: 114777111829272916}
@@ -19934,6 +19989,7 @@ MonoBehaviour:
   m_TimeSpentInAir: 0.15
   m_Speed: 3
   m_JumpAudio: {fileID: 82153424456877572}
+  m_DoNotActuallyMove: 0
 --- !u!114 &114567635188264706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19978,14 +20034,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114948663892731264}
   m_TimeAfterCombo: 1.5
-  m_BlockingBehaviour: {fileID: 114777111829272916}
-  m_MaxBlocksBeforeParry: 1
 --- !u!114 &114632248095850534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19999,16 +20052,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
-  m_DamageTrigger: {fileID: 0}
-  m_HitSignals:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  m_DamageTrigger: {fileID: 114858976643972576}
+  m_HitWarning: {fileID: 114298627053410160}
   m_UpswingTime: 0.2
   m_HoldTime: 0.07
   m_DownswingTime: 0.3
   m_TimeBeforeDownswingCausesDamage: 0.2
-  m_HitAudio: {fileID: 0}
+  m_HitAudio: {fileID: 82934675562532382}
 --- !u!114 &114647882146185228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20039,15 +20089,12 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114138719884506348}
   - {fileID: 114110285375122400}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 114777111829272916}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114693371607293782
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20066,6 +20113,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -20079,6 +20127,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
+  m_SkipAttack: 0
 --- !u!114 &114700286909059066
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20093,7 +20142,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
@@ -20101,8 +20149,6 @@ MonoBehaviour:
   - {fileID: 114934316636430100}
   - {fileID: 114998212898468628}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114704627044693812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20129,12 +20175,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
   m_RendererContainer: {fileID: 1159290334118458}
+  m_MaxBloodTrails: 4
   m_BloodTrailPrefab: {fileID: 1492538519219924, guid: a01b663743693c3478f9c83740245e30,
     type: 2}
   m_BloodTrailPlaneCollider: {fileID: 0}
   m_InitialBloodShapeRadius: 0.1
   m_TimeBleedAfterHit: 2
   m_HitMaterial: {fileID: 2100000, guid: b7f4d1b84ff4b654a8016cc6926b492e, type: 2}
+  m_IgnoreChildren: 0
 --- !u!114 &114736205853766716
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20164,8 +20212,8 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_Speed: 6.93
-  m_BossBody: {fileID: 0}
-  m_StepsAudio: {fileID: 0}
+  m_BossBody: {fileID: 54862251232036378}
+  m_StepsAudio: {fileID: 82681858723429882}
 --- !u!114 &114777111829272916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20200,6 +20248,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -20213,6 +20262,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 30
   m_AttackAnimation: 1
+  m_SkipAttack: 0
 --- !u!114 &114817372958446622
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20227,14 +20277,11 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114772424159283458}
   m_Attacks:
   - {fileID: 114103425716703920}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114835218856587022
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20279,7 +20326,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
@@ -20287,8 +20333,6 @@ MonoBehaviour:
   - {fileID: 114892299802096208}
   - {fileID: 114925903041973760}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114858976643972576
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20303,6 +20347,7 @@ MonoBehaviour:
   m_Type: 0
   m_BlockType: 2
   m_Active: 0
+  m_Owner: {fileID: 0}
   m_Blockable: 2
   m_Amount: 30
 --- !u!114 &114880141236445202
@@ -20321,7 +20366,8 @@ MonoBehaviour:
   m_StopAtPointInJump: 0.8
   m_TimeSpentInAir: 0.15
   m_Speed: 3
-  m_JumpAudio: {fileID: 0}
+  m_JumpAudio: {fileID: 82153424456877572}
+  m_DoNotActuallyMove: 0
 --- !u!114 &114892299802096208
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20370,6 +20416,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -20383,6 +20430,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 45
   m_AttackAnimation: 2
+  m_SkipAttack: 0
 --- !u!114 &114917235165953254
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20410,15 +20458,12 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114277282232704426}
   - {fileID: 114377355898190512}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114925903041973760
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20463,15 +20508,12 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
   - {fileID: 114914028840730526}
   - {fileID: 114835218856587022}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 114777111829272916}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114934316636430100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20520,6 +20562,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
   m_BossMove: {fileID: 114647882146185228}
   m_BossTurn: {fileID: 114736205853766716}
   m_BossHit: {fileID: 114951391661060036}
@@ -20533,6 +20576,7 @@ MonoBehaviour:
   m_AllowRunWhileTurning: 0
   m_DamageAmount: 45
   m_AttackAnimation: 2
+  m_SkipAttack: 0
 --- !u!114 &114950054383899724
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20549,6 +20593,7 @@ MonoBehaviour:
   m_OnHitAudio: {fileID: 82556509051478008}
   m_BlockParryAudioSource: {fileID: 82677601441898526}
   m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
+  m_DontPlaySound: 0
 --- !u!114 &114951391661060036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20563,10 +20608,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_DamageTrigger: {fileID: 114858976643972576}
-  m_HitSignals:
-  - {fileID: 1600372529577554}
-  - {fileID: 1070515624122300}
-  - {fileID: 1600372529577554}
+  m_HitWarning: {fileID: 114298627053410160}
   m_UpswingTime: 0.3
   m_HoldTime: 0.15
   m_DownswingTime: 0.3
@@ -20587,6 +20629,7 @@ MonoBehaviour:
   - 0.7
   - 0.5
   - 0.5
+  m_RipostedTimeWindow: 1.5
   m_Animator: {fileID: 95054891618251640}
   m_StaggerTime: 1
   m_TurnCommand: {fileID: 0}
@@ -20604,7 +20647,6 @@ MonoBehaviour:
   m_Boss: {fileID: 1193509061937176}
   m_Animator: {fileID: 95054891618251640}
   m_FullTurnCommand: {fileID: 114121302234765288}
-  m_BossHittable: {fileID: 114950054383899724}
   m_BossStagger: {fileID: 114523700914442462}
   m_MoveCommand: {fileID: 114647882146185228}
   m_Attacks:
@@ -20613,8 +20655,6 @@ MonoBehaviour:
   - {fileID: 114524110496006706}
   - {fileID: 114401377155765932}
   m_TimeAfterCombo: 1
-  m_BlockingBehaviour: {fileID: 0}
-  m_MaxBlocksBeforeParry: 3
 --- !u!114 &114998212898468628
 MonoBehaviour:
   m_ObjectHideFlags: 1

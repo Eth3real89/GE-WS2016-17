@@ -32,9 +32,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
         if (m_StartPhase == Phase.Hunt)
         {
-            CameraController.Instance.Darken(true);
-            m_HuntController.enabled = true;
-            m_HuntController.StartHuntPhase(this);
+            StartCoroutine(StartHuntPhaseAfterHowling(0.1f));
         }
         else if (m_StartPhase == Phase.Combat)
         {
@@ -75,13 +73,28 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
     }
 
+    private IEnumerator StartHuntPhaseAfterHowling(float initialWaitTime)
+    {
+        m_PlayerControls.DisableAllCommands();
+        yield return new WaitForSeconds(initialWaitTime);
+
+        yield return StartCoroutine(Howl());
+
+        m_PlayerControls.EnableAllCommands();
+        m_WerewolfAnimator.SetTrigger("IdleTrigger");
+        yield return new WaitForSeconds(0.5f);
+
+        m_HuntController.enabled = true;
+        m_HuntController.StartHuntPhase(this);
+    }
+
     private IEnumerator StartPhase2AfterHowling(float initialWaitTime)
     {
         yield return new WaitForSeconds(initialWaitTime);
-        m_WerewolfAnimator.SetTrigger("HowlTrigger");
 
         m_PlayerControls.DisableAllCommands();
-        yield return new WaitForSeconds(m_TransitionTime);
+
+        yield return StartCoroutine(Howl());
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
@@ -93,10 +106,9 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     private IEnumerator StartPhase3AfterHowling()
     {
-        m_WerewolfAnimator.SetTrigger("HowlTrigger");
-
         m_PlayerControls.DisableAllCommands();
-        yield return new WaitForSeconds(4f);
+
+        yield return StartCoroutine(Howl());
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
@@ -104,6 +116,16 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
         m_RagemodeController.enabled = true;
         m_RagemodeController.LaunchPhase(this);
+    }
+
+    private IEnumerator Howl()
+    {
+        if (FancyAudio.s_UseAudio)
+        {
+            m_WerewolfAnimator.SetTrigger("HowlTrigger");
+            new FARQ().ClipName("werewolf").StartTime(49f).EndTime(56f).Location(m_HuntController.transform).Play();
+            yield return new WaitForSeconds(m_TransitionTime);
+        }
     }
 
     private void SetStreetLightsEnabled(bool enabled)
