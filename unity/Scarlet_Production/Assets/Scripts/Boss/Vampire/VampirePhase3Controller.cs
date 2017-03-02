@@ -26,6 +26,13 @@ public class VampirePhase3Controller : VampireController
         if (controls != null)
             controls.DisableAllCommands();
 
+        if (FancyAudio.s_UseAudio)
+        {
+            //Cutscene??
+            new FARQ().ClipName("vampire").Location(transform).StartTime(67).EndTime(74).Volume(1).Play();
+            //
+            yield return new WaitForSeconds(74 - 67);
+        }
 
         DashTo(m_ArenaCenter, 0.5f);
         yield return new WaitForSeconds(0.5f);

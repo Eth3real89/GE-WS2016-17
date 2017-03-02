@@ -63,6 +63,14 @@ public class VampirePhase0TutorialController : VampireController {
 
         yield return new WaitForSeconds(0.5f);
 
+        if (FancyAudio.s_UseAudio)
+        {
+            //Cutscene??
+            new FARQ().ClipName("vampire").Location(transform).StartTime(42).EndTime(65).Volume(1).Play();
+            //
+            yield return new WaitForSeconds(65 - 42);
+        }
+
         GatherLight(2f);
         ActivateLightShield();
 
@@ -158,7 +166,7 @@ public class VampirePhase0TutorialController : VampireController {
         while (true)
         {
             float distanceToScarlet = Vector3.Distance(this.transform.position, m_Scarlet.transform.position);
-
+            
             if (m_BlastAttackForDashTutorial.m_WaveSize + 1.5 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
             {
                 showTutorial = true;
