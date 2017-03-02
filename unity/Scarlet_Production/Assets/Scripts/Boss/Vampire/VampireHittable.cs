@@ -6,12 +6,14 @@ public class VampireHittable : BossHittable {
 
     private int m_LastUsedHitSound = -1;
 
+    public bool m_DontPlaySound = false;
+
     public override void Hit(Damage damage)
     {
         float healthBefore = m_Health.m_CurrentHealth;
         base.Hit(damage);
 
-        if (m_Health.m_CurrentHealth < healthBefore)
+        if (!m_DontPlaySound && m_Health.m_CurrentHealth < healthBefore)
         {
             PlayHitSound();
         }
