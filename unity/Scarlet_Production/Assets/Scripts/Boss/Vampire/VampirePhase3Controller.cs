@@ -15,6 +15,8 @@ public class VampirePhase3Controller : VampireController
         base.StartPhase(callbacks);
         m_Killable = false;
 
+        UnRegisterAnimationEvents();
+
         StartCoroutine(StartAfterDelay());
     }
 
@@ -26,17 +28,10 @@ public class VampirePhase3Controller : VampireController
         if (controls != null)
             controls.DisableAllCommands();
 
-        if (FancyAudio.s_UseAudio)
-        {
-            //Cutscene??
-            new FARQ().ClipName("vampire").Location(transform).StartTime(67).EndTime(74).Volume(1).Play();
-            //
-            yield return new WaitForSeconds(74 - 67);
-        }
-
         StartCoroutine(SlowlyDrainHealth());
 
         DashTo(m_ArenaCenter, 0.5f);
+        new FARQ().ClipName("vampire").Location(transform).StartTime(165).EndTime(171).Volume(1).Play();
         yield return new WaitForSeconds(0.5f);
 
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
@@ -46,9 +41,7 @@ public class VampirePhase3Controller : VampireController
         ActivateLightShield();
 
         StartCoroutine(PerfectTrackingRoutine(0.5f));
-        yield return new WaitForSeconds(1f);
-        new FARQ().ClipName("vampire").Location(transform).StartTime(165).EndTime(171).Volume(1).Play();
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         m_VampireAnimator.SetBool("RageModeActive", true);
         m_VampireAnimator.SetTrigger("RageModeTrigger");
@@ -67,14 +60,16 @@ public class VampirePhase3Controller : VampireController
         CharacterHealth health = GetComponentInChildren<CharacterHealth>();
         while ((t += Time.deltaTime) < totalTime)
         {
+            float h1 = health.m_CurrentHealth;
+
             if (health != null)
                 health.m_CurrentHealth = Mathf.Lerp(health.m_MaxHealth, 10, t / totalTime);
 
+            if (h1 >= 0.3 * health.m_MaxHealth && health.m_CurrentHealth < 0.3 * health.m_MaxHealth)
+                new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).PlayUnlessPlaying();
+
             yield return null;
         }
-
-        new FARQ().ClipName("vampire").Location(transform).StartTime(79).EndTime(95).Play();
-        yield return new WaitForSeconds(95 - 79 - 2);
 
         StartCoroutine(MakeVampireKillable());
     }
@@ -128,7 +123,7 @@ public class VampirePhase3Controller : VampireController
 
         m_VampireAnimator.SetTrigger("DesperationTrigger");
 
-        new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(119f).Volume(1).Play();
+        new FARQ().ClipName("vampire").Location(transform).StartTime(67.7f).EndTime(75.31f).Volume(1).Play();
 
         StartCoroutine(StartNextComboAfter(1f));   
     }
@@ -136,6 +131,7 @@ public class VampirePhase3Controller : VampireController
     protected virtual IEnumerator MakeVampireKillable()
     {
         m_Killable = true;
+        m_BossHittable.RegisterInterject(this);
         m_VampireAnimator.SetTrigger("KillableTrigger");
         DeactivateLightShield();
         yield return null;
@@ -143,13 +139,15 @@ public class VampirePhase3Controller : VampireController
 
     public override bool OnHit(Damage dmg)
     {
-        if (!m_Killable)
+        if (m_Killable)
         {
-            new FARQ().ClipName("vampire").Location(transform).StartTime(149).EndTime(151f).Volume(1).Play();
+            new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
+            new FARQ().ClipName("vampire").Location(transform).StartTime(79).EndTime(96).Play();
             m_Killable = false;
-            return true;
+            return false;
         }
-        return false;
+
+        return true;
     }
 
     protected virtual IEnumerator RotateToDegrees(float totalTime, float degrees)

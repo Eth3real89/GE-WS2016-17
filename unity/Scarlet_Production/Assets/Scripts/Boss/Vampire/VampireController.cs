@@ -6,6 +6,24 @@ using UnityEngine.Events;
 
 public class VampireController : BossController {
 
+    protected static float[][] s_LightAttackSounds = {
+        new float[] {119.845f, 121.301f},
+        new float[] {121.8f, 123.512f},
+        new float[] {123.8f, 125.109f},
+        new float[] {126.7f, 128.304f},
+    };
+
+    protected static int s_LastPlayedLightAttackSound = -1;
+
+    protected static float[][] s_HeavyAttackSounds = {
+        new float[] {128.9f, 130.725f},
+        new float[] {133.8f, 135.46f},
+        new float[] {136.3f, 137.92f},
+        new float[] {138.9f, 140.28f},
+    };
+
+    protected static int s_LastPlayedHeavyAttackSound = -1;
+
     public Animator m_VampireAnimator;
     public BossfightCallbacks m_Callback;
     public BossMoveCommand m_MoveCommand;
@@ -290,6 +308,7 @@ public class VampireController : BossController {
 
     protected virtual void OnBulletAttackStart()
     {
+        PlayAttackSound(true);
         m_VampireAnimator.SetInteger("WhichBulletStance", 1);
         m_VampireAnimator.SetTrigger("BulletStanceTrigger");
     }
@@ -301,6 +320,7 @@ public class VampireController : BossController {
 
     protected virtual void OnBeamAttackStart()
     {
+        PlayAttackSound(true);
         m_VampireAnimator.SetTrigger("BeamStanceTrigger");
     }
 
@@ -311,8 +331,29 @@ public class VampireController : BossController {
 
     protected virtual void OnBlastWaveStart()
     {
+        PlayAttackSound(false);
         m_VampireAnimator.SetInteger("WhichBlastWave", 1);
         m_VampireAnimator.SetTrigger("BlastWaveTrigger");
     }
     
+    protected void PlayAttackSound(bool light)
+    {
+        int lastUsedSound = light ? s_LastPlayedLightAttackSound : s_LastPlayedHeavyAttackSound;
+        float[][] sounds = light ? s_LightAttackSounds : s_HeavyAttackSounds;
+
+        int soundIndex;
+        do
+        {
+            soundIndex = UnityEngine.Random.Range(0, sounds.Length);
+        } while (soundIndex == lastUsedSound && sounds.Length > 1);
+
+        float[] sound = sounds[soundIndex];
+        new FARQ().ClipName("vampire").Location(transform).StartTime(sound[0]).EndTime(sound[1]).Volume(1).Play();
+
+        if (light)
+            s_LastPlayedLightAttackSound = soundIndex;
+        else
+            s_LastPlayedHeavyAttackSound = soundIndex;
+    }
+
 }

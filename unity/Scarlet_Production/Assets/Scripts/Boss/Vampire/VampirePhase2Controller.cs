@@ -40,6 +40,7 @@ public class VampirePhase2Controller : VampireController
     {
         m_EndInitialized = true;
 
+        new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
         float t = 0;
         while ((t += Time.deltaTime) < 1.5f)
         {

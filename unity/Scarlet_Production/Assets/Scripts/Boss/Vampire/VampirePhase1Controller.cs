@@ -22,7 +22,6 @@ public class VampirePhase1Controller : VampireController
         m_CurrentComboIndex = -1;
         m_NextComboTimer = StartNextComboAfter(0.5f);
         StartCoroutine(m_NextComboTimer);
-
     }
 
     private void Update()
@@ -45,7 +44,10 @@ public class VampirePhase1Controller : VampireController
     {
         yield return new WaitForSeconds(1f);
         float t = 0;
-        while((t += Time.deltaTime) < 1.5f)
+
+        new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
+
+        while ((t += Time.deltaTime) < 1.5f)
         {
             m_BossHealth.m_CurrentHealth += m_BossHealth.m_MaxHealth * (t / 1.5f);
             yield return null;
