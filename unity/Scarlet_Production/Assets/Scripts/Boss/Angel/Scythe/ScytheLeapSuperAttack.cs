@@ -119,8 +119,10 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
             yield return null;
         }
-
+        
+        m_Boss.GetComponent<ControlAngelVisualisation>().DisableSpecialVisualisation();
         m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
+
 
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = true;
