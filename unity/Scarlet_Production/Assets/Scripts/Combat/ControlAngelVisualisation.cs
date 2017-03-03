@@ -7,6 +7,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
     public GameObject m_LeftHand;
     public GameObject m_RightHand;
     public GameObject m_SpecialAttack;
+    public GameObject m_SpecialAttack_DOWN;
     public GameObject m_SpecialLandVisualisation;
 
     private MeleeWeaponTrail[] m_Trails_Left;
@@ -15,10 +16,14 @@ public class ControlAngelVisualisation : MonoBehaviour {
     private ParticleSystem[] m_Particles_Right;
 
     private MeleeWeaponTrail[] m_SpecialTrails;
-    private ParticleSystem[] m_SpecialParticles;
+    private ParticleSystem[] m_SpecialParticles_UP;
+    private ParticleSystem[] m_SpecialParticles_DOWN;
+
+
     private ParticleSystem[] m_SpecialParticlesLand;
 
-    private float t = 500;
+    private float t = 0.5f;
+    private float tDown = 0.1f;
 
     // Use this for initialization
     void Start()
@@ -35,7 +40,8 @@ public class ControlAngelVisualisation : MonoBehaviour {
         m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
 
         m_SpecialParticlesLand = m_SpecialLandVisualisation.GetComponentsInChildren<ParticleSystem>();
-        m_SpecialParticles = m_SpecialAttack.GetComponentsInChildren<ParticleSystem>(true);
+        m_SpecialParticles_UP = m_SpecialAttack.GetComponentsInChildren<ParticleSystem>(true);
+        m_SpecialParticles_DOWN = m_SpecialAttack_DOWN.GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
         
     }
@@ -51,7 +57,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
                 {
                     system.Stop();
                 }
-                t = 500;
+                t = 0.5f;
             }
         }
     }
@@ -108,7 +114,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
 
     public void EnableSpecialVisualisation()
     {
-        foreach (ParticleSystem particles in m_SpecialParticles)
+        foreach (ParticleSystem particles in m_SpecialParticles_UP)
         {
             particles.Play();
         }
@@ -117,14 +123,25 @@ public class ControlAngelVisualisation : MonoBehaviour {
             trail.Emit = true;
         }
     }
-
+    public void EnableSpecialDownVisualisation()
+    {
+        foreach (ParticleSystem particles in m_SpecialParticles_DOWN)
+        {
+            particles.Play();
+        }
+    }
+    
     public void DisableSpecialVisualisation()
     {
         foreach (ParticleSystem system in m_SpecialParticlesLand)
         {
             system.Play();
         }
-        foreach (ParticleSystem particles in m_SpecialParticles)
+        foreach (ParticleSystem particles in m_SpecialParticles_UP)
+        {
+            particles.Stop();
+        }
+        foreach (ParticleSystem particles in m_SpecialParticles_DOWN)
         {
             particles.Stop();
         }
@@ -156,6 +173,11 @@ public class ControlAngelVisualisation : MonoBehaviour {
     public void SpecialAttackStart()
     {
         EnableSpecialVisualisation();
+    }
+
+    public void SpecialAttackDownStart()
+    {
+        EnableSpecialDownVisualisation();
     }
 
     public void SpecialAttackEnd()
