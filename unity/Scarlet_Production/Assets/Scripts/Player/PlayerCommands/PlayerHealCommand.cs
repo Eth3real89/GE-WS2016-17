@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class PlayerHealCommand : PlayerCommand {
 
+    public int m_MaxHealthPotions = 3;
+
     public int m_NumHealthPotions
     {
         set
         {
-            _NumHealthPotions = value;
+            _NumHealthPotions = Math.Min(m_MaxHealthPotions, value);
             if (m_NumPotionListener != null || (m_NumPotionListenerObject != null && (m_NumPotionListener = m_NumPotionListenerObject.GetComponent<NumPotionListener>()) != null))
-                m_NumPotionListener.OnNumberOfPotionsUpdated(value);
+                m_NumPotionListener.OnNumberOfPotionsUpdated(_NumHealthPotions);
         }
 
         get
@@ -53,6 +55,11 @@ public class PlayerHealCommand : PlayerCommand {
         m_NumHealthPotions -= 1;
 
         m_Callback.OnCommandEnd(m_CommandName, this);
+    }
+
+    public void ResetPotions()
+    {
+        m_NumHealthPotions = m_MaxHealthPotions;
     }
 
     // heal cannot be cancelled.

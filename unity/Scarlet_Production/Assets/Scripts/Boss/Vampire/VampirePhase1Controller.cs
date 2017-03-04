@@ -42,6 +42,9 @@ public class VampirePhase1Controller : VampireController
 
     private IEnumerator EndPhase()
     {
+        ExtremelyDangerousCancelAllCombosEver();
+        m_NotDeactivated = false;
+
         yield return new WaitForSeconds(1f);
         float t = 0;
 
@@ -53,6 +56,7 @@ public class VampirePhase1Controller : VampireController
             yield return null;
         }
         m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
+        CancelHitBehaviours();
 
         m_Callback.PhaseEnd(this);
     }

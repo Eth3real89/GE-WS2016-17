@@ -90,6 +90,12 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
         return true;
     }
 
+    public void CancelBehaviour()
+    {
+        StopAllCoroutines();
+        m_Active = false;
+    }
+
     public interface BossBlockCallback
     {
         void OnBossBlocks();

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
+public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     public enum Phase {Phase1, Phase2, Phase3, Phase4 };
 
@@ -16,6 +16,12 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
 
     void Start()
     {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
 

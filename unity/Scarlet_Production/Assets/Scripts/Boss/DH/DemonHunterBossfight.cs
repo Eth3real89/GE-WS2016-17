@@ -16,6 +16,12 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     void Start()
     {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
 

@@ -12,10 +12,17 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     public VampirePhase2Controller m_Phase2Controller;
     public VampirePhase3Controller m_Phase3Controller;
 
-    void Start ()
+    void Start()
     {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
+
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
@@ -58,6 +65,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase2Controller.enabled = true;
             m_Phase2Controller.m_NotDeactivated = true;
             m_Phase2Controller.StartPhase(this);
+
+            RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase2Controller)
         {
@@ -67,6 +76,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.enabled = true;
             m_Phase3Controller.m_NotDeactivated = true;
             m_Phase3Controller.StartPhase(this);
+
+            RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase3Controller)
         {
@@ -75,6 +86,15 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.m_NotDeactivated = false;
             print("Win!");
         }
+    }
+
+    protected override void OnScarletDead()
+    {
+        m_TutorialController.CancelAndReset();
+        m_Phase1Controller.CancelAndReset();
+        m_Phase2Controller.CancelAndReset();
+        m_Phase3Controller.CancelAndReset();
+        base.OnScarletDead();
     }
 
 }

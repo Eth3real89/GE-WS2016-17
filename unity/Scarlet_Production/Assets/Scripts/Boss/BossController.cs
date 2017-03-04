@@ -345,4 +345,24 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         }
         catch { }
     }
+
+    protected virtual void CancelHitBehaviours()
+    {
+        if (m_BlockingBehaviour != null)
+            m_BlockingBehaviour.CancelBehaviour();
+
+        if (m_TimeWindowManager != null)
+            m_TimeWindowManager.CancelBehaviour();
+    }
+
+    public virtual void CancelAndReset()
+    {
+        m_CurrentComboIndex = 0;
+
+        CancelHitBehaviours();
+        CancelComboIfActive();
+        ExtremelyDangerousCancelAllCombosEver();
+
+        StopAllCoroutines();
+    }
 }

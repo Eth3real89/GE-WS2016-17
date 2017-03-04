@@ -120,6 +120,12 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
         m_Callbacks.OnBossStaggerOver();
     }
 
+    public void CancelBehaviour()
+    {
+        StopAllCoroutines();
+        m_Active = false;
+    }
+
     public interface BossHitCallbacks
     {
         void OnBossTakesDamage();

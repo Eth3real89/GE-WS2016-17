@@ -20,9 +20,16 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     public GameObject m_Scarlet;
 
-    public PlayerControls m_PlayerControls; 
+    public PlayerControls m_PlayerControls;
 
-    void Start () {
+    void Start()
+    {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
 

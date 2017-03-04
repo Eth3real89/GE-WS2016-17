@@ -89,6 +89,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
             StopCoroutine(m_ExpansionEnumerator);
 
         m_Damage.CancelDamage();
+        m_Damage.gameObject.SetActive(false);
     }
 
     protected virtual IEnumerator RemoveBeamAfterWaiting()

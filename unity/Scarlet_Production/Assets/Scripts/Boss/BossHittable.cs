@@ -26,7 +26,7 @@ public class BossHittable : MonoBehaviour, Hittable
             if (damage.DamageAmount() == 0)
                 return;
 
-            m_Health.m_CurrentHealth -= damage.DamageAmount();
+            m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount());
             damage.OnSuccessfulHit();
 
             if (m_OnHitSignal != null)

@@ -144,6 +144,8 @@ public class VampirePhase0TutorialController : VampireController {
         EventManager.StopListening(PlayerParryCommand.COMMAND_EVENT_TRIGGER, OnPlayerParry);
         EventManager.StopListening(BlastWaveAttack.ATTACK_HIT_EVENT, OnBlastWaveHit);
         EventManager.StopListening(Bullet.BULLET_HIT_SCARLET_EVENT, OnBulletHit);
+
+        CancelHitBehaviours();
     }
 
     private float GetScarletHealth()
@@ -153,6 +155,9 @@ public class VampirePhase0TutorialController : VampireController {
 
     private IEnumerator DashTutorialBlastWave()
     {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+
         bool showTutorial = false;
 
         m_PlayerControls.transform.rotation = Quaternion.Euler(0, 90, 0);
@@ -160,7 +165,7 @@ public class VampirePhase0TutorialController : VampireController {
         while (true)
         {
             float distanceToScarlet = Vector3.Distance(this.transform.position, m_Scarlet.transform.position);
-            
+
             if (m_BlastAttackForDashTutorial.m_WaveSize + 1.5 >= distanceToScarlet && m_BlastAttackForDashTutorial.m_WaveSize < distanceToScarlet)
             {
                 showTutorial = true;
@@ -186,65 +191,6 @@ public class VampirePhase0TutorialController : VampireController {
             m_TutorialVisuals.HideTutorial(1);
             m_PlayerControls.DisableAndLock(m_PlayerDash);
         }
-    }
-
-    private IEnumerator DashTutorialBeam()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        // @todo: fix this (only technical problem are the angles, but the code is ugly & what it does is kind of silly?)
-
-       /* bool showTutorial = false;
-        int tutorialDirection = -1;
-
-        while (true)
-        {
-            if (GetScarletHealth() < m_HealthAtStartOfTutorial)
-            {
-                showTutorial = false;
-                break;
-            }
-
-            float angleToScarlet = BossTurnCommand.CalculateAngleTowards(this.transform, m_Scarlet.transform);
-            while (angleToScarlet < 0)
-                angleToScarlet += 360;
-
-            float currentBeamAngle = m_BeamDamage.GetCurrentAngle();
-            while (currentBeamAngle < 0)
-                currentBeamAngle += 360;
-
-            print(angleToScarlet + " " + currentBeamAngle);
-
-            if (currentBeamAngle < angleToScarlet && currentBeamAngle + 5 >= angleToScarlet)
-            {
-                tutorialDirection = 1;
-                showTutorial = true;
-                break;
-            }
-            else if (currentBeamAngle > angleToScarlet && currentBeamAngle - 5 <= angleToScarlet)
-            {
-                tutorialDirection = -1;
-                showTutorial = true;
-                break;
-            }
-
-            yield return null;
-        }
-
-        if (showTutorial)
-        {
-            SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
-            m_TutorialVisuals.ShowTutorial("A", (tutorialDirection == 1)? "+ Diagonal Left Up: Dash over Wave" : "Diagonal Right Down: Dash over Wave", m_TutorialSlowMo);
-
-            float t = 0;
-            while ((t += Time.deltaTime) < 6 * m_TutorialSlowMo)
-            {
-                yield return null;
-            }
-
-            SlowTime.Instance.StopSlowMo();
-            m_TutorialVisuals.HideTutorial(1);
-        } */
     }
 
     private IEnumerator BlockTutorial(bool deflect)
@@ -465,10 +411,11 @@ public class VampirePhase0TutorialController : VampireController {
     {
         yield return new WaitForSeconds(2f);
 
-        if (m_ActiveCombo != null)   
-            m_ActiveCombo.CancelCombo();
+        CancelComboIfActive();
+
         m_CurrentComboIndex--;
-        StartCoroutine(StartNextComboAfter(0.5f));
+        m_NextComboTimer = StartNextComboAfter(0.5f);
+        StartCoroutine(m_NextComboTimer);
     }
 
     private IEnumerator MoveOnAfterWaiting()
@@ -522,5 +469,11 @@ public class VampirePhase0TutorialController : VampireController {
         {
             return true;
         }
+    }
+
+    public override void CancelAndReset()
+    {
+        base.CancelAndReset();
+        m_TutorialVisuals.HideTutorial(1f);
     }
 }
