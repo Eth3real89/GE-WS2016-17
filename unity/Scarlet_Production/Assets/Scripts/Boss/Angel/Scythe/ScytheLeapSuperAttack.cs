@@ -19,6 +19,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
     public float m_TimeDamageActive;
     public float m_TimeEnd;
 
+    protected bool m_VisualEffectDisabled;
+
     protected IEnumerator m_Timer;
 
     public BossMeleeDamage m_ScytheRangeTrigger;
@@ -36,6 +38,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         m_RotationDamage.m_Callback = this;
         m_DownswingDamage.m_Callback = this;
+
+        m_VisualEffectDisabled = false;
 
         m_Timer = WaitBeforeRotate();
         StartCoroutine(m_Timer);
@@ -86,6 +90,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator AtHighestPoint()
     {
+        m_Animator.SetFloat("AnimationSpeed", 1 / (m_TimeStuckInAir + m_DownwardsTime));
         m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
 
         float t = 0;
@@ -119,10 +124,10 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
             yield return null;
         }
-        
-        m_Boss.GetComponent<ControlAngelVisualisation>().DisableSpecialVisualisation();
-        m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
 
+        m_Animator.SetFloat("AnimationSpeed", 1f);
+        DisableVisualEffect();
+        m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
 
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = true;
@@ -139,6 +144,15 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         {
             m_Timer = EndAttack();
             StartCoroutine(m_Timer);
+        }
+    }
+
+    private void DisableVisualEffect()
+    {
+        if (!m_VisualEffectDisabled)
+        {
+            m_Boss.GetComponent<ControlAngelVisualisation>().DisableSpecialVisualisation();
+            m_VisualEffectDisabled = true;
         }
     }
 
@@ -168,6 +182,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = true;
+        m_Animator.SetFloat("AnimationSpeed", 1f);
     }
 
     public override void CancelAttack()
@@ -175,6 +190,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         StopAllCoroutines();
 
         CleanUp();
+        DisableVisualEffect();
 
         if (m_Timer != null)
             StopCoroutine(m_Timer);
