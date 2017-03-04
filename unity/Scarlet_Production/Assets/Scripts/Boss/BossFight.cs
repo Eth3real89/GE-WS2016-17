@@ -82,19 +82,13 @@ public abstract class BossFight : MonoBehaviour {
         StartCoroutine(m_ResetEnumerator);
     }
 
-    protected IEnumerator ResetRoutine()
+    protected virtual IEnumerator ResetRoutine()
     {
-        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
-        BossHittable bossHittable = FindObjectOfType<BossHittable>();
 
         PlayerHealCommand healCommand = FindObjectOfType<PlayerHealCommand>();
         healCommand.ResetPotions();
 
-        playerHittable.transform.position = m_ScarletPositionStart + new Vector3();
-        playerHittable.transform.rotation = Quaternion.Euler(m_ScarletRotationStart.eulerAngles);
-
-        bossHittable.transform.position = m_BossPositionStart + new Vector3();
-        bossHittable.transform.rotation = Quaternion.Euler(m_BossRotationStart.eulerAngles);
+        ResetInitialPositions();
 
         // @todo remove blood trails
 
@@ -102,6 +96,18 @@ public abstract class BossFight : MonoBehaviour {
 
         yield return null;
         RestartBossfight();
+    }
+
+    protected virtual void ResetInitialPositions()
+    {
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        BossHittable bossHittable = FindObjectOfType<BossHittable>();
+
+        playerHittable.transform.position = m_ScarletPositionStart + new Vector3();
+        playerHittable.transform.rotation = Quaternion.Euler(m_ScarletRotationStart.eulerAngles);
+
+        bossHittable.transform.position = m_BossPositionStart + new Vector3();
+        bossHittable.transform.rotation = Quaternion.Euler(m_BossRotationStart.eulerAngles);
     }
 
     protected virtual void DestroyAllBullets()

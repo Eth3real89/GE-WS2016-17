@@ -66,6 +66,15 @@ public class FairyBossfightPhase : MonoBehaviour, FairyControllerCallbacks {
         m_ArmorFairyController.CancelComboIfActive();
     }
 
+    public void CancelAndReset()
+    {
+        if (m_AEFairyController != null)
+            m_AEFairyController.CancelAndReset();
+
+        if (m_ArmorFairyController != null)
+            m_ArmorFairyController.CancelAndReset();
+    }
+
 }
 
 public interface FairyControllerCallbacks

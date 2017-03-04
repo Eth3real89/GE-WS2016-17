@@ -131,6 +131,7 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
     protected virtual IEnumerator Die()
     {
+        m_ArmorFairyController.ForceCancelHitBehaviours();
         m_ArmorAnimator.SetBool("Dead", true);
         m_ArmorAnimator.SetTrigger("DeathTriggerBack");
         m_ArmorFairyController.m_BossHittable.RegisterInterject(null);

@@ -33,6 +33,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
 
     private IEnumerator SetupBattle()
     {
+        m_ArmorAnimator.SetBool("Dead", false);
         m_PlayerControls.DisableAllCommands();
 
         Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
@@ -93,40 +94,23 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
             return;
 
         if (!m_EndInitialized && m_ArmorHealth.m_CurrentHealth <= 0)
-            MakeAEFairyVulnerable();
-
-        if (m_AEFairyHealth.m_CurrentHealth < m_AEFairyHealth.m_HealthOld)
             EndPhase();
     }
 
-    protected virtual void MakeAEFairyVulnerable()
+    protected override void EndPhase()
     {
+        EndCombo();
         m_EndInitialized = true;
 
-        EndCombo();
-
+        m_AEFairyController.CancelAndReset();
         m_AEFairyController.StopAllCoroutines();
         m_ArmorFairyController.StopAllCoroutines();
 
         m_AEFairyController.m_NotDeactivated = false;
         m_ArmorFairyController.m_NotDeactivated = false;
 
-        m_AEFairyController.DisableLightGuard();
-
-        m_ArmorAnimator.SetBool("Dead", true);
-        m_ArmorAnimator.SetTrigger("DeathTriggerFront");
-
-        m_AEFairyCollider.isTrigger = false;
-        m_AEFairyCollider.enabled = true;
-    }
-
-    protected override void EndPhase()
-    {
         m_Active = false;
         m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;
-
-        m_ArmorAnimator.SetBool("Dead", false);
-        m_ArmorAnimator.SetTrigger("ReanimationTrigger");
 
         StartCoroutine(RegenerateThenEnd());
     }

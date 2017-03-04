@@ -63,4 +63,9 @@ public class ArmorFairyController : FairyController {
         m_NextComboTimer = StartNextComboAfter(1f);
         StartCoroutine(m_NextComboTimer);
     }
+
+    public void ForceCancelHitBehaviours()
+    {
+        base.CancelHitBehaviours();
+    }
 }
