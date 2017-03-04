@@ -59,22 +59,28 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         if (whichPhase == m_HuntController)
         {
             m_HuntController.enabled = false;
+            m_HuntController.m_NotDeactivated = false;
 
+            RegenerateScarletAfterPhase();
             StartCoroutine(FlickerLightsOff());
             StartCoroutine(StartPhase2AfterHowling(2f));
         }
         else if (whichPhase == m_Phase2Controller)
         {
+            RegenerateScarletAfterPhase();
+
             StartCoroutine(FlickerLightsOn());
             if (m_Scarlet != null)
                 m_Scarlet.transform.position = new Vector3(0, m_Scarlet.transform.position.y, 0); // @todo better
             m_Phase2Controller.enabled = false;
+            m_Phase2Controller.m_NotDeactivated = false;
 
             StartCoroutine(StartPhase3AfterHowling());
         }
         else if (whichPhase == m_RagemodeController)
         {
             m_RagemodeController.enabled = false;
+            m_RagemodeController.m_NotDeactivated = false;
 
             print("FIGHT OVER (not really, still need to kill the wolf, but mostly...)");
         }
@@ -189,6 +195,16 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             SetRedLightsIntensity(t / 2);
             yield return null;
         }
+    }
+
+    protected override void OnScarletDead()
+    {
+        SetStreetLightsEnabled(true);
+        SetRedLightsEnabled(false);
+        m_HuntController.CancelAndReset();
+        m_Phase2Controller.CancelAndReset();
+        m_RagemodeController.CancelAndReset();
+        base.OnScarletDead();
     }
 
     private IEnumerator FlickerLightsOn()

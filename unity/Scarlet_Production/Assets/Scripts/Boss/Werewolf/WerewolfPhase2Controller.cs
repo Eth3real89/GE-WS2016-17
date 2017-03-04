@@ -9,19 +9,19 @@ public class WerewolfPhase2Controller : BossController {
     private bool m_Active = false;
 
     private BossfightCallbacks m_Callbacks;
-
+    
     private void Update()
     {
         if (m_Active)
         {
             if (m_BossHealth != null && m_BossHealth.m_CurrentHealth <= 0)
             {
-                if (m_ActiveCombo != null)
-                {
-                    m_ActiveCombo.CancelCombo();
-                }
+                m_NotDeactivated = false;
+                CancelComboIfActive();
 
                 m_Active = false;
+                m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
+
                 m_Callbacks.PhaseEnd(this);
             }
         }
@@ -29,7 +29,7 @@ public class WerewolfPhase2Controller : BossController {
 
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
-        m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
+        m_NotDeactivated = true;
 
         m_Callbacks = callbacks;
         m_Active = true;

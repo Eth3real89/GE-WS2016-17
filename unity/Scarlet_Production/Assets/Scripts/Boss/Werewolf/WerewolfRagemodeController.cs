@@ -7,10 +7,13 @@ public class WerewolfRagemodeController : BossController
 {
 
     private BossfightCallbacks m_Callbacks;
+    public CharacterHealth m_BossHealth;
 
     public AttackCombo m_HitCombo;
     public AttackCombo m_LeapCombo;
     public AttackCombo m_ChaseCombo;
+
+    public Animator m_WerewolfAnimator;
 
     public TurnTowardsScarlet m_TurnTowardsScarlet;
 
@@ -18,12 +21,15 @@ public class WerewolfRagemodeController : BossController
     private int m_AttackCount = 0;
     private bool m_CancelAfterComboFinishes = false;
 
+    protected bool m_Killable = false;
+
     new void Start()
     {
     }
 
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
+        m_NotDeactivated = true;
         m_AttackCount = 0;
 
         m_BossHittable.RegisterInterject(this);
@@ -42,6 +48,23 @@ public class WerewolfRagemodeController : BossController
 
     private void EndRageMode()
     {
+        CancelComboIfActive();
+        StartCoroutine(MakeKillable());
+    }
+
+    protected IEnumerator MakeKillable()
+    {
+        m_BossHittable.RegisterInterject(this);
+        m_Killable = true;
+        yield return null;
+
+        m_BossHealth.m_CurrentHealth = 3f;
+    }
+
+    protected void Kill()
+    {
+        m_WerewolfAnimator.SetTrigger("DeathTrigger");
+        m_NotDeactivated = false;
         m_Callbacks.PhaseEnd(this);
     }
 
@@ -84,8 +107,14 @@ public class WerewolfRagemodeController : BossController
 
     public override bool OnHit(Damage dmg)
     {
+        if (m_Killable)
+        {
+            Kill();
+            return false;
+        }
+
         dmg.OnBlockDamage();
-        return false;
+        return true;
     }
 
     private void IncreaseAttackCount(AttackCombo combo)
@@ -102,6 +131,10 @@ public class WerewolfRagemodeController : BossController
         {
             m_AttackCount++;
         }
+
+        m_AttackCount = Math.Min(m_AttackCount, m_TotalAttacks);
+
+        m_BossHealth.m_CurrentHealth = Mathf.Lerp(m_BossHealth.m_MaxHealth, 0, m_AttackCount / (float) (m_TotalAttacks + 1));
     }
 
     private void DecideNextCombo(AttackCombo previous)

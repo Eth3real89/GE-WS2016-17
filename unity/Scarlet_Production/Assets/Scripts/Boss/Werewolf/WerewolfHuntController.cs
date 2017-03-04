@@ -55,9 +55,10 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
     {
         if (m_Active)
         {
-            if (m_BossHealth.m_CurrentHealth == 0)
+            if (m_BossHealth.m_CurrentHealth <= 0)
             {
                 m_Active = false;
+                m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
 
                 m_PlayerAttackCommand.m_RegularHitDamage = m_AttackDmgAmountBefore;
                 m_PlayerAttackCommand.m_FinalHitDamage = m_FinalDmgAmountBefore;
@@ -82,6 +83,8 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
 
     public void StartHuntPhase(BossfightCallbacks callbacks)
     {
+        m_NotDeactivated = true;
+
         m_BossHittable.RegisterInterject(this);
         m_SuccessfullyRiposted = false;
 
@@ -200,6 +203,7 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
 
     public new void OnComboStart(AttackCombo combo)
     {
+        // this may not be great code-wise, but the default behaviour must not happen - so this is empty by design!
     }
 
     public new void OnComboEnd(AttackCombo combo)
@@ -309,5 +313,13 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         SlowTime.Instance.StopSlowMo();
 
         m_Tutorial.HideTutorial(m_SlowMoAmount);
+    }
+
+    public override void CancelAndReset()
+    {
+        m_Active = false;
+        m_JumpSoon = false;
+        m_Tutorial.HideTutorial(1f);
+        base.CancelAndReset();
     }
 }

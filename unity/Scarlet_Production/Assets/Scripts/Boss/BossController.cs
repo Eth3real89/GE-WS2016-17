@@ -113,10 +113,12 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     protected virtual void StartNextCombo()
     {
-        if (!m_NotDeactivated)
+        if (!m_NotDeactivated || m_ActiveCombo != null)
             return;
 
         m_BossHittable.RegisterInterject(this);
+        CancelHitBehaviours();
+
         m_CurrentComboIndex++;
         if (m_CurrentComboIndex >= m_Combos.Length)
             m_CurrentComboIndex = 0;
