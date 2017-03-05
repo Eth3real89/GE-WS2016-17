@@ -14,7 +14,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     public float m_RotationTime = 3;
     public float m_RotationAngle = 90;
 
-    public BeamAEDamage m_Damage;
+    public Transform m_Container;
+    protected BeamAEDamage m_Damage;
 
     public TurnTowardsScarlet m_InitialTurn;
     public float m_InitialTurnTrackSpeed = 45;
@@ -33,6 +34,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     {
         base.StartAttack();
 
+        LoadPrefab();
+
         if (m_PerfectTrackingAtStart)
         {
             m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
@@ -45,6 +48,15 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 
         m_ExpansionEnumerator = BeforeExpansion();
         StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    protected virtual void LoadPrefab()
+    {
+        m_Damage = AEPrefabManager.Instance.m_RotatingBeamWrapper.GetComponent<BeamAEDamage>();
+        m_Damage.transform.parent = m_Container;
+        m_Damage.transform.localPosition = new Vector3(0, 0, 0);
+        m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        m_Damage.transform.localScale = new Vector3(1, 1, 1);
     }
 
     protected virtual IEnumerator BeforeExpansion()

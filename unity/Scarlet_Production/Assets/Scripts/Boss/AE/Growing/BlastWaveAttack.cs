@@ -24,19 +24,20 @@ public class BlastWaveAttack : GrowingAEAttack {
     public float m_Angles;
     protected float m_AngleAtLaunch;
 
-    public BlastWaveVisuals m_Visuals;
-
     public PlayerHittable m_Target;
     protected Vector3 m_InitialCenterPos;
 
     private IEnumerator m_GrowEnumerator;
     protected bool m_HasHit;
 
-    public AEAttackDamage m_BlastDamage;
+    protected BlastWaveVisuals m_Visuals;
+    protected AEAttackDamage m_BlastDamage;
 
     public override void StartAttack()
     {
         base.StartAttack();
+
+        LoadPrefab();
 
         m_Visuals.transform.parent = null;
         m_Visuals.gameObject.SetActive(true);
@@ -56,6 +57,17 @@ public class BlastWaveAttack : GrowingAEAttack {
 
         m_GrowEnumerator = GrowWave();
         StartCoroutine(m_GrowEnumerator);
+    }
+
+    private void LoadPrefab()
+    {
+        if (m_Visuals != null && m_BlastDamage != null) // = was already loaded, can be re-used.
+            return;
+
+        GameObject blastWave = Instantiate(AEPrefabManager.Instance.m_BlastWaveWrapper);
+        m_Visuals = blastWave.GetComponent<BlastWaveVisuals>();
+        m_Visuals.m_Center = this.m_Center;
+        m_BlastDamage = blastWave.GetComponent<AEAttackDamage>();
     }
 
     protected virtual IEnumerator GrowWave()
@@ -141,7 +153,8 @@ public class BlastWaveAttack : GrowingAEAttack {
         if (m_GrowEnumerator != null)
             StopCoroutine(m_GrowEnumerator);
         
-        m_Visuals.gameObject.SetActive(false);
+        if (m_Visuals != null)
+            m_Visuals.gameObject.SetActive(false);
     }
 
     protected virtual void DealDamage()

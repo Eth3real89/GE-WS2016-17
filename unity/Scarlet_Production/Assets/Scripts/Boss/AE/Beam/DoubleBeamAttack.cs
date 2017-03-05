@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DoubleBeamAttack : BeamAEAttack {
 
-    public BeamAEDamage m_SecondDamage;
+    protected BeamAEDamage m_SecondDamage;
     public float m_AngleBetweenBeams = 45f;
 
     private bool m_IgnoreNextEvent = false;
@@ -13,6 +13,18 @@ public class DoubleBeamAttack : BeamAEAttack {
     {
         base.StartAttack();
         m_IgnoreNextEvent = false;
+    }
+
+    protected override void LoadPrefab()
+    {
+        base.LoadPrefab();
+
+        m_SecondDamage = AEPrefabManager.Instance.m_WonkyBeamWrapper.GetComponent<BeamAEDamageWonkyMovement>();
+        m_SecondDamage.transform.parent = m_Container;
+        m_SecondDamage.transform.localPosition = new Vector3(0, 0, 0);
+        m_SecondDamage.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        m_SecondDamage.transform.localScale = new Vector3(1, 1, 1);
+
     }
 
     protected override IEnumerator BeforeExpansion()

@@ -6,6 +6,15 @@ public class SwayingBeamAttack : BeamAEAttack {
 
     public int m_NumSways;
 
+    protected override void LoadPrefab()
+    {
+        m_Damage = AEPrefabManager.Instance.m_SwayingBeamWrapper.GetComponent<BeamAEDamage>();
+        m_Damage.transform.parent = m_Container;
+        m_Damage.transform.localPosition = new Vector3(0, 0, 0);
+        m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        m_Damage.transform.localScale = new Vector3(1, 1, 1);
+    }
+
     public override void OnExpansionOver(BeamAEDamage dmg)
     {
         if (m_Damage is SwayingAEDamage)

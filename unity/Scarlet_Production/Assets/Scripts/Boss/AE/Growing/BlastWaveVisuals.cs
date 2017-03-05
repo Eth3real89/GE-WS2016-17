@@ -28,7 +28,7 @@ public class BlastWaveVisuals : MonoBehaviour {
 
         for (int i = 0; i < vertices.Length; i++)
         {
-            Vector3 vert = m_Center.localPosition + Quaternion.Euler(0, angle * i - m_Angles / 2, 0) * new Vector3(0, 0, m_InitialScale / 2);
+            Vector3 vert = new Vector3(0, m_Center.localPosition.y, 0) + Quaternion.Euler(0, angle * i - m_Angles / 2, 0) * new Vector3(0, 0, m_InitialScale / 2);
             vertices[i] = vert;
         }
 

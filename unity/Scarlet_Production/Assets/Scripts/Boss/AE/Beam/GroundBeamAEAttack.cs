@@ -13,7 +13,8 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     public float m_SecondExpandTime = 2f;
     public float m_SecondExpandScale = 8;
 
-    public GroundBeamAEDamage m_Damage;
+    public Transform m_Container;
+    protected GroundBeamAEDamage m_Damage;
 
     public TurnTowardsScarlet m_InitialTurn;
     public float m_InitialTurnTrackSpeed = 45;
@@ -26,6 +27,8 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     {
         base.StartAttack();
 
+        LoadPrefab();
+
         EventManager.TriggerEvent(BeamAEAttack.START_EVENT_NAME);
 
         m_PrevTurnSpeed = m_InitialTurn.m_TurnSpeed;
@@ -35,6 +38,15 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
 
         m_ExpansionEnumerator = BeforeExpansion();
         StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    protected virtual void LoadPrefab()
+    {
+        m_Damage = AEPrefabManager.Instance.m_FromGroundBeamWrapper.GetComponent<GroundBeamAEDamage>();
+        m_Damage.transform.parent = m_Container;
+        m_Damage.transform.localPosition = new Vector3(0, 0, 0);
+        m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        m_Damage.transform.localScale = new Vector3(1, 1, 1);
     }
 
     protected virtual IEnumerator BeforeExpansion()

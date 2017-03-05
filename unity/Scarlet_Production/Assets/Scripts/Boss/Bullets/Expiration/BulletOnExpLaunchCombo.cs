@@ -9,6 +9,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     public GameObject m_LeftOverEmptyObject;
 
     public bool m_DontCopy = false;
+    public bool m_LowerBullets = false;
 
     protected bool m_Destroy;
 
@@ -20,6 +21,10 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
         empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y + 0.5f, b.transform.position.z);
         empty.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
 
+        GameObject emptyLower = GameObject.Instantiate(m_LeftOverEmptyObject);
+        emptyLower.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
+        emptyLower.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+
         foreach (BossAttack attack in m_Combo.m_Attacks)
         {
             if (attack is BlastWaveAttack)
@@ -28,7 +33,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             }
             else if (attack is BulletAttack)
             {
-                ((BulletAttack)attack).m_BaseSwarm.m_Invoker.m_Base = empty.transform;
+                ((BulletAttack)attack).m_BaseSwarm.m_Invoker.m_Base = m_LowerBullets? emptyLower.transform : empty.transform;
             }
             else if (attack is LightGuardAttack)
             {
