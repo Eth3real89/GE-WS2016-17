@@ -9,5 +9,7 @@ namespace SequencedActionCreator
     {
         public float m_StartTime, m_Duration;
         public GameObject m_GameObject;
+        public Object m_ScriptObject;
+        public string m_MethodName;
     }
 }
