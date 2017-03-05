@@ -46,7 +46,9 @@ namespace SequencedActionCreator
             GUI.changed = false;
 
             BuildSequencedActionSelection();
+            GUILayout.Space(15);
             BuildActions();
+            BuildAddActionButton();
 
             if (GUI.changed)
             {
@@ -91,20 +93,59 @@ namespace SequencedActionCreator
 
         private void BuildActions()
         {
+            if (m_SequencedActionList.arraySize <= m_SelectedSequencedAction)
+            {
+                return;
+            }
+
             SerializedProperty actions = m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents");
             for (int i = 0; i < actions.arraySize; i++)
             {
-                EditorGUILayout.Separator();
                 GUILayout.BeginVertical(EditorStyles.helpBox);
                 BuildActionSettings(actions.GetArrayElementAtIndex(i));
+
+                // Buttons to move or delete actions
+                GUILayout.BeginHorizontal();
+                if (i == 0)
+                    GUI.enabled = false;
+                if (GUILayout.Button("Move up", GUILayout.Width(150)))
+                {
+                    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i - 1).objectReferenceValue;
+                    actions.GetArrayElementAtIndex(i - 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
+                    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
+                }
+                GUI.enabled = true;
+                if (i == actions.arraySize - 1)
+                    GUI.enabled = false;
+                if (GUILayout.Button("Move down", GUILayout.Width(150)))
+                {
+                    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i + 1).objectReferenceValue as UnityEngine.Object;
+                    actions.GetArrayElementAtIndex(i + 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
+                    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
+                }
+                GUI.enabled = true;
+                if (GUILayout.Button("Delete Action", GUILayout.Width(150)))
+                {
+                    actions.DeleteArrayElementAtIndex(i);
+                    i--;
+                }
+                GUILayout.EndHorizontal();
                 GUILayout.EndVertical();
             }
+
+            GUILayout.Space(15);
         }
 
         private void BuildActionSettings(SerializedProperty action)
         {
+            BuildTimeSettings(action);
+
+            // Selection for the method to be called
+            EditorGUILayout.BeginHorizontal();
             action.FindPropertyRelative("m_GameObject").objectReferenceValue =
-                (GameObject)EditorGUILayout.ObjectField((GameObject)action.FindPropertyRelative("m_GameObject").objectReferenceValue, typeof(GameObject), true);
+                (GameObject)EditorGUILayout.ObjectField("GameObject:", (GameObject)action.FindPropertyRelative("m_GameObject").objectReferenceValue,
+                typeof(GameObject), true, GUILayout.Width(350));
+            GUILayout.Space(10);
 
             GameObject c_GameObject = (GameObject)action.FindPropertyRelative("m_GameObject").objectReferenceValue;
 
@@ -126,7 +167,8 @@ namespace SequencedActionCreator
                     if (monoBehaviour != null && mb.GetType().Name == monoBehaviour.GetType().Name)
                         s_MonoBehaviour = i;
                 }
-                int s_MonoBehaviourTemp = EditorGUILayout.Popup(s_MonoBehaviour, mbNames.ToArray());
+                int s_MonoBehaviourTemp = EditorGUILayout.Popup("MonoBehaviour:", s_MonoBehaviour, mbNames.ToArray(), GUILayout.Width(350));
+                GUILayout.Space(10);
 
                 // When the MonoBehaviour has been changed, reset the selected method to avoid a nullpointer
                 if (s_MonoBehaviour != s_MonoBehaviourTemp)
@@ -155,13 +197,41 @@ namespace SequencedActionCreator
                             s_Method = i;
                     }
                 }
-                s_Method = EditorGUILayout.Popup(s_Method, methods.ToArray());
+                s_Method = EditorGUILayout.Popup("Method:", s_Method, methods.ToArray(), GUILayout.Width(350));
 
                 if (methods.Count > s_Method)
                     action.FindPropertyRelative("m_MethodName").stringValue = methods[s_Method];
                 else
                     action.FindPropertyRelative("m_MethodName").stringValue = null;
             }
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void BuildTimeSettings(SerializedProperty action)
+        {
+            // Time settings for the action
+            EditorGUILayout.BeginHorizontal();
+            action.FindPropertyRelative("m_StartTime").floatValue = EditorGUILayout.FloatField("Start Time:",
+                action.FindPropertyRelative("m_StartTime").floatValue, GUILayout.Width(350));
+
+            GUILayout.Space(10);
+
+            action.FindPropertyRelative("m_Duration").floatValue = EditorGUILayout.FloatField("Duration:",
+                action.FindPropertyRelative("m_Duration").floatValue, GUILayout.Width(350));
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void BuildAddActionButton()
+        {
+            if (m_SequencedActionList.arraySize <= m_SelectedSequencedAction)
+            {
+                GUI.enabled = false;
+            }
+            if (GUILayout.Button("Add new Action", GUILayout.Width(100)))
+            {
+                m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents").arraySize++;
+            }
+            GUI.enabled = true;
         }
 
     }
