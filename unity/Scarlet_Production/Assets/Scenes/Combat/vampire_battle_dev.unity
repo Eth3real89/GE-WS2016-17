@@ -2071,6 +2071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75ee20406bfbf5d4ca0f4297c4d35c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxScarletRegenerationAfterPhase: 100
   m_StartPhase: 0
   m_TutorialController: {fileID: 10650790}
   m_Phase1Controller: {fileID: 10650789}
@@ -3319,6 +3320,10 @@ Prefab:
       propertyPath: m_DeflectTarget
       value: 
       objectReference: {fileID: 10650774}
+    - target: {fileID: 1438796236797014, guid: 90d816f8e946c8240a405a701668ddb0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90d816f8e946c8240a405a701668ddb0, type: 2}
   m_IsPrefabParent: 0

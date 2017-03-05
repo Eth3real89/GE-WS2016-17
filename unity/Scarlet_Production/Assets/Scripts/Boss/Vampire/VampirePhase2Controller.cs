@@ -38,6 +38,8 @@ public class VampirePhase2Controller : VampireController
 
     protected virtual IEnumerator EndPhase()
     {
+        ExtremelyDangerousCancelAllCombosEver();
+        m_NotDeactivated = false;
         m_EndInitialized = true;
 
         new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
@@ -49,6 +51,7 @@ public class VampirePhase2Controller : VampireController
         }
         m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
 
+        CancelHitBehaviours();
         m_Callback.PhaseEnd(this);
     }
 }

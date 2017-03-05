@@ -31,20 +31,18 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
             return;
 
         if (!m_EndInitialized && m_ArmorHealth.m_CurrentHealth <= 0)
-            MakeAEFairyVulnerable();
-
-        if (m_AEFairyHealth.m_CurrentHealth < m_AEFairyHealth.m_HealthOld)
             EndPhase();
     }
 
-    protected virtual void MakeAEFairyVulnerable()
+    protected override void EndPhase()
     {
         m_EndInitialized = true;
-
         EndCombo();
 
+        m_AEFairyController.CancelAndReset();
         m_AEFairyController.StopAllCoroutines();
         m_ArmorFairyController.StopAllCoroutines();
+        m_ArmorFairyController.ForceCancelHitBehaviours();
 
         m_AEFairyController.m_NotDeactivated = false;
         m_ArmorFairyController.m_NotDeactivated = false;
@@ -54,8 +52,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
         m_ArmorAnimator.SetBool("Dead", true);
         m_ArmorAnimator.SetTrigger("DeathTriggerFront");
 
-        m_AEFairyCollider.isTrigger = false;
-        m_AEFairyCollider.enabled = true;
+        StartCoroutine(RegenerateThenEnd());
     }
 
     protected virtual IEnumerator RegenerateThenEnd()

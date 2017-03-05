@@ -147,14 +147,15 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
         }
 
         m_State = AttackState.Attack;
-        m_BossHit.DoHit(this, null, m_AttackAnimation);
         m_RangeTrigger.m_Blockable = this.m_Blockable;
+        m_BossHit.DoHit(this, null, m_AttackAnimation);
         m_BossMove.StopMoving();
     }
     
     public override void CancelAttack()
     {
         m_State = AttackState.None;
+        m_BossMove.StopMoving();
         m_BossHit.CancelHit();
     }
     

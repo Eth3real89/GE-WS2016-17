@@ -144,6 +144,10 @@ public class VampirePhase3Controller : VampireController
             new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
             new FARQ().ClipName("vampire").Location(transform).StartTime(79).EndTime(96).Play();
             m_Killable = false;
+            CancelHitBehaviours();
+
+            m_Callback.PhaseEnd(this);
+
             return false;
         }
 

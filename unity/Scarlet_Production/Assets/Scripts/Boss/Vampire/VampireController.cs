@@ -245,11 +245,15 @@ public class VampireController : BossController {
 
     public override void OnTimeWindowClosed()
     {
-        StartCoroutine(DashIntoLightThenStartAttack());
+        if (m_NotDeactivated)
+            StartCoroutine(DashIntoLightThenStartAttack());
     }
 
     public override void OnBossStaggerOver()
     {
+        if (!m_NotDeactivated)
+            return;
+
         m_ActiveCombo = null;
         m_BossHittable.RegisterInterject(this);
         m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
@@ -354,6 +358,14 @@ public class VampireController : BossController {
             s_LastPlayedLightAttackSound = soundIndex;
         else
             s_LastPlayedHeavyAttackSound = soundIndex;
+    }
+
+    public override void CancelAndReset()
+    {
+        UnRegisterAnimationEvents();
+        DeactivateLightShield();
+        m_VampireAnimator.SetBool("RageModeActive", false);
+        base.CancelAndReset();
     }
 
 }

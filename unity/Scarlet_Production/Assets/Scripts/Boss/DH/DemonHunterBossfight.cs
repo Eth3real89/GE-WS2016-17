@@ -16,6 +16,12 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     void Start()
     {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
 
@@ -43,11 +49,14 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         if (whichPhase == m_Phase1Controller)
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 1 over " + this);
+
+            RegenerateScarletAfterPhase();
+
             m_DHHealth.m_CurrentHealth = m_DHHealth.m_MaxHealth;
             DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
             if (hittable != null)
                 hittable.m_HitCount = 0;
-            
+
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             m_Phase2Controller.StartPhase(this);
@@ -55,6 +64,9 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         else if (whichPhase == m_Phase2Controller)
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 2 over " + this);
+
+            RegenerateScarletAfterPhase();
+
             m_Phase2Controller.enabled = false;
             m_Phase3Controller.enabled = true;
             m_Phase3Controller.StartPhase(this);
@@ -64,6 +76,14 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
         }
+    }
+
+    protected override void OnScarletDead()
+    {
+        m_Phase1Controller.CancelAndReset();
+        m_Phase2Controller.CancelAndReset();
+        m_Phase3Controller.CancelAndReset();
+        base.OnScarletDead();
     }
 
 }

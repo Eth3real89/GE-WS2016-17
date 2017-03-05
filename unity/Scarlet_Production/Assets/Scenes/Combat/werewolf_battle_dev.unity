@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1253935861}
-  m_IndirectSpecularColor: {r: 0.00070116227, g: 0.0023195113, b: 0.055857606, a: 1}
+  m_IndirectSpecularColor: {r: 0.00061816757, g: 0.0023196875, b: 0.0555418, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1759,8 +1759,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0a3260b857cba64dbf6a05df8560786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxScarletRegenerationAfterPhase: 100
   m_TransitionTime: 7
-  m_StartPhase: 1
+  m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -3478,6 +3479,16 @@ Prefab:
       propertyPath: m_Tutorial
       value: 
       objectReference: {fileID: 2023222680}
+    - target: {fileID: 114421800819569646, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_BossHealth
+      value: 
+      objectReference: {fileID: 1689460398}
+    - target: {fileID: 114421800819569646, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_WerewolfAnimator
+      value: 
+      objectReference: {fileID: 1689460406}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -5353,6 +5364,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1193509061937176, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
     type: 2}
   m_PrefabInternal: {fileID: 951623644}
+--- !u!114 &1689460398 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114344973080775448, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+    type: 2}
+  m_PrefabInternal: {fileID: 951623644}
+  m_Script: {fileID: 11500000, guid: 26049ee00e266034b9897189103f60b8, type: 3}
 --- !u!114 &1689460399 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114421800819569646, guid: 31c1964b3a78dd5469bb1ac3c87de78d,

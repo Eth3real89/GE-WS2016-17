@@ -25,6 +25,7 @@ public class AEFairyPhase3Controller : AEFairyController {
         m_AEFairyCollider.enabled = true;
 
         m_CurrentHits = 0;
+        m_Vulnerable = false;
 
         ExpandLightGuard();
     }

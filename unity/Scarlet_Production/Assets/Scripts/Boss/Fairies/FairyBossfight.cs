@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
+public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     public enum Phase {Phase1, Phase2, Phase3, Phase4 };
 
@@ -14,8 +14,20 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
     public FairyBossfightPhase m_Phase3;
     public FairyBossfightPhase m_Phase4;
 
+    protected Vector3 m_ArmorPositionStart;
+    protected Quaternion m_ArmorRotationStart;
+
+    protected Vector3 m_AEPositionStart;
+    protected Quaternion m_AERotationStart;
+
     void Start()
     {
+        StartBossfight();
+    }
+
+    public override void StartBossfight()
+    {
+        base.StartBossfight();
         StartCoroutine(StartAfterShortDelay());
     }
 
@@ -50,6 +62,7 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
             m_Phase1.enabled = false;
             m_Phase2.enabled = true;
             m_Phase2.StartPhase(this);
+            RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase2)
         {
@@ -57,6 +70,7 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
             m_Phase2.enabled = false;
             m_Phase3.enabled = true;
             m_Phase3.StartPhase(this);
+            RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase3)
         {
@@ -70,6 +84,58 @@ public class FairyBossfight : MonoBehaviour, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 4 over " + this);
             m_Phase4.enabled = false;
         }
+    }
+
+    protected override void OnScarletDead()
+    {
+        m_Phase1.CancelAndReset();
+        m_Phase2.CancelAndReset();
+        m_Phase3.CancelAndReset();
+        m_Phase4.CancelAndReset();
+        base.OnScarletDead();
+    }
+
+    protected override void StoreInitialState()
+    {
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        m_ScarletPositionStart = playerHittable.transform.position + Vector3.zero;
+        m_ScarletRotationStart = Quaternion.Euler(playerHittable.transform.rotation.eulerAngles);
+
+        ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
+        m_ArmorPositionStart = armorHittable.transform.position + Vector3.zero;
+        m_ArmorRotationStart = Quaternion.Euler(armorHittable.transform.rotation.eulerAngles);
+
+        AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
+        m_AEPositionStart = aeHittable.transform.position + Vector3.zero;
+        m_AERotationStart = Quaternion.Euler(aeHittable.transform.rotation.eulerAngles);
+    }
+
+    protected override void ResetInitialPositions()
+    {
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        playerHittable.transform.position = m_ScarletPositionStart + Vector3.zero;
+        playerHittable.transform.rotation = Quaternion.Euler(m_ScarletRotationStart.eulerAngles);
+
+        ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
+        armorHittable.transform.position = m_ArmorPositionStart + Vector3.zero;
+        armorHittable.transform.rotation = Quaternion.Euler(m_ArmorRotationStart.eulerAngles);
+
+        AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
+        aeHittable.transform.position = m_AEPositionStart + Vector3.zero;
+        aeHittable.transform.rotation = Quaternion.Euler(m_AERotationStart.eulerAngles);
+    }
+
+    public override void RestartBossfight()
+    {
+        AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
+        CharacterHealth aeHealth = aeHittable.GetComponent<CharacterHealth>();
+        aeHealth.m_CurrentHealth = aeHealth.m_HealthStart;
+
+        ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
+        CharacterHealth armorHealth = armorHittable.GetComponent<CharacterHealth>();
+        armorHealth.m_CurrentHealth = armorHealth.m_HealthStart;
+
+        base.RestartBossfight();
     }
 
     public void OnPhaseStart(FairyBossfightPhase phase)

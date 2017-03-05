@@ -48,14 +48,26 @@ public class OnHitSignal : MonoBehaviour {
 
     private Renderer[] GetRenderers()
     {
+        Renderer[] renderers;
         if (m_IgnoreChildren)
         {
-            return m_RendererContainer.GetComponents<Renderer>();
+            renderers = m_RendererContainer.GetComponents<Renderer>();
         }
         else
         {
-            return m_RendererContainer.GetComponentsInChildren<Renderer>();
+            renderers = m_RendererContainer.GetComponentsInChildren<Renderer>();
         }
+
+        List<Renderer> withoutParticles = new List<Renderer>();
+
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            if (renderers[i].gameObject.GetComponent<ParticleSystem>() == null)
+                withoutParticles.Add(renderers[i]);
+        }
+        
+
+        return withoutParticles.ToArray();
     }
 
     private void ColorBossRed()

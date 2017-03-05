@@ -12224,12 +12224,12 @@ GameObject:
   - component: {fileID: 136761507804450348}
   - component: {fileID: 114624626410929966}
   - component: {fileID: 114058896025588166}
-  - component: {fileID: 114422031322698942}
   - component: {fileID: 114236755051365782}
   - component: {fileID: 114919177956139274}
   - component: {fileID: 114923515217885164}
   - component: {fileID: 114654210546452140}
   - component: {fileID: 114110487207134624}
+  - component: {fileID: 114767225511109180}
   m_Layer: 9
   m_Name: ArmorFairy
   m_TagString: Untagged
@@ -15583,7 +15583,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1974230924033828}
-  m_LocalRotation: {x: -0.5306479, y: 0.6037595, z: 0.57283616, w: 0.16045555}
+  m_LocalRotation: {x: -0.53064793, y: 0.6037596, z: 0.5728362, w: 0.16045557}
   m_LocalPosition: {x: -0.0000000028684735, y: 0.004017506, z: -0.0000000037252903}
   m_LocalScale: {x: 0.99999994, y: 1, z: 0.99999994}
   m_Children:
@@ -22021,7 +22021,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1826664452646428}
-  m_LocalRotation: {x: -0.2740786, y: 0.56731784, z: 0.7133006, w: -0.306975}
+  m_LocalRotation: {x: -0.27407864, y: 0.5673179, z: 0.71330065, w: -0.30697504}
   m_LocalPosition: {x: -0.000000005960464, y: 0.0038488626, z: 0}
   m_LocalScale: {x: 1, y: 0.9999998, z: 1}
   m_Children:
@@ -31083,7 +31083,7 @@ MonoBehaviour:
   - {fileID: 114899294854155294}
   - {fileID: 114476573915941600}
   - {fileID: 114108444844509680}
-  m_BossHittable: {fileID: 114422031322698942}
+  m_BossHittable: {fileID: 114767225511109180}
   m_BlockingBehaviour: {fileID: 114919177956139274}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114923515217885164}
@@ -31290,9 +31290,9 @@ MonoBehaviour:
   m_EnvironmentColliderContainers:
   - {fileID: 0}
   m_AimTime: 2
-  m_MaxRunTime: 2
-  m_ChargeSpeed: 5
-  m_StaggerTimeOnWallHit: 3
+  m_MaxRunTime: 20
+  m_ChargeSpeed: 8
+  m_StaggerTimeOnWallHit: 5
 --- !u!114 &114252308950675438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31402,23 +31402,6 @@ MonoBehaviour:
   m_DamageAmount: 30
   m_AttackAnimation: 2
   m_SkipAttack: 0
---- !u!114 &114422031322698942
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1918826352540026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4af2a821db05c2449a5eb72f5d5d203b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Health: {fileID: 114236755051365782}
-  m_OnHitSignal: {fileID: 114058896025588166}
-  m_OnHitAudio: {fileID: 82669112413480146}
-  m_BlockParryAudioSource: {fileID: 82051783717834206}
-  m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
-  m_DontPlaySound: 0
 --- !u!114 &114425270173387694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31743,7 +31726,7 @@ MonoBehaviour:
   - {fileID: 114399923924785784}
   - {fileID: 114755920316781770}
   - {fileID: 114899294854155294}
-  m_BossHittable: {fileID: 114422031322698942}
+  m_BossHittable: {fileID: 114767225511109180}
   m_BlockingBehaviour: {fileID: 114919177956139274}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114923515217885164}
@@ -31946,7 +31929,7 @@ MonoBehaviour:
   - {fileID: 114651630017286524}
   - {fileID: 114430992773526932}
   - {fileID: 114455647583715706}
-  m_BossHittable: {fileID: 114422031322698942}
+  m_BossHittable: {fileID: 114767225511109180}
   m_BlockingBehaviour: {fileID: 114919177956139274}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114546237963643282}
@@ -32011,6 +31994,22 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114524085802436496}
   m_TimeAfterCombo: 1.5
+--- !u!114 &114767225511109180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1918826352540026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff28773562522364a959f8663d08af47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Health: {fileID: 114236755051365782}
+  m_OnHitSignal: {fileID: 114058896025588166}
+  m_OnHitAudio: {fileID: 82669112413480146}
+  m_BlockParryAudioSource: {fileID: 82051783717834206}
+  m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
 --- !u!114 &114806726161590732
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32094,7 +32093,7 @@ MonoBehaviour:
   m_MaxBlockTime: 0.9
   m_Animator: {fileID: 95123423343808628}
   m_BlockAudio: {fileID: 82051783717834206}
-  m_TurnCommand: {fileID: 0}
+  m_TurnCommand: {fileID: 114594849195863668}
 --- !u!114 &114923515217885164
 MonoBehaviour:
   m_ObjectHideFlags: 1

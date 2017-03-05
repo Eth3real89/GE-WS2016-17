@@ -27,7 +27,7 @@ public class PlayerHittable : MonoBehaviour, Hittable {
             if (m_Invulnerable)
                 return;
 
-            m_Health.m_CurrentHealth -= damage.DamageAmount();
+            m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount());
             damage.OnSuccessfulHit();
 
             if (m_OnHitAudio != null)
