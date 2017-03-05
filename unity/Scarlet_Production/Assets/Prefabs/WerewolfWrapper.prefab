@@ -1407,6 +1407,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
+--- !u!1 &1165878937915052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4156989917404850}
+  - component: {fileID: 33861161954917456}
+  - component: {fileID: 136254499866122284}
+  - component: {fileID: 23372431828350040}
+  - component: {fileID: 114204962786172956}
+  m_Layer: 8
+  m_Name: LungeTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1166693859996388
 GameObject:
   m_ObjectHideFlags: 1
@@ -9764,6 +9783,19 @@ Transform:
   m_Father: {fileID: 4087363643774744}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4156989917404850
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165878937915052}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.18, y: 0.15, z: 0}
+  m_LocalScale: {x: 2, y: 0.01, z: 2}
+  m_Children: []
+  m_Father: {fileID: 4608113132614596}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4160420971918768
 Transform:
   m_ObjectHideFlags: 1
@@ -10735,7 +10767,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4608113132614596}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4275075015584226
 Transform:
@@ -13264,6 +13296,7 @@ Transform:
   m_Children:
   - {fileID: 4892376229216824}
   - {fileID: 4633375331315010}
+  - {fileID: 4156989917404850}
   - {fileID: 4654940563277500}
   - {fileID: 4274717706777696}
   - {fileID: 4687599433719844}
@@ -13526,7 +13559,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4608113132614596}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4656212626399292
 Transform:
@@ -13810,7 +13843,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4608113132614596}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4689349338964478
 Transform:
@@ -17463,6 +17496,37 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
+--- !u!23 &23372431828350040
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165878937915052}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &23375828264502038
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -18912,6 +18976,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1101712127190236}
   m_Mesh: {fileID: 4300016, guid: acce6bc0e3530bc4d84156ada3750b53, type: 3}
+--- !u!33 &33861161954917456
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165878937915052}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33867410314668788
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -19585,7 +19656,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LungeTrigger: {fileID: 0}
+  m_LungeTrigger: {fileID: 114204962786172956}
   m_BossCollider: {fileID: 114178424531952024}
   m_Scarlet: {fileID: 0}
   m_TurnCommand: {fileID: 114704627044693812}
@@ -19650,11 +19721,11 @@ MonoBehaviour:
   m_LungeAttack: {fileID: 114321522944543970}
   m_HuntCenter: {fileID: 0}
   m_HuntDistance: 4
-  m_NumParryRequired: 2
+  m_NumParryRequired: 4
   m_PlayerAttackCommand: {fileID: 0}
   m_PlayerParryCommand: {fileID: 0}
-  m_MinHuntTime: 1
-  m_MaxHuntTime: 2
+  m_MinHuntTime: 4
+  m_MaxHuntTime: 6
   m_BossHealth: {fileID: 114344973080775448}
   m_BossTurn: {fileID: 114503801396500242}
   m_BossMove: {fileID: 114647882146185228}
@@ -19886,6 +19957,23 @@ MonoBehaviour:
   m_DamageAmount: 30
   m_AttackAnimation: 1
   m_SkipAttack: 0
+--- !u!114 &114204962786172956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165878937915052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b75b1e9193038c74ba0a69a06638bb1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Type: 0
+  m_BlockType: 2
+  m_Active: 0
+  m_Owner: {fileID: 0}
+  m_Damage: 45
+  m_Blockable: 1
 --- !u!114 &114217175205514184
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19936,7 +20024,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LungeTrigger: {fileID: 0}
+  m_LungeTrigger: {fileID: 114204962786172956}
   m_BossCollider: {fileID: 114178424531952024}
   m_Scarlet: {fileID: 0}
   m_TurnCommand: {fileID: 114503801396500242}
@@ -20028,7 +20116,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
   m_FullTurnCommand: {fileID: 0}
-  m_LungeTrigger: {fileID: 0}
+  m_LungeTrigger: {fileID: 114204962786172956}
   m_BossCollider: {fileID: 114178424531952024}
   m_Scarlet: {fileID: 0}
   m_TurnCommand: {fileID: 114503801396500242}
@@ -20167,9 +20255,11 @@ MonoBehaviour:
   m_BlockingBehaviour: {fileID: 114777111829272916}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114969317741959328}
+  m_BossHealth: {fileID: 114344973080775448}
   m_HitCombo: {fileID: 114217175205514184}
   m_LeapCombo: {fileID: 114817372958446622}
   m_ChaseCombo: {fileID: 114186602986021002}
+  m_WerewolfAnimator: {fileID: 95054891618251640}
   m_TurnTowardsScarlet: {fileID: 114139256987896248}
   m_TotalAttacks: 30
 --- !u!114 &114503801396500242
@@ -21038,6 +21128,19 @@ CapsuleCollider:
   m_Height: 4
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
+--- !u!136 &136254499866122284
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165878937915052}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!137 &137206842044286980
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

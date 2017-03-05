@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BossJumpCommand : BossCommand {
 
+    public static string JUMP_COMMAND_START = "boss_jump_start";
+
     // https://forum.unity3d.com/threads/how-to-calculate-force-needed-to-jump-towards-target-point.372288/
 
     public float m_StopAtPointInJump = 0.9f;
@@ -20,6 +22,8 @@ public class BossJumpCommand : BossCommand {
 
     public void JumpAt(Transform target, JumpCallback callback = null)
     {
+        EventManager.TriggerEvent(JUMP_COMMAND_START);
+
         float jumpTime = 0f;
 
         Vector3 force = CalculateRequiredForce(m_Boss.transform, target, ref jumpTime);

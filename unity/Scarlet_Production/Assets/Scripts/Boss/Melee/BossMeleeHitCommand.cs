@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
+    public static string DOWNSWING_START_EVENT = "melee_hit_downswing_start";
+
     public BossMeleeDamage m_DamageTrigger;
 
     public HitWarning m_HitWarning;
@@ -69,6 +71,8 @@ public class BossMeleeHitCommand : BossCommand, DamageCollisionHandler {
 
     public void Downswing(int whichAnimation = 0)
     {
+        EventManager.TriggerEvent(DOWNSWING_START_EVENT);
+
         SetHitSignalState(false);
 
         if (m_HitAudio != null)

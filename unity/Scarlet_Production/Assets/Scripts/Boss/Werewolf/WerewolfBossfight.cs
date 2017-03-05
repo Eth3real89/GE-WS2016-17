@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
-    public enum Phase {Hunt, Combat, RageMode, Finish};
+    public enum Phase {Hunt, Combat, RageMode};
 
     public float m_TransitionTime = 4f;
     public Phase m_StartPhase;
@@ -81,14 +81,13 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         {
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
-
-            print("FIGHT OVER (not really, still need to kill the wolf, but mostly...)");
         }
     }
 
     private IEnumerator StartHuntPhaseAfterHowling(float initialWaitTime)
     {
         m_PlayerControls.DisableAllCommands();
+        StopPlayerMove();
         yield return new WaitForSeconds(initialWaitTime);
 
         yield return StartCoroutine(Howl());
@@ -106,6 +105,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         yield return new WaitForSeconds(initialWaitTime);
 
         m_PlayerControls.DisableAllCommands();
+        StopPlayerMove();
 
         yield return StartCoroutine(Howl());
 
@@ -120,8 +120,9 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     private IEnumerator StartPhase3AfterHowling()
     {
         m_PlayerControls.DisableAllCommands();
+        StopPlayerMove();
 
-        yield return StartCoroutine(Howl());
+        yield return StartCoroutine(Phase3IntroHowl());
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
@@ -141,6 +142,15 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
     }
 
+    private IEnumerator Phase3IntroHowl()
+    {
+        if (FancyAudio.s_UseAudio)
+        {
+            new FARQ().ClipName("werewolf").StartTime(179.2f).EndTime(182.5f).Location(m_HuntController.transform).Play();
+            yield return new WaitForSeconds(182.5f - 179.2f + 2f);
+        }
+    }
+
     private void SetStreetLightsEnabled(bool enabled)
     {
         foreach(Light l in m_StreetLightWrapper.GetComponentsInChildren<Light>())
@@ -155,6 +165,15 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             {
                 col.enabled = enabled;
             }
+            else if (col.gameObject.name == "VisualTrigger")
+            {
+                col.enabled = enabled;
+            }
+        }
+
+        if (!enabled)
+        {
+            EffectController.Instance.ExitStrongLight();
         }
     }
 
@@ -204,6 +223,14 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         m_HuntController.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_RagemodeController.CancelAndReset();
+
+        WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
+        if (hittable != null)
+        {
+            hittable.m_DontPlaySound = false;
+            hittable.StopPlayingCriticalHPSound();
+        }
+
         base.OnScarletDead();
     }
 

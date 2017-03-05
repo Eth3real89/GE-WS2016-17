@@ -66,7 +66,7 @@ public class FancyAudio : MonoBehaviour {
 
     private IEnumerator StopPlaying(AudioSource source, float seconds, FARQ originalRequest)
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSecondsRealtime(seconds);
         if (source != null && source.isPlaying)
         {
             if (!originalRequest.m_Loop)
@@ -145,6 +145,8 @@ public class FancyAudio : MonoBehaviour {
 
         return emptySource;
     }
+
+
 }
 
 /// <summary>

@@ -17,7 +17,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     public float m_TimeAfterCombo;
 
     public ComboCallback m_Callback;
-    protected BossAttack m_CurrentAttack;
+    protected BossAttack _m_CurrentAttack;
+    public BossAttack m_CurrentAttack { get { return _m_CurrentAttack; } }
     protected int m_CurrentAttackIndex;
 
     protected bool m_BetweenAttacks;
@@ -62,12 +63,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Attack Start, Combo, " + this + " " + attack);
 
-        if (m_CurrentAttack != null || m_Cancelled)
+        if (_m_CurrentAttack != null || m_Cancelled)
             attack.CancelAttack();
         else
         {
             m_BetweenAttacks = false;
-            m_CurrentAttack = attack;
+            _m_CurrentAttack = attack;
         }
     }
 
@@ -76,7 +77,7 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         MLog.Log(LogType.BattleLog, 1, "Attack End, Combo, " + this + " " + attack);
 
         m_BetweenAttacks = true;
-        m_CurrentAttack = null;
+        _m_CurrentAttack = null;
 
         m_CurrentAttackIndex++;
         if (m_CurrentAttackIndex >= m_Attacks.Length)
@@ -112,9 +113,9 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
         m_Callback.OnComboParried(this);
 
-        if (m_CurrentAttack != null)
+        if (_m_CurrentAttack != null)
         {
-            m_CurrentAttack.CancelAttack();
+            _m_CurrentAttack.CancelAttack();
         }
         m_BossStagger.DoStagger();
         m_ParriedTimer = WaitAfterParried();
@@ -127,10 +128,10 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
 
         m_Cancelled = true;
 
-        if (m_CurrentAttack != null)
+        if (_m_CurrentAttack != null)
         {
-            m_CurrentAttack.CancelAttack();
-            m_CurrentAttack.StopAllCoroutines();
+            _m_CurrentAttack.CancelAttack();
+            _m_CurrentAttack.StopAllCoroutines();
         }
 
         StopAllCoroutines();
@@ -147,8 +148,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
     {
         MLog.Log(LogType.BattleLog, 1, "Attack was Interrupted, Combo, " + this);
 
-        if (m_CurrentAttack != null)
-            m_CurrentAttack.CancelAttack();
+        if (_m_CurrentAttack != null)
+            _m_CurrentAttack.CancelAttack();
 
         m_Callback.OnInterruptCombo(this);
     }

@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class WerewolfHuntController : BossController, AttackCombo.ComboCallback, LungeAttack.LungeAttackCallbacks {
+public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallback, LungeAttack.LungeAttackCallbacks {
 
     public AttackCombo m_JumpCombo;
     public LungeAttack m_LungeAttack;
@@ -47,40 +47,6 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
 
     public bool m_SuccessfullyRiposted;
 
-    protected new void Start()
-    {
-    }
-
-    private void Update()
-    {
-        if (m_Active)
-        {
-            if (m_BossHealth.m_CurrentHealth <= 0)
-            {
-                m_Active = false;
-                m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
-
-                m_PlayerAttackCommand.m_RegularHitDamage = m_AttackDmgAmountBefore;
-                m_PlayerAttackCommand.m_FinalHitDamage = m_FinalDmgAmountBefore;
-                m_PlayerAttackCommand.m_RiposteDamage = m_RiposteDmgAmountBefore;
-
-                m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime - m_BlockTimeBefore;
-                m_PlayerParryCommand.m_OkParryTime = m_BlockTimeBefore;
-
-                m_JumpCombo.CancelCombo();
-                m_LungeAttack.m_LungeAttackCallbacks = null;
-
-                if (m_Callbacks != null)
-                    m_Callbacks.PhaseEnd(this);
-            }
-        }
-
-        if (m_Active && m_Hunting)
-        {
-            HuntPhaseRoutine();
-        }
-    }
-
     public void StartHuntPhase(BossfightCallbacks callbacks)
     {
         m_NotDeactivated = true;
@@ -106,8 +72,25 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime + m_BlockTimeBefore;
 
         EventManager.StartListening("user_parry", OnUserFirstParry);
+        RegisterEventsForSound();
 
         LaunchSingleHuntIteration();
+    }
+
+    private void Update()
+    {
+        if (m_Active)
+        {
+            if (m_BossHealth.m_CurrentHealth <= 0)
+            {
+                EndPhase();
+            }
+        }
+
+        if (m_Active && m_Hunting)
+        {
+            HuntPhaseRoutine();
+        }
     }
 
     private IEnumerator EndHuntAfter(float time)
@@ -176,7 +159,14 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
 
     private void RunInCircle(float distanceToCenter)
     {
-        m_BossTurn.TurnBossBy(BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter) + 90);
+        float angle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter) + 90;
+
+        while (angle > 180)
+            angle -= 360;
+        while (angle < -180)
+            angle += 360;
+
+        m_BossTurn.TurnBossBy(angle);
         m_BossMove.DoMove(transform.forward.x, transform.forward.z);
     }
 
@@ -321,5 +311,36 @@ public class WerewolfHuntController : BossController, AttackCombo.ComboCallback,
         m_JumpSoon = false;
         m_Tutorial.HideTutorial(1f);
         base.CancelAndReset();
+    }
+
+    protected override void OnJumpStart()
+    {
+        base.OnJumpStart();
+        PlayLightAttackSound(true);
+    }
+
+    private void EndPhase()
+    {
+        m_Active = false;
+        m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
+
+        m_PlayerAttackCommand.m_RegularHitDamage = m_AttackDmgAmountBefore;
+        m_PlayerAttackCommand.m_FinalHitDamage = m_FinalDmgAmountBefore;
+        m_PlayerAttackCommand.m_RiposteDamage = m_RiposteDmgAmountBefore;
+
+        m_PlayerParryCommand.m_PerfectParryTime = m_PlayerParryCommand.m_PerfectParryTime - m_BlockTimeBefore;
+        m_PlayerParryCommand.m_OkParryTime = m_BlockTimeBefore;
+
+        m_JumpCombo.CancelCombo();
+        m_LungeAttack.m_LungeAttackCallbacks = null;
+
+        UnRegisterEventsForSound();
+
+        WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
+        if (hittable != null)
+            hittable.StopPlayingCriticalHPSound();
+
+        if (m_Callbacks != null)
+            m_Callbacks.PhaseEnd(this);
     }
 }

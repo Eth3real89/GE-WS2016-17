@@ -4,9 +4,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class WerewolfHittable : BossHittable {
+    
+    protected static float[][] s_HitSounds =
+    {
+        new float[] {217.4f, 218.4f },
+        new float[] {218.7f, 219.7f },
+        new float[] {219.9f, 220.7f },
+        new float[] {222.5f, 223.4f },
+    };
+    private static IEnumerator s_HitSoundTimer;
 
-    private int m_LastUsedHitSound = -1;
+    protected static float[][] s_RipostedSounds =
+    {
+        new float[] {156.2f, 158f },
+        new float[] {159.7f, 161.4f },
+        new float[] {162f, 164f },
+    };
+
+    protected FancyAudioRandomClip m_HitPlayer;
+    protected FancyAudioRandomClip m_RipostePlayer;
+
     public bool m_DontPlaySound = false;
+
+    private void Start()
+    {
+        m_HitPlayer = new FancyAudioRandomClip(s_HitSounds, this.transform, "werewolf", 1f);
+
+        m_RipostePlayer = new FancyAudioRandomClip(s_RipostedSounds, this.transform, "werewolf", 1f);
+    }
 
     public override void Hit(Damage damage)
     {
@@ -15,35 +40,54 @@ public class WerewolfHittable : BossHittable {
 
         if (!m_DontPlaySound && m_Health.m_CurrentHealth < healthBefore)
         {
-            PlayHitSound();
+            PlayHitSound(damage);
+        }
+
+        if (!m_DontPlaySound && healthBefore >= 0.3f * m_Health.m_MaxHealth && m_Health.m_CurrentHealth < 0.3f * m_Health.m_MaxHealth)
+        {
+            StartPlayingCriticalHPSound();
         }
     }
 
-    protected void PlayHitSound()
+    public void StartPlayingCriticalHPSound()
     {
-        float[][] sounds = { new float[] {191.2f, 192 },
-                             new float[] {192.5f, 193.4f },
-                             new float[] {193.5f, 194.5f },
-                             new float[] {194.6f, 195.5f },
-                             new float[] {195.8f, 196.7f },
-                             new float[] {197.2f, 198f },
-                             new float[] {198.3f, 199f },
-                             new float[] {200.5f, 201.1f },
-                             new float[] {201.3f, 202f },
-                             new float[] {201.3f, 202f },
-                             // @todo maybe there's more */
-        };
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(60.5f).EndTime(75.2f).Volume(0.3f).OnFinish(ContinuePlayingCriticalHPSound).PlayUnlessPlaying();
+    }
 
-        int soundIndex;
-        do
+    public void ContinuePlayingCriticalHPSound()
+    {
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(60.5f).EndTime(75.2f).Volume(0.3f).OnFinish(ContinuePlayingCriticalHPSound).Play();
+    }
+
+    public void StopPlayingCriticalHPSound()
+    {
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(60.5f).EndTime(75.2f).Volume(0.3f).OnFinish(ContinuePlayingCriticalHPSound).StopIfPlaying();
+    }
+
+    protected void PlayHitSound(Damage damage)
+    {
+        if (damage.m_Type == Damage.DamageType.Riposte)
         {
-            soundIndex = UnityEngine.Random.Range(0, sounds.Length);
-        } while (soundIndex == m_LastUsedHitSound && sounds.Length > 1);
+            m_RipostePlayer.PlayRandomSound();
+        }
+        else
+        {
+            if (s_HitSoundTimer != null)
+                return;
 
-        m_LastUsedHitSound = soundIndex;
+            m_HitPlayer.PlayRandomSound();
+        }
 
-        float[] sound = sounds[soundIndex];
-        new FARQ().ClipName("werewolf").Location(transform).StartTime(sound[0]).EndTime(sound[1]).Volume(1).Play();
+        if (s_HitSoundTimer != null)
+            StopCoroutine(s_HitSoundTimer);
 
+        s_HitSoundTimer = HitSoundTimer();
+        StartCoroutine(s_HitSoundTimer);
+    }
+
+    protected IEnumerator HitSoundTimer()
+    {
+        yield return new WaitForSeconds(1.3f);
+        s_HitSoundTimer = null;
     }
 }

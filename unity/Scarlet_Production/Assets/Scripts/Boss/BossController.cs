@@ -34,16 +34,6 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
     protected bool m_OnlyJustStaggered;
     protected IEnumerator m_IFramesAfterStaggerTimer;
 
-    // Use this for initialization
-    protected void Start ()
-    {
-/*        RegisterComboCallback();
-
-        m_CurrentComboIndex = 0;
-
-        StartCoroutine(StartAfterDelay()); */
-    }
-
     protected void ListenToAttackEvents()
     {
         EventManager.StartListening(BossAttack.ATTACK_START_EVENT, OnAttackStart);
@@ -254,11 +244,11 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         return Mathf.Abs(angle) >= m_ForwardAngle;
     }
 
-    public void OnBossTakesDamage()
+    public virtual void OnBossTakesDamage()
     {
     }
 
-    public void OnBossStaggered()
+    public virtual void OnBossStaggered()
     {
 
     }
@@ -299,7 +289,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     protected virtual IEnumerator InvulnerableAfterStagger()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         m_OnlyJustStaggered = false;
     }
 

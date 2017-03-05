@@ -165,6 +165,13 @@ public abstract class BossFight : MonoBehaviour {
         health.m_CurrentHealth += healthGain - healedAmount;
     }
 
+    protected virtual void StopPlayerMove()
+    {
+        PlayerMoveCommand moveCommand = FindObjectOfType<PlayerMoveCommand>();
+        if (moveCommand != null)
+            moveCommand.StopMoving();
+    }
+
 }
 
 public interface BossfightCallbacks

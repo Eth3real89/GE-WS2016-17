@@ -29,11 +29,15 @@ public class OnlyVisualLightField : MonoBehaviour {
         if (s_ActiveFields == null)
             s_ActiveFields = new List<OnlyVisualLightField>();
 
+        int prevCount = s_ActiveFields.Count;
+
         if (!s_ActiveFields.Contains(this))
             s_ActiveFields.Add(this);
 
-        if (s_ActiveFields.Count == 1)
+        if (s_ActiveFields.Count != 0 && prevCount == 0)
+        {
             EffectController.Instance.EnterStrongLight();
+        }
     }
 
     private void RemoveFromActiveFields()

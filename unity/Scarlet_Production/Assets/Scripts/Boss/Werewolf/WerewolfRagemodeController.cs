@@ -3,8 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WerewolfRagemodeController : BossController
+public class WerewolfRagemodeController : WerewolfController
 {
+
+    protected static float[][] s_Phase3AttackSounds =
+    {
+        new float[] {183.2f, 183.7f },
+        new float[] {183.9f, 184.4f },
+        new float[] {184.6f, 185.0f },
+        new float[] {185.2f, 185.7f },
+    };
 
     private BossfightCallbacks m_Callbacks;
     public CharacterHealth m_BossHealth;
@@ -23,9 +31,7 @@ public class WerewolfRagemodeController : BossController
 
     protected bool m_Killable = false;
 
-    new void Start()
-    {
-    }
+    protected FancyAudioRandomClip m_Phase3RandomPlayer;
 
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
@@ -43,6 +49,9 @@ public class WerewolfRagemodeController : BossController
 
         base.RegisterComboCallback();
 
+        m_Phase3RandomPlayer = new FancyAudioRandomClip(s_Phase3AttackSounds, this.transform, "werewolf");
+        RegisterEventsForSound();
+
         StartCoroutine(StartAfterDelay());
     }
 
@@ -58,13 +67,24 @@ public class WerewolfRagemodeController : BossController
         m_Killable = true;
         yield return null;
 
+
         m_BossHealth.m_CurrentHealth = 3f;
+
+        WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
+        if (hittable != null)
+        {
+            hittable.StopPlayingCriticalHPSound();
+            hittable.m_DontPlaySound = true;
+        }
+
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(115.4f).EndTime(126.8f).PlayUnlessPlaying();
     }
 
     protected void Kill()
     {
         m_WerewolfAnimator.SetTrigger("DeathTrigger");
         m_NotDeactivated = false;
+        UnRegisterEventsForSound();
         m_Callbacks.PhaseEnd(this);
     }
 
@@ -134,7 +154,15 @@ public class WerewolfRagemodeController : BossController
 
         m_AttackCount = Math.Min(m_AttackCount, m_TotalAttacks);
 
+        float healthBefore = m_BossHealth.m_CurrentHealth;
         m_BossHealth.m_CurrentHealth = Mathf.Lerp(m_BossHealth.m_MaxHealth, 0, m_AttackCount / (float) (m_TotalAttacks + 1));
+
+        if (healthBefore >= 0.3f * m_BossHealth.m_MaxHealth && m_BossHealth.m_CurrentHealth < 0.3f * m_BossHealth.m_MaxHealth)
+        {
+            WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
+            if (hittable != null)
+                hittable.StartPlayingCriticalHPSound();
+        }
     }
 
     private void DecideNextCombo(AttackCombo previous)
@@ -161,5 +189,17 @@ public class WerewolfRagemodeController : BossController
     public override void OnInterruptCombo(AttackCombo combo)
     {
         OnComboEnd(combo);
+    }
+
+    protected override void OnJumpStart()
+    {
+        base.OnJumpStart();
+        m_Phase3RandomPlayer.PlayRandomSound();
+    }
+
+    protected override void OnMeleeDownswing()
+    {
+        base.OnMeleeDownswing();
+        m_Phase3RandomPlayer.PlayRandomSound();
     }
 }
