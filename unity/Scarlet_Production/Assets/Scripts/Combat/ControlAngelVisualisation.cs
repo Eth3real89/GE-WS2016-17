@@ -19,15 +19,24 @@ public class ControlAngelVisualisation : MonoBehaviour {
     private ParticleSystem[] m_SpecialParticles_UP;
     private ParticleSystem[] m_SpecialParticles_DOWN;
 
+    private Light m_Light;
 
     private ParticleSystem[] m_SpecialParticlesLand;
 
     private float t = 0.5f;
     private float tDown = 0.1f;
 
+    private float m_TimeStartLight = 0.5f;
+    private float m_TimeUpLight = 0.2f;
+    private float m_TimeImpactLight = 1.8f;
+
+    private bool m_StartLightOn = false;
+    private bool m_ImpactLightOn = false;
+
     // Use this for initialization
     void Start()
     {
+        m_Light = m_SpecialLandVisualisation.GetComponent<Light>();
         m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
 
         m_SpecialTrails = m_SpecialAttack.GetComponentsInChildren<MeleeWeaponTrail>(true);
@@ -58,6 +67,40 @@ public class ControlAngelVisualisation : MonoBehaviour {
                     system.Stop();
                 }
                 t = 0.5f;
+            }
+        }
+
+        if(m_Light.intensity != 0)
+        {
+            if(m_StartLightOn)
+            {
+                m_TimeStartLight -= Time.deltaTime;
+                if (m_TimeStartLight <= 0)
+                {
+                    m_Light.intensity = 0;
+                    m_Light.range = 5;
+                    m_TimeStartLight = 0.5f;
+                    m_StartLightOn = false;
+                }
+                else
+                {
+                    m_Light.intensity = Mathf.Lerp(0, 2, m_TimeStartLight * 2);
+                }
+            }
+            else if (m_ImpactLightOn)
+            {
+                m_TimeImpactLight -= Time.deltaTime;
+                if (m_TimeImpactLight <= 0)
+                {
+                    m_Light.intensity = 0;
+                    m_TimeImpactLight = 1.8f;
+                    m_Light.range = 3;
+                    m_ImpactLightOn = false;
+                }
+                else
+                {
+                    m_Light.intensity = Mathf.Lerp(0, 5, m_TimeImpactLight * 2);
+                }
             }
         }
     }
@@ -114,6 +157,9 @@ public class ControlAngelVisualisation : MonoBehaviour {
 
     public void EnableSpecialVisualisation()
     {
+        m_Light.range = 3;
+        m_Light.intensity = 2;
+        m_StartLightOn = true;
         foreach (ParticleSystem particles in m_SpecialParticles_UP)
         {
             particles.Play();
@@ -122,6 +168,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
         {
             trail.Emit = true;
         }
+
     }
     public void EnableSpecialDownVisualisation()
     {
@@ -149,6 +196,9 @@ public class ControlAngelVisualisation : MonoBehaviour {
         {
             trail.Emit = false;
         }
+        m_Light.range = 5;
+        m_Light.intensity = 5;
+        m_ImpactLightOn = true;
     }
     
 
