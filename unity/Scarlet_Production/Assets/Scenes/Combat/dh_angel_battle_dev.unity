@@ -1665,35 +1665,35 @@ Prefab:
       objectReference: {fileID: 638130663}
     - target: {fileID: 4828074720941178, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.013170854
+      value: 0.013170852
       objectReference: {fileID: 0}
     - target: {fileID: 4828074720941178, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.6869926
+      value: -0.68699265
       objectReference: {fileID: 0}
     - target: {fileID: 4828074720941178, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.7263397
+      value: 0.72633976
       objectReference: {fileID: 0}
     - target: {fileID: 4828074720941178, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.01727207
+      value: -0.017272072
       objectReference: {fileID: 0}
     - target: {fileID: 4033275312333220, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.013170105
+      value: -0.013170104
       objectReference: {fileID: 0}
     - target: {fileID: 4033275312333220, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.68699205
+      value: -0.6869921
       objectReference: {fileID: 0}
     - target: {fileID: 4033275312333220, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.72634023
+      value: 0.7263403
       objectReference: {fileID: 0}
     - target: {fileID: 4033275312333220, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.017272044
+      value: 0.017272046
       objectReference: {fileID: 0}
     - target: {fileID: 114719418266515626, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
         type: 2}
@@ -1985,6 +1985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18c1ac4ab2a939e45bbd296661e4b45a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxScarletRegenerationAfterPhase: 100
   m_StartPhase: 0
   m_Phase1Controller: {fileID: 10650776}
   m_Phase2Controller: {fileID: 10650775}
@@ -2012,6 +2013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee045c7a83684a4b9a5dc0735e2218a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MaxScarletRegenerationAfterPhase: 100
   m_StartPhase: 0
   m_Phase1Controller: {fileID: 1421154023}
   m_Phase2Controller: {fileID: 1421154022}
@@ -2154,6 +2156,20 @@ Prefab:
         type: 2}
       propertyPath: m_DeflectTarget
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1438796236797014, guid: 90d816f8e946c8240a405a701668ddb0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198304908393828930, guid: 90d816f8e946c8240a405a701668ddb0,
+        type: 2}
+      propertyPath: ShapeModule.type
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198304908393828930, guid: 90d816f8e946c8240a405a701668ddb0,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1454025345
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 90d816f8e946c8240a405a701668ddb0, type: 2}

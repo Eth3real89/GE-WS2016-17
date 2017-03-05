@@ -27,7 +27,6 @@ public class ControlAngelVisualisation : MonoBehaviour {
     private float tDown = 0.1f;
 
     private float m_TimeStartLight = 0.5f;
-    private float m_TimeUpLight = 0.2f;
     private float m_TimeImpactLight = 1.8f;
 
     private bool m_StartLightOn = false;
@@ -78,13 +77,13 @@ public class ControlAngelVisualisation : MonoBehaviour {
                 if (m_TimeStartLight <= 0)
                 {
                     m_Light.intensity = 0;
-                    m_Light.range = 5;
+                    m_Light.range = 6;
                     m_TimeStartLight = 0.5f;
                     m_StartLightOn = false;
                 }
                 else
                 {
-                    m_Light.intensity = Mathf.Lerp(0, 2, m_TimeStartLight * 2);
+                    m_Light.intensity = Mathf.Lerp(0, 5, m_TimeStartLight * 2);
                 }
             }
             else if (m_ImpactLightOn)
@@ -94,12 +93,12 @@ public class ControlAngelVisualisation : MonoBehaviour {
                 {
                     m_Light.intensity = 0;
                     m_TimeImpactLight = 1.8f;
-                    m_Light.range = 3;
+                    m_Light.range = 4;
                     m_ImpactLightOn = false;
                 }
                 else
                 {
-                    m_Light.intensity = Mathf.Lerp(0, 5, m_TimeImpactLight * 2);
+                    m_Light.intensity = Mathf.Lerp(0, 8, m_TimeImpactLight * 2);
                 }
             }
         }
@@ -157,8 +156,8 @@ public class ControlAngelVisualisation : MonoBehaviour {
 
     public void EnableSpecialVisualisation()
     {
-        m_Light.range = 3;
-        m_Light.intensity = 2;
+        m_Light.range = 4;
+        m_Light.intensity = 5;
         m_StartLightOn = true;
         foreach (ParticleSystem particles in m_SpecialParticles_UP)
         {
@@ -196,8 +195,8 @@ public class ControlAngelVisualisation : MonoBehaviour {
         {
             trail.Emit = false;
         }
-        m_Light.range = 5;
-        m_Light.intensity = 5;
+        m_Light.range = 6;
+        m_Light.intensity = 8;
         m_ImpactLightOn = true;
     }
     
