@@ -13,8 +13,19 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
 
     protected bool m_Destroy;
 
+    /// <summary>
+    /// Use with extreme caution!
+    /// </summary>
+    public bool m_AbortOnExpiration = false;
+
     public override void OnBulletExpires(BulletBehaviour b)
     {
+        if (m_AbortOnExpiration)
+        {
+            m_AbortOnExpiration = false;
+            return;
+        }
+
         m_Destroy = false;
 
         GameObject empty = GameObject.Instantiate(m_LeftOverEmptyObject);

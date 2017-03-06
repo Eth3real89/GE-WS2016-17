@@ -13,6 +13,8 @@ public class BulletFactory : MonoBehaviour {
     public BulletExpirationBehaviour m_Expire;
     public BulletOnExpireBehaviour m_OnExpire;
 
+    public float m_Damage = 15f;
+
     public virtual BulletBehaviour CreateBullet()
     {
         BulletBehaviour prefab = GetPrefab(m_Type);
@@ -28,6 +30,13 @@ public class BulletFactory : MonoBehaviour {
 
         copy.m_OnExpire = Instantiate(m_OnExpire);
         copy.m_OnExpire.transform.parent = copy.transform;
+
+        if (copy is Bullet)
+        {
+            BulletDamage dmg = copy.GetComponentInChildren<BulletDamage>();
+            if (dmg != null)
+                dmg.m_DamageAmount = m_Damage;
+        }
 
         return copy;
     }

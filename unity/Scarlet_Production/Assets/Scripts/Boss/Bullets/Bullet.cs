@@ -13,6 +13,8 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
     public BulletHomingMovement m_DeflectedMovement;
     public BulletExpirationBehaviour m_DeflectedExpiration;
 
+    public bool m_IgnoreExpirationBehaviour = false;
+
     public override void Launch(BulletCallbacks callbacks)
     {
         base.Launch(callbacks);
@@ -26,7 +28,8 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
     {
         m_KillBullet = true;
 
-        m_OnExpire.OnBulletExpires(this);
+        if (!m_IgnoreExpirationBehaviour)
+            m_OnExpire.OnBulletExpires(this);
 
         if (this.gameObject != null)
             Destroy(this.gameObject);
@@ -86,6 +89,7 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
 
     public void OnSuccessfulHit()
     {
+        m_IgnoreExpirationBehaviour = true;
         m_BulletCallbacks.OnBulletHitTarget(this);
     }
 
@@ -111,6 +115,7 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
             ((BulletHomingMovement)m_Movement).m_Target = m_Damage.m_DeflectTarget.transform;
             ((BulletHomingMovement)m_Movement).m_Speed = (speed < 0) ? ((BulletHomingMovement)m_Movement).m_Speed : speed;
 
+            m_IgnoreExpirationBehaviour = true;
 
             m_Expiration.CancelBehaviour(this);
             m_Expiration = m_DeflectedExpiration;
@@ -119,6 +124,7 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
         }
         else
         {
+            m_IgnoreExpirationBehaviour = true;
             m_BulletCallbacks.OnBulletHitTarget(this);
         }
     }

@@ -80,6 +80,10 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     protected override void OnScarletDead()
     {
+        DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
+        if (hittable != null)
+            hittable.m_HitCount = 0;
+
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();

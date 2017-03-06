@@ -72,5 +72,7 @@ public class BulletPathIndicator : BossAttack
     {
         if (m_Timer != null)
             StopCoroutine(m_Timer);
+
+        m_Indicator.SetActive(false);
     }
 }

@@ -336,6 +336,16 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
             }
         }
         catch { }
+
+        try
+        {
+            BulletOnExpLaunchCombo[] bulletCombos = FindObjectsOfType<BulletOnExpLaunchCombo>();
+            foreach(BulletOnExpLaunchCombo boelc in bulletCombos)
+            {
+                boelc.m_AbortOnExpiration = true;
+            }
+        }
+        catch { }
     }
 
     protected virtual void CancelHitBehaviours()
