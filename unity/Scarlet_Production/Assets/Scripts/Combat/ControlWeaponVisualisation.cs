@@ -5,9 +5,7 @@ using UnityEngine;
 public class ControlWeaponVisualisation : MonoBehaviour {
 
     public GameObject m_LeftHand;
-    public GameObject m_RightHand;
 
-    public GameObject[] m_WeaponsLeft;
     public GameObject[] m_WeaponsRight;
 
     public Color[] trailColor;
@@ -43,11 +41,11 @@ public class ControlWeaponVisualisation : MonoBehaviour {
         }
 
         m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
-        
+        m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
+
+
         m_Trails_Right_Small = m_WeaponsRight[0].GetComponentsInChildren<MeleeWeaponTrail>(true);
         m_Trails_Right_Big = m_WeaponsRight[1].GetComponentsInChildren<MeleeWeaponTrail>(true);
-
-        m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
 
         m_Particles_Right_Small = m_WeaponsRight[0].GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right_Big = m_WeaponsRight[1].GetComponentsInChildren<ParticleSystem>(true);
@@ -58,19 +56,11 @@ public class ControlWeaponVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Left)
         {
-            ParticleSystem.EmissionModule emission = particles.emission;
-            if (particles.name.Equals("particle_smoke_big"))
-            {
-                emission.rateOverDistance = m_HighParticleEmissionSmoke;
-            }
-            else if (particles.name.Equals("particle_direction_big"))
-            {
-                emission.rateOverDistance = m_HighParticleEmissionDirection;
-            }
+            particles.Play();
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.Colors = trailColorFull;
+            trail.Emit = true;
         }
     }
 
@@ -81,6 +71,8 @@ public class ControlWeaponVisualisation : MonoBehaviour {
             foreach (ParticleSystem particles in m_Particles_Right_Small)
             {
                 ParticleSystem.EmissionModule emission = particles.emission;
+                ParticleSystem.MainModule main = particles.main;
+                main.startLifetime = 1f;
                 if (particles.name.Equals("particle_smoke_big"))
                 {
                     emission.rateOverDistance = m_HighParticleEmissionSmoke;
@@ -99,6 +91,8 @@ public class ControlWeaponVisualisation : MonoBehaviour {
             foreach (ParticleSystem particles in m_Particles_Right_Big)
             {
                 ParticleSystem.EmissionModule emission = particles.emission;
+                ParticleSystem.MainModule main = particles.main;
+                main.startLifetime = 1f;
                 if (particles.name.Equals("particle_smoke_big"))
                 {
                     emission.rateOverDistance = m_HighParticleEmissionSmoke;
@@ -120,22 +114,12 @@ public class ControlWeaponVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Left)
         {
-            ParticleSystem.EmissionModule emission = particles.emission;
-            if (particles.name.Equals("particle_smoke_big"))
-            {
-                emission.rateOverDistance = m_LowParticleEmissionSmoke;
-            }
-            else if (particles.name.Equals("particle_direction_big"))
-            {
-                emission.rateOverDistance = m_LowParticleEmissionDirection;
-            }
+            particles.Stop();
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.Colors = trailColorLight;
-
+            trail.Emit = false;
         }
-
     }
 
 
@@ -146,6 +130,8 @@ public class ControlWeaponVisualisation : MonoBehaviour {
             foreach (ParticleSystem particles in m_Particles_Right_Small)
             {
                 ParticleSystem.EmissionModule emission = particles.emission;
+                ParticleSystem.MainModule main = particles.main;
+                main.startLifetime = 0.25f;
                 if (particles.name.Equals("particle_smoke_big"))
                 {
                     emission.rateOverDistance = m_LowParticleEmissionSmoke;
@@ -165,6 +151,8 @@ public class ControlWeaponVisualisation : MonoBehaviour {
             foreach (ParticleSystem particles in m_Particles_Right_Big)
             {
                 ParticleSystem.EmissionModule emission = particles.emission;
+                ParticleSystem.MainModule main = particles.main;
+                main.startLifetime = 0.25f;
                 if (particles.name.Equals("particle_smoke_big"))
                 {
                     emission.rateOverDistance = m_LowParticleEmissionSmoke;
