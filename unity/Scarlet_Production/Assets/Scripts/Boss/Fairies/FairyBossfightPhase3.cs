@@ -19,8 +19,18 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
         m_Callback = callbacks;
 
         m_AEFairyController.Initialize(this);
+        StartCoroutine(PlayCutscene());
+    }
 
+    protected virtual IEnumerator PlayCutscene()
+    {
+        m_PlayerControls.DisableAllCommands();
+
+        new FARQ().ClipName("ae_fairy").Location(m_AEFairyController.transform).StartTime(23.1f).EndTime(31.3f).Volume(0.5f).PlayUnlessPlaying();
+        yield return new WaitForSeconds(31.3f - 23.1f);
         m_Callback.OnPhaseStart(this);
+
+        m_PlayerControls.EnableAllCommands();
 
         StartCombo();
     }

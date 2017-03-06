@@ -4,9 +4,38 @@ using UnityEngine;
 
 public class ArmorFairyPhase4Controller : ArmorFairyController {
 
+    protected static float[][] s_HeavyAttackSoundsFemale =
+    {
+        new float[] {69.7f, 71.3f },
+    };
+
+    protected static float[][] s_LightAttackSoundsFemale =
+    {
+        new float[] {69.7f, 71.3f },
+        new float[] {76f, 77.2f },
+    };
+
+    protected static float[][] s_StaggerSoundsFemale =
+    {
+        new float[] {76.5f, 77.9f },
+        new float[] {79.4f, 80.5f },
+    };
+
     public CharacterHealth m_ArmorHealth;
 
     public TurnTowardsScarlet m_TurnTowardsScarletCommand;
+
+    protected override void InitializeAudioPlayers()
+    {
+        m_HeavyAttackPlayer = new FancyAudioRandomClip(s_HeavyAttackSoundsFemale, this.transform, "ae_fairy", 1f);
+        m_LightAttackPlayer = new FancyAudioRandomClip(s_LightAttackSoundsFemale, this.transform, "ae_fairy", 1f);
+       // m_ParriedPlayer = new FancyAudioRandomClip(s_ParriedAttackSounds, this.transform, "armor_fairy", 1f);
+        m_StaggerPlayer = new FancyAudioRandomClip(s_StaggerSoundsFemale, this.transform, "ae_fairy", 1f);
+
+        ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+        if (hittable != null)
+            hittable.SetSoundset(false);
+    }
 
     protected override bool HandleHitDuringCombo(Damage dmg)
     {

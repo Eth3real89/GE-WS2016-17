@@ -23,13 +23,29 @@ public class ArmorFairyHittable : BossHittable
     protected FancyAudioRandomClip m_HitPlayer;
     protected FancyAudioRandomClip m_RipostePlayer;
 
+    protected bool m_SoundSetMale;
+
     public bool m_DontPlaySound = false;
 
     private void Start()
     {
-        m_HitPlayer = new FancyAudioRandomClip(s_HitSounds, this.transform, "armor_fairy", 1f);
+        SetSoundset(true);
+    }
 
-        m_RipostePlayer = new FancyAudioRandomClip(s_RipostedSounds, this.transform, "armor_fairy", 1f);
+    public void SetSoundset(bool male)
+    {
+        m_SoundSetMale = male;
+
+        if (male)
+        {
+            m_HitPlayer = new FancyAudioRandomClip(s_HitSounds, this.transform, "armor_fairy", 1f);
+            m_RipostePlayer = new FancyAudioRandomClip(s_RipostedSounds, this.transform, "armor_fairy", 1f);
+        }
+        else
+        {
+            m_HitPlayer = new FancyAudioRandomClip(new float[][]{ new float[] {76f, 77.2f } }, this.transform, "ae_fairy", 1f);
+            m_RipostePlayer = new FancyAudioRandomClip(new float[][] { new float[] { 76f, 77.2f } }, this.transform, "ae_fairy", 1f);
+        }
     }
 
     public override void Hit(Damage damage)
@@ -42,7 +58,7 @@ public class ArmorFairyHittable : BossHittable
             PlayHitSound(damage);
         }
 
-        if (!m_DontPlaySound && healthBefore >= 0.3f * m_Health.m_MaxHealth && m_Health.m_CurrentHealth < 0.3f * m_Health.m_MaxHealth)
+        if (m_SoundSetMale && !m_DontPlaySound && healthBefore >= 0.3f * m_Health.m_MaxHealth && m_Health.m_CurrentHealth < 0.3f * m_Health.m_MaxHealth)
         {
             StartPlayingCriticalHPSound();
         }

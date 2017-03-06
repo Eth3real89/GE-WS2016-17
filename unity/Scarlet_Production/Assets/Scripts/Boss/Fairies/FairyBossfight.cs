@@ -51,6 +51,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         else if (m_StartPhase == Phase.Phase4)
         {
             OnPhaseEnd(m_Phase3);
+            FemaleStartCrying();
         }
     }
 
@@ -92,6 +93,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 4 over " + this);
             m_Phase4.enabled = false;
 
+            FemaleStopCrying();
             ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
@@ -100,6 +102,16 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     protected override void OnScarletDead()
     {
+        m_Phase1.m_AEFairyController.gameObject.SetActive(true);
+        FemaleStopCrying();
+
+        ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+        if (hittable != null)
+        {
+            hittable.StopPlayingCriticalHPSound();
+            hittable.SetSoundset(true);
+        }
+
         m_Phase1.CancelAndReset();
         m_Phase2.CancelAndReset();
         m_Phase3.CancelAndReset();
@@ -152,5 +164,35 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     public void OnPhaseStart(FairyBossfightPhase phase)
     {
+        if (phase is FairyBossfightPhase3)
+        {
+            FemaleStartCrying();
+        }
+    }
+
+    public void FemaleStartCrying()
+    {
+        float start, end;
+        if (UnityEngine.Random.value > 0.5)
+        {
+            start = 31.4f;
+            end = 43.6f;
+        }
+        else
+        {
+            start = 44.1f;
+            end = 50.4f;
+        }
+
+        new FARQ().ClipName("ae_fairy").Location(m_Phase3.enabled? m_Phase3.m_AEFairyController.transform : m_Phase4.m_ArmorFairyController.transform)
+            .StartTime(start).EndTime(end).Volume(0.5f).OnFinish(FemaleStartCrying).PlayUnlessPlaying();
+    }
+
+    public void FemaleStopCrying()
+    {
+        new FARQ().ClipName("ae_fairy").Location(m_Phase3.m_AEFairyController.transform).StartTime(31.4f).EndTime(43.6f).Volume(0.5f).StopIfPlaying();
+        new FARQ().ClipName("ae_fairy").Location(m_Phase3.m_AEFairyController.transform).StartTime(44.1f).EndTime(50.4f).Volume(0.5f).StopIfPlaying();
+        new FARQ().ClipName("ae_fairy").Location(m_Phase4.m_ArmorFairyController.transform).StartTime(31.4f).EndTime(43.6f).Volume(0.5f).StopIfPlaying();
+        new FARQ().ClipName("ae_fairy").Location(m_Phase4.m_ArmorFairyController.transform).StartTime(44.1f).EndTime(50.4f).Volume(0.5f).StopIfPlaying();
     }
 }
