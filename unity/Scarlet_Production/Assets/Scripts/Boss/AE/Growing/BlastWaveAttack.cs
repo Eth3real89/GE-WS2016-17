@@ -25,6 +25,7 @@ public class BlastWaveAttack : GrowingAEAttack {
     protected float m_AngleAtLaunch;
 
     public PlayerHittable m_Target;
+    public bool m_ReusePrefab = true;
     protected Vector3 m_InitialCenterPos;
 
     private IEnumerator m_GrowEnumerator;
@@ -61,7 +62,7 @@ public class BlastWaveAttack : GrowingAEAttack {
 
     private void LoadPrefab()
     {
-        if (m_Visuals != null && m_BlastDamage != null) // = was already loaded, can be re-used.
+        if (m_Visuals != null && m_BlastDamage != null && m_ReusePrefab) // = was already loaded, can be re-used.
             return;
 
         GameObject blastWave = Instantiate(AEPrefabManager.Instance.m_BlastWaveWrapper);

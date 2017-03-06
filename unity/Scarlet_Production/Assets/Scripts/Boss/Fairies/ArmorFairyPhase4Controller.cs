@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,6 +25,24 @@ public class ArmorFairyPhase4Controller : ArmorFairyController {
     public CharacterHealth m_ArmorHealth;
 
     public TurnTowardsScarlet m_TurnTowardsScarletCommand;
+
+    public float m_MaxAllowedScarletDistance = 4f;
+    public float m_MinTimeBetweenWaves = 2.5f;
+    public AttackCombo m_OnScarletEscapesDistance;
+    protected AttackCombo m_OnScarletEscapesDistanceInstance;
+    protected IEnumerator m_KeepScarletCloseEnumerator;
+    protected int m_DistanceValuesLag = 4;
+
+    protected float m_TimeLastWaveLaunched;
+
+    public override void Initialize(FairyControllerCallbacks callbacks)
+    {
+        base.Initialize(callbacks);
+
+        m_TimeLastWaveLaunched = -1;
+
+        m_OnScarletEscapesDistance.m_Callback = this;
+    }
 
     protected override void InitializeAudioPlayers()
     {
@@ -165,4 +184,96 @@ public class ArmorFairyPhase4Controller : ArmorFairyController {
         StartNextCombo();
     }
 
+    public override void OnComboStart(AttackCombo combo)
+    {
+        base.OnComboStart(combo);
+
+        if (combo.transform.parent == m_OnScarletEscapesDistance)
+        {
+            combo.m_Animator.SetInteger("WhichAttackAnimation", 3);
+            combo.m_Animator.SetTrigger("MeleeDownswingTrigger");
+            combo.m_Animator.SetTrigger("MeleeUpswingTrigger");
+
+            m_ActiveCombo = null; // means: this one can't be cancelled!!
+        }
+
+        if (m_KeepScarletCloseEnumerator == null && combo.transform.parent != m_OnScarletEscapesDistance)
+        {
+            m_KeepScarletCloseEnumerator = EnsureScarletIsClose();
+            StartCoroutine(m_KeepScarletCloseEnumerator);
+        }
+    }
+
+    public override void OnComboEnd(AttackCombo combo)
+    {
+        base.OnComboEnd(combo);
+
+        if (m_KeepScarletCloseEnumerator != null)
+            StopCoroutine(m_KeepScarletCloseEnumerator);
+
+        m_KeepScarletCloseEnumerator = EnsureScarletIsClose();
+        StartCoroutine(m_KeepScarletCloseEnumerator);
+    }
+
+    protected virtual IEnumerator EnsureScarletIsClose()
+    {
+        List<float> distValues = new List<float>();
+
+        while(true)
+        {
+            float distanceToScarlet = Vector3.Distance(m_BossHittable.transform.position, m_Scarlet.transform.position);
+            distValues.Add(distanceToScarlet);
+
+            bool tooFarAway = CheckDistanceValues(distValues);
+            if (tooFarAway)
+            {
+                break;
+            }
+
+            yield return null;
+        }
+
+        float t = 0;
+        do
+        {
+            for(int i = 0; i < 4; i++)
+                m_TurnTowardsScarletCommand.DoTurn();
+            yield return null;
+        } while ((t += Time.deltaTime) < 0.1f);
+
+        OnScarletTooFarAway();
+    }
+
+    protected void OnScarletTooFarAway()
+    {
+        CancelComboIfActive();
+        if (m_KeepScarletCloseEnumerator != null)
+            StopCoroutine(m_KeepScarletCloseEnumerator);
+
+        m_OnScarletEscapesDistanceInstance = Instantiate(m_OnScarletEscapesDistance, m_OnScarletEscapesDistance.transform);
+        m_OnScarletEscapesDistanceInstance.m_Callback = this;
+        m_OnScarletEscapesDistanceInstance.LaunchCombo();
+        m_TimeLastWaveLaunched = Time.timeSinceLevelLoad;
+    }
+
+    protected bool CheckDistanceValues(List<float> distValues)
+    {
+        if (distValues.Count < m_DistanceValuesLag || m_TimeLastWaveLaunched + m_MinTimeBetweenWaves > Time.timeSinceLevelLoad)
+            return false;
+
+        while (distValues.Count > m_DistanceValuesLag)
+        {
+            distValues.RemoveAt(0);
+        }
+
+        for (int i = 0; i < distValues.Count; i++)
+        {
+            if (distValues[i] < m_MaxAllowedScarletDistance)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
