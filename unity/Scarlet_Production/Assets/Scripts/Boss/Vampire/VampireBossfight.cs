@@ -66,6 +66,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase2Controller.m_NotDeactivated = true;
             m_Phase2Controller.StartPhase(this);
 
+            VampireHittable hittable = FindObjectOfType<VampireHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
+
             RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase2Controller)
@@ -77,6 +81,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.m_NotDeactivated = true;
             m_Phase3Controller.StartPhase(this);
 
+            VampireHittable hittable = FindObjectOfType<VampireHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
+
             RegenerateScarletAfterPhase();
         }
         else if (whichPhase == m_Phase3Controller)
@@ -85,6 +93,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.enabled = false;
             m_Phase3Controller.m_NotDeactivated = false;
             print("Win!");
+
+            VampireHittable hittable = FindObjectOfType<VampireHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
         }
     }
 
@@ -94,6 +106,14 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();
+
+        VampireHittable hittable = FindObjectOfType<VampireHittable>();
+        if (hittable != null)
+        {
+            hittable.m_DontPlaySound = false;
+            hittable.StopPlayingCriticalHPSound();
+        }
+
         base.OnScarletDead();
     }
 

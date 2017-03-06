@@ -12,8 +12,7 @@ public class VampireController : BossController {
         new float[] {123.8f, 125.109f},
         new float[] {126.7f, 128.304f},
     };
-
-    protected static int s_LastPlayedLightAttackSound = -1;
+    private int s_LightAttackSoundCount = -1;
 
     protected static float[][] s_HeavyAttackSounds = {
         new float[] {128.9f, 130.725f},
@@ -21,8 +20,6 @@ public class VampireController : BossController {
         new float[] {136.3f, 137.92f},
         new float[] {138.9f, 140.28f},
     };
-
-    protected static int s_LastPlayedHeavyAttackSound = -1;
 
     public Animator m_VampireAnimator;
     public BossfightCallbacks m_Callback;
@@ -47,6 +44,9 @@ public class VampireController : BossController {
     protected IEnumerator m_DashEnumerator;
     protected IEnumerator m_BetweenCombosEnumerator;
 
+    protected FancyAudioRandomClip m_LightAttackPlayer;
+    protected FancyAudioRandomClip m_HeavyAttackPlayer;
+
     public virtual void StartPhase(BossfightCallbacks callbacks)
     {
         m_NotDeactivated = true;
@@ -58,6 +58,13 @@ public class VampireController : BossController {
         m_Callback = callbacks;
 
         RegisterAnimationEvents();
+        SetupAudio();
+    }
+
+    protected virtual void SetupAudio()
+    {
+        m_LightAttackPlayer = new FancyAudioRandomClip(s_LightAttackSounds, this.transform, "vampire");
+        m_HeavyAttackPlayer = new FancyAudioRandomClip(s_HeavyAttackSounds, this.transform, "vampire");
     }
 
     public void RegisterAnimationEvents()
@@ -312,7 +319,6 @@ public class VampireController : BossController {
 
     protected virtual void OnBulletAttackStart()
     {
-        PlayAttackSound(true);
         m_VampireAnimator.SetInteger("WhichBulletStance", 1);
         m_VampireAnimator.SetTrigger("BulletStanceTrigger");
     }
@@ -324,7 +330,6 @@ public class VampireController : BossController {
 
     protected virtual void OnBeamAttackStart()
     {
-        PlayAttackSound(true);
         m_VampireAnimator.SetTrigger("BeamStanceTrigger");
     }
 
@@ -335,29 +340,21 @@ public class VampireController : BossController {
 
     protected virtual void OnBlastWaveStart()
     {
-        PlayAttackSound(false);
         m_VampireAnimator.SetInteger("WhichBlastWave", 1);
         m_VampireAnimator.SetTrigger("BlastWaveTrigger");
     }
     
     protected void PlayAttackSound(bool light)
     {
-        int lastUsedSound = light ? s_LastPlayedLightAttackSound : s_LastPlayedHeavyAttackSound;
-        float[][] sounds = light ? s_LightAttackSounds : s_HeavyAttackSounds;
-
-        int soundIndex;
-        do
-        {
-            soundIndex = UnityEngine.Random.Range(0, sounds.Length);
-        } while (soundIndex == lastUsedSound && sounds.Length > 1);
-
-        float[] sound = sounds[soundIndex];
-        new FARQ().ClipName("vampire").Location(transform).StartTime(sound[0]).EndTime(sound[1]).Volume(1).Play();
-
         if (light)
-            s_LastPlayedLightAttackSound = soundIndex;
+        {
+            if(++s_LightAttackSoundCount % 4 == 0)
+                m_LightAttackPlayer.PlayRandomSound();
+        }
         else
-            s_LastPlayedHeavyAttackSound = soundIndex;
+        {
+            m_HeavyAttackPlayer.PlayRandomSound();
+        }
     }
 
     public override void CancelAndReset()

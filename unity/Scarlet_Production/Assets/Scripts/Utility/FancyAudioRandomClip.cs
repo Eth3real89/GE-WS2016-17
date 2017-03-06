@@ -24,7 +24,7 @@ public class FancyAudioRandomClip {
     {
         int soundIndex = ChooseAudioClipData();
         float[] sound = m_Sounds[soundIndex];
-        new FARQ().ClipName("werewolf").Location(m_Transform).StartTime(sound[0]).EndTime(sound[1]).Volume(m_Volume).Play();
+        new FARQ().ClipName(m_AudioName).Location(m_Transform).StartTime(sound[0]).EndTime(sound[1]).Volume(m_Volume).Play();
     }
 
     protected int ChooseAudioClipData()

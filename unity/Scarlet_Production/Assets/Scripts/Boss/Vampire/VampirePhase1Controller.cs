@@ -61,6 +61,24 @@ public class VampirePhase1Controller : VampireController
         m_Callback.PhaseEnd(this);
     }
 
+    protected override void OnBulletAttackStart()
+    {
+        PlayAttackSound(m_CurrentComboIndex != 3);
+        base.OnBulletAttackStart();
+    }
+
+    protected override void OnBeamAttackStart()
+    {
+        PlayAttackSound(false);
+        base.OnBeamAttackStart();
+    }
+
+    protected override void OnBlastWaveStart()
+    {
+        PlayAttackSound(true);
+        base.OnBlastWaveStart();
+    }
+
     public override void OnComboEnd(AttackCombo combo)
     {
         if (m_EndInitialized)

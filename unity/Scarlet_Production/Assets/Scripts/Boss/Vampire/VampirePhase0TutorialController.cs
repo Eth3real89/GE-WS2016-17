@@ -476,4 +476,22 @@ public class VampirePhase0TutorialController : VampireController {
         base.CancelAndReset();
         m_TutorialVisuals.HideTutorial(1f);
     }
+
+    protected override void OnBulletAttackStart()
+    {
+        PlayAttackSound(true);
+        base.OnBulletAttackStart();
+    }
+
+    protected override void OnBeamAttackStart()
+    {
+        PlayAttackSound(false);
+        base.OnBeamAttackStart();
+    }
+
+    protected override void OnBlastWaveStart()
+    {
+        PlayAttackSound(true);
+        base.OnBlastWaveStart();
+    }
 }
