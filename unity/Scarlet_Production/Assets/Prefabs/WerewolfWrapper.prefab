@@ -2757,7 +2757,7 @@ GameObject:
   - component: {fileID: 199879805535946344}
   - component: {fileID: 198476554849068598}
   m_Layer: 0
-  m_Name: particle_direction_big
+  m_Name: particle_direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5942,7 +5942,7 @@ GameObject:
   - component: {fileID: 199422960027530910}
   - component: {fileID: 198895654448737728}
   m_Layer: 0
-  m_Name: particle_direction_big
+  m_Name: particle_direction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6144,7 +6144,7 @@ GameObject:
   - component: {fileID: 199815100059204488}
   - component: {fileID: 198198014574184454}
   m_Layer: 0
-  m_Name: particle_smoke_big
+  m_Name: particle_smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6344,7 +6344,7 @@ GameObject:
   - component: {fileID: 199959380811325366}
   - component: {fileID: 198080962167023284}
   m_Layer: 0
-  m_Name: particle_smoke_big
+  m_Name: particle_smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20006,6 +20006,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LeftHand: {fileID: 1047310545987210}
   m_RightHand: {fileID: 1425519755793168}
+  trailColor:
+  - {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114277282232704426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20286,7 +20288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ceb339997c8304e9354d4ce5ddc9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emit: 0
+  _emit: 1
   _emitTime: 0
   _material: {fileID: 2100000, guid: 5f402d1520e5fa74fa21e08f85b71370, type: 2}
   _lifeTime: 0.25
@@ -20995,7 +20997,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ceb339997c8304e9354d4ce5ddc9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emit: 0
+  _emit: 1
   _emitTime: 0
   _material: {fileID: 2100000, guid: 5f402d1520e5fa74fa21e08f85b71370, type: 2}
   _lifeTime: 0.25
@@ -23315,7 +23317,7 @@ ParticleSystem:
   simulationSpeed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -23359,7 +23361,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 418890746
+  randomSeed: -1085743569
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -23782,9 +23784,9 @@ ParticleSystem:
     radius: 0.03
     angle: 10
     length: 5
-    boxX: 0.05
-    boxY: 0.05
-    boxZ: 0.7
+    boxX: 4
+    boxY: 5
+    boxZ: 2
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -24139,10 +24141,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 1191182335
+          rgba: 3539992575
         key1:
           serializedVersion: 2
-          rgba: 1191182335
+          rgba: 16777215
         key2:
           serializedVersion: 2
           rgba: 0
@@ -24169,8 +24171,8 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 0
-        atime1: 52043
+        atime0: 52043
+        atime1: 65535
         atime2: 65535
         atime3: 65535
         atime4: 0
@@ -24179,7 +24181,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 2
       minGradient:
         key0:
           serializedVersion: 2
@@ -25916,7 +25918,7 @@ ParticleSystem:
   simulationSpeed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -25960,7 +25962,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -536920443
+  randomSeed: -337759013
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -26383,9 +26385,9 @@ ParticleSystem:
     radius: 0.03
     angle: 10
     length: 5
-    boxX: 0.05
-    boxY: 0.05
-    boxZ: 0.7
+    boxX: 4
+    boxY: 5
+    boxZ: 2
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -26740,10 +26742,10 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 1191182335
+          rgba: 3539992575
         key1:
           serializedVersion: 2
-          rgba: 1191182335
+          rgba: 16777215
         key2:
           serializedVersion: 2
           rgba: 0
@@ -26770,8 +26772,8 @@ ParticleSystem:
         ctime5: 0
         ctime6: 0
         ctime7: 0
-        atime0: 0
-        atime1: 52043
+        atime0: 52043
+        atime1: 65535
         atime2: 65535
         atime3: 65535
         atime4: 0
@@ -26780,7 +26782,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_NumColorKeys: 2
-        m_NumAlphaKeys: 3
+        m_NumAlphaKeys: 2
       minGradient:
         key0:
           serializedVersion: 2
@@ -28517,7 +28519,7 @@ ParticleSystem:
   simulationSpeed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -28561,12 +28563,12 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -791262780
+  randomSeed: -19091210
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -29020,9 +29022,9 @@ ParticleSystem:
     radius: 0.03
     angle: 10
     length: 5
-    boxX: 0.05
-    boxY: 0.05
-    boxZ: 0.7
+    boxX: 4
+    boxY: 5
+    boxZ: 2
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -31154,7 +31156,7 @@ ParticleSystem:
   simulationSpeed: 1
   looping: 1
   prewarm: 0
-  playOnAwake: 0
+  playOnAwake: 1
   autoRandomSeed: 1
   startDelay:
     scalar: 0
@@ -31198,12 +31200,12 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2058716277
+  randomSeed: -373839923
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: 0.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -31657,9 +31659,9 @@ ParticleSystem:
     radius: 0.03
     angle: 10
     length: 5
-    boxX: 0.05
-    boxY: 0.05
-    boxZ: 0.7
+    boxX: 4
+    boxY: 5
+    boxZ: 2
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}

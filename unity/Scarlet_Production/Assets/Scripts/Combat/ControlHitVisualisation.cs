@@ -8,6 +8,11 @@ public class ControlHitVisualisation : MonoBehaviour {
     public GameObject m_LeftHand;
     public GameObject m_RightHand;
 
+    public Color[] trailColor;
+
+    private Color[] trailColorLight;
+    private Color[] trailColorFull;
+
     private MeleeWeaponTrail[] m_Trails_Left;
     private MeleeWeaponTrail[] m_Trails_Right;
     private ParticleSystem[] m_Particles_Left;
@@ -15,6 +20,13 @@ public class ControlHitVisualisation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        for(var i = 0; i< trailColor.Length; i++)
+        {
+            trailColorFull[i] = trailColor[i];
+            trailColor[i].a = 0.5f;
+            trailColorLight[i] = trailColor[i];
+        }
+
         m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
         m_Trails_Right = m_RightHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
         
@@ -26,11 +38,19 @@ public class ControlHitVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Left)
         {
-            particles.Play();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = 70;
+            }
+            else if (particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = 280;
+            }
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.Emit = true;
+            trail.Colors = trailColorFull;
         }
     }
 
@@ -38,11 +58,20 @@ public class ControlHitVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Right)
         {
-            particles.Play();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = 70;
+            }
+            else if (particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = 280;
+            }
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.Emit = true;
+            trail.Colors = trailColorFull;
+
         }
     }
 
@@ -51,11 +80,20 @@ public class ControlHitVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Left)
         {
-            particles.Stop();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = 40;
+            }
+            else if(particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = 130;
+            }
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Left)
         {
-            trail.Emit = false;
+            trail.Colors = trailColorLight;
+
         }
 
     }
@@ -65,11 +103,19 @@ public class ControlHitVisualisation : MonoBehaviour {
     {
         foreach (ParticleSystem particles in m_Particles_Right)
         {
-            particles.Stop();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = 40;
+            }
+            else if (particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = 130;
+            }
         }
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.Emit = false;
+            trail.Colors = trailColorLight;
         }
     }
 

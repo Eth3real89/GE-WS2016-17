@@ -31,8 +31,9 @@ public class MeleeWeaponTrail : MonoBehaviour
 
 	[SerializeField]
 	Color[] _colors;
+    public Color[] Colors { set { _colors = value; } }
 
-	[SerializeField]
+    [SerializeField]
 	float[] _sizes;
 
 	[SerializeField]
