@@ -39,6 +39,7 @@ public class ControlHitVisualisation : MonoBehaviour {
         
         m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
+        Debug.Log(m_Particles_Right);
     }
 
     public void EnableVisualisationLeft()
