@@ -1,12 +1,19 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GrowingConeAttack : GrowingAEAttack {
 
-    public GameObject m_AttackVisualsContainer;
-    public GrowingConeAttackVisuals m_AttackVisuals;
-    public CircularAttackDamage m_Damage;
+    public enum ConeVisualsType
+    {
+        SeeThrough
+    }
+
+    public ConeVisualsType m_VisualsType;
+    public Transform m_AttackContainer;
+    protected GrowingConeAttackVisuals m_AttackVisuals;
+    protected CircularAttackDamage m_Damage;
 
     public float m_Angle;
     public float m_EndSize;
@@ -21,12 +28,29 @@ public class GrowingConeAttack : GrowingAEAttack {
     public override void StartAttack()
     {
         base.StartAttack();
-        m_AttackVisuals = m_AttackVisualsContainer.GetComponent<GrowingConeAttackVisuals>();
+        LoadPrefab();
 
         m_GrowEnumerator = Grow();
         StartCoroutine(m_GrowEnumerator);
     }
 
+    protected void LoadPrefab()
+    {
+        if (m_Damage != null)
+            return;
+
+        if (m_VisualsType == ConeVisualsType.SeeThrough)
+        {
+            m_Damage = Instantiate(AEPrefabManager.Instance.m_ConeSeeThroughVisuals).GetComponent<CircularAttackDamage>();
+            m_AttackVisuals = m_Damage.GetComponent<GrowingConeAttackVisuals>();
+
+            m_Damage.transform.parent = m_AttackContainer;
+
+            m_Damage.transform.localPosition = Vector3.zero;
+            m_Damage.transform.localScale = Vector3.one;
+            m_Damage.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        }
+    }
 
     protected virtual IEnumerator Grow()
     {

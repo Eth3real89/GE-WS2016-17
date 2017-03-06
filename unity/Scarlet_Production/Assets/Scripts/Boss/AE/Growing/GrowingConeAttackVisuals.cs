@@ -12,4 +12,8 @@ public interface GrowingConeAttackVisuals {
 
     void ScaleTo(Vector3 scale);
     void UpdateVisuals();
+
+    void SetStartRadius(float radius);
+    void SetColor(Color c);
+
 }

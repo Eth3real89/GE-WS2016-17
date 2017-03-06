@@ -22,6 +22,9 @@ public class ConeCanvasBasedVisuals : MonoBehaviour, GrowingConeAttackVisuals
         this.m_Slider.value = m_Angle;
 
         this.m_Canvas.transform.rotation = Quaternion.Euler(90, this.transform.eulerAngles.y - m_Angle / 2, 0);
+
+        Material m = m_Canvas.GetComponentInChildren<Image>().material;
+        m_Canvas.GetComponentInChildren<Image>().material = Instantiate(m);
     }
 
     public void HideAttack()
@@ -53,5 +56,17 @@ public class ConeCanvasBasedVisuals : MonoBehaviour, GrowingConeAttackVisuals
 
     public void UpdateVisuals()
     {
+    }
+
+    public void SetStartRadius(float radius)
+    {
+        m_Canvas.GetComponentInChildren<Image>().material.SetFloat(Shader.PropertyToID("_CutUpTo"), radius * 0.25f);
+    }
+
+    public void SetColor(Color c)
+    {
+        int colorId = Shader.PropertyToID("_Color");
+        Material m = m_Canvas.GetComponentInChildren<Image>().material;
+        m.SetColor(colorId, c);
     }
 }
