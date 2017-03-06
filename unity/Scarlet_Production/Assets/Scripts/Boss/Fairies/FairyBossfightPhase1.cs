@@ -108,6 +108,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
 
         m_AEFairyController.m_NotDeactivated = false;
         m_ArmorFairyController.m_NotDeactivated = false;
+        m_ArmorFairyController.UnRegisterEventsForSound();
 
         m_Active = false;
         m_ArmorHealth.m_CurrentHealth = m_ArmorHealth.m_MaxHealth;

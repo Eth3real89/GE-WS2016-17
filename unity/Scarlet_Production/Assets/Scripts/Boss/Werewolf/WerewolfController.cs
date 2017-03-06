@@ -98,11 +98,6 @@ public class WerewolfController : BossController {
         PlayStaggerSound();
     }
 
-    public override void OnComboRiposted(AttackCombo combo)
-    {
-        base.OnComboRiposted(combo);
-    }
-
     public override void OnComboParried(AttackCombo combo)
     {
         PlayParriedSound();

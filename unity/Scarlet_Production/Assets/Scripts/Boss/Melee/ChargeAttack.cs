@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
+    public static string START_RUNNING_EVENT = "charge_attack_start_run";
+
     private enum State {None, Aim, Run};
     private State m_State;
 
@@ -96,6 +98,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         m_Animator.SetTrigger("ChargeStartTrigger");
         yield return new WaitForSeconds(0.5f);
 
+        EventManager.TriggerEvent(START_RUNNING_EVENT);
         m_State = State.Run;
 
         m_BossCollider.m_Handler = this;

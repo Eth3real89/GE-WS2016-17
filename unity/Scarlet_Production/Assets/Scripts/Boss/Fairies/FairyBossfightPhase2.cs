@@ -46,6 +46,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
 
         m_AEFairyController.m_NotDeactivated = false;
         m_ArmorFairyController.m_NotDeactivated = false;
+        m_ArmorFairyController.UnRegisterEventsForSound();
 
         m_AEFairyController.DisableLightGuard();
 

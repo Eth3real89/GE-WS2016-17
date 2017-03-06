@@ -63,6 +63,10 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             m_Phase2.enabled = true;
             m_Phase2.StartPhase(this);
             RegenerateScarletAfterPhase();
+
+            ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
         }
         else if (whichPhase == m_Phase2)
         {
@@ -71,6 +75,10 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             m_Phase3.enabled = true;
             m_Phase3.StartPhase(this);
             RegenerateScarletAfterPhase();
+
+            ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
         }
         else if (whichPhase == m_Phase3)
         {
@@ -83,6 +91,10 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 4 over " + this);
             m_Phase4.enabled = false;
+
+            ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+            if (hittable != null)
+                hittable.StopPlayingCriticalHPSound();
         }
     }
 
