@@ -83,6 +83,11 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();
+
+        m_Phase1Controller.m_NotDeactivated = false;
+        m_Phase2Controller.m_NotDeactivated = false;
+        m_Phase3Controller.m_NotDeactivated = false;
+
         base.OnScarletDead();
     }
 

@@ -6,10 +6,11 @@ using UnityEngine;
 public class DemonHunterPhase2Controller : DemonHunterController
 {
 
-
     private const float m_FirstAttackShootSpeed = 2f;
     private const float m_SecondAttackShootSpeed = 4f;
     private const float m_FifthAttackShootSpeed = 0.3f;
+
+    private const int BEFORE_DROP_GRENADE = 3;
 
     protected bool m_EndInitialized;
 
@@ -27,6 +28,10 @@ public class DemonHunterPhase2Controller : DemonHunterController
 //        Time.timeScale = 3;
 
         base.StartPhase(callback);
+
+        // because this definitely happens after a hit :)
+        m_SkipForceKeepWindowOpen = true;
+        m_SkipReload = true;
     }
 
     private void Update()
@@ -42,10 +47,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
     }
 
     protected override IEnumerator StartNextComboAfter(float time)
-    {
-        // this reset is necessary in this phase (attacks are decided randomly here!)
-        m_TimesFled = 0;
-        
+    {        
         yield return base.StartNextComboAfter(time);
 
         if (m_CurrentComboIndex != 4 && m_CurrentComboIndex != 8 && m_CurrentComboIndex != 9)
@@ -94,6 +96,11 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     protected void DecideOnNextAttack()
     {
+        if (m_TimesFled >= 2)
+        {
+            m_CurrentComboIndex = BEFORE_DROP_GRENADE;
+            return;
+        }
 
         // cancelled before first attack -> just act as if it had happened
         if (m_CurrentComboIndex == -1)
@@ -239,9 +246,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
         if (!m_NotDeactivated)
             yield break;
 
-        m_TimesFled = 0;
-
-        m_RangeCheck = RangeCheck();
+        m_RangeCheck = RangeCheckRoutine();
         StartCoroutine(m_RangeCheck);
 
         yield return new WaitForSeconds(combo.m_TimeAfterCombo);
