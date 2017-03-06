@@ -3971,6 +3971,10 @@ MonoBehaviour:
   m_RightHand: {fileID: 1166407397154306}
   trailColor:
   - {r: 0.57254905, g: 0, b: 0, a: 1}
+  m_LowParticleEmissionSmoke: 40
+  m_HighParticleEmissionSmoke: 100
+  m_LowParticleEmissionDirection: 130
+  m_HighParticleEmissionDirection: 280
 --- !u!114 &114210010297586784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10490,7 +10494,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.8
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -11003,7 +11007,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 250
+      scalar: 130
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13122,12 +13126,12 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -557139553
+  randomSeed: 94094898
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.8
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -13640,7 +13644,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 50
+      scalar: 40
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -18323,7 +18327,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.8
+      scalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -18836,7 +18840,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 250
+      scalar: 130
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -20960,7 +20964,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.8
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -21473,7 +21477,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 50
+      scalar: 40
       maxCurve:
         serializedVersion: 2
         m_Curve:
