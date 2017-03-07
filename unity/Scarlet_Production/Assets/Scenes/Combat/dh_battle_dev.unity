@@ -982,7 +982,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
-  m_StartPhase: 1
+  m_StartPhase: 0
   m_Phase1Controller: {fileID: 10650776}
   m_Phase2Controller: {fileID: 10650775}
   m_Phase3Controller: {fileID: 10650779}
@@ -1766,7 +1766,7 @@ Prefab:
     - target: {fileID: 114029304743515472, guid: 4fc929c026192934ca709c3d01c6e650,
         type: 2}
       propertyPath: m_StartAttackIndex
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4fc929c026192934ca709c3d01c6e650, type: 2}
@@ -3001,6 +3001,8 @@ MonoBehaviour:
   m_MinXAngle: 75
   m_YOffset: 1
   m_RotationChangeFactor: 4
+  m_DistanceLogBase: 10
+  m_DistanceMultiplier: 10
   m_Targets:
   - {fileID: 638130663}
   - {fileID: 10650774}
@@ -4333,6 +4335,8 @@ MonoBehaviour:
   m_MinXAngle: 35
   m_YOffset: 0.5
   m_RotationChangeFactor: 2
+  m_DistanceLogBase: 10
+  m_DistanceMultiplier: 10
   m_Targets:
   - {fileID: 638130663}
   - {fileID: 10650774}
@@ -4384,6 +4388,8 @@ MonoBehaviour:
   m_MinXAngle: 10
   m_YOffset: 1
   m_RotationChangeFactor: 4
+  m_DistanceLogBase: 10
+  m_DistanceMultiplier: 10
   m_Targets:
   - {fileID: 638130663}
   - {fileID: 10650774}

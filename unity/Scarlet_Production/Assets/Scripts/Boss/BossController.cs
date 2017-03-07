@@ -342,7 +342,8 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
             BulletOnExpLaunchCombo[] bulletCombos = FindObjectsOfType<BulletOnExpLaunchCombo>();
             foreach(BulletOnExpLaunchCombo boelc in bulletCombos)
             {
-                boelc.m_AbortOnExpiration = true;
+                if (boelc.GetComponentInParent<BulletBehaviour>() != null)
+                    boelc.m_AbortOnExpiration = true;
             }
         }
         catch { }

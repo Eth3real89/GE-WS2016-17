@@ -47,7 +47,13 @@ public class DemonHunterPhase2Controller : DemonHunterController
     }
 
     protected override IEnumerator StartNextComboAfter(float time)
-    {        
+    {
+        if (m_CurrentComboIndex >= 4 && !m_DropGrenadeAttack.IsActive())
+        {
+            SetDropGrenadeAttackGoal(m_BossHittable.transform);
+            MakeProtectiveGrenadeNext();
+        }
+
         yield return base.StartNextComboAfter(time);
 
         if (m_CurrentComboIndex != 4 && m_CurrentComboIndex != 8 && m_CurrentComboIndex != 9)
