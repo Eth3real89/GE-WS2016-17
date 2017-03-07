@@ -9,6 +9,8 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
     public AudioSource m_OnHitAudio;
 
+    public OnDamageTakenListener m_HittableListener;
+
     protected HitInterject m_Interject;
 
     public float m_InvulerableSecondsAfterHit = 0.5f;
@@ -32,6 +34,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
             if (m_OnHitAudio != null)
                 m_OnHitAudio.Play();
+
+            if (m_HittableListener != null)
+                m_HittableListener.OnDamageTaken(damage);
 
             CameraController.Instance.Shake();
 
@@ -61,4 +66,10 @@ public class PlayerHittable : MonoBehaviour, Hittable {
     {
         m_Invulnerable = !vulnerable;
     }
+
+    public interface OnDamageTakenListener
+    {
+        void OnDamageTaken(Damage dmg);
+    }
+
 }
