@@ -93,19 +93,18 @@ public class CombatCamera : MonoBehaviour
     private void FindAveragePosition()
     {
         Vector3 averagePosition = new Vector3();
-        int numTargets = 0;
+
+        float top = float.NegativeInfinity, left = float.PositiveInfinity, right = float.NegativeInfinity, bottom = float.PositiveInfinity;
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
-            if (!m_Targets[i].activeSelf)
-                continue;
-
-            averagePosition += m_Targets[i].transform.position;
-            numTargets++;
+            top = Mathf.Max(top, m_Targets[i].transform.position.z);
+            left = Mathf.Min(left, m_Targets[i].transform.position.x);
+            right = Mathf.Max(right, m_Targets[i].transform.position.x);
+            bottom = Mathf.Min(bottom, m_Targets[i].transform.position.z);
         }
 
-        if (numTargets > 0)
-            averagePosition /= numTargets;
+        averagePosition = new Vector3(left * 0.5f + right * 0.5f, 0, top * 0.3f + bottom * 0.7f);
 
         m_AveragePosition = averagePosition;
     }
