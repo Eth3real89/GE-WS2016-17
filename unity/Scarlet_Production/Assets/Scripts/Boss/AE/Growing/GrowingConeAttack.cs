@@ -98,8 +98,12 @@ public class GrowingConeAttack : GrowingAEAttack {
 
         if (m_AttackVisuals != null)
             m_AttackVisuals.HideAttack();
-        m_Damage.DisableDamage();
-        m_Damage.m_Active = false;
+
+        if (m_Damage != null)
+        {
+            m_Damage.DisableDamage();
+            m_Damage.m_Active = false;
+        }
 
         if (m_GrowEnumerator != null)
             StopCoroutine(m_GrowEnumerator);
