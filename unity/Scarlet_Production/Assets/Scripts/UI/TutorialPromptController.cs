@@ -10,6 +10,7 @@ public class TutorialPromptController : MonoBehaviour {
     private Text tutorialText;
 
     private IEnumerator m_TutorialEnumerator;
+    protected float m_MaxBackgroundOpacity = 0.5f;
 
     // Use this for initialization
     void Start () {
@@ -75,7 +76,7 @@ public class TutorialPromptController : MonoBehaviour {
         float alphaBlack = tutorialImages[0].color.a;
         for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
         {
-            Color newBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue, t));
+            Color newBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue * m_MaxBackgroundOpacity, t));
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
             tutorialImages[0].color = newBlack;
             tutorialImages[1].color = newColorRed;
@@ -83,7 +84,7 @@ public class TutorialPromptController : MonoBehaviour {
 
             yield return null;
         }
-        tutorialImages[0].color = new Color(0, 0, 0, aValue);
+        tutorialImages[0].color = new Color(0, 0, 0, aValue * m_MaxBackgroundOpacity);
         tutorialImages[1].color = new Color(0.65f, 0, 0, aValue);
         tutorialText.color = new Color(0.65f, 0, 0, aValue);
     }
