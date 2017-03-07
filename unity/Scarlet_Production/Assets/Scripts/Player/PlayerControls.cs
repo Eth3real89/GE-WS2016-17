@@ -3,7 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryCommand.ParryCallback, PlayerAttackCommand.AttackCallback
+public class PlayerControls : MonoBehaviour, 
+    PlayerCommandCallback, 
+    PlayerParryCommand.ParryCallback, 
+    PlayerAttackCommand.AttackCallback,
+    PlayerHittable.OnDamageTakenListener
 {
 
     public PlayerCommand[] m_PlayerCommands;
@@ -109,6 +113,10 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
 
         if (m_AttackCommand != null)
             m_AttackCommand.m_AttackCallback = this;
+
+        PlayerHittable hittable = GetComponent<PlayerHittable>();
+        if (hittable != null)
+            hittable.m_HittableListener = this;
     }
 
     public void OnCommandEnd(string commandName, PlayerCommand command)
@@ -244,12 +252,6 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
     {// do nothing special
     }
 
-    public void OnParryFail()
-    {
-        if (m_StaggerCommand != null)
-            m_StaggerCommand.TriggerCommand();
-    }
-
     public void OnPlayerAttackParried()
     {
         if (m_ActiveCommand != null)
@@ -278,4 +280,11 @@ public class PlayerControls : MonoBehaviour, PlayerCommandCallback, PlayerParryC
         SlowTime.Instance.StopSlowMo();
         CameraController.Instance.ActivateDefaultCamera();
     }
+
+    public void OnDamageTaken(Damage dmg)
+    {
+        m_StaggerCommand.OnDamageTaken(dmg);
+    }
+
+
 }

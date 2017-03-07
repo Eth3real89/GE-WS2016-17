@@ -26,6 +26,9 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 
     public bool m_PerfectTrackingAtStart = true;
 
+    public bool m_OverrideDefaultDamage = false;
+    public float m_DamageAmount = 40f;
+
     private float m_PrevTurnSpeed;
 
     private IEnumerator m_ExpansionEnumerator;
@@ -35,6 +38,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         base.StartAttack();
 
         LoadPrefab();
+        SetDamage();
 
         if (m_PerfectTrackingAtStart)
         {
@@ -48,6 +52,14 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
 
         m_ExpansionEnumerator = BeforeExpansion();
         StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    protected virtual void SetDamage()
+    {
+        if (m_OverrideDefaultDamage)
+        {
+            m_Damage.m_DamageAmount = this.m_DamageAmount;
+        }
     }
 
     protected virtual void LoadPrefab()

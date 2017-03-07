@@ -28,6 +28,11 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     protected Color m_LastColor;
 
+    public override void StartAttack()
+    {
+        base.StartAttack();
+    }
+
     protected override IEnumerator Grow()
     {
         m_AttackVisuals.SetAngle(m_Angle);
@@ -40,20 +45,15 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         m_AttackVisuals.ShowAttack();
 
 
-        int colorId = Shader.PropertyToID("_Color");
-        Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
-        m_AttackVisualsContainer.GetComponentInChildren<Image>().material = Instantiate(m);
-
-        m_AttackVisualsContainer.GetComponentInChildren<Image>().material.SetFloat(Shader.PropertyToID("_CutUpTo"), m_MinDistance / m_EndSize * .25f);
+        m_AttackVisuals.SetStartRadius(m_MinDistance / m_EndSize);
 
         float t = 0;
         while ((t += Time.deltaTime) < m_GrowTime)
         {
             if (m_Angle != 0)
             {
-                m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
                 float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_GrowTime * (m_FlickerTimesSetup + 0.5f) * 180 * Mathf.Deg2Rad));
-                m.SetColor(colorId, Color.Lerp(m_FlickerFromColorSetup, m_FlickerToColorSetup, colorDeterminer));
+                m_AttackVisuals.SetColor(Color.Lerp(m_FlickerFromColorSetup, m_FlickerToColorSetup, colorDeterminer));
             }
             yield return null;
         }
@@ -84,11 +84,10 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
                 m_Boss.transform.Rotate(Vector3.up, m_RotationAngle * Time.deltaTime / m_RotationTime);
             }
 
-            Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
-            float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_RotationTime * (m_FlickerTimesAttack + 0.5f) * 180 * Mathf.Deg2Rad));
 
+            float colorDeterminer = 1 - Mathf.Abs(Mathf.Cos(t / m_RotationTime * (m_FlickerTimesAttack + 0.5f) * 180 * Mathf.Deg2Rad));
             m_LastColor = Color.Lerp(m_FlickerFromColorAttack, m_FlickerToColorAttack, colorDeterminer);
-            m.SetColor(colorId, m_LastColor);
+            m_AttackVisuals.SetColor(m_LastColor);
 
             yield return null;
         }
@@ -120,13 +119,10 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     private IEnumerator FlickerOut()
     {
-        int colorId = Shader.PropertyToID("_Color");
-
         float t = 0;
         while ((t += Time.deltaTime) < m_GrowTime / m_FadeInOutRatio)
         {
-            Material m = m_AttackVisualsContainer.GetComponentInChildren<Image>().material;
-            m.SetColor(colorId, Color.Lerp(m_FlickerToColorSetup, Color.black, t / (m_GrowTime / m_FadeInOutRatio)));
+            m_AttackVisuals.SetColor(Color.Lerp(m_FlickerToColorSetup, Color.black, t / (m_GrowTime / m_FadeInOutRatio)));
 
             yield return null;
         }

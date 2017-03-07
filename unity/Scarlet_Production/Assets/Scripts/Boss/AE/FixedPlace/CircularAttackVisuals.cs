@@ -171,4 +171,15 @@ public class CircularAttackVisuals : FixedPlaceAttackVisuals, GrowingConeAttackV
     {
         UpdateLines();
     }
+
+    public void SetStartRadius(float radius)
+    {
+        // not implemented, won't need to be
+        // (may possibly need to be, if we use this attack again ~.~ )
+    }
+
+    public void SetColor(Color c)
+    {
+        // not implemented, won't need to be
+    }
 }

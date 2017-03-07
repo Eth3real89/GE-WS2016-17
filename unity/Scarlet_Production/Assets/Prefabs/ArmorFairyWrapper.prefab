@@ -1964,6 +1964,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1139428103089804
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4194543747203240}
+  - component: {fileID: 114194332118317170}
+  m_Layer: 9
+  m_Name: ChargeHitWallDamage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1139507684314048
 GameObject:
   m_ObjectHideFlags: 1
@@ -8750,6 +8766,22 @@ GameObject:
   - component: {fileID: 4489642493704168}
   m_Layer: 0
   m_Name: MCH-hips.flex_s
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1625694771493618
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4993182131264554}
+  - component: {fileID: 114803122954189756}
+  m_Layer: 9
+  m_Name: ChargePickupDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16095,6 +16127,19 @@ Transform:
   m_Father: {fileID: 4892198021178012}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4194543747203240
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139428103089804}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.000001144409, y: 0, z: 0.0000012417635}
+  m_LocalScale: {x: 1.0000004, y: 0.99999994, z: 1.0000004}
+  m_Children: []
+  m_Father: {fileID: 4521578657337494}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4196057626797278
 Transform:
   m_ObjectHideFlags: 1
@@ -20279,7 +20324,9 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4993182131264554}
+  - {fileID: 4194543747203240}
   m_Father: {fileID: 4784866548176780}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -26396,6 +26443,19 @@ Transform:
   m_Father: {fileID: 4769106627083762}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4993182131264554
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625694771493618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4521578657337494}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4994073656363838
 Transform:
   m_ObjectHideFlags: 1
@@ -31665,7 +31725,7 @@ MonoBehaviour:
   m_Scarlet: {fileID: 0}
   m_NotDeactivated: 1
   m_Combos:
-  - {fileID: 114649934416363988}
+  - {fileID: 114399923924785784}
   - {fileID: 114755920316781770}
   - {fileID: 114899294854155294}
   - {fileID: 114476573915941600}
@@ -31879,6 +31939,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
+--- !u!114 &114194332118317170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1139428103089804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479165e9170331842a949d253152e2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Type: 1
+  m_BlockType: 0
+  m_Active: 1
+  m_Owner: {fileID: 1918826352540026}
+  m_DamageAmount: 35
 --- !u!114 &114234240229678810
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -31901,8 +31977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26049ee00e266034b9897189103f60b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_MaxHealth: 800
-  m_HealthStart: 800
+  m_MaxHealth: 1000
+  m_HealthStart: 1000
   m_HealthOld: 0
   m_CurrentHealth: 0
 --- !u!114 &114240068424625316
@@ -31931,9 +32007,11 @@ MonoBehaviour:
   m_DamageTrigger: {fileID: 114609028547984614}
   m_EnvironmentColliderContainers:
   - {fileID: 0}
+  m_ChargePickupDamage: {fileID: 114803122954189756}
+  m_ChargeHitWallDamage: {fileID: 114194332118317170}
   m_AimTime: 2
   m_MaxRunTime: 20
-  m_ChargeSpeed: 8
+  m_ChargeSpeed: 10
   m_StaggerTimeOnWallHit: 5
 --- !u!114 &114252308950675438
 MonoBehaviour:
@@ -31978,6 +32056,7 @@ MonoBehaviour:
   m_Expire: {fileID: 114093253292892510, guid: 379adc5dab509ae4d89dff8be12fadab, type: 2}
   m_OnExpire: {fileID: 114534221463241980, guid: 210857a2bc2f06c44a521f2f769b532e,
     type: 2}
+  m_Damage: 15
 --- !u!114 &114295932146692460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32210,6 +32289,7 @@ MonoBehaviour:
     type: 2}
   m_DeflectedExpiration: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef,
     type: 2}
+  m_IgnoreExpirationBehaviour: 0
 --- !u!114 &114511459552230490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -32821,6 +32901,22 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0.1}
   - {x: 0, y: 0, z: 0.2}
+--- !u!114 &114803122954189756
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1625694771493618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 479165e9170331842a949d253152e2aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Type: 1
+  m_BlockType: 0
+  m_Active: 1
+  m_Owner: {fileID: 1918826352540026}
+  m_DamageAmount: 15
 --- !u!114 &114806726161590732
 MonoBehaviour:
   m_ObjectHideFlags: 1

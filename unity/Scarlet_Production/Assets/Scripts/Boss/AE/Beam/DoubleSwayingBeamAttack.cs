@@ -17,6 +17,16 @@ public class DoubleSwayingBeamAttack : SwayingBeamAttack
         m_IgnoreNextEvent = false;
     }
 
+    protected override void SetDamage()
+    {
+        base.SetDamage();
+
+        if (m_OverrideDefaultDamage)
+        {
+            m_SecondDamage.m_DamageAmount = this.m_DamageAmount;
+        }
+    }
+
     protected override void LoadPrefab()
     {
         base.LoadPrefab();

@@ -8,6 +8,7 @@ public class PlayerStaggerCommand : PlayerCommand {
     private Rigidbody m_ScarletBody;
 
     public float m_StaggerTime;
+    public float m_MajorStaggerTime;
 
     private void Start()
     {
@@ -29,10 +30,18 @@ public class PlayerStaggerCommand : PlayerCommand {
         StartCoroutine(EndStaggerAfter(m_StaggerTime));
     }
 
-    private void DoStagger()
+    public void TriggerMajorStagger()
+    {
+        m_Callback.OnCommandStart(m_CommandName, this);
+        DoStagger(true);
+
+        StartCoroutine(EndStaggerAfter(m_MajorStaggerTime));
+    }
+
+    private void DoStagger(bool major = false)
     {
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
-        m_Animator.SetTrigger("StaggerTrigger");
+        m_Animator.SetTrigger(major? "MajorStaggerTrigger" : "StaggerTrigger");
     }
 
     private IEnumerator EndStaggerAfter(float seconds)
@@ -55,5 +64,18 @@ public class PlayerStaggerCommand : PlayerCommand {
         public override void Update()
         {
         }
+    }
+
+    public void OnDamageTaken(Damage dmg)
+    {
+        if (StaggeringAttack(dmg))
+        {
+            m_ScarletBody.AddForce((dmg.m_Owner.transform.forward + new Vector3(0, 1, 0)) * m_ScarletBody.mass, ForceMode.Impulse);
+        }
+    }
+
+    protected bool StaggeringAttack(Damage dmg)
+    {
+        return false;
     }
 }

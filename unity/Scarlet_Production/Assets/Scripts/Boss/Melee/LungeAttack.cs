@@ -122,12 +122,17 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_LungeTrigger.m_Active = false;
         m_BossCollider.m_Active = false;
 
+        m_State = State.None;
+
         if (m_HitSignal != null)
             m_HitSignal.SetActive(false);
     }
 
     public void OnLand()
     {
+        if (m_State == State.None)
+            return;
+
         m_State = State.Land;
 
         m_Animator.SetTrigger("UprightTrigger");
@@ -139,6 +144,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     private IEnumerator WaitAfterLand()
     {
         yield return new WaitForSeconds(m_TimeAfterLand);
+
+        if (m_State == State.None)
+            yield break;
 
         MLog.Log(LogType.BattleLog, 2, "WaitAfterLand, LungeAttack");
 

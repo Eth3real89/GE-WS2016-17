@@ -99,6 +99,6 @@ public class CircularAttackDamage : AEAttackDamage {
 
     public override float DamageAmount()
     {
-        return 40f;
+        return m_DamageAmount;
     }
 }

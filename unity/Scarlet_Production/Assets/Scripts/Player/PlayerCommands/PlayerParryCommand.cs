@@ -11,19 +11,17 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
     public ParryCallback m_ParryCallback;
 
-    public float m_TooLateParryTime = 0.05f;
     public float m_PerfectParryTime = 0.025f;
     public float m_OkParryTime = 0.125f;
-    public float m_TooSoonParryTime = 0.05f;
+    public float m_ParryCooldownTime = 0.05f;
 
     public AudioSource m_ParryAudioPlayer;
     public AudioClip m_BlockAudio;
     public AudioClip m_ParryAudio;
 
-    private enum ParryState { TooLate, Perfect, Ok, TooSoon, None };
+    private enum ParryState { Perfect, Ok, Cooldown, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
-
 
     private void Start()
     {
@@ -48,8 +46,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         EventManager.TriggerEvent("user_parry");
 
         m_ScarletHittable.RegisterInterject(this);
-        m_CurrentState = ParryState.TooLate;
-        m_ParryTimer = SetParryState(m_TooLateParryTime, ParryState.Perfect);
+        m_CurrentState = ParryState.Perfect;
+        m_ParryTimer = SetParryState(m_PerfectParryTime, ParryState.Ok);
         StartCoroutine(m_ParryTimer);
 
         m_Animator.SetTrigger("ParryTrigger");
@@ -60,19 +58,13 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         yield return new WaitForSeconds(time);
         m_CurrentState = nextState;
 
-        if (nextState == ParryState.Perfect)
+        if (nextState == ParryState.Ok)
         {
-            m_ParryTimer = SetParryState(m_PerfectParryTime, ParryState.Ok);
+            m_ParryTimer = SetParryState(m_OkParryTime, ParryState.Cooldown);
             StartCoroutine(m_ParryTimer);
         }
-        else if (nextState == ParryState.Ok)
-        {
-            m_ParryTimer = SetParryState(m_OkParryTime, ParryState.TooSoon);
-            StartCoroutine(m_ParryTimer);
-        }
-        else if (nextState == ParryState.TooSoon)
-        {
-            m_ParryTimer = SetParryState(m_TooSoonParryTime, ParryState.None);
+        else if (nextState == ParryState.Cooldown) {
+            m_ParryTimer = SetParryState(m_ParryCooldownTime, ParryState.None);
             StartCoroutine(m_ParryTimer);
         }
         else if (nextState == ParryState.None)
@@ -93,13 +85,9 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         if (dmg.Blockable() == Damage.BlockableType.None)
             return false;
 
-        if (m_CurrentState == ParryState.None)
+        if (m_CurrentState == ParryState.None || m_CurrentState == ParryState.Cooldown)
         {
             return false;
-        }
-        else if (m_CurrentState == ParryState.TooSoon || m_CurrentState == ParryState.TooLate)
-        {
-            return FailedParry(dmg);
         }
         else if (m_CurrentState == ParryState.Perfect && dmg.Blockable() != Damage.BlockableType.OnlyBlock)
         {
@@ -160,22 +148,10 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         }
     }
 
-    private bool FailedParry(Damage dmg)
-    {
-        CameraController.Instance.Shake();
-
-        if (m_ParryCallback != null)
-            m_ParryCallback.OnParryFail();
-
-        dmg.OnSuccessfulHit();
-        return true;
-    }
-
     public interface ParryCallback
     {
         void OnPerfectParry();
         void OnBlock();
-        void OnParryFail();
     }
 
 }

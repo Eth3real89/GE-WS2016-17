@@ -60,6 +60,8 @@ public class AEPrefabManager : MonoBehaviour {
         }
     }
 
+    public GameObject m_ConeSeeThroughVisuals;
+
     private void Start()
     {
         if (_Instance == null)
