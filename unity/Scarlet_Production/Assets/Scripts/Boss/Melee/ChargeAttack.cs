@@ -19,7 +19,10 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     public BossMeleeDamage m_DamageTrigger;
 
     public GameObject[] m_EnvironmentColliderContainers;
-    private List<Collider> m_EnvironmentColliders;
+    private List<GameObject> m_EnvironmentColliders;
+
+    public Damage m_ChargePickupDamage;
+    public Damage m_ChargeHitWallDamage;
 
     private IEnumerator m_StateTimer;
 
@@ -53,7 +56,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     private void ReferenceColliders()
     {
-        m_EnvironmentColliders = new List<Collider>();
+        m_EnvironmentColliders = new List<GameObject>();
 
         if (m_EnvironmentColliderContainers != null)
         {
@@ -61,7 +64,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
             {
                 foreach (Collider coll in obj.GetComponentsInChildren<Collider>())
                 {
-                    m_EnvironmentColliders.Add(coll);
+                    m_EnvironmentColliders.Add(coll.gameObject);
                 }
             }
         }
@@ -139,7 +142,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         {
             m_Animator.SetTrigger("ChargePinTrigger");
             yield return new WaitForSeconds(0.5f);
-            DealDamageToScarlet(m_Scarlet, new ChargeHitWallDamage());
+            DealDamageToScarlet(m_Scarlet, m_ChargeHitWallDamage);
             yield return new WaitForSeconds(0.5f);
 
             EnableScarletControls();
@@ -176,9 +179,9 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     public void HandleCollision(Collider other, bool initialCollision)
     {
-        if (initialCollision && m_State == State.Run)
+        if (m_State == State.Run && initialCollision)
         {
-            if (m_EnvironmentColliders.IndexOf(other) >= 0)
+            if (m_EnvironmentColliders.IndexOf(other.gameObject) >= 0)
             {
                 if (m_StateTimer != null)
                     StopCoroutine(m_StateTimer);
@@ -194,7 +197,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
                 {
                     EnableScarletControls();
                     m_CarryingScarlet = false;
-                    DealDamageToScarlet(m_Scarlet, new ChargeHitWallDamage());
+                    DealDamageToScarlet(m_Scarlet, m_ChargeHitWallDamage);
                 }
 
                 if (m_StaggerTimeOnWallHit > 0)
@@ -220,18 +223,16 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     public void HandleScarletCollision(Collider other)
     {
-        DealDamageToScarlet(m_Scarlet, new ChargePickUpDamage());
+        DealDamageToScarlet(m_Scarlet, m_ChargePickupDamage);
         DisableScarletControls();
-
-        m_DamageTrigger.m_Active = false;
-        m_BossCollider.m_Active = false;
     }
 
     private void DealDamageToScarlet(GameObject other, Damage damage)
     {
-        Hittable hittable = other.GetComponent<Hittable>();
+        PlayerHittable hittable = other.GetComponent<PlayerHittable>();
         if (hittable != null)
         {
+            hittable.MakeVulnerable(true);
             hittable.Hit(damage);
             m_BossCollider.m_Active = false;
 
@@ -276,32 +277,6 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     {
     }
 
-    private class ChargePickUpDamage : Damage
-    {
-        public override BlockableType Blockable()
-        {
-            return BlockableType.None;
-        }
-
-        public override float DamageAmount()
-        {
-            return 15;
-        }
-    }
-
-    private class ChargeHitWallDamage : Damage
-    {
-        public override BlockableType Blockable()
-        {
-            return BlockableType.None;
-        }
-
-        public override float DamageAmount()
-        {
-            return 30f;
-        }
-    }
-
     private class ChargeHitWallWithScarletCallback : DamageCollisionHandler
     {
 
@@ -317,7 +292,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
             //if (m_Attack.m_CarryingScarlet)
             //{
                 m_Attack.HandleCollision(other, initialCollision);
-           // }
+            // }
         }
 
         public void HandleScarletCollision(Collider other)

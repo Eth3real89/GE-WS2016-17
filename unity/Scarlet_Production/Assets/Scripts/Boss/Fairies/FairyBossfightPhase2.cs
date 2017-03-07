@@ -13,6 +13,8 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
     public GameObject m_Shield;
     protected bool m_EndInitialized = false;
 
+    public PlayerControls m_PlayerControls;
+
     public override void StartPhase(FairyPhaseCallbacks callbacks)
     {
         base.StartPhase(callbacks);
@@ -60,19 +62,14 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
     {
         m_AEFairyCollider.isTrigger = false;
         m_AEFairyCollider.enabled = true;
+        m_PlayerControls.DisableAllCommands();
 
         m_AEFairyController.ExpandLightGuard();
-
-        float t = 0;
-        float reanimateTime = 2f;
-        while ((t += Time.deltaTime) < reanimateTime)
-        {
-            m_AEFairyHealth.m_CurrentHealth = Mathf.Lerp(m_AEFairyHealth.m_CurrentHealth, m_AEFairyHealth.m_MaxHealth, t / reanimateTime);
-            yield return null;
-        }
+        yield return new WaitForSeconds(2f);
 
         m_AEFairyHealth.m_CurrentHealth = m_AEFairyHealth.m_MaxHealth;
         m_AEFairyHealth.transform.rotation = Quaternion.Euler(0, 0, 0);
+        m_PlayerControls.EnableAllCommands();
 
         base.EndPhase();
     }

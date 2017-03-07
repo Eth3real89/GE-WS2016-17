@@ -56,4 +56,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
         yield return new WaitForSeconds(m_InvulerableSecondsAfterHit);
         m_Invulnerable = false;
     }
+
+    public void MakeVulnerable(bool vulnerable)
+    {
+        m_Invulnerable = !vulnerable;
+    }
 }
