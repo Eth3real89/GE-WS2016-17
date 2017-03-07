@@ -16,6 +16,16 @@ public class CombatCamera : MonoBehaviour
     public float m_YOffset = 0.5f;
     public float m_RotationChangeFactor = 2f;
 
+    /// <summary>
+    /// Bigger value = zoom stays closer
+    /// </summary>
+    public float m_DistanceLogBase = 10f;
+
+    /// <summary>
+    /// Bigger value = zoom moves further away
+    /// </summary>
+    public float m_DistanceMultiplier = 10f;
+
     private float m_CurrentAngle;
 
     public GameObject[] m_Targets;
@@ -131,7 +141,7 @@ public class CombatCamera : MonoBehaviour
         }
         else
         {
-            m_Distance = m_MinDistance + ((float) Math.Log10(maxDistanceToCenter) * 10);
+            m_Distance = m_MinDistance + ((float) Math.Log(maxDistanceToCenter, m_DistanceLogBase) * m_DistanceMultiplier);
         }
 
         m_Distance = Mathf.Max(m_MinDistance, m_Distance);
