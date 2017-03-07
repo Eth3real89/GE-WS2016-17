@@ -21,6 +21,9 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     public float m_TurnTime = 2f;
     private float m_PrevTurnSpeed;
 
+    public bool m_OverrideDefaultDamage = false;
+    public float m_DamageAmount = 40f;
+
     private IEnumerator m_ExpansionEnumerator;
 
     public override void StartAttack()
@@ -28,6 +31,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         base.StartAttack();
 
         LoadPrefab();
+        SetDamage();
 
         EventManager.TriggerEvent(BeamAEAttack.START_EVENT_NAME);
 
@@ -38,6 +42,14 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
 
         m_ExpansionEnumerator = BeforeExpansion();
         StartCoroutine(m_ExpansionEnumerator);
+    }
+
+    protected virtual void SetDamage()
+    {
+        if (m_OverrideDefaultDamage)
+        {
+            m_Damage.m_DamageAmount = this.m_DamageAmount;
+        }
     }
 
     protected virtual void LoadPrefab()
