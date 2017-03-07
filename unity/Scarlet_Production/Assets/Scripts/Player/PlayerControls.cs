@@ -252,12 +252,6 @@ public class PlayerControls : MonoBehaviour,
     {// do nothing special
     }
 
-    public void OnParryFail()
-    {
-        if (m_StaggerCommand != null)
-            m_StaggerCommand.TriggerCommand();
-    }
-
     public void OnPlayerAttackParried()
     {
         if (m_ActiveCommand != null)
