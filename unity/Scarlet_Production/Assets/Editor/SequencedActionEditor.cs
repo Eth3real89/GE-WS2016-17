@@ -13,6 +13,7 @@ namespace SequencedActionCreator
         private SequencedActionController m_Controller;
         private SerializedObject m_SerializedController;
         private SerializedProperty m_SequencedActionList;
+        private Vector2 m_ScrollPos;
 
         private int m_SelectedSequencedAction;
 
@@ -99,31 +100,35 @@ namespace SequencedActionCreator
             }
 
             SerializedProperty actions = m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents");
+
+            m_ScrollPos = EditorGUILayout.BeginScrollView(m_ScrollPos);
             for (int i = 0; i < actions.arraySize; i++)
             {
                 GUILayout.BeginVertical(EditorStyles.helpBox);
                 BuildActionSettings(actions.GetArrayElementAtIndex(i));
 
                 // Buttons to move or delete actions
+                GUILayout.Space(10);
+
                 GUILayout.BeginHorizontal();
-                if (i == 0)
-                    GUI.enabled = false;
-                if (GUILayout.Button("Move up", GUILayout.Width(150)))
-                {
-                    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i - 1).objectReferenceValue;
-                    actions.GetArrayElementAtIndex(i - 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
-                    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
-                }
-                GUI.enabled = true;
-                if (i == actions.arraySize - 1)
-                    GUI.enabled = false;
-                if (GUILayout.Button("Move down", GUILayout.Width(150)))
-                {
-                    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i + 1).objectReferenceValue as UnityEngine.Object;
-                    actions.GetArrayElementAtIndex(i + 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
-                    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
-                }
-                GUI.enabled = true;
+                //if (i == 0)
+                //    GUI.enabled = false;
+                //if (GUILayout.Button("Move up", GUILayout.Width(150)))
+                //{
+                //    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i - 1).objectReferenceValue;
+                //    actions.GetArrayElementAtIndex(i - 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
+                //    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
+                //}
+                //GUI.enabled = true;
+                //if (i == actions.arraySize - 1)
+                //    GUI.enabled = false;
+                //if (GUILayout.Button("Move down", GUILayout.Width(150)))
+                //{
+                //    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i + 1).objectReferenceValue as UnityEngine.Object;
+                //    actions.GetArrayElementAtIndex(i + 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
+                //    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
+                //}
+                //GUI.enabled = true;
                 if (GUILayout.Button("Delete Action", GUILayout.Width(150)))
                 {
                     actions.DeleteArrayElementAtIndex(i);
@@ -132,14 +137,27 @@ namespace SequencedActionCreator
                 GUILayout.EndHorizontal();
                 GUILayout.EndVertical();
             }
+            EditorGUILayout.EndScrollView();
 
             GUILayout.Space(15);
         }
 
         private void BuildActionSettings(SerializedProperty action)
         {
-            BuildTimeSettings(action);
+            EditorGUILayout.BeginHorizontal();
+            bool shouldAnimateTransform = ShouldAnimateTransformToggle(action);
+            BuildTimeSettings(action, shouldAnimateTransform);
+            EditorGUILayout.EndHorizontal();
 
+            if (shouldAnimateTransform)
+                BuildTransformAnimationSettings(action);
+            else
+                BuildFunctionSettings(action);
+
+        }
+
+        private void BuildFunctionSettings(SerializedProperty action)
+        {
             // Selection for the method to be called
             EditorGUILayout.BeginHorizontal();
             action.FindPropertyRelative("m_GameObject").objectReferenceValue =
@@ -207,18 +225,58 @@ namespace SequencedActionCreator
             EditorGUILayout.EndHorizontal();
         }
 
-        private void BuildTimeSettings(SerializedProperty action)
+        private void BuildTransformAnimationSettings(SerializedProperty action)
+        {
+            EditorGUILayout.BeginHorizontal();
+            TransformValues(action.FindPropertyRelative("m_StartTransform"), "Start");
+            GUILayout.Space(20);
+            TransformValues(action.FindPropertyRelative("m_EndTransform"), "End");
+            EditorGUILayout.EndVertical();
+        }
+
+        private void TransformValues(SerializedProperty transform, string label)
+        {
+            EditorGUILayout.BeginVertical(GUILayout.Width(400));
+            transform.FindPropertyRelative("m_Position").vector3Value =
+                EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Position").vector3Value);
+            transform.FindPropertyRelative("m_Rotation").vector3Value =
+                EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Rotation").vector3Value);
+            transform.FindPropertyRelative("m_Scale").vector3Value =
+                EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Scale").vector3Value);
+            TransformShortcut(transform);
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void TransformShortcut(SerializedProperty transform)
+        {
+            GUILayout.Space(5);
+            Transform t = EditorGUILayout.ObjectField("Use Transform Values", null, typeof(Transform), true, GUILayout.Width(400)) as Transform;
+            if (t == null)
+                return;
+            transform.FindPropertyRelative("m_Position").vector3Value = t.position;
+            transform.FindPropertyRelative("m_Rotation").vector3Value = t.rotation.eulerAngles;
+            transform.FindPropertyRelative("m_Scale").vector3Value = t.localScale;
+        }
+
+        private void BuildTimeSettings(SerializedProperty action, bool durationRequired)
         {
             // Time settings for the action
-            EditorGUILayout.BeginHorizontal();
             action.FindPropertyRelative("m_StartTime").floatValue = EditorGUILayout.FloatField("Start Time:",
                 action.FindPropertyRelative("m_StartTime").floatValue, GUILayout.Width(350));
-
             GUILayout.Space(10);
-
+            GUI.enabled = durationRequired;
             action.FindPropertyRelative("m_Duration").floatValue = EditorGUILayout.FloatField("Duration:",
                 action.FindPropertyRelative("m_Duration").floatValue, GUILayout.Width(350));
-            EditorGUILayout.EndHorizontal();
+            GUI.enabled = true;
+        }
+
+        private bool ShouldAnimateTransformToggle(SerializedProperty action)
+        {
+            // Toggle for the actionType
+            GUILayout.Space(10);
+            action.FindPropertyRelative("m_AnimateTransform").boolValue = EditorGUILayout.Toggle("Animate Transform",
+                action.FindPropertyRelative("m_AnimateTransform").boolValue, GUILayout.Width(200));
+            return action.FindPropertyRelative("m_AnimateTransform").boolValue;
         }
 
         private void BuildAddActionButton()
