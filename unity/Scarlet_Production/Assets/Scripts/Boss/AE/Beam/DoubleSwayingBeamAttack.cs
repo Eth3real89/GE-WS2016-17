@@ -88,6 +88,7 @@ public class DoubleSwayingBeamAttack : SwayingBeamAttack
     {
         base.CancelAttack();
         m_SecondDamage.CancelDamage();
+        m_SecondDamage.gameObject.SetActive(false);
     }
 
     public override void OnRotation(BeamAEDamage damage, float angle)
