@@ -283,8 +283,8 @@ public class PlayerControls : MonoBehaviour,
 
     public void OnDamageTaken(Damage dmg)
     {
-        m_StaggerCommand.OnDamageTaken(dmg);
+        // this is a useful callback, but it is not currently used.
+        // could be used to implement counter damage.
     }
-
 
 }

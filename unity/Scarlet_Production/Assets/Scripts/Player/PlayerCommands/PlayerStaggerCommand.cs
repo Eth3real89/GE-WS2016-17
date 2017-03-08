@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class PlayerStaggerCommand : PlayerCommand {
 
+    protected static PlayerStaggerCommand s_Instance;
+
+    public static void StaggerScarlet(bool throwToGround, Transform awayFrom)
+    {
+        print("Stagger Scarlet!");
+    }
+
     private Rigidbody m_ScarletBody;
 
     public float m_StaggerTime;
@@ -12,6 +19,9 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     private void Start()
     {
+        if (s_Instance == null)
+            s_Instance = this;
+
         m_CommandName = "Stagger";
     }
 
@@ -66,16 +76,13 @@ public class PlayerStaggerCommand : PlayerCommand {
         }
     }
 
-    public void OnDamageTaken(Damage dmg)
+    /*public void OnDamageTaken(Damage dmg)
     {
         if (StaggeringAttack(dmg))
         {
             m_ScarletBody.AddForce((dmg.m_Owner.transform.forward + new Vector3(0, 1, 0)) * m_ScarletBody.mass, ForceMode.Impulse);
         }
-    }
+    }*/
 
-    protected bool StaggeringAttack(Damage dmg)
-    {
-        return false;
-    }
+
 }
