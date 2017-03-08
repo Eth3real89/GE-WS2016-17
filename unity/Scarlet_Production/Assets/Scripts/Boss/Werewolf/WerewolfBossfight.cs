@@ -72,7 +72,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         {
             RegenerateScarletAfterPhase();
 
-            StartCoroutine(FlickerLightsOn());
+            StartCoroutine(FlickerLightsOn(false));
             if (m_Scarlet != null)
                 m_Scarlet.transform.position = new Vector3(0, m_Scarlet.transform.position.y, 0); // @todo better
             m_Phase2Controller.enabled = false;
@@ -243,12 +243,12 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         base.OnScarletDead();
     }
 
-    private IEnumerator FlickerLightsOn()
+    private IEnumerator FlickerLightsOn(bool setEffectsOn)
     {
         SetRedLightsEnabled(false);
 
         yield return new WaitForSeconds(0.1f);
-        SetStreetLightsEnabled(true, true);
+        SetStreetLightsEnabled(true, setEffectsOn);
         yield return new WaitForSeconds(0.1f);
         SetStreetLightsEnabled(false, false);
         yield return new WaitForSeconds(0.5f);
@@ -257,7 +257,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         for (int i = 0; i < 9; i++)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
-            SetStreetLightsEnabled(i % 2 == 0, i % 2 == 0);
+            SetStreetLightsEnabled(i % 2 == 0, i % 2 == 0 && setEffectsOn);
         }
     }
 

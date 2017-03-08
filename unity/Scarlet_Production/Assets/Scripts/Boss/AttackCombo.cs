@@ -134,6 +134,12 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
             _m_CurrentAttack.StopAllCoroutines();
         }
 
+        try
+        {
+            for (int i = 0; i < m_Attacks.Length; i++)
+                m_Attacks[i].CancelAttack();
+        } catch { }
+
         StopAllCoroutines();
     }
 
