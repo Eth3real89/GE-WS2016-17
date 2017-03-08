@@ -33,6 +33,7 @@ public class PlayerControls : MonoBehaviour,
     public void DisableAllCommands()
     {
         DisableCommands(m_PlayerCommands);
+        m_MoveCommand.StopMoving();
     }
 
     public void EnableAllCommands()

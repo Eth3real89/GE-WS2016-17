@@ -10,6 +10,7 @@ public class PlayerStaggerCommand : PlayerCommand {
     public static void StaggerScarlet(bool throwToGround, Transform awayFrom)
     {
         print("Stagger Scarlet!");
+        s_Instance.TriggerCommand();
     }
 
     private Rigidbody m_ScarletBody;
