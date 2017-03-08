@@ -3,6 +3,7 @@
 public class CameraTracking : MonoBehaviour
 {
     public TrackingBehaviour m_TrackingBehaviour;
+    public bool m_BlockTracking;
 
     private void Start()
     {
@@ -13,6 +14,9 @@ public class CameraTracking : MonoBehaviour
 
     void Update()
     {
+        if (m_BlockTracking)
+            return;
+
         Vector3 pos = m_TrackingBehaviour.CalculateCameraPosition();
         Quaternion rot = m_TrackingBehaviour.CalculateCameraRotation();
         transform.position = Vector3.Lerp(transform.position, pos, m_TrackingBehaviour.m_LerpSpeed);

@@ -145,8 +145,8 @@ namespace SequencedActionCreator
         private void BuildActionSettings(SerializedProperty action)
         {
             EditorGUILayout.BeginHorizontal();
+            BuildTimeSettings(action);
             bool shouldAnimateTransform = ShouldAnimateTransformToggle(action);
-            BuildTimeSettings(action, shouldAnimateTransform);
             EditorGUILayout.EndHorizontal();
 
             if (shouldAnimateTransform)
@@ -227,6 +227,12 @@ namespace SequencedActionCreator
 
         private void BuildTransformAnimationSettings(SerializedProperty action)
         {
+            GUILayout.Space(5);
+            action.FindPropertyRelative("m_GameObject").objectReferenceValue =
+                EditorGUILayout.ObjectField("GameObject:", (GameObject)action.FindPropertyRelative("m_GameObject").objectReferenceValue,
+                typeof(GameObject), true, GUILayout.Width(350));
+            GUILayout.Space(5);
+
             EditorGUILayout.BeginHorizontal();
             TransformValues(action.FindPropertyRelative("m_StartTransform"), "Start");
             GUILayout.Space(20);
@@ -258,16 +264,14 @@ namespace SequencedActionCreator
             transform.FindPropertyRelative("m_Scale").vector3Value = t.localScale;
         }
 
-        private void BuildTimeSettings(SerializedProperty action, bool durationRequired)
+        private void BuildTimeSettings(SerializedProperty action)
         {
             // Time settings for the action
             action.FindPropertyRelative("m_StartTime").floatValue = EditorGUILayout.FloatField("Start Time:",
                 action.FindPropertyRelative("m_StartTime").floatValue, GUILayout.Width(350));
             GUILayout.Space(10);
-            GUI.enabled = durationRequired;
             action.FindPropertyRelative("m_Duration").floatValue = EditorGUILayout.FloatField("Duration:",
                 action.FindPropertyRelative("m_Duration").floatValue, GUILayout.Width(350));
-            GUI.enabled = true;
         }
 
         private bool ShouldAnimateTransformToggle(SerializedProperty action)
