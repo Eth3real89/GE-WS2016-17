@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SequencedActionCreator;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -133,6 +134,7 @@ public class MainMenuController : MonoBehaviour
             GetComponent<AreaEnterTextController>().StartFadeIn();
 
             ActivateScarletControls();
+            SequencedActionController.Instance.PlayCutscene("Test");
         }
     }
 

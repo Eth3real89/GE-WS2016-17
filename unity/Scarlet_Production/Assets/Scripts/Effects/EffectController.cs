@@ -54,10 +54,16 @@ public class EffectController : GenericSingletonClass<EffectController>
         m_CurrentCoroutine = StartCoroutine(FadeBloom(m_DefaultBloomSettings.intensity, m_DefaultBloomSettings.radius, 0.5f));
     }
 
-    public void Empowered()
+    public void EmpoweredPeak()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(EmpoweredPeak());
+        m_CurrentCoroutine = StartCoroutine(Empowered(0.25f));
+    }
+
+    public void EmpoweredSlow()
+    {
+        StopCurrentCoroutine();
+        m_CurrentCoroutine = StartCoroutine(Empowered(1f));
     }
 
     public void SwitchWorld(WorldSwitcher.SwitchWorldCallback callback)
@@ -86,11 +92,11 @@ public class EffectController : GenericSingletonClass<EffectController>
         }
     }
 
-    IEnumerator EmpoweredPeak()
+    IEnumerator Empowered(float speed)
     {
         float maxFlareInt = 25;
         float defaultFlareInt = m_MoonFlare.brightness;
-        m_LerpTimer.Start(0.25f);
+        m_LerpTimer.Start(speed);
 
         while (m_MoonFlare.brightness != maxFlareInt)
         {
@@ -98,7 +104,7 @@ public class EffectController : GenericSingletonClass<EffectController>
             yield return null;
         }
         yield return new WaitForSeconds(1.5f);
-        m_LerpTimer.Start(0.25f);
+        m_LerpTimer.Start(speed);
         while (m_MoonFlare.brightness != defaultFlareInt)
         {
             m_MoonFlare.brightness = Mathf.Lerp(maxFlareInt, defaultFlareInt, m_LerpTimer.GetLerpProgress());

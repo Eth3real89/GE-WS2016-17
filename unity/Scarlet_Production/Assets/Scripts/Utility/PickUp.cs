@@ -33,7 +33,7 @@ public class PickUp : Interactor
         gameObject.SetActive(false);
         m_OnCollectibleVFX.Deactivate();
         OpenTheGates();
-        EffectController.Instance.Empowered();
+        EffectController.Instance.EmpoweredPeak();
         Destroy(this);
     }
 

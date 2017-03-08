@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class IngameMenuController : MonoBehaviour
@@ -15,7 +12,6 @@ public class IngameMenuController : MonoBehaviour
     private CameraTracking cameraTracking;
     private TrackingBehaviour previousTracking;
 
-    // Use this for initialization
     void Start()
     {
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
@@ -23,7 +19,6 @@ public class IngameMenuController : MonoBehaviour
         SelectItem(selected);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Cancel"))

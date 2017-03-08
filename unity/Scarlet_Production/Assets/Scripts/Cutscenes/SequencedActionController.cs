@@ -37,7 +37,6 @@ namespace SequencedActionCreator
             {
                 m_SequencedActionMap.Add(s.m_Name, s);
             }
-            PlayCutscene("Test");
         }
 
         public void PlayCutscene(string cutscene)
