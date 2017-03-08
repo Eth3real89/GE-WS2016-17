@@ -1391,6 +1391,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1167007995920680
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4491883540532740}
+  - component: {fileID: 114188881162508946}
+  m_Layer: 9
+  m_Name: LightCircle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1167709401078308
 GameObject:
   m_ObjectHideFlags: 1
@@ -1949,9 +1965,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4087363643774744}
-  - component: {fileID: 114217175205514184}
   m_Layer: 9
-  m_Name: RageHitCombo
+  m_Name: RageModeArenaContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3449,6 +3464,22 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1378337995973378
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4501944361575260}
+  - component: {fileID: 114217175205514184}
+  m_Layer: 9
+  m_Name: RageHitCombo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1382960817966896
 GameObject:
@@ -9495,12 +9526,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221404467321664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalPosition: {x: 10.749999, y: 1.25, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
-  - {fileID: 4156812124960306}
+  - {fileID: 4491883540532740}
   m_Father: {fileID: 4355606042540854}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4088020831307918
 Transform:
@@ -9894,7 +9925,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4087363643774744}
+  m_Father: {fileID: 4501944361575260}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4156989917404850
@@ -11561,6 +11592,7 @@ Transform:
   m_Children:
   - {fileID: 4301551126695752}
   - {fileID: 4021035942248142}
+  - {fileID: 4501944361575260}
   - {fileID: 4087363643774744}
   m_Father: {fileID: 4892376229216824}
   m_RootOrder: 3
@@ -12616,6 +12648,19 @@ Transform:
   m_Father: {fileID: 4667371425387640}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4491883540532740
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167007995920680}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4087363643774744}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4493989524755834
 Transform:
   m_ObjectHideFlags: 1
@@ -12657,6 +12702,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4225913062839256}
   m_RootOrder: 25
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4501944361575260
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1378337995973378}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.75, y: 1.25, z: 0}
+  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_Children:
+  - {fileID: 4156812124960306}
+  m_Father: {fileID: 4355606042540854}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4502286621806858
 Transform:
@@ -19691,6 +19750,7 @@ MonoBehaviour:
   m_TimeAfterLand: 0.5
   m_MaxDistance: 9999
   m_DamageInAir: 1
+  m_DoCrouch: 1
 --- !u!114 &114103438683500270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -19746,14 +19806,15 @@ MonoBehaviour:
   m_NumParryRequired: 4
   m_PlayerAttackCommand: {fileID: 0}
   m_PlayerParryCommand: {fileID: 0}
-  m_MinHuntTime: 4
-  m_MaxHuntTime: 6
+  m_MinHuntTime: 5
+  m_MaxHuntTime: 8
   m_BossHealth: {fileID: 114344973080775448}
   m_BossTurn: {fileID: 114503801396500242}
   m_BossMove: {fileID: 114647882146185228}
   m_Tutorial: {fileID: 0}
   m_SlowMoAmount: 0.01
   m_SlowMoTime: 3
+  m_Animator: {fileID: 95054891618251640}
   m_SuccessfullyRiposted: 0
 --- !u!114 &114110285375122400
 MonoBehaviour:
@@ -19946,6 +20007,46 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114393432002047332}
   m_TimeAfterCombo: 1
+--- !u!114 &114188881162508946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1167007995920680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a111c276c7cd4a41bc6c8865d55caa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 95054891618251640}
+  m_Boss: {fileID: 1193509061937176}
+  m_FullTurnCommand: {fileID: 114121302234765288}
+  m_VisualsType: 0
+  m_AttackContainer: {fileID: 0}
+  m_Angle: 360
+  m_EndSize: 10
+  m_GrowTime: 4
+  m_LineWidth: 1
+  m_LeaveCone: 0
+  m_RotationTime: 9999
+  m_RotationAngle: 0
+  m_TakeOverCone: 0
+  m_DontRotateBoss: 1
+  m_SeeThroughConeMaterial: {fileID: 2100000, guid: 753e5d21e57cb8247ada1c8c9ff47487,
+    type: 2}
+  m_FlickerFromColorSetup: {r: 0, g: 0, b: 0, a: 1}
+  m_FlickerToColorSetup: {r: 0.5588235, g: 0.5588235, b: 0.5588235, a: 1}
+  m_FlickerTimesSetup: 0
+  m_FlickerFromColorAttack: {r: 1, g: 1, b: 1, a: 1}
+  m_FlickerToColorAttack: {r: 1, g: 1, b: 1, a: 1}
+  m_FlickerTimesAttack: 0
+  m_FlickerOut: 0
+  m_MinDistance: 6
+  m_FadeInOutRatio: 4
 --- !u!114 &114193452035759802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20001,7 +20102,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1221404467321664}
+  m_GameObject: {fileID: 1378337995973378}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ce30dfe8700f01449e2d682bada8eb4, type: 3}
@@ -20063,6 +20164,7 @@ MonoBehaviour:
   m_TimeAfterLand: 0.5
   m_MaxDistance: 9999
   m_DamageInAir: 1
+  m_DoCrouch: 1
 --- !u!114 &114279377889857850
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20150,11 +20252,12 @@ MonoBehaviour:
   m_HitSignal: {fileID: 1070515624122300}
   m_Blockable: 2
   m_TrackSpeed: 5
-  m_TrackTime: 0.6
-  m_HesitateTime: 1.13
+  m_TrackTime: 0.1
+  m_HesitateTime: 0
   m_TimeAfterLand: 0.5
   m_MaxDistance: 9999
   m_DamageInAir: 0
+  m_DoCrouch: 0
 --- !u!114 &114344973080775448
 MonoBehaviour:
   m_ObjectHideFlags: 1

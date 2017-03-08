@@ -66,6 +66,12 @@ public class EffectController : GenericSingletonClass<EffectController>
         m_CurrentCoroutine = StartCoroutine(SwitchWorldEffect(callback));
     }
 
+    public void MakeLightBloom(float bloomLevel, float radius)
+    {
+        StopCurrentCoroutine();
+        m_CurrentCoroutine = StartCoroutine(FadeBloom(bloomLevel, radius, 0.1f));
+    }
+
     IEnumerator FadeBloom(float intensity, float radius, float time)
     {
         m_LerpTimer.Start(time);

@@ -132,6 +132,12 @@ public class WerewolfRagemodeController : WerewolfController
             Kill();
             return false;
         }
+        else
+        {
+            m_WerewolfAnimator.SetTrigger("ParryTrigger");
+            OnBossParries();
+            dmg.OnParryDamage();
+        }
 
         dmg.OnBlockDamage();
         return true;

@@ -83,7 +83,6 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
             dmg.OnBlockDamage();
         }
 
-
         m_BlockTimer = StopBlockingAfter();
         StartCoroutine(m_BlockTimer);
 

@@ -15,6 +15,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     public WerewolfHuntController m_HuntController;
     public WerewolfPhase2Controller m_Phase2Controller;
     public WerewolfRagemodeController m_RagemodeController;
+    public FadeInRotatingConeAttack m_RagemodeConeAttack;
 
     public GameObject m_StreetLightWrapper;
 
@@ -25,6 +26,8 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     void Start()
     {
         StartBossfight();
+
+        m_RagemodeConeAttack.m_Callback = new EmptyAttackCallback();
     }
 
     public override void StartBossfight()
@@ -48,7 +51,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
         else if (m_StartPhase == Phase.RageMode)
         {
-            SetStreetLightsEnabled(false);
+            SetStreetLightsEnabled(false, false);
             SetRedLightsEnabled(true);
             PhaseEnd(m_Phase2Controller);
         }
@@ -81,6 +84,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         {
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
+            m_RagemodeConeAttack.CancelAttack();
         }
     }
 
@@ -122,8 +126,10 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         m_PlayerControls.DisableAllCommands();
         StopPlayerMove();
 
+        m_RagemodeConeAttack.StartAttack();
         yield return StartCoroutine(Phase3IntroHowl());
 
+        SetStreetLightsEnabled(true, false);
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
         yield return new WaitForSeconds(0.5f);
@@ -151,7 +157,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
     }
 
-    private void SetStreetLightsEnabled(bool enabled)
+    private void SetStreetLightsEnabled(bool enabled, bool visualTriggersEnabled)
     {
         foreach(Light l in m_StreetLightWrapper.GetComponentsInChildren<Light>())
         {
@@ -165,9 +171,9 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             {
                 col.enabled = enabled;
             }
-            else if (col.gameObject.name == "VisualTrigger")
+            else if (col.gameObject.name.Contains("VisualTrigger"))
             {
-                col.enabled = enabled;
+                col.enabled = visualTriggersEnabled;
             }
         }
 
@@ -202,7 +208,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         for(int i = 0; i < 9; i++)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
-            SetStreetLightsEnabled(i % 2 == 1);
+            SetStreetLightsEnabled(i % 2 == 1, i % 2 == 1);
         }
 
         yield return new WaitForSeconds(1f);
@@ -218,11 +224,14 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     protected override void OnScarletDead()
     {
-        SetStreetLightsEnabled(true);
+        SetStreetLightsEnabled(true, true);
         SetRedLightsEnabled(false);
         m_HuntController.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_RagemodeController.CancelAndReset();
+        m_RagemodeConeAttack.CancelAttack();
+
+        OnlyVisualLightField.ResetFields();
 
         WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
         if (hittable != null)
@@ -239,16 +248,39 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         SetRedLightsEnabled(false);
 
         yield return new WaitForSeconds(0.1f);
-        SetStreetLightsEnabled(true);
+        SetStreetLightsEnabled(true, true);
         yield return new WaitForSeconds(0.1f);
-        SetStreetLightsEnabled(false);
+        SetStreetLightsEnabled(false, false);
         yield return new WaitForSeconds(0.5f);
 
 
         for (int i = 0; i < 9; i++)
         {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
-            SetStreetLightsEnabled(i % 2 == 0);
+            SetStreetLightsEnabled(i % 2 == 0, i % 2 == 0);
+        }
+    }
+
+    private class EmptyAttackCallback : BossAttack.AttackCallback
+    {
+        public void OnAttackEnd(BossAttack attack)
+        {
+        }
+
+        public void OnAttackEndUnsuccessfully(BossAttack attack)
+        {
+        }
+
+        public void OnAttackInterrupted(BossAttack attack)
+        {
+        }
+
+        public void OnAttackParried(BossAttack attack)
+        {
+        }
+
+        public void OnAttackStart(BossAttack attack)
+        {
         }
     }
 

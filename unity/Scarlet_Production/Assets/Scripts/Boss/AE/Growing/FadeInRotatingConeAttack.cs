@@ -40,11 +40,11 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
         m_Damage.m_Distance = m_EndSize;
         m_Damage.m_MinDistance = m_MinDistance;
+        m_Damage.m_Owner = m_AttackContainer.gameObject;
+        m_Damage.m_TurnTowardsScarlet = m_FullTurnCommand;
 
         m_AttackVisuals.SetRadius(m_EndSize);
         m_AttackVisuals.ShowAttack();
-
-
         m_AttackVisuals.SetStartRadius(m_MinDistance / m_EndSize);
 
         float t = 0;
