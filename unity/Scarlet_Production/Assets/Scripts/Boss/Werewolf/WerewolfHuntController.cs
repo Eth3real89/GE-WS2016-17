@@ -33,17 +33,21 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
     public float m_SlowMoAmount;
     public float m_SlowMoTime;
 
+    public Animator m_Animator;
+
     private bool m_Active;
     private BossfightCallbacks m_Callbacks;
 
     private IEnumerator m_HuntTimer;
-
+    private IEnumerator m_StateEnumerator;
     private IEnumerator m_SlowMoTimer;
 
     /// <summary>
     /// as opposed to "jumping": hunting = running around
     /// </summary>
     private bool m_Hunting;
+
+    protected bool m_DirectionCounterClockwise;
 
     public bool m_SuccessfullyRiposted;
 
@@ -86,11 +90,6 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
                 EndPhase();
             }
         }
-
-        if (m_Active && m_Hunting)
-        {
-            HuntPhaseRoutine();
-        }
     }
 
     private IEnumerator EndHuntAfter(float time)
@@ -98,29 +97,6 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         yield return new WaitForSeconds(time);
         m_JumpSoon = true;
 
-    }
-
-    private void HuntPhaseRoutine()
-    {
-        if (m_JumpSoon)
-        {
-            if (CheckJump())
-            {
-                LungeOut();
-                return;
-            }
-        }
-
-        float distanceToCenter = Vector3.Distance(transform.position, m_HuntCenter.position);
-
-        if (distanceToCenter >= 1.1 * m_HuntDistance || distanceToCenter <= 0.9 * m_HuntDistance)
-        {
-            ReachHuntDistance(distanceToCenter);
-        }
-        else
-        {
-            RunInCircle(distanceToCenter);
-        }
     }
 
     private bool CheckJump()
@@ -139,22 +115,122 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         m_JumpCombo.LaunchCombo();
     }
 
-    private void ReachHuntDistance(float distanceToCenter)
+    private void LaunchSingleHuntIteration()
     {
-        float turnAngle;
-        if (distanceToCenter < m_HuntDistance)
-        { 
-            turnAngle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
-            turnAngle += 180;
+        m_Hunting = true;
+        m_JumpSoon = false;
+
+        m_StateEnumerator = ReachHuntDistance();
+        StartCoroutine(m_StateEnumerator);
+    }
+
+    protected IEnumerator ReachHuntDistance()
+    {
+        float distanceToCenter = Vector3.Distance(transform.position, m_HuntCenter.transform.position);
+        bool initiallyTooClose = distanceToCenter < m_HuntDistance;
+
+        while (true)
+        {
+            float turnAngle;
+            distanceToCenter = Vector3.Distance(transform.position, m_HuntCenter.transform.position);
+
+            if (distanceToCenter < m_HuntDistance)
+            {
+                if (!initiallyTooClose)
+                    break;
+                turnAngle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
+                turnAngle += 180;
+            }
+            else
+            {
+                if (initiallyTooClose)
+                    break;
+                turnAngle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
+            }
+
+            m_BossTurn.TurnBossBy(turnAngle);
+            m_BossMove.DoMove(transform.forward.x, transform.forward.z);
+
+            yield return null;
+        }
+
+        m_BossMove.StopMoving();
+
+        m_StateEnumerator = DetermineStalkDirection();
+        StartCoroutine(m_StateEnumerator);
+    }
+
+    protected IEnumerator DetermineStalkDirection()
+    {
+        m_DirectionCounterClockwise = UnityEngine.Random.value >= 0.5;
+        m_DirectionCounterClockwise = false;
+        m_Animator.SetTrigger("CrouchTrigger");
+
+        yield return new WaitForSeconds(0.5f);
+        if (m_DirectionCounterClockwise)
+        {
+            m_Animator.SetTrigger("CrouchToStalkL");
         }
         else
         {
-            turnAngle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
+            m_Animator.SetTrigger("CrouchToStalkR");
         }
 
-        m_BossTurn.TurnBossBy(turnAngle);
+        float t = 0;
+        while((t += Time.deltaTime) < 0.6f)
+        {
+            float angle = CalculateAngleTowardsCenter() + (m_DirectionCounterClockwise ? 90 : -90);
+            if (angle < -180)
+                angle += 360;
+            else if (angle > 180)
+                angle -= 360;
 
-        m_BossMove.DoMove(transform.forward.x, transform.forward.z);
+            m_BossTurn.TurnBossBy(angle * t / 0.6f);
+            yield return null;
+        }
+
+        m_StateEnumerator = Stalk();
+        StartCoroutine(m_StateEnumerator);
+    }
+
+    private float CalculateAngleTowardsCenter()
+    {
+        float angle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
+
+        while (angle > 180)
+            angle -= 360;
+        while (angle < -180)
+            angle += 360;
+        return angle;
+    }
+
+    protected IEnumerator Stalk()
+    {
+        float time = m_MinHuntTime + UnityEngine.Random.value * (m_MaxHuntTime - m_MinHuntTime);
+        m_HuntTimer = EndHuntAfter(time);
+        StartCoroutine(m_HuntTimer);
+
+        while (!m_JumpSoon)
+        {
+            float angle = CalculateAngleTowardsCenter() + (m_DirectionCounterClockwise ? 90 : -90);
+            m_BossTurn.TurnBossBy(angle);
+
+            Vector3 newPos = transform.position + 0.3f * transform.forward * Time.deltaTime;
+            newPos = m_HuntCenter.transform.position + m_HuntDistance * (newPos - m_HuntCenter.transform.position).normalized;
+
+            transform.position = newPos;
+            yield return null;
+        }
+
+        float t = 0;
+        while((t += Time.deltaTime) < 0.2f)
+        {
+            float angle = CalculateAngleTowardsCenter();
+            m_BossTurn.TurnBossBy(angle * t / 0.2f);
+            yield return null;
+        }
+
+        LungeOut();
     }
 
     private void RunInCircle(float distanceToCenter)
@@ -207,16 +283,6 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
     {
         yield return new WaitForSeconds(0.5f);
         LaunchSingleHuntIteration();
-    }
-
-    private void LaunchSingleHuntIteration()
-    {
-        m_Hunting = true;
-
-        m_JumpSoon = false;
-        float time = m_MinHuntTime + UnityEngine.Random.value * (m_MaxHuntTime - m_MinHuntTime);
-        m_HuntTimer = EndHuntAfter(time);
-        StartCoroutine(m_HuntTimer);
     }
 
     public override bool OnHit(Damage dmg)

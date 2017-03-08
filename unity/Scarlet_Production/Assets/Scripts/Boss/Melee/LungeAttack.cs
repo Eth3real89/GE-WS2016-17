@@ -24,6 +24,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
     public float m_TimeAfterLand = 0.5f;
     public float m_MaxDistance = 9999f;
     public bool m_DamageInAir = false;
+    public bool m_DoCrouch = true;
 
     private enum State {None, Aim, Jump, Land};
     private State m_State = State.None;
@@ -45,7 +46,8 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         m_BossCollider.m_Active = false;
         m_ScarletInTargetArea = false;
 
-        m_Animator.SetTrigger("CrouchTrigger");
+        if (m_DoCrouch)
+            m_Animator.SetTrigger("CrouchTrigger");
 
         m_StateTimer = Aim();
         StartCoroutine(m_StateTimer);
