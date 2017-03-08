@@ -3,47 +3,41 @@ using UnityEngine;
 
 public class HealthPotionVisuals : MonoBehaviour, PlayerHealCommand.NumPotionListener {
 
-    public GameObject m_ImagePrefab;
+    //public ParticleSystem m_ImagePrefab;
+    public GameObject m_ChargesPrefab;
 
-    private GameObject[] m_Images;
+    private ParticleSystem[] m_Charges;
 
     public void OnNumberOfPotionsUpdated(int num)
     {
-        if (m_ImagePrefab == null)
+        if (m_ChargesPrefab == null)
             return;
 
-        ClearExistingImages();
-
-        m_Images = new GameObject[num];
+        ClearExistingCharges();
+        m_Charges = new ParticleSystem[num];
 
         ShowPotionIcons(num);
     }
 
     private void ShowPotionIcons(int num)
     {
-        for (int i = 0; i < num; i++)
+        ParticleSystem[] existingCharges = m_ChargesPrefab.GetComponentsInChildren<ParticleSystem>(true);
+        for (int i = 0; i < existingCharges.Length && i < num; i++)
         {
-            GameObject singleImg = GameObject.Instantiate(m_ImagePrefab);
-            singleImg.transform.SetParent(this.transform);
-
-            m_Images[i] = singleImg;
-
-            RectTransform rt = singleImg.GetComponent<RectTransform>();
-            if (rt != null)
-            {
-                rt.anchoredPosition = new Vector2(60 + i * 60, -60);
-            }
+            m_Charges[i] = existingCharges[i];
+            existingCharges[i].Play();
         }
     }
 
-    private void ClearExistingImages()
+    private void ClearExistingCharges()
     {
-        if (m_Images != null)
+        if (m_Charges != null)
         {
-            foreach (GameObject image in m_Images)
+            foreach (ParticleSystem system in m_Charges)
             {
-                GameObject.Destroy(image);
+                system.Stop();
             }
+
         }
     }
 
