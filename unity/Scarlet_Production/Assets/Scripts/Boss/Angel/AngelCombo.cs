@@ -10,6 +10,8 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
 
     public ComboType m_ComboType;
 
+    public int m_ActualAttackStartIndex = 1;
+
     public int m_Success;
     public bool m_SkipFind;
 
@@ -29,6 +31,21 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
         }
     }
 
+    public virtual void LaunchComboFrom(int index)
+    {
+        m_Cancelled = false;
+
+        m_Success = -1;
+        MLog.Log(LogType.BattleLog, 1, "Launching Combo at index: " + index + ", Combo, " + this);
+
+        m_Callback.OnComboStart(this);
+
+        if (!m_Cancelled)
+        {
+            m_Attacks[index].StartAttack();
+        }
+    }
+
     protected override void SetupAttack(BossAttack attack)
     {
         base.SetupAttack(attack);
@@ -39,6 +56,18 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
     public virtual void ReportResult(AngelAttack attack)
     {
         m_Success = attack.m_SuccessLevel;
+    }
+
+    protected virtual void OnFindFinish(BossAttack findAttack)
+    {
+        if (m_Success < 0)
+        {
+            m_Callback.OnComboEnd(this);
+        }
+        else
+        {
+            base.OnAttackEnd(findAttack);
+        }
     }
 
 }

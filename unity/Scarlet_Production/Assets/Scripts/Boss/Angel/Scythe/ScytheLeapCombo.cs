@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SyctheLeapCombo : AngelCombo {
+public class ScytheLeapCombo : AngelCombo {
     
     public override void ReportResult(AngelAttack attack)
     {
