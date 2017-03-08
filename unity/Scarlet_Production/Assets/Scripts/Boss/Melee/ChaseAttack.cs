@@ -33,10 +33,13 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
 
     public bool m_SkipAttack = false;
 
+    protected bool m_Cancelled;
+
     public override void StartAttack()
     {
         base.StartAttack();
 
+        m_Cancelled = false;
         m_State = AttackState.Chase;
         m_BossTurn.m_TurnSpeed = m_MaxTurnAngleTurnState;
         m_RangeTrigger.m_CollisionHandler = this;
@@ -121,11 +124,11 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
     {
         m_CurrentChaseTime += Time.deltaTime;
 
-        if (m_CurrentChaseTime >= m_MaxChaseTime)
+        if (m_CurrentChaseTime >= m_MaxChaseTime && !m_Cancelled)
         {
             m_State = AttackState.None;
-            CancelAttack();
             m_Callback.OnAttackEndUnsuccessfully(this);
+            m_BossMove.StopMoving();
         }
     }
 
@@ -137,7 +140,7 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
             m_SuccessCallback.ReportResult(this);
         }
 
-        if (m_SkipAttack)
+        if (m_SkipAttack && !m_Cancelled)
         {
             m_BossMove.StopMoving();
             m_State = AttackState.None;
@@ -154,6 +157,8 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
     
     public override void CancelAttack()
     {
+        m_Cancelled = true;
+
         m_State = AttackState.None;
         m_BossMove.StopMoving();
         m_BossHit.CancelHit();
@@ -161,6 +166,9 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
     
     public void OnMeleeHitEnd()
     {
+        if (m_Cancelled)
+            return;
+
         m_Callback.OnAttackEnd(this);
         m_State = AttackState.None;
     }
@@ -185,6 +193,9 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
 
     public void OnParryDamage()
     {
+        if (m_Cancelled)
+            return;
+
         m_Callback.OnAttackParried(this);
     }
 
