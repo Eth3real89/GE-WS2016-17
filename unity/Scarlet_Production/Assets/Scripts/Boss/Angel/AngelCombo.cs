@@ -15,6 +15,8 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
 
     public override void LaunchCombo()
     {
+        m_Cancelled = false;
+
         m_Success = -1;
         MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
 
