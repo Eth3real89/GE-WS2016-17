@@ -94,6 +94,7 @@ namespace SequencedActionCreator
         {
             Type thisType = action.m_ScriptObject.GetType();
             MethodInfo theMethod = thisType.GetMethod(action.m_MethodName);
+            Debug.Log(action.m_MethodName);
             theMethod.Invoke(action.m_ScriptObject, null);
         }
 
