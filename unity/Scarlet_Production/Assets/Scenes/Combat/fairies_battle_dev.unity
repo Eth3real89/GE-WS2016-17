@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.003749073, g: 0.003749073, b: 0.003749073, a: 1}
+  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1079,11 +1079,11 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_Font: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f, type: 3}
+    m_FontSize: 13
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 40
     m_Alignment: 2
     m_AlignByGeometry: 0
@@ -1091,7 +1091,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tommie
+  m_Text: Twin Brother, Tommie
 --- !u!222 &264955781
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4554,32 +4554,32 @@ Prefab:
     - target: {fileID: 224039746884452064, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224039746884452064, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224646840302800716, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224646840302800716, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224963686290345942, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224963686290345942, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224848061374883778, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
@@ -4692,7 +4692,53 @@ Prefab:
     - target: {fileID: 114593353391584200, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
       propertyPath: m_Text
-      value: Tammie
+      value: Twin Sister, Tammie
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409873064237588, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409873064237588, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114409873064237588, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f,
+        type: 3}
+    - target: {fileID: 114593353391584200, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_FontSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114593353391584200, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_MinSize
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114593353391584200, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f,
+        type: 3}
+    - target: {fileID: 224039746884452064, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224039746884452064, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1411264189699000, guid: 14670ed46af439045ad0a7344962e76c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 14670ed46af439045ad0a7344962e76c, type: 2}
