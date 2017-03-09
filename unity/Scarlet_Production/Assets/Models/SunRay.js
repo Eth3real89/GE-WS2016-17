@@ -20,9 +20,12 @@ function Update () {
 function GenerateSunRays () {
 	rayRef = GameObject.CreatePrimitive(PrimitiveType.Quad);
 	rayRef.GetComponent.<Renderer>().material = rayMaterial;
+	rayRef.GetComponent.<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+	rayRef.GetComponent.<Renderer>().receiveShadows = false;
 	rayRef.transform.localScale.x = rayThickness;
 	rayRef.transform.localScale.y = rayLength;
 	rayRef.SetActive(false);
+
 	
 	for(var i = 1; i <= rayCount; i++) {
 		var ray = Instantiate(rayRef, rayRef.transform.position, rayRef.transform.rotation);

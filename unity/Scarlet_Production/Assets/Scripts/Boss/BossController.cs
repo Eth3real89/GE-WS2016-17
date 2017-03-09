@@ -110,7 +110,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
         CancelHitBehaviours();
 
         m_CurrentComboIndex++;
-        if (m_CurrentComboIndex >= m_Combos.Length)
+        if (m_CurrentComboIndex >= m_Combos.Length || m_CurrentComboIndex < 0)
             m_CurrentComboIndex = 0;
 
         m_Combos[m_CurrentComboIndex].LaunchCombo();
