@@ -26,9 +26,4 @@ public class AnimationEventListener : MonoBehaviour
         m_StepsAudio.Play();
         m_StepTimer = m_MinimumStepDistance;
     }
-
-    public void SetEyesRed()
-    {
-
-    }
 }

@@ -14,6 +14,7 @@ namespace SequencedActionCreator
         private SerializedObject m_SerializedController;
         private SerializedProperty m_SequencedActionList;
         private Vector2 m_ScrollPos;
+        private float m_CutsceneDuration;
 
         private int m_SelectedSequencedAction;
 
@@ -87,8 +88,8 @@ namespace SequencedActionCreator
                 SerializedProperty currentSequencedAction = m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction);
                 currentSequencedAction.FindPropertyRelative("m_Name").stringValue =
                     EditorGUILayout.TextField(currentSequencedAction.FindPropertyRelative("m_Name").stringValue, GUILayout.Width(200));
+                GUILayout.Label("Duration: " + m_CutsceneDuration);
             }
-
             GUILayout.EndHorizontal();
         }
 
@@ -99,11 +100,14 @@ namespace SequencedActionCreator
                 return;
             }
 
+            m_CutsceneDuration = 0;
             SerializedProperty actions = m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents");
-
             m_ScrollPos = EditorGUILayout.BeginScrollView(m_ScrollPos);
             for (int i = 0; i < actions.arraySize; i++)
             {
+                m_CutsceneDuration = Mathf.Max(m_CutsceneDuration,
+                    actions.GetArrayElementAtIndex(i).FindPropertyRelative("m_Duration").floatValue +
+                    actions.GetArrayElementAtIndex(i).FindPropertyRelative("m_StartTime").floatValue);
                 GUILayout.BeginVertical(EditorStyles.helpBox);
                 BuildActionSettings(actions.GetArrayElementAtIndex(i));
 
@@ -144,6 +148,9 @@ namespace SequencedActionCreator
 
         private void BuildActionSettings(SerializedProperty action)
         {
+            action.FindPropertyRelative("m_Label").stringValue =
+                EditorGUILayout.TextField("Label: ", action.FindPropertyRelative("m_Label").stringValue, GUILayout.Width(400));
+            GUILayout.Space(5);
             EditorGUILayout.BeginHorizontal();
             BuildTimeSettings(action);
             bool shouldAnimateTransform = ShouldAnimateTransformToggle(action);
@@ -246,9 +253,9 @@ namespace SequencedActionCreator
             transform.FindPropertyRelative("m_Position").vector3Value =
                 EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Position").vector3Value);
             transform.FindPropertyRelative("m_Rotation").vector3Value =
-                EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Rotation").vector3Value);
+                EditorGUILayout.Vector3Field(label + " Rotation:", transform.FindPropertyRelative("m_Rotation").vector3Value);
             transform.FindPropertyRelative("m_Scale").vector3Value =
-                EditorGUILayout.Vector3Field(label + " Position:", transform.FindPropertyRelative("m_Scale").vector3Value);
+                EditorGUILayout.Vector3Field(label + " Scale:", transform.FindPropertyRelative("m_Scale").vector3Value);
             TransformShortcut(transform);
             EditorGUILayout.EndHorizontal();
         }
@@ -291,7 +298,10 @@ namespace SequencedActionCreator
             }
             if (GUILayout.Button("Add new Action", GUILayout.Width(100)))
             {
-                m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents").arraySize++;
+                SerializedProperty sequencedActions = m_SequencedActionList.GetArrayElementAtIndex(m_SelectedSequencedAction).FindPropertyRelative("m_ActionEvents");
+                sequencedActions.arraySize++;
+                sequencedActions.GetArrayElementAtIndex(sequencedActions.arraySize - 1).
+                    FindPropertyRelative("m_Label").stringValue = "Action" + sequencedActions.arraySize;
             }
             GUI.enabled = true;
         }

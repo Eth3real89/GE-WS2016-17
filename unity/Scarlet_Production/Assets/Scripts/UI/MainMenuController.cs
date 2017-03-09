@@ -134,7 +134,7 @@ public class MainMenuController : MonoBehaviour
             GetComponent<AreaEnterTextController>().StartFadeIn();
 
             ActivateScarletControls();
-            SequencedActionController.Instance.PlayCutscene("Test");
+            SequencedActionController.Instance.PlayCutscene("Opening");
         }
     }
 
