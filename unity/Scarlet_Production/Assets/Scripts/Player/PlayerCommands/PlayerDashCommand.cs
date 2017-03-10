@@ -78,6 +78,10 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
 
         Vector3 initialPos = new Vector3(dashStart.x, dashStart.y, dashStart.z);
 
+        float moveX;
+        float moveZ;
+        
+        bool even = true;
         while (t < m_DashTime)
         {
             float horizontal = Input.GetAxis("Horizontal");
@@ -94,11 +98,28 @@ public class PlayerDashCommand : PlayerCommand, HitInterject
 
             }
 
-            m_ScarletBody.MovePosition(Vector3.Lerp(m_ScarletBody.position, dashTarget, t / m_DashTime));
+            moveX = dashTarget.x - m_ScarletBody.transform.position.x;
+            moveZ = dashTarget.z - m_ScarletBody.transform.position.z;
+
+            if (even)
+                m_ScarletBody.transform.position += new Vector3(moveX, 0, 0) * t / m_DashTime;
+            else
+                m_ScarletBody.transform.position += new Vector3(0, 0, moveZ) * t / m_DashTime;
+
+            even = !even;
+
             t += Time.deltaTime;
 
             yield return null;
         }
+
+        moveX = dashTarget.x - m_ScarletBody.transform.position.x;
+        moveZ = dashTarget.z - m_ScarletBody.transform.position.z;
+
+        m_ScarletBody.transform.position += new Vector3(moveX, 0, 0) * t / m_DashTime;
+        yield return null;
+        m_ScarletBody.transform.position += new Vector3(0, 0, moveZ) * t / m_DashTime;
+
         OnDashEnd();
         m_Callback.OnCommandEnd(m_CommandName, this);
 
