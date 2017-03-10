@@ -33,13 +33,17 @@ public class PlayerControls : MonoBehaviour,
     public void DisableAllCommands()
     {
         DisableCommands(m_PlayerCommands);
-        if (m_MoveCommand != null)
-            m_MoveCommand.StopMoving();
     }
 
     public void EnableAllCommands()
     {
         EnableCommands(m_PlayerCommands);
+    }
+
+    public void StopMoving()
+    {
+        if (m_MoveCommand != null)
+            m_MoveCommand.StopMoving();
     }
 
     public void DisableAndLock(params PlayerCommand[] commands)
