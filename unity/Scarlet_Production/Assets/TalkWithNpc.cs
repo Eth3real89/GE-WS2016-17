@@ -14,8 +14,23 @@ public class TalkWithNpc : Interactor
     public string audioID;
     public List<TimeMarker> marker;
 
+    private int currentDialog;
+    private bool isInteracting;
+
     public override void Interact()
     {
-        GetComponentInChildren<UIItemPickupController>().OnItemPickedUp();
+        if (isInteracting)
+            return;
+        isInteracting = true;
+        new FARQ().ClipName("theguide").StartTime(marker[currentDialog].begin).
+            EndTime(marker[currentDialog].end).Location(Camera.main.transform).OnFinish(StopInteraction).Play();
+
+        if (currentDialog + 1 < marker.Count)
+            currentDialog++;
+    }
+
+    private void StopInteraction()
+    {
+        isInteracting = false;
     }
 }

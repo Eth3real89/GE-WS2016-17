@@ -58,7 +58,6 @@ public class UIItemPickupController : MonoBehaviour {
     {
         images[1].fillAmount = Mathf.Lerp(0.0f, 1.0f, floatcurrentTime);
     }
-    
 
     IEnumerator FadeTo(float aValue, float aTime)
     {
@@ -93,5 +92,4 @@ public class UIItemPickupController : MonoBehaviour {
         }
         textField.color = new Color(0.65f, 0, 0, aValue);
     }
-
 }
