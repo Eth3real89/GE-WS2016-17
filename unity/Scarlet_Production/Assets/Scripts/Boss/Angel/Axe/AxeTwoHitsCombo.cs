@@ -16,6 +16,7 @@ public class AxeTwoHitsCombo : AngelCombo {
             else
             {
                 m_Animator.SetTrigger("AxeBackhandToIdleTrigger");
+                m_Success = 0;
                 base.OnAttackEnd(attack);
             }
         }

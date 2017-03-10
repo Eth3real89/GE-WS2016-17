@@ -34,6 +34,10 @@ public class BlastWaveAttack : GrowingAEAttack {
     protected BlastWaveVisuals m_Visuals;
     protected AEAttackDamage m_BlastDamage;
 
+    public bool m_MoveOnAfterStart = false;
+    public float m_MoveOnTime;
+    protected IEnumerator m_MoveOnEnumerator;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -58,6 +62,12 @@ public class BlastWaveAttack : GrowingAEAttack {
 
         m_GrowEnumerator = GrowWave();
         StartCoroutine(m_GrowEnumerator);
+
+        if (m_MoveOnAfterStart)
+        {
+            m_MoveOnEnumerator = MoveOnTimer();
+            StartCoroutine(m_MoveOnEnumerator);
+        }
     }
 
     private void LoadPrefab()
@@ -75,7 +85,9 @@ public class BlastWaveAttack : GrowingAEAttack {
     {
         yield return GrowRoutine();
 
-        m_Callback.OnAttackEnd(this);
+        if (!m_MoveOnAfterStart)
+            m_Callback.OnAttackEnd(this);
+
         m_Visuals.gameObject.SetActive(false);
     }
 
@@ -163,5 +175,11 @@ public class BlastWaveAttack : GrowingAEAttack {
         EventManager.TriggerEvent(ATTACK_HIT_EVENT);
         m_Target.Hit(m_BlastDamage);
         m_HasHit = true;
+    }
+
+    protected IEnumerator MoveOnTimer()
+    {
+        yield return new WaitForSeconds(m_MoveOnTime);
+        m_Callback.OnAttackEnd(this);
     }
 }
