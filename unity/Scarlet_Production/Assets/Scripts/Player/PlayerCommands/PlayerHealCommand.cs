@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerHealCommand : PlayerCommand {
 
     public int m_MaxHealthPotions = 3;
+    public GameObject m_HealingEffect;
 
     public int m_NumHealthPotions
     {
@@ -30,10 +31,13 @@ public class PlayerHealCommand : PlayerCommand {
     public CharacterHealth m_PlayerHealth;
 
     private int _NumHealthPotions;
+    private Component[] comps;
 
     private void Start()
     {
         m_CommandName = "Heal";
+
+        comps = m_HealingEffect.GetComponentsInChildren<ParticleSystem>(true);
     }
 
     public override void InitTrigger()
@@ -54,6 +58,15 @@ public class PlayerHealCommand : PlayerCommand {
         m_PlayerHealth.m_CurrentHealth = Mathf.Min(m_PlayerHealth.m_CurrentHealth + m_MaxHealthGain, m_PlayerHealth.m_MaxHealth);
         m_NumHealthPotions -= 1;
 
+
+        foreach(ParticleSystem p in comps)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(StopHealingEffect());
+
+
         m_Callback.OnCommandEnd(m_CommandName, this);
     }
 
@@ -72,4 +85,13 @@ public class PlayerHealCommand : PlayerCommand {
         void OnNumberOfPotionsUpdated(int num);
     }
 
+    private IEnumerator StopHealingEffect()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        foreach(ParticleSystem p in comps)
+        {
+            p.Stop();
+        }
+    }
 }
