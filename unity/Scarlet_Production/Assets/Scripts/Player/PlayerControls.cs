@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerControls : MonoBehaviour, 
-    PlayerCommandCallback, 
-    PlayerParryCommand.ParryCallback, 
+public class PlayerControls : MonoBehaviour,
+    PlayerCommandCallback,
+    PlayerParryCommand.ParryCallback,
     PlayerAttackCommand.AttackCallback,
     PlayerHittable.OnDamageTakenListener
 {
@@ -33,7 +33,8 @@ public class PlayerControls : MonoBehaviour,
     public void DisableAllCommands()
     {
         DisableCommands(m_PlayerCommands);
-        m_MoveCommand.StopMoving();
+        if (m_MoveCommand != null)
+            m_MoveCommand.StopMoving();
     }
 
     public void EnableAllCommands()
@@ -247,7 +248,7 @@ public class PlayerControls : MonoBehaviour,
         // (these things need to be enabled, but not necessarily here!)
         if (m_ActiveCommand == null)
             EnableCommands(m_ParryCommand, m_MoveCommand, m_DashCommand);
-   }
+    }
 
     public void OnBlock()
     {// do nothing special

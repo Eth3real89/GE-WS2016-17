@@ -23,7 +23,6 @@ public class FancyAudioRegisterClips : MonoBehaviour {
         {
             yield return null;
         }
-
         FancyAudio.Instance.RegisterClip(m_ClipName, m_Clip);
     }
 

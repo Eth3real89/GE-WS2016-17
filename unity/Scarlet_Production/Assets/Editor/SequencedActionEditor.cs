@@ -90,6 +90,13 @@ namespace SequencedActionCreator
                     EditorGUILayout.TextField(currentSequencedAction.FindPropertyRelative("m_Name").stringValue, GUILayout.Width(200));
                 GUILayout.Label("Duration: " + m_CutsceneDuration);
             }
+
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("Delete Sequenced Action", GUILayout.Width(200)))
+            {
+                // Delete SequencedAction element
+                m_SequencedActionList.DeleteArrayElementAtIndex(m_SelectedSequencedAction);
+            }
             GUILayout.EndHorizontal();
         }
 
@@ -115,24 +122,20 @@ namespace SequencedActionCreator
                 GUILayout.Space(10);
 
                 GUILayout.BeginHorizontal();
-                //if (i == 0)
-                //    GUI.enabled = false;
-                //if (GUILayout.Button("Move up", GUILayout.Width(150)))
-                //{
-                //    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i - 1).objectReferenceValue;
-                //    actions.GetArrayElementAtIndex(i - 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
-                //    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
-                //}
-                //GUI.enabled = true;
-                //if (i == actions.arraySize - 1)
-                //    GUI.enabled = false;
-                //if (GUILayout.Button("Move down", GUILayout.Width(150)))
-                //{
-                //    UnityEngine.Object temp = actions.GetArrayElementAtIndex(i + 1).objectReferenceValue as UnityEngine.Object;
-                //    actions.GetArrayElementAtIndex(i + 1).objectReferenceValue = actions.GetArrayElementAtIndex(i).objectReferenceValue;
-                //    actions.GetArrayElementAtIndex(i).objectReferenceValue = temp;
-                //}
-                //GUI.enabled = true;
+                if (i == 0)
+                    GUI.enabled = false;
+                if (GUILayout.Button("Move up", GUILayout.Width(150)))
+                {
+                    actions.MoveArrayElement(i, i - 1);
+                }
+                GUI.enabled = true;
+                if (i == actions.arraySize - 1)
+                    GUI.enabled = false;
+                if (GUILayout.Button("Move down", GUILayout.Width(150)))
+                {
+                    actions.MoveArrayElement(i, i + 1);
+                }
+                GUI.enabled = true;
                 if (GUILayout.Button("Delete Action", GUILayout.Width(150)))
                 {
                     actions.DeleteArrayElementAtIndex(i);

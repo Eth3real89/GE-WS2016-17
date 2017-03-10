@@ -25,4 +25,14 @@ public class CutsceneHelper : MonoBehaviour
     {
         AudioController.Instance.StopSound("Atmosphere");
     }
+
+    public void ScarletCall()
+    {
+        new FARQ().ClipName("theguide").StartTime(0f).EndTime(1f).Location(Camera.main.transform).Play();
+    }
+
+    public void ScarletAwaken()
+    {
+        new FARQ().ClipName("theguide").StartTime(2.6f).EndTime(5f).Location(Camera.main.transform).Play();
+    }
 }

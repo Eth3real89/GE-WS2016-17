@@ -13,6 +13,7 @@ namespace SequencedActionCreator
 
         public CameraTracking m_Tracking;
         public PlayerControls m_Controls;
+        public bool m_LogTime;
 
         //List of all SequencedActions
         public List<SequencedAction> m_SequencedActions;
@@ -62,7 +63,16 @@ namespace SequencedActionCreator
 
         IEnumerator FinishCutscene(float cutsceneDuration, FinishedCutsceneCallback callback)
         {
-            yield return new WaitForSeconds(cutsceneDuration);
+            float start = Time.time;
+            float end = start + cutsceneDuration;
+
+            while (Time.time < end)
+            {
+                if (m_LogTime)
+                    Debug.Log(Time.time - start);
+                yield return null;
+            }
+
             if (callback != null)
                 callback();
 

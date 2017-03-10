@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +46,7 @@ public class FancyAudio : MonoBehaviour {
         AudioSource source = FindAudioSource(rq);
 
         source.clip = _Instance.m_Clips[rq.m_ClipName];
+
         source.loop = rq.m_Loop;
         source.time = rq.m_Start;
         source.volume = rq.m_Volume;
