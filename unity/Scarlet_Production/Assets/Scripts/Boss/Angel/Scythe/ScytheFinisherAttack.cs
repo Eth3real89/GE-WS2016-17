@@ -11,6 +11,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
     public float m_DamageAmount;
 
     public float m_TimeBeforeDamageActive;
+    public float m_TimeBeforeFirstRotation;
     public float m_FirstRotationTime;
     public float m_TimeAfterFirstRotation;
 
@@ -23,6 +24,8 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
     protected IEnumerator m_StateTimer;
     protected IEnumerator m_RotationTimer;
 
+    protected IEnumerator m_DamageActivationTimer;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -30,16 +33,31 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
         m_StateTimer = FirstRotation();
         StartCoroutine(m_StateTimer);
+
+        m_DamageActivationTimer = ActivateDamageAfterWaiting();
+        StartCoroutine(m_DamageActivationTimer);
+    }
+
+    private IEnumerator ActivateDamageAfterWaiting()
+    {
+        yield return new WaitForSeconds(m_TimeBeforeDamageActive);
+
+        m_Damage.m_Callback = this;
+        m_Damage.m_CollisionHandler = this;
+
+        m_Damage.m_BlockType = this.m_BlockableType;
+        m_Damage.m_Type = this.m_DamageType;
+
+        m_Damage.m_Amount = this.m_DamageAmount;
+
+        m_Damage.m_Active = true;
     }
 
     protected IEnumerator FirstRotation()
     {
-        yield return new WaitForSeconds(m_TimeBeforeDamageActive / 2);
-        yield return StartCoroutine(Rotation(m_TimeBeforeDamageActive / 2, -1, 40));
-        
-        ActivateDamage();
+        yield return new WaitForSeconds(m_TimeBeforeFirstRotation);
 
-        m_RotationTimer = Rotation(m_FirstRotationTime, 1, -400);
+        m_RotationTimer = Rotation(m_FirstRotationTime, 1);
         yield return StartCoroutine(m_RotationTimer);
 
         if (m_TimeAfterFirstRotation > 0)
@@ -83,7 +101,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
             if (acceleration == 0)
                 newAngle = rotationBefore + (t / time) * angle;
             else if (acceleration == -1)
-                newAngle = rotationBefore + Mathf.Pow(t / time, 1 / 3f) * angle;
+                newAngle = rotationBefore + ((t / time) * (1f - t/time) + (t/time) * Mathf.Pow(t / time, 1 / 3f)) * angle;
             else
                 newAngle = rotationBefore + Mathf.Pow(t / time, 3f) * angle;
 
@@ -101,18 +119,6 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
         m_Callback.OnAttackEnd(this);
     }
 
-    protected void ActivateDamage()
-    {
-        m_Damage.m_Callback = this;
-        m_Damage.m_CollisionHandler = this;
-
-        m_Damage.m_BlockType = this.m_BlockableType;
-        m_Damage.m_Type = this.m_DamageType;
-
-        m_Damage.m_Amount = this.m_DamageAmount;
-
-        m_Damage.m_Active = true;
-    }
 
     public override void CancelAttack()
     {
@@ -123,6 +129,9 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
         if (m_RotationTimer != null)
             StopCoroutine(m_RotationTimer);
+
+        if (m_DamageActivationTimer != null)
+            StopCoroutine(m_DamageActivationTimer);
     }
 
     protected void ResetDamage()
