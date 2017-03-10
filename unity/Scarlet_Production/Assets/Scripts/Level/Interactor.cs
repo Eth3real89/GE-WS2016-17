@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class Interactor : MonoBehaviour
 {
     public string m_InteractionCueSound;
+    public bool m_UseAnimation;
+
     public virtual void Interact()
     {
         if (m_InteractionCueSound != null && m_InteractionCueSound != "")
