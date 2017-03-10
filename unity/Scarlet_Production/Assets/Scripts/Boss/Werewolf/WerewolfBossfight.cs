@@ -85,6 +85,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();
+            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }
 

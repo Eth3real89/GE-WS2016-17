@@ -97,6 +97,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
+
+            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }
 

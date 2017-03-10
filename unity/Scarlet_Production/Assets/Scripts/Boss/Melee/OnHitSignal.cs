@@ -22,6 +22,8 @@ public class OnHitSignal : MonoBehaviour {
 
     public bool m_IgnoreChildren = false;
 
+    public GameObject[] m_Excluded;
+
     private IEnumerator m_ColorChangeEnumerator;
     private IDictionary<Renderer, Material> m_OriginalMaterialDictionary;
 
@@ -62,11 +64,25 @@ public class OnHitSignal : MonoBehaviour {
 
         for(int i = 0; i < renderers.Length; i++)
         {
-            if (renderers[i].gameObject.GetComponent<ParticleSystem>() == null)
+            bool include = true;
+            if (renderers[i].gameObject.GetComponent<ParticleSystem>() != null)
+            {
+                include = false;   
+            }
+
+            for (int j = 0; j < m_Excluded.Length; j++)
+            {
+                if (renderers[i].transform.IsChildOf(m_Excluded[j].transform))
+                {
+                    include = false;
+                    break;
+                }
+            }
+
+            if (include)
                 withoutParticles.Add(renderers[i]);
         }
         
-
         return withoutParticles.ToArray();
     }
 

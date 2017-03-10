@@ -97,6 +97,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             VampireHittable hittable = FindObjectOfType<VampireHittable>();
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
+
+            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }
 
