@@ -33,12 +33,15 @@ public class HealthPotionVisuals : MonoBehaviour, PlayerHealCommand.NumPotionLis
     {
         if (m_Charges != null)
         {
-            foreach (ParticleSystem system in m_Charges)
+            for(int i = 0; i < m_Charges.Length; i++)
             {
-                system.Stop();
-            }
+                if (i == m_Charges.Length - 1)
+                {
+                    m_Charges[i].Emit(250) ;  
+                }
 
+                m_Charges[i].Stop() ;    
+            }           
         }
     }
-
 }
