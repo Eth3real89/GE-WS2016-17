@@ -137,21 +137,46 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         {
             // need look up whether a bullet can be deflected or not
 
-            impactLightBlock.enabled = true;
-
-            foreach(ParticleSystem p in compsBlock)
+            if (((BulletDamage) dmg).m_Deflectable)
             {
-                p.Play();
+                PlayParryDeflectableBulletEffect();
             }
-
-            StartCoroutine(HideImpactLight());
-            StartCoroutine(HideBulletBlockEffect());
+            else
+            {
+                PlayParryNonDeflectableBulletEffect();
+            }
         }
 
         dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);
 
         return true;
+    }
+
+    private void PlayParryDeflectableBulletEffect()
+    {
+        impactLightDeflect.enabled = true;
+
+        foreach (ParticleSystem p in compsDeflect)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightDeflect());
+        StartCoroutine(HideBulletDeflectEffect());
+    }
+
+    private void PlayParryNonDeflectableBulletEffect()
+    {
+        impactLightBlock.enabled = true;
+
+        foreach (ParticleSystem p in compsBlock)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightBlock());
+        StartCoroutine(HideBulletBlockEffect());
     }
 
     private bool PerfectParry(Damage dmg)
@@ -182,11 +207,18 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         }
     }
 
-    private IEnumerator HideImpactLight() 
+    private IEnumerator HideImpactLightBlock() 
     {
         yield return new WaitForSeconds(0.1f);
 
         impactLightBlock.enabled = false;
+    }
+
+    private IEnumerator HideImpactLightDeflect()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        impactLightDeflect.enabled = false;
     }
 
     private IEnumerator HideBulletBlockEffect() 
@@ -194,6 +226,16 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         yield return new WaitForSeconds(0.3f);
        
         foreach(ParticleSystem p in compsBlock)
+        {
+            p.Stop();
+        }
+    }
+
+    private IEnumerator HideBulletDeflectEffect() 
+    {
+        yield return new WaitForSeconds(0.3f);
+       
+        foreach(ParticleSystem p in compsDeflect)
         {
             p.Stop();
         }
