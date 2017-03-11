@@ -19,14 +19,34 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     public AudioClip m_BlockAudio;
     public AudioClip m_ParryAudio;
 
+    public GameObject m_BulletBlockEffect;
+    public GameObject m_BulletDeflectEffect;
+
     private enum ParryState { Perfect, Ok, Cooldown, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
+
+    private Component[] compsBlock;
+    private Light impactLightBlock;
+
+    private Component[] compsDeflect;
+    private Light impactLightDeflect;
 
     private void Start()
     {
         m_CommandName = "Parry";
         m_CurrentState = ParryState.None;
+
+        // these two following blocks should be functions and one thing, i know... i just wanted to see them in action
+        // refactor at your leisure
+
+        compsBlock = m_BulletBlockEffect.GetComponentsInChildren<ParticleSystem>(true);
+        impactLightBlock = m_BulletBlockEffect.GetComponentInChildren<Light>(true);
+        impactLightBlock.enabled = false;
+
+        compsDeflect = m_BulletDeflectEffect.GetComponentsInChildren<ParticleSystem>(true);
+        impactLightDeflect = m_BulletDeflectEffect.GetComponentInChildren<Light>(true);
+        impactLightDeflect.enabled = false;
     }
 
     public override void InitTrigger()
@@ -113,6 +133,20 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
         }
+        else
+        {
+            // need look up whether a bullet can be deflected or not
+
+            impactLightBlock.enabled = true;
+
+            foreach(ParticleSystem p in compsBlock)
+            {
+                p.Play();
+            }
+
+            StartCoroutine(HideImpactLight());
+            StartCoroutine(HideBulletBlockEffect());
+        }
 
         dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);
@@ -145,6 +179,23 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         {
             m_ParryAudioPlayer.clip = clip;
             m_ParryAudioPlayer.Play();
+        }
+    }
+
+    private IEnumerator HideImpactLight() 
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        impactLightBlock.enabled = false;
+    }
+
+    private IEnumerator HideBulletBlockEffect() 
+    {
+        yield return new WaitForSeconds(0.3f);
+       
+        foreach(ParticleSystem p in compsBlock)
+        {
+            p.Stop();
         }
     }
 
