@@ -23,6 +23,8 @@ public class AngelOnlyAnimationAttack : BossAttack {
     protected IEnumerator WaitUntilEnd()
     {
         yield return new WaitForSeconds(m_AnimTime);
+
+        print("???");
         m_Callback.OnAttackEnd(this);
     }
 

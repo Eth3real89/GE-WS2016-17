@@ -234,6 +234,31 @@ public class ControlAngelVisualisation : MonoBehaviour {
         DisableSpecialVisualisation();
     }
 
+    /// <summary>
+    /// 
+    /// 0: Axe
+    /// 1: Crossbow
+    /// 2: Halberd
+    /// 3: Hammer
+    /// 4: Scythe
+    /// 5: Spear
+    /// </summary>
+    public void WeaponAttackStart(int weaponIndex)
+    {
+        foreach (MeleeWeaponTrail trail in m_Trails_Right)
+        {
+            trail.Emit = true;
+        }
+    }
+
+    public void WeaponAttackEnd(int weaponIndex)
+    {
+        foreach (MeleeWeaponTrail trail in m_Trails_Right)
+        {
+            trail.Emit = false;
+        }
+    }
+
     //both hands disable
     public void AttackWeaponEnd()
     {
