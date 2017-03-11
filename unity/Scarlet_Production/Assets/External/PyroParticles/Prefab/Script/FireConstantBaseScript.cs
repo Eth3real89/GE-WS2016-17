@@ -92,6 +92,10 @@ namespace DigitalRuby.PyroParticles
 
         protected override void Start()
         {
+        }
+
+        public void StartFire()
+        {
             base.Start();
 
             LoopingAudioSource.Play();

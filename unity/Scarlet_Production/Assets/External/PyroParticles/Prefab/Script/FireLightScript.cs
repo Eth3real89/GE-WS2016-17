@@ -45,7 +45,7 @@ namespace DigitalRuby.PyroParticles
                 return;
             }
 
-            if (seed != 0)
+            if (seed != 0 && fireBaseScript.Running)
             {
                 // we have a random movement seed, set up with random movement
                 bool setIntensity = true;
