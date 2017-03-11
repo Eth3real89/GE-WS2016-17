@@ -28,15 +28,23 @@ public class LightGuard : MonoBehaviour {
         m_LightGuardVisuals.Setup();
         m_LightGuardVisuals.transform.position = new Vector3(m_Center.transform.position.x, m_LightGuardVisuals.transform.position.y, m_Center.transform.position.z);
 
+        float scale;
         while ((t += Time.deltaTime) < m_ExpandLightGuardTime)
         {
-            float scale = t / m_ExpandLightGuardTime * m_LightGuardRadius;
+            scale = t / m_ExpandLightGuardTime * m_LightGuardRadius;
             m_LightGuardVisuals.ScaleUp(scale);
             if (c != null)
             {
                 c.transform.localScale = new Vector3(scale * 2, scale * 2, scale * 2);   
             }
             yield return null;
+        }
+
+        scale = m_LightGuardRadius;
+        m_LightGuardVisuals.ScaleUp(scale);
+        if (c != null)
+        {
+            c.transform.localScale = new Vector3(scale * 2, scale * 2, scale * 2);
         }
 
     }

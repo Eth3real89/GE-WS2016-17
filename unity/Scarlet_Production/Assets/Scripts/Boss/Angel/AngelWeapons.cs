@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AngelWeapons : MonoBehaviour {
 
-    public enum Tips {Axe, Crosswbow, Hammer, Hellebarde, Scythe, Spear};
+    public enum Tips {Axe, Crosswbow, Hammer, Hellebarde, Scythe, Spear, Magic };
 
     public GameObject m_Axe;
     public GameObject m_Crossbow;
@@ -24,6 +24,13 @@ public class AngelWeapons : MonoBehaviour {
 
     public void ChangeTipTo(Tips t, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
+        if (t == Tips.Magic)
+        {
+            if (callbackOwner != null && doAfterwards != null)
+                callbackOwner.StartCoroutine(doAfterwards);
+            return;
+        }
+
         GameObject tip = null;
 
         if (t == Tips.Axe)
