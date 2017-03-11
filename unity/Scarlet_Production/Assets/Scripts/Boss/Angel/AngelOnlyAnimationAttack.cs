@@ -20,7 +20,7 @@ public class AngelOnlyAnimationAttack : BossAttack {
         StartCoroutine(m_Timer);
     }
 
-    protected IEnumerator WaitUntilEnd()
+    protected virtual IEnumerator WaitUntilEnd()
     {
         yield return new WaitForSeconds(m_AnimTime);
 
