@@ -7,10 +7,18 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     protected static PlayerStaggerCommand s_Instance;
 
-    public static void StaggerScarlet(bool throwToGround, Transform awayFrom)
+    public static void StaggerScarlet(bool throwToGround, Vector3 forceValues = new Vector3(), float force = 0f)
     {
         print("Stagger Scarlet!");
-        s_Instance.TriggerCommand();
+
+        if (throwToGround)
+        {
+            s_Instance.TriggerMajorStagger(forceValues, force);
+        }
+        else
+        {
+            s_Instance.TriggerCommand();
+        }
     }
 
     private Rigidbody m_ScarletBody;
@@ -41,10 +49,12 @@ public class PlayerStaggerCommand : PlayerCommand {
         StartCoroutine(EndStaggerAfter(m_StaggerTime));
     }
 
-    public void TriggerMajorStagger()
+    public void TriggerMajorStagger(Vector3 forceValues, float force)
     {
         m_Callback.OnCommandStart(m_CommandName, this);
         DoStagger(true);
+
+        m_ScarletBody.AddForce(force * forceValues * m_ScarletBody.mass, ForceMode.Impulse);
 
         StartCoroutine(EndStaggerAfter(m_MajorStaggerTime));
     }

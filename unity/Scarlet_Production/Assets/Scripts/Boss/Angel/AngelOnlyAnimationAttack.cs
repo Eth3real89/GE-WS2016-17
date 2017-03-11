@@ -24,7 +24,6 @@ public class AngelOnlyAnimationAttack : BossAttack {
     {
         yield return new WaitForSeconds(m_AnimTime);
 
-        print("???");
         m_Callback.OnAttackEnd(this);
     }
 

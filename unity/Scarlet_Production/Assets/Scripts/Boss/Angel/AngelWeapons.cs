@@ -17,6 +17,11 @@ public class AngelWeapons : MonoBehaviour {
 
     protected IEnumerator m_WeaponChangeEnumerator;
 
+    public void RemoveTip()
+    {
+        m_CurrentTip.SetActive(false);
+    }
+
     public void ChangeTipTo(Tips t, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
         GameObject tip = null;

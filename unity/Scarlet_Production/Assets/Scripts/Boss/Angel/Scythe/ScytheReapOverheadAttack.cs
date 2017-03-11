@@ -19,7 +19,7 @@ public class ScytheReapOverheadAttack : AngelMeleeAttack {
     {
         base.OnSuccessfulHit();
 
-        PlayerStaggerCommand.StaggerScarlet(false, m_Boss.transform);
+        PlayerStaggerCommand.StaggerScarlet(false, m_Boss.transform.position);
         m_StaggerCalled = true;
     }
 
