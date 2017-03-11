@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AxeSkullCrusherCombo : AngelCombo {
+public class HammerCombo : AngelCombo {
 
     public override void ReportResult(AngelAttack attack)
     {
-        if (attack is AxeSkullCrusherAttack)
+        if (attack is HammerOverheadAttack)
         {
-            if (((AxeSkullCrusherAttack)attack).m_SuccessLevel < 1)
+            if (((HammerOverheadAttack)attack).m_SuccessLevel < 1)
             {
+                attack.CancelAttack();
                 base.OnAttackEnd(attack);
             }
         }
@@ -23,7 +24,7 @@ public class AxeSkullCrusherCombo : AngelCombo {
         {
             OnFindFinish(attack);
         }
-        else if (attack is AxeSkullCrusherAttack)
+        else if (attack is HammerOverheadAttack)
         {
             if (m_Success < 1)
             {
@@ -40,5 +41,4 @@ public class AxeSkullCrusherCombo : AngelCombo {
             base.OnAttackEnd(attack);
         }
     }
-
 }
