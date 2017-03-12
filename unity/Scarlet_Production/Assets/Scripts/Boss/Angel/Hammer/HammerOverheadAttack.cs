@@ -18,9 +18,9 @@ public class HammerOverheadAttack : AngelMeleeAttack {
     {
         m_YBefore = m_Boss.transform.position.y;
 
-        float flyTime = m_DownswingStartTime - m_TimeStartFlyingInDownswing;
+        float flyTime = AdjustTime(m_DownswingStartTime - m_TimeStartFlyingInDownswing);
 
-        yield return new WaitForSeconds(m_TimeStartFlyingInDownswing);
+        yield return new WaitForSeconds(AdjustTime(m_TimeStartFlyingInDownswing));
 
         float t = 0;
         while((t += Time.deltaTime) < flyTime)
@@ -49,10 +49,10 @@ public class HammerOverheadAttack : AngelMeleeAttack {
     protected IEnumerator HitGround()
     {
         float t = 0;
-        while ((t += Time.deltaTime) < m_HitGroundTime)
+        while ((t += Time.deltaTime) < AdjustTime(m_HitGroundTime))
         {
-            Vector3 newPos = m_Boss.transform.position + m_Boss.transform.forward * m_ForwardSpeed * Time.deltaTime;
-            newPos.y = m_YBefore + Mathf.Sin(Mathf.PI / 4 + t / m_HitGroundTime * Mathf.PI / 4f) * m_YToReach;
+            Vector3 newPos = m_Boss.transform.position + m_Boss.transform.forward * AdjustSpeed(m_ForwardSpeed) * Time.deltaTime;
+            newPos.y = m_YBefore + Mathf.Sin(Mathf.PI / 4 + t / AdjustTime(m_HitGroundTime) * Mathf.PI / 4f) * m_YToReach;
 
             m_Boss.transform.position = newPos;
             yield return null;

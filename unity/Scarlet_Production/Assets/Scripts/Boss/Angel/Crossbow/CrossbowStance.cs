@@ -12,10 +12,10 @@ public class CrossbowStance : AngelOnlyAnimationAttack {
     {
         float t = 0;
 
-        while((t += Time.deltaTime) < m_AnimTime)
+        while((t += Time.deltaTime) < AdjustTime(m_AnimTime))
         {
             m_Boss.transform.position = new Vector3(m_Boss.transform.position.x, 
-                Mathf.Sin(t / m_AnimTime * Mathf.PI / 4) * m_FlyHeight, 
+                Mathf.Sin(t / AdjustTime(m_AnimTime) * Mathf.PI / 4) * m_FlyHeight, 
                 m_Boss.transform.position.z);
 
             m_TurnCommand.DoTurn();

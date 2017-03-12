@@ -123,6 +123,11 @@ namespace DigitalRuby.PyroParticles
                 stopTimeIncrement += Time.deltaTime;
                 if (stopTimeIncrement < StopTime)
                 {
+
+                    if ((gameObject.name == "BowlFlames" || gameObject.name == "Torchflame") && stopTimeMultiplier == 0)
+                    {
+                        stopTimeMultiplier = 1.0f / StopTime;
+                    }
                     StopPercent = stopTimeIncrement * stopTimeMultiplier;
                 }
             }

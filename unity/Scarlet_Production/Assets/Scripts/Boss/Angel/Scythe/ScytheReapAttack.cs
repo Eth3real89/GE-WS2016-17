@@ -23,7 +23,7 @@ public class ScytheReapAttack : AngelMeleeAttack {
 
     protected IEnumerator ActivatePullingAfterWaiting()
     {
-        yield return new WaitForSeconds(m_EarliestTimePullingStarts);
+        yield return new WaitForSeconds(AdjustTime(m_EarliestTimePullingStarts));
 
         if (m_SuccessLevel == 1)
         {

@@ -34,6 +34,8 @@ public class AngelController : BossController {
         
         m_ScarletKnockedDown = false;
 
+        SetSpeed(1.5f);
+
         MLog.Log(LogType.AngelLog, "Starting Phase, Angel, " + this);
         this.m_Callback = callback;
 
@@ -359,5 +361,13 @@ public class AngelController : BossController {
         }
 
         return null;
+    }
+
+    protected virtual void SetSpeed(float speed)
+    {
+        Animator animator = GetComponent<Animator>();
+        animator.SetFloat("AnimationSpeed", speed);
+
+        AngelAttack.SetSpeedMultiplier(speed);
     }
 }

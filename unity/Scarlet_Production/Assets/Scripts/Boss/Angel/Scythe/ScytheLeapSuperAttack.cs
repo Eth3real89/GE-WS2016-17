@@ -47,7 +47,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator WaitBeforeRotate()
     {
-        yield return new WaitForSeconds(m_TimeBeforeRotation);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeRotation));
 
         m_Timer = Rotate();
         StartCoroutine(m_Timer);
@@ -58,7 +58,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         float initialYRotation = m_Boss.transform.rotation.eulerAngles.y;
         m_YPosBefore = m_Boss.transform.position.y;
 
-        m_ForwardSpeed = Vector3.Distance(m_Boss.transform.position, m_Scarlet.transform.position) / (m_RotationTime + m_DownwardsTime);
+        m_ForwardSpeed = Vector3.Distance(m_Boss.transform.position, m_Scarlet.transform.position) / AdjustTime((m_RotationTime + m_DownwardsTime));
         
         m_ScytheRangeTrigger.m_CollisionHandler = this;
         m_ScytheRangeTrigger.m_Active = true;
@@ -69,14 +69,15 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         b.useGravity = false;
 
         float yVelocity = 0;
+        float rotationTime = AdjustTime(m_RotationTime);
 
         float t = 0;
-        while((t += Time.deltaTime) < m_RotationTime)
+        while((t += Time.deltaTime) < rotationTime)
         {
-            yVelocity += ((t > m_RotationTime / 2)? -1 : 1) * Time.deltaTime * m_UpSpeed;
-            m_Boss.transform.position += new Vector3(0, yVelocity, 0) + m_Boss.transform.forward * m_ForwardSpeed * Time.deltaTime;
+            yVelocity += ((t > rotationTime / 2)? -1 : 1) * Time.deltaTime * m_UpSpeed;
+            m_Boss.transform.position += new Vector3(0, yVelocity, 0) + m_Boss.transform.forward * AdjustSpeed(m_ForwardSpeed) * Time.deltaTime;
 
-            m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * Mathf.Sin(t / m_RotationTime * Mathf.PI / 2), 0);
+            m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * Mathf.Sin(t / rotationTime * Mathf.PI / 2), 0);
             yield return null;
         }
 
@@ -90,11 +91,11 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator AtHighestPoint()
     {
-        m_Animator.SetFloat("AnimationSpeed", 1 / (m_TimeStuckInAir + m_DownwardsTime));
+        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1 / AdjustTime((m_TimeStuckInAir + m_DownwardsTime))));
         m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
 
         float t = 0;
-        while((t += Time.deltaTime) < m_TimeStuckInAir)
+        while((t += Time.deltaTime) < AdjustTime(m_TimeStuckInAir))
         {
             float angle = BossTurnCommand.CalculateAngleTowards(m_Boss.transform, m_Scarlet.transform);
             m_Boss.transform.Rotate(Vector3.up, angle);
@@ -114,18 +115,20 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         Vector3 posBefore = m_Boss.transform.position + Vector3.zero;
 
+        float downwardsTime = AdjustTime(m_DownwardsTime);
+
         float t = 0;
-        while ((t += Time.deltaTime) < m_DownwardsTime)
+        while ((t += Time.deltaTime) < downwardsTime)
         {
-            Vector3 newPos = Vector3.Lerp(posBefore, xzAfter, t / m_DownwardsTime);
-            newPos.y = Mathf.Lerp(posBefore.y, m_YPosBefore, Mathf.Sin(t / m_DownwardsTime * Mathf.PI / 2));
+            Vector3 newPos = Vector3.Lerp(posBefore, xzAfter, t / downwardsTime);
+            newPos.y = Mathf.Lerp(posBefore.y, m_YPosBefore, Mathf.Sin(t / downwardsTime * Mathf.PI / 2));
 
             m_Boss.transform.position = newPos;
 
             yield return null;
         }
 
-        m_Animator.SetFloat("AnimationSpeed", 1f);
+        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1f));
         DisableVisualEffect();
         m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
 
@@ -161,7 +164,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = false;
 
-        yield return new WaitForSeconds(m_TimeEnd);
+        yield return new WaitForSeconds(AdjustTime(m_TimeEnd));
 
         m_Animator.SetTrigger("IdleTrigger");
         CleanUp();

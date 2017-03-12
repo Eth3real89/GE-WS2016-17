@@ -40,7 +40,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
     private IEnumerator ActivateDamageAfterWaiting()
     {
-        yield return new WaitForSeconds(m_TimeBeforeDamageActive);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeDamageActive));
 
         m_Damage.m_Callback = this;
         m_Damage.m_CollisionHandler = this;
@@ -55,13 +55,13 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
     protected IEnumerator FirstRotation()
     {
-        yield return new WaitForSeconds(m_TimeBeforeFirstRotation);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeFirstRotation));
 
         m_RotationTimer = Rotation(m_FirstRotationTime, 1);
         yield return StartCoroutine(m_RotationTimer);
 
         if (m_TimeAfterFirstRotation > 0)
-            yield return new WaitForSeconds(m_TimeAfterFirstRotation);
+            yield return new WaitForSeconds(AdjustTime(m_TimeAfterFirstRotation));
 
         m_StateTimer = SecondRotation();
         StartCoroutine(m_StateTimer);
@@ -73,7 +73,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
         yield return StartCoroutine(m_RotationTimer);
 
         if (m_TimeAfterSecondRotation > 0)
-            yield return new WaitForSeconds(m_TimeAfterSecondRotation);
+            yield return new WaitForSeconds(AdjustTime(m_TimeAfterSecondRotation));
 
         m_StateTimer = ThirdRotation();
         StartCoroutine(m_StateTimer);
@@ -86,13 +86,15 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
         ResetDamage();
         m_Animator.SetTrigger("ScytheFinisherWindupTrigger");
-        yield return new WaitForSeconds(m_WindupTime);
+        yield return new WaitForSeconds(AdjustTime(m_WindupTime));
         EndAttack();
     }
 
     protected IEnumerator Rotation(float time, int acceleration, float angle = -360)
     {
         float rotationBefore = m_Boss.transform.rotation.eulerAngles.y;
+
+        time = AdjustTime(time);
 
         float t = 0;
         while((t += Time.deltaTime) < time)

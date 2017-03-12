@@ -18,8 +18,11 @@ public class ChurchFireController : MonoBehaviour {
 
     private bool m_LightUpNext = false;
     private bool m_StartChangingToNormal = false;
+    private bool m_PutOutFires = false;
+
     private int m_FireIndex = 0;
     private float m_WaitTillNextCurrent;
+    private List<FireConstantBaseScript> m_FireBaseScripts = new List<FireConstantBaseScript>();
 
     // -------- START - DAS ENTFERNEN WENN DAS EXTERN GETRIGGERT WIRD -----------
     private float time = 5f;
@@ -84,7 +87,20 @@ public class ChurchFireController : MonoBehaviour {
             {
                 light.color = newLightColor;
             }
+            //OnPutOutFires();
+        }
+        else if(m_PutOutFires)
+        {
+            m_PutOutFires = false;
 
+            foreach(GameObject container in m_AdditionalToColorChange)
+            {
+                m_FireBaseScripts.Add(container.GetComponentInChildren<FireConstantBaseScript>());
+            }
+            foreach(FireConstantBaseScript fireScript in m_FireBaseScripts)
+            {
+                fireScript.Stop();
+            }
         }
     }
     
@@ -92,13 +108,20 @@ public class ChurchFireController : MonoBehaviour {
     IEnumerator LightUpFires()
     {
         FireConstantBaseScript[] scripts = m_FireContainers[m_FireIndex].GetComponentsInChildren<FireConstantBaseScript>();
-        foreach(FireConstantBaseScript script in scripts)
+
+        foreach (FireConstantBaseScript script in scripts)
         {
+            m_FireBaseScripts.Add(script);
             script.StartFire();
             yield return null;
         }
         m_FireIndex++;
         m_LightUpNext = true;
+
+        //if(m_FireIndex == m_FireContainers.Length)
+        //{
+        //    OnChangeColorsToNormal();
+        //}
     }
 
     public void OnLightUpFires()
@@ -110,4 +133,10 @@ public class ChurchFireController : MonoBehaviour {
     {
         m_StartChangingToNormal = true;
     }
+
+    public void OnPutOutFires()
+    {
+        m_PutOutFires = true;
+    }
+
 }

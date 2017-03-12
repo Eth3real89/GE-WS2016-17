@@ -26,7 +26,7 @@ public class AngelOppositeMovementAttack : AngelAttack
     protected IEnumerator MoveOppositeScarlet()
     {
         float t = 0;
-        while((t += Time.deltaTime) < m_Time)
+        while((t += Time.deltaTime) < AdjustTime(m_Time))
         {
             Vector3 idealPos = m_ArenaCenter.position + ((m_ArenaCenter.position - m_Scarlet.position)).normalized * m_DistanceFromCenter;
             idealPos.y = m_Boss.transform.position.y;
@@ -34,16 +34,16 @@ public class AngelOppositeMovementAttack : AngelAttack
             m_FullTurnCommand.DoTurn();
 
             Vector3 distance = idealPos - m_Boss.transform.position;
-            if (distance.magnitude < Time.deltaTime * m_MaxSpeed)
+            if (distance.magnitude < Time.deltaTime * AdjustSpeed(m_MaxSpeed))
             {
                 m_Boss.transform.position = idealPos;
             }
             else
             {
-                m_Boss.transform.position += distance.normalized * Time.deltaTime * m_MaxSpeed;
+                m_Boss.transform.position += distance.normalized * Time.deltaTime * AdjustSpeed(m_MaxSpeed);
             }
 
-            if (t >= 0.1 * m_Time && Vector3.Distance(m_Scarlet.position, m_Boss.transform.position) < 2)
+            if (t >= 0.1 * AdjustSpeed(m_Time) && Vector3.Distance(m_Scarlet.position, m_Boss.transform.position) < 2)
             {
                 StopUnsuccessfully();
             }

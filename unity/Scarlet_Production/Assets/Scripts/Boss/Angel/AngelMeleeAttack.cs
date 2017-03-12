@@ -43,7 +43,7 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     protected virtual IEnumerator StartDownswingAfterWaiting()
     {
-        yield return new WaitForSeconds(m_DownswingStartTime);
+        yield return new WaitForSeconds(AdjustTime(m_DownswingStartTime));
         Downswing();
     }
 
@@ -58,7 +58,7 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     protected virtual IEnumerator SetDamageActiveAfterWaiting()
     {
-        yield return new WaitForSeconds(m_ActivateDamageTimeAfterDownswing);
+        yield return new WaitForSeconds(AdjustTime(m_ActivateDamageTimeAfterDownswing));
         SetDamageActive();
     }
 
@@ -75,7 +75,7 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     protected virtual IEnumerator WaitBeforeAttackEnds()
     {
-        yield return new WaitForSeconds(m_TimeBeforeEnd);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeEnd));
         EndAttack();
     }
 

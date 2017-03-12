@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Workaround...
-public class AngelOnlyAnimationAttack : BossAttack {
+public class AngelOnlyAnimationAttack : AngelAttack {
 
     public float m_AnimTime;
     public string m_AnimName;
@@ -22,7 +22,7 @@ public class AngelOnlyAnimationAttack : BossAttack {
 
     protected virtual IEnumerator WaitUntilEnd()
     {
-        yield return new WaitForSeconds(m_AnimTime);
+        yield return new WaitForSeconds(AdjustTime(m_AnimTime));
 
         m_Callback.OnAttackEnd(this);
     }
@@ -32,5 +32,4 @@ public class AngelOnlyAnimationAttack : BossAttack {
         if (m_Timer != null)
             StopCoroutine(m_Timer);
     }
-
 }
