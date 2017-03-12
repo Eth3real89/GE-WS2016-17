@@ -196,7 +196,10 @@ public class VampireController : BossController {
 
     public void DeactivateLightShield()
     {
-        m_LightGuardContainer.SetActive(false);
+       // m_LightGuardContainer.SetActive(false);
+        if (m_LightGuard != null)
+            m_LightGuard.Disable();
+
         m_LightGuard.ReattachVisualsToParent();
     }
 

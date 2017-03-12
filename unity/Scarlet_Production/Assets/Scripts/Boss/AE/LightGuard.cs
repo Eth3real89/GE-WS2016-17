@@ -19,6 +19,12 @@ public class LightGuard : MonoBehaviour {
         StartCoroutine(m_LightGuardEnumerator);
     }
 
+    public void Disable()
+    {
+        
+        gameObject.SetActive(false);
+    }
+
     private IEnumerator GrowLightGuard()
     {
         float t = 0;
