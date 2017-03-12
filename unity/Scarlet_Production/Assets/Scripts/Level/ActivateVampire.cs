@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using SequencedActionCreator;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,8 +11,13 @@ public class ActivateVampire : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            m_VampireFollow.m_Active = true;
-            Destroy(this);
+            SequencedActionController.Instance.PlayCutscene("Vampire");
         }
+    }
+
+    public void ActivateFollow()
+    {
+        m_VampireFollow.m_Active = true;
+        Destroy(this);
     }
 }
