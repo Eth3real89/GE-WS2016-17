@@ -31,7 +31,7 @@ public class LightGuard : MonoBehaviour {
             ps.Stop();
         }
 
-        m_LightGuardEnumerator = GrowLightGuard();        
+        m_LightGuardEnumerator = GrowLightGuard();
 
         StartCoroutine(m_LightGuardEnumerator);
     }
@@ -46,10 +46,13 @@ public class LightGuard : MonoBehaviour {
         }
     }
 
-    public void Disable()
+    public void Disable(bool destroyAfter = false)
     {
         if (m_LightGuardVisuals != null)
-            StartCoroutine(DissolveLightGuard());
+            StartCoroutine(DissolveLightGuard(destroyAfter));
+
+        if (m_LightGuardVisuals != null)
+            m_LightGuardVisuals.GetComponentInChildren<Collider>().enabled = false;
     }
 
     private IEnumerator GrowLightGuard()
@@ -86,7 +89,7 @@ public class LightGuard : MonoBehaviour {
         }
     }
 
-    private IEnumerator DissolveLightGuard() 
+    private IEnumerator DissolveLightGuard(bool destroyAfter = false) 
     {
         float t = 0.0f;
 
@@ -111,6 +114,12 @@ public class LightGuard : MonoBehaviour {
 
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
 
+        if (m_LightGuardVisuals != null && destroyAfter)
+        {
+            Destroy(m_LightGuardVisuals);
+            m_LightGuardVisuals = null;
+        }
+        
         gameObject.SetActive(false);
     }
 
