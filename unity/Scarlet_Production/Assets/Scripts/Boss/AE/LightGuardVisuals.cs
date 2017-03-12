@@ -30,7 +30,7 @@ public class LightGuardVisuals : MonoBehaviour {
 
     public void ReattachToParent()
     {
-        if (this.transform.parent != null)
+        if (this.transform.parent != null || m_PrevParent == null)
             return;
 
         this.transform.parent = m_PrevParent;
