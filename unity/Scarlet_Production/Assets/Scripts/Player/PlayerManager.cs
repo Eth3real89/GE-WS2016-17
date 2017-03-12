@@ -22,6 +22,7 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
     public PlayerLightEffects m_LightEffects;
     public PlayerClimbingHandler m_ClimbingHandler;
     public PlayerControls m_PlayerControls;
+    public ClawController m_ClawController;
 
     public bool m_BeforeAuraPickUp;
 
@@ -75,6 +76,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         {
             m_BeforeAuraPickUp = false;
         }
+        m_ClawController.ShowHands();
+
         Vector3 retreatDirection = lightField.GetComponent<LightField>().GetVectorFromDirection(m_Rigidbody.velocity);
         LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
         if (!m_TrackLightFields.Contains(lightField))
@@ -86,6 +89,7 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
             main.simulationSpeed = 3f;
             m_ScarletAura.Stop();
         }
+
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Regular)
             m_LightEffects.OnPlayerEnterLight();
         if (m_LightEffects != null && lightFieldClass == LightField.LightFieldClass.Strong)
@@ -102,6 +106,8 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
         {
             m_BeforeAuraPickUp = false;
         }
+        m_ClawController.ShowClaws();
+
         LightField.LightFieldClass lightFieldClass = lightField.GetComponent<LightField>().m_Class;
         if (m_TrackLightFields.Contains(lightField))
             m_TrackLightFields.Remove(lightField);

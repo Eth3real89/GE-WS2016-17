@@ -1185,6 +1185,8 @@ GameObject:
   - component: {fileID: 114546980591097790}
   - component: {fileID: 114502588334783684}
   - component: {fileID: 114177525756349276}
+  - component: {fileID: 114858738104365244}
+  - component: {fileID: 114347573273991008}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -1378,7 +1380,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1697648161355774
 GameObject:
   m_ObjectHideFlags: 1
@@ -2310,8 +2312,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546299661062702}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0.62932044, z: 0, w: 0.7771459}
+  m_LocalPosition: {x: 0.234, y: -0.8637, z: -0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4754079210152124}
@@ -2326,7 +2328,7 @@ Transform:
   - {fileID: 4723120724826454}
   m_Father: {fileID: 4905829845306880}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -78, z: 0}
 --- !u!4 &4321280912022784
 Transform:
   m_ObjectHideFlags: 1
@@ -3234,8 +3236,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211058420233924}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalRotation: {x: -0, y: -0.87505835, z: -0, w: 0.48401746}
+  m_LocalPosition: {x: -18.525, y: 0.273, z: -18.223}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4309062748784360}
@@ -3877,20 +3879,13 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1546299661062702}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 7f8862cfe98dd5f41bdc085794659600, type: 3}
+  m_Avatar: {fileID: 9000000, guid: 0514a92d41bef4ae092c9ef9cec7fa5c, type: 3}
   m_Controller: {fileID: 9100000, guid: 4fd40ee69460b2a4fb806ad290cd4839, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some transforms are animated by both a Humanoid
-    animation clip and a Generic animation clip. Only the Humanoid clip will be applied
-    on those transforms.\n\tTransform 'ORG-f_pinky.03.R'\n\tTransform 'ORG-f_pinky.02.L'\n\tTransform
-    'ORG-f_pinky.03.L'\n\tTransform 'ORG-f_pinky.02.R'\n\tTransform 'ORG-f_middle.03.R'\n\tTransform
-    'ORG-f_ring.02.R'\n\tTransform 'ORG-f_ring.03.R'\n\tTransform 'ORG-f_pinky.03.R'\n\tTransform
-    'ORG-f_pinky.02.L'\n\tTransform 'ORG-f_pinky.03.L'\n\tand more ...\n\tFrom animation
-    clip 'rig|knocked_back_air'\n\tFrom animation clip 'rig|knocked_back_air'\n\tFrom
-    animation clip 'rig|knocked_back_stand up'\n\tFrom animation clip 'rig|cs_transformation'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
 --- !u!95 &95685910454112938
@@ -4356,6 +4351,23 @@ MonoBehaviour:
   m_Active: 0
   m_Owner: {fileID: 1546299661062702}
   m_Damage: 0
+--- !u!114 &114347573273991008
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8c04f1b66f79174b95211ee5f6b7a12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Hands:
+    left: {fileID: 1842227383645730}
+    right: {fileID: 1005135459928620}
+  m_Claws:
+    left: {fileID: 1195995558588070}
+    right: {fileID: 1397979782202264}
 --- !u!114 &114384745881405942
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4758,6 +4770,18 @@ MonoBehaviour:
   m_ParryAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
   m_BulletBlockEffect: {fileID: 0}
   m_BulletDeflectEffect: {fileID: 0}
+--- !u!114 &114858738104365244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb612f4b219b3674084737133433ee8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 137518019154027782}
 --- !u!114 &114923802319802484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4776,7 +4800,8 @@ MonoBehaviour:
   m_LightEffects: {fileID: 114072412852494062}
   m_ClimbingHandler: {fileID: 114546980591097790}
   m_PlayerControls: {fileID: 114283564950094282}
-  m_BeforeAuraPickUp: 0
+  m_ClawController: {fileID: 114347573273991008}
+  m_BeforeAuraPickUp: 1
 --- !u!136 &136201768175974282
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -5245,7 +5270,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 08d8fb410cee9f4488b15688fcb86cca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5554,7 +5579,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 08d8fb410cee9f4488b15688fcb86cca, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19273,7 +19298,7 @@ ParticleSystem:
     enabled: 1
     serializedVersion: 3
     rateOverTime:
-      scalar: 20
+      scalar: 30
       maxCurve:
         serializedVersion: 2
         m_Curve:
