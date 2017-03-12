@@ -50,7 +50,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
     {
         if (m_CurrentComboIndex >= 4 && !m_DropGrenadeAttack.IsActive())
         {
-            SetDropGrenadeAttackGoal(m_BossHittable.transform);
+            SetDropGrenadeAttackGoal(m_BossHittable.transform, true);
             MakeProtectiveGrenadeNext();
         }
 
