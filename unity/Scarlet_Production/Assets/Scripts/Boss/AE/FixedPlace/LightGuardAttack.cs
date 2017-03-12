@@ -15,6 +15,7 @@ public class LightGuardAttack : AEAttack {
 
         m_LightGuard.gameObject.SetActive(true);
         m_LightGuard.Enable();
+        m_LightGuard.ReattachVisualsToParent();
         m_LightGuard.DetachVisualsFromParent();
 
         m_Timer = Timer();
@@ -26,7 +27,6 @@ public class LightGuardAttack : AEAttack {
     protected virtual IEnumerator Timer()
     {
         yield return new WaitForSeconds(m_Time);
-        m_LightGuard.ReattachVisualsToParent();
         m_LightGuard.Disable();
     }
 
@@ -42,7 +42,6 @@ public class LightGuardAttack : AEAttack {
 
         if (m_LightGuard.gameObject.activeSelf)
         {
-            m_LightGuard.ReattachVisualsToParent();
             m_LightGuard.Disable();
         }
     }

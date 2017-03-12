@@ -56,6 +56,9 @@ public class BulletPathIndicator : BossAttack
             yield return null;
         }
 
+        m_Animator.SetTrigger("ShootTrigger");
+        m_EndPoint.GetComponentInChildren<ShowTargetRing>().UpdateIndicator(0);
+
         m_Index++;
 
         if (m_Index < m_Times.Length)
@@ -75,5 +78,9 @@ public class BulletPathIndicator : BossAttack
             StopCoroutine(m_Timer);
 
         m_Indicator.SetActive(false);
+        try
+        {
+            m_EndPoint.GetComponentInChildren<ShowTargetRing>().UpdateIndicator(0);
+        } catch { }
     }
 }

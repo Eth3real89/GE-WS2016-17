@@ -7,16 +7,18 @@ public class ShowTargetRing : MonoBehaviour {
 
     public Image m_Loadingmage;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-    
+    Quaternion rotation;
+
+    void Awake()
+    {
+        rotation = transform.rotation;
+    }
+
+    void LateUpdate()
+    {
+        transform.rotation = rotation;
+    }
+
     public void UpdateIndicator(float floatcurrentTime)
     {
         m_Loadingmage.fillAmount = Mathf.Lerp(0.0f, 1.0f, floatcurrentTime);
