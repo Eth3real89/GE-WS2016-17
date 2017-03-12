@@ -67,7 +67,7 @@ public class HardSpearAttack : AngelMeleeAttack {
 
     protected IEnumerator ThrowScarlet()
     {
-        yield return new WaitForSeconds(m_TimeBeforeHurlTakesPlace);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeHurlTakesPlace));
         PlayerStaggerCommand.StaggerScarlet(true, (-m_PlayerControls.transform.right) + new Vector3(0, 1f, 0), 3);
 
         m_Callback.OnAttackEnd(this);

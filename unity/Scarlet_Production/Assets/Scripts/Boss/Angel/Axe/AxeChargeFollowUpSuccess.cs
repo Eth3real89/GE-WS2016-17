@@ -39,9 +39,9 @@ public class AxeChargeFollowUpSuccess : AngelAttack, DamageCollisionHandler, Dam
         m_Animator.SetTrigger("AxeChargeOverheadTrigger");
 
         float t = 0;
-        while((t += Time.deltaTime) < m_FlyTime)
+        while((t += Time.deltaTime) < AdjustTime(m_FlyTime))
         {
-            float yPosBefore = m_YPosBefore + Mathf.Sin(m_FlyHeight * t / m_FlyTime * Mathf.PI);
+            float yPosBefore = m_YPosBefore + Mathf.Sin(m_FlyHeight * t / AdjustTime(m_FlyTime) * Mathf.PI);
 
             Vector3 newPos = m_Boss.transform.position + m_Boss.transform.forward * m_FlyForwardSpeed * Time.deltaTime;
             newPos.y = yPosBefore;

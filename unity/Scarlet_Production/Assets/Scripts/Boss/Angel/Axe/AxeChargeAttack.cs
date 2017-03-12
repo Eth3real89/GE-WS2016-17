@@ -38,7 +38,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
     protected IEnumerator StanceAndAim()
     {
-        yield return new WaitForSeconds(m_StanceAndAimTime);
+        yield return new WaitForSeconds(AdjustTime(m_StanceAndAimTime));
 
         m_Animator.SetTrigger("AxeRunTrigger");
 
@@ -55,7 +55,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
     protected IEnumerator Charge()
     {
         float t = 0;
-        while((t += Time.deltaTime) < m_ChargeTime)
+        while((t += Time.deltaTime) < AdjustTime(m_ChargeTime))
         {
             if (ScarletInRange())
                 break;
@@ -72,9 +72,9 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
     {
         m_Animator.SetTrigger("AxeChargeUpswingTrigger");
 
-        yield return new WaitForSeconds(m_UpswingTime);
+        yield return new WaitForSeconds(AdjustTime(m_UpswingTime));
         m_State = State.Hit;
-        yield return new WaitForSeconds(m_TimeAfterUpswing);
+        yield return new WaitForSeconds(AdjustTime(m_TimeAfterUpswing));
 
         m_Damage.m_Active = false;
         m_Damage.m_Callback = null;
@@ -86,7 +86,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
     protected IEnumerator WaitAfterHit()
     {
-        yield return new WaitForSeconds(m_TimeAfterUpswing);
+        yield return new WaitForSeconds(AdjustTime(m_TimeAfterUpswing));
 
         if (m_SuccessLevel < 1)
         {
@@ -131,7 +131,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
     protected void Move()
     {
         m_ChargeTurn.DoTurn();
-        m_Boss.transform.position += m_Boss.transform.forward * m_ChargeSpeed * Time.deltaTime;
+        m_Boss.transform.position += m_Boss.transform.forward * AdjustSpeed(m_ChargeSpeed) * Time.deltaTime;
     }
 
     protected bool ScarletInRange()

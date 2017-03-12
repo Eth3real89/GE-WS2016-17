@@ -35,7 +35,7 @@ public class ThrowSpearAttack : AngelAttack
     protected IEnumerator WaitBeforeHurl()
     {
         float t = 0;
-        while((t += Time.deltaTime) < m_TimeBeforeHurl)
+        while((t += Time.deltaTime) < AdjustTime(m_TimeBeforeHurl))
         {
             m_TurnCommand.DoTurn();
             yield return null;
@@ -52,7 +52,7 @@ public class ThrowSpearAttack : AngelAttack
         m_SpearToHurl.transform.position = m_AngelStaff.transform.position - new Vector3(0, m_AngelStaff.transform.position.y, 0);
         m_SpearToHurl.transform.rotation = Quaternion.Euler(0, m_Boss.transform.rotation.eulerAngles.y, 0);
         m_SpearToHurl.gameObject.SetActive(true);
-        m_SpearToHurl.LaunchSpear(m_HurlSpeed, m_SpearLifetime);
+        m_SpearToHurl.LaunchSpear(AdjustSpeed(m_HurlSpeed), m_SpearLifetime);
 
         m_Timer = RespawnStaff();
         StartCoroutine(m_Timer);
@@ -60,7 +60,7 @@ public class ThrowSpearAttack : AngelAttack
 
     protected IEnumerator RespawnStaff()
     {
-        yield return new WaitForSeconds(m_TimeStaffRespawns);
+        yield return new WaitForSeconds(AdjustTime(m_TimeStaffRespawns));
         m_AngelStaff.SetActive(true);
 
         m_Timer = WaitThenEnd();
@@ -69,7 +69,7 @@ public class ThrowSpearAttack : AngelAttack
 
     protected IEnumerator WaitThenEnd()
     {
-        yield return new WaitForSeconds(m_TimeBeforeEnd);
+        yield return new WaitForSeconds(AdjustTime(m_TimeBeforeEnd));
         m_AngelStaff.SetActive(true);
 
         m_Callback.OnAttackEnd(this);

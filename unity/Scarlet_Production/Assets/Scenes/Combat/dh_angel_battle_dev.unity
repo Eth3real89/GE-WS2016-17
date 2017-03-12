@@ -454,9 +454,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Boss: {fileID: 1421154009}
   m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 0}
-  m_BossStagger: {fileID: 0}
-  m_MoveCommand: {fileID: 0}
+  m_FullTurnCommand: {fileID: 1140139529}
+  m_BossStagger: {fileID: 2078147729}
+  m_MoveCommand: {fileID: 2078147722}
   m_Attacks:
   - {fileID: 1192430065}
   m_TimeAfterCombo: 0
@@ -1789,7 +1789,7 @@ Prefab:
     - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
         type: 2}
       propertyPath: m_MovementCombos.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4422463840029992, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalPosition.x
@@ -2133,6 +2133,16 @@ Prefab:
       propertyPath: m_MovementCombos.Array.data[2]
       value: 
       objectReference: {fileID: 656379370}
+    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_MovementCombos.Array.data[3]
+      value: 
+      objectReference: {fileID: 635200270}
+    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_MovementCombos.Array.data[4]
+      value: 
+      objectReference: {fileID: 55530609}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
   m_IsPrefabParent: 0
@@ -2677,9 +2687,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Boss: {fileID: 1421154009}
   m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 0}
-  m_BossStagger: {fileID: 0}
-  m_MoveCommand: {fileID: 0}
+  m_FullTurnCommand: {fileID: 1140139529}
+  m_BossStagger: {fileID: 2078147729}
+  m_MoveCommand: {fileID: 2078147722}
   m_Attacks:
   - {fileID: 763227457}
   m_TimeAfterCombo: 0

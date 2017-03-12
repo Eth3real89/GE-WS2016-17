@@ -32,7 +32,7 @@ public class AngelDashCloserAttack : AngelAttack {
                 break;
             }
 
-            m_Boss.transform.position += (desiredPosition - m_Boss.transform.position).normalized * m_MaxSpeed * Time.deltaTime;
+            m_Boss.transform.position += (desiredPosition - m_Boss.transform.position).normalized * AdjustSpeed(m_MaxSpeed) * Time.deltaTime;
 
             yield return null;
         }
@@ -42,7 +42,7 @@ public class AngelDashCloserAttack : AngelAttack {
 
     private bool CloseEnough(Vector3 desiredPosition)
     {
-        return Vector3.Distance(m_Boss.transform.position, desiredPosition) <= m_MaxSpeed * Time.deltaTime * 1.5;
+        return Vector3.Distance(m_Boss.transform.position, desiredPosition) <= AdjustSpeed(m_MaxSpeed) * Time.deltaTime * 1.5;
     }
 
     public override void CancelAttack()
