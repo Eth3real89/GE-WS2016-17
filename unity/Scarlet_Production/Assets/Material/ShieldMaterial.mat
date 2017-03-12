@@ -46,6 +46,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _EmissionTex
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MainTex
       second:
         m_Texture: {fileID: 0}
@@ -70,12 +76,21 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _SliceGuide
+      second:
+        m_Texture: {fileID: 2800000, guid: 4a6e2473ef1fe72428cc2d3a032d3b0e, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _Texture
       second:
         m_Texture: {fileID: 2800000, guid: 1b4d58f5a60696949b6354f2a6a3f116, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - first:
+        name: _Ambient
+      second: 0.1
     - first:
         name: _BumpScale
       second: 1
@@ -86,8 +101,17 @@ Material:
         name: _DetailNormalMapScale
       second: 1
     - first:
+        name: _Diffuse
+      second: 1
+    - first:
+        name: _DisVal
+      second: 0
+    - first:
         name: _DstBlend
       second: 10
+    - first:
+        name: _EmiVal
+      second: 0
     - first:
         name: _GlossMapScale
       second: 1
@@ -116,7 +140,16 @@ Material:
         name: _Rim
       second: 1
     - first:
+        name: _Shininess
+      second: 1
+    - first:
+        name: _SliceAmount
+      second: 0
+    - first:
         name: _SmoothnessTextureChannel
+      second: 0
+    - first:
+        name: _Spec
       second: 0
     - first:
         name: _SpecularHighlights
@@ -141,8 +174,20 @@ Material:
       second: 0
     m_Colors:
     - first:
+        name: _AmbColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
         name: _Color
       second: {r: 0.84528685, g: 0.9264706, b: 0.5586073, a: 1}
     - first:
+        name: _DifColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
+        name: _EmiColor
+      second: {r: 1, g: 1, b: 1, a: 1}
+    - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
+    - first:
+        name: _SpecColor
+      second: {r: 1, g: 1, b: 1, a: 1}

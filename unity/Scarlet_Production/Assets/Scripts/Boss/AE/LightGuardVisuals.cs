@@ -28,7 +28,7 @@ public class LightGuardVisuals : MonoBehaviour {
         //        m_VolumetricLineMaterial.SetFloat(Shader.PropertyToID("_LineWidth"), 1 / m_VolumetricLineMaterial.GetFloat(Shader.PropertyToID("_LineScale")));
 
         transform.localScale = new Vector3(1, 1, 1) * totalGrowth * 2;
-    }
+     }
 
     public void DetachFromParent()
     {

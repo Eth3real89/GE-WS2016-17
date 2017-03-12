@@ -9,25 +9,31 @@ public class LightGuard : MonoBehaviour {
     public GameObject m_Center;
 
     public float m_LightGuardRadius = 0;
-    public float m_ExpandLightGuardTime = 0.01f;
+    public float m_ExpandLightGuardTime = 0.1f;
 
     private IEnumerator m_LightGuardEnumerator;
 
+    private MeshRenderer m_MeshRenderer;
+
     public void Enable()
     {
-        m_LightGuardEnumerator = GrowLightGuard();
+        gameObject.SetActive(true);
+        m_MeshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
+
+        m_LightGuardEnumerator = GrowLightGuard();        
+
         StartCoroutine(m_LightGuardEnumerator);
     }
 
     public void Disable()
     {
-        
-        gameObject.SetActive(false);
+        StartCoroutine(DissolveLightGuard());
     }
 
     private IEnumerator GrowLightGuard()
     {
-        float t = 0;
+        float t = 0.0f;
 
         Collider c = GetComponentInChildren<Collider>();
 
@@ -43,8 +49,13 @@ public class LightGuard : MonoBehaviour {
             {
                 c.transform.localScale = new Vector3(scale * 2, scale * 2, scale * 2);   
             }
+
+            m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f - t / m_ExpandLightGuardTime);
+
             yield return null;
         }
+
+        m_MeshRenderer.material.SetFloat("_SliceAmount", 0.0f);
 
         scale = m_LightGuardRadius;
         m_LightGuardVisuals.ScaleUp(scale);
@@ -52,7 +63,22 @@ public class LightGuard : MonoBehaviour {
         {
             c.transform.localScale = new Vector3(scale * 2, scale * 2, scale * 2);
         }
+    }
 
+    private IEnumerator DissolveLightGuard() 
+    {
+        float t = 0.0f;
+
+        while ((t += Time.deltaTime) < 0.75)
+        {
+            m_MeshRenderer.material.SetFloat("_SliceAmount", t  / 0.75f);
+
+            yield return null;
+        }
+
+        m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
+
+        gameObject.SetActive(false);
     }
 
     public void DetachVisualsFromParent()
