@@ -198,6 +198,9 @@ public class PlayerControls : MonoBehaviour,
 
         if (command == m_DashCommand && m_DashDelayEnumerator != null)
             StopCoroutine(m_DashDelayEnumerator);
+
+        if (command == m_MoveCommand)
+            m_MoveCommand.StopMoving();
     }
 
     private void EnableCommand(PlayerCommand command)

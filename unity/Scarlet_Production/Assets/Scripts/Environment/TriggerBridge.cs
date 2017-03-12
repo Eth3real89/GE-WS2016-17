@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class TriggerBridge : Interactor
 {
-    public Rigidbody m_Bridge;
+    public BridgeController m_BridgeController;
 
     public override void Interact()
     {
-        m_Bridge.isKinematic = false;
+        m_BridgeController.Lower();
     }
 }
