@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class ShowTargetRing : MonoBehaviour {
 
     public Image m_Loadingmage;
-    public Image m_SurroundingImage;
 
     // Use this for initialization
     void Start () {
@@ -17,4 +16,9 @@ public class ShowTargetRing : MonoBehaviour {
 	void Update () {
 		
 	}
+    
+    public void UpdateIndicator(float floatcurrentTime)
+    {
+        m_Loadingmage.fillAmount = Mathf.Lerp(0.0f, 1.0f, floatcurrentTime);
+    }
 }

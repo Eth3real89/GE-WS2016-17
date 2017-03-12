@@ -99,13 +99,6 @@ public class ChurchFireController : MonoBehaviour {
         }
         m_FireIndex++;
         m_LightUpNext = true;
-
-        // -------- START - DAS ENTFERNEN WENN DAS FARBE ÄNDERN EXTERN GETRIGGERT WIRD -----------
-        if (m_FireIndex == m_FireContainers.Length)
-        {
-            OnChangeColorsToNormal();
-        }
-        // -------- ENDE  - DAS ENTFERNEN WENN DAS FARBE ÄNDERN EXTERN GETRIGGERT WIRD-----------
     }
 
     public void OnLightUpFires()

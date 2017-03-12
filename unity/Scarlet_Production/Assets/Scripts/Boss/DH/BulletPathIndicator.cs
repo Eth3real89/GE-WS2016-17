@@ -40,6 +40,8 @@ public class BulletPathIndicator : BossAttack
         {
             float factor = (t / time) * (t / time);
 
+            m_EndPoint.GetComponentInChildren<ShowTargetRing>().UpdateIndicator(t / time);
+
             r.material.color = Color.Lerp(m_From, m_To, factor);
 
             r.material.SetColor(Shader.PropertyToID("_EmissionColor"), Color.Lerp(m_From, m_To, factor));
