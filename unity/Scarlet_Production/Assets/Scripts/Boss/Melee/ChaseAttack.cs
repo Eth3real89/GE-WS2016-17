@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, DamageCollisionHandler, Damage.DamageCallback {
 
+    public enum StaggerLevel {None, ALittle, Hard };
+
     public BossMoveCommand m_BossMove;
     public TurnTowardsScarlet m_BossTurn;
     public BossMeleeHitCommand m_BossHit;
@@ -32,6 +34,8 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
     public int m_AttackAnimation = 0;
 
     public bool m_SkipAttack = false;
+
+    public StaggerLevel m_StaggerScarlet;
 
     protected bool m_Cancelled;
 
@@ -205,6 +209,14 @@ public class ChaseAttack : AngelAttack, BossMeleeHitCommand.MeleeHitCallback, Da
 
     public void OnSuccessfulHit()
     {
+        if (m_StaggerScarlet == StaggerLevel.ALittle)
+        {
+            PlayerStaggerCommand.StaggerScarlet(false);
+        }
+        else if (m_StaggerScarlet == StaggerLevel.Hard)
+        {
+            PlayerStaggerCommand.StaggerScarletAwayFrom(transform.position, 2f);
+        }
     }
 
     public void HandleScarletLeave(Collider other)

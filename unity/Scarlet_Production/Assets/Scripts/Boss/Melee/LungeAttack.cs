@@ -211,6 +211,7 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
 
     public void OnSuccessfulHit()
     {
+        PlayerStaggerCommand.StaggerScarletAwayFrom(m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y, 0), 3);
     }
 
     public interface LungeAttackCallbacks

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbacks
+public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbacks, Damage.DamageCallback
 {
     public float m_ExpandTime = 0.3f;
     public float m_ExpandScale = 3;
@@ -59,6 +59,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         m_Damage.transform.localPosition = new Vector3(0, 0, 0);
         m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
         m_Damage.transform.localScale = new Vector3(1, 1, 1);
+        m_Damage.m_Callback = this;
     }
 
     protected virtual IEnumerator BeforeExpansion()
@@ -118,5 +119,18 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);
+    }
+
+    public void OnParryDamage()
+    {
+    }
+
+    public void OnBlockDamage()
+    {
+    }
+
+    public void OnSuccessfulHit()
+    {
+        PlayerStaggerCommand.StaggerScarletAwayFrom(m_Container.position, 2, true);
     }
 }

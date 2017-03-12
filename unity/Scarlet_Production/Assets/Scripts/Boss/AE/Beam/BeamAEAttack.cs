@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
+public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Damage.DamageCallback
 {
     public static string START_EVENT_NAME = "beam_attack_start";
     public static string END_EVENT_NAME = "beam_attack_end";
@@ -69,6 +69,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
         m_Damage.transform.localPosition = new Vector3(0, 0, 0);
         m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
         m_Damage.transform.localScale = new Vector3(1, 1, 1);
+        m_Damage.m_Callback = this;
     }
 
     protected virtual IEnumerator BeforeExpansion()
@@ -131,5 +132,18 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks
     {
         if (!m_DoNotTurnBoss)
             m_Boss.transform.rotation = Quaternion.Euler(0, angle, 0);
+    }
+
+    public void OnParryDamage()
+    {
+    }
+
+    public void OnBlockDamage()
+    {
+    }
+
+    public void OnSuccessfulHit()
+    {
+        PlayerStaggerCommand.StaggerScarletAwayFrom(m_Container.position, 2, true);
     }
 }

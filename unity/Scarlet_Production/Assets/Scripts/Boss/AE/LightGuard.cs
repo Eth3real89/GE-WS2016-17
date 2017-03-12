@@ -48,8 +48,8 @@ public class LightGuard : MonoBehaviour {
 
     public void Disable(bool destroyAfter = false)
     {
-        if (m_LightGuardVisuals != null)
-            StartCoroutine(DissolveLightGuard(destroyAfter));
+        if (m_LightGuardVisuals != null && m_LightGuardVisuals.gameObject.activeInHierarchy)
+            m_LightGuardVisuals.StartCoroutine(DissolveLightGuard(destroyAfter));
 
         if (m_LightGuardVisuals != null)
             m_LightGuardVisuals.GetComponentInChildren<Collider>().enabled = false;

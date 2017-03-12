@@ -8,6 +8,8 @@ public class BulletFactory : MonoBehaviour {
     public enum Type {NonBlockable, Blockable, Deflectable, Grenade};
     public Vector3 m_BulletScale = new Vector3(0.9f, 0.9f, 0.9f);
 
+    public Bullet.StaggerScarlet m_StaggerScarlet;
+
     public Type m_Type;
     public BulletMovement m_Movement;
     public BulletExpirationBehaviour m_Expire;
@@ -36,6 +38,8 @@ public class BulletFactory : MonoBehaviour {
             BulletDamage dmg = copy.GetComponentInChildren<BulletDamage>();
             if (dmg != null)
                 dmg.m_DamageAmount = m_Damage;
+
+            ((Bullet)copy).m_StaggerScarlet = m_StaggerScarlet;
         }
 
         return copy;

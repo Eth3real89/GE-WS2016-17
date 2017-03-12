@@ -6,6 +6,7 @@ using UnityEngine;
 public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback, Damage.DamageCallback
 {
     public static string BULLET_HIT_SCARLET_EVENT = "bullet_hit_scarlet";
+    public enum StaggerScarlet {None, ALittle, Hard };
 
     public BulletDamage m_Damage;
     public BulletDamageTrigger m_DamageTrigger;
@@ -14,6 +15,8 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
     public BulletExpirationBehaviour m_DeflectedExpiration;
 
     public bool m_IgnoreExpirationBehaviour = false;
+
+    public StaggerScarlet m_StaggerScarlet = StaggerScarlet.None;
 
     public override void Launch(BulletCallbacks callbacks)
     {
@@ -89,6 +92,18 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
 
     public void OnSuccessfulHit()
     {
+        if (!m_Damage.m_Deflectable)
+        {
+            if (m_StaggerScarlet == StaggerScarlet.ALittle)
+            {
+                PlayerStaggerCommand.StaggerScarlet(false);
+            }
+            else if (m_StaggerScarlet == StaggerScarlet.Hard)
+            {
+                PlayerStaggerCommand.StaggerScarletAwayFrom(transform.position, 2, true);
+            }
+        }
+
         m_IgnoreExpirationBehaviour = true;
         m_BulletCallbacks.OnBulletHitTarget(this);
     }
