@@ -40,9 +40,11 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
 
         m_Callback.OnComboStart(this);
 
+        m_CurrentAttackIndex = index;
+
         if (!m_Cancelled)
         {
-            m_Attacks[index].StartAttack();
+            m_Attacks[m_CurrentAttackIndex].StartAttack();
         }
     }
 

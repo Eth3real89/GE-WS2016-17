@@ -4817,6 +4817,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1506022162496630
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4170979821114524}
+  - component: {fileID: 114464358447257270}
+  m_Layer: 9
+  m_Name: OppositeMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1506085020507246
 GameObject:
   m_ObjectHideFlags: 1
@@ -5488,6 +5504,22 @@ GameObject:
   - component: {fileID: 114891369626341354}
   m_Layer: 9
   m_Name: AxeChargeOnFail
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1569480891756826
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4552855997657442}
+  - component: {fileID: 114722269046822258}
+  m_Layer: 9
+  m_Name: MoveOppositeScarletCombo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10096,7 +10128,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012553752058084}
-  m_LocalRotation: {x: -0.055866547, y: -0.73959255, z: 0.27081802, w: 0.61362803}
+  m_LocalRotation: {x: -0.05586654, y: -0.73959255, z: 0.27081802, w: 0.61362803}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -11043,6 +11075,19 @@ Transform:
   - {fileID: 4436413534527458}
   m_Father: {fileID: 4748596652033916}
   m_RootOrder: 26
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4170979821114524
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506022162496630}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4552855997657442}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4172913410484598
 Transform:
@@ -13374,7 +13419,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4552855997657442}
   m_Father: {fileID: 4011424494309196}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14483,6 +14529,20 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4734420771007798}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4552855997657442
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569480891756826}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4170979821114524}
+  m_Father: {fileID: 4442902036968884}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4554565650148198
@@ -15687,7 +15747,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753606675724464}
-  m_LocalRotation: {x: -0.055866547, y: -0.73959255, z: 0.27081802, w: 0.61362803}
+  m_LocalRotation: {x: -0.05586654, y: -0.73959255, z: 0.27081802, w: 0.61362803}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -21737,7 +21797,7 @@ MonoBehaviour:
   - {fileID: 114032514257221410}
   m_TimeAfterCombo: 1
   m_AssociatedTip: 0
-  m_ComboType: 0
+  m_ComboType: 2
   m_ActualAttackStartIndex: 0
   m_Success: 0
   m_SkipFind: 0
@@ -21806,6 +21866,7 @@ MonoBehaviour:
   m_TimeWindowManager: {fileID: 114630769487974776}
   m_Weapons: {fileID: 114928800184693212}
   m_StartAttackIndex: 0
+  m_MovementCombos: []
 --- !u!114 &114134995501106544
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22718,6 +22779,26 @@ MonoBehaviour:
   m_Invoker: {fileID: 114997019078527864}
   m_KillAllChildren: 0
   m_KillChildrenOnCancel: 0
+--- !u!114 &114464358447257270
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1506022162496630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7562998b6fbd6c44fa87e0a7f944686e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
+  m_Time: 2
 --- !u!114 &114465261148361742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23190,7 +23271,7 @@ MonoBehaviour:
   - {fileID: 114212043941632606}
   m_TimeAfterCombo: 1
   m_AssociatedTip: 0
-  m_ComboType: 0
+  m_ComboType: 1
   m_ActualAttackStartIndex: 1
   m_Success: 0
   m_SkipFind: 0
@@ -23514,6 +23595,33 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+--- !u!114 &114722269046822258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1569480891756826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bbe8faf2be420b43b8eef118fe17875, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Boss: {fileID: 1508432114519878}
+  m_Animator: {fileID: 95921894559193220}
+  m_FullTurnCommand: {fileID: 114955303880508950}
+  m_BossStagger: {fileID: 114936865792597324}
+  m_MoveCommand: {fileID: 114984811983211298}
+  m_Attacks:
+  - {fileID: 114464358447257270}
+  m_TimeAfterCombo: 0
+  m_AssociatedTip: 6
+  m_ComboType: 0
+  m_ActualAttackStartIndex: 0
+  m_Success: 0
+  m_SkipFind: 0
+  m_MovementComboType: 2
+  m_Scarlet: {fileID: 0}
+  m_MinDistanceForSuccess: 6
 --- !u!114 &114723409824888086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23936,16 +24044,24 @@ MonoBehaviour:
   m_Scarlet: {fileID: 0}
   m_NotDeactivated: 1
   m_Combos:
+  - {fileID: 114791697742346416}
+  - {fileID: 114898679893377186}
+  - {fileID: 114854405327595274}
+  - {fileID: 114704777753060722}
+  - {fileID: 114610846866016484}
+  - {fileID: 114105377657822488}
+  - {fileID: 114506551230429904}
+  - {fileID: 114510565679312510}
+  - {fileID: 114708552005923364}
   - {fileID: 114977246273014578}
-  - {fileID: 114791697742346416}
-  - {fileID: 114791697742346416}
-  - {fileID: 114791697742346416}
   m_BossHittable: {fileID: 114575900374126740}
   m_BlockingBehaviour: {fileID: 114784673839482482}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114630769487974776}
   m_Weapons: {fileID: 114928800184693212}
   m_StartAttackIndex: 0
+  m_MovementCombos:
+  - {fileID: 114722269046822258}
 --- !u!114 &114854405327595274
 MonoBehaviour:
   m_ObjectHideFlags: 1

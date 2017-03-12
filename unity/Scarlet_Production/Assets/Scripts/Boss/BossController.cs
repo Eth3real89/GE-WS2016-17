@@ -44,7 +44,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     }
 
-    protected void RegisterComboCallback()
+    protected virtual void RegisterComboCallback()
     {
         foreach (AttackCombo combo in m_Combos)
         {
