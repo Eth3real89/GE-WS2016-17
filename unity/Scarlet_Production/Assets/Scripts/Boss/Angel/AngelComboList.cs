@@ -5,20 +5,33 @@ using UnityEngine;
 
 public class AngelComboList {
 
-    protected static List<AngelCombo> s_Combos;
-    protected static List<int> s_Used;
+    protected static List<AngelComboList> s_Instances;
 
     protected List<AngelCombo> m_Combos;
     protected List<int> m_StartIndices;
     protected List<int> m_UsedCombos;
 
+    private static void UpdateLists(AngelCombo combo)
+    {
+        for(int i = 0; i < s_Instances.Count; i++)
+        {
+            if (s_Instances[i] == null)
+                continue;
+
+            if (s_Instances[i].Contains(combo))
+            {
+                s_Instances[i].m_UsedCombos.Add(s_Instances[i].m_Combos.IndexOf(combo));
+            }
+        }
+    }
+
     public AngelComboList()
     {
-        if (s_Combos == null)
+        if (s_Instances == null)
         {
-            s_Combos = new List<AngelCombo>();
-            s_Used = new List<int>();
+            s_Instances = new List<AngelComboList>();
         }
+        s_Instances.Add(this);
 
         m_Combos = new List<AngelCombo>();
         m_StartIndices = new List<int>();
@@ -50,7 +63,13 @@ public class AngelComboList {
                 break;
             }
         }
-        m_UsedCombos.Add(comboIndex);
+
+        if (m_Combos.Count > 1 && m_UsedCombos.Count >= 1 && m_UsedCombos[m_UsedCombos.Count - 1] == comboIndex)
+        {
+            comboIndex = GetRandomCombo();
+        }
+
+        UpdateLists(m_Combos[comboIndex]);
 
         if (m_UsedCombos.Count > 15)
         {

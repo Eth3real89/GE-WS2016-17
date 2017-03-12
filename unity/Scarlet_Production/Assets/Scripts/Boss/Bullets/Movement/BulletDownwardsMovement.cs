@@ -11,13 +11,8 @@ public class BulletDownwardsMovement : BulletStraightMovement {
 
     public override void HandleMovement(BulletBehaviour b)
     {
-        if (m_First)
-        {
-            b.transform.Rotate(b.transform.right, m_DownAngle);
-            m_First = false;
-        }
-
         Vector3 moveBy = b.transform.forward * m_Speed * Time.deltaTime;
+        moveBy.y = Mathf.Sin(m_DownAngle * Mathf.Deg2Rad) * m_Speed * Time.deltaTime;
 
         if ((b.transform.position + moveBy).y < m_MinHeight)
         {

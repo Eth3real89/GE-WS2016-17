@@ -19,9 +19,11 @@ public class AngelController : BossController {
     protected AngelComboList m_MeleeOrCloseAttacks;
     protected AngelComboList m_CloseGapAttacks;
 
-    protected AngelComboList m_MoveCloseMovments;
+    protected AngelComboList m_MoveCloseMovements;
     protected AngelComboList m_FeintMovements;
     protected AngelComboList m_StayAwayMovements;
+
+    protected AngelCombo m_ActualLastCombo;
 
     protected int m_AttackIndex;
     protected bool m_ScarletKnockedDown;
@@ -116,6 +118,7 @@ public class AngelController : BossController {
         }
         else
         {
+            m_ActualLastCombo = (AngelCombo)combo;
             OnAttackComboEnd((AngelCombo) combo);
         }
     }
@@ -126,12 +129,30 @@ public class AngelController : BossController {
 
         if (combo.m_Success >= 1)
         {
-            LaunchAngelCombo(m_RegularAttacks, m_AttackIndex);
+            LaunchAngelCombo(m_RegularAttacks, m_AttackIndex, m_RegularAttacks.ComboAt(m_AttackIndex).m_ActualAttackStartIndex);
         }
         else
         {
-            LaunchUniversalPositionAttack();
+            if (combo.m_MovementComboType == AngelOnlyMovementCombo.MovementComboType.MoveAway)
+            {
+                LaunchMeleeAttack();
+            }
+            else if (combo.m_MovementComboType == AngelOnlyMovementCombo.MovementComboType.Feint)
+            {
+                LaunchUniversalPositionAttack();
+            }
+            else
+            {
+                LaunchUniversalPositionAttack();
+            }
         }
+    }
+
+    protected virtual void LaunchMeleeAttack()
+    {
+        MLog.Log(LogType.AngelLog, "Launching Melee Attack " + this);
+        int index = m_MeleeOrCloseAttacks.GetRandomCombo();
+        LaunchAngelCombo(m_MeleeOrCloseAttacks, index);
     }
 
     protected virtual void LaunchUniversalPositionAttack()
@@ -160,12 +181,49 @@ public class AngelController : BossController {
 
     protected virtual AngelOnlyMovementCombo GetMovementCombo(int nextAttack)
     {
-        return m_MovementCombos[0];
+        AngelCombo nextUp = m_RegularAttacks.ComboAt(nextAttack);
+
+        if (m_MeleeOrCloseAttacks.Contains(nextUp))
+        {
+            return (AngelOnlyMovementCombo) m_MoveCloseMovements.ComboAt(m_MoveCloseMovements.GetRandomCombo());
+        }
+        else if (m_RangeAttacks.Contains(nextUp))
+        {
+            return (AngelOnlyMovementCombo) m_StayAwayMovements.ComboAt(m_StayAwayMovements.GetRandomCombo());
+        }
+        else
+        {
+            return null;
+        }
     }
 
     protected virtual bool CheckChainAttacks()
     {
-        return false;
+        if (m_ActualLastCombo != null && m_ActualLastCombo.m_AssociatedTip == AngelWeapons.Tips.Axe &&
+            m_ActualLastCombo.m_ComboType == AngelCombo.ComboType.MainRegular)
+        {
+            if (m_ActualLastCombo.m_Success == 1)
+            {
+                AngelCombo axeFinisher = FindCombo(AngelCombo.ComboType.MainRegular, AngelWeapons.Tips.Axe);
+                if (axeFinisher != null)
+                {
+                    axeFinisher.LaunchComboFrom(2);
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
     }
 
     protected virtual void LaunchSuperOrFinisher()
@@ -175,21 +233,29 @@ public class AngelController : BossController {
         LaunchAngelCombo(m_FinishersAndSupers, finisherIndex);
     }
 
-    protected virtual void LaunchAngelCombo(AngelComboList list, int comboIndex)
+    protected virtual void LaunchAngelCombo(AngelComboList list, int comboIndex, int startOverride = -1)
     {
-        m_Weapons.ChangeTipTo(list.ComboAt(comboIndex).m_AssociatedTip, OnTipChanged(list, comboIndex), this);
+        m_Weapons.ChangeTipTo(list.ComboAt(comboIndex).m_AssociatedTip, OnTipChanged(list, comboIndex, startOverride), this);
     }
 
     protected virtual bool ScarletIsKnockedDown()
     {
-        return false;
+        return m_ActualLastCombo != null && m_ActualLastCombo.m_Success == 1;
     }
 
-    protected virtual IEnumerator OnTipChanged(AngelComboList list, int comboIndex)
+    protected virtual IEnumerator OnTipChanged(AngelComboList list, int comboIndex, int startOverride = -1)
     {
         yield return null;
         MLog.Log(LogType.AngelLog, "On Tip Changed, launching: " + list.ComboAt(comboIndex));
-        list.ComboAt(comboIndex).LaunchComboFrom(list.StartIndexAt(comboIndex));
+
+        if (startOverride == -1)
+        {
+            list.ComboAt(comboIndex).LaunchComboFrom(list.StartIndexAt(comboIndex));
+        }
+        else
+        {
+            list.ComboAt(comboIndex).LaunchComboFrom(startOverride);
+        }
     }
 
     protected virtual void SetupComboLists()
@@ -209,7 +275,7 @@ public class AngelController : BossController {
         m_CloseGapAttacks = new AngelComboList();
         ReferenceCloseGapAttacks();
 
-        m_MoveCloseMovments = new AngelComboList();
+        m_MoveCloseMovements = new AngelComboList();
         m_FeintMovements = new AngelComboList();
         m_StayAwayMovements = new AngelComboList();
         ReferenceMovementCombos();
@@ -268,7 +334,7 @@ public class AngelController : BossController {
                     m_FeintMovements.AddCombo(m_MovementCombos[i]);
                     break;
                 case AngelOnlyMovementCombo.MovementComboType.ReachScarlet:
-                    m_MoveCloseMovments.AddCombo(m_MovementCombos[i]);
+                    m_MoveCloseMovements.AddCombo(m_MovementCombos[i]);
                     break;
             }
         }
@@ -276,15 +342,22 @@ public class AngelController : BossController {
 
     protected virtual void AddIfFound(AngelCombo.ComboType type, AngelWeapons.Tips tip, AngelComboList list, int startIndex = 0)
     {
+        AngelCombo combo = FindCombo(type, tip);
+        if (combo != null && !list.Contains((AngelCombo)combo))
+            list.AddCombo(combo, startIndex);
+    }
+
+    protected virtual AngelCombo FindCombo(AngelCombo.ComboType type, AngelWeapons.Tips tip)
+    {
         for (int i = 0; i < m_Combos.Length; i++)
         {
             if (((AngelCombo)m_Combos[i]).m_AssociatedTip == tip &&
-                ((AngelCombo)m_Combos[i]).m_ComboType == type &&
-                !list.Contains((AngelCombo)m_Combos[i]))
+                ((AngelCombo)m_Combos[i]).m_ComboType == type)
             {
-                list.AddCombo((AngelCombo)m_Combos[i], startIndex);
-                break;
+                return (AngelCombo) m_Combos[i];
             }
         }
+
+        return null;
     }
 }
