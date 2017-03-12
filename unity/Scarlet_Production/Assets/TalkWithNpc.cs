@@ -22,7 +22,7 @@ public class TalkWithNpc : Interactor
         if (isInteracting)
             return;
         isInteracting = true;
-        new FARQ().ClipName("theguide").StartTime(marker[currentDialog].begin).
+        new FARQ().ClipName(audioID).StartTime(marker[currentDialog].begin).
             EndTime(marker[currentDialog].end).Location(Camera.main.transform).OnFinish(StopInteraction).Play();
 
         if (currentDialog + 1 < marker.Count)

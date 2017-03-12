@@ -27,14 +27,25 @@ public class VampireFollow : MonoBehaviour
 
         Vector3 selfPos = transform.position;
         Vector3 targetLocation = GetTargetLocation();
+
+        if (Vector3.Distance(targetLocation, selfPos) >= 0.5f && Vector3.Distance(transform.position, m_Player.transform.position) > 0.7f)
+        {
+            moveSpeed = m_WalkingSpeed + 0.1f;
+        }
+        else if (Vector3.Distance(targetLocation, selfPos) < 0.2f
+             || Vector3.Distance(transform.position, m_Player.transform.position) < 0.7f)
+        {
+            targetLocation = m_Player.transform.position;
+            targetLocation.y = transform.position.y;
+            moveSpeed = 0;
+        }
+        else
+        {
+            moveSpeed = m_WalkingSpeed - 0.2f;
+        }
+
         transform.LookAt(targetLocation);
 
-        if (Vector3.Distance(targetLocation, selfPos) >= 0.5f)
-            moveSpeed = m_WalkingSpeed + 0.1f;
-        else if (Vector3.Distance(targetLocation, selfPos) < 0.2f)
-            moveSpeed = 0;
-        else
-            moveSpeed = m_WalkingSpeed - 0.2f;
 
         if (moveSpeed > 0)
         {

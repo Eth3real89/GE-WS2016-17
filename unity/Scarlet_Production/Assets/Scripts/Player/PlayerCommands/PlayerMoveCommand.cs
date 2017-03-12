@@ -69,6 +69,7 @@ public class PlayerMoveCommand : PlayerCommand
     public void StopMoving()
     {
         DoMove(0, 0);
+        m_Animator.SetFloat("Speed", 0f);
     }
 
     private void DoRotate(float horizontal, float vertical)

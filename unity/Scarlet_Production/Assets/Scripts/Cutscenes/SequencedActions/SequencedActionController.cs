@@ -121,6 +121,7 @@ namespace SequencedActionCreator
         private void BlockControl()
         {
             m_Controls.DisableAllCommands();
+            m_Controls.StopMoving();
             m_Tracking.m_BlockTracking = true;
         }
 
