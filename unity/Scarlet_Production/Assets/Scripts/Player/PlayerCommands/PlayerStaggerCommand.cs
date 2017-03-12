@@ -21,10 +21,28 @@ public class PlayerStaggerCommand : PlayerCommand {
         }
     }
 
+    public static void StaggerScarletAwayFrom(Vector3 origin = new Vector3(), float force = 0f, bool removeY = false)
+    {
+        print("Stagger Scarlet!");
+
+        Vector3 lookRot = origin - s_Instance.m_ScarletBody.transform.position;
+        lookRot.y = 0;
+        s_Instance.m_ScarletBody.transform.rotation = Quaternion.Euler(lookRot);
+
+        if (removeY)
+            origin.y = 0;
+
+        Vector3 pos = s_Instance.m_ScarletBody.transform.position - origin;
+        pos = pos.normalized;
+        s_Instance.TriggerMajorStagger(pos, force);
+    }
+
     private Rigidbody m_ScarletBody;
 
     public float m_StaggerTime;
     public float m_MajorStaggerTime;
+
+    protected IEnumerator m_StaggerTimer;
 
     private void Start()
     {
@@ -43,20 +61,28 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     public override void TriggerCommand()
     {
+        if (m_StaggerTimer != null)
+            return;
+
         m_Callback.OnCommandStart(m_CommandName, this);
         DoStagger();
 
-        StartCoroutine(EndStaggerAfter(m_StaggerTime));
+        m_StaggerTimer = EndStaggerAfter(m_StaggerTime);
+        StartCoroutine(m_StaggerTimer);
     }
 
     public void TriggerMajorStagger(Vector3 forceValues, float force)
     {
+        if (m_StaggerTimer != null)
+            return;
+
         m_Callback.OnCommandStart(m_CommandName, this);
         DoStagger(true);
 
         m_ScarletBody.AddForce(force * forceValues * m_ScarletBody.mass, ForceMode.Impulse);
 
-        StartCoroutine(EndStaggerAfter(m_MajorStaggerTime));
+        m_StaggerTimer = EndStaggerAfter(m_MajorStaggerTime);
+        StartCoroutine(m_StaggerTimer);
     }
 
     private void DoStagger(bool major = false)
@@ -69,6 +95,8 @@ public class PlayerStaggerCommand : PlayerCommand {
     {
         yield return new WaitForSeconds(seconds);
         m_Callback.OnCommandEnd(m_CommandName, this);
+
+        m_StaggerTimer = null;
     }
 
     public override void CancelDelay()

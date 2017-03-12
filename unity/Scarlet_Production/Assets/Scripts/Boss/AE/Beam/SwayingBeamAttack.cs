@@ -13,6 +13,7 @@ public class SwayingBeamAttack : BeamAEAttack {
         m_Damage.transform.localPosition = new Vector3(0, 0, 0);
         m_Damage.transform.localRotation = Quaternion.Euler(0, 0, 0);
         m_Damage.transform.localScale = new Vector3(1, 1, 1);
+        m_Damage.m_Callback = this;
     }
 
     public override void OnExpansionOver(BeamAEDamage dmg)

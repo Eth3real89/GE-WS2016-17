@@ -22,6 +22,7 @@ public class DoubleBeamAttack : BeamAEAttack {
         if (m_OverrideDefaultDamage)
         {
             m_SecondDamage.m_DamageAmount = this.m_DamageAmount;
+            m_SecondDamage.m_Callback = this;
         }
     }
 

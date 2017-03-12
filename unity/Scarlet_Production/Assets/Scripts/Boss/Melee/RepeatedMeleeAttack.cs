@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallback, Damage.DamageCallback, BossMeleeHitCommand.MeleeHitStepsCallback
 {
+    public enum StaggerLevel { None, ALittle, Hard };
     public Damage.BlockableType m_Blockable = Damage.BlockableType.Parry;
 
     public int[] m_HitAnimationIndices = {0};
@@ -30,6 +31,7 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
     public float m_DamageAmount = 30f;
 
     private bool m_Attacking = false;
+    public StaggerLevel m_StaggerScarlet;
 
     private void Update()
     {
@@ -132,6 +134,14 @@ public class RepeatedMeleeAttack : BossAttack, BossMeleeHitCommand.MeleeHitCallb
 
     public void OnSuccessfulHit()
     {
+        if (m_StaggerScarlet == StaggerLevel.ALittle)
+        {
+            PlayerStaggerCommand.StaggerScarlet(false);
+        }
+        else if (m_StaggerScarlet == StaggerLevel.Hard)
+        {
+            PlayerStaggerCommand.StaggerScarletAwayFrom(transform.position, 2f);
+        }
     }
 
     public void OnMeleeDownswingStart()
