@@ -52,10 +52,12 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             RegenerateScarletAfterPhase();
 
-            m_DHHealth.m_CurrentHealth = m_DHHealth.m_MaxHealth;
             DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
             if (hittable != null)
+            {
                 hittable.m_HitCount = 0;
+                hittable.m_RegenerateHealthOnDeath = false;
+            }
 
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;

@@ -478,7 +478,7 @@ public abstract class DemonHunterController : BossController {
 
         m_BossHittable.RegisterInterject(this);
         m_BlockingBehaviour.m_TimesBlockBeforeParry = m_MaxBlocksBeforeParry;
-        SetDropGrenadeAttackGoal(m_BossHittable.transform);
+        SetDropGrenadeAttackGoal(m_BossHittable.transform, true);
 
         m_NextComboTimer = AfterCombo(combo);
         StartCoroutine(m_NextComboTimer);
@@ -550,7 +550,7 @@ public abstract class DemonHunterController : BossController {
         int nextCombo = m_CurrentComboIndex + 1 >= m_Combos.Length ? 0 : m_CurrentComboIndex + 1;
         if (m_Types[nextCombo] == AttackType.DropGrenade && m_PossiblyThrowWhileRunning)
         {
-            SetDropGrenadeAttackGoal(target);
+            SetDropGrenadeAttackGoal(target, false);
             m_EvasionCommand.EvadeTowards(target, this, OnGrenadeThrowingEvasionFinished());
             m_ThrowGrenadeWhileRunningEnumerator = ThrowGrenadeWhileRunning();
             StartCoroutine(m_ThrowGrenadeWhileRunningEnumerator);
@@ -568,13 +568,30 @@ public abstract class DemonHunterController : BossController {
         StartNextCombo();
     }
 
-    protected virtual void SetDropGrenadeAttackGoal(Transform t)
+    protected virtual void SetDropGrenadeAttackGoal(Transform t, bool atFeet)
     {
         try
         {
             BulletAttack grenadeAttack = (BulletAttack) m_Combos[4].m_Attacks[0];
             BulletGrenadeMovement movement = (BulletGrenadeMovement) grenadeAttack.m_BaseSwarm.m_Invoker.m_Factories[0].m_Movement;
             movement.m_Goal = t;
+
+            try
+            {
+                if (atFeet)
+                {
+                    movement.m_TimeToReachGoal = 0.05f;
+                    BulletTimeBasedExpiration expire = (BulletTimeBasedExpiration)grenadeAttack.m_BaseSwarm.m_Invoker.m_Factories[0].m_Expire;
+                    expire.m_Time = 0.06f;
+                }
+                else
+                {
+                    movement.m_TimeToReachGoal = 0.6f;
+                    BulletTimeBasedExpiration expire = (BulletTimeBasedExpiration)grenadeAttack.m_BaseSwarm.m_Invoker.m_Factories[0].m_Expire;
+                    expire.m_Time = 0.61f;
+                }
+            } catch { }
+
         }
         catch { };
     }

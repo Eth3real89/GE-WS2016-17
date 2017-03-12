@@ -6,6 +6,7 @@ public class DemonHunterHittable : BossHittable {
 
     public int m_NumHits = 5;
     public int m_HitCount = 0;
+    public bool m_RegenerateHealthOnDeath;
 
     // @todo it is a weird place for those to be here, but still kind of the best...
 
@@ -24,6 +25,11 @@ public class DemonHunterHittable : BossHittable {
             m_Health.m_CurrentHealth = m_Health.m_MaxHealth * (1f - (m_HitCount / (float) m_NumHits));
             damage.OnSuccessfulHit();
 
+            if (m_HitCount == m_NumHits && m_RegenerateHealthOnDeath)
+            {
+                StartCoroutine(Regenerate());
+            }
+
             if (m_OnHitSignal != null)
                 m_OnHitSignal.OnHit();
 
@@ -32,5 +38,16 @@ public class DemonHunterHittable : BossHittable {
                 m_OnHitAudio.Play();
             }
         }
+    }
+
+    protected IEnumerator Regenerate()
+    {
+        float t = 0;
+        while ((t += Time.deltaTime) < 1f)
+        {
+            m_Health.m_CurrentHealth = Mathf.Lerp(0, m_Health.m_MaxHealth, t / 1f);
+            yield return null;
+        }
+        m_Health.m_CurrentHealth = m_Health.m_MaxHealth;
     }
 }

@@ -202,7 +202,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
                 if (m_StaggerTimeOnWallHit > 0)
                 {
-                    m_StaggerCommand.DoStagger();
+                    m_StaggerCommand.DoStagger("StaggerHardTrigger");
 
                     m_StaggerTimer = WaitWhileStaggering();
                     StartCoroutine(m_StaggerTimer);
