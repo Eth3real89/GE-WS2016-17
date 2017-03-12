@@ -8,8 +8,10 @@ public class LightGuard : MonoBehaviour {
 
     public GameObject m_Center;
 
+    public GameObject m_DissolveParticleEffect;
+
     public float m_LightGuardRadius = 0;
-    public float m_ExpandLightGuardTime = 0.1f;
+    public float m_ExpandLightGuardTime = 0.01f;
 
     private IEnumerator m_LightGuardEnumerator;
 
@@ -18,8 +20,10 @@ public class LightGuard : MonoBehaviour {
     public void Enable()
     {
         gameObject.SetActive(true);
-        m_MeshRenderer = this.GetComponentInChildren<MeshRenderer>();
+        m_MeshRenderer = m_LightGuardVisuals.GetComponentInChildren<MeshRenderer>();
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
+
+        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Stop();
 
         m_LightGuardEnumerator = GrowLightGuard();        
 
@@ -69,12 +73,16 @@ public class LightGuard : MonoBehaviour {
     {
         float t = 0.0f;
 
-        while ((t += Time.deltaTime) < 0.75)
+        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Play();
+
+        while ((t += Time.deltaTime) < 1.5)
         {
-            m_MeshRenderer.material.SetFloat("_SliceAmount", t  / 0.75f);
+            m_MeshRenderer.material.SetFloat("_SliceAmount", t  / 1.5f);
 
             yield return null;
         }
+
+        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Stop();
 
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
 

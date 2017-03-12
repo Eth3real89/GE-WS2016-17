@@ -188,6 +188,7 @@ public class VampireController : BossController {
     public void ActivateLightShield()
     {
         m_LightGuardContainer.SetActive(true);
+        m_LightGuard.ReattachVisualsToParent();
         if (m_LightGuard != null)
             m_LightGuard.Enable();
 
@@ -200,7 +201,7 @@ public class VampireController : BossController {
         if (m_LightGuard != null)
             m_LightGuard.Disable();
 
-        m_LightGuard.ReattachVisualsToParent();
+       //m_LightGuard.ReattachVisualsToParent();
     }
 
     public void DashTo(Transform target, float time)

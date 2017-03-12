@@ -133,6 +133,7 @@
 		float4 Multiply3 = Clamp0 * Multiply0;
 		float4 Multiply4 = Saturate0 * Multiply3;
 		o.Emission = Multiply3.xyz * _Color.rgb;
+
 		o.Alpha = Multiply3.w * _Color.a;
 
 		clip(tex2D(_SliceGuide, IN.uv_SliceGuide).rgb - _SliceAmount);
