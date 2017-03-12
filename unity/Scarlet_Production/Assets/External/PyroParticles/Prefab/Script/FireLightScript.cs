@@ -27,14 +27,19 @@ namespace DigitalRuby.PyroParticles
         {
             // find a point light
             firePointLight = gameObject.GetComponentInChildren<Light>();
-            if (firePointLight != null)
+            
+            if (firePointLight != null )
             {
                 // we have a point light, set the intensity to 0 so it can fade in nicely
                 lightIntensity = firePointLight.intensity;
-                firePointLight.intensity = 0.0f;
+                if(firePointLight.name != "churchTorchLight")
+                {
+                    Debug.Log("Light Up");
+                    firePointLight.intensity = 0.0f;
+                }
                 baseY = firePointLight.gameObject.transform.position.y;
             }
-            seed = UnityEngine.Random.value * Seed;
+            seed = Random.value * Seed;
             fireBaseScript = gameObject.GetComponent<FireBaseScript>();
         }
 
@@ -79,7 +84,6 @@ namespace DigitalRuby.PyroParticles
             }
             else if (fireBaseScript.Stopping)
             {
-                // fade out
                 firePointLight.intensity = Mathf.Lerp(firePointLight.intensity, 0.0f, fireBaseScript.StopPercent);
             }
             else if (fireBaseScript.Starting)
