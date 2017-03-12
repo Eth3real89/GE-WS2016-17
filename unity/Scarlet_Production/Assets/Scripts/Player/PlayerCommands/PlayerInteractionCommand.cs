@@ -7,6 +7,7 @@ public class PlayerInteractionCommand : PlayerCommand
     public float m_InteractionTime;
     public float m_InteractionRange;
     public Transform m_Anchor;
+    public Interactor m_CurrentInteractor;
 
     private float m_CurrentInteraction;
 
@@ -24,27 +25,24 @@ public class PlayerInteractionCommand : PlayerCommand
     public override void TriggerCommand()
     {
         bool isInteracting = false;
-        RaycastHit[] hits = Physics.RaycastAll(m_Anchor.position, m_Anchor.forward, m_InteractionRange);
-        foreach (RaycastHit hit in hits)
+        if (m_CurrentInteractor != null)
         {
-            if (hit.transform.tag == "PickUp")
+            Vector3 target = m_CurrentInteractor.transform.position;
+            target.y = GameObject.FindGameObjectWithTag("Player").transform.position.y;
+            transform.parent.LookAt(target);
+            m_Animator.SetBool("IsInteracting", m_CurrentInteractor.m_UseAnimation);
+            m_Callback.OnCommandStart(m_CommandName, this);
+            isInteracting = true;
+            m_CurrentInteraction -= Time.deltaTime;
+            if (FindObjectOfType<UIItemPickupController>() != null)
             {
-                Interactor interactor = hit.transform.GetComponent<Interactor>();
-                m_Animator.SetBool("IsInteracting", interactor.m_UseAnimation);
-                m_Callback.OnCommandStart(m_CommandName, this);
-                isInteracting = true;
-                m_CurrentInteraction -= Time.deltaTime;
-                if (FindObjectOfType<UIItemPickupController>() != null)
-                {
-                    FindObjectOfType<UIItemPickupController>().UpdatePickup(m_InteractionTime - m_CurrentInteraction);
-                }
-                if (m_CurrentInteraction < 0)
-                {
-                    hit.transform.GetComponent<Interactor>().Interact();
-                }
+                FindObjectOfType<UIItemPickupController>().UpdatePickup(m_InteractionTime - m_CurrentInteraction);
+            }
+            if (m_CurrentInteraction < 0)
+            {
+                m_CurrentInteractor.Interact();
             }
         }
-
         if (!isInteracting)
         {
             CancelDelay();

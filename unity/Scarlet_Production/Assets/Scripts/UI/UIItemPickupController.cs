@@ -10,11 +10,13 @@ public class UIItemPickupController : MonoBehaviour {
 
     private Text textField;
     private Image[] images;
+    private Interactor interactor;
     
     void Start()
     {
         images = textHint.GetComponentsInChildren<Image>();
         textField = textHint.GetComponentInChildren<Text>();
+        interactor = transform.parent.GetComponent<Interactor>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -23,6 +25,7 @@ public class UIItemPickupController : MonoBehaviour {
         {
             StartCoroutine(FadeTo(1.0f, 0.6f));
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, true);
+            other.GetComponentInChildren<PlayerInteractionCommand>().m_CurrentInteractor = interactor;
         }
     }
 
@@ -32,6 +35,7 @@ public class UIItemPickupController : MonoBehaviour {
         {
             StartCoroutine(FadeTo(0.0f, 0.6f));
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
+            other.GetComponentInChildren<PlayerInteractionCommand>().m_CurrentInteractor = null;
         }
     }
 
