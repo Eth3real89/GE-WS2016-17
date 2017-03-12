@@ -9,6 +9,31 @@ public class FancyAudio : MonoBehaviour {
 
     public static bool s_UseAudio = true;
 
+    private static float _s_MasterVolume = 0.7f;
+    public static float s_MasterVolume
+    {
+        set
+        {
+            SetMasterVolume(value);
+        }
+    }
+
+    private static void SetMasterVolume(float value)
+    {
+        _s_MasterVolume = value; 
+        if (_Instance == null)
+        {
+        }
+            
+        foreach(Transform t in _Instance.m_Sources.Keys)
+        {
+            foreach(SourceAndRequest sar in _Instance.m_Sources[t])
+            {
+                sar.m_Source.volume = sar.m_Request.m_Volume * _s_MasterVolume;
+            }
+        }
+    }
+
     private static FancyAudio _Instance;
 
     public static FancyAudio Instance
@@ -49,7 +74,7 @@ public class FancyAudio : MonoBehaviour {
 
         source.loop = rq.m_Loop;
         source.time = rq.m_Start;
-        source.volume = rq.m_Volume;
+        source.volume = rq.m_Volume * _s_MasterVolume;
         source.Play();
 
         float duration;
