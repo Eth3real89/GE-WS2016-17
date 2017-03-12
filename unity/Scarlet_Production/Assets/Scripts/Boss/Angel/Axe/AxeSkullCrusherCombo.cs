@@ -4,6 +4,22 @@ using UnityEngine;
 
 public class AxeSkullCrusherCombo : AngelCombo {
 
+    public override void LaunchComboFrom(int index)
+    {
+        if (index == 2)
+        {
+            m_CurrentAttackIndex = 1;
+            string before = ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName;
+            ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = "AxeBackhandToFinisherStanceTrigger";
+            ((AngelOnlyAnimationAttack)m_Attacks[1]).StartAttack();
+            ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = before;
+        }
+        else
+        {
+            base.LaunchComboFrom(index);
+        }
+    }
+
     public override void ReportResult(AngelAttack attack)
     {
         if (attack is AxeSkullCrusherAttack)
