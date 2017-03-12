@@ -4951,6 +4951,7 @@ GameObject:
   - component: {fileID: 114848845220682146}
   - component: {fileID: 114134349951174378}
   - component: {fileID: 114770945029283568}
+  - component: {fileID: 114522074753625592}
   m_Layer: 9
   m_Name: angel
   m_TagString: Untagged
@@ -10256,7 +10257,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012553752058084}
-  m_LocalRotation: {x: -0.055866536, y: -0.73959255, z: 0.27081802, w: 0.61362803}
+  m_LocalRotation: {x: -0.055866532, y: -0.73959255, z: 0.27081802, w: 0.61362803}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -15973,7 +15974,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753606675724464}
-  m_LocalRotation: {x: -0.055866536, y: -0.73959255, z: 0.27081802, w: 0.61362803}
+  m_LocalRotation: {x: -0.055866532, y: -0.73959255, z: 0.27081802, w: 0.61362803}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -21841,6 +21842,7 @@ MonoBehaviour:
   m_DeflectedExpiration: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef,
     type: 2}
   m_IgnoreExpirationBehaviour: 0
+  m_StaggerScarlet: 0
 --- !u!114 &114009719999640890
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -21874,6 +21876,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114012739029459262
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22142,6 +22145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_StaggerScarlet: 0
   m_Type: 0
   m_Movement: {fileID: 114408763055532414}
   m_Expire: {fileID: 114966286704409732}
@@ -22430,6 +22434,7 @@ MonoBehaviour:
   m_DeflectedMovement: {fileID: 114016548408445408}
   m_DeflectedExpiration: {fileID: 114667161989515352}
   m_IgnoreExpirationBehaviour: 0
+  m_StaggerScarlet: 0
 --- !u!114 &114241539888524008
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22493,6 +22498,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114258709784455528
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22542,6 +22548,7 @@ MonoBehaviour:
   m_DeflectedExpiration: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef,
     type: 2}
   m_IgnoreExpirationBehaviour: 0
+  m_StaggerScarlet: 0
 --- !u!114 &114265884308906354
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -22878,9 +22885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d2c7307cade584298d4d021d548671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightGuardVisuals: {fileID: 114544304107372290}
   m_Center: {fileID: 0}
-  m_DissolveParticleEffect: {fileID: 0}
   m_LightGuardRadius: 0.5
   m_ExpandLightGuardTime: 0
 --- !u!114 &114361654490463860
@@ -23066,12 +23071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af56e6e1b3b9f544ca0f140c3383f423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NumVertices: 0
   m_InitialScale: 0
-  m_Angles: 0
-  m_NumCircles: 4
-  m_LineWidthFactor: 1
-  m_AdjustForLightsaber: 1.4
   m_Center: {fileID: 0}
 --- !u!114 &114435174395044056
 MonoBehaviour:
@@ -23154,6 +23154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_StaggerScarlet: 0
   m_Type: 0
   m_Movement: {fileID: 114271046904529726}
   m_Expire: {fileID: 114304397046648152}
@@ -23307,6 +23308,17 @@ MonoBehaviour:
   - 7
   - 0
   - 0
+--- !u!114 &114522074753625592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508432114519878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd6f5ebab0367564bb5d381f7441d9a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114523259830362454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23396,6 +23408,7 @@ MonoBehaviour:
   m_DeflectedExpiration: {fileID: 114871969645962068, guid: f4693389bab974b419d594e3d0e0daef,
     type: 2}
   m_IgnoreExpirationBehaviour: 0
+  m_StaggerScarlet: 0
 --- !u!114 &114543444942855448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23456,12 +23469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af56e6e1b3b9f544ca0f140c3383f423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NumVertices: 40
   m_InitialScale: 1
-  m_Angles: 360
-  m_NumCircles: 8
-  m_LineWidthFactor: 0.05
-  m_AdjustForLightsaber: 0.7
   m_Center: {fileID: 4038992433446724}
 --- !u!114 &114546787272320868
 MonoBehaviour:
@@ -23496,6 +23504,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114555886114864086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23529,6 +23538,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114561255860563876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23623,6 +23633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletScale: {x: 0.9, y: 0.9, z: 0.9}
+  m_StaggerScarlet: 0
   m_Type: 0
   m_Movement: {fileID: 114174350126491798}
   m_Expire: {fileID: 114861114412829214}
@@ -23700,6 +23711,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114621537749107508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23761,9 +23773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99d2c7307cade584298d4d021d548671, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LightGuardVisuals: {fileID: 114724142055811864}
   m_Center: {fileID: 0}
-  m_DissolveParticleEffect: {fileID: 0}
   m_LightGuardRadius: 2
   m_ExpandLightGuardTime: 0.01
 --- !u!114 &114659271870638606
@@ -24012,6 +24022,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114722269046822258
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24082,12 +24093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af56e6e1b3b9f544ca0f140c3383f423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_NumVertices: 40
   m_InitialScale: 1
-  m_Angles: 360
-  m_NumCircles: 8
-  m_LineWidthFactor: 0.05
-  m_AdjustForLightsaber: 0.7
   m_Center: {fileID: 4303696782883724}
 --- !u!114 &114731852062288502
 MonoBehaviour:
@@ -24392,6 +24398,7 @@ MonoBehaviour:
   m_DamageAmount: 0
   m_AttackAnimation: 0
   m_SkipAttack: 1
+  m_StaggerScarlet: 0
 --- !u!114 &114811828308603252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -24692,6 +24699,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BulletScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_StaggerScarlet: 0
   m_Type: 1
   m_Movement: {fileID: 114435174395044056}
   m_Expire: {fileID: 114817319458443512}

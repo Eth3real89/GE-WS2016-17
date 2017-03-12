@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrowingConeAttack : GrowingAEAttack {
+public class GrowingConeAttack : GrowingAEAttack, Damage.DamageCallback {
 
     public enum ConeVisualsType
     {
@@ -18,6 +18,9 @@ public class GrowingConeAttack : GrowingAEAttack {
     public float m_Angle;
     public float m_EndSize;
     public float m_GrowTime;
+
+    public enum StaggerScarlet { None, ALittle, Hard};
+    public StaggerScarlet m_StaggerScarlet;
 
     public float m_LineWidth = 1f;
 
@@ -109,5 +112,23 @@ public class GrowingConeAttack : GrowingAEAttack {
             StopCoroutine(m_GrowEnumerator);
     }
 
+    public void OnParryDamage()
+    {
+    }
 
+    public void OnBlockDamage()
+    {
+    }
+
+    public virtual void OnSuccessfulHit()
+    {
+        if (m_StaggerScarlet == StaggerScarlet.ALittle)
+        {
+            PlayerStaggerCommand.StaggerScarlet(false);
+        }
+        else if (m_StaggerScarlet == StaggerScarlet.Hard)
+        {
+            PlayerStaggerCommand.StaggerScarletAwayFrom(m_AttackContainer.position, 2f, true);
+        }
+    }
 }

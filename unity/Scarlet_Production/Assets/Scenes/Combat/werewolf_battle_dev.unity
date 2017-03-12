@@ -4492,7 +4492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
   m_TransitionTime: 1
-  m_StartPhase: 2
+  m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -15516,6 +15516,16 @@ Prefab:
       propertyPath: m_Tutorial
       value: 
       objectReference: {fileID: 2023222680}
+    - target: {fileID: 114772424159283458, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Speed
+      value: 6.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 114188881162508946, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_StaggerScarlet
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
