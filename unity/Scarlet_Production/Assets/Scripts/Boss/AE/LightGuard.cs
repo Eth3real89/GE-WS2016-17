@@ -23,7 +23,12 @@ public class LightGuard : MonoBehaviour {
         m_MeshRenderer = m_LightGuardVisuals.GetComponentInChildren<MeshRenderer>();
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
 
-        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Stop();
+        ParticleSystem ps = m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>();
+
+        if(ps != null)
+        {
+            ps.Stop();
+        }
 
         m_LightGuardEnumerator = GrowLightGuard();        
 
@@ -73,8 +78,13 @@ public class LightGuard : MonoBehaviour {
     {
         float t = 0.0f;
 
-        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Play();
+        ParticleSystem ps = m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>();
 
+        if(ps != null)
+        {
+            ps.Play();
+        }
+           
         while ((t += Time.deltaTime) < 1.5)
         {
             m_MeshRenderer.material.SetFloat("_SliceAmount", t  / 1.5f);
@@ -82,7 +92,10 @@ public class LightGuard : MonoBehaviour {
             yield return null;
         }
 
-        m_LightGuardVisuals.GetComponentInChildren<ParticleSystem>().Stop();
+        if(ps != null)
+        {
+            ps.Stop();
+        }
 
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
 
