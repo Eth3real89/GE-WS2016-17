@@ -64,10 +64,11 @@ namespace DigitalRuby.PyroParticles
                 if (ManualParticleSystems == null || ManualParticleSystems.Length == 0 ||
                     System.Array.IndexOf(ManualParticleSystems, p) < 0)
                 {
-                    if (p.startDelay == 0.0f)
+                    var main = p.main;
+                    if (main.startDelay.constantMin == 0.0f)
                     {
                         // wait until next frame because the transform may change
-                        p.startDelay = 0.01f;
+                        main.startDelay = 0.01f;
                     }
                     p.Play();
                 }
@@ -76,13 +77,14 @@ namespace DigitalRuby.PyroParticles
 
         protected virtual void Awake()
         {
-            Starting = true;
-            int fireLayer = UnityEngine.LayerMask.NameToLayer("FireLayer");
-            UnityEngine.Physics.IgnoreLayerCollision(fireLayer, fireLayer);
+            int fireLayer = LayerMask.NameToLayer("FireLayer");
+            Physics.IgnoreLayerCollision(fireLayer, fireLayer);
         }
 
         protected virtual void Start()
         {
+            Starting = true;
+            Running = true;
             if (AudioSource != null)
             {
                 AudioSource.Play();
@@ -170,6 +172,7 @@ namespace DigitalRuby.PyroParticles
                 return;
             }
             Stopping = true;
+            Running = false;
 
             // cleanup particle systems
             foreach (ParticleSystem p in gameObject.GetComponentsInChildren<ParticleSystem>())
@@ -181,6 +184,12 @@ namespace DigitalRuby.PyroParticles
         }
 
         public bool Starting
+        {
+            get;
+            private set;
+        }
+
+        public bool Running
         {
             get;
             private set;

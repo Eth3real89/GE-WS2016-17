@@ -28,7 +28,8 @@ public class AEFairyController : FairyController
 
     public virtual void DisableLightGuard()
     {
-        m_LightGuardContainer.SetActive(false);
+        if (m_LightGuard != null)
+            m_LightGuard.Disable();
     }
 
     public override bool OnHit(Damage dmg)

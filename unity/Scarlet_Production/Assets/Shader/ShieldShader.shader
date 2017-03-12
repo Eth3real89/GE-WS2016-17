@@ -7,9 +7,12 @@
 		_Inside("_Inside", Range(0.0,2.0)) = 0.0
 		_Rim("_Rim", Range(0.0,1.0)) = 1.2
 		_Texture("_Texture", 2D) = "white" {}
-	_Speed("_Speed", Range(0.5,5.0)) = 0.5
+		_Speed("_Speed", Range(0.5,5.0)) = 0.5
 		_Tile("_Tile", Range(1.0,10.0)) = 5.0
 		_Strength("_Strength", Range(0.0,5.0)) = 1.5
+
+		_SliceGuide ("Slice Guide (RGB)", 2D) = "white" {}
+      		_SliceAmount ("Slice Amount", Range(0.0, 1.0)) = 0.5
 	}
 
 		SubShader
@@ -33,7 +36,7 @@
 		//#pragma target 3.0
 
 
-		fixed4 _Color;
+	fixed4 _Color;
 	sampler2D _CameraDepthTexture;
 	fixed _Inside;
 	fixed _Rim;
@@ -42,6 +45,9 @@
 	fixed _Tile;
 	fixed _Strength;
 
+	sampler2D _SliceGuide;
+      	float _SliceAmount;
+      	
 	struct EditorSurfaceOutput
 	{
 		half3 Albedo;
@@ -50,6 +56,8 @@
 		half3 Gloss;
 		half Specular;
 		half Alpha;
+		float3 worldPos : TEXCOORD1;
+		float3 worldNormal : TEXCOORD2;
 	};
 
 	inline half4 LightingBlinnPhongEditor_PrePass(EditorSurfaceOutput s, half4 light)
@@ -89,12 +97,14 @@
 		float4 screenPos;
 		float3 viewDir;
 		float2 uv_Texture;
+          	float2 uv_SliceGuide;
+          	float _SliceAmount;
 	};
 
 
 	void vert(inout appdata_full v, out Input o)
 	{
-		UNITY_INITIALIZE_OUTPUT(Input,o);
+		UNITY_INITIALIZE_OUTPUT(Input, o);
 	}
 
 
@@ -123,7 +133,11 @@
 		float4 Multiply3 = Clamp0 * Multiply0;
 		float4 Multiply4 = Saturate0 * Multiply3;
 		o.Emission = Multiply3.xyz * _Color.rgb;
+
 		o.Alpha = Multiply3.w * _Color.a;
+
+		clip(tex2D(_SliceGuide, IN.uv_SliceGuide).rgb - _SliceAmount);
+		//o.Albedo = tex2D(_Texture, IN.uv_Texture).rgb;
 
 	}
 	ENDCG
