@@ -16,6 +16,9 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         m_EndInitialized = false;
         m_NotDeactivated = true;
 
+        ((DemonHunterHittable)m_BossHittable).m_RegenerateHealthOnDeath = true;
+
+
         base.StartPhase(callback);
     }
 
@@ -83,7 +86,9 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     protected override IEnumerator OnEvasionFinished()
     {
-        if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= 0)
+        DemonHunterHittable dhh = ((DemonHunterHittable)m_BossHittable);
+
+        if (!m_EndInitialized && dhh.m_HitCount == dhh.m_NumHits)
         {
             m_EndInitialized = true;
             m_NotDeactivated = false;

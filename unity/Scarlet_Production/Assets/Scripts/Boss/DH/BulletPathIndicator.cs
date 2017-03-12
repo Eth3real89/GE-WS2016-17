@@ -27,6 +27,13 @@ public class BulletPathIndicator : BossAttack
         m_Indicator.SetActive(true);
         m_Index = 0;
 
+        if (m_EndPoint.GetComponentInChildren<ShowTargetRing>() == null)
+        {
+            Transform t = m_EndPoint.transform.FindChild("AimIndicator");
+            if (t != null)
+                t.gameObject.SetActive(true);
+        }
+
         m_Timer = LightUp(m_Times[m_Index]);
         StartCoroutine(m_Timer);
     }
