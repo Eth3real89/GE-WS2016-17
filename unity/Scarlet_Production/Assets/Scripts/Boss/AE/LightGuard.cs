@@ -1,14 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LightGuard : MonoBehaviour {
 
-    public LightGuardVisuals m_LightGuardVisuals;
+    protected LightGuardVisuals m_LightGuardVisuals;
 
     public GameObject m_Center;
-
-    public GameObject m_DissolveParticleEffect;
 
     public float m_LightGuardRadius = 0;
     public float m_ExpandLightGuardTime = 0.01f;
@@ -20,6 +19,8 @@ public class LightGuard : MonoBehaviour {
     public void Enable()
     {
         gameObject.SetActive(true);
+        LoadPrefab();
+
         m_MeshRenderer = m_LightGuardVisuals.GetComponentInChildren<MeshRenderer>();
         m_MeshRenderer.material.SetFloat("_SliceAmount", 1.0f);
 
@@ -35,9 +36,20 @@ public class LightGuard : MonoBehaviour {
         StartCoroutine(m_LightGuardEnumerator);
     }
 
+    protected void LoadPrefab()
+    {
+        if (m_LightGuardVisuals == null)
+        {
+            m_LightGuardVisuals = Instantiate(AEPrefabManager.Instance.m_LightGuardPrefab, this.transform).GetComponent<LightGuardVisuals>();
+            m_LightGuardVisuals.transform.localPosition = new Vector3(0, 0, 0);
+            m_LightGuardVisuals.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
     public void Disable()
     {
-        StartCoroutine(DissolveLightGuard());
+        if (m_LightGuardVisuals != null)
+            StartCoroutine(DissolveLightGuard());
     }
 
     private IEnumerator GrowLightGuard()
@@ -104,11 +116,13 @@ public class LightGuard : MonoBehaviour {
 
     public void DetachVisualsFromParent()
     {
-        m_LightGuardVisuals.DetachFromParent();
+        if (m_LightGuardVisuals != null)
+            m_LightGuardVisuals.DetachFromParent();
     }
 
     public void ReattachVisualsToParent()
     {
-        m_LightGuardVisuals.ReattachToParent();
+        if (m_LightGuardVisuals != null)
+            m_LightGuardVisuals.ReattachToParent();
     }
 }

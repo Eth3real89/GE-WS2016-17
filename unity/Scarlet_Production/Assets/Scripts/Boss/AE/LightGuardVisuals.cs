@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class LightGuardVisuals : MonoBehaviour {
 
-    public int m_NumVertices;
     public float m_InitialScale;
-
-    public float m_Angles;
-
-    public int m_NumCircles = 4;
-
-    public float m_LineWidthFactor = 1;
-    public float m_AdjustForLightsaber = 1.4f;
 
     public Transform m_Center;
 

@@ -14,8 +14,8 @@ public class LightGuardAttack : AEAttack {
         base.StartAttack();
 
         m_LightGuard.gameObject.SetActive(true);
-        m_LightGuard.DetachVisualsFromParent();
         m_LightGuard.Enable();
+        m_LightGuard.DetachVisualsFromParent();
 
         m_Timer = Timer();
         StartCoroutine(m_Timer);

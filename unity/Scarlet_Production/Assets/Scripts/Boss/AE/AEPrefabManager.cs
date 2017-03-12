@@ -20,6 +20,8 @@ public class AEPrefabManager : MonoBehaviour {
         }
     }
 
+    public GameObject m_LightGuardPrefab;
+
     public GameObject m_BlastWaveWrapper;
 
     public GameObject m_BasicBeamVisuals;
