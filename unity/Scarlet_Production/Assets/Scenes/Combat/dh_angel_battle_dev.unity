@@ -411,62 +411,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bac10d8afb84a2449a5b7d4a6a9adf3e, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &55530607
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 55530608}
-  - component: {fileID: 55530609}
-  m_Layer: 9
-  m_Name: DashAwayComboRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &55530608
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 55530607}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1192430064}
-  m_Father: {fileID: 1203903825}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &55530609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 55530607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6810f68a8d7eb1d4cb4a8d7f165434d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Boss: {fileID: 1421154009}
-  m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 1140139529}
-  m_BossStagger: {fileID: 2078147729}
-  m_MoveCommand: {fileID: 2078147722}
-  m_Attacks:
-  - {fileID: 1192430065}
-  m_TimeAfterCombo: 0
-  m_AssociatedTip: 0
-  m_ComboType: 0
-  m_ActualAttackStartIndex: 1
-  m_Success: 0
-  m_SkipFind: 0
-  m_MovementComboType: 2
-  m_Scarlet: {fileID: 125627558}
 --- !u!1 &62033756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,57 +1616,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Slider+SliderEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!1 &302984466
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 302984467}
-  - component: {fileID: 302984468}
-  m_Layer: 9
-  m_Name: DashCloserLeftAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &302984467
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 302984466}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1418586205}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &302984468
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 302984466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0fecb04c84a8c844b797ba23dda7d6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 2
-  m_TriggerBlock: 0
-  m_DamageOnParry: 15
-  m_TimeAfterAttack: 0
-  m_Animator: {fileID: 0}
-  m_Boss: {fileID: 0}
-  m_FullTurnCommand: {fileID: 0}
-  m_SuccessLevel: 0
-  m_MaxSpeed: 8
-  m_Scarlet: {fileID: 125627558}
-  m_LeftOfScarlet: 1
 --- !u!1 &325885822
 GameObject:
   m_ObjectHideFlags: 0
@@ -1786,11 +1679,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MovementCombos.Array.size
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 4422463840029992, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1823,11 +1711,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114955303880508950, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_Scarlet
-      value: 
-      objectReference: {fileID: 638130663}
     - target: {fileID: 114731852062288502, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
         type: 2}
       propertyPath: m_Scarlet
@@ -1923,7 +1806,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4694413766069550, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.05586654
+      value: -0.055866536
       objectReference: {fileID: 0}
     - target: {fileID: 4694413766069550, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.y
@@ -1939,7 +1822,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4067089082047490, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.05586654
+      value: -0.055866536
       objectReference: {fileID: 0}
     - target: {fileID: 4067089082047490, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
       propertyPath: m_LocalRotation.y
@@ -2083,6 +1966,71 @@ Prefab:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 638130669}
+    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_ArenaCenter
+      value: 
+      objectReference: {fileID: 1915071401}
+    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114722269046822258, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114740423821568736, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114381148411271480, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114361654490463860, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114393037927175162, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
+    - target: {fileID: 114561255860563876, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Targets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1701996482}
+    - target: {fileID: 114561255860563876, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Targets.Array.data[1]
+      value: 
+      objectReference: {fileID: 588706027}
+    - target: {fileID: 114955303880508950, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 638130663}
+    - target: {fileID: 114039753288333660, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Targets.Array.data[0]
+      value: 
+      objectReference: {fileID: 268415470}
+    - target: {fileID: 114039753288333660, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Targets.Array.data[1]
+      value: 
+      objectReference: {fileID: 959041587}
+    - target: {fileID: 114543507140824996, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 125627558}
     - target: {fileID: 114134349951174378, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
         type: 2}
       propertyPath: m_Scarlet
@@ -2093,56 +2041,11 @@ Prefab:
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 114722269046822258, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
+    - target: {fileID: 114663164091426450, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 125627558}
-    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_Scarlet
-      value: 
-      objectReference: {fileID: 125627558}
-    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_ArenaCenter
-      value: 
-      objectReference: {fileID: 1915071401}
-    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_DistanceFromCenter
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_Time
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 114464358447257270, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MaxSpeed
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MovementCombos.Array.data[1]
-      value: 
-      objectReference: {fileID: 1418586206}
-    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MovementCombos.Array.data[2]
-      value: 
-      objectReference: {fileID: 656379370}
-    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MovementCombos.Array.data[3]
-      value: 
-      objectReference: {fileID: 635200270}
-    - target: {fileID: 114848845220682146, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-        type: 2}
-      propertyPath: m_MovementCombos.Array.data[4]
-      value: 
-      objectReference: {fileID: 55530609}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36, type: 2}
   m_IsPrefabParent: 0
@@ -2644,62 +2547,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 611635209}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &635200268
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 635200269}
-  - component: {fileID: 635200270}
-  m_Layer: 9
-  m_Name: DashAwayComboLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &635200269
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 635200268}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 763227456}
-  m_Father: {fileID: 1203903825}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &635200270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 635200268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6810f68a8d7eb1d4cb4a8d7f165434d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Boss: {fileID: 1421154009}
-  m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 1140139529}
-  m_BossStagger: {fileID: 2078147729}
-  m_MoveCommand: {fileID: 2078147722}
-  m_Attacks:
-  - {fileID: 763227457}
-  m_TimeAfterCombo: 0
-  m_AssociatedTip: 0
-  m_ComboType: 0
-  m_ActualAttackStartIndex: 1
-  m_Success: 0
-  m_SkipFind: 0
-  m_MovementComboType: 2
-  m_Scarlet: {fileID: 125627558}
 --- !u!1 &638130663 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1546299661062702, guid: 2acb300160851794e8c5a2330570274b,
@@ -2716,62 +2563,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 883043524}
   m_Script: {fileID: 11500000, guid: b0bec82d6112e394abc9f3539eeacfeb, type: 3}
---- !u!1 &656379368
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 656379369}
-  - component: {fileID: 656379370}
-  m_Layer: 9
-  m_Name: DashCloserComboRight
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &656379369
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 656379368}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1500705297}
-  m_Father: {fileID: 1203903825}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &656379370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 656379368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77259d87fc0ce048b0a57075b104cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Boss: {fileID: 1421154009}
-  m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 1140139529}
-  m_BossStagger: {fileID: 2078147729}
-  m_MoveCommand: {fileID: 2078147722}
-  m_Attacks:
-  - {fileID: 1500705298}
-  m_TimeAfterCombo: 0
-  m_AssociatedTip: 0
-  m_ComboType: 0
-  m_ActualAttackStartIndex: 1
-  m_Success: 0
-  m_SkipFind: 0
-  m_MovementComboType: 0
-  m_Scarlet: {fileID: 125627558}
 --- !u!1 &670357263
 GameObject:
   m_ObjectHideFlags: 0
@@ -5497,58 +5288,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1299142440365410, guid: 14670ed46af439045ad0a7344962e76c,
     type: 2}
   m_PrefabInternal: {fileID: 2027020332}
---- !u!1 &763227455
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 763227456}
-  - component: {fileID: 763227457}
-  m_Layer: 9
-  m_Name: DashAwayAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &763227456
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 763227455}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 635200269}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &763227457
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 763227455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35176a97da25f04eba8d7783da45a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 2
-  m_TriggerBlock: 0
-  m_DamageOnParry: 15
-  m_TimeAfterAttack: 0
-  m_Animator: {fileID: 0}
-  m_Boss: {fileID: 0}
-  m_FullTurnCommand: {fileID: 0}
-  m_SuccessLevel: 0
-  m_MaxSpeed: 7
-  m_Targets:
-  - {fileID: 1701996482}
-  - {fileID: 588706027}
 --- !u!1 &806614266
 GameObject:
   m_ObjectHideFlags: 0
@@ -9003,12 +8742,6 @@ ParticleSystem:
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
---- !u!114 &1140139529 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114955303880508950, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-    type: 2}
-  m_PrefabInternal: {fileID: 364399021}
-  m_Script: {fileID: 11500000, guid: 4741f77b698aca64f808407f63a19806, type: 3}
 --- !u!1 &1166229301
 GameObject:
   m_ObjectHideFlags: 0
@@ -9062,58 +8795,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f58b7e559944a9e4c8a07d3627106dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1192430063
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1192430064}
-  - component: {fileID: 1192430065}
-  m_Layer: 9
-  m_Name: DashAwayAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1192430064
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1192430063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 55530608}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1192430065
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1192430063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c35176a97da25f04eba8d7783da45a83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 2
-  m_TriggerBlock: 0
-  m_DamageOnParry: 15
-  m_TimeAfterAttack: 0
-  m_Animator: {fileID: 0}
-  m_Boss: {fileID: 0}
-  m_FullTurnCommand: {fileID: 0}
-  m_SuccessLevel: 0
-  m_MaxSpeed: 7
-  m_Targets:
-  - {fileID: 268415470}
-  - {fileID: 959041587}
 --- !u!1 &1196937943
 GameObject:
   m_ObjectHideFlags: 0
@@ -9150,11 +8831,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &1203903825 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4442902036968884, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-    type: 2}
-  m_PrefabInternal: {fileID: 364399021}
 --- !u!1 &1230678807
 GameObject:
   m_ObjectHideFlags: 0
@@ -15114,62 +14790,6 @@ Transform:
   m_Father: {fileID: 431135076}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1418586204
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1418586205}
-  - component: {fileID: 1418586206}
-  m_Layer: 9
-  m_Name: DashCloserComboLeft
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1418586205
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1418586204}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 302984467}
-  m_Father: {fileID: 1203903825}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1418586206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1418586204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d77259d87fc0ce048b0a57075b104cc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Boss: {fileID: 1421154009}
-  m_Animator: {fileID: 1421154021}
-  m_FullTurnCommand: {fileID: 1140139529}
-  m_BossStagger: {fileID: 2078147729}
-  m_MoveCommand: {fileID: 2078147722}
-  m_Attacks:
-  - {fileID: 302984468}
-  m_TimeAfterCombo: 0
-  m_AssociatedTip: 0
-  m_ComboType: 0
-  m_ActualAttackStartIndex: 1
-  m_Success: 0
-  m_SkipFind: 0
-  m_MovementComboType: 0
-  m_Scarlet: {fileID: 125627558}
 --- !u!1 &1419626435
 GameObject:
   m_ObjectHideFlags: 0
@@ -15258,11 +14878,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1508432114519878, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
     type: 2}
   m_PrefabInternal: {fileID: 364399021}
---- !u!95 &1421154021 stripped
-Animator:
-  m_PrefabParentObject: {fileID: 95921894559193220, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-    type: 2}
-  m_PrefabInternal: {fileID: 364399021}
 --- !u!114 &1421154022 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114134349951174378, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
@@ -15317,57 +14932,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 582386bc1e9e5c0438f9ed3dd4dc202a, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1500705296
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1500705297}
-  - component: {fileID: 1500705298}
-  m_Layer: 9
-  m_Name: DashCloserRightAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1500705297
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500705296}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 656379369}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1500705298
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1500705296}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0fecb04c84a8c844b797ba23dda7d6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TriggerInterrupt: 2
-  m_TriggerBlock: 0
-  m_DamageOnParry: 15
-  m_TimeAfterAttack: 0
-  m_Animator: {fileID: 0}
-  m_Boss: {fileID: 0}
-  m_FullTurnCommand: {fileID: 0}
-  m_SuccessLevel: 0
-  m_MaxSpeed: 8
-  m_Scarlet: {fileID: 125627558}
-  m_LeftOfScarlet: 0
 --- !u!1001 &1514526789
 Prefab:
   m_ObjectHideFlags: 0
@@ -16780,18 +16344,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2078147722 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114984811983211298, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-    type: 2}
-  m_PrefabInternal: {fileID: 364399021}
-  m_Script: {fileID: 11500000, guid: 00cd7b57439436c4da922a47b8cd2204, type: 3}
---- !u!114 &2078147729 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114936865792597324, guid: d15d1d4e38f7f8b4fb2fdb9756b82e36,
-    type: 2}
-  m_PrefabInternal: {fileID: 364399021}
-  m_Script: {fileID: 11500000, guid: 642a36631e7b74a4c8c7ce9716ca4e63, type: 3}
 --- !u!1001 &2116867946
 Prefab:
   m_ObjectHideFlags: 0
