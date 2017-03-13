@@ -118,8 +118,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
 
     public virtual void OnInterruptCombo(AttackCombo combo)
     {
-        if (m_NextComboTimer != null)
-            StopCoroutine(m_NextComboTimer);
+        CancelComboIfActive();
 
         m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
         StartCoroutine(m_NextComboTimer);

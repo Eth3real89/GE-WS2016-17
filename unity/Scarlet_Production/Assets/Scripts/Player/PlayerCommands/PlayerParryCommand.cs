@@ -137,7 +137,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         {
             // need look up whether a bullet can be deflected or not
 
-            if (((BulletDamage) dmg).m_Deflectable)
+            if (((BulletDamage)dmg).m_Deflectable)
             {
                 PlayParryDeflectableBulletEffect();
             }
@@ -147,10 +147,23 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             }
         }
 
+        LookAtSource(dmg);
+
         dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);
 
         return true;
+    }
+
+    private void LookAtSource(Damage dmg)
+    {
+        if (dmg.m_Owner != null)
+        {
+            var lookPos = dmg.m_Owner.transform.position - m_Scarlet.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            m_Scarlet.transform.rotation = rotation;
+        }
     }
 
     private void PlayParryDeflectableBulletEffect()
@@ -194,6 +207,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
         dmg.OnParryDamage();
         PlayAudio(m_ParryAudio);
+
+        LookAtSource(dmg);
 
         return true;
     }
