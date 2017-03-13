@@ -61,14 +61,14 @@ public class Gunfire : MonoBehaviour {
 
     private IEnumerator HideMuzzleFlashLight(GameObject obj)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.05f);
 
         obj.GetComponentInChildren<Light>().enabled = false;
     }
 
     private IEnumerator HideMuzzleFlashEffect(GameObject obj)
     {
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.4f);
 
         obj.GetComponentInChildren<ParticleSystem>().Stop();
     }
@@ -105,7 +105,6 @@ public class Gunfire : MonoBehaviour {
 
     public void FireRifle()
     {
-        print("RIFLE SHOOTING");
         ShootRifle(m_RifleShot);
     }
 
@@ -128,10 +127,8 @@ public class Gunfire : MonoBehaviour {
 
     private void SafetyDisableRifle(GameObject obj)
     {
-        StopRifleEffects(obj);
-
         obj.GetComponentInChildren<Light>().enabled = false;
-
+        StopRifleEffects(obj);       
     }
 
     private IEnumerator HideMuzzleFlashEffectRifle(GameObject obj)
