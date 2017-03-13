@@ -244,7 +244,7 @@ public class AngelController : BossController {
         {
             if (m_ActualLastCombo.m_Success == 1)
             {
-                AngelCombo axeFinisher = FindCombo(AngelCombo.ComboType.MainRegular, AngelWeapons.Tips.Axe);
+                AngelCombo axeFinisher = FindCombo(AngelCombo.ComboType.MainFinisher, AngelWeapons.Tips.Axe);
                 if (axeFinisher != null)
                 {
                     axeFinisher.LaunchComboFrom(2);
