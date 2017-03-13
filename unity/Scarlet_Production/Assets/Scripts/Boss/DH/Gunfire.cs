@@ -8,9 +8,10 @@ public class Gunfire : MonoBehaviour {
     public GameObject m_PistolShotRight;
 
     protected IEnumerator m_EffectEnumerator;
-    
+
     public void FireGun(int which)
     {
+    /*
         if (which == 0)
         {
             CopyAndPlay(m_PistolShotLeft);
@@ -24,8 +25,53 @@ public class Gunfire : MonoBehaviour {
             CopyAndPlay(m_PistolShotLeft);
             CopyAndPlay(m_PistolShotRight);
         }
+    */
+        if (which == 0)
+        {
+            ShootPistol(m_PistolShotLeft);
+        }
+        else if (which == 1)
+        {
+            ShootPistol(m_PistolShotRight);
+        }
+        else
+        {
+            ShootPistol(m_PistolShotLeft);
+            ShootPistol(m_PistolShotRight);
+        }
     }
 
+    private void ShootPistol(GameObject obj)
+    {   
+        SafetyDisable(obj);
+
+        obj.GetComponentInChildren<ParticleSystem>().Play();
+        obj.GetComponentInChildren<Light>().enabled = true;
+
+        StartCoroutine(HideMuzzleFlashLight(obj));
+        StartCoroutine(HideMuzzleFlashEffect(obj));
+    }
+
+    private void SafetyDisable(GameObject obj)
+    {
+        obj.GetComponentInChildren<ParticleSystem>().Stop();
+        obj.GetComponentInChildren<Light>().enabled = false;
+    }
+
+    private IEnumerator HideMuzzleFlashLight(GameObject obj)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        obj.GetComponentInChildren<Light>().enabled = false;
+    }
+
+    private IEnumerator HideMuzzleFlashEffect(GameObject obj)
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        obj.GetComponentInChildren<ParticleSystem>().Stop();
+    }
+    /*
     protected void CopyAndPlay(GameObject obj)
     {
        // return;
@@ -50,10 +96,11 @@ public class Gunfire : MonoBehaviour {
     
     protected IEnumerator DeleteAfter(GameObject copy)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.4f);
         Destroy(copy);
         m_EffectEnumerator = null;
     }
+    */
 
     public void FireRifle()
     {
