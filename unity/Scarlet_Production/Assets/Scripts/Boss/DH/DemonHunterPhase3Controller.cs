@@ -158,7 +158,7 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
     protected void SetWaveTimes(float m_BasicTimeRhythm)
     {
-        int[] m_Repetitions = { 40, 36, 32, 20, 18 };
+        int[] m_Repetitions = { 41, 37, 33, 21, 19 };
 
         // Basic Setup:
 
@@ -167,9 +167,10 @@ public class DemonHunterPhase3Controller : DemonHunterController {
             BossAttack[] attacks = new BossAttack[m_Repetitions[i]];
 
             attacks[0] = m_CombosForRhythm[i].m_Attacks[0];
-            for (int j = 0; j < m_Repetitions[i] - 2; j++)
+            attacks[1] = m_CombosForRhythm[i].m_Attacks[1];
+            for (int j = 1; j < m_Repetitions[i] - 2; j++)
             {
-                attacks[j + 1] = m_CombosForRhythm[i].m_Attacks[1 + j % 4];
+                attacks[j + 1] = m_CombosForRhythm[i].m_Attacks[2 + j % 4];
             }
 
             attacks[m_Repetitions[i] - 1] = m_CombosForRhythm[i].m_Attacks[m_CombosForRhythm[i].m_Attacks.Length - 1];
@@ -181,7 +182,8 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         {
             combo.m_WaitTimes = new float[combo.m_Attacks.Length - 1];
 
-            for (int i = 0; i < combo.m_WaitTimes.Length; i++)
+            combo.m_WaitTimes[0] = 0f;
+            for (int i = 1; i < combo.m_WaitTimes.Length; i++)
             {
                 combo.m_WaitTimes[i] = m_BasicTimeRhythm;
             }
@@ -190,9 +192,9 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         }
 
         // For Fairness: (values via trial & error), slows waves down / makes them not all simultaneous
-        m_CombosForRhythm[0].m_WaitTimes[4] = 12f;
+        m_CombosForRhythm[0].m_WaitTimes[5] = 12f;
 
-        for(int i = 0; i < 7; i++)
+        for(int i = 1; i < 8; i++)
         {
             m_CombosForRhythm[1].m_WaitTimes[8 + i] *= 2;
             m_CombosForRhythm[2].m_WaitTimes[7 + i] *= 2;
@@ -200,7 +202,7 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
         for (int i = 0; i < 5; i++)
         {
-            int startPoint = (new int[] {14, 16, 15, 0, 0})[i];
+            int startPoint = (new int[] {15, 17, 16, 1, 1})[i];
 
             for(int j = startPoint; j < m_CombosForRhythm[i].m_WaitTimes.Length; j++)
             {

@@ -50,6 +50,10 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             {
                 ((LightGuardAttack)attack).m_LightGuard.m_Center = empty;
             }
+            else if (attack is PlayableAttack)
+            {
+                ((PlayableAttack)attack).m_EffectLocation = emptyLower.transform.position;
+            }
         }
 
         if (!m_DontCopy)
