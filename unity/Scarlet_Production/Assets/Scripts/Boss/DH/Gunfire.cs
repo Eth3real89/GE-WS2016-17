@@ -6,6 +6,7 @@ public class Gunfire : MonoBehaviour {
 
     public GameObject m_PistolShotLeft;
     public GameObject m_PistolShotRight;
+    public GameObject m_RifleShot;
 
     protected IEnumerator m_EffectEnumerator;
 
@@ -104,7 +105,49 @@ public class Gunfire : MonoBehaviour {
 
     public void FireRifle()
     {
+        print("RIFLE SHOOTING");
+        ShootRifle(m_RifleShot);
+    }
+
+    private void ShootRifle(GameObject obj)
+    {
+        SafetyDisableRifle(obj);
+
+        Component[] pss = obj.GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem ps in pss)
+        {
+            ps.Play();
+        }
+
+        obj.GetComponentInChildren<Light>().enabled = true;
+
+        StartCoroutine(HideMuzzleFlashLight(obj));
+        StartCoroutine(HideMuzzleFlashEffectRifle(obj));
+    }
+
+    private void SafetyDisableRifle(GameObject obj)
+    {
+        StopRifleEffects(obj);
+
+        obj.GetComponentInChildren<Light>().enabled = false;
 
     }
 
+    private IEnumerator HideMuzzleFlashEffectRifle(GameObject obj)
+    {
+        yield return new WaitForSeconds(0.4f);
+
+        StopRifleEffects(obj);
+    }
+
+    private void StopRifleEffects(GameObject obj)
+    {
+        Component[] pss = obj.GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem ps in pss)
+        {
+            ps.Stop();
+        }
+    }
 }
