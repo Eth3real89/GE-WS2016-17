@@ -276,4 +276,10 @@ public class ArmorFairyPhase4Controller : ArmorFairyController {
 
         return true;
     }
+
+    protected override void PlayStaggerSound()
+    {
+        m_StaggerPlayer.PlayRandomSound();
+        EventManager.TriggerEvent("armor_fairy_female_stagger");
+    }
 }
