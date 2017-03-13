@@ -28,13 +28,21 @@ public class AngelController : BossController {
     protected int m_AttackIndex;
     protected bool m_ScarletKnockedDown;
 
+    public int m_DebugAttackIndex = 0;
+    public bool m_DebugForceAttack = false;
+
+    protected bool m_InWindup;
+    protected bool m_InLongStance;
+
+    public float m_SpeedMultiplier = 1f;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         //Time.timeScale = 0.5f;
         
         m_ScarletKnockedDown = false;
 
-        SetSpeed(1.5f);
+        SetSpeed(m_SpeedMultiplier);
 
         MLog.Log(LogType.AngelLog, "Starting Phase, Angel, " + this);
         this.m_Callback = callback;
@@ -57,10 +65,40 @@ public class AngelController : BossController {
         }
     }
 
+    protected virtual void ListenForWindupEvents()
+    {
+        EventManager.StartListening(AngelWindupListener.WINDUP_START, WindupStart);
+        EventManager.StartListening(AngelWindupListener.WINDUP_END, WindupEnd);
+        EventManager.StartListening(AngelWindupListener.LONG_STANCE_START, LongStanceStart);
+        EventManager.StartListening(AngelWindupListener.LONG_STANCE_END, LongStanceEnd);
+    }
+
+    protected virtual void StopListeningForWindupEvents()
+    {
+        EventManager.StopListening(AngelWindupListener.WINDUP_START, WindupStart);
+        EventManager.StopListening(AngelWindupListener.WINDUP_END, WindupEnd);
+        EventManager.StopListening(AngelWindupListener.LONG_STANCE_START, LongStanceStart);
+        EventManager.StopListening(AngelWindupListener.LONG_STANCE_END, LongStanceEnd);
+    }
+
     protected virtual void StartFirstCombo()
     {
-        m_CurrentComboIndex = m_StartAttackIndex - 1;
-        StartCoroutine(StartNextComboAfter(0.5f));
+        if (m_DebugForceAttack)
+        {
+            foreach(AngelComboList acl in new AngelComboList[] {m_RegularAttacks, m_FinishersAndSupers })
+            {
+                if (acl.Contains((AngelCombo) m_Combos[m_DebugAttackIndex]))
+                {
+                    LaunchAngelCombo(acl, acl.ComboIndex((AngelCombo) m_Combos[m_DebugAttackIndex]), -1);
+                    break;
+                }
+            }
+        }
+        else
+        {
+            m_CurrentComboIndex = m_StartAttackIndex - 1;
+            StartCoroutine(StartNextComboAfter(0.5f));
+        }
     }
 
     protected override IEnumerator StartNextComboAfter(float time)
@@ -369,5 +407,70 @@ public class AngelController : BossController {
         animator.SetFloat("AnimationSpeed", speed);
 
         AngelAttack.SetSpeedMultiplier(speed);
+    }
+
+    public override bool OnHit(Damage dmg)
+    {
+        if (m_InWindup || m_ActiveCombo == null)
+        {
+            CancelComboIfActive();
+
+            if (m_TimeWindowManager != null)
+            {
+                m_TimeWindowManager.Activate(this);
+                m_BossHittable.RegisterInterject(m_TimeWindowManager);
+            }
+
+            if (m_NextComboTimer != null)
+                StopCoroutine(m_NextComboTimer);
+
+            CameraController.Instance.Shake();
+
+            return false;
+        }
+        else if (m_InLongStance)
+        {
+            // @todo: take care of dmg
+            return false;
+        }
+        else
+        {
+            ReactBasedOnCombo();
+            return true;
+        }
+    }
+
+    protected virtual void ReactBasedOnCombo()
+    {
+        if (m_ActiveCombo is AngelOnlyMovementCombo)
+        {
+            // cancel that, dash away, launch ranged attack
+        }
+        else if (m_FinishersAndSupers.Contains((AngelCombo)m_ActiveCombo))
+        {
+            // ignore
+
+        } // else maybe individual attacks.... e.g. blocking
+        
+    }
+
+    protected virtual void WindupStart()
+    {
+        m_InWindup = true;
+    }
+
+    protected virtual void WindupEnd()
+    {
+        m_InWindup = false;
+    }
+
+    protected virtual void LongStanceStart()
+    {
+        m_InLongStance = true;
+    }
+
+    protected virtual void LongStanceEnd()
+    {
+        m_InLongStance = false;
     }
 }

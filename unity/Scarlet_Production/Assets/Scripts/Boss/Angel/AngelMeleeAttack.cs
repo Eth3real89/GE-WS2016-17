@@ -22,6 +22,8 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     public bool m_TriggerIdleOnEnd = false;
 
+    public bool m_PerfectTracking = false;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -43,7 +45,15 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     protected virtual IEnumerator StartDownswingAfterWaiting()
     {
-        yield return new WaitForSeconds(AdjustTime(m_DownswingStartTime));
+        float t = 0;
+        while((t += Time.deltaTime) < AdjustTime(m_DownswingStartTime))
+        {
+            if (m_PerfectTracking)
+                m_FullTurnCommand.DoTurn();
+
+            yield return null;
+        }
+
         Downswing();
     }
 
@@ -58,7 +68,14 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
     protected virtual IEnumerator SetDamageActiveAfterWaiting()
     {
-        yield return new WaitForSeconds(AdjustTime(m_ActivateDamageTimeAfterDownswing));
+        float t = 0;
+        while ((t += Time.deltaTime) < AdjustTime(m_ActivateDamageTimeAfterDownswing))
+        {
+            if (m_PerfectTracking)
+                m_FullTurnCommand.DoTurn();
+            yield return null;
+        }
+
         SetDamageActive();
     }
 

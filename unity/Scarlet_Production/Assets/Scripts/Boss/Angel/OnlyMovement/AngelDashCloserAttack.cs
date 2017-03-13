@@ -22,7 +22,7 @@ public class AngelDashCloserAttack : AngelAttack {
     {
         while(true)
         {
-            Vector3 desiredPosition = m_Scarlet.transform.position + (m_Scarlet.transform.right) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
+            Vector3 desiredPosition = m_Scarlet.transform.position + new Vector3(1, 0, 0) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
             desiredPosition.y = m_Boss.transform.position.y;
 
             m_FullTurnCommand.DoTurn();
