@@ -18,12 +18,7 @@ public class BossMoveCommand : BossCommand {
         if (m_BossBody == null)
             return;
 
-        Vector3 movement = new Vector3(horizontal, 0, vertical);
-
-        if (movement.magnitude > 1)
-            movement.Normalize();
-
-        movement *= m_Speed;
+        Vector3 movement = CalculateMovemend(horizontal, vertical);
 
         m_BossBody.velocity = movement;
 
@@ -38,17 +33,23 @@ public class BossMoveCommand : BossCommand {
         }
     }
 
-    public void DoMove(float horizontal, float vertical, Vector3 target)
+    protected virtual Vector3 CalculateMovemend(float horizontal, float vertical)
     {
-        if (m_BossBody == null)
-            return;
-
         Vector3 movement = new Vector3(horizontal, 0, vertical);
 
         if (movement.magnitude > 1)
             movement.Normalize();
 
         movement *= m_Speed;
+        return movement;
+    }
+
+    public void DoMove(float horizontal, float vertical, Vector3 target)
+    {
+        if (m_BossBody == null)
+            return;
+
+        Vector3 movement = CalculateMovemend(horizontal, vertical);
 
         float dist = Vector3.Distance(m_Boss.transform.position, target);
         if (movement.magnitude * Time.deltaTime * 4 > dist) // rough estimate to fix an issue based on another estimate ~.~

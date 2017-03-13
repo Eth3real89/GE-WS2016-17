@@ -407,12 +407,39 @@ public class AngelController : BossController {
         animator.SetFloat("AnimationSpeed", speed);
 
         AngelAttack.SetSpeedMultiplier(speed);
+
+        AngelMoveCommand.s_SpeedMultiplier = speed;
+    }
+
+    public override void OnTimeWindowClosed()
+    {
+        MLog.Log(LogType.AngelLog, "On Time Window Was Closed, Angel ");
+
+        if (m_NextComboTimer != null)
+            StopCoroutine(m_NextComboTimer);
+        CancelComboIfActive();
+
+        if (!m_NotDeactivated)
+            return;
+
+        m_NextComboTimer = StartNextComboAfter(0.01f);
+        StartCoroutine(m_NextComboTimer);
+
+        m_IFramesAfterStaggerTimer = InvulnerableAfterStagger();
+        StartCoroutine(m_IFramesAfterStaggerTimer);
+    }
+
+    public override void OnBossStaggered()
+    {
+        base.OnBossStaggered();
     }
 
     public override bool OnHit(Damage dmg)
     {
         if (m_InWindup || m_ActiveCombo == null)
         {
+            MLog.Log(LogType.AngelLog, "Angel: Succesful hit! " + this);
+
             CancelComboIfActive();
 
             if (m_TimeWindowManager != null)
@@ -430,11 +457,14 @@ public class AngelController : BossController {
         }
         else if (m_InLongStance)
         {
+            MLog.Log(LogType.AngelLog, "Angel: Hit in Long Stance! " + this);
             // @todo: take care of dmg
             return false;
         }
         else
         {
+            MLog.Log(LogType.AngelLog, "Angel: React to hit based on combo! " + this);
+
             ReactBasedOnCombo();
             return true;
         }

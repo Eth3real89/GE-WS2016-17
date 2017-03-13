@@ -9,6 +9,8 @@ public class AngelDashCloserAttack : AngelAttack {
     public Transform m_Scarlet;
     public bool m_LeftOfScarlet;
 
+    public float m_MaxTime = 5f;
+
     protected IEnumerator m_Enumerator;
 
     public override void StartAttack()
@@ -20,7 +22,9 @@ public class AngelDashCloserAttack : AngelAttack {
 
     protected virtual IEnumerator DoDash()
     {
-        while(true)
+        float t = 0;
+
+        while((t += Time.deltaTime) < AdjustTime(m_MaxTime))
         {
             Vector3 desiredPosition = m_Scarlet.transform.position + new Vector3(1, 0, 0) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
             desiredPosition.y = m_Boss.transform.position.y;
