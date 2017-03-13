@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4193523608597910}
+  - component: {fileID: 114363525416215946}
   m_Layer: 0
   m_Name: BossMeleeBlockEffect
   m_TagString: Untagged
@@ -101,6 +102,18 @@ Transform:
   m_Father: {fileID: 4193523608597910}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!114 &114363525416215946
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1391416403631454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f7aba19293434c4e8465bc13f403e7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_DisableAfter: 0.2
 --- !u!198 &198214455219820974
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -5338,7 +5351,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_Materials:
   - {fileID: 2100000, guid: 951acba86dc8b764b9387127c7a03f97, type: 2}
-  - {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
