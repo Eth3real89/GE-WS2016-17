@@ -10,6 +10,18 @@ public class Gunfire : MonoBehaviour {
 
     protected IEnumerator m_EffectEnumerator;
 
+    private void Start()
+    {
+        try
+        {
+            foreach(GameObject obj in new GameObject[] {m_PistolShotLeft, m_PistolShotRight, m_RifleShot })
+            {
+                obj.GetComponentInChildren<ParticleSystem>().Stop();
+                obj.GetComponentInChildren<Light>().enabled = false;
+            }
+        } catch { }
+    }
+
     public void FireGun(int which)
     {
     /*
