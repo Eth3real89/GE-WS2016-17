@@ -191,7 +191,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
         if (dmg.m_Owner != null)
         {
-            m_BulletBlockEffect.transform.rotation = Quaternion.Euler(0, 
+            m_BulletBlockEffect.transform.localRotation = Quaternion.Euler(0, 
                 BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
         }
 
