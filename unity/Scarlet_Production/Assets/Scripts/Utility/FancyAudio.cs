@@ -272,6 +272,9 @@ public class FARQ
 
     public void StopIfPlaying()
     {
+        if (FancyAudio.Instance == null)
+            return;
+
         List<AudioSource> sources = FancyAudio.Instance.SearchByParams(this);
 
         for (int i = 0; i < sources.Count; i++)

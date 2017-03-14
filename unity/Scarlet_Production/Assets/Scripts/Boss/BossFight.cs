@@ -19,9 +19,7 @@ public abstract class BossFight : MonoBehaviour {
 
     public virtual void StartBossfight()
     {
-        m_ScarletHealthEnumerator = CheckScarletHealth();
-        StartCoroutine(m_ScarletHealthEnumerator);
-        StoreInitialState();
+        StartCoroutine(StartAfterFirstFrame());
     }
 
     public virtual void RestartBossfight()
@@ -50,6 +48,15 @@ public abstract class BossFight : MonoBehaviour {
 
         m_BossPositionStart = bossHittable.transform.position + Vector3.zero;
         m_BossRotationStart = Quaternion.Euler(bossHittable.transform.rotation.eulerAngles);
+    }
+
+    protected virtual IEnumerator StartAfterFirstFrame()
+    {
+        yield return null;
+
+        StoreInitialState();
+        m_ScarletHealthEnumerator = CheckScarletHealth();
+        StartCoroutine(m_ScarletHealthEnumerator);
     }
 
     protected virtual IEnumerator CheckScarletHealth()
