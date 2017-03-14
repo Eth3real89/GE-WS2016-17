@@ -158,6 +158,12 @@ public class VampireController : BossController {
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
 
         m_LightGuard.m_ExpandLightGuardTime = time;
+        VampireGatherLightFlyingObjectsManager vglfom = GetComponent<VampireGatherLightFlyingObjectsManager>();
+        if (vglfom != null)
+        {
+            vglfom.OnGatherLightStart(time, transform);
+        }
+
         yield return new WaitForSeconds(time);
 
         m_VampireAnimator.SetTrigger("StopGatherLightTrigger");
@@ -233,6 +239,12 @@ public class VampireController : BossController {
                 if (m_NextComboTimer != null)
                 {
                     StopCoroutine(m_NextComboTimer);
+                }
+
+                VampireGatherLightFlyingObjectsManager vglfom = GetComponent<VampireGatherLightFlyingObjectsManager>();
+                if (vglfom != null)
+                {
+                    vglfom.CancelIrregularly();
                 }
 
                 DeactivateLightShield();

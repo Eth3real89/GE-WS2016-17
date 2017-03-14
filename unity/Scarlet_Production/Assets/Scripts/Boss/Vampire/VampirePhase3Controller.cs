@@ -35,7 +35,6 @@ public class VampirePhase3Controller : VampireController
         yield return new WaitForSeconds(0.5f);
 
         m_VampireAnimator.SetTrigger("GatherLightTrigger");
-        m_LightGuard.m_LightGuardRadius = 1.5f;
         m_LightGuard.m_ExpandLightGuardTime = 1.5f;
 
         ActivateLightShield();
