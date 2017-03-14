@@ -19,7 +19,7 @@ public class PlayableAttack : BossAttack {
     {
         base.StartAttack();
 
-        m_Effect.Play(m_EffectLocation);
+        m_Effect.Play(m_Boss.transform.position + m_EffectLocation);
 
         if (m_MoveOnAfter <= 0)
             m_Callback.OnAttackEnd(this);
