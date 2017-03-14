@@ -4482,7 +4482,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
   m_TransitionTime: 7
-  m_StartPhase: 0
+  m_StartPhase: 1
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -15381,7 +15381,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 199342952703030788, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
     - target: {fileID: 199056256099160514, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
+    - target: {fileID: 199028179656428924, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -15461,21 +15471,16 @@ Prefab:
       propertyPath: m_Target
       value: 
       objectReference: {fileID: 638130663}
+    - target: {fileID: 114121302234765288, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_Scarlet
+      value: 
+      objectReference: {fileID: 638130663}
     - target: {fileID: 114103425716703920, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
-    - target: {fileID: 199028179656428924, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-        type: 2}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
-    - target: {fileID: 199342952703030788, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-        type: 2}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
     - target: {fileID: 114188881162508946, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
         type: 2}
       propertyPath: m_AttackContainer
@@ -15516,11 +15521,6 @@ Prefab:
       propertyPath: m_Tutorial
       value: 
       objectReference: {fileID: 2023222680}
-    - target: {fileID: 114121302234765288, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
-        type: 2}
-      propertyPath: m_Scarlet
-      value: 
-      objectReference: {fileID: 638130663}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
