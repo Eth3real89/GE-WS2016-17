@@ -242,8 +242,6 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void StartAttackTutorial()
     {
-        m_LightGuard.ReattachVisualsToParent();
-
         m_AllowHit = true;
 
         m_TutorialEnumerator = PlayerAttackTutorial();
@@ -256,7 +254,7 @@ public class VampirePhase0TutorialController : VampireController {
         m_BossHittable.RegisterInterject(this);
 
         DeactivateLightShield();
-        yield return new WaitForSeconds(1.5f);
+       // yield return new WaitForSeconds(1.5f);
 
         DashTo(m_PlaceToBeAttacked, 1f);
         yield return new WaitForSeconds(1.3f);
@@ -405,7 +403,6 @@ public class VampirePhase0TutorialController : VampireController {
 
         m_LightGuard.m_ExpandLightGuardTime = 0.5f;
         ActivateLightShield();
-        m_LightGuard.ReattachVisualsToParent();
 
         yield return new WaitForSeconds(0.5f);
 

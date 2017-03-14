@@ -15,7 +15,6 @@ public class CrossbowThreeShotsAttack : BulletAttack {
 
     protected override IEnumerator MoveOnTimer()
     {
-        float yPosStart = m_Boss.transform.position.y;
         float totalTime = m_MoveOnAfter + m_TimeToReachY;
 
         bool idleTriggerSet = false;

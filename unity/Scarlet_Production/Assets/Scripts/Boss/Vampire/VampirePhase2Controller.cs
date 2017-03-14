@@ -13,8 +13,6 @@ public class VampirePhase2Controller : VampireController
         m_EndInitialized = false;
         base.StartPhase(callbacks);
 
-        m_LightGuard.ReattachVisualsToParent();
-
         m_CurrentComboIndex = -1;
         m_NextComboTimer = StartNextComboAfter(0.5f);
         StartCoroutine(m_NextComboTimer);

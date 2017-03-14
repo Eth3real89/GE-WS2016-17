@@ -108,8 +108,6 @@ public class FancyAudio : MonoBehaviour {
         List<AudioSource> resultSources = new List<AudioSource>();
 
         Transform position = rq.m_Position;
-        string clipName = rq.m_ClipName;
-        float start = rq.m_Start;
 
         if (_Instance.m_Sources.ContainsKey(position))
         {

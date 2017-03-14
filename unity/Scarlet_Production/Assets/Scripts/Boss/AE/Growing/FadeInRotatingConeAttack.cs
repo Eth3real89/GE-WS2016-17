@@ -71,8 +71,6 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     protected override IEnumerator Rotate()
     {
-        int colorId = Shader.PropertyToID("_Color");
-
         float t = 0;
         while ((t += Time.deltaTime) < m_RotationTime)
         {
