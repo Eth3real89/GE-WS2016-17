@@ -9,6 +9,15 @@ public class LightGuardAttack : AEAttack {
     public float m_Time;
     protected IEnumerator m_Timer;
 
+    protected bool _m_KillVisualsWhenOver = false;
+    public bool m_KillVisualsWhenOver
+    {
+        set
+        {
+            _m_KillVisualsWhenOver = value;
+        }
+    }
+
     public override void StartAttack()
     {
         base.StartAttack();

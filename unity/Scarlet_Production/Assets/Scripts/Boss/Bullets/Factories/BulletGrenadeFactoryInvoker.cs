@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BulletGrenadeFactoryInvoker : BulletFactoryInvoker {
 
-    protected override void SpawnIteration(BulletSwarm bs)
+    protected override void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
-        base.SpawnIteration(bs);
+        base.SpawnIteration(bs, onFinish);
     }
 
     protected override BulletBehaviour CreateBullet(int factoryIndex)

@@ -28,10 +28,14 @@ public class BulletFactory : MonoBehaviour {
         copy.m_Movement.transform.parent = copy.transform;
 
         copy.m_Expiration = Instantiate(m_Expire);
+
         copy.m_Expiration.transform.parent = copy.transform;
 
         copy.m_OnExpire = Instantiate(m_OnExpire);
-        copy.m_OnExpire.transform.parent = copy.transform;
+        if (!(copy.m_OnExpire is BulletOnExpLaunchCombo))
+        {
+            copy.m_OnExpire.transform.parent = copy.transform;
+        }
 
         if (copy is Bullet)
         {

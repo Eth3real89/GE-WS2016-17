@@ -8952,6 +8952,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1337126170810550
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4290504508189084}
+  - component: {fileID: 114770662104992304}
+  m_Layer: 9
+  m_Name: StopShooting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1337132437232344
 GameObject:
   m_ObjectHideFlags: 1
@@ -11085,6 +11101,22 @@ GameObject:
   - component: {fileID: 114149561583950582}
   m_Layer: 9
   m_Name: BigBulletMovement
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1408230347685730
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4854878193619570}
+  - component: {fileID: 114778426130737314}
+  m_Layer: 9
+  m_Name: StopShooting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17371,6 +17403,22 @@ GameObject:
   - component: {fileID: 23566374338866932}
   m_Layer: 0
   m_Name: WGT-forearm_hose.R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1635120549636542
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4078308419636084}
+  - component: {fileID: 114452705657598406}
+  m_Layer: 9
+  m_Name: StopShooting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28686,6 +28734,19 @@ Transform:
   m_Father: {fileID: 4050874053306012}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4078308419636084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635120549636542}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.99999976, y: 0.99999994, z: 0.99999976}
+  m_Children: []
+  m_Father: {fileID: 4554307694892066}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4080019583828974
 Transform:
   m_ObjectHideFlags: 1
@@ -33644,6 +33705,19 @@ Transform:
   m_Father: {fileID: 4068953675326770}
   m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4290504508189084
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337126170810550}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4772360042649440}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4290642659758868
 Transform:
   m_ObjectHideFlags: 1
@@ -35518,6 +35592,7 @@ Transform:
   - {fileID: 4319714844160196}
   - {fileID: 4792270496804228}
   - {fileID: 4801455991120112}
+  - {fileID: 4854878193619570}
   m_Father: {fileID: 4419322463212656}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -39797,6 +39872,7 @@ Transform:
   - {fileID: 4388516296533978}
   - {fileID: 4147849463071422}
   - {fileID: 4083678998768290}
+  - {fileID: 4078308419636084}
   m_Father: {fileID: 4317143194964606}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -41643,7 +41719,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1268053878323764}
-  m_LocalRotation: {x: 0.069264874, y: 0.6832273, z: 0.04392973, w: 0.7255847}
+  m_LocalRotation: {x: 0.06926487, y: 0.68322724, z: 0.043929726, w: 0.7255846}
   m_LocalPosition: {x: -0.00069042284, y: -0.002763991, z: 0.0017105807}
   m_LocalScale: {x: 0.9999998, y: 0.99999994, z: 1.0000001}
   m_Children:
@@ -44843,6 +44919,7 @@ Transform:
   - {fileID: 4268627263270236}
   - {fileID: 4287424372695738}
   - {fileID: 4709972859076218}
+  - {fileID: 4290504508189084}
   m_Father: {fileID: 4271457087836088}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -46889,6 +46966,19 @@ Transform:
   - {fileID: 4197687381879192}
   m_Father: {fileID: 4011393055684458}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4854878193619570
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408230347685730}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9999999, y: 1, z: 0.9999999}
+  m_Children: []
+  m_Father: {fileID: 4367666119325620}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4854897717813876
 Transform:
@@ -63832,7 +63922,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114704445592978414}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 12
+  m_MoveOnAfter: 11
 --- !u!114 &114171282148328824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67967,7 +68057,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114457311650763568}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 10
+  m_MoveOnAfter: 9.5
 --- !u!114 &114401634592607246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68714,6 +68804,27 @@ MonoBehaviour:
   m_lineWidth: 0
   m_lineVertices:
   - {x: 0, y: 0, z: 0}
+--- !u!114 &114452705657598406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1635120549636542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491ea43f97d0aa4b807abfcef508f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
+  m_AnimTime: 0.01
+  m_AnimName: StopShootingTrigger
 --- !u!114 &114454123292200922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68902,6 +69013,8 @@ MonoBehaviour:
   m_Animator: {fileID: 95421582000769278}
   m_BlockAudio: {fileID: 0}
   m_TurnCommand: {fileID: 114745696642326420}
+  m_BlockEffect: {fileID: 0}
+  m_ParryEffect: {fileID: 0}
 --- !u!114 &114463124203899902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68958,11 +69071,13 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114970293824842278}
   - {fileID: 114976991471326502}
+  - {fileID: 114452705657598406}
   - {fileID: 114995745530962498}
   m_TimeAfterCombo: 4
   m_WaitTimes:
   - 0.6
-  - 7.9
+  - 5.8
+  - 2.1
 --- !u!114 &114466443444202880
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69877,7 +69992,7 @@ MonoBehaviour:
   m_DropGrenadeAttack: {fileID: 114785073653994278}
   m_NumHits: 5
   m_DHHealth: {fileID: 114127871605041426}
-  m_StartAttackIndex: 0
+  m_StartAttackIndex: 1
   m_PerfectRotationTarget: {fileID: 0}
 --- !u!114 &114511082630321012
 MonoBehaviour:
@@ -70824,11 +70939,13 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114291796717273370}
   - {fileID: 114060906011816488}
+  - {fileID: 114770662104992304}
   - {fileID: 114033730849477058}
   m_TimeAfterCombo: 4
   m_WaitTimes:
   - 0.6
-  - 7.9
+  - 5.8
+  - 2.1
 --- !u!114 &114566201939216168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71853,7 +71970,7 @@ MonoBehaviour:
   - {fileID: 114170989059207680}
   - {fileID: 114865835253101176}
   - {fileID: 114932342520790750}
-  m_TimeAfterCombo: 2
+  m_TimeAfterCombo: 0
   m_WaitTimes:
   - 0.2
   - 0.05
@@ -71887,10 +72004,11 @@ MonoBehaviour:
   m_Attacks:
   - {fileID: 114966754054430546}
   - {fileID: 114013986031571516}
+  - {fileID: 114778426130737314}
   m_TimeAfterCombo: 7.5
   m_WaitTimes:
   - 0.6
-  - 7.9
+  - 5.8
 --- !u!114 &114632822535003650
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74569,6 +74687,27 @@ MonoBehaviour:
     type: 2}
   m_IgnoreExpirationBehaviour: 0
   m_StaggerScarlet: 0
+--- !u!114 &114770662104992304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1337126170810550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491ea43f97d0aa4b807abfcef508f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
+  m_AnimTime: 0.01
+  m_AnimName: StopShootingTrigger
 --- !u!114 &114771019422186660
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -74718,6 +74857,27 @@ MonoBehaviour:
   m_volumetricBehavior: {fileID: 114621081963472716}
   m_VolumetricLineMaterial: {fileID: 2100000, guid: 24f0f67b69908d343b752361b6fba3cb,
     type: 2}
+--- !u!114 &114778426130737314
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1408230347685730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8491ea43f97d0aa4b807abfcef508f30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TriggerInterrupt: 2
+  m_TriggerBlock: 0
+  m_DamageOnParry: 15
+  m_TimeAfterAttack: 0
+  m_Animator: {fileID: 0}
+  m_Boss: {fileID: 0}
+  m_FullTurnCommand: {fileID: 0}
+  m_SuccessLevel: 0
+  m_AnimTime: 0.01
+  m_AnimName: StopShootingTrigger
 --- !u!114 &114780032603646634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -75966,7 +76126,7 @@ MonoBehaviour:
   - {fileID: 114916375032461368}
   - {fileID: 114968435951269076}
   - {fileID: 114400469261093764}
-  m_TimeAfterCombo: 2
+  m_TimeAfterCombo: 0
   m_WaitTimes:
   - 0.2
   - 0.05
@@ -77270,7 +77430,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114680077907596166}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 12
+  m_MoveOnAfter: 11
 --- !u!114 &114917572332266044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -77691,7 +77851,7 @@ MonoBehaviour:
   m_FullTurnCommand: {fileID: 0}
   m_BaseSwarm: {fileID: 114548737726212024}
   m_AnimationStartTime: 0.15
-  m_MoveOnAfter: 10
+  m_MoveOnAfter: 9.5
 --- !u!114 &114933913924729444
 MonoBehaviour:
   m_ObjectHideFlags: 1

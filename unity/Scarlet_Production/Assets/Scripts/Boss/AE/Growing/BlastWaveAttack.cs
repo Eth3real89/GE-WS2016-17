@@ -38,6 +38,15 @@ public class BlastWaveAttack : GrowingAEAttack {
     public float m_MoveOnTime;
     protected IEnumerator m_MoveOnEnumerator;
 
+    protected bool _m_KillVisualsWhenOver = false;
+    public bool m_KillVisualsWhenOver
+    {
+        set
+        {
+            _m_KillVisualsWhenOver = value;
+        }
+    }
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -88,7 +97,18 @@ public class BlastWaveAttack : GrowingAEAttack {
         if (!m_MoveOnAfterStart)
             m_Callback.OnAttackEnd(this);
 
-        m_Visuals.gameObject.SetActive(false);
+        if (_m_KillVisualsWhenOver)
+        {
+            try
+            {
+                Destroy(m_Visuals.gameObject);
+            }
+            catch {}
+        }
+        else
+        {
+            m_Visuals.gameObject.SetActive(false);
+        }
     }
 
     protected virtual IEnumerator GrowRoutine()

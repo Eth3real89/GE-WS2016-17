@@ -116,7 +116,7 @@ public class LightGuard : MonoBehaviour {
 
         if (m_LightGuardVisuals != null && destroyAfter)
         {
-            Destroy(m_LightGuardVisuals);
+            Destroy(m_LightGuardVisuals.gameObject);
             m_LightGuardVisuals = null;
         }
         

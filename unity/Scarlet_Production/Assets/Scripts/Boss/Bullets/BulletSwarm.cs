@@ -12,17 +12,31 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     public bool m_KillAllChildren = false; // category: variable names that sound really, really wrong
     public bool m_KillChildrenOnCancel = true;
 
+    protected bool m_CancelIfIsCopy = false;
+
+    protected bool m_Launched = false;
+
     public override void Launch(BulletCallbacks callbacks)
     {
         this.m_BulletCallbacks = callbacks;
         base.Launch(this);
+        m_CancelIfIsCopy = false;
 
-        m_Movement = Instantiate(m_Movement);
+        if (!m_Launched)
+        {
+            m_Launched = true;
+            m_Movement = Instantiate(m_Movement);
+        }
 
         m_Instances = new List<BulletBehaviour>();
-        m_Invoker.Launch(this);
+        m_Invoker.Launch(this, OnInvokerFinish());
     }
 
+    protected virtual IEnumerator OnInvokerFinish()
+    {
+        yield return null;
+        m_CancelIfIsCopy = true;
+    }
 
     public override void MoveBy(Vector3 movement)
     {
@@ -72,8 +86,7 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
 
         bullet.Kill();
 
-        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
-            Kill();
+        CheckKill();
     }
 
     public void OnBulletParried(BulletBehaviour bullet)
@@ -85,17 +98,19 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
     {
         if (m_Instances.Contains(bullet))
             m_Instances.Remove(bullet);
-
-        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
-            Kill();
+        CheckKill();
     }
 
     public void LoseBullet(Bullet bullet)
     {
         if (m_Instances.Contains(bullet))
             m_Instances.Remove(bullet);
+        CheckKill();
+    }
 
-        if (m_Instances.Count == 0 && m_Expiration is BulletNoExpiration)
+    private void CheckKill()
+    {
+        if (m_Instances.Count == 0 && (m_Expiration is BulletNoExpiration || (transform.GetComponentInParent<BossHittable>() == null && m_CancelIfIsCopy)))
             Kill();
     }
 }

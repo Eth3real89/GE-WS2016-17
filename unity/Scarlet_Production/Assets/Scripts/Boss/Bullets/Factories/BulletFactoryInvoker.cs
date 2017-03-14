@@ -14,13 +14,13 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
     protected IEnumerator m_LaunchIterationTimer;
 
-    public virtual void Launch(BulletSwarm bs)
+    public virtual void Launch(BulletSwarm bs, IEnumerator onFinish = null)
     {
         m_CurrentIteration = 0;
-        SpawnIteration(bs);
+        SpawnIteration(bs, onFinish);
     }
 
-    protected virtual void SpawnIteration(BulletSwarm bs)
+    protected virtual void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
 
         for (int i = 0; i < m_Factories.Length; i++)
@@ -34,11 +34,14 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
         if (m_CurrentIteration >= m_Iterations)
         {
+            if (onFinish != null)
+                StartCoroutine(onFinish);
+
             EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
             return;
         }
 
-        m_LaunchIterationTimer = BetweenIterations(bs);
+        m_LaunchIterationTimer = BetweenIterations(bs, onFinish);
         StartCoroutine(m_LaunchIterationTimer);
     }
 
@@ -54,11 +57,11 @@ public class BulletFactoryInvoker : MonoBehaviour {
         return b;
     }
 
-    protected virtual IEnumerator BetweenIterations(BulletSwarm bs)
+    protected virtual IEnumerator BetweenIterations(BulletSwarm bs, IEnumerator onFinish = null)
     {
         yield return new WaitForSeconds(m_TimeBetweenIterations);
 
-        SpawnIteration(bs);
+        SpawnIteration(bs, onFinish);
     }
 
     public void Cancel()
