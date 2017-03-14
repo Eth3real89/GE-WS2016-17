@@ -17,7 +17,17 @@ public class GrenadePlayableEffect : PlayableEffect
 
         m_Instance.gameObject.SetActive(true);
 
+        m_Instance.gameObject.GetComponentInChildren<Light>().enabled = true;
+
+        StartCoroutine(HideExplosionLight());
         StartCoroutine(DestroyAfter(m_Time));
+    }
+
+    private IEnumerator HideExplosionLight()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        m_Instance.gameObject.GetComponentInChildren<Light>().enabled = false;
     }
 
     protected virtual IEnumerator DestroyAfter(float time)
