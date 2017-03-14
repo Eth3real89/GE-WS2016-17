@@ -60,6 +60,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         if (whichPhase == m_Phase1)
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 1 over " + this);
+            DestroyAllBullets();
             m_Phase1.enabled = false;
             m_Phase2.enabled = true;
             m_Phase2.StartPhase(this);
@@ -72,6 +73,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         else if (whichPhase == m_Phase2)
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 2 over " + this);
+            DestroyAllBullets();
             m_Phase2.enabled = false;
             m_Phase3.enabled = true;
             m_Phase3.StartPhase(this);
@@ -84,6 +86,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         else if (whichPhase == m_Phase3)
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 3 over " + this);
+            DestroyAllBullets();
             m_Phase3.enabled = false;
             m_Phase4.enabled = true;
             m_Phase4.StartPhase(this);
@@ -91,6 +94,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         else if (whichPhase == m_Phase4)
         {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 4 over " + this);
+            DestroyAllBullets();
             m_Phase4.enabled = false;
 
             FemaleStopCrying();
@@ -154,6 +158,11 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     public override void RestartBossfight()
     {
         AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
+        if (aeHittable != null)
+        {
+            ((FairyBossfightPhase3)m_Phase3).m_AEFairy.gameObject.SetActive(true);
+            aeHittable = FindObjectOfType<AEFairyHittable>();
+        }
         CharacterHealth aeHealth = aeHittable.GetComponent<CharacterHealth>();
         aeHealth.m_CurrentHealth = aeHealth.m_HealthStart;
 

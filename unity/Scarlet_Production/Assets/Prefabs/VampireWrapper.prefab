@@ -29338,8 +29338,8 @@ MonoBehaviour:
   - {fileID: 114911277352744432}
   - {fileID: 114988042908617534}
   - {fileID: 114405472414923978}
-  - {fileID: 114702695382417750}
   - {fileID: 114526744076338976}
+  - {fileID: 114702695382417750}
   - {fileID: 114134229123196424}
   - {fileID: 114940574623446840}
   m_BossHittable: {fileID: 114553916588473548}
@@ -30396,6 +30396,7 @@ MonoBehaviour:
   m_Angle: 45
   m_EndSize: 27
   m_GrowTime: 1
+  m_StaggerScarlet: 0
   m_LineWidth: 1
   m_LeaveCone: 0
 --- !u!114 &114248674357883682
@@ -31536,7 +31537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
   m_RendererContainer: {fileID: 1983005882282770}
-  m_MaxBloodTrails: 4
+  m_MaxBloodTrails: 2
   m_BloodTrailPrefab: {fileID: 1492538519219924, guid: a01b663743693c3478f9c83740245e30,
     type: 2}
   m_BloodTrailPlaneCollider: {fileID: 0}
@@ -33037,6 +33038,7 @@ MonoBehaviour:
   m_Angle: 90
   m_EndSize: 36
   m_GrowTime: 3
+  m_StaggerScarlet: 0
   m_LineWidth: 1
   m_LeaveCone: 0
 --- !u!114 &114611372736046310
@@ -33196,6 +33198,8 @@ MonoBehaviour:
   m_Animator: {fileID: 95405191386343014}
   m_BlockAudio: {fileID: 0}
   m_TurnCommand: {fileID: 114861046359600038}
+  m_BlockEffect: {fileID: 0}
+  m_ParryEffect: {fileID: 0}
 --- !u!114 &114622241291258056
 MonoBehaviour:
   m_ObjectHideFlags: 1
