@@ -174,6 +174,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
     private IEnumerator CancelCombo()
     {
         yield return new WaitForSeconds(m_MaxTimeForCombo);
+        m_ComboEnumerator = null;
         m_CurrentCombo = 0;
     }
 
@@ -183,6 +184,11 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
 
         m_PlayerDamage.m_Active = false;
         m_Callback.OnCommandEnd(m_CommandName, this);
+    }
+
+    public bool IsDamageActive()
+    {
+        return m_ComboEnumerator != null;
     }
 
     public void OnParryDamage()

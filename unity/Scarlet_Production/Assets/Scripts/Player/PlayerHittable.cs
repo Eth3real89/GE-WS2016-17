@@ -17,6 +17,9 @@ public class PlayerHittable : MonoBehaviour, Hittable {
     protected IEnumerator m_InvulernabilityEnumerator;
     protected bool m_Invulnerable;
 
+    // the one method that is called here should be in some interface, but then unity would make it more difficult...
+    public PlayerAttackCommand m_CounterDamageHandler;
+
     protected virtual void Start()
     {
         m_Invulnerable = false;
@@ -29,7 +32,16 @@ public class PlayerHittable : MonoBehaviour, Hittable {
             if (m_Invulnerable)
                 return;
 
-            m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount());
+            if (m_CounterDamageHandler != null && m_CounterDamageHandler.IsDamageActive())
+            {
+                m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount() * 1.2f);
+                MLog.Log(LogType.BattleLog, "Player just got counter damage!");
+            }
+            else
+            {
+                m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount());
+            }
+
             damage.OnSuccessfulHit();
 
             if (m_OnHitAudio != null)
