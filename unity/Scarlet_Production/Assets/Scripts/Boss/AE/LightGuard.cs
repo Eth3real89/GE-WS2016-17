@@ -44,6 +44,11 @@ public class LightGuard : MonoBehaviour {
             m_LightGuardVisuals.transform.localPosition = new Vector3(0, 0, 0);
             m_LightGuardVisuals.transform.localRotation = Quaternion.Euler(0, 0, 0);
         }
+        else
+        {
+            m_LightGuardVisuals.gameObject.SetActive(true);
+            m_LightGuardVisuals.GetComponentInChildren<Collider>().enabled = true;
+        }
     }
 
     public void Disable(bool destroyAfter = false)
@@ -116,8 +121,12 @@ public class LightGuard : MonoBehaviour {
 
         if (m_LightGuardVisuals != null && destroyAfter)
         {
-            Destroy(m_LightGuardVisuals);
+            Destroy(m_LightGuardVisuals.gameObject);
             m_LightGuardVisuals = null;
+        }
+        else
+        {
+            m_LightGuardVisuals.gameObject.SetActive(false);
         }
         
         gameObject.SetActive(false);

@@ -107,9 +107,7 @@ public class FancyAudio : MonoBehaviour {
 	{
 		List<AudioSource> resultSources = new List<AudioSource>();
 
-		Transform position = rq.m_Position;
-		string clipName = rq.m_ClipName;
-		float start = rq.m_Start;
+        Transform position = rq.m_Position;
 
 		if (_Instance.m_Sources.ContainsKey(position))
 		{
@@ -270,9 +268,12 @@ public class FARQ
 			this.Play();
 	}
 
-	public void StopIfPlaying()
-	{
-		List<AudioSource> sources = FancyAudio.Instance.SearchByParams(this);
+    public void StopIfPlaying()
+    {
+        if (FancyAudio.Instance == null)
+            return;
+
+        List<AudioSource> sources = FancyAudio.Instance.SearchByParams(this);
 
 		for (int i = 0; i < sources.Count; i++)
 		{

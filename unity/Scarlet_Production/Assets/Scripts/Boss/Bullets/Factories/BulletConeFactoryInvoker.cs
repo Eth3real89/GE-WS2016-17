@@ -9,7 +9,7 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
     public float m_Angle;
     public float m_InitialDistance;
     
-    protected override void SpawnIteration(BulletSwarm bs)
+    protected override void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
         int count = m_IterationBulletCounts[m_CurrentIteration];
 
@@ -36,11 +36,16 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
         m_CurrentIteration++;
         if (m_CurrentIteration >= m_IterationBulletCounts.Length)
         {
+            if (onFinish != null)
+            {
+                StartCoroutine(onFinish);
+            }
+
             EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
             return;
         }
 
-        m_LaunchIterationTimer = BetweenIterations(bs);
+        m_LaunchIterationTimer = BetweenIterations(bs, onFinish);
         StartCoroutine(m_LaunchIterationTimer);
     }
 

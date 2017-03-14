@@ -37,6 +37,11 @@ public class PlayerStaggerCommand : PlayerCommand {
         s_Instance.TriggerMajorStagger(pos, force);
     }
 
+    public static Vector3 ScarletPosition()
+    {
+        return s_Instance.m_ScarletBody.transform.position * 1f;
+    }
+
     private Rigidbody m_ScarletBody;
 
     public float m_StaggerTime;

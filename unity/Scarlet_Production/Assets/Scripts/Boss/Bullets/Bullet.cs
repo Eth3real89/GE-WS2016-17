@@ -34,6 +34,12 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
         if (!m_IgnoreExpirationBehaviour)
             m_OnExpire.OnBulletExpires(this);
 
+        try
+        {
+            if (this.m_Movement.gameObject != null)
+                Destroy(m_Movement.gameObject);
+        } catch { }
+
         if (this.gameObject != null)
             Destroy(this.gameObject);
     }

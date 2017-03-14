@@ -49,6 +49,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         if (whichPhase == m_Phase1Controller)
         {
             MLog.Log(LogType.BattleLog, "DH: Phase 1 over " + this);
+            DestroyAllBullets();
 
             RegenerateScarletAfterPhase();
 
@@ -65,6 +66,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         }
         else if (whichPhase == m_Phase2Controller)
         {
+            DestroyAllBullets();
             MLog.Log(LogType.BattleLog, "DH: Phase 2 over " + this);
 
             RegenerateScarletAfterPhase();
@@ -75,6 +77,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         }
         else if (whichPhase == m_Phase3Controller)
         {
+            DestroyAllBullets();
+
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
         }

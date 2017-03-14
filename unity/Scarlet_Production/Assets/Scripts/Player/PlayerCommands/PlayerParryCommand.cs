@@ -132,18 +132,20 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         {
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
+
+            LookAtSource(dmg);
         }
         else
         {
             // need look up whether a bullet can be deflected or not
 
-            if (((BulletDamage) dmg).m_Deflectable)
+            if (((BulletDamage)dmg).m_Deflectable)
             {
-                PlayParryDeflectableBulletEffect();
+                PlayParryDeflectableBulletEffect(dmg);
             }
             else
             {
-                PlayParryNonDeflectableBulletEffect();
+                PlayParryNonDeflectableBulletEffect(dmg);
             }
         }
 
@@ -153,9 +155,26 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         return true;
     }
 
-    private void PlayParryDeflectableBulletEffect()
+    private void LookAtSource(Damage dmg)
+    {
+        if (dmg.m_Owner != null)
+        {
+            var lookPos = dmg.m_Owner.transform.position - m_Scarlet.transform.position;
+            lookPos.y = 0;
+            var rotation = Quaternion.LookRotation(lookPos);
+            m_Scarlet.transform.rotation = rotation;
+        }
+    }
+
+    private void PlayParryDeflectableBulletEffect(Damage dmg)
     {
         impactLightDeflect.enabled = true;
+
+        if (dmg.m_Owner != null)
+        {
+            m_BulletDeflectEffect.transform.localRotation = Quaternion.Euler(0,
+                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
+        }
 
         foreach (ParticleSystem p in compsDeflect)
         {
@@ -166,9 +185,15 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         StartCoroutine(HideBulletDeflectEffect());
     }
 
-    private void PlayParryNonDeflectableBulletEffect()
+    private void PlayParryNonDeflectableBulletEffect(Damage dmg)
     {
         impactLightBlock.enabled = true;
+
+        if (dmg.m_Owner != null)
+        {
+            m_BulletBlockEffect.transform.localRotation = Quaternion.Euler(0, 
+                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
+        }
 
         foreach (ParticleSystem p in compsBlock)
         {
@@ -194,6 +219,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
         dmg.OnParryDamage();
         PlayAudio(m_ParryAudio);
+
+        LookAtSource(dmg);
 
         return true;
     }

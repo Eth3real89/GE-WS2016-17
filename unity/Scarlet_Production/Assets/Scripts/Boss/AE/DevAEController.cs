@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DevAEController : BossController {
 
-    private new void Start()
+    private void Start()
     {
         RegisterComboCallback();
         m_CurrentComboIndex = 0;

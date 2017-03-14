@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -90,6 +91,9 @@ public class VampirePhase0TutorialController : VampireController {
                 break;
             case m_ParryDeflectTutorialBullet:
                 m_TutorialEnumerator = BlockTutorial(true);
+                break;
+            case m_BiggerAttackTutorial:
+                m_TutorialEnumerator = BulletWarning();
                 break;
         }
 
@@ -238,9 +242,6 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void StartAttackTutorial()
     {
-        m_LightGuard.ReattachVisualsToParent();
-        base.DashTo(m_PlaceToBeAttacked, 1.5f);
-
         m_AllowHit = true;
 
         m_TutorialEnumerator = PlayerAttackTutorial();
@@ -253,6 +254,8 @@ public class VampirePhase0TutorialController : VampireController {
         m_BossHittable.RegisterInterject(this);
 
         DeactivateLightShield();
+       // yield return new WaitForSeconds(1.5f);
+
         DashTo(m_PlaceToBeAttacked, 1f);
         yield return new WaitForSeconds(1.3f);
 
@@ -400,7 +403,6 @@ public class VampirePhase0TutorialController : VampireController {
 
         m_LightGuard.m_ExpandLightGuardTime = 0.5f;
         ActivateLightShield();
-        m_LightGuard.ReattachVisualsToParent();
 
         yield return new WaitForSeconds(0.5f);
 
@@ -425,6 +427,22 @@ public class VampirePhase0TutorialController : VampireController {
         yield return new WaitForSeconds(0.5f);
 
         OnComboEnd(m_ActiveCombo);
+    }
+
+    private IEnumerator BulletWarning()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        SlowTime.Instance.StartSlowMo(m_TutorialSlowMo);
+        m_TutorialVisuals.ShowTutorial("", "Some Bullets cannot be Blocked", m_TutorialSlowMo);
+
+        float t = 0;
+        while ((t += Time.deltaTime) < 8 * m_TutorialSlowMo && !Input.anyKeyDown)
+        {
+            yield return null;
+        }
+        SlowTime.Instance.StopSlowMo();
+        m_TutorialVisuals.HideTutorial(1f);
     }
 
     private void OnPlayerParry()

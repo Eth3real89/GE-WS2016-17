@@ -212,6 +212,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
         }
         else if (m_Types[m_CurrentComboIndex] == AttackType.Pistols)
         {
+            m_DHAnimator.ResetTrigger("StopShootingTrigger");
             m_DHAnimator.SetTrigger("ShootTrigger");
         }
 

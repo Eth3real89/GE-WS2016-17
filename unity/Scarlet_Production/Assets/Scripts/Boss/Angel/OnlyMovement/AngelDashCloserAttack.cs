@@ -9,6 +9,8 @@ public class AngelDashCloserAttack : AngelAttack {
     public Transform m_Scarlet;
     public bool m_LeftOfScarlet;
 
+    public float m_MaxTime = 5f;
+
     protected IEnumerator m_Enumerator;
 
     public override void StartAttack()
@@ -20,19 +22,21 @@ public class AngelDashCloserAttack : AngelAttack {
 
     protected virtual IEnumerator DoDash()
     {
-        while(true)
+        float t = 0;
+
+        while((t += Time.deltaTime) < AdjustTime(m_MaxTime))
         {
-            Vector3 desiredPosition = m_Scarlet.transform.position + (m_Scarlet.transform.right) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
+            Vector3 desiredPosition = m_Scarlet.transform.position + new Vector3(1, 0, 0) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
             desiredPosition.y = m_Boss.transform.position.y;
 
             m_FullTurnCommand.DoTurn();
 
-            if(CloseEnough(desiredPosition))
+            if (CloseEnough(desiredPosition))
             {
                 break;
             }
-
-            m_Boss.transform.position += (desiredPosition - m_Boss.transform.position).normalized * AdjustSpeed(m_MaxSpeed) * Time.deltaTime;
+            Vector3 movement = CalculateMovement(desiredPosition);
+            m_Boss.transform.position += movement.normalized * AdjustSpeed(m_MaxSpeed) * Time.deltaTime;
 
             yield return null;
         }
@@ -40,7 +44,12 @@ public class AngelDashCloserAttack : AngelAttack {
         m_Callback.OnAttackEnd(this);
     }
 
-    private bool CloseEnough(Vector3 desiredPosition)
+    protected virtual Vector3 CalculateMovement(Vector3 desiredPosition)
+    {
+        return (desiredPosition - m_Boss.transform.position).normalized;
+    }
+
+    protected bool CloseEnough(Vector3 desiredPosition)
     {
         return Vector3.Distance(m_Boss.transform.position, desiredPosition) <= AdjustSpeed(m_MaxSpeed) * Time.deltaTime * 1.5;
     }

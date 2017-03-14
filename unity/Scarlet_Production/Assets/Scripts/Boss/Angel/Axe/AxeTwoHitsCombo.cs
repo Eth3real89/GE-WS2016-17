@@ -11,7 +11,10 @@ public class AxeTwoHitsCombo : AngelCombo {
             if (((AngelAttack) m_Attacks[m_CurrentAttackIndex]).m_SuccessLevel == 1)
             {
                 m_Animator.SetTrigger("AxeBackhandToFinisherStanceTrigger");
+                float actualEndTime = m_TimeAfterCombo;
+                m_TimeAfterCombo = 0f;
                 base.OnAttackEnd(attack);
+                m_TimeAfterCombo = actualEndTime;
             }
             else
             {

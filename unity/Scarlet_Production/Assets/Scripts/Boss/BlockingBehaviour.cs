@@ -21,6 +21,9 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
 
     public TurnTowardsScarlet m_TurnCommand;
 
+    public PlayableEffect m_BlockEffect;
+    public PlayableEffect m_ParryEffect;
+
     public void Activate(BossBlockCallback callback)
     {
         MLog.Log(LogType.BattleLog, 0, "Activating BlockBehaviour!");
@@ -61,32 +64,48 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
             m_TurnCommand.DoTurn();
         CameraController.Instance.Shake();
 
-        m_BlockCount++;
-
         if (m_BlockAudio != null)
             m_BlockAudio.Play();
 
         if (m_BlockTimer != null)
             StopCoroutine(m_BlockTimer);
 
+        m_BlockCount++;
+
         if (m_BlockCount > m_TimesBlockBeforeParry)
         {
-            m_Animator.SetTrigger("ParryTrigger");
-            m_Callback.OnBossParries();
-            dmg.OnParryDamage();
+            Parry(dmg);
 
             return true;
         }
         else
         {
-            m_Callback.OnBossBlocks();
-            dmg.OnBlockDamage();
+            DoBlock(dmg);
         }
 
         m_BlockTimer = StopBlockingAfter();
         StartCoroutine(m_BlockTimer);
 
         return true;
+    }
+
+    protected virtual void DoBlock(Damage dmg)
+    {
+        m_Callback.OnBossBlocks();
+        dmg.OnBlockDamage();
+
+        if (m_BlockEffect != null)
+            m_BlockEffect.Play();
+    }
+
+    protected virtual void Parry(Damage dmg)
+    {
+        m_Animator.SetTrigger("ParryTrigger");
+        m_Callback.OnBossParries();
+        dmg.OnParryDamage();
+
+        if (m_ParryEffect != null)
+            m_ParryEffect.Play();
     }
 
     public void CancelBehaviour()

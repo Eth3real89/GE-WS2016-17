@@ -38,6 +38,8 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
     private bool m_CarryingScarlet = false;
 
+    protected bool m_SpeedSet = false;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -46,6 +48,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         m_StateTimer = StopAimingAfter(m_AimTime);
         StartCoroutine(m_StateTimer);
 
+        m_SpeedSet = true;
         m_RunSpeedBefore = m_MoveCommand.m_Speed;
         m_MoveCommand.m_Speed = m_ChargeSpeed;
 
@@ -151,6 +154,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
         m_MoveCommand.StopMoving();
         m_MoveCommand.m_Speed = m_RunSpeedBefore;
+        m_SpeedSet = false;
 
         m_Callback.OnAttackEnd(this);
 
@@ -167,7 +171,12 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         if (m_StaggerTimer != null)
             StopCoroutine(m_StaggerTimer);
 
-        m_MoveCommand.m_Speed = m_RunSpeedBefore;
+        if (m_SpeedSet)
+        {
+            m_MoveCommand.m_Speed = m_RunSpeedBefore;
+        }
+        m_SpeedSet = false;
+
         if (m_CarryingScarlet)
             EnableScarletControls();
 

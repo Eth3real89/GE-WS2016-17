@@ -61,6 +61,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     {
         if (whichPhase == m_HuntController)
         {
+            DestroyAllBullets();
             m_HuntController.enabled = false;
             m_HuntController.m_NotDeactivated = false;
 
@@ -70,6 +71,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
         else if (whichPhase == m_Phase2Controller)
         {
+            DestroyAllBullets();
             RegenerateScarletAfterPhase();
 
             StartCoroutine(FlickerLightsOn(false));
@@ -82,6 +84,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
         else if (whichPhase == m_RagemodeController)
         {
+            DestroyAllBullets();
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,7 +20,6 @@ public class ArmorFairyHittable : BossHittable
         new float[] {73.5f, 74.4f },
     };
 
-
     protected FancyAudioRandomClip m_HitPlayer;
     protected FancyAudioRandomClip m_RipostePlayer;
 
@@ -27,9 +27,14 @@ public class ArmorFairyHittable : BossHittable
 
     public bool m_DontPlaySound = false;
 
+    protected bool m_SkipNextSoundBecauseOfStagger = false;
+
     private void Start()
     {
         SetSoundset(true);
+
+        m_SkipNextSoundBecauseOfStagger = false;
+        EventManager.StartListening("armor_fairy_female_stagger", SkipNextSound);
     }
 
     public void SetSoundset(bool male)
@@ -53,7 +58,12 @@ public class ArmorFairyHittable : BossHittable
         float healthBefore = m_Health.m_CurrentHealth;
         base.Hit(damage);
 
-        if (!m_DontPlaySound && m_Health.m_CurrentHealth < healthBefore)
+
+        if (m_SkipNextSoundBecauseOfStagger)
+        {
+            m_SkipNextSoundBecauseOfStagger = false;
+        }
+        else if (!m_DontPlaySound && m_Health.m_CurrentHealth < healthBefore)
         {
             PlayHitSound(damage);
         }
@@ -77,6 +87,11 @@ public class ArmorFairyHittable : BossHittable
     public void StopPlayingCriticalHPSound()
     {
         new FARQ().ClipName("armor_fairy").Location(this.transform).StartTime(28.9f).EndTime(35.7f).Volume(0.3f).OnFinish(ContinuePlayingCriticalHPSound).StopIfPlaying();
+    }
+
+    private void SkipNextSound()
+    {
+        m_SkipNextSoundBecauseOfStagger = true;
     }
 
     protected void PlayHitSound(Damage damage)

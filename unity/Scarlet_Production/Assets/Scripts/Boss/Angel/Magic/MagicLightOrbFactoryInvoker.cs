@@ -6,7 +6,7 @@ public class MagicLightOrbFactoryInvoker : BulletFactoryInvoker {
 
     public Bullet m_BaseBullet;
 
-    public override void Launch(BulletSwarm bs)
+    public override void Launch(BulletSwarm bs, IEnumerator onFinish = null)
     {
         Bullet b = Instantiate(m_BaseBullet);
 

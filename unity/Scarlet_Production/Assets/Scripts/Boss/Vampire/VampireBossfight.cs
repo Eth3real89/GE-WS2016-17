@@ -51,6 +51,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         if (whichPhase == m_TutorialController)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Tutorial over " + this);
+            DestroyAllBullets();
             m_TutorialController.enabled = false;
             m_TutorialController.m_NotDeactivated = false;
             m_Phase1Controller.enabled = true;
@@ -60,6 +61,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         else if (whichPhase == m_Phase1Controller)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 1 over " + this);
+            DestroyAllBullets();
             m_Phase1Controller.enabled = false;
             m_Phase1Controller.m_NotDeactivated = false;
             m_Phase2Controller.enabled = true;
@@ -75,6 +77,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         else if (whichPhase == m_Phase2Controller)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 2 over " + this);
+            DestroyAllBullets();
             m_Phase2Controller.enabled = false;
             m_Phase2Controller.m_NotDeactivated = false;
             m_Phase3Controller.enabled = true;
@@ -90,6 +93,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         else if (whichPhase == m_Phase3Controller)
         {
             MLog.Log(LogType.BattleLog, "Vampire: Phase 3 over " + this);
+            DestroyAllBullets();
             m_Phase3Controller.enabled = false;
             m_Phase3Controller.m_NotDeactivated = false;
             print("Win!");

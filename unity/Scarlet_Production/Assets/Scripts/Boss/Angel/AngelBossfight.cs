@@ -61,4 +61,15 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             m_Phase2Controller.enabled = false;
         }
     }
+
+    protected override void OnScarletDead()
+    {
+        m_Phase1Controller.CancelAndReset();
+        m_Phase2Controller.CancelAndReset();
+
+        m_Phase1Controller.m_NotDeactivated = false;
+        m_Phase2Controller.m_NotDeactivated = false;
+
+        base.OnScarletDead();
+    }
 }

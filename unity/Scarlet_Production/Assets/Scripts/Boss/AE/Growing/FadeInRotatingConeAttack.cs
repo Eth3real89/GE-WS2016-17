@@ -42,6 +42,7 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
         m_Damage.m_MinDistance = m_MinDistance;
         m_Damage.m_Owner = m_AttackContainer.gameObject;
         m_Damage.m_TurnTowardsScarlet = m_FullTurnCommand;
+        m_Damage.m_Callback = this;
 
         m_AttackVisuals.SetRadius(m_EndSize);
         m_AttackVisuals.ShowAttack();
@@ -70,8 +71,6 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     protected override IEnumerator Rotate()
     {
-        int colorId = Shader.PropertyToID("_Color");
-
         float t = 0;
         while ((t += Time.deltaTime) < m_RotationTime)
         {
@@ -127,6 +126,28 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
             yield return null;
         }
         m_AttackVisuals.HideAttack();
+    }
+
+    public override void OnSuccessfulHit()
+    {
+        if (m_StaggerScarlet == StaggerScarlet.Hard)
+        {
+            Vector3 diff = PlayerStaggerCommand.ScarletPosition() - m_AttackContainer.position;
+
+            if (diff.magnitude > m_MinDistance + (m_EndSize - m_MinDistance) / 2f)
+            {
+                PlayerStaggerCommand.StaggerScarletAwayFrom(m_AttackContainer.position, 2, true);
+            }
+            else
+            {
+                diff.y = 0;
+                PlayerStaggerCommand.StaggerScarletAwayFrom(diff * 2 - new Vector3(0, 1, 0), 3, false);
+            }
+        }
+        else
+        {
+            base.OnSuccessfulHit();
+        }
     }
 
 }

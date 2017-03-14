@@ -48,7 +48,18 @@ public class TutorialPromptController : MonoBehaviour {
     public void ShowTutorial(string buttonShort, string newText, float timeMultplier = 1f)
     {
         tutorialText.text = newText;
-        tutorialImages[1].sprite = Resources.Load<Sprite>("controls-" + buttonShort + "_rot");
+        
+        Sprite sprite = Resources.Load<Sprite>("controls-" + buttonShort + "_rot");
+        if (sprite != null)
+        {
+            tutorialImages[1].gameObject.SetActive(true);
+            tutorialImages[1].sprite = Resources.Load<Sprite>("controls-" + buttonShort + "_rot");
+        }
+        else
+        {
+            tutorialImages[1].gameObject.SetActive(false);
+        }
+
 
         if (m_TutorialEnumerator != null)
             StopCoroutine(m_TutorialEnumerator);

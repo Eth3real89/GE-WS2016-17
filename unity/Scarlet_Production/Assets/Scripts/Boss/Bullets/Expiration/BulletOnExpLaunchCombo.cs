@@ -41,6 +41,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             if (attack is BlastWaveAttack)
             {
                 ((BlastWaveAttack)attack).m_Center = empty.transform;
+                ((BlastWaveAttack)attack).m_KillVisualsWhenOver = true;
             }
             else if (attack is BulletAttack)
             {
@@ -49,6 +50,10 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             else if (attack is LightGuardAttack)
             {
                 ((LightGuardAttack)attack).m_LightGuard.m_Center = empty;
+            }
+            else if (attack is PlayableAttack)
+            {
+                ((PlayableAttack)attack).m_EffectLocation = emptyLower.transform.position;
             }
         }
 
@@ -59,7 +64,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
         m_Combo.LaunchCombo();
 
         if (!m_DontCopy)
-            StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject));
+            StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject, emptyLower));
     }
 
     public void OnComboEnd(AttackCombo combo)
@@ -75,7 +80,7 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     {
     }
 
-    protected virtual IEnumerator DestroyOnFinish(GameObject go, GameObject comboCopy)
+    protected virtual IEnumerator DestroyOnFinish(params GameObject[] gos)
     {
         while(!m_Destroy)
         {
@@ -84,11 +89,14 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
         // just to be safe
         yield return new WaitForSeconds(5f);
 
-        if (go != null)
-            GameObject.Destroy(go);
+        for(int i = 0; i < gos.Length; i++)
+        {
+            if (gos[i] != null)
+                Destroy(gos[i]);
+        }
 
-        if (comboCopy != null)
-            GameObject.Destroy(comboCopy);
+        if (gameObject != null)
+            Destroy(gameObject);
     }
 
     public void OnInterruptCombo(AttackCombo combo)

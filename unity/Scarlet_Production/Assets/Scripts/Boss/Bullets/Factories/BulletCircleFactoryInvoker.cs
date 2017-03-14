@@ -20,7 +20,7 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
     public float m_DistanceFromCenter;
     public int m_CountPerIteration;
     
-    protected override void SpawnIteration(BulletSwarm bs)
+    protected override void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
         bs.transform.position = new Vector3(m_Center.position.x, m_Center.position.y, m_Center.position.z);
 
@@ -35,11 +35,14 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
         m_CurrentIteration++;
         if (m_CurrentIteration >= m_Iterations)
         {
+            if (onFinish != null)
+                StartCoroutine(onFinish);
+
             EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
             return;
         }
 
-        m_LaunchIterationTimer = BetweenIterations(bs);
+        m_LaunchIterationTimer = BetweenIterations(bs, onFinish);
         StartCoroutine(m_LaunchIterationTimer);
         
     }

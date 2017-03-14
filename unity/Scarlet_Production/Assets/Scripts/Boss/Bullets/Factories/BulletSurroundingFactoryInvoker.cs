@@ -17,7 +17,7 @@ public class BulletSurroundingFactoryInvoker : BulletFactoryInvoker {
     public BulletCircularMovement m_FirstMovement;
     
 
-    protected override void SpawnIteration(BulletSwarm bs)
+    protected override void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
         if (m_CurrentIteration == 0)
         {
@@ -40,11 +40,13 @@ public class BulletSurroundingFactoryInvoker : BulletFactoryInvoker {
         m_CurrentIteration++;
         if (m_CurrentIteration >= m_Factories.Length)
         {
+            if (onFinish != null)
+                StartCoroutine(onFinish);
             EventManager.TriggerEvent(BulletAttack.END_EVENT_NAME);
             return;
         }
 
-        m_LaunchIterationTimer = BetweenIterations(bs);
+        m_LaunchIterationTimer = BetweenIterations(bs, onFinish);
         StartCoroutine(m_LaunchIterationTimer);
     }
 
@@ -81,10 +83,10 @@ public class BulletSurroundingFactoryInvoker : BulletFactoryInvoker {
         return b;
     }
 
-    protected override IEnumerator BetweenIterations(BulletSwarm bs)
+    protected override IEnumerator BetweenIterations(BulletSwarm bs, IEnumerator onFinish = null)
     {
         yield return new WaitForSeconds(m_TimeToSpawnBullets / (m_Factories.Length + 1));
-        SpawnIteration(bs);
+        SpawnIteration(bs, onFinish);
     }
 
 }

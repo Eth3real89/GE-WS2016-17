@@ -79,6 +79,11 @@ public class AngelComboList {
         return comboIndex;
     }
 
+    public int ComboIndex(AngelCombo angelCombo)
+    {
+        return m_Combos.IndexOf(angelCombo);
+    }
+
     public AngelCombo ComboAt(int i)
     {
         return m_Combos[i];
