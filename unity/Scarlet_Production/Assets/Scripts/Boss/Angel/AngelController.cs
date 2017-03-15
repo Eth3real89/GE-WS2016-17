@@ -43,6 +43,7 @@ public class AngelController : BossController {
         //Time.timeScale = 0.5f;
         
         m_ScarletKnockedDown = false;
+        m_NotDeactivated = true;
 
         SetSpeed(m_SpeedMultiplier);
         SetDamage(m_DamageMultiplier);
@@ -452,8 +453,11 @@ public class AngelController : BossController {
 
     public override bool OnHit(Damage dmg)
     {
-        if (!m_OnlyJustStaggered && (m_InWindup || m_ActiveCombo == null))
-        {
+        if (m_OnlyJustStaggered)
+            return true;
+
+        if (m_InWindup || m_ActiveCombo == null)
+        { 
             MLog.Log(LogType.AngelLog, "Angel: Succesful hit! " + this);
 
             CancelComboIfActive();
@@ -464,17 +468,14 @@ public class AngelController : BossController {
                 m_BossHittable.RegisterInterject(m_TimeWindowManager);
             }
 
-            if (m_NextComboTimer != null)
-                StopCoroutine(m_NextComboTimer);
-
             CameraController.Instance.Shake();
 
+            ((AngelHittable)m_BossHittable).m_TakeLessDamage = false;
             return false;
         }
         else if (m_InLongStance)
         {
-            MLog.Log(LogType.AngelLog, "Angel: Hit in Long Stance! " + this);
-            // @todo: take care of dmg
+            ((AngelHittable)m_BossHittable).m_TakeLessDamage = true;
             return false;
         }
         else
@@ -518,5 +519,11 @@ public class AngelController : BossController {
     protected virtual void LongStanceEnd()
     {
         m_InLongStance = false;
+    }
+
+    protected override IEnumerator InvulnerableAfterStagger()
+    {
+        yield return new WaitForSeconds(1f);
+        m_OnlyJustStaggered = false;
     }
 }

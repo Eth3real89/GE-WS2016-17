@@ -126,7 +126,8 @@ public class LightGuard : MonoBehaviour {
         }
         else
         {
-            m_LightGuardVisuals.gameObject.SetActive(false);
+            if (m_LightGuardVisuals != null)
+                m_LightGuardVisuals.gameObject.SetActive(false);
         }
         
         gameObject.SetActive(false);

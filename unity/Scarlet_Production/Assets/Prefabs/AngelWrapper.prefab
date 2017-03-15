@@ -5065,12 +5065,12 @@ GameObject:
   - component: {fileID: 114967806356652266}
   - component: {fileID: 114630769487974776}
   - component: {fileID: 114784673839482482}
-  - component: {fileID: 114575900374126740}
   - component: {fileID: 114928800184693212}
   - component: {fileID: 114848845220682146}
   - component: {fileID: 114134349951174378}
   - component: {fileID: 114770945029283568}
   - component: {fileID: 114522074753625592}
+  - component: {fileID: 114940212842150974}
   m_Layer: 9
   m_Name: angel
   m_TagString: Untagged
@@ -10521,7 +10521,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012553752058084}
-  m_LocalRotation: {x: -0.05586648, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866472, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -16407,7 +16407,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753606675724464}
-  m_LocalRotation: {x: -0.05586648, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866472, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -22520,7 +22520,7 @@ MonoBehaviour:
   - {fileID: 114510565679312510}
   - {fileID: 114708552005923364}
   - {fileID: 114977246273014578}
-  m_BossHittable: {fileID: 114575900374126740}
+  m_BossHittable: {fileID: 114940212842150974}
   m_BlockingBehaviour: {fileID: 114784673839482482}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114630769487974776}
@@ -24085,22 +24085,6 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0.1}
   - {x: 0, y: 0, z: 0.2}
---- !u!114 &114575900374126740
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1508432114519878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a9f5f99f2764e747b99dcbfebcfd6c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Health: {fileID: 114317295179532788}
-  m_OnHitSignal: {fileID: 114967806356652266}
-  m_OnHitAudio: {fileID: 0}
-  m_BlockParryAudioSource: {fileID: 0}
-  m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
 --- !u!114 &114582221543986892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -25010,7 +24994,7 @@ MonoBehaviour:
   - {fileID: 114510565679312510}
   - {fileID: 114708552005923364}
   - {fileID: 114977246273014578}
-  m_BossHittable: {fileID: 114575900374126740}
+  m_BossHittable: {fileID: 114940212842150974}
   m_BlockingBehaviour: {fileID: 114784673839482482}
   m_MaxBlocksBeforeParry: 3
   m_TimeWindowManager: {fileID: 114630769487974776}
@@ -25301,6 +25285,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Animator: {fileID: 0}
   m_Boss: {fileID: 0}
+--- !u!114 &114940212842150974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508432114519878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 597785ee28b08c74db12a2d236970362, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Health: {fileID: 114317295179532788}
+  m_OnHitSignal: {fileID: 114967806356652266}
+  m_OnHitAudio: {fileID: 0}
+  m_BlockParryAudioSource: {fileID: 0}
+  m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
+  m_TakeLessDamage: 0
+  m_LessDamageFactor: 0.3
 --- !u!114 &114942783548788488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -25431,7 +25433,8 @@ MonoBehaviour:
   m_TimeBleedAfterHit: 5
   m_HitMaterial: {fileID: 2100000, guid: b7f4d1b84ff4b654a8016cc6926b492e, type: 2}
   m_IgnoreChildren: 0
-  m_Excluded: []
+  m_Excluded:
+  - {fileID: 1973852140584168}
 --- !u!114 &114977246273014578
 MonoBehaviour:
   m_ObjectHideFlags: 1
