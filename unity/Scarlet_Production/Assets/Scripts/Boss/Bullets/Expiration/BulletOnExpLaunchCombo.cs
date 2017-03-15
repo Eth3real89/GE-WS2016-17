@@ -55,6 +55,10 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
             {
                 ((PlayableAttack)attack).m_EffectLocation = emptyLower.transform.position;
             }
+            else if (attack is RepeatedEffectPlayer)
+            {
+                ((RepeatedEffectPlayer)attack).m_EffectPosition = emptyLower.transform.position;
+            }
         }
 
         if (!m_DontCopy)

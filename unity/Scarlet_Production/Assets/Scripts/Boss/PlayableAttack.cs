@@ -15,11 +15,13 @@ public class PlayableAttack : BossAttack {
     protected IEnumerator m_MoveOnTimer;
     protected IEnumerator m_EffectTimer;
 
+    public bool m_AddPossPosition = false;
+
     public override void StartAttack()
     {
         base.StartAttack();
 
-        m_Effect.Play(m_Boss.transform.position + m_EffectLocation);
+        m_Effect.Play((m_AddPossPosition? m_Boss.transform.position : Vector3.zero) + m_EffectLocation);
 
         if (m_MoveOnAfter <= 0)
             m_Callback.OnAttackEnd(this);
