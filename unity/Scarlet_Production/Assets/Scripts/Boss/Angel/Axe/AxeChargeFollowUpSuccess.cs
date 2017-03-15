@@ -60,7 +60,7 @@ public class AxeChargeFollowUpSuccess : AngelAttack, DamageCollisionHandler, Dam
     {
         yield return new WaitForSeconds(m_ActivateDamageTime);
 
-        m_Damage.m_Amount = m_DamageAmount;
+        m_Damage.m_Amount = AdjustDmg(this.m_DamageAmount);
         m_Damage.m_Active = false;
         m_Damage.m_Callback = null;
         m_Damage.m_CollisionHandler = null;

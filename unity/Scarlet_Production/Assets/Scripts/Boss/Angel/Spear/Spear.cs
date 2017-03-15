@@ -73,6 +73,6 @@ public class Spear : Damage {
 
     public override float DamageAmount()
     {
-        return m_DamageAmount;
+        return AngelAttack.GetDamageMultiplier() * m_DamageAmount;
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class AngelAttack : BossAttack {
 
     protected static float s_SpeedMultiplier = 1f;
-    protected static float m_DamageMultiplier = 1f;
+    protected static float s_DamageMultiplier = 1f;
 
     public int m_SuccessLevel;
     public AngelAttackCallback m_SuccessCallback;
@@ -26,6 +26,16 @@ public abstract class AngelAttack : BossAttack {
         s_SpeedMultiplier = multiplier;
     }
 
+    public static void SetDamageMultiplier(float multiplier)
+    {
+        s_DamageMultiplier = multiplier;
+    }
+
+    public static float GetDamageMultiplier()
+    {
+        return s_DamageMultiplier;
+    }
+
     protected float AdjustSpeed(float val)
     {
         return val * s_SpeedMultiplier;
@@ -38,7 +48,7 @@ public abstract class AngelAttack : BossAttack {
 
     protected float AdjustDmg(float val)
     {
-        return val * m_DamageMultiplier;
+        return val * s_DamageMultiplier;
     }
 
 }

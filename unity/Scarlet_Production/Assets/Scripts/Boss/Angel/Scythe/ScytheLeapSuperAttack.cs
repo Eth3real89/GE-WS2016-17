@@ -28,6 +28,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
     public AngelDamage m_RotationDamage;
     public AngelDamage m_DownswingDamage;
 
+    public float m_DamageAmountRotation = 30f;
+    public float m_DamageAmountDownswing = 90f;
+
     protected float m_YPosBefore;
 
     public override void StartAttack()
@@ -38,6 +41,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         m_RotationDamage.m_Callback = this;
         m_DownswingDamage.m_Callback = this;
+
+        m_RotationDamage.m_DamageAmount = AdjustDmg(this.m_DamageAmountRotation);
+        m_DownswingDamage.m_DamageAmount = AdjustDmg(this.m_DamageAmountDownswing);
 
         m_VisualEffectDisabled = false;
 

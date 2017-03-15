@@ -48,7 +48,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
         m_Damage.m_BlockType = this.m_BlockableType;
         m_Damage.m_Type = this.m_DamageType;
 
-        m_Damage.m_Amount = this.m_DamageAmount;
+        m_Damage.m_Amount = AdjustDmg(this.m_DamageAmount);
 
         m_Damage.m_Active = true;
     }

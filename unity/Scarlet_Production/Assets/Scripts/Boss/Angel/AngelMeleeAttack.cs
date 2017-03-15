@@ -30,7 +30,7 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
 
         m_Cancelled = false;
 
-        m_Damage.m_Amount = m_DamageAmount;
+        m_Damage.m_Amount = AdjustDmg(this.m_DamageAmount);
         m_Damage.m_CollisionHandler = this;
         m_Damage.m_Callback = this;
         m_Damage.m_Active = false;

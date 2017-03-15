@@ -42,7 +42,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
         m_Animator.SetTrigger("AxeRunTrigger");
 
-        m_Damage.m_Amount = this.m_DamageAmount;
+        m_Damage.m_Amount = AdjustDmg(this.m_DamageAmount);
         m_Damage.m_Active = true;
         m_Damage.m_Callback = this;
         m_Damage.m_CollisionHandler = this;

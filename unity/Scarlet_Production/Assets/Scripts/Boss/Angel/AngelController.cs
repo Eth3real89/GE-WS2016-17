@@ -35,6 +35,7 @@ public class AngelController : BossController {
     protected bool m_InLongStance;
 
     public float m_SpeedMultiplier = 1f;
+    public float m_DamageMultiplier = 1f;
 
     public virtual void StartPhase(BossfightCallbacks callback)
     {
@@ -43,6 +44,7 @@ public class AngelController : BossController {
         m_ScarletKnockedDown = false;
 
         SetSpeed(m_SpeedMultiplier);
+        SetDamage(m_DamageMultiplier);
 
         MLog.Log(LogType.AngelLog, "Starting Phase, Angel, " + this);
         this.m_Callback = callback;
@@ -411,6 +413,11 @@ public class AngelController : BossController {
         AngelMoveCommand.s_SpeedMultiplier = speed;
     }
 
+    protected virtual void SetDamage(float damage)
+    {
+        AngelAttack.SetDamageMultiplier(damage);
+    }
+
     public override void OnTimeWindowClosed()
     {
         MLog.Log(LogType.AngelLog, "On Time Window Was Closed, Angel ");
@@ -436,7 +443,7 @@ public class AngelController : BossController {
 
     public override bool OnHit(Damage dmg)
     {
-        if (m_InWindup || m_ActiveCombo == null)
+        if (!m_OnlyJustStaggered && (m_InWindup || m_ActiveCombo == null))
         {
             MLog.Log(LogType.AngelLog, "Angel: Succesful hit! " + this);
 
