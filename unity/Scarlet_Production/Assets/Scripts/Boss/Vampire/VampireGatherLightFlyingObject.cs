@@ -37,7 +37,7 @@ public class VampireGatherLightFlyingObject : MonoBehaviour {
             yield return null;
         }
 
-        OnReachGoal();
+        //OnReachGoal();
     }
 
     protected void OnReachGoal()

@@ -94,6 +94,12 @@ public class VampireController : BossController {
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
 
+        VampireGatherLightFlyingObjectsManager vglfom = GetComponent<VampireGatherLightFlyingObjectsManager>();
+        if (vglfom != null)
+        {
+            vglfom.OnAttackEnd();
+        }
+
         m_NextComboTimer = StartNextComboAfter(combo.m_TimeAfterCombo);
         StartCoroutine(m_NextComboTimer);
     }

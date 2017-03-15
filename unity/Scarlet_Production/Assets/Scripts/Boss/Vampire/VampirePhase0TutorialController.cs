@@ -121,6 +121,12 @@ public class VampirePhase0TutorialController : VampireController {
                 EndPhase();
                 break;
         }
+
+        VampireGatherLightFlyingObjectsManager vglfom = GetComponent<VampireGatherLightFlyingObjectsManager>();
+        if (vglfom != null)
+        {
+            vglfom.OnAttackEnd();
+        }
     }
 
     protected override IEnumerator StartNextComboAfter(float time)

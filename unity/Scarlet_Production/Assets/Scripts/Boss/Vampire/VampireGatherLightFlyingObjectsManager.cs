@@ -68,4 +68,10 @@ public class VampireGatherLightFlyingObjectsManager : MonoBehaviour, VampireGath
             m_Instances.Remove(obj);
         }
     }
+
+    public void OnAttackEnd()
+    {   
+        CancelIrregularly();
+
+    }
 }
