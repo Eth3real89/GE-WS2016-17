@@ -67,10 +67,12 @@ public class ScytheReapAttack : AngelMeleeAttack {
 
     public override void OnBlockDamage()
     {
+        m_Damage.m_Active = false;
     }
 
     public override void OnParryDamage()
     {
+        m_Damage.m_Active = false;
     }
 
     public override void CancelAttack()
