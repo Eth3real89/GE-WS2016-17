@@ -12,6 +12,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
     public AngelPhase2Controller m_Phase2Controller;
 
     public CharacterHealth m_AngelHealth;
+    public GameObject m_AngelRenderer;
 
     public GameObject m_DH;
     public GameObject m_DHHealthWrapper;
@@ -59,6 +60,17 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         {
             MLog.Log(LogType.BattleLog, "Angel: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
+            StartCoroutine(DissolveAngel());
+        }
+    }
+
+    private IEnumerator DissolveAngel()
+    {
+        float t = 0f;
+        while ((t += Time.deltaTime) > 1f)
+        {
+            m_AngelRenderer.GetComponent<Renderer>().material.SetFloat("_Cutoff", t / 1f);
+            yield return null;
         }
     }
 

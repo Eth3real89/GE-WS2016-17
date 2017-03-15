@@ -53,6 +53,9 @@ public class AngelWeapons : MonoBehaviour {
     public GameObject m_Scythe;
     public GameObject m_Spear;
 
+    public Material m_ChangeMaterial;
+    public Material m_NormalMaterial;
+
     public ControlAngelVisualisation m_Effects;
 
     protected GameObject m_CurrentTip;
@@ -108,21 +111,48 @@ public class AngelWeapons : MonoBehaviour {
 
     protected virtual IEnumerator ChangeTipRoutine(GameObject changeTo, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
+        float t = 0f;
         if (m_CurrentTip != null)
-            m_CurrentTip.SetActive(false);
+        {
+            ParticleSystem[] particlesOld = m_CurrentTip.GetComponentsInChildren<ParticleSystem>();
+            Renderer currentRenderer = m_CurrentTip.GetComponent<Renderer>();
 
+            currentRenderer.material = m_ChangeMaterial;
+            particlesOld[particlesOld.Length - 1].Play();
+            while ((t += Time.deltaTime) > 0.8f)
+            {
+                currentRenderer.material.SetFloat("_Cutoff", t / 0.8f);
+                yield return null;
+            }
+            particlesOld[particlesOld.Length - 1].Stop();
+            currentRenderer.material.SetFloat("_Cutoff", 1f);
+            currentRenderer.material = m_NormalMaterial;
+            m_CurrentTip.SetActive(false);
+        }
         Vector3 prevScale = changeTo.transform.localScale + new Vector3();
 
         changeTo.SetActive(true);
-        SetRendererEmission(changeTo, 1f);
-        float t = 0;
-        while((t += Time.deltaTime) < 0.8f)
+
+        t = 0.8f;
+        ParticleSystem[] particles = changeTo.GetComponentsInChildren<ParticleSystem>();
+        particles[particles.Length-1].Play();
+
+        Renderer newRenderer = changeTo.GetComponent<Renderer>();
+        newRenderer.material = m_ChangeMaterial;
+        while ((t -= Time.deltaTime) > 0)
         {
-            changeTo.transform.localScale = Vector3.Lerp(Vector3.zero, prevScale, t / 0.8f);
+            newRenderer.material.SetFloat("_Cutoff", t / 0.8f);
+            //changeTo.transform.localScale = Vector3.Lerp(Vector3.zero, prevScale, t / 0.8f);
             yield return null;
         }
-        changeTo.transform.localScale = prevScale;
-        m_CurrentTip = changeTo;
+        newRenderer.material.SetFloat("_Cutoff", 0);
+        //changeTo.transform.localScale = prevScale;
+        newRenderer.material = m_NormalMaterial;
+        SetRendererEmission(changeTo, 1f);
+
+        particles[particles.Length - 1].Stop();
+
+        m_CurrentTip = changeTo; 
 
         m_Effects.OnWeaponTipChanged(m_CurrentTip);
 
