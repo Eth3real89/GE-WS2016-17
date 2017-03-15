@@ -12,11 +12,15 @@ public class Spear : Damage {
 
     protected IEnumerator m_Timer;
 
+    public GameObject m_Tip;
+
     public void LaunchSpear(float speed, float maxLifetime)
     {
         transform.parent = null;
         m_Speed = speed;
         m_MaxLifetime = maxLifetime;
+
+        AngelWeapons.SetRendererEmission(m_Tip, 2f);
 
         m_Active = true;
 

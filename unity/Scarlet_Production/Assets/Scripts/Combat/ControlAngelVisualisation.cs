@@ -51,7 +51,18 @@ public class ControlAngelVisualisation : MonoBehaviour {
         m_SpecialParticles_UP = m_SpecialAttack.GetComponentsInChildren<ParticleSystem>(true);
         m_SpecialParticles_DOWN = m_SpecialAttack_DOWN.GetComponentsInChildren<ParticleSystem>(true);
         m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
-        
+    }
+
+    public void OnWeaponTipChanged(GameObject newTip)
+    {
+        try
+        {
+            m_RightHand = newTip;
+            m_RightHand = newTip.transform.FindChild("NormalAttack").gameObject;
+            m_Trails_Right = m_RightHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
+            m_Particles_Right = m_RightHand.GetComponentsInChildren<ParticleSystem>(true);
+        }
+        catch { }
     }
 
     void Update()
@@ -122,6 +133,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
         {
             particles.Play();
         }
+
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
             trail.Emit = true;

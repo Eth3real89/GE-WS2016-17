@@ -19,6 +19,7 @@ public class AngelController : BossController {
     protected AngelComboList m_MeleeOrCloseAttacks;
     protected AngelComboList m_CloseGapAttacks;
 
+    protected AngelComboList m_AllMovementCombos;
     protected AngelComboList m_MoveCloseMovements;
     protected AngelComboList m_FeintMovements;
     protected AngelComboList m_StayAwayMovements;
@@ -136,7 +137,7 @@ public class AngelController : BossController {
             else
             {
                 MLog.Log(LogType.AngelLog, "Determine Next Attack: Launching Movement " + this);
-                movementCombo.LaunchCombo();
+                LaunchMovementCombo(movementCombo, m_RegularAttacks.ComboAt(m_AttackIndex));
             }
         }
     }
@@ -280,6 +281,11 @@ public class AngelController : BossController {
         m_Weapons.ChangeTipTo(list.ComboAt(comboIndex).m_AssociatedTip, OnTipChanged(list, comboIndex, startOverride), this);
     }
 
+    private void LaunchMovementCombo(AngelOnlyMovementCombo movementCombo, AngelCombo angelCombo)
+    {
+        m_Weapons.ChangeTipTo(angelCombo.m_AssociatedTip, OnTipChanged(m_AllMovementCombos, m_AllMovementCombos.ComboIndex(movementCombo), 0), this);
+    }
+
     protected virtual bool ScarletIsKnockedDown()
     {
         return m_ActualLastCombo != null && m_ActualLastCombo.m_Success == 1;
@@ -320,6 +326,7 @@ public class AngelController : BossController {
         m_MoveCloseMovements = new AngelComboList();
         m_FeintMovements = new AngelComboList();
         m_StayAwayMovements = new AngelComboList();
+        m_AllMovementCombos = new AngelComboList();
         ReferenceMovementCombos();
     }
 
@@ -367,6 +374,8 @@ public class AngelController : BossController {
     {
         for(int i = 0; i < m_MovementCombos.Length; i++)
         {
+            m_AllMovementCombos.AddCombo(m_MovementCombos[i]);
+
             switch(m_MovementCombos[i].m_MovementComboType)
             {
                 case AngelOnlyMovementCombo.MovementComboType.MoveAway:

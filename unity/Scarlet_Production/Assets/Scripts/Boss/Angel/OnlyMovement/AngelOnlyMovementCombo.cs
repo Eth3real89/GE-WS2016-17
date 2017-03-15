@@ -7,7 +7,7 @@ public abstract class AngelOnlyMovementCombo : AngelCombo {
 
     public enum MovementComboType { ReachScarlet, Feint, MoveAway };
     public MovementComboType m_MovementComboType;
-
+    
     public override void OnAttackEnd(BossAttack attack)
     {
         m_BetweenAttacks = true;

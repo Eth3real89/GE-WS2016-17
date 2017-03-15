@@ -1,8 +1,48 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AngelWeapons : MonoBehaviour {
+
+    protected static AngelWeapons _Instance;
+
+    public static AngelWeapons Instance {
+        get
+        {
+            return _Instance;
+        }
+    }
+
+    public static void SetGlow(float glow)
+    {
+        if (_Instance == null)
+            return;
+
+        if (_Instance.m_CurrentTip != null)
+        {
+            SetRendererEmission(_Instance.m_CurrentTip, glow);
+        }
+    }
+
+    public static void SetRendererEmission(GameObject go, float glow)
+    {
+        Renderer r = go.GetComponent<Renderer>();
+        if (r != null)
+        {
+            try
+            {
+                foreach (Material m in r.materials)
+                {
+                    Color emissionColor = new Color(glow, glow, glow, 1f);
+                    m.SetColor("_EmissionColor", emissionColor);
+                    m.SetColor("_EmissionColorUI", emissionColor);
+                }
+                DynamicGI.UpdateMaterials(r);
+            }
+            catch { }
+        }
+    }
 
     public enum Tips {Axe, Crosswbow, Hammer, Hellebarde, Scythe, Spear, Magic };
 
@@ -13,9 +53,17 @@ public class AngelWeapons : MonoBehaviour {
     public GameObject m_Scythe;
     public GameObject m_Spear;
 
+    public ControlAngelVisualisation m_Effects;
+
     protected GameObject m_CurrentTip;
 
     protected IEnumerator m_WeaponChangeEnumerator;
+
+    private void Start()
+    {
+        if (_Instance == null)
+            _Instance = this;
+    }
 
     public void RemoveTip()
     {
@@ -60,25 +108,26 @@ public class AngelWeapons : MonoBehaviour {
 
     protected virtual IEnumerator ChangeTipRoutine(GameObject changeTo, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
-        yield return null;
-
-        if (callbackOwner != null && doAfterwards != null)
-            callbackOwner.StartCoroutine(doAfterwards);
-
         if (m_CurrentTip != null)
             m_CurrentTip.SetActive(false);
 
         Vector3 prevScale = changeTo.transform.localScale + new Vector3();
 
         changeTo.SetActive(true);
+        SetRendererEmission(changeTo, 1f);
         float t = 0;
         while((t += Time.deltaTime) < 0.8f)
         {
             changeTo.transform.localScale = Vector3.Lerp(Vector3.zero, prevScale, t / 0.8f);
+            yield return null;
         }
         changeTo.transform.localScale = prevScale;
-
         m_CurrentTip = changeTo;
+
+        m_Effects.OnWeaponTipChanged(m_CurrentTip);
+
+        if (callbackOwner != null && doAfterwards != null)
+            callbackOwner.StartCoroutine(doAfterwards);
     }
 
     public void Cancel()
