@@ -60,7 +60,8 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         {
             MLog.Log(LogType.BattleLog, "Angel: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
-            StartCoroutine(DissolveAngel());
+
+            //StartCoroutine(DissolveAngel());
         }
     }
 

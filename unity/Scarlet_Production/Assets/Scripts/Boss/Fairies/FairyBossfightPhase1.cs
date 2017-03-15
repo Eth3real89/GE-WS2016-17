@@ -36,11 +36,11 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_ArmorAnimator.SetBool("Dead", false);
         m_PlayerControls.DisableAllCommands();
 
-        Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
-        Vector3 prefScaleShield = new Vector3(m_Shield.transform.localScale.x, m_Shield.transform.localScale.y, m_Shield.transform.localScale.z);
+        //Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
+        //Vector3 prefScaleShield = new Vector3(m_Shield.transform.localScale.x, m_Shield.transform.localScale.y, m_Shield.transform.localScale.z);
 
-        m_Shield.transform.localScale = new Vector3(0, 0, 0);
-        m_Sword.transform.localScale = new Vector3(0, 0, 0);
+        //m_Shield.transform.localScale = new Vector3(0, 0, 0);
+        //m_Sword.transform.localScale = new Vector3(0, 0, 0);
 
         m_Shield.gameObject.SetActive(true);
         m_Sword.gameObject.SetActive(true);
@@ -51,17 +51,28 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
 
         m_ArmorAnimator.SetTrigger("EquipSwordShieldTrigger");
 
-        float t = 0;
+        float t = 2f;
         float equipTime = 2f;
-        while((t += Time.deltaTime) < equipTime)
+        Material[] ms = m_Shield.GetComponent<Renderer>().materials;
+        while ((t -= Time.deltaTime) > 0)
         {
-            m_Shield.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleShield, t / equipTime);
-            m_Sword.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleSword, t / equipTime);
+            foreach(Material m in ms)
+            {
+                m.SetFloat("_Cutoff", t / equipTime);
+            }
+            m_Sword.GetComponent<Renderer>().material.SetFloat("_Cutoff", t / equipTime);
+            //m_Shield.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleShield, t / equipTime);
+            //m_Sword.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleSword, t / equipTime);
             yield return null;
         }
+        
+        foreach (Material m in ms)
+        {
+            m.SetFloat("_Cutoff", 0);
+        }
 
-        m_Shield.transform.localScale = prefScaleShield;
-        m_Sword.transform.localScale = prefScaleSword;
+        //m_Shield.transform.localScale = prefScaleShield;
+        //m_Sword.transform.localScale = prefScaleSword;
 
         yield return new WaitForSeconds(0.5f);
 

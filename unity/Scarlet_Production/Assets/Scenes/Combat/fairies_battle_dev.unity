@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
+  m_IndirectSpecularColor: {r: 0.0037490726, g: 0.0037490726, b: 0.0037490726, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -796,6 +796,38 @@ Prefab:
       propertyPath: m_Scarlet
       value: 
       objectReference: {fileID: 638130663}
+    - target: {fileID: 23940588088498228, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f679c167d45ddc3468e6364b7d84f801, type: 2}
+    - target: {fileID: 23940588088498228, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f679c167d45ddc3468e6364b7d84f801, type: 2}
+    - target: {fileID: 1054636716789264, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23074181867898368, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f679c167d45ddc3468e6364b7d84f801, type: 2}
+    - target: {fileID: 1851844807330154, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 23899136762096580, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f679c167d45ddc3468e6364b7d84f801, type: 2}
+    - target: {fileID: 1064843205124224, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
   m_IsPrefabParent: 0
@@ -4836,7 +4868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
-  m_StartPhase: 0
+  m_StartPhase: 3
   m_Phase1: {fileID: 1929195639}
   m_Phase2: {fileID: 252596080}
   m_Phase3: {fileID: 813341994}

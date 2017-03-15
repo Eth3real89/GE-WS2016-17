@@ -45,23 +45,36 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
     {
         m_PlayerControls.DisableAllCommands();
 
-        Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
-        Vector3 prefScaleShield = new Vector3(m_Shield.transform.localScale.x, m_Shield.transform.localScale.y, m_Shield.transform.localScale.z);
+        //Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
+        //Vector3 prefScaleShield = new Vector3(m_Shield.transform.localScale.x, m_Shield.transform.localScale.y, m_Shield.transform.localScale.z);
 
-        m_Shield.transform.localScale = new Vector3(0, 0, 0);
-        m_Sword.transform.localScale = new Vector3(0, 0, 0);
+        //m_Shield.transform.localScale = new Vector3(0, 0, 0);
+        //m_Sword.transform.localScale = new Vector3(0, 0, 0);
 
         float t = 0;
         float equipTime = 1f;
+        Material[] ms = m_Shield.GetComponent<Renderer>().materials;
         while ((t += Time.deltaTime) < equipTime)
         {
-            m_Shield.transform.localScale = Vector3.Lerp(prefScaleShield, Vector3.zero, t / equipTime);
-            m_Sword.transform.localScale = Vector3.Lerp(prefScaleSword, Vector3.zero, t / equipTime);
+            foreach (Material m in ms)
+            {
+                m.SetFloat("_Cutoff", t / equipTime);
+            }
+            m_Sword.GetComponent<Renderer>().material.SetFloat("_Cutoff", t / equipTime);
+
+            //m_Shield.transform.localScale = Vector3.Lerp(prefScaleShield, Vector3.zero, t / equipTime);
+            //m_Sword.transform.localScale = Vector3.Lerp(prefScaleSword, Vector3.zero, t / equipTime);
 
             Vector3 hbPos = m_ArmorHealthBar.localPosition;
             m_ArmorHealthBar.localPosition = Vector3.Lerp(new Vector3(hbPos.x, hbPos.y, hbPos.z), new Vector3(hbPos.x, 25, hbPos.z), t / equipTime);
             yield return null;
         }
+        foreach (Material m in ms)
+        {
+            m.SetFloat("_Cutoff", 1);
+        }
+        m_Sword.GetComponent<Renderer>().material.SetFloat("_Cutoff", 1);
+
 
         m_Shield.gameObject.SetActive(false);
         m_Sword.gameObject.SetActive(false);
@@ -69,18 +82,20 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         m_ArmorAnimator.SetBool("TwoHand", true);
 
         m_BigSword.gameObject.SetActive(true);
-        Vector3 prefScaleBigSword = new Vector3(m_BigSword.transform.localScale.x, m_BigSword.transform.localScale.y, m_BigSword.transform.localScale.z);
-        m_BigSword.transform.localScale = new Vector3(0, 0, 0);
+        //Vector3 prefScaleBigSword = new Vector3(m_BigSword.transform.localScale.x, m_BigSword.transform.localScale.y, m_BigSword.transform.localScale.z);
+        //m_BigSword.transform.localScale = new Vector3(0, 0, 0);
 
         MakeSwordShiny(true);
 
-        t = 0;
+        t = 2f;
         equipTime = 2f;
-        while ((t += Time.deltaTime) < equipTime)
+        while ((t -= Time.deltaTime) > 0)
         {
-            m_BigSword.transform.localScale = Vector3.Lerp(Vector3.zero, prefScaleBigSword, t / equipTime);
+            m_BigSword.GetComponent<Renderer>().material.SetFloat("_Cutoff", t / equipTime);
+            //m_BigSword.transform.localScale = Vector3.Lerp(Vector3.zero, prefScaleBigSword, t / equipTime);
             yield return null;
         }
+        m_BigSword.GetComponent<Renderer>().material.SetFloat("_Cutoff", 0);
 
         yield return new WaitForSeconds(0.5f);
 
