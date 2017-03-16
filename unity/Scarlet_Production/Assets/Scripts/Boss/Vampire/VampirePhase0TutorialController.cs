@@ -473,6 +473,7 @@ public class VampirePhase0TutorialController : VampireController {
 
         if (m_AllowHit)
         {
+            CameraController.Instance.Shake();
             m_HitCount++;
             if (m_HitCount == 4)
             {
