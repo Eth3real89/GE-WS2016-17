@@ -11,13 +11,22 @@ public class ScytheFinisherCombo : AngelCombo {
         base.LaunchCombo();
     }
 
-   /* protected virtual IEnumerator WaitForAnimationThenLaunch()
+    public override void OnAttackStart(BossAttack attack)
     {
-        yield return new WaitForSeconds(m_ScytheStanceTime);
+        if (attack is AngelOnlyAnimationAttack)
+        {
+            AngelSoundPlayer.PlayMiscStanceSound();
+        }
+        base.OnAttackStart(attack);
+    }
 
-        if (!m_Cancelled)
-            base.LaunchCombo();
-    } */
+    /* protected virtual IEnumerator WaitForAnimationThenLaunch()
+     {
+         yield return new WaitForSeconds(m_ScytheStanceTime);
+
+         if (!m_Cancelled)
+             base.LaunchCombo();
+     } */
 
     public override void OnAttackEnd(BossAttack attack)
     {

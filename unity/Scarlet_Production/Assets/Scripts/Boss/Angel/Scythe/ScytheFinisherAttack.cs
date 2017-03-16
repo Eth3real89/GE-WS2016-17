@@ -86,6 +86,7 @@ public class ScytheFinisherAttack : AngelAttack, Damage.DamageCallback, DamageCo
 
         ResetDamage();
         m_Animator.SetTrigger("ScytheFinisherWindupTrigger");
+        AngelSoundPlayer.PlayMiscWindupSound();
         yield return new WaitForSeconds(AdjustTime(m_WindupTime));
         EndAttack();
     }

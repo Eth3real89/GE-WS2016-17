@@ -38,6 +38,8 @@ public class AxeChargeFollowUpSuccess : AngelAttack, DamageCollisionHandler, Dam
 
         m_Animator.SetTrigger("AxeChargeOverheadTrigger");
 
+        AngelSoundPlayer.PlayHeavyAttackSound();
+
         float t = 0;
         while((t += Time.deltaTime) < AdjustTime(m_FlyTime))
         {

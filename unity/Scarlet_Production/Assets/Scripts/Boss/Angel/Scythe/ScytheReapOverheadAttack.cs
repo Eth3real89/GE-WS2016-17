@@ -25,12 +25,13 @@ public class ScytheReapOverheadAttack : AngelMeleeAttack {
 
     protected override void EndAttack()
     {
-        base.EndAttack();
+        AngelSoundPlayer.PlayMiscWindupSound();
 
         if (!m_StaggerCalled)
         {
             m_PlayerControls.EnableAllCommands();
         }
+        base.EndAttack();
     }
 
     public override void HandleCollision(Collider other, bool initialCollision)

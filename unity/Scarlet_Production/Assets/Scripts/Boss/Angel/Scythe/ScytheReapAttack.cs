@@ -13,6 +13,12 @@ public class ScytheReapAttack : AngelMeleeAttack {
     public float m_EarliestTimePullingStarts;
     protected IEnumerator m_PullTowardsBossEnumerator;
 
+    public override void StartAttack()
+    {
+        base.StartAttack();
+        AngelSoundPlayer.PlayMiscStanceSound();
+    }
+
     protected override void SetDamageActive()
     {
         base.SetDamageActive();

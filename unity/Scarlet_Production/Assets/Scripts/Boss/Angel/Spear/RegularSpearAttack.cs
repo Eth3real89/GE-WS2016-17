@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class RegularSpearAttack : AngelMeleeAttack {
 
+    protected override void SetDamageActive()
+    {
+        base.SetDamageActive();
+        AngelSoundPlayer.PlayLightAttackSound();
+    }
+
     public override void HandleCollision(Collider other, bool initialCollision)
     {
     }

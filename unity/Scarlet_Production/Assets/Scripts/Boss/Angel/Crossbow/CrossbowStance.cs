@@ -8,6 +8,12 @@ public class CrossbowStance : AngelOnlyAnimationAttack {
 
     public float m_FlyHeight;
 
+    public override void StartAttack()
+    {
+        base.StartAttack();
+        AngelSoundPlayer.PlayMiscStanceSound();
+    }
+
     protected override IEnumerator WaitUntilEnd()
     {
         float t = 0;

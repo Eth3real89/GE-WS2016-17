@@ -20,6 +20,7 @@ public class AxeChargeCombo : AngelCombo
             }
             else
             {
+                AngelSoundPlayer.PlayHeavyAttackSound();
                 _m_CurrentAttack = null;
                 m_CurrentAttackIndex = 2;
                 m_Attacks[m_CurrentAttackIndex].StartAttack();

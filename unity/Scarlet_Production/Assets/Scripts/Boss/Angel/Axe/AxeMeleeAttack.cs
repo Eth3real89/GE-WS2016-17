@@ -5,6 +5,13 @@ using UnityEngine;
 
 public class AxeMeleeAttack : AngelMeleeAttack
 {
+
+    protected override void SetDamageActive()
+    {
+        base.SetDamageActive();
+        AngelSoundPlayer.PlayLightAttackSound();
+    }
+
     public override void HandleCollision(Collider other, bool initialCollision)
     {
     }

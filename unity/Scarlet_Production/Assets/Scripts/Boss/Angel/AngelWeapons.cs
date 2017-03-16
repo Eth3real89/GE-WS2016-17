@@ -62,25 +62,32 @@ public class AngelWeapons : MonoBehaviour {
 
     protected IEnumerator m_WeaponChangeEnumerator;
 
+    protected bool m_TipIsMagic;
+
     private void Start()
     {
         if (_Instance == null)
             _Instance = this;
+
+        m_TipIsMagic = false;
     }
 
     public void RemoveTip()
     {
         m_CurrentTip.SetActive(false);
+        m_TipIsMagic = false;
     }
 
     public void ChangeTipTo(Tips t, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
         if (t == Tips.Magic)
         {
+            m_TipIsMagic = true;
             if (callbackOwner != null && doAfterwards != null)
                 callbackOwner.StartCoroutine(doAfterwards);
             return;
         }
+        m_TipIsMagic = false;
 
         GameObject tip = null;
 
@@ -163,6 +170,26 @@ public class AngelWeapons : MonoBehaviour {
     public void Cancel()
     {
 
+    }
+
+    public bool CurrentWeaponIs(Tips tip)
+    {
+        if (tip == Tips.Axe)
+            return m_CurrentTip == m_Axe;
+        else if (tip == Tips.Crosswbow)
+            return m_CurrentTip == m_Crossbow;
+        else if (tip == Tips.Hammer)
+            return m_CurrentTip == m_Hammer;
+        else if (tip == Tips.Hellebarde)
+            return m_CurrentTip == m_Hellebarde;
+        else if (tip == Tips.Scythe)
+            return m_CurrentTip == m_Scythe;
+        else if (tip == Tips.Spear)
+            return m_CurrentTip == m_Spear;
+        else if (tip == Tips.Magic)
+            return m_TipIsMagic;
+
+        return false;
     }
 
 }

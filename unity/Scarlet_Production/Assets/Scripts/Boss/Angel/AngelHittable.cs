@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class AngelHittable : BossHittable {
 
     public bool m_TakeLessDamage = false;
     public float m_LessDamageFactor = 0.3f;
+    
+    public AngelWeapons m_AngelWeapons;
 
     public override void Hit(Damage damage)
     {
@@ -24,6 +27,27 @@ public class AngelHittable : BossHittable {
             {
                 m_OnHitAudio.Play();
             }
+
+            PlayHitSound();
         }
+    }
+
+    private void PlayHitSound()
+    {
+        if (IsTypeOneWeaponEquipped())
+        {
+            AngelSoundPlayer.PlayHitSoundTypeOne();
+        }
+        else
+        {
+            AngelSoundPlayer.PlayHitSoundTypeTwo();
+        }
+    }
+
+    private bool IsTypeOneWeaponEquipped()
+    {
+        return m_AngelWeapons.CurrentWeaponIs(AngelWeapons.Tips.Hammer) || 
+            m_AngelWeapons.CurrentWeaponIs(AngelWeapons.Tips.Axe) ||
+            m_AngelWeapons.CurrentWeaponIs(AngelWeapons.Tips.Spear);
     }
 }

@@ -47,6 +47,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         m_VisualEffectDisabled = false;
 
+        AngelSoundPlayer.PlayMiscStanceSound();
+
         m_Timer = WaitBeforeRotate();
         StartCoroutine(m_Timer);
     }
@@ -170,8 +172,9 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = false;
 
+        AngelSoundPlayer.PlayMiscWindupSound();
         yield return new WaitForSeconds(AdjustTime(m_TimeEnd));
-
+       
         m_Animator.SetTrigger("IdleTrigger");
         CleanUp();
 
@@ -191,7 +194,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = true;
-        m_Animator.SetFloat("AnimationSpeed", 1f);
+        //m_Animator.SetFloat("AnimationSpeed", 1f);
     }
 
     public override void CancelAttack()

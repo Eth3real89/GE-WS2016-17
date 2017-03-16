@@ -50,6 +50,7 @@ public class HammerOverheadAttack : AngelMeleeAttack {
             return;
 
         m_Damage.m_Active = true;
+        AngelSoundPlayer.PlayHeavyAttackSound();
 
         m_StateTimer = HitGround();
         StartCoroutine(m_StateTimer);

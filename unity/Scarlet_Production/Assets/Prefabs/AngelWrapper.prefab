@@ -5604,6 +5604,7 @@ GameObject:
   - component: {fileID: 114770945029283568}
   - component: {fileID: 114522074753625592}
   - component: {fileID: 114940212842150974}
+  - component: {fileID: 114216377217466738}
   m_Layer: 9
   m_Name: angel
   m_TagString: Untagged
@@ -11261,7 +11262,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012553752058084}
-  m_LocalRotation: {x: -0.055866405, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866398, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -17542,7 +17543,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753606675724464}
-  m_LocalRotation: {x: -0.055866405, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866398, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -24246,6 +24247,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TurnCommand: {fileID: 0}
+--- !u!114 &114216377217466738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508432114519878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bdfc7c642520cd4e8294fde6e32afb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114222848567030432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27084,6 +27096,7 @@ MonoBehaviour:
   m_BlockAudio: {fileID: 8300000, guid: 4b064ea0c9470224c93eb10905b91a60, type: 3}
   m_TakeLessDamage: 0
   m_LessDamageFactor: 0.3
+  m_AngelWeapons: {fileID: 0}
 --- !u!114 &114942783548788488
 MonoBehaviour:
   m_ObjectHideFlags: 1

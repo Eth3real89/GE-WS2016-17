@@ -80,6 +80,8 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
         m_Damage.m_Callback = null;
         m_Damage.m_CollisionHandler = null;
 
+        AngelSoundPlayer.PlayLightAttackSound();
+
         m_Timer = WaitAfterHit();
         StartCoroutine(m_Timer);
     }

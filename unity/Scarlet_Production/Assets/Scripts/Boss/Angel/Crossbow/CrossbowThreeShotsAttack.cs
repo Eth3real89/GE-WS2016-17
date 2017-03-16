@@ -24,6 +24,7 @@ public class CrossbowThreeShotsAttack : BulletAttack {
         {
             if (t > m_MoveOnAfter && !idleTriggerSet)
             {
+                AngelSoundPlayer.PlayMiscWindupSound();
                 m_Animator.SetTrigger("IdleTrigger");
                 idleTriggerSet = true;
             }

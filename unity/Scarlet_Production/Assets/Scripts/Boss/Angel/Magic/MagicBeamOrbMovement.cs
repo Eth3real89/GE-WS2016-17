@@ -21,7 +21,7 @@ public class MagicBeamOrbMovement : BulletMovement {
             m_MovementTime += Time.deltaTime;
         }
 
-        if (m_MovementTime >= m_MinMovementTime)
+        if (m_MovementTime >= m_MinMovementTime && b.transform.position.y <= m_MinYToExpire)
         {
             b.Kill();
         }
