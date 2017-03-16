@@ -61,7 +61,10 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
         MLog.Log(LogType.BattleLog, "OnHit, OnHitBehaviour");
 
         if (!m_Active || m_IsStaggered || m_IsRiposted)
+        {
+            CameraController.Instance.Shake();
             return false;
+        }
         
         if (dmg is BulletDamage)
         {
@@ -69,9 +72,10 @@ public class OnHitBehaviour : MonoBehaviour, HitInterject {
             return false;
         }
 
+        CameraController.Instance.Shake();
+
         if (m_TurnCommand != null)
             m_TurnCommand.DoTurn();
-        CameraController.Instance.Shake();
 
         if (m_TimeWindowTimer != null)
             StopCoroutine(m_TimeWindowTimer);

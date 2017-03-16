@@ -210,9 +210,10 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         m_HuntTimer = EndHuntAfter(time);
         StartCoroutine(m_HuntTimer);
 
+        float angle;
         while (!m_JumpSoon)
         {
-            float angle = CalculateAngleTowardsCenter() + (m_DirectionCounterClockwise ? 90 : -90);
+            angle = CalculateAngleTowardsCenter() + (m_DirectionCounterClockwise ? 90 : -90);
             m_BossTurn.TurnBossBy(angle);
 
             Vector3 newPos = transform.position + 0.3f * transform.forward * Time.deltaTime;
@@ -223,12 +224,14 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         }
 
         float t = 0;
-        while((t += Time.deltaTime) < 0.2f)
+        while((t += Time.deltaTime) < 0.1f)
         {
-            float angle = CalculateAngleTowardsCenter();
-            m_BossTurn.TurnBossBy(angle * t / 0.2f);
+            angle = CalculateAngleTowardsCenter();
+            m_BossTurn.TurnBossBy(angle * t / 0.1f);
             yield return null;
         }
+        angle = CalculateAngleTowardsCenter();
+        m_BossTurn.TurnBossBy(angle);
 
         LungeOut();
     }
