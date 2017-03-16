@@ -29,6 +29,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
     public bool m_OverrideDefaultDamage = false;
     public float m_DamageAmount = 40f;
 
+    public bool m_AdjustCamera = true;
+
     private float m_PrevTurnSpeed;
 
     private IEnumerator m_ExpansionEnumerator;
@@ -90,7 +92,8 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
         m_Damage.gameObject.SetActive(true);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 
-        CameraController.Instance.ZoomOut();
+        if (m_AdjustCamera)
+            CameraController.Instance.ZoomOut();
     }
 
     public virtual void OnExpansionOver(BeamAEDamage dmg)
@@ -102,13 +105,15 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
     {
         m_ExpansionEnumerator = RemoveBeamAfterWaiting();
         StartCoroutine(m_ExpansionEnumerator);
-        CameraController.Instance.ActivateDefaultCamera();
+        if (m_AdjustCamera)
+            CameraController.Instance.ActivateDefaultCamera();
     }
 
     public override void CancelAttack()
     {
         base.CancelAttack();
-        CameraController.Instance.ActivateDefaultCamera();
+        if (m_AdjustCamera)
+            CameraController.Instance.ActivateDefaultCamera();
 
         if (m_ExpansionEnumerator != null)
             StopCoroutine(m_ExpansionEnumerator);

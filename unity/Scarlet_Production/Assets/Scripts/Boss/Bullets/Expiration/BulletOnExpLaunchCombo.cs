@@ -18,6 +18,8 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
     /// </summary>
     public bool m_AbortOnExpiration = false;
 
+    public bool m_OnlyKeepYRotation = false;
+
     public override void OnBulletExpires(BulletBehaviour b)
     {
         if (m_AbortOnExpiration)
@@ -28,47 +30,71 @@ public class BulletOnExpLaunchCombo : BulletOnExpireBehaviour, AttackCombo.Combo
 
         m_Destroy = false;
 
-        GameObject empty = GameObject.Instantiate(m_LeftOverEmptyObject);
-        empty.transform.position = new Vector3(b.transform.position.x, b.transform.position.y + 0.5f, b.transform.position.z);
-        empty.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+        if (!m_DontCopy)
+            m_Combo = GameObject.Instantiate(m_Combo);
+        GameObject emptyHigher, emptyRegular, emptyLower;
 
-        GameObject emptyLower = GameObject.Instantiate(m_LeftOverEmptyObject);
-        emptyLower.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
-        emptyLower.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+        InstantiateEmptyObjectsAtPosition(b, out emptyHigher, out emptyRegular, out emptyLower);
 
         foreach (BossAttack attack in m_Combo.m_Attacks)
         {
             if (attack is BlastWaveAttack)
             {
-                ((BlastWaveAttack)attack).m_Center = empty.transform;
+                ((BlastWaveAttack)attack).m_Center = emptyHigher.transform;
                 ((BlastWaveAttack)attack).m_KillVisualsWhenOver = true;
             }
             else if (attack is BulletAttack)
             {
-                ((BulletAttack)attack).m_BaseSwarm.m_Invoker.m_Base = m_LowerBullets? emptyLower.transform : empty.transform;
+                ((BulletAttack)attack).m_BaseSwarm.m_Invoker.m_Base = m_LowerBullets ? emptyRegular.transform : emptyHigher.transform;
             }
             else if (attack is LightGuardAttack)
             {
-                ((LightGuardAttack)attack).m_LightGuard.m_Center = empty;
+                ((LightGuardAttack)attack).m_LightGuard.m_Center = emptyHigher;
             }
             else if (attack is PlayableAttack)
             {
-                ((PlayableAttack)attack).m_EffectLocation = emptyLower.transform.position;
+                ((PlayableAttack)attack).m_EffectLocation = emptyRegular.transform.position;
             }
             else if (attack is RepeatedEffectPlayer)
             {
-                ((RepeatedEffectPlayer)attack).m_EffectPosition = emptyLower.transform.position;
+                ((RepeatedEffectPlayer)attack).m_EffectPosition = emptyRegular.transform.position;
+            }
+            else if (attack is BeamAEAttack)
+            {
+                ((BeamAEAttack)attack).m_Container = emptyLower.transform;
             }
         }
 
-        if (!m_DontCopy)
-            m_Combo = GameObject.Instantiate(m_Combo);
-        
         m_Combo.m_Callback = this;
         m_Combo.LaunchCombo();
 
         if (!m_DontCopy)
-            StartCoroutine(DestroyOnFinish(empty, m_Combo.gameObject, emptyLower));
+            StartCoroutine(DestroyOnFinish(emptyHigher, m_Combo.gameObject, emptyRegular));
+    }
+
+    private void InstantiateEmptyObjectsAtPosition(BulletBehaviour b, out GameObject emptyHigher, out GameObject emptyRegular, out GameObject emptyLower)
+    {
+        emptyHigher = Instantiate(m_LeftOverEmptyObject);
+        emptyHigher.transform.position = new Vector3(b.transform.position.x, b.transform.position.y + 0.5f, b.transform.position.z);
+
+        emptyRegular = Instantiate(m_LeftOverEmptyObject);
+        emptyRegular.transform.position = new Vector3(b.transform.position.x, b.transform.position.y, b.transform.position.z);
+
+        emptyLower = Instantiate(m_LeftOverEmptyObject);
+        emptyLower.transform.position = new Vector3(b.transform.position.x, b.transform.position.y - 0.3f, b.transform.position.z);
+
+        if (m_OnlyKeepYRotation)
+        {
+            emptyHigher.transform.rotation = Quaternion.Euler(0, m_Combo.m_Boss.transform.rotation.eulerAngles.y, 0);
+            emptyRegular.transform.rotation = Quaternion.Euler(0, m_Combo.m_Boss.transform.rotation.eulerAngles.y, 0);
+            emptyLower.transform.rotation = Quaternion.Euler(0, m_Combo.m_Boss.transform.rotation.eulerAngles.y, 0);
+        }
+        else
+        {
+            emptyHigher.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+            emptyRegular.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+            emptyLower.transform.rotation = new Quaternion(b.transform.rotation.x, b.transform.rotation.y, b.transform.rotation.z, b.transform.rotation.w);
+        }
     }
 
     public void OnComboEnd(AttackCombo combo)

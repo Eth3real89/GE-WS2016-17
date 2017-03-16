@@ -370,6 +370,7 @@ public class AngelController : BossController {
     {
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Crosswbow, m_RangeAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Magic, m_RangeAttacks);
+        AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Magic, m_RangeAttacks);
     }
 
     protected virtual void ReferenceMovementCombos()
