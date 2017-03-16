@@ -224,13 +224,34 @@ public class DemonHunterPhase2Controller : DemonHunterController
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
         }
+        else if (m_CurrentComboIndex == 2)
+        {
+            PlayGrenadeSound();
+        }
         else if (m_CurrentComboIndex == 5)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FifthAttackShootSpeed);
         }
+        else if (m_CurrentComboIndex == 8)
+        {
+            PlayGrenadeSound();
+        }
+        else if (m_CurrentComboIndex == 9)
+        {
+            StartCoroutine(PlayGunfireAfterWaiting());
+        }
 
 
         base.OnComboStart(combo);
+    }
+
+    private IEnumerator PlayGunfireAfterWaiting()
+    {
+        yield return new WaitForSeconds(1.7f);
+
+        Gunfire gunfire = GetComponent<Gunfire>();
+        if (gunfire != null)
+            gunfire.FireRifle();
     }
 
     protected override IEnumerator OnEvasionFinished()

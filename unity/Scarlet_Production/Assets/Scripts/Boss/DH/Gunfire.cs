@@ -1,8 +1,24 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Gunfire : MonoBehaviour {
+
+    protected static float[][] s_RifleSoundIndices =
+    {
+        new float[] {62.8f, 64.8f },
+        new float[] {65f, 66.7f },
+        new float[] {67.1f, 68.5f },
+        new float[] {68.6f, 70.3f },
+        new float[] {70.5f, 72.3f }
+    };
+    protected static int s_RifleSoundIndex = 0;
+
+    public static void ResetSound()
+    {
+        s_RifleSoundIndex = 0;
+    }
 
     public GameObject m_PistolShotLeft;
     public GameObject m_PistolShotRight;
@@ -118,6 +134,7 @@ public class Gunfire : MonoBehaviour {
     public void FireRifle()
     {
         ShootRifle(m_RifleShot);
+        PlayRifleSound();
     }
 
     private void ShootRifle(GameObject obj)
@@ -158,5 +175,15 @@ public class Gunfire : MonoBehaviour {
         {
             ps.Stop();
         }
+    }
+
+    private void PlayRifleSound()
+    {
+        float[] sound = s_RifleSoundIndices[s_RifleSoundIndex];
+        s_RifleSoundIndex++;
+        if (s_RifleSoundIndex >= s_RifleSoundIndices.Length)
+            s_RifleSoundIndex = 0;
+
+        new FARQ().StartTime(sound[0]).EndTime(sound[1]).Location(transform).ClipName("dh").Play();
     }
 }

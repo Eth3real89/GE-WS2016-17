@@ -5,6 +5,13 @@ using UnityEngine;
 
 public abstract class DemonHunterController : BossController {
 
+    protected static float[][] s_ThrowGrenadeSounds =
+    {
+        new float[] {86, 87.7f },
+        new float[] {95f, 96.8f },
+        new float[] {98.2f, 100.1f },
+    };
+
     public enum AttackType {Pistols, Rifle, ThrowGrenade, DropGrenade };
 
     protected static string ANIM_AFTER_UNEQUIP_PISTOLS = "UnarmedIdle";
@@ -57,18 +64,21 @@ public abstract class DemonHunterController : BossController {
 
     public Transform m_PerfectRotationTarget;
 
+    protected FancyAudioRandomClip m_ThrowGrenadePlayer;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         MLog.Log(LogType.DHLog, "Starting Phase, DH, " + this);
-        this.m_Callback = callback;
+        m_Callback = callback;
         m_CanBeHit = false;
         m_ShootingPistols = false;
         m_SkipReload = false;
         m_BlockedByGrenade = new bool[m_AttackSpots.Length];
         m_Evading = false;
         m_TimesFled = 0;
-        this.m_SkipForceKeepWindowOpen = false;
+        m_SkipForceKeepWindowOpen = false;
         m_PerfectRotationTarget = m_Scarlet.transform;
+        m_ThrowGrenadePlayer = new FancyAudioRandomClip(s_ThrowGrenadeSounds, transform, "dh");
 
         ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;
 
@@ -552,6 +562,7 @@ public abstract class DemonHunterController : BossController {
         {
             SetDropGrenadeAttackGoal(target, false);
             m_EvasionCommand.EvadeTowards(target, this, OnGrenadeThrowingEvasionFinished());
+            PlayGrenadeSound();
             m_ThrowGrenadeWhileRunningEnumerator = ThrowGrenadeWhileRunning();
             StartCoroutine(m_ThrowGrenadeWhileRunningEnumerator);
         }
@@ -638,5 +649,10 @@ public abstract class DemonHunterController : BossController {
         {
             return true;
         }
+    }
+
+    protected virtual void PlayGrenadeSound()
+    {
+        m_ThrowGrenadePlayer.PlayRandomSound();
     }
 }

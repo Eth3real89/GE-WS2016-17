@@ -88,7 +88,10 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
     {
         DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
         if (hittable != null)
+        {
+            new FARQ().StartTime(115).EndTime(117.6f).Location(hittable.transform).ClipName("dh").Play();
             hittable.m_HitCount = 0;
+        }
 
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
@@ -97,6 +100,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         m_Phase1Controller.m_NotDeactivated = false;
         m_Phase2Controller.m_NotDeactivated = false;
         m_Phase3Controller.m_NotDeactivated = false;
+
+        Gunfire.ResetSound();
 
         base.OnScarletDead();
     }

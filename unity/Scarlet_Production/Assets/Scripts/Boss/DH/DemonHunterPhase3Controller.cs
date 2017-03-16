@@ -156,6 +156,16 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         }
     }
 
+    public override void OnComboStart(AttackCombo combo)
+    {
+        if (m_CurrentComboIndex == 1 || m_CurrentComboIndex == 2 || m_CurrentComboIndex == 5 || m_CurrentComboIndex == 6)
+        {
+            PlayGrenadeSound();
+        }
+
+        base.OnComboStart(combo);
+    }
+
     protected void SetWaveTimes(float m_BasicTimeRhythm)
     {
         int[] m_Repetitions = { 41, 37, 33, 21, 19 };

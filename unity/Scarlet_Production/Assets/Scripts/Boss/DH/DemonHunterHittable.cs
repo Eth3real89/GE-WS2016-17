@@ -2,13 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DemonHunterHittable : BossHittable { 
+public class DemonHunterHittable : BossHittable {
+
+    protected static float[][] s_HitSounds =
+    {
+        new float[] {105.1f, 106.4f },
+        new float[] {106.7f, 108f },
+        new float[] {109.1f, 110.7f },
+        new float[] {111.3f, 113f },
+    };
 
     public int m_NumHits = 5;
     public int m_HitCount = 0;
     public bool m_RegenerateHealthOnDeath;
 
-    // @todo it is a weird place for those to be here, but still kind of the best...
+    protected FancyAudioRandomClip m_HitPlayer;
+
+    private void Start()
+    {
+        m_HitPlayer = new FancyAudioRandomClip(s_HitSounds, this.transform, "dh", 1f);
+    }
 
     public override void Hit(Damage damage)
     {
@@ -21,6 +34,8 @@ public class DemonHunterHittable : BossHittable {
                 return;
 
             m_HitCount++;
+
+            PlayHitSound(damage);
 
             m_Health.m_CurrentHealth = m_Health.m_MaxHealth * (1f - (m_HitCount / (float) m_NumHits));
             damage.OnSuccessfulHit();
@@ -49,5 +64,10 @@ public class DemonHunterHittable : BossHittable {
             yield return null;
         }
         m_Health.m_CurrentHealth = m_Health.m_MaxHealth;
+    }
+
+    protected void PlayHitSound(Damage damage)
+    {
+        m_HitPlayer.PlayRandomSound();
     }
 }

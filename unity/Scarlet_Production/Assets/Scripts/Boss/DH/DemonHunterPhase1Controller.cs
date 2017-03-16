@@ -65,6 +65,10 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
         }
+        else if (m_CurrentComboIndex == 2)
+        {
+            PlayGrenadeSound();
+        }
         else if (m_CurrentComboIndex == 5)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FifthAttackShootSpeed);

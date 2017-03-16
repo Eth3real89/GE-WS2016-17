@@ -3265,6 +3265,48 @@ ParticleSystem:
       minColor: {r: 1, g: 1, b: 1, a: 1}
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
+--- !u!1 &242515705
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 242515707}
+  - component: {fileID: 242515706}
+  m_Layer: 0
+  m_Name: RegisterAudio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &242515706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242515705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: dfd79e64b22b2ec428b2a2e947a69e37, type: 3}
+  m_ClipName: dh
+--- !u!4 &242515707
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 242515705}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.29164815, y: -2.499874, z: 4.445135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 15
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &325885822
 GameObject:
   m_ObjectHideFlags: 0
@@ -14220,6 +14262,16 @@ Prefab:
       propertyPath: m_AttackSpots.Array.data[1]
       value: 
       objectReference: {fileID: 578030727}
+    - target: {fileID: 114029304743515472, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_StartAttackIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114510561704608504, guid: 4fc929c026192934ca709c3d01c6e650,
+        type: 2}
+      propertyPath: m_StartAttackIndex
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4fc929c026192934ca709c3d01c6e650, type: 2}
   m_IsPrefabParent: 0

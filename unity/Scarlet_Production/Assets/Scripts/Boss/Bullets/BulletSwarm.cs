@@ -110,6 +110,9 @@ public class BulletSwarm : BulletBehaviour, BulletBehaviour.BulletCallbacks {
 
     private void CheckKill()
     {
+        if (this == null || gameObject == null)
+            return;
+
         if (m_Instances.Count == 0 && (m_Expiration is BulletNoExpiration || (transform.GetComponentInParent<BossHittable>() == null && m_CancelIfIsCopy)))
             Kill();
     }
