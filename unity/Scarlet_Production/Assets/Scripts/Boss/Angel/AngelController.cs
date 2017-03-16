@@ -339,6 +339,7 @@ public class AngelController : BossController {
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Crosswbow, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Hammer, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Magic, m_RegularAttacks);
+        AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Magic, m_RegularAttacks);
     }
 
     protected virtual void ReferenceFinishers()
@@ -394,17 +395,18 @@ public class AngelController : BossController {
 
     protected virtual void AddIfFound(AngelCombo.ComboType type, AngelWeapons.Tips tip, AngelComboList list, int startIndex = 0)
     {
-        AngelCombo combo = FindCombo(type, tip);
+        AngelCombo combo = FindCombo(type, tip, list);
         if (combo != null && !list.Contains((AngelCombo)combo))
             list.AddCombo(combo, startIndex);
     }
 
-    protected virtual AngelCombo FindCombo(AngelCombo.ComboType type, AngelWeapons.Tips tip)
+    protected virtual AngelCombo FindCombo(AngelCombo.ComboType type, AngelWeapons.Tips tip, AngelComboList list = null)
     {
         for (int i = 0; i < m_Combos.Length; i++)
         {
             if (((AngelCombo)m_Combos[i]).m_AssociatedTip == tip &&
-                ((AngelCombo)m_Combos[i]).m_ComboType == type)
+                ((AngelCombo)m_Combos[i]).m_ComboType == type &&
+                (list == null || !list.Contains((AngelCombo)m_Combos[i])))
             {
                 return (AngelCombo) m_Combos[i];
             }

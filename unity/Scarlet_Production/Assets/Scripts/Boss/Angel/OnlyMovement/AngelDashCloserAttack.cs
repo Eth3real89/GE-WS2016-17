@@ -26,7 +26,7 @@ public class AngelDashCloserAttack : AngelAttack {
 
         while((t += Time.deltaTime) < AdjustTime(m_MaxTime))
         {
-            Vector3 desiredPosition = m_Scarlet.transform.position + new Vector3(1, 0, 0) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
+            Vector3 desiredPosition = m_Scarlet.transform.position; //+ new Vector3(1, 0, 0) * 0.5f * (m_LeftOfScarlet ? -1 : 1);
             desiredPosition.y = m_Boss.transform.position.y;
 
             m_FullTurnCommand.DoTurn();
@@ -41,6 +41,11 @@ public class AngelDashCloserAttack : AngelAttack {
             yield return null;
         }
 
+        EndAttack();
+    }
+
+    protected virtual void EndAttack()
+    {
         m_Callback.OnAttackEnd(this);
     }
 
@@ -51,7 +56,7 @@ public class AngelDashCloserAttack : AngelAttack {
 
     protected bool CloseEnough(Vector3 desiredPosition)
     {
-        return Vector3.Distance(m_Boss.transform.position, desiredPosition) <= AdjustSpeed(m_MaxSpeed) * Time.deltaTime * 1.5;
+        return Vector3.Distance(m_Boss.transform.position, desiredPosition) <= AdjustSpeed(m_MaxSpeed) * Time.deltaTime * 1.5 + 0.5f;
     }
 
     public override void CancelAttack()
