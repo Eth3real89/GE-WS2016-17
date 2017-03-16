@@ -29,8 +29,7 @@ public class MagicBeamOrbsInvoker : BulletFactoryInvoker {
             b.transform.position = m_RightShoulder.position;
             b.transform.parent = m_RightShoulder;
             //((BulletAbsoluteHomingMovement)((BulletMultiStageMovement)b.m_Movement).m_Movements[0]).m_Target = m_LeftShoulder;
-            b.m_Expiration = Instantiate(((BulletTimeBasedExpiration)b.m_Expiration));
-            ((BulletTimeBasedExpiration)b.m_Expiration).m_Time -= Time.timeSinceLevelLoad - m_FirstBulletSpawnTime;
+            ((MagicBeamOrbMovement)b.m_Movement).m_MinMovementTime -= Time.timeSinceLevelLoad - m_FirstBulletSpawnTime;
 
         }
 

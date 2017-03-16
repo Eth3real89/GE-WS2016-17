@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class AngelOnlyMovementCombo : AngelCombo {
 
-    public enum MovementComboType { ReachScarlet, Feint, MoveAway };
+    public enum MovementComboType { ReachScarlet, MoveAway };
     public MovementComboType m_MovementComboType;
     
     public override void OnAttackEnd(BossAttack attack)

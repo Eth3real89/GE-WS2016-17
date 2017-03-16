@@ -21,7 +21,6 @@ public class AngelController : BossController {
 
     protected AngelComboList m_AllMovementCombos;
     protected AngelComboList m_MoveCloseMovements;
-    protected AngelComboList m_FeintMovements;
     protected AngelComboList m_StayAwayMovements;
 
     protected AngelCombo m_ActualLastCombo;
@@ -181,10 +180,6 @@ public class AngelController : BossController {
             {
                 LaunchMeleeAttack();
             }
-            else if (combo.m_MovementComboType == AngelOnlyMovementCombo.MovementComboType.Feint)
-            {
-                LaunchUniversalPositionAttack();
-            }
             else
             {
                 LaunchUniversalPositionAttack();
@@ -325,7 +320,6 @@ public class AngelController : BossController {
         ReferenceCloseGapAttacks();
 
         m_MoveCloseMovements = new AngelComboList();
-        m_FeintMovements = new AngelComboList();
         m_StayAwayMovements = new AngelComboList();
         m_AllMovementCombos = new AngelComboList();
         ReferenceMovementCombos();
@@ -383,9 +377,6 @@ public class AngelController : BossController {
             {
                 case AngelOnlyMovementCombo.MovementComboType.MoveAway:
                     m_StayAwayMovements.AddCombo(m_MovementCombos[i]);
-                    break;
-                case AngelOnlyMovementCombo.MovementComboType.Feint:
-                    m_FeintMovements.AddCombo(m_MovementCombos[i]);
                     break;
                 case AngelOnlyMovementCombo.MovementComboType.ReachScarlet:
                     m_MoveCloseMovements.AddCombo(m_MovementCombos[i]);
