@@ -70,17 +70,17 @@ public class AngelSoundPlayer : MonoBehaviour {
 
     public static void PlayLightAttackSound()
     {
-        if (s_LightAttackTimer != null)
-            return;
+        //if (s_LightAttackTimer != null)
+        //    return;
 
-        //s_LightAttackPlayer.PlayRandomSound();
+        s_LightAttackPlayer.PlayRandomSound();
         s_LightAttackTimer = WaitSomeTime(1f);
         s_Instance.StartCoroutine(s_LightAttackTimer);
     }
 
     public static void PlayHeavyAttackSound()
     {
-        //s_HeavyAttackPlayer.PlayRandomSound();
+        s_HeavyAttackPlayer.PlayRandomSound();
     }
 
     public static void PlayHitSoundTypeOne()
@@ -88,8 +88,8 @@ public class AngelSoundPlayer : MonoBehaviour {
         if (s_HitSoundsTypeOneTimer != null)
             return;
 
-        //s_HitSoundsTypeOnePlayer.PlayRandomSound();
-        s_HitSoundsTypeOneTimer = WaitSomeTime(1f);
+        s_HitSoundsTypeOnePlayer.PlayRandomSound();
+        s_HitSoundsTypeOneTimer = WaitSomeTime(.4f);
         s_Instance.StartCoroutine(s_HitSoundsTypeOneTimer);
     }
 
@@ -98,8 +98,8 @@ public class AngelSoundPlayer : MonoBehaviour {
         if (s_HitSoundsTypeTwoTimer != null)
             return;
 
-        //s_HitSoundsTypeTwoPlayer.PlayRandomSound();
-        s_HitSoundsTypeTwoTimer = WaitSomeTime(1f);
+        s_HitSoundsTypeTwoPlayer.PlayRandomSound();
+        s_HitSoundsTypeTwoTimer = WaitSomeTime(.4f);
         s_Instance.StartCoroutine(s_HitSoundsTypeTwoTimer);
     }
 

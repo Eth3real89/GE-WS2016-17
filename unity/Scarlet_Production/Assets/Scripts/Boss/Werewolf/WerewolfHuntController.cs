@@ -11,7 +11,9 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
     public float m_HuntDistance;
 
     public int m_NumParryRequired = 4;
+    public PlayerControls m_PlayerControls;
     public PlayerAttackCommand m_PlayerAttackCommand;
+    public PlayerDashCommand m_PlayerDashCommand;
     private float m_AttackDmgAmountBefore;
     private float m_RiposteDmgAmountBefore;
     private float m_FinalDmgAmountBefore;
@@ -21,6 +23,7 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
 
     public float m_MinHuntTime = 5f;
     public float m_MaxHuntTime = 9f;
+    protected float m_StalkSpeed = 0.8f;
     private bool m_JumpSoon;
 
     public CharacterHealth m_BossHealth;
@@ -87,6 +90,8 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         {
             if (m_BossHealth.m_CurrentHealth <= 0)
             {
+                m_PlayerControls.EnableAndUnlock(m_PlayerDashCommand);
+                m_PlayerControls.EnableAllCommands();
                 EndPhase();
             }
         }
@@ -216,7 +221,7 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
             angle = CalculateAngleTowardsCenter() + (m_DirectionCounterClockwise ? 90 : -90);
             m_BossTurn.TurnBossBy(angle);
 
-            Vector3 newPos = transform.position + 0.3f * transform.forward * Time.deltaTime;
+            Vector3 newPos = transform.position + m_StalkSpeed * transform.forward * Time.deltaTime;
             newPos = m_HuntCenter.transform.position + m_HuntDistance * (newPos - m_HuntCenter.transform.position).normalized;
 
             transform.position = newPos;
@@ -272,11 +277,14 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
 
     public new void OnComboStart(AttackCombo combo)
     {
-        // this may not be great code-wise, but the default behaviour must not happen - so this is empty by design!
+        m_PlayerControls.EnableAndUnlock(m_PlayerDashCommand);
+        m_PlayerControls.EnableAllCommands();
     }
 
     public new void OnComboEnd(AttackCombo combo)
     {
+        m_PlayerControls.EnableAndUnlock(m_PlayerDashCommand);
+        m_PlayerControls.EnableAllCommands();
         StartCoroutine(WaitToStandUp());
 
 //        LaunchSingleHuntIteration();
@@ -290,6 +298,9 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
 
     public override bool OnHit(Damage dmg)
     {
+        m_PlayerControls.EnableAndUnlock(m_PlayerDashCommand);
+        m_PlayerControls.EnableAllCommands();
+
         if (dmg.m_Type == Damage.DamageType.Riposte)
         {
             dmg.OnSuccessfulHit();
@@ -355,6 +366,8 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
 
     private void OnUserFirstParry()
     {
+        m_PlayerControls.DisableAndLock(m_PlayerDashCommand);
+
         if (m_SlowMoTimer != null)
         {
             StopCoroutine(m_SlowMoTimer);
@@ -371,6 +384,8 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         SlowTime.Instance.m_PreventChanges = false;
         SlowTime.Instance.StopSlowMo();
 
+        m_PlayerControls.EnableAndUnlock(m_PlayerDashCommand);
+        m_PlayerControls.EnableAllCommands();
         m_Tutorial.HideTutorial(m_SlowMoAmount);
     }
 

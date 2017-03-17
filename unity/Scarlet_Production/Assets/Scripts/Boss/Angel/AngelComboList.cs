@@ -31,7 +31,7 @@ public class AngelComboList {
                 {
                     s_Instances[i].m_LastTimeOrbCalled = Time.timeSinceLevelLoad;
                 }
-                else if (combo is MagicBeamOrbsCombo)
+                else if (combo is MagicBulletBeamOrbsCombo)
                 {
                     s_Instances[i].m_LastTimeBulletBeamCalled = Time.timeSinceLevelLoad;
                 }
@@ -105,7 +105,7 @@ public class AngelComboList {
 
     private bool BulletBeamException(int comboIndex)
     {
-        return m_Combos.Count > 1 && m_Combos[comboIndex] is MagicBeamOrbsCombo && Time.timeSinceLevelLoad - m_TimeBetweenBeams <= m_LastTimeBulletBeamCalled;
+        return m_Combos.Count > 1 && m_Combos[comboIndex] is MagicBulletBeamOrbsCombo && Time.timeSinceLevelLoad - m_TimeBetweenBeams <= m_LastTimeBulletBeamCalled;
     }
 
     public int ComboIndex(AngelCombo angelCombo)

@@ -78,6 +78,8 @@ public abstract class BossFight : MonoBehaviour {
     {
         StopAllCoroutines();
 
+        FancyAudio.Instance.StopAll();
+
         PlayerControls controls = FindObjectOfType<PlayerControls>();
         controls.DisableAllCommands();
 

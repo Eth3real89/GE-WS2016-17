@@ -19,34 +19,62 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     public AudioClip m_BlockAudio;
     public AudioClip m_ParryAudio;
 
-    public GameObject m_BulletBlockEffect;
-    public GameObject m_BulletDeflectEffect;
+    public GameObject m_BlockStanceEffect;
 
     private enum ParryState { Perfect, Ok, Cooldown, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
 
-    private Component[] compsBlock;
-    private Light impactLightBlock;
 
-    private Component[] compsDeflect;
-    private Light impactLightDeflect;
+    // EFFECTS
+    public GameObject m_MeleeBlockEffect;
+    public GameObject m_MeleeParryEffect;
+
+    private Component[] m_CompsMeleeBlock;
+    private Light m_ImpactLightMeleeBlock;
+
+    private Component[] m_CompsMeleeParry;
+    private Light m_ImpactLightMeleeParry;
+
+    public GameObject m_BulletBlockEffect;
+    public GameObject m_BulletDeflectEffect;
+
+    private Component[] m_CompsBulletBlock;
+    private Light m_ImpactLightBulletBlock;
+
+    private Component[] m_CompsBulletDeflect;
+    private Light m_ImpactLightBulletDeflect;
 
     private void Start()
     {
         m_CommandName = "Parry";
         m_CurrentState = ParryState.None;
+        
+        SetupBulletEffects();
+        SetupMeleeEffects();
+    }
 
-        // these two following blocks should be functions and one thing, i know... i just wanted to see them in action
-        // refactor at your leisure
+    private void SetupBulletEffects()
+    {
+        // could be refactored, since all of these effects are essentially the same (not quite, but almost...)
+        m_CompsBulletBlock = m_BulletBlockEffect.GetComponentsInChildren<ParticleSystem>(true);
+        m_ImpactLightBulletBlock = m_BulletBlockEffect.GetComponentInChildren<Light>(true);
+        m_ImpactLightBulletBlock.enabled = false;
 
-        compsBlock = m_BulletBlockEffect.GetComponentsInChildren<ParticleSystem>(true);
-        impactLightBlock = m_BulletBlockEffect.GetComponentInChildren<Light>(true);
-        impactLightBlock.enabled = false;
+        m_CompsBulletDeflect = m_BulletDeflectEffect.GetComponentsInChildren<ParticleSystem>(true);
+        m_ImpactLightBulletDeflect = m_BulletDeflectEffect.GetComponentInChildren<Light>(true);
+        m_ImpactLightBulletDeflect.enabled = false;
+    }
 
-        compsDeflect = m_BulletDeflectEffect.GetComponentsInChildren<ParticleSystem>(true);
-        impactLightDeflect = m_BulletDeflectEffect.GetComponentInChildren<Light>(true);
-        impactLightDeflect.enabled = false;
+    private void SetupMeleeEffects()
+    {
+        m_CompsMeleeBlock = m_MeleeBlockEffect.GetComponentsInChildren<ParticleSystem>(true);
+        m_ImpactLightMeleeBlock = m_MeleeBlockEffect.GetComponentInChildren<Light>(true);
+        m_ImpactLightMeleeBlock.enabled = false;
+
+        m_CompsMeleeParry = m_MeleeParryEffect.GetComponentsInChildren<ParticleSystem>(true);
+        m_ImpactLightMeleeParry = m_MeleeParryEffect.GetComponentInChildren<Light>(true);
+        m_ImpactLightMeleeParry.enabled = false;
     }
 
     public override void InitTrigger()
@@ -71,9 +99,20 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         m_ScarletHittable.RegisterInterject(this);
         m_CurrentState = ParryState.Perfect;
         m_ParryTimer = SetParryState(m_PerfectParryTime, ParryState.Ok);
+
+        m_BlockStanceEffect.SetActive(true);
+
+        StartCoroutine(HideBlockStanceEffect());
         StartCoroutine(m_ParryTimer);
 
         m_Animator.SetTrigger("ParryTrigger");
+    }
+
+    private IEnumerator HideBlockStanceEffect()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        m_BlockStanceEffect.SetActive(false);
     }
 
     private IEnumerator SetParryState(float time, ParryState nextState)
@@ -133,6 +172,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
         if (!(dmg is BulletDamage))
         {
+            PlayMeleeBlockEffect(dmg);
+
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
 
@@ -170,50 +211,13 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         }
     }
 
-    private void PlayParryDeflectableBulletEffect(Damage dmg)
-    {
-        impactLightDeflect.enabled = true;
-
-        if (dmg.m_Owner != null)
-        {
-            m_BulletDeflectEffect.transform.localRotation = Quaternion.Euler(0,
-                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
-        }
-
-        foreach (ParticleSystem p in compsDeflect)
-        {
-            p.Play();
-        }
-
-        StartCoroutine(HideImpactLightDeflect());
-        StartCoroutine(HideBulletDeflectEffect());
-    }
-
-    private void PlayParryNonDeflectableBulletEffect(Damage dmg)
-    {
-        impactLightBlock.enabled = true;
-
-        if (dmg.m_Owner != null)
-        {
-            m_BulletBlockEffect.transform.localRotation = Quaternion.Euler(0, 
-                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
-        }
-
-        foreach (ParticleSystem p in compsBlock)
-        {
-            p.Play();
-        }
-
-        StartCoroutine(HideImpactLightBlock());
-        StartCoroutine(HideBulletBlockEffect());
-    }
-
     private bool PerfectParry(Damage dmg)
     {
         CameraController.Instance.Shake();
 
         if (!(dmg is BulletDamage))
         {
+            PlayMeleeParryEffect(dmg);
             CancelDelay();
             m_Callback.OnCommandEnd(m_CommandName, this);
         }
@@ -238,25 +242,91 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         }
     }
 
-    private IEnumerator HideImpactLightBlock() 
-    {
-        yield return new WaitForSeconds(0.1f);
+    // EFFECTS
 
-        impactLightBlock.enabled = false;
+    private void PlayParryDeflectableBulletEffect(Damage dmg)
+    {
+        m_ImpactLightBulletDeflect.enabled = true;
+
+        if (dmg.m_Owner != null)
+        {
+            m_BulletDeflectEffect.transform.localRotation = Quaternion.Euler(0,
+                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
+        }
+
+        foreach (ParticleSystem p in m_CompsBulletDeflect)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightBulletDeflect());
+        StartCoroutine(HideBulletDeflectEffect());
     }
 
-    private IEnumerator HideImpactLightDeflect()
+    private void PlayParryNonDeflectableBulletEffect(Damage dmg)
+    {
+        m_ImpactLightBulletBlock.enabled = true;
+
+        if (dmg.m_Owner != null)
+        {
+            m_BulletBlockEffect.transform.localRotation = Quaternion.Euler(0,
+                BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform, dmg.m_Owner.transform), 0);
+        }
+
+        foreach (ParticleSystem p in m_CompsBulletBlock)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightBulletBlock());
+        StartCoroutine(HideBulletBlockEffect());
+    }
+
+    private void PlayMeleeBlockEffect(Damage dmg)
+    {
+        m_ImpactLightMeleeBlock.enabled = true;
+
+        foreach (ParticleSystem p in m_CompsMeleeBlock)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightMeleeBlock());
+        StartCoroutine(HideMeleeBlockEffect());
+    }
+
+    private void PlayMeleeParryEffect(Damage dmg)
+    {
+        m_ImpactLightMeleeParry.enabled = true;
+
+        foreach (ParticleSystem p in m_CompsMeleeParry)
+        {
+            p.Play();
+        }
+
+        StartCoroutine(HideImpactLightMeleeParry());
+        StartCoroutine(HideMeleeParryEffect());
+    }
+
+    private IEnumerator HideImpactLightBulletBlock() 
     {
         yield return new WaitForSeconds(0.1f);
 
-        impactLightDeflect.enabled = false;
+        m_ImpactLightBulletBlock.enabled = false;
+    }
+
+    private IEnumerator HideImpactLightBulletDeflect()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        m_ImpactLightBulletDeflect.enabled = false;
     }
 
     private IEnumerator HideBulletBlockEffect() 
     {
         yield return new WaitForSeconds(0.3f);
        
-        foreach(ParticleSystem p in compsBlock)
+        foreach(ParticleSystem p in m_CompsBulletBlock)
         {
             p.Stop();
         }
@@ -266,11 +336,46 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     {
         yield return new WaitForSeconds(0.3f);
        
-        foreach(ParticleSystem p in compsDeflect)
+        foreach(ParticleSystem p in m_CompsBulletDeflect)
         {
             p.Stop();
         }
     }
+
+    private IEnumerator HideImpactLightMeleeBlock()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        m_ImpactLightMeleeBlock.enabled = false;
+    }
+
+    private IEnumerator HideImpactLightMeleeParry()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        m_ImpactLightMeleeParry.enabled = false;
+    }
+
+    private IEnumerator HideMeleeBlockEffect()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        foreach (ParticleSystem p in m_CompsMeleeBlock)
+        {
+            p.Stop();
+        }
+    }
+
+    private IEnumerator HideMeleeParryEffect()
+    {
+        yield return new WaitForSeconds(0.3f);
+
+        foreach (ParticleSystem p in m_CompsMeleeParry)
+        {
+            p.Stop();
+        }
+    }
+
 
     public interface ParryCallback
     {

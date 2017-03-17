@@ -89,6 +89,20 @@ public class FancyAudio : MonoBehaviour {
 
 		_Instance.StartCoroutine(StopPlaying(source, duration, rq));
 	}
+    
+    public void StopAll()
+    {
+        foreach (Transform t in m_Sources.Keys)
+        {
+            foreach(SourceAndRequest sar in m_Sources[t])
+            {
+                if (sar.m_Source != null && sar.m_Source.isPlaying)
+                {
+                    sar.m_Source.Stop();
+                }
+            }
+        }
+    }
 
 	private IEnumerator StopPlaying(AudioSource source, float seconds, FARQ originalRequest)
 	{
