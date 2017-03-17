@@ -43,6 +43,7 @@ public class VampirePhase0TutorialController : VampireController {
         StartCoroutine(StartAfterDelay());
         m_AllowHit = false;
         m_HitCount = 0;
+        m_NotDeactivated = true;
 
         m_DashTutorialOver = false;
 
@@ -417,6 +418,12 @@ public class VampirePhase0TutorialController : VampireController {
 
     private IEnumerator TryAgainAfterWaiting()
     {
+        VampireGatherLightFlyingObjectsManager vglfom = GetComponent<VampireGatherLightFlyingObjectsManager>();
+        if (vglfom != null)
+        {
+            vglfom.OnAttackEnd();
+        }
+
         yield return new WaitForSeconds(2f);
 
         CancelComboIfActive();

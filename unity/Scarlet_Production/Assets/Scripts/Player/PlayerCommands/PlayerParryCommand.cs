@@ -63,6 +63,9 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     private void DoParry()
     {
         m_Callback.OnCommandStart(m_CommandName, this);
+        if (m_ParryTimer != null)
+            StopCoroutine(m_ParryTimer);
+
         EventManager.TriggerEvent("user_parry");
 
         m_ScarletHittable.RegisterInterject(this);
@@ -138,7 +141,6 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         else
         {
             // need look up whether a bullet can be deflected or not
-
             if (((BulletDamage)dmg).m_Deflectable)
             {
                 PlayParryDeflectableBulletEffect(dmg);
@@ -147,6 +149,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             {
                 PlayParryNonDeflectableBulletEffect(dmg);
             }
+
+            m_Callback.OnCommandEnd(m_CommandName, this);
         }
 
         dmg.OnBlockDamage();

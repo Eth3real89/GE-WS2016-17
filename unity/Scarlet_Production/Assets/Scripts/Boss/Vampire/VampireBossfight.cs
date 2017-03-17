@@ -108,6 +108,11 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
 
     protected override void OnScarletDead()
     {
+        VampireGatherLightFlyingObjectsManager vglfom = FindObjectOfType<VampireGatherLightFlyingObjectsManager>();
+        if (vglfom != null)
+        {
+            vglfom.OnAttackEnd();
+        }
         m_TutorialController.CancelAndReset();
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
