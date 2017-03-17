@@ -22,7 +22,7 @@ Shader "Custom/VolumetricTransparent" {
         _LineScale ("Line Scale", Float) = 1.0
         _LightSaberFactor ("LightSaberFactor", Range(0.0, 1.0)) = 0.9
 
-		_CutUpTo("Cut Up To", Range(0.0, 1.0)) = 0.0
+	_CutUpTo("Cut Up To", Range(0.0, 1.0)) = 0.0
     }
     SubShader {
         Tags { "RenderType"="Geometry" "Queue" = "Transparent" }
@@ -85,19 +85,138 @@ Shader "Custom/VolumetricTransparent" {
 				vMVP.y = vMVP.y + lineDirProj.y * v.texcoord1.x - lineDirProj.x * v.texcoord1.y;
 				o.pos = vMVP;
                 return o;
-            }
- 
+            }     
+
             float4 frag(v2f i) : COLOR
             {
+            	float timeDamper = 20.0;
                 float4 tx = tex2D (_MainTex, i.uv);
                 
-				float dist = (i.uv.x - 0.5) * (i.uv.x - 0.5) + (i.uv.y - 0.5) * (i.uv.y - 0.5);
-				if (dist <= _CutUpTo * _CutUpTo)
-				{
-					return float4(0.0, 0.0, 0.0, 0.0);
-				}
+		float dist = (i.uv.x - 0.5) * (i.uv.x - 0.5) + (i.uv.y - 0.5) * (i.uv.y - 0.5);
+		if (dist <= _CutUpTo * _CutUpTo)
+		{
+			return float4(0.0, 0.0, 0.0, 0.0);
+		}
 
-				return tx * _Color;
+		/////////
+	 	float thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.1;
+                float thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.09;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.2;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.19;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.3;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.29;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.4;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.39;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+              	/////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.5;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.49;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.6;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.59;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.7;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.69;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.8;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.79;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        ////////
+
+	        /////////
+	 	thresh1 = abs(sin(_Time[1] / timeDamper)) - 0.9;
+                thresh2 = abs(sin(_Time[1] / timeDamper)) - 0.89;  
+
+                if (thresh1 < 0.0) thresh1 = 0.0;
+                if (thresh2 > 1.0) thresh2 = 1.0; 
+
+           	if (dist >= thresh1 && dist <= thresh2)// && sin(_Time[1] / (timeDamper / 2)) >= 0)
+	        {
+	        	return tx * _Color + float4(0.1, 0.1, 0.1, 0.0);
+	        }   
+	        //////////
+	       
+                return tx * _Color;
             }
  
             ENDCG
