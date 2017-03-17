@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBeamOrbMovement : BulletMovement {
+public class MagicBulletBeamOrbMovement : BulletMovement {
 
     public float m_MinMovementTime;
     public float m_MinYToExpire = 1f;

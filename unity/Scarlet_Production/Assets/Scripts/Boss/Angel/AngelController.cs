@@ -232,6 +232,10 @@ public class AngelController : BossController {
         {
             return (AngelOnlyMovementCombo) m_StayAwayMovements.ComboAt(m_StayAwayMovements.GetRandomCombo());
         }
+        else if (m_FinishersAndSupers.Contains(nextUp))
+        {
+            return (AngelOnlyMovementCombo) m_MoveCloseMovements.ComboAt(m_StayAwayMovements.GetRandomCombo());
+        }
         else
         {
             return null;
@@ -331,6 +335,10 @@ public class AngelController : BossController {
     {
         AddIfFound(AngelCombo.ComboType.MainRegular, AngelWeapons.Tips.Scythe, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.MainRegular, AngelWeapons.Tips.Axe, m_RegularAttacks);
+        AddIfFound(AngelCombo.ComboType.MainFinisher, AngelWeapons.Tips.Scythe, m_RegularAttacks);
+        AddIfFound(AngelCombo.ComboType.MainFinisher, AngelWeapons.Tips.Axe, m_RegularAttacks);
+        AddIfFound(AngelCombo.ComboType.MainSuper, AngelWeapons.Tips.Scythe, m_RegularAttacks);
+        AddIfFound(AngelCombo.ComboType.MainSuper, AngelWeapons.Tips.Axe, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Spear, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Crosswbow, m_RegularAttacks);
         AddIfFound(AngelCombo.ComboType.SideAttack, AngelWeapons.Tips.Hammer, m_RegularAttacks);

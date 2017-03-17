@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicBeamOrbAttack : BulletAttack {
+public class MagicBulletBeamOrbAttack : BulletAttack {
 
     public override void StartAttack()
     {
