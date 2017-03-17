@@ -10,6 +10,18 @@ public class SpearTripleStrikeCombo : AngelCombo {
         {
             base.OnFindFinish(attack);
         }
+        else if (attack is RegularSpearAttack)
+        {
+            if (((AngelAttack)attack).m_SuccessLevel >= 1)
+            {
+                base.OnAttackEnd(attack);
+            }
+            else
+            {
+                m_CurrentAttackIndex = 4;
+                base.OnAttackEnd(m_Attacks[4]);
+            }
+        }
         else if (attack is HardSpearAttack)
         {
             if (((AngelAttack)attack).m_SuccessLevel >= 1)

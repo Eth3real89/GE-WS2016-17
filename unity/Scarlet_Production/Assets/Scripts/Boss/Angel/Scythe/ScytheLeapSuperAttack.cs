@@ -148,6 +148,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         if (m_SuccessLevel < 1)
         {
+            CameraController.Instance.Shake();
             m_SuccessLevel = 0;
             m_SuccessCallback.ReportResult(this);
         }
@@ -169,6 +170,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator EndAttack()
     {
+        CameraController.Instance.Shake();
+
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = false;
 

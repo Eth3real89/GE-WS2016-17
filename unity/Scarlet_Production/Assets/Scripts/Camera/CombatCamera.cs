@@ -160,24 +160,30 @@ public class CombatCamera : MonoBehaviour
     {
         Vector3 copy = new Vector3(transform.position.x, transform.position.y - 1, transform.position.z);
 
-        foreach(GameObject obj in m_Targets)
+        List<GameObject> hitObjects = new List<GameObject>();
+        foreach (GameObject obj in m_Targets)
         {
             RaycastHit[] hits = Physics.RaycastAll(copy, Vector3.Normalize(obj.transform.position - copy),
                 Vector3.Distance(copy, obj.transform.position) - 0.3f);
 
-            foreach (GameObject gameObject in m_HidePlusChildren)
-            {
-                gameObject.GetComponent<Renderer>().enabled = true;
-            }
-
             foreach (RaycastHit hit in hits)
             {
-                GameObject go = hit.transform.gameObject;
+                hitObjects.Add(hit.transform.gameObject);
+            }
 
-                if (m_HidePlusChildren.IndexOf(go) != -1)
-                {
-                    go.GetComponent<Renderer>().enabled = false;
-                }
+        }
+
+        foreach (GameObject gameObject in m_HidePlusChildren)
+        {
+            if (hitObjects.IndexOf(gameObject) == -1)
+                gameObject.GetComponent<Renderer>().enabled = true;
+        }
+
+        foreach (GameObject go in hitObjects)
+        {
+            if (m_HidePlusChildren.IndexOf(go) != -1)
+            {
+                go.GetComponent<Renderer>().enabled = false;
             }
         }
     }

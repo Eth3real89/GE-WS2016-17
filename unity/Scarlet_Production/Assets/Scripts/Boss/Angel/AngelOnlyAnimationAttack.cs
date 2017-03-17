@@ -11,8 +11,11 @@ public class AngelOnlyAnimationAttack : AngelAttack {
 
     protected IEnumerator m_Timer;
 
+    protected bool m_Cancelled = false;
+
     public override void StartAttack()
     {
+        m_Cancelled = false;
         base.StartAttack();
         m_Animator.SetTrigger(m_AnimName);
 
@@ -24,12 +27,15 @@ public class AngelOnlyAnimationAttack : AngelAttack {
     {
         yield return new WaitForSeconds(AdjustTime(m_AnimTime));
 
-        m_Callback.OnAttackEnd(this);
+        if (!m_Cancelled)
+            m_Callback.OnAttackEnd(this);
     }
 
     public override void CancelAttack()
     {
         if (m_Timer != null)
             StopCoroutine(m_Timer);
+
+        m_Cancelled = true;
     }
 }

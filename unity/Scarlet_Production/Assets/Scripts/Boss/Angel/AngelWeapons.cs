@@ -74,8 +74,19 @@ public class AngelWeapons : MonoBehaviour {
 
     public void RemoveTip()
     {
-        m_CurrentTip.SetActive(false);
+        if (m_CurrentTip != null)
+            m_CurrentTip.SetActive(false);
         m_TipIsMagic = false;
+    }
+
+    public void CancelChange()
+    {
+        if (m_CurrentTip != null)
+            m_CurrentTip.SetActive(false);
+        m_TipIsMagic = false;
+
+        if (m_WeaponChangeEnumerator != null)
+            StopCoroutine(m_WeaponChangeEnumerator);
     }
 
     public void ChangeTipTo(Tips t, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
@@ -106,11 +117,17 @@ public class AngelWeapons : MonoBehaviour {
 
         if (m_CurrentTip == tip)
         {
+            if (m_CurrentTip != null)
+                m_CurrentTip.SetActive(true); // just to be safe!
+
             if (callbackOwner != null && doAfterwards != null)
                 callbackOwner.StartCoroutine(doAfterwards);
         }
         else
         {
+            if (m_WeaponChangeEnumerator != null)
+                StopCoroutine(m_WeaponChangeEnumerator);
+
             m_WeaponChangeEnumerator = ChangeTipRoutine(tip, doAfterwards, callbackOwner);
             StartCoroutine(m_WeaponChangeEnumerator);
         }
@@ -118,22 +135,23 @@ public class AngelWeapons : MonoBehaviour {
 
     protected virtual IEnumerator ChangeTipRoutine(GameObject changeTo, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
+        print("Init tip change");
         float t = 0f;
         if (m_CurrentTip != null)
         {
             ParticleSystem[] particlesOld = m_CurrentTip.GetComponentsInChildren<ParticleSystem>();
             Renderer currentRenderer = m_CurrentTip.GetComponent<Renderer>();
 
-            currentRenderer.material = m_ChangeMaterial;
+            for (int i = 0; i < currentRenderer.materials.Length; i++) currentRenderer.materials[i] = m_ChangeMaterial;
             particlesOld[particlesOld.Length - 1].Play();
             while ((t += Time.deltaTime) > 0.8f)
             {
-                currentRenderer.material.SetFloat("_Cutoff", t / 0.8f);
+                for (int i = 0; i < currentRenderer.materials.Length; i++) currentRenderer.materials[i].SetFloat("_Cutoff", t / 0.8f);
                 yield return null;
             }
             particlesOld[particlesOld.Length - 1].Stop();
-            currentRenderer.material.SetFloat("_Cutoff", 1f);
-            currentRenderer.material = m_NormalMaterial;
+            for (int i = 0; i < currentRenderer.materials.Length; i++) currentRenderer.materials[i].SetFloat("_Cutoff", 1f);
+            for (int i = 0; i < currentRenderer.materials.Length; i++) currentRenderer.materials[i] = m_NormalMaterial;
             m_CurrentTip.SetActive(false);
         }
         Vector3 prevScale = changeTo.transform.localScale + new Vector3();
@@ -145,21 +163,22 @@ public class AngelWeapons : MonoBehaviour {
         particles[particles.Length-1].Play();
 
         Renderer newRenderer = changeTo.GetComponent<Renderer>();
-        newRenderer.material = m_ChangeMaterial;
+        for (int i = 0; i < newRenderer.materials.Length; i++) newRenderer.materials[i] = m_ChangeMaterial;
         while ((t -= Time.deltaTime) > 0)
         {
-            newRenderer.material.SetFloat("_Cutoff", t / 0.8f);
+            for (int i = 0; i < newRenderer.materials.Length; i++) newRenderer.materials[i].SetFloat("_Cutoff", t / 0.8f);
             //changeTo.transform.localScale = Vector3.Lerp(Vector3.zero, prevScale, t / 0.8f);
             yield return null;
         }
-        newRenderer.material.SetFloat("_Cutoff", 0);
+        for (int i = 0; i < newRenderer.materials.Length; i++) newRenderer.materials[i].SetFloat("_Cutoff", 0);
         //changeTo.transform.localScale = prevScale;
-        newRenderer.material = m_NormalMaterial;
+        for (int i = 0; i < newRenderer.materials.Length; i++) newRenderer.materials[i] = m_NormalMaterial;
         SetRendererEmission(changeTo, 1f);
 
         particles[particles.Length - 1].Stop();
 
-        m_CurrentTip = changeTo; 
+        m_CurrentTip = changeTo;
+        m_CurrentTip.SetActive(true); // just to be safe!
 
         m_Effects.OnWeaponTipChanged(m_CurrentTip);
 

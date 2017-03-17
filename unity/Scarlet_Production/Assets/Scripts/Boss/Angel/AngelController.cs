@@ -145,6 +145,8 @@ public class AngelController : BossController {
     public override void OnComboEnd(AttackCombo combo)
     {
         MLog.Log(LogType.AngelLog, "On Combo End " + combo + " " + this);
+        if (m_ActiveCombo == null)
+            return;
 
         m_ActiveCombo = null;
         m_ComboActive = false;

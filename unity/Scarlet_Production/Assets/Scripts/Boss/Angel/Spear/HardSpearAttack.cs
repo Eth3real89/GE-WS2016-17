@@ -60,7 +60,9 @@ public class HardSpearAttack : AngelMeleeAttack {
         else
         {
             m_Animator.SetTrigger("SpearThrowScarletRightTrigger");
-            m_StateTimer = ThrowScarlet();
+
+            if (m_SuccessLevel == 1)
+                m_StateTimer = ThrowScarlet();
             StartCoroutine(m_StateTimer);
         }
     }
@@ -92,10 +94,12 @@ public class HardSpearAttack : AngelMeleeAttack {
     public override void OnBlockDamage()
     {
         m_Damage.m_Active = false;
+        m_SuccessLevel = 2;
     }
 
     public override void OnParryDamage()
     {
         m_Damage.m_Active = false;
+        m_SuccessLevel = 2;
     }
 }

@@ -8,11 +8,13 @@ public class AxeSkullCrusherCombo : AngelCombo {
     {
         if (index == 2)
         {
+            m_Cancelled = false;
             m_CurrentAttackIndex = 1;
             string before = ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName;
             ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = "AxeBackhandToFinisherStanceTrigger";
             ((AngelOnlyAnimationAttack)m_Attacks[1]).StartAttack();
             ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = before;
+            m_Callback.OnComboStart(this);
         }
         else
         {
@@ -35,6 +37,9 @@ public class AxeSkullCrusherCombo : AngelCombo {
 
     public override void OnAttackEnd(BossAttack attack)
     {
+        if (m_Cancelled)
+            return;
+
         if (attack is ChaseAttack)
         {
             OnFindFinish(attack);

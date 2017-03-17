@@ -52,6 +52,10 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         {
             MLog.Log(LogType.BattleLog, "Angel: Phase 1 over " + this);
 
+            AngelWeapons weapons = FindObjectOfType<AngelWeapons>();
+            if (weapons != null)
+                weapons.CancelChange();
+
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             m_Phase2Controller.StartPhase(this);

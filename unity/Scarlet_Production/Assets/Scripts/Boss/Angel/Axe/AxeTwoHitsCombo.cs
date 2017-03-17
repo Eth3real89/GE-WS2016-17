@@ -12,7 +12,7 @@ public class AxeTwoHitsCombo : AngelCombo {
             {
                 m_Animator.SetTrigger("AxeBackhandToFinisherStanceTrigger");
                 float actualEndTime = m_TimeAfterCombo;
-                m_TimeAfterCombo = 0f;
+                m_TimeAfterCombo = 0.3f;
                 base.OnAttackEnd(attack);
                 m_TimeAfterCombo = actualEndTime;
             }

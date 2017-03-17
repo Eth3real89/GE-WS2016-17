@@ -11,6 +11,12 @@ public class AngelComboList {
     protected List<int> m_StartIndices;
     protected List<int> m_UsedCombos;
 
+    // this is a little ugly; it's too minor of a problem for a better solution, though:
+    protected float m_LastTimeOrbCalled = -30;
+    protected float m_TimeBetweenOrbs = 15;
+    protected float m_LastTimeBulletBeamCalled = -45;
+    protected float m_TimeBetweenBeams = 45;
+
     private static void UpdateLists(AngelCombo combo)
     {
         for(int i = 0; i < s_Instances.Count; i++)
@@ -21,6 +27,15 @@ public class AngelComboList {
             if (s_Instances[i].Contains(combo))
             {
                 s_Instances[i].m_UsedCombos.Add(s_Instances[i].m_Combos.IndexOf(combo));
+                if (combo is MagicLightOrbCombo)
+                {
+                    s_Instances[i].m_LastTimeOrbCalled = Time.timeSinceLevelLoad;
+                }
+                else if (combo is MagicBeamOrbsCombo)
+                {
+                    s_Instances[i].m_LastTimeBulletBeamCalled = Time.timeSinceLevelLoad;
+                }
+
             }
         }
     }
@@ -68,6 +83,10 @@ public class AngelComboList {
         {
             comboIndex = GetRandomCombo();
         }
+        else if (MagicOrbException(comboIndex) || BulletBeamException(comboIndex))
+        {
+            comboIndex = GetRandomCombo();
+        }
 
         UpdateLists(m_Combos[comboIndex]);
 
@@ -77,6 +96,16 @@ public class AngelComboList {
         }
 
         return comboIndex;
+    }
+
+    private bool MagicOrbException(int comboIndex)
+    {
+        return m_Combos.Count > 1 && m_Combos[comboIndex] is MagicLightOrbCombo && Time.timeSinceLevelLoad - m_TimeBetweenOrbs <= m_LastTimeOrbCalled;
+    }
+
+    private bool BulletBeamException(int comboIndex)
+    {
+        return m_Combos.Count > 1 && m_Combos[comboIndex] is MagicBeamOrbsCombo && Time.timeSinceLevelLoad - m_TimeBetweenBeams <= m_LastTimeBulletBeamCalled;
     }
 
     public int ComboIndex(AngelCombo angelCombo)
