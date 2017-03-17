@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 114194243115422506}
   - component: {fileID: 114863679490776224}
   - component: {fileID: 114758136346561942}
+  - component: {fileID: 114148384187426752}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -208,6 +209,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
   m_ClipName: eff_pistols_reload
+--- !u!114 &114148384187426752
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_ClipName: eff_weapon_spawn
 --- !u!114 &114159163656056922
 MonoBehaviour:
   m_ObjectHideFlags: 1

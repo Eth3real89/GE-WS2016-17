@@ -310,6 +310,8 @@ public class VampireController : BossController {
 
     protected virtual IEnumerator ExecuteDash(Transform target, float time)
     {
+        FARQ audio = FancyAudioEffectsSoundPlayer.Instance.PlayHoverDashSound(transform);
+
         Vector3 initialPos = transform.position + new Vector3();
         Vector3 targetPos = target.position - new Vector3(0, target.position.y - initialPos.y, 0);
 
@@ -337,6 +339,7 @@ public class VampireController : BossController {
             yield return null;
         }
         transform.position = new Vector3(target.position.x, transform.position.y, target.position.z);
+        audio.StopIfPlaying();
     }
 
     protected virtual void OnBulletAttackStart()

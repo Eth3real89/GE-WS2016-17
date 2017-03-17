@@ -162,6 +162,7 @@ public class AngelWeapons : MonoBehaviour {
         ParticleSystem[] particles = changeTo.GetComponentsInChildren<ParticleSystem>();
         particles[particles.Length-1].Play();
 
+        FancyAudioEffectsSoundPlayer.Instance.PlayWeaponSpawnSound(transform);
         Renderer newRenderer = changeTo.GetComponent<Renderer>();
         for (int i = 0; i < newRenderer.materials.Length; i++) newRenderer.materials[i] = m_ChangeMaterial;
         while ((t -= Time.deltaTime) > 0)

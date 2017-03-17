@@ -23,6 +23,8 @@ public class VampireGatherLightFlyingObject : MonoBehaviour {
     // (that's the time you have left before the bubble spawns).
     protected IEnumerator FlyRoutine(Vector3 goal, float gatherLightTime)
     {
+        FARQ audio = FancyAudioEffectsSoundPlayer.Instance.PlayGatherLightTravellingSound(transform);
+
         while(true)
         {
             Vector3 distance = goal - transform.position;
@@ -36,6 +38,8 @@ public class VampireGatherLightFlyingObject : MonoBehaviour {
             transform.position += transform.forward * m_FlySpeed * Time.deltaTime;
             yield return null;
         }
+
+        audio.StopIfPlaying();
 
         //OnReachGoal();
     }

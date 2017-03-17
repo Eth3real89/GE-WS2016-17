@@ -10,6 +10,8 @@ public class AngelDashAwayAttack : AngelAttack {
 
     protected IEnumerator m_Enumerator;
 
+    protected FARQ m_Audio;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -19,6 +21,8 @@ public class AngelDashAwayAttack : AngelAttack {
 
     protected virtual IEnumerator DoDash()
     {
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayHoverDashSound(transform);
+
         Vector3 desiredPosition = m_Targets[UnityEngine.Random.Range(0, m_Targets.Length)].position;
         desiredPosition.y = m_Boss.transform.position.y;
 
@@ -36,6 +40,7 @@ public class AngelDashAwayAttack : AngelAttack {
             yield return null;
         }
 
+        m_Audio.StopIfPlaying();
         m_Callback.OnAttackEnd(this);
     }
 
@@ -46,6 +51,7 @@ public class AngelDashAwayAttack : AngelAttack {
 
     public override void CancelAttack()
     {
-
+        if (m_Audio != null)
+            m_Audio.StopIfPlaying();
     }
 }

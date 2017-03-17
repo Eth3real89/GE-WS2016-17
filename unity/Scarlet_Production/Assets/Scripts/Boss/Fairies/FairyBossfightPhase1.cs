@@ -54,6 +54,8 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         float t = 2f;
         float equipTime = 2f;
         Material[] ms = m_Shield.GetComponent<Renderer>().materials;
+        FancyAudioEffectsSoundPlayer.Instance.PlayWeaponSpawnSound(m_Sword.transform);
+
         while ((t -= Time.deltaTime) > 0)
         {
             foreach(Material m in ms)

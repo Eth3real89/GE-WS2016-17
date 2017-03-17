@@ -173,6 +173,7 @@ public class FancyAudio : MonoBehaviour {
 		if (emptySource == null)
 		{
 			emptySource = GameObject.Instantiate(m_SourcePrefab, position);
+            emptySource.transform.localPosition = new Vector3(0, 0, 0);
 
 			SourceAndRequest sar = new SourceAndRequest();
 			sar.m_Request = request;

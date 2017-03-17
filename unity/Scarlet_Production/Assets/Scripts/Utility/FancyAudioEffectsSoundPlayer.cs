@@ -69,6 +69,11 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_hover_dash", 0, -1, attachTo, false);
     }
 
+    public FARQ PlayWeaponSpawnSound(Transform attachTo)
+    {
+        return createRequest("eff_weapon_spawn", 0, -1, attachTo, false);
+    }
+
     public FARQ PlayBigWeaponImpactSound(Transform attachTo)
     {
         return createRequest("eff_big_weapon_impact", 0, -1, attachTo, false);
