@@ -50,7 +50,7 @@ public class VampirePhase1Controller : VampireController
 
         while ((t += Time.deltaTime) < 1.5f)
         {
-            m_BossHealth.m_CurrentHealth += m_BossHealth.m_MaxHealth * (t / 1.5f);
+            m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth * (t / 1.5f);
             yield return null;
         }
         m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth;
