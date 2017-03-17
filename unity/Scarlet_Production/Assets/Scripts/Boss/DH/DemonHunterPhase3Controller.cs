@@ -144,6 +144,7 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         {
             m_BossHittable.m_Health.m_CurrentHealth = -1f;
 
+            CameraController.Instance.Shake();
             m_NotDeactivated = false;
             StopAllCoroutines();
             m_Callback.PhaseEnd(this);

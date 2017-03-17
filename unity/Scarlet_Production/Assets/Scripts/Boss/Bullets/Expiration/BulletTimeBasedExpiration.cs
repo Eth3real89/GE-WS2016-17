@@ -25,7 +25,13 @@ public class BulletTimeBasedExpiration : BulletExpirationBehaviour
         m_Bullet.m_BulletCallbacks.OnBulletDestroyed(m_Bullet);
 
         if (m_Bullet != null)
+        {
             m_Bullet.Kill();
+            if (m_Bullet.m_Movement is BulletGrenadeMovement)
+            {
+                CameraController.Instance.Shake();
+            }
+        }
     }
 
     public override void CancelBehaviour(BulletBehaviour b)

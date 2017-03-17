@@ -620,6 +620,7 @@ public abstract class DemonHunterController : BossController {
         {
             MLog.Log(LogType.DHLog, "Successful hit, DH, " + this);
 
+            CameraController.Instance.Shake();
             CancelComboIfActive();
             if (m_RangeCheck != null)
                 StopCoroutine(m_RangeCheck);
