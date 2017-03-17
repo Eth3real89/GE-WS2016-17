@@ -61,6 +61,7 @@ public class AEFairyPhase3Controller : AEFairyController {
     {
         if (m_Vulnerable)
         {
+            CameraController.Instance.Shake();
             m_CurrentHits++;
 
             m_Vulnerable = false;

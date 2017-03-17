@@ -139,6 +139,18 @@ public class ArmorFairyController : FairyController {
         PlayHeavyAttackSound();
     }
 
+    public override bool OnHit(Damage dmg)
+    {
+        bool val = base.OnHit(dmg);
+
+        if (!val)
+        {
+            CameraController.Instance.Shake();
+        }
+
+        return val;
+    }
+
     protected virtual void PlayLightAttackSound(bool definitelyPlay = false)
     {
         if (definitelyPlay || ++s_LightAttackSoundCount % 4 == 0)

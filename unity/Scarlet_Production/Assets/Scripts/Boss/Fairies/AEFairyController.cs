@@ -36,6 +36,8 @@ public class AEFairyController : FairyController
     {
         if (!m_LightGuardContainer.activeSelf)
         {
+            CameraController.Instance.Shake();
+
             dmg.OnSuccessfulHit();
             return false;
         }

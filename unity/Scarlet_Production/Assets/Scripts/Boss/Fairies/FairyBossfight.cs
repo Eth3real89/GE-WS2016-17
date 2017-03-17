@@ -151,6 +151,11 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         armorHittable.transform.rotation = Quaternion.Euler(m_ArmorRotationStart.eulerAngles);
 
         AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
+        if (aeHittable == null)
+        {
+            ((FairyBossfightPhase3)m_Phase3).m_AEFairy.gameObject.SetActive(true);
+            aeHittable = FindObjectOfType<AEFairyHittable>();
+        }
         aeHittable.transform.position = m_AEPositionStart + Vector3.zero;
         aeHittable.transform.rotation = Quaternion.Euler(m_AERotationStart.eulerAngles);
     }
@@ -158,7 +163,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     public override void RestartBossfight()
     {
         AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
-        if (aeHittable != null)
+        if (aeHittable == null)
         {
             ((FairyBossfightPhase3)m_Phase3).m_AEFairy.gameObject.SetActive(true);
             aeHittable = FindObjectOfType<AEFairyHittable>();
