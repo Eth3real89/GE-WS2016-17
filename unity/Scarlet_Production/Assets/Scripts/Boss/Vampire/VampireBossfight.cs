@@ -118,6 +118,11 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();
 
+        m_TutorialController.enabled = false;
+        m_Phase1Controller.enabled = false;
+        m_Phase2Controller.enabled = false;
+        m_Phase3Controller.enabled = false;
+
         VampireHittable hittable = FindObjectOfType<VampireHittable>();
         if (hittable != null)
         {

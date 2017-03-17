@@ -91,11 +91,17 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         {
             new FARQ().StartTime(115).EndTime(117.6f).Location(hittable.transform).ClipName("dh").Play();
             hittable.m_HitCount = 0;
+
+            hittable.GetComponent<Animator>().SetTrigger("CancelTrigger");
         }
 
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();
+
+        m_Phase1Controller.enabled = false;
+        m_Phase2Controller.enabled = false;
+        m_Phase3Controller.enabled = false;
 
         m_Phase1Controller.m_NotDeactivated = false;
         m_Phase2Controller.m_NotDeactivated = false;

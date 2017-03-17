@@ -235,6 +235,10 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         m_RagemodeController.CancelAndReset();
         m_RagemodeConeAttack.CancelAttack();
 
+        m_HuntController.enabled = false;
+        m_Phase2Controller.enabled = false;
+        m_RagemodeController.enabled = false;
+
         OnlyVisualLightField.ResetFields();
 
         WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();

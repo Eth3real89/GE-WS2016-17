@@ -122,6 +122,11 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         m_Phase2.CancelAndReset();
         m_Phase3.CancelAndReset();
         m_Phase4.CancelAndReset();
+        m_Phase1.enabled = false;
+        m_Phase2.enabled = false;
+        m_Phase3.enabled = false;
+        m_Phase4.enabled = false;
+
         base.OnScarletDead();
     }
 
