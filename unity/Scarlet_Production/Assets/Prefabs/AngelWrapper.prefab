@@ -7644,7 +7644,7 @@ GameObject:
   - component: {fileID: 4905263004649420}
   - component: {fileID: 108636106670045818}
   m_Layer: 0
-  m_Name: FaceLigfht
+  m_Name: FaceLight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11262,7 +11262,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1012553752058084}
-  m_LocalRotation: {x: -0.05586639, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866383, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -17543,7 +17543,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1753606675724464}
-  m_LocalRotation: {x: -0.05586639, y: -0.7395926, z: 0.27081805, w: 0.6136281}
+  m_LocalRotation: {x: -0.055866383, y: -0.7395926, z: 0.27081805, w: 0.6136281}
   m_LocalPosition: {x: -2.9802322e-10, y: 4.4703483e-10, z: 6.0535965e-10}
   m_LocalScale: {x: 1, y: 1.0000002, z: 1}
   m_Children:
@@ -19509,7 +19509,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1705720647052668}
   m_LocalRotation: {x: -0.13157935, y: -0.025757805, z: -0.030489694, w: 0.9905018}
-  m_LocalPosition: {x: 0.0001, y: 0.0035, z: 0.0008}
+  m_LocalPosition: {x: -0.00008, y: 0.00319, z: 0.00474}
   m_LocalScale: {x: 0.0017031339, y: 0.0017031331, z: 0.0017031331}
   m_Children: []
   m_Father: {fileID: 4828937959648448}
@@ -23524,7 +23524,7 @@ Light:
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0
-    m_Resolution: 0
+    m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.05
@@ -59885,7 +59885,7 @@ ParticleSystem:
     enabled: 1
     serializedVersion: 3
     rateOverTime:
-      scalar: 10
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -104294,7 +104294,7 @@ ParticleSystem:
     enabled: 1
     serializedVersion: 3
     rateOverTime:
-      scalar: 10
+      scalar: 20
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -137687,8 +137687,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1382913628367916}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -137837,8 +137837,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211905271854776}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -138037,8 +138037,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1420921943635350}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -138487,8 +138487,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041268603275006}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -138687,8 +138687,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237116969449526}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -138837,7 +138837,7 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1273372546021270}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -139187,8 +139187,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1915234270137246}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -139237,8 +139237,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1237793087701060}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -139337,8 +139337,8 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399796398692742}
   m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
@@ -139487,7 +139487,7 @@ ParticleSystemRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1055484961885724}
   m_Enabled: 1
-  m_CastShadows: 0
+  m_CastShadows: 1
   m_ReceiveShadows: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
