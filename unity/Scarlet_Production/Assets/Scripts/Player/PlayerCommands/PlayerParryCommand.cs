@@ -22,6 +22,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
     public GameObject m_BulletBlockEffect;
     public GameObject m_BulletDeflectEffect;
 
+    public GameObject m_BlockStanceEffect;
+
     private enum ParryState { Perfect, Ok, Cooldown, None };
     private ParryState m_CurrentState;
     private IEnumerator m_ParryTimer;
@@ -71,9 +73,20 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         m_ScarletHittable.RegisterInterject(this);
         m_CurrentState = ParryState.Perfect;
         m_ParryTimer = SetParryState(m_PerfectParryTime, ParryState.Ok);
+
+        m_BlockStanceEffect.SetActive(true);
+
+        StartCoroutine(HideBlockStanceEffect());
         StartCoroutine(m_ParryTimer);
 
         m_Animator.SetTrigger("ParryTrigger");
+    }
+
+    private IEnumerator HideBlockStanceEffect()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        m_BlockStanceEffect.SetActive(false);
     }
 
     private IEnumerator SetParryState(float time, ParryState nextState)
