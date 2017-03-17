@@ -16,6 +16,7 @@ public class GrenadePlayableEffect : PlayableEffect
         m_Instance.transform.position = position * 1f;
 
         m_Instance.gameObject.SetActive(true);
+        FancyAudioEffectsSoundPlayer.Instance.PlayGrenadeExplosionSound(m_Instance.transform);
 
         m_Instance.gameObject.GetComponentInChildren<Light>().enabled = true;
 

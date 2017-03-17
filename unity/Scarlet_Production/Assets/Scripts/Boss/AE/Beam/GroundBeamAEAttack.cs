@@ -26,6 +26,8 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
 
     private IEnumerator m_ExpansionEnumerator;
 
+    public FARQ m_Audio;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -76,6 +78,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         m_Damage.gameObject.SetActive(true);
         m_Damage.SetAngle(0);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayBeamSound(m_Damage.transform);
 
         CameraController.Instance.ZoomOut();
     }
@@ -107,6 +110,9 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         if (m_ExpansionEnumerator != null)
             StopCoroutine(m_ExpansionEnumerator);
 
+        if (m_Audio != null)
+            m_Audio.StopIfPlaying();
+
         m_Damage.CancelDamage();
         m_Damage.gameObject.SetActive(false);
     }
@@ -116,6 +122,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         yield return new WaitForSeconds(0.5f);
         EventManager.TriggerEvent(BeamAEAttack.END_EVENT_NAME);
 
+        m_Audio.StopIfPlaying();
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);

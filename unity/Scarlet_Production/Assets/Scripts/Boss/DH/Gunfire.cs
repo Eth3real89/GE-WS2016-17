@@ -186,4 +186,15 @@ public class Gunfire : MonoBehaviour {
 
         new FARQ().StartTime(sound[0]).EndTime(sound[1]).Location(transform).ClipName("dh").Play();
     }
+
+    public void PistolReload()
+    {
+        FancyAudioEffectsSoundPlayer.Instance.PlayPistolsReloadSound(transform);
+    }
+
+    public void RifleReload()
+    {
+        FancyAudioEffectsSoundPlayer.Instance.PlayRifleReloadSound(transform);
+    }
+
 }

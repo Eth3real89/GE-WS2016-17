@@ -251,17 +251,17 @@ public abstract class DemonHunterController : BossController {
         }
 
 
-        if (!m_SkipReload)
-        {
+        //if (!m_SkipReload)
+        //{
             m_DHAnimator.SetTrigger("ReloadTrigger");
             yield return new WaitForSeconds(0.2f);
             while (!CheckAnimation(ANIM_AFTER_RELOAD_RIFLE))
                 yield return null;
-        }
+        /*}
         else
         {
             m_SkipReload = false;
-        }
+        }*/
 
         m_PreparationRoutine = m_EvasionCommand.QuickPerfectRotationRoutine(0.2f, m_PerfectRotationTarget);
         yield return m_PreparationRoutine;
