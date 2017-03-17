@@ -79,6 +79,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         float yVelocity = 0;
         float rotationTime = AdjustTime(m_RotationTime);
 
+        FancyAudioEffectsSoundPlayer.Instance.PlayScytheRotateUpwardsSound(m_Boss.transform);
         float t = 0;
         while((t += Time.deltaTime) < rotationTime)
         {
@@ -125,6 +126,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         float downwardsTime = AdjustTime(m_DownwardsTime);
 
+        FancyAudioEffectsSoundPlayer.Instance.PlayScytheCrashDownSound(m_Boss.transform);
         float t = 0;
         while ((t += Time.deltaTime) < downwardsTime)
         {

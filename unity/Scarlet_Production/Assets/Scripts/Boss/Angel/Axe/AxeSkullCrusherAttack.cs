@@ -23,6 +23,8 @@ public class AxeSkullCrusherAttack : AngelMeleeAttack
     protected IEnumerator HitGround()
     {
         yield return new WaitForSeconds(AdjustTime(m_HitGroundTime));
+
+        FancyAudioEffectsSoundPlayer.Instance.PlayBigWeaponImpactSound(m_Boss.transform);
         m_Damage.m_Active = false;
         m_Damage.m_CollisionHandler = null;
         m_Damage.m_Callback = null;

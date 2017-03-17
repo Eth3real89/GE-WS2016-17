@@ -135,6 +135,9 @@ public class LungeAttack : BossAttack, BossJumpCommand.JumpCallback, DamageColli
         if (m_State == State.None)
             return;
 
+        if (m_Boss.GetComponent<ArmorFairyHittable>() != null)
+            FancyAudioEffectsSoundPlayer.Instance.PlayBigWeaponImpactSound(m_Boss.transform);
+
         m_State = State.Land;
 
         m_Animator.SetTrigger("UprightTrigger");

@@ -86,7 +86,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayAxeOnGroundSound(Transform attachTo)
     {
-        return createRequest("eff_axe_on_ground", 0, -1, attachTo, false);
+        return createRequest("eff_axe_on_ground", 0, -1, attachTo, true);
     }
 
     public FARQ PlayScytheRotateUpwardsSound(Transform attachTo)
@@ -101,7 +101,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 1f)
     {
-        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
+        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(0);
         f.Play();
         return f;
     }
