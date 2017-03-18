@@ -34,7 +34,6 @@ namespace DigitalRuby.PyroParticles
                 lightIntensity = firePointLight.intensity;
                 if(firePointLight.name != "churchTorchLight")
                 {
-                    Debug.Log("Light Up");
                     firePointLight.intensity = 0.0f;
                 }
                 baseY = firePointLight.gameObject.transform.position.y;

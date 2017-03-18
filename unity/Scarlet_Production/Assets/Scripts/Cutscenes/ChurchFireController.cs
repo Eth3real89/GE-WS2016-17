@@ -25,7 +25,7 @@ public class ChurchFireController : MonoBehaviour {
     private List<FireConstantBaseScript> m_FireBaseScripts = new List<FireConstantBaseScript>();
 
     // -------- START - DAS ENTFERNEN WENN DAS EXTERN GETRIGGERT WIRD -----------
-    private float time = 5f;
+    public float time = 5f;
     // -------- ENDE  - DAS ENTFERNEN WENN DAS EXTERN GETRIGGERT WIRD -----------
 
     // Use this for initialization

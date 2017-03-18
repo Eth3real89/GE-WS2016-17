@@ -9,7 +9,7 @@ namespace DigitalRuby.PyroParticles
     public class LoopingAudioSource
     {
         public AudioSource AudioSource { get; private set; }
-        public float TargetVolume { get; private set; }
+        public float TargetVolume { get; set; }
 
         private float startMultiplier;
         private float stopMultiplier;
@@ -72,14 +72,16 @@ namespace DigitalRuby.PyroParticles
     public class FireConstantBaseScript : FireBaseScript
     {
         [HideInInspector]
-        public LoopingAudioSource LoopingAudioSource;
+        public LoopingAudioSource m_LoopingAudioSource;
+        public float m_TargetVolume = 1f;
 
         protected override void Awake()
         {
             base.Awake();
 
             // constant effect, so set the duration really high and add an infinite looping sound
-            LoopingAudioSource = new LoopingAudioSource(this, AudioSource, StartTime, StopTime);
+            m_LoopingAudioSource = new LoopingAudioSource(this, AudioSource, StartTime, StopTime);
+            m_LoopingAudioSource.TargetVolume = m_TargetVolume;
             Duration = 999999999;
         }
 
@@ -87,7 +89,7 @@ namespace DigitalRuby.PyroParticles
         {
             base.Update();
 
-            LoopingAudioSource.Update();
+            m_LoopingAudioSource.Update();
         }
 
         protected override void Start()
@@ -98,12 +100,12 @@ namespace DigitalRuby.PyroParticles
         {
             base.Start();
 
-            LoopingAudioSource.Play();
+            m_LoopingAudioSource.Play();
         }
 
         public override void Stop()
         {
-            LoopingAudioSource.Stop();
+            m_LoopingAudioSource.Stop();
 
             base.Stop();
         }

@@ -15,6 +15,8 @@ namespace SequencedActionCreator
         public PlayerControls m_Controls;
         public bool m_LogTime;
 
+        private PlayerMoveCommand m_MoveCommand;
+
         //List of all SequencedActions
         public List<SequencedAction> m_SequencedActions;
         private Dictionary<string, SequencedAction> m_SequencedActionMap;
@@ -35,6 +37,7 @@ namespace SequencedActionCreator
 
         private void Start()
         {
+            m_MoveCommand = FindObjectOfType<PlayerMoveCommand>();
             m_SequencedActionMap = new Dictionary<string, SequencedAction>();
             foreach (SequencedAction s in m_SequencedActions)
             {
@@ -75,8 +78,7 @@ namespace SequencedActionCreator
 
             if (callback != null)
                 callback();
-
-            m_Controls.EnableAllCommands();
+            m_Controls.EnableAndUnlock(m_MoveCommand);
             m_Tracking.m_BlockTracking = false;
         }
 
@@ -120,7 +122,7 @@ namespace SequencedActionCreator
 
         private void BlockControl()
         {
-            m_Controls.DisableAllCommands();
+            m_Controls.DisableAndLock(m_MoveCommand);
             m_Controls.StopMoving();
             m_Tracking.m_BlockTracking = true;
         }

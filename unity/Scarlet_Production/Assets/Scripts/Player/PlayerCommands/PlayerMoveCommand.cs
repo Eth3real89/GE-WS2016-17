@@ -48,6 +48,7 @@ public class PlayerMoveCommand : PlayerCommand
 
     public void DoMove(float horizontal, float vertical)
     {
+        print(m_CurrentSpeed);
         float yBefore = m_ScarletBody.velocity.y;
 
         Vector3 movement = new Vector3(horizontal, 0, vertical);
