@@ -55,7 +55,7 @@ public class CustomPlayerPositionInspector : Editor
         if (GUI.changed)
         {
             EditorPrefs.SetInt("PlayerPosition.Selected", m_Selected);
-            EditorUtility.SetDirty(target);
+            EditorSceneManager.MarkSceneDirty(UnityEngine.SceneManagement.SceneManager.GetActiveScene());
         }
     }
 }
