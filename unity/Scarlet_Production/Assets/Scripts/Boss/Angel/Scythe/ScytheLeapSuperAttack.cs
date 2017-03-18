@@ -165,7 +165,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
     {
         if (!m_VisualEffectDisabled)
         {
-            m_Boss.GetComponent<ControlAngelVisualisation>().DisableSpecialVisualisation();
+            m_Boss.GetComponent<ControlAngelVisualisation>().SpecialAttackEnd();
             m_VisualEffectDisabled = true;
         }
     }

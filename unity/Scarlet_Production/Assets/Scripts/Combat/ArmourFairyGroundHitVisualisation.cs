@@ -5,6 +5,7 @@ using UnityEngine;
 public class ArmourFairyGroundHitVisualisation : MonoBehaviour {
 
     public GameObject m_GroundHitEffects;
+    public Vector3 m_Position; // = new Vector3(-2.0f, 0.0f, 5.8f);
 
     private Component[] m_Comps;
 
@@ -14,7 +15,7 @@ public class ArmourFairyGroundHitVisualisation : MonoBehaviour {
 
         m_GroundHitEffects.transform.parent = transform;
 
-        m_GroundHitEffects.transform.localPosition = new Vector3(-2.0f, 0.0f, 5.8f);
+        m_GroundHitEffects.transform.localPosition = m_Position;
     }
 	
 	// Update is called once per frame
@@ -45,6 +46,6 @@ public class ArmourFairyGroundHitVisualisation : MonoBehaviour {
         }
 
         m_GroundHitEffects.transform.parent = transform;
-        m_GroundHitEffects.transform.localPosition = new Vector3(-2.0f, 0.0f, 5.8f);
+        m_GroundHitEffects.transform.localPosition = m_Position;
     }
 }
