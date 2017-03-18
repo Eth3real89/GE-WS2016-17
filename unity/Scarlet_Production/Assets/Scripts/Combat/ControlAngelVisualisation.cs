@@ -115,58 +115,50 @@ public class ControlAngelVisualisation : MonoBehaviour {
         }
     }
 
-    public void EnableVisualisationLeft()
+    /// <summary>
+    /// 
+    /// 0: Axe
+    /// 1: Crossbow
+    /// 2: Halberd
+    /// 3: Hammer
+    /// 4: Scythe
+    /// 5: Spear
+    /// </summary>
+    public void WeaponAttackStart(int weaponIndex)
     {
-        foreach (ParticleSystem particles in m_Particles_Left)
-        {
-            particles.Play();
-        }
-        foreach (MeleeWeaponTrail trail in m_Trails_Left)
-        {
-            trail.Emit = true;
-        }
-    }
-
-    public void EnableVisualisationRight()
-    {
-        foreach (ParticleSystem particles in m_Particles_Right)
-        {
-            particles.Play();
-        }
-
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
             trail.Emit = true;
         }
-    }
 
-
-    public void DisableVisualisationLeft()
-    {
-        foreach (ParticleSystem particles in m_Particles_Left)
-        {
-            particles.Stop();
-        }
-        foreach (MeleeWeaponTrail trail in m_Trails_Left)
-        {
-            trail.Emit = false;
-        }
-
-    }
-
-    public void DisableVisualisationRight()
-    {
         foreach (ParticleSystem particles in m_Particles_Right)
         {
-            particles.Stop();
+            particles.Play();
         }
+    }
+
+    public void WeaponAttackEnd(int weaponIndex)
+    {
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
             trail.Emit = false;
         }
+
+        foreach (ParticleSystem particles in m_Particles_Right)
+        {
+            particles.Stop();
+        }
     }
 
-    public void EnableSpecialVisualisation()
+    public void SpecialAttackDownStart()
+    {
+        foreach (ParticleSystem particles in m_SpecialParticles_DOWN)
+        {
+            particles.Play();
+        }
+    }
+
+    public void SpecialAttackStart()
     {
         m_Light.range = 4;
         m_Light.intensity = 5;
@@ -179,17 +171,9 @@ public class ControlAngelVisualisation : MonoBehaviour {
         {
             trail.Emit = true;
         }
+    }
 
-    }
-    public void EnableSpecialDownVisualisation()
-    {
-        foreach (ParticleSystem particles in m_SpecialParticles_DOWN)
-        {
-            particles.Play();
-        }
-    }
-    
-    public void DisableSpecialVisualisation()
+    public void SpecialAttackEnd()
     {
         foreach (ParticleSystem system in m_SpecialParticlesLand)
         {
@@ -211,70 +195,90 @@ public class ControlAngelVisualisation : MonoBehaviour {
         m_Light.intensity = 8;
         m_ImpactLightOn = true;
     }
+
+
+
+
     
+    //public void EnableVisualisationLeft()
+    //{
+    //    foreach (ParticleSystem particles in m_Particles_Left)
+    //    {
+    //        particles.Play();
+    //    }
+    //    foreach (MeleeWeaponTrail trail in m_Trails_Left)
+    //    {
+    //        trail.Emit = true;
+    //    }
+    //}
 
-    // handside: 0=right 1=left 2=both
-    public void AttackWeaponStart(int handSide)
-    {
-        if (handSide == 0)
-        {
-            EnableVisualisationRight();
-        }
-        else if (handSide == 1)
-        {
-            EnableVisualisationLeft();
-        }
-        else if (handSide == 2)
-        {
-            EnableVisualisationRight();
-            EnableVisualisationLeft();
-        }
-    }
-    
-    public void SpecialAttackStart()
-    {
-        EnableSpecialVisualisation();
-    }
+    //public void EnableVisualisationRight()
+    //{
+    //    foreach (ParticleSystem particles in m_Particles_Right)
+    //    {
+    //        Debug.Log("Play particles");
+    //        particles.Play();
+    //    }
 
-    public void SpecialAttackDownStart()
-    {
-        EnableSpecialDownVisualisation();
-    }
+    //    foreach (MeleeWeaponTrail trail in m_Trails_Right)
+    //    {
+    //        Debug.Log("Play trail");
+    //        trail.Emit = true;
+    //    }
+    //}
 
-    public void SpecialAttackEnd()
-    {
-        DisableSpecialVisualisation();
-    }
 
-    /// <summary>
-    /// 
-    /// 0: Axe
-    /// 1: Crossbow
-    /// 2: Halberd
-    /// 3: Hammer
-    /// 4: Scythe
-    /// 5: Spear
-    /// </summary>
-    public void WeaponAttackStart(int weaponIndex)
-    {
-        foreach (MeleeWeaponTrail trail in m_Trails_Right)
-        {
-            trail.Emit = true;
-        }
-    }
+    //public void DisableVisualisationLeft()
+    //{
+    //    foreach (ParticleSystem particles in m_Particles_Left)
+    //    {
+    //        particles.Stop();
+    //    }
+    //    foreach (MeleeWeaponTrail trail in m_Trails_Left)
+    //    {
+    //        trail.Emit = false;
+    //    }
 
-    public void WeaponAttackEnd(int weaponIndex)
-    {
-        foreach (MeleeWeaponTrail trail in m_Trails_Right)
-        {
-            trail.Emit = false;
-        }
-    }
+    //}
 
-    //both hands disable
-    public void AttackWeaponEnd()
-    {
-        DisableVisualisationRight();
-        DisableVisualisationLeft();
-    }
+    //public void DisableVisualisationRight()
+    //{
+    //    foreach (ParticleSystem particles in m_Particles_Right)
+    //    {
+    //        particles.Stop();
+    //    }
+    //    foreach (MeleeWeaponTrail trail in m_Trails_Right)
+    //    {
+    //        trail.Emit = false;
+    //    }
+    //}
+
+
+
+    //// handside: 0=right 1=left 2=both
+    //public void AttackWeaponStart(int handSide)
+    //{
+    //    if (handSide == 0)
+    //    {
+    //        EnableVisualisationRight();
+    //    }
+    //    else if (handSide == 1)
+    //    {
+    //        EnableVisualisationLeft();
+    //    }
+    //    else if (handSide == 2)
+    //    {
+    //        EnableVisualisationRight();
+    //        EnableVisualisationLeft();
+    //    }
+    //}
+
+
+
+    ////both hands disable
+    //public void AttackWeaponEnd()
+    //{
+    //    DisableVisualisationRight();
+    //    DisableVisualisationLeft();
+    //}
 }
