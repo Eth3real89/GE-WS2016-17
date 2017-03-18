@@ -12,6 +12,14 @@ public class AnimationsTrigger : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown("h"))
+        {
+            animator.SetTrigger("VictoryTrigger");
+        }
+    }
+
     public void Transformation()
     {
         animator.SetTrigger("TransformationTrigger");
