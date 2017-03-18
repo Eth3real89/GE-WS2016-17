@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.CinematicEffects;
 
 public class PreAngelCutscene : MonoBehaviour
 {
@@ -18,5 +19,20 @@ public class PreAngelCutscene : MonoBehaviour
     public void AngelVoiceline3()
     {
         new FARQ().ClipName("angel").StartTime(21.8f).EndTime(26.2f).Location(Camera.main.transform).Play();
+    }
+
+    public void MaxOutBloom()
+    {
+        StartCoroutine(MaxBloom());
+    }
+
+    IEnumerator MaxBloom()
+    {
+        Bloom bloom = Camera.main.GetComponent<Bloom>();
+        while (true)
+        {
+            bloom.settings.intensity += Time.deltaTime;
+            yield return null;
+        }
     }
 }

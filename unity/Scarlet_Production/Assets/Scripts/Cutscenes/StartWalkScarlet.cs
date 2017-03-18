@@ -17,11 +17,12 @@ public class StartWalkScarlet : MonoBehaviour
     public void StartWalk()
     {
         m_Speed = 1;
-        m_MoveCommand.m_CurrentSpeed = 1;
+        m_MoveCommand.m_CurrentSpeed = 0.7f;
     }
 
     public void StartRun()
     {
-        m_MoveCommand.m_CurrentSpeed = 3f;
+        m_MoveCommand.m_CurrentSpeed = 3.5f;
+        m_Scarlet.GetComponent<Animator>().SetBool("RunAttack", true);
     }
 }

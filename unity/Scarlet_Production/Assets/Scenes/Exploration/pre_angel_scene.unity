@@ -29697,7 +29697,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362698273}
-  m_LocalRotation: {x: -0.60322607, y: -0.3447588, z: -0.357203, w: 0.62423205}
+  m_LocalRotation: {x: -0.6032261, y: -0.34475884, z: -0.35720304, w: 0.6242321}
   m_LocalPosition: {x: 0.0003473019, y: 0.0049485816, z: 0.0014785337}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -43706,7 +43706,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 747955079}
-  m_LocalRotation: {x: -0.5183974, y: 0.6752487, z: -0.5246778, w: -0.00406589}
+  m_LocalRotation: {x: -0.51839745, y: 0.67524874, z: -0.5246779, w: -0.0040658903}
   m_LocalPosition: {x: 0.0044501573, y: 0.004439773, z: 0.03485266}
   m_LocalScale: {x: 1, y: 0.000021071546, z: 1}
   m_Children:
@@ -56008,7 +56008,7 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 902385906}
-  m_LocalRotation: {x: -0.6032261, y: -0.34475884, z: -0.35720304, w: 0.6242321}
+  m_LocalRotation: {x: -0.60322607, y: -0.3447588, z: -0.357203, w: 0.62423205}
   m_LocalPosition: {x: 0.0003473019, y: 0.0049485816, z: 0.0014785337}
   m_LocalScale: {x: 0.99999994, y: 0.99999994, z: 0.99999994}
   m_Children:
@@ -81765,15 +81765,15 @@ MonoBehaviour:
       m_MethodName: 
     - m_Label: CameraSetting2
       m_StartTime: 15
-      m_Duration: 10
+      m_Duration: 8
       m_AnimateTransform: 1
       m_StartTransform:
-        m_Position: {x: -9.573, y: 0.4, z: -0.444}
-        m_Rotation: {x: 356.73416, y: 93.058945, z: -0.000004596498}
+        m_Position: {x: -9.691259, y: 0.5238908, z: -0.45177114}
+        m_Rotation: {x: 12.891539, y: 91.580956, z: 0.00004904761}
         m_Scale: {x: 1, y: 1, z: 1}
       m_EndTransform:
-        m_Position: {x: -9.573, y: 0.4, z: -0.444}
-        m_Rotation: {x: 356.73416, y: 93.058945, z: -0.000004596498}
+        m_Position: {x: -9.691259, y: 0.5238908, z: -0.45177114}
+        m_Rotation: {x: 12.891539, y: 91.580956, z: 0.00004904761}
         m_Scale: {x: 1, y: 1, z: 1}
       m_GameObject: {fileID: 717258584}
       m_ScriptObject: {fileID: 0}
@@ -81795,7 +81795,7 @@ MonoBehaviour:
       m_MethodName: AngelVoiceline2
     - m_Label: AngelMove2
       m_StartTime: 15
-      m_Duration: 5
+      m_Duration: 8
       m_AnimateTransform: 1
       m_StartTransform:
         m_Position: {x: -9.94, y: 0.037, z: 0.13}
@@ -81825,7 +81825,7 @@ MonoBehaviour:
       m_MethodName: StartWalk
     - m_Label: AngelVoiceline3
       m_StartTime: 20
-      m_Duration: 5
+      m_Duration: 3
       m_AnimateTransform: 0
       m_StartTransform:
         m_Position: {x: -9.94, y: 0.037, z: 0.13}
@@ -81868,6 +81868,36 @@ MonoBehaviour:
       m_GameObject: {fileID: 1464630707}
       m_ScriptObject: {fileID: 1464630709}
       m_MethodName: LoadNextScene
+    - m_Label: LastSetting
+      m_StartTime: 21
+      m_Duration: 3
+      m_AnimateTransform: 1
+      m_StartTransform:
+        m_Position: {x: -2.4995728, y: 14.531377, z: -5.8729277}
+        m_Rotation: {x: 68.75502, y: 7.7001157, z: 0.00017965793}
+        m_Scale: {x: 1, y: 1, z: 1}
+      m_EndTransform:
+        m_Position: {x: -4.020043, y: 2.668686, z: -0.32750848}
+        m_Rotation: {x: 77.86502, y: 4.9500685, z: 0.0003117136}
+        m_Scale: {x: 1, y: 1, z: 1}
+      m_GameObject: {fileID: 717258584}
+      m_ScriptObject: {fileID: 1464630709}
+      m_MethodName: LoadNextScene
+    - m_Label: MaxDatBloooom
+      m_StartTime: 23
+      m_Duration: 1
+      m_AnimateTransform: 0
+      m_StartTransform:
+        m_Position: {x: -2.4995728, y: 14.531377, z: -5.8729277}
+        m_Rotation: {x: 68.75502, y: 7.7001157, z: 0.00017965793}
+        m_Scale: {x: 1, y: 1, z: 1}
+      m_EndTransform:
+        m_Position: {x: -4.020043, y: 2.668686, z: -0.32750848}
+        m_Rotation: {x: 77.86502, y: 4.9500685, z: 0.0003117136}
+        m_Scale: {x: 1, y: 1, z: 1}
+      m_GameObject: {fileID: 1997785190}
+      m_ScriptObject: {fileID: 1997785192}
+      m_MethodName: MaxOutBloom
 --- !u!1 &1583263142
 GameObject:
   m_ObjectHideFlags: 0
@@ -92135,7 +92165,17 @@ Prefab:
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0.6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1329597092239454, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114636648184856706, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+    - {fileID: 114717782061925462, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+    - {fileID: 114384745881405942, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+    - {fileID: 114653629839274918, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+    - {fileID: 114806152150870836, guid: 2acb300160851794e8c5a2330570274b, type: 2}
+    - {fileID: 114823536178913316, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1764090518
@@ -101667,8 +101707,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1958590461}
-  m_LocalRotation: {x: 0.01960467, y: -0.72543365, z: -0.020680247, w: -0.687702}
-  m_LocalPosition: {x: -9.573, y: 0.4, z: -0.444}
+  m_LocalRotation: {x: 0.6278183, y: 0.0335906, z: -0.027134936, w: 0.77716124}
+  m_LocalPosition: {x: -4.020043, y: 2.668686, z: -0.32750848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1997785191}
@@ -107220,11 +107260,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1761965296}
   m_Script: {fileID: 11500000, guid: e13675d20be831a46aeae41959e77b81, type: 3}
---- !u!4 &1971428144 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4210715244102710, guid: 2acb300160851794e8c5a2330570274b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1761965296}
 --- !u!1 &1975286828
 GameObject:
   m_ObjectHideFlags: 0
@@ -110107,7 +110142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MoveCommand: {fileID: 1971428140}
-  m_Scarlet: {fileID: 1971428144}
+  m_Scarlet: {fileID: 1869491301}
 --- !u!1 &2008674770
 GameObject:
   m_ObjectHideFlags: 0
