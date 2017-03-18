@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BridgeController : MonoBehaviour
 {
-    private float maxLimitLowered = 60;
+    private float maxLimitLowered = 57;
 
     public void Raise()
     {

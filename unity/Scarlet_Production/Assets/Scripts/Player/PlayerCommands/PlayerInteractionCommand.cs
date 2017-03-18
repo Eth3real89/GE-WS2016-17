@@ -40,7 +40,8 @@ public class PlayerInteractionCommand : PlayerCommand
             }
             if (m_CurrentInteraction < 0)
             {
-                m_CurrentInteractor.Interact();
+                if (m_CurrentInteractor!= null)
+                    m_CurrentInteractor.Interact();
             }
         }
         if (!isInteracting)
