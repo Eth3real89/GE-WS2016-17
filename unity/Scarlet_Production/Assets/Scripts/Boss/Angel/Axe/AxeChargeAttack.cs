@@ -24,6 +24,8 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
     protected bool m_ScarletInRange;
 
+    protected FARQ m_Audio;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -54,6 +56,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
     protected IEnumerator Charge()
     {
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayAxeOnGroundSound(m_Boss.transform);
         float t = 0;
         while((t += Time.deltaTime) < AdjustTime(m_ChargeTime))
         {
@@ -63,6 +66,8 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
             yield return null;
         }
+
+        m_Audio.StopIfPlaying();
 
         m_Timer = ChargeStrike();
         StartCoroutine(m_Timer);
@@ -143,6 +148,9 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
 
     public override void CancelAttack()
     {
+        if (m_Audio != null)
+            m_Audio.StopIfPlaying();
+
         if (m_Timer != null)
             StopCoroutine(m_Timer);
 

@@ -45,7 +45,7 @@ public class AngelSoundPlayer : MonoBehaviour {
     protected static float[][] s_MiscStanceSounds =
     {
         new float[] {0, 1.7f },
-        new float[] {95f, 96.8f },
+        new float[] {4.9f, 5.9f },
     };
     protected static FancyAudioRandomClip s_MiscStancePlayer;
 

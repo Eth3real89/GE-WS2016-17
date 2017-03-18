@@ -87,6 +87,7 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
         MakeSwordShiny(true);
 
+        FancyAudioEffectsSoundPlayer.Instance.PlayWeaponSpawnSound(m_BigSword.transform);
         t = 2f;
         equipTime = 2f;
         while ((t -= Time.deltaTime) > 0)

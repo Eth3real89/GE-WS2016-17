@@ -13,6 +13,8 @@ public class AngelDashCloserAttack : AngelAttack {
 
     protected IEnumerator m_Enumerator;
 
+    protected FARQ m_Audio;
+
     public override void StartAttack()
     {
         base.StartAttack();
@@ -22,6 +24,8 @@ public class AngelDashCloserAttack : AngelAttack {
 
     protected virtual IEnumerator DoDash()
     {
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayHoverDashSound(transform);
+
         float t = 0;
 
         while((t += Time.deltaTime) < AdjustTime(m_MaxTime))
@@ -41,6 +45,7 @@ public class AngelDashCloserAttack : AngelAttack {
             yield return null;
         }
 
+        m_Audio.StopIfPlaying();
         EndAttack();
     }
 
@@ -61,6 +66,9 @@ public class AngelDashCloserAttack : AngelAttack {
 
     public override void CancelAttack()
     {
+        if (m_Audio != null)
+            m_Audio.StopIfPlaying();
+
         if (m_Enumerator != null)
             StopCoroutine(m_Enumerator);
     }

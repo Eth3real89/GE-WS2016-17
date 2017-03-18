@@ -71,6 +71,7 @@ public class HammerOverheadAttack : AngelMeleeAttack {
             yield return null;
         }
 
+        FancyAudioEffectsSoundPlayer.Instance.PlayBigWeaponImpactSound(m_Boss.transform);
         m_Boss.transform.position -= new Vector3(0, m_Boss.transform.position.y - m_YBefore, 0);
 
         m_Damage.m_Active = false;

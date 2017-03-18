@@ -46,9 +46,4 @@ public class AngelDashCloserAttackWonky : AngelDashCloserAttack
         base.EndAttack();
     }
 
-    protected override IEnumerator DoDash()
-    {
-        return base.DoDash();
-    }
-
 }
