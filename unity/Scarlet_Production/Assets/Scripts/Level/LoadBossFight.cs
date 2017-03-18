@@ -11,6 +11,11 @@ public class LoadBossFight : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        LoadNextScene();
+    }
+
+    public void LoadNextScene()
+    {
         m_FadeCallback = LoadScene;
 
         if (m_FadeToBlack)
