@@ -10,6 +10,14 @@ public class ControlAngelVisualisation : MonoBehaviour {
     public GameObject m_SpecialAttack_DOWN;
     public GameObject m_SpecialLandVisualisation;
 
+    public int m_LowParticleEmissionSmoke;
+    public int m_HighParticleEmissionSmoke;
+    public int m_LowParticleEmissionDirection;
+    public int m_HighParticleEmissionDirection;
+    
+    public Color[] trailColorLight;
+    public Color[] trailColorFull;
+
     private MeleeWeaponTrail[] m_Trails_Left;
     private MeleeWeaponTrail[] m_Trails_Right;
     private ParticleSystem[] m_Particles_Left;
@@ -72,9 +80,9 @@ public class ControlAngelVisualisation : MonoBehaviour {
             t -= Time.deltaTime;
             if(t <= 0)
             {
-                foreach(ParticleSystem system in m_SpecialParticlesLand)
+                foreach(ParticleSystem particles in m_SpecialParticlesLand)
                 {
-                    system.Stop();
+                    particles.Stop();
                 }
                 t = 0.5f;
             }
@@ -128,12 +136,20 @@ public class ControlAngelVisualisation : MonoBehaviour {
     {
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.Emit = true;
+            trail.Colors = trailColorFull;
         }
 
         foreach (ParticleSystem particles in m_Particles_Right)
         {
-            particles.Play();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = m_HighParticleEmissionSmoke;
+            }
+            else if (particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = m_HighParticleEmissionDirection;
+            }
         }
     }
 
@@ -141,12 +157,20 @@ public class ControlAngelVisualisation : MonoBehaviour {
     {
         foreach (MeleeWeaponTrail trail in m_Trails_Right)
         {
-            trail.Emit = false;
+            trail.Colors = trailColorLight;
         }
 
         foreach (ParticleSystem particles in m_Particles_Right)
         {
-            particles.Stop();
+            ParticleSystem.EmissionModule emission = particles.emission;
+            if (particles.name.Equals("particle_smoke"))
+            {
+                emission.rateOverDistance = m_LowParticleEmissionSmoke;
+            }
+            else if (particles.name.Equals("particle_direction"))
+            {
+                emission.rateOverDistance = m_LowParticleEmissionDirection;
+            }
         }
     }
 
