@@ -10,6 +10,9 @@ public class PlayerClimbingHandler : MonoBehaviour
     public PlayerMoveCommand m_MoveCommand;
     public PlayerClimbCommand m_ClimbCommand;
 
+    public ParticleSystem m_ClimbLeftHand;
+    public ParticleSystem m_ClimbRightHand;
+
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
 
@@ -40,5 +43,23 @@ public class PlayerClimbingHandler : MonoBehaviour
         m_PlayerControls.EnableAllCommands();
         m_PlayerControls.EnableAndUnlock(m_MoveCommand, m_SprintCommand);
         m_PlayerControls.DisableAndLock(m_ClimbCommand);
+    }
+
+    public IEnumerator OnHandGrip(int handSide)
+    {
+        if(handSide == 0)
+        {
+            //Right side
+            m_ClimbRightHand.Play();
+            yield return new WaitForSeconds(0.3f);
+            m_ClimbRightHand.Stop();
+        }
+        else
+        {
+            //Left side
+            m_ClimbLeftHand.Play();
+            yield return new WaitForSeconds(0.3f);
+            m_ClimbLeftHand.Stop();
+        }
     }
 }
