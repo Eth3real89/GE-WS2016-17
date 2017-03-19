@@ -31,6 +31,8 @@ public class AngelBossfight : BossFight, BossfightCallbacks
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Church;
+        ScarletVOPlayer.Instance.SetupPlayers();
 
         m_DH.SetActive(false);
         m_DHHealthWrapper.SetActive(false);
@@ -66,6 +68,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             m_Phase2Controller.enabled = false;
 
             //StartCoroutine(DissolveAngel());
+            ScarletVOPlayer.Instance.PlayVictorySound();
         }
     }
 

@@ -12621,17 +12621,17 @@ Prefab:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
+    - target: {fileID: 199429173775173330, guid: 2acb300160851794e8c5a2330570274b,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
     - target: {fileID: 199182939460786654, guid: 2acb300160851794e8c5a2330570274b,
         type: 2}
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
     - target: {fileID: 199329559701973590, guid: 2acb300160851794e8c5a2330570274b,
-        type: 2}
-      propertyPath: m_Materials.Array.data[1]
-      value: 
-      objectReference: {fileID: 2100000, guid: dabd91375482d45d391b3801c4a02e3b, type: 2}
-    - target: {fileID: 199429173775173330, guid: 2acb300160851794e8c5a2330570274b,
         type: 2}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -12657,16 +12657,6 @@ Prefab:
       propertyPath: m_NumPotionListenerObject
       value: 
       objectReference: {fileID: 871212190}
-    - target: {fileID: 114653629839274918, guid: 2acb300160851794e8c5a2330570274b,
-        type: 2}
-      propertyPath: m_MajorStaggerTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114653629839274918, guid: 2acb300160851794e8c5a2330570274b,
-        type: 2}
-      propertyPath: m_StaggerTime
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2acb300160851794e8c5a2330570274b, type: 2}
   m_IsPrefabParent: 0
@@ -13463,6 +13453,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1469148751}
   - component: {fileID: 1469148752}
+  - component: {fileID: 1469148753}
   m_Layer: 0
   m_Name: RegisterAudio
   m_TagString: Untagged
@@ -13496,6 +13487,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: afedfe60d307c9041993d262a99cdb46, type: 3}
   m_ClipName: vampire
+--- !u!114 &1469148753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1469148750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: ca1ec0a24617fd74c90cd6bf8de8461f, type: 3}
+  m_ClipName: scarlet_city
 --- !u!1 &1493794360 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1465890387799712, guid: 3fbb66376cad1ba419a7401087fa0472,

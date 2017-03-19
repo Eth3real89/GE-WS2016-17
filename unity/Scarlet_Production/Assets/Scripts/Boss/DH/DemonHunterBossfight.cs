@@ -28,6 +28,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Church;
+        ScarletVOPlayer.Instance.SetupPlayers();
 
         if (m_StartPhase == Phase.Phase1)
         {
@@ -81,6 +83,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
+            ScarletVOPlayer.Instance.PlayVictorySound();
         }
     }
 

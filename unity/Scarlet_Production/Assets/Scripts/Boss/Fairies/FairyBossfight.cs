@@ -34,6 +34,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Cave;
+        ScarletVOPlayer.Instance.SetupPlayers();
 
         if (m_StartPhase == Phase.Phase1)
         {
@@ -82,6 +84,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
+
+            ScarletVOPlayer.Instance.PlayVictorySound();
         }
         else if (whichPhase == m_Phase3)
         {
@@ -103,6 +107,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
                 hittable.StopPlayingCriticalHPSound();
 
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+            ScarletVOPlayer.Instance.PlaySpecialFairyVictorySound();
         }
     }
 

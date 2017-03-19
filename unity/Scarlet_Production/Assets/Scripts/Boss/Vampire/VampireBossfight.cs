@@ -26,6 +26,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        SetScarletVoice(ScarletVOPlayer.Version.City);
+        ScarletVOPlayer.Instance.SetupPlayers();
 
         if (m_StartPhase == Phase.Tutorial)
         {
@@ -102,6 +104,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
 
+            ScarletVOPlayer.Instance.PlayVictorySound();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }

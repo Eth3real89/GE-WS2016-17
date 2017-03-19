@@ -39,6 +39,8 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Forest;
+        ScarletVOPlayer.Instance.SetupPlayers();
 
         if (m_StartPhase == Phase.Hunt)
         {
@@ -89,6 +91,8 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+
+            ScarletVOPlayer.Instance.PlayVictorySound();
         }
     }
 

@@ -80,6 +80,8 @@ public abstract class BossFight : MonoBehaviour {
 
         FancyAudio.Instance.StopAll();
 
+        ScarletVOPlayer.Instance.PlayDeathSound();
+
         PlayerControls controls = FindObjectOfType<PlayerControls>();
         controls.DisableAllCommands();
 
@@ -180,6 +182,16 @@ public abstract class BossFight : MonoBehaviour {
         PlayerMoveCommand moveCommand = FindObjectOfType<PlayerMoveCommand>();
         if (moveCommand != null)
             moveCommand.StopMoving();
+    }
+
+    protected virtual void SetScarletVoice(ScarletVOPlayer.Version version)
+    {
+        ScarletVOPlayer voPlayer = FindObjectOfType<ScarletVOPlayer>();
+        if (voPlayer != null)
+        {
+            voPlayer.m_Version = version;
+            voPlayer.SetupPlayers();
+        }
     }
 
 }

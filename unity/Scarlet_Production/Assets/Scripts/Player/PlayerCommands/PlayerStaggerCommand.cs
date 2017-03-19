@@ -92,6 +92,8 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     private void DoStagger(bool major = false)
     {
+        ScarletVOPlayer.Instance.PlayStaggerSound();
+
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
         m_Animator.SetTrigger(major? "MajorStaggerTrigger" : "StaggerTrigger");
     }

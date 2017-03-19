@@ -32,6 +32,8 @@ public class PlayerHittable : MonoBehaviour, Hittable {
             if (m_Invulnerable)
                 return;
 
+            float healthBefore = m_Health.m_CurrentHealth;
+
             if (m_CounterDamageHandler != null && m_CounterDamageHandler.IsDamageActive())
             {
                 m_Health.m_CurrentHealth = Mathf.Max(0, m_Health.m_CurrentHealth - damage.DamageAmount() * 1.2f);
@@ -49,6 +51,20 @@ public class PlayerHittable : MonoBehaviour, Hittable {
 
             if (m_HittableListener != null)
                 m_HittableListener.OnDamageTaken(damage);
+
+            if (m_Health.m_CurrentHealth <= healthBefore - 32 && m_Health.m_CurrentHealth > 0)
+            {
+                ScarletVOPlayer.Instance.PlayHeavyHitSound();
+            } 
+            else if (m_Health.m_CurrentHealth > 0)
+            {
+                ScarletVOPlayer.Instance.PlayLightHitSound();
+            }
+
+            if (m_Health.m_CurrentHealth <= 0.3f * m_Health.m_MaxHealth && m_Health.m_CurrentHealth > 0)
+            {
+                ScarletVOPlayer.Instance.PlayBadlyWoundedSound();
+            }
 
             CameraController.Instance.Shake();
 
