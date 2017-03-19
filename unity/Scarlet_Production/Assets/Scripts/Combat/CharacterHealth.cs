@@ -19,7 +19,7 @@ public class CharacterHealth : MonoBehaviour {
     public float m_CurrentHealth;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
         m_HealthOld = m_HealthStart;
         m_CurrentHealth = m_HealthStart;	
 	}

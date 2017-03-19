@@ -259,7 +259,7 @@ public class ScarletVOPlayer : MonoBehaviour {
     public void ContinuePlayingBadlyWoundedSound()
     {
         float[] times = m_BadlyWoundedSounds[(int)m_Version];
-        m_BadlyWoundedSoundsPlayer = new FARQ().ClipName(s_SoundFiles[(int)m_Version]).StartTime(times[0]).EndTime(times[1]).Location(transform).Volume(0.35f).OnFinish(ContinuePlayingBadlyWoundedSound);
+        m_BadlyWoundedSoundsPlayer = new FARQ().ClipName(s_SoundFiles[(int)m_Version]).StartTime(times[0]).EndTime(times[1]).Location(transform).Volume(0.350f).OnFinish(ContinuePlayingBadlyWoundedSound);
         m_BadlyWoundedSoundsPlayer.Play();
     }
 
