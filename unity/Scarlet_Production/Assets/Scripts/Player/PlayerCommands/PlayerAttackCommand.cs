@@ -75,6 +75,7 @@ public class PlayerAttackCommand : PlayerCommand, Damage.DamageCallback
 
     private void ActivateDamage()
     {
+        ScarletVOPlayer.Instance.PlayAttackSound();
         PlayAttackAnimation(m_CurrentCombo);
 
         if (m_RiposteActive)

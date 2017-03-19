@@ -339,6 +339,7 @@ public class VampireController : BossController {
             yield return null;
         }
         transform.position = new Vector3(target.position.x, transform.position.y, target.position.z);
+        transform.rotation = Quaternion.Euler(0, transform.rotation.y, 0);
         audio.StopIfPlaying();
     }
 

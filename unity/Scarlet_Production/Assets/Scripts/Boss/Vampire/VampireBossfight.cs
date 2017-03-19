@@ -12,6 +12,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     public VampirePhase2Controller m_Phase2Controller;
     public VampirePhase3Controller m_Phase3Controller;
 
+    public TutorialPromptController m_TutorialVisuals;
+
+    protected bool m_HealTutorialShown = false;
+
     void Start()
     {
         StartBossfight();
@@ -26,6 +30,9 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        SetScarletVoice(ScarletVOPlayer.Version.City);
+        ScarletVOPlayer.Instance.SetupPlayers();
+        m_HealTutorialShown = false;
 
         if (m_StartPhase == Phase.Tutorial)
         {
@@ -102,12 +109,36 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
 
+            ScarletVOPlayer.Instance.PlayVictorySound();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+        }
+    }
+
+    protected override IEnumerator CheckScarletHealth()
+    {
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        CharacterHealth scarletHealth = playerHittable.GetComponent<CharacterHealth>();
+
+        while (true)
+        {
+            if (!m_HealTutorialShown && scarletHealth.m_CurrentHealth <= scarletHealth.m_MaxHealth * 0.5f)
+            {
+                ShowHealTutorial();
+                m_HealTutorialShown = true;
+            }
+
+            if (scarletHealth.m_CurrentHealth <= 0 && s_ScarletCanDie)
+            {
+                OnScarletDead();
+            }
+            yield return null;
         }
     }
 
     protected override void OnScarletDead()
     {
+        m_HealTutorialShown = false;
+
         VampireGatherLightFlyingObjectsManager vglfom = FindObjectOfType<VampireGatherLightFlyingObjectsManager>();
         if (vglfom != null)
         {
@@ -131,6 +162,27 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         }
 
         base.OnScarletDead();
+    }
+
+    protected void ShowHealTutorial()
+    {
+        StartCoroutine(HealTutorialEnumerator());
+    }
+
+    protected IEnumerator HealTutorialEnumerator()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        SlowTime.Instance.StartSlowMo(m_TutorialController.m_TutorialSlowMo);
+        m_TutorialVisuals.ShowTutorial("Y", "Heal", m_TutorialController.m_TutorialSlowMo);
+
+        float t = 0;
+        while ((t += Time.deltaTime) < 6 * m_TutorialController.m_TutorialSlowMo && !Input.anyKeyDown)
+        {
+            yield return null;
+        }
+        SlowTime.Instance.StopSlowMo();
+        m_TutorialVisuals.HideTutorial(1f);
     }
 
 }
