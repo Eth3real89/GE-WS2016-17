@@ -127,6 +127,9 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == 0)
         {
+            // Reset Player Prefs
+            PlayerPrefs.DeleteAll();
+
             ZoomToScarlet();
             Menu.SetActive(false);
             GetComponent<MainMenuController>().enabled = false;
