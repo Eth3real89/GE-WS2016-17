@@ -18,7 +18,7 @@ public class PreAngelCutscene : MonoBehaviour
 
     public void AngelVoiceline3()
     {
-        new FARQ().ClipName("angel").StartTime(21.8f).EndTime(26.2f).Location(Camera.main.transform).Play();
+        new FARQ().ClipName("angel").StartTime(21.8f).EndTime(25.5f).Location(Camera.main.transform).Play();
     }
 
     public void MaxOutBloom()
