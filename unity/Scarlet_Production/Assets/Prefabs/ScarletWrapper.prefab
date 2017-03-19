@@ -1490,7 +1490,6 @@ GameObject:
   - component: {fileID: 95181167519141986}
   - component: {fileID: 114283564950094282}
   - component: {fileID: 114171752264778418}
-  - component: {fileID: 114177473010530202}
   - component: {fileID: 114588574810603080}
   - component: {fileID: 114923802319802484}
   - component: {fileID: 114072412852494062}
@@ -1500,6 +1499,7 @@ GameObject:
   - component: {fileID: 114858738104365244}
   - component: {fileID: 114347573273991008}
   - component: {fileID: 114264350503436666}
+  - component: {fileID: 114708012821892694}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -5616,21 +5616,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   skinWidth: 0.1
---- !u!114 &114177473010530202
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1546299661062702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26049ee00e266034b9897189103f60b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MaxHealth: 100
-  m_HealthStart: 100
-  m_HealthOld: 0
-  m_CurrentHealth: 0
 --- !u!114 &114177525756349276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5751,7 +5736,7 @@ MonoBehaviour:
   m_HealingEffect: {fileID: 1750817311586412}
   m_MaxHealthGain: 33
   m_NumPotionListenerObject: {fileID: 0}
-  m_PlayerHealth: {fileID: 114177473010530202}
+  m_PlayerHealth: {fileID: 114708012821892694}
 --- !u!114 &114414600724007508
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5943,7 +5928,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bec82d6112e394abc9f3539eeacfeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: {fileID: 114177473010530202}
+  m_Health: {fileID: 114708012821892694}
   m_OnHitAudio: {fileID: 82824611474688840}
   m_InvulerableSecondsAfterHit: 0.75
   m_CounterDamageHandler: {fileID: 114806152150870836}
@@ -6015,6 +6000,21 @@ MonoBehaviour:
   m_RendererContainer: {fileID: 1847760130161882}
   m_DashAudio: {fileID: 82001845436009432}
   m_Hittable: {fileID: 114588574810603080}
+--- !u!114 &114708012821892694
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c5758e6643a0347b9b51ccbd8fba58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MaxHealth: 100
+  m_HealthStart: 100
+  m_HealthOld: 0
+  m_CurrentHealth: 0
 --- !u!114 &114717782061925462
 MonoBehaviour:
   m_ObjectHideFlags: 1
