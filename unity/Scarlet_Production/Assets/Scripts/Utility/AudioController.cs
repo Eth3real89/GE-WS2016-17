@@ -34,7 +34,7 @@ public class AudioController : GenericSingletonClass<AudioController>
             AudioSource source = gameObject.AddComponent<AudioSource>() as AudioSource;
             source.loop = file.loop;
             source.clip = file.file;
-            source.volume = file.volume;
+            source.volume = file.volume * FancyAudio.s_MasterVolume;
             m_AudioDict.Add(file.name, source);
             if (file.autoplay)
                 source.Play();
@@ -47,7 +47,7 @@ public class AudioController : GenericSingletonClass<AudioController>
         if (source == null)
             return;
 
-        source.volume = volume;
+        source.volume = volume * FancyAudio.s_MasterVolume;
         source.Play();
     }
 
@@ -86,6 +86,7 @@ public class AudioController : GenericSingletonClass<AudioController>
             return;
 
         source.volume = 0;
+        volume *= FancyAudio.s_MasterVolume;
         source.Play();
         StartCoroutine(FadeVolume(source, 0, volume, time, callback));
     }
@@ -104,7 +105,7 @@ public class AudioController : GenericSingletonClass<AudioController>
         AudioSource source = GetAudioSource(name);
         if (source == null)
             return;
-
+        volume *= FancyAudio.s_MasterVolume;
         StartCoroutine(FadeVolume(source, source.volume, volume, time, callback));
     }
 
