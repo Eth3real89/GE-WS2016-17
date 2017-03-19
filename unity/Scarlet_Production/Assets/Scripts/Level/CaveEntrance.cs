@@ -11,6 +11,11 @@ public class CaveEntrance : Interactor
 
     public override void Interact()
     {
+        if (!m_IsInteractible)
+            return;
+
+        m_IsInteractible = false;
+        new FARQ().ClipName("rocks").Location(transform).Play();
         StartCoroutine(OpenCave());
     }
 
