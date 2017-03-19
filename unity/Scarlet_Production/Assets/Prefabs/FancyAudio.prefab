@@ -68,6 +68,7 @@ GameObject:
   - component: {fileID: 114863679490776224}
   - component: {fileID: 114758136346561942}
   - component: {fileID: 114148384187426752}
+  - component: {fileID: 114633288114347056}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -310,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: f463800ff17867443b5ccf3ebb6ec7c6, type: 3}
   m_ClipName: eff_gather_light_travel
 --- !u!114 &114547546187126882
 MonoBehaviour:
@@ -323,8 +324,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: f463800ff17867443b5ccf3ebb6ec7c6, type: 3}
   m_ClipName: eff_hover_dash
+--- !u!114 &114633288114347056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_ClipName: eff_heal
 --- !u!114 &114654101745531554
 MonoBehaviour:
   m_ObjectHideFlags: 1

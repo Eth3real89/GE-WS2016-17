@@ -99,6 +99,11 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_scythe_crash_down", 0, -1, attachTo, false);
     }
 
+    public FARQ PlayHealSound(Transform attachTo)
+    {
+        return createRequest("eff_heal", 0, -1, attachTo, false);
+    }
+
     protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 1f)
     {
         FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(0);

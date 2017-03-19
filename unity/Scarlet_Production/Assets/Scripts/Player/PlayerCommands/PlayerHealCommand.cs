@@ -58,6 +58,7 @@ public class PlayerHealCommand : PlayerCommand {
         m_PlayerHealth.m_CurrentHealth = Mathf.Min(m_PlayerHealth.m_CurrentHealth + m_MaxHealthGain, m_PlayerHealth.m_MaxHealth);
         m_NumHealthPotions -= 1;
         ScarletVOPlayer.Instance.StopPlayingBadlyWoundedSound();
+        FancyAudioEffectsSoundPlayer.Instance.PlayHealSound(m_Scarlet.transform);
 
         foreach(ParticleSystem p in comps)
         {

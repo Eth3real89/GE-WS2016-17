@@ -224,9 +224,10 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
 
         if (m_ParryCallback != null)
             m_ParryCallback.OnPerfectParry();
-
+        
         dmg.OnParryDamage();
         PlayAudio(m_ParryAudio);
+        FancyAudioEffectsSoundPlayer.Instance.PlayParriedSound(m_Scarlet.transform);
 
         LookAtSource(dmg);
 

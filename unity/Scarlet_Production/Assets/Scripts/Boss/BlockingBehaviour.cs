@@ -103,6 +103,7 @@ public class BlockingBehaviour : MonoBehaviour, HitInterject {
         m_Animator.SetTrigger("ParryTrigger");
         m_Callback.OnBossParries();
         dmg.OnParryDamage();
+        FancyAudioEffectsSoundPlayer.Instance.PlayParriedSound(transform);
 
         if (m_ParryEffect != null)
             m_ParryEffect.Play();
