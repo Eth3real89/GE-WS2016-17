@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EyesRed : MonoBehaviour
+public class EyesWhite : MonoBehaviour
 {
-    public void TurnEyesRed()
+    public int matId = 3;
+
+    public void TurnEyesWhite()
     {
-        StartCoroutine(FadeEyesRed());
+        StartCoroutine(FadeEyesWhite());
     }
 
-    IEnumerator FadeEyesRed()
+    IEnumerator FadeEyesWhite()
     {
         Renderer body = GetComponent<Renderer>();
         LerpTimer t = new LerpTimer(0.2f);
@@ -17,8 +19,8 @@ public class EyesRed : MonoBehaviour
         while (t.GetLerpProgress() < 1)
         {
             Color c = Color.Lerp(Color.black, Color.white, t.GetLerpProgress());
-            body.materials[3].SetColor("_Color", c);
-            body.materials[3].SetColor("_EmissionColor", c);
+            body.materials[matId].SetColor("_Color", c);
+            body.materials[matId].SetColor("_EmissionColor", c);
             yield return null;
         }
     }
