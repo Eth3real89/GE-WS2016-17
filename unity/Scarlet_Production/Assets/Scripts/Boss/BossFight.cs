@@ -96,6 +96,7 @@ public abstract class BossFight : MonoBehaviour {
     protected virtual IEnumerator ResetRoutine()
     {
         GetComponent<DeathScreenController>().ShowVictoryScreen(gameObject);
+        yield return null;
 
         PlayerHealCommand healCommand = FindObjectOfType<PlayerHealCommand>();
         healCommand.ResetPotions();

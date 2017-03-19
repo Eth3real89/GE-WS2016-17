@@ -168,6 +168,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         }
         aeHittable.transform.position = m_AEPositionStart + Vector3.zero;
         aeHittable.transform.rotation = Quaternion.Euler(m_AERotationStart.eulerAngles);
+        aeHittable.transform.localScale = Vector3.one;
     }
 
     public override void RestartBossfight()
