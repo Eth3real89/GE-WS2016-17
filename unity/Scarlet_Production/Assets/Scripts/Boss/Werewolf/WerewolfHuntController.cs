@@ -340,7 +340,7 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
             m_SlowMoTimer = SlowMoTimer();
             StartCoroutine(m_SlowMoTimer);
 
-            m_Tutorial.ShowTutorial("X", "Parry", m_SlowMoAmount);
+            m_Tutorial.ShowTutorial("B", "Parry", m_SlowMoAmount);
         }
     }
 
@@ -359,7 +359,7 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
             SlowTime.Instance.StartSlowMo(m_SlowMoAmount);
             SlowTime.Instance.m_PreventChanges = true;
 
-            m_Tutorial.ShowTutorial("Y", "Riposte", m_SlowMoAmount);
+            m_Tutorial.ShowTutorial("X", "Riposte", m_SlowMoAmount);
         }
 
         if (m_HuntTimer == null)

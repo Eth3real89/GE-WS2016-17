@@ -79,6 +79,8 @@ public class Gunfire : MonoBehaviour {
 
         StartCoroutine(HideMuzzleFlashLight(obj));
         StartCoroutine(HideMuzzleFlashEffect(obj));
+
+        FancyAudioEffectsSoundPlayer.Instance.PlayPistolsShotSound(transform);
     }
 
     private void SafetyDisable(GameObject obj)
@@ -179,6 +181,9 @@ public class Gunfire : MonoBehaviour {
 
     private void PlayRifleSound()
     {
+
+        FancyAudioEffectsSoundPlayer.Instance.PlayRifleShotSound(transform);
+
         float[] sound = s_RifleSoundIndices[s_RifleSoundIndex];
         s_RifleSoundIndex++;
         if (s_RifleSoundIndex >= s_RifleSoundIndices.Length)
@@ -190,11 +195,13 @@ public class Gunfire : MonoBehaviour {
     public void PistolReload()
     {
         FancyAudioEffectsSoundPlayer.Instance.PlayPistolsReloadSound(transform);
+        FancyAudioEffectsSoundPlayer.Instance.PlayMagInsertSound(transform);
     }
 
     public void RifleReload()
     {
         FancyAudioEffectsSoundPlayer.Instance.PlayRifleReloadSound(transform);
+        FancyAudioEffectsSoundPlayer.Instance.PlayMagInsertSound(transform);
     }
 
 }
