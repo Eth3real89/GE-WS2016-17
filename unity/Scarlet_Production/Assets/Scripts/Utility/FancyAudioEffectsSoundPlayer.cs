@@ -44,9 +44,10 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_rifle_reload", 0, -1, attachTo, false, 1f);
     }
 
+
     public FARQ PlayPistolsShotSound(Transform attachTo)
     {
-        return createRequest("eff_pistols_shot", 0, -1, attachTo, false, 1f);
+        return createRequestUnlessPlaying("eff_pistols_shot", 0, 0.48f, attachTo, false, 1f);
     }
 
     public FARQ PlayMagInsertSound(Transform attachTo)
@@ -123,6 +124,13 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
     {
         FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
         f.Play();
+        return f;
+    }
+
+    protected FARQ createRequestUnlessPlaying(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)
+    {
+        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
+        f.PlayUnlessPlaying();
         return f;
     }
 
