@@ -25,4 +25,9 @@ public class StartWalkScarlet : MonoBehaviour
         m_MoveCommand.m_CurrentSpeed = 3.5f;
         m_Scarlet.GetComponent<Animator>().SetBool("RunAttack", true);
     }
+
+    public void DisableSprintCommand()
+    {
+        FindObjectOfType<PlayerSprintCommand>().enabled = false;
+    }
 }
