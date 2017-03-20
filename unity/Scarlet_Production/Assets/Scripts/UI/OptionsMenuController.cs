@@ -7,22 +7,29 @@ using UnityEngine.UI;
 public class OptionsMenuController : MonoBehaviour {
 
     public GameObject[] MenuItems;
+    public GameObject menu;
 
     private int music = 0;
-    private int sound = 1;
-    private int backToMain = 2;
+    private int backToMain = 1;
 
-    public GameObject menu;
+
+    private Slider m_MusicSlider;
     private int selected;
 
     // Use this for initialization
     void Start () {
         selected = 0;
+        m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);
     }
 	
 	// Update is called once per frame
 	void Update () {
+        if (AudioListener.volume != m_MusicSlider.value / m_MusicSlider.maxValue)
+        {
+            m_MusicSlider.value = AudioListener.volume * m_MusicSlider.maxValue;
+        }
+
         if (Input.GetButtonDown("Vertical"))
         {
             if (Input.GetAxis("Vertical") < 0)
@@ -49,30 +56,20 @@ public class OptionsMenuController : MonoBehaviour {
             }
             SelectItem(selected);
         }
-        if (Input.GetButtonDown("Horizontal"))
+        if (Input.GetButton("Horizontal"))
         {
             if (selected == music)
             {
                 if (Input.GetAxis("Horizontal") < 0)
                 {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                    m_MusicSlider.value = m_MusicSlider.value - 1;
+                    AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
                 }
                 else
                 {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                    m_MusicSlider.value = m_MusicSlider.value + 1;
+                    AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
                 }
-            }
-            else if (selected == sound)
-            {
-                if (Input.GetAxis("Horizontal") < 0)
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
-                }
-                else
-                {
-                    MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
-                }
-
             }
 
         }
