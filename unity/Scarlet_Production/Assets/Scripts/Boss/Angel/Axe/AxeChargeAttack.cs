@@ -111,6 +111,7 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
         m_Damage.m_Active = false;
         m_Damage.m_Callback = null;
         m_Damage.m_CollisionHandler = null;
+        CameraController.Instance.Shake();
 
         // will most likely be cancelled immediately after this.
     }

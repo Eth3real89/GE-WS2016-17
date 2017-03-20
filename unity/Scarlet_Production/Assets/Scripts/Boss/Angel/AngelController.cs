@@ -437,6 +437,7 @@ public class AngelController : BossController {
     public override void OnTimeWindowClosed()
     {
         MLog.Log(LogType.AngelLog, "On Time Window Was Closed, Angel ");
+        m_BossHittable.RegisterInterject(this);
 
         if (m_NextComboTimer != null)
             StopCoroutine(m_NextComboTimer);
@@ -529,6 +530,9 @@ public class AngelController : BossController {
 
     protected override IEnumerator InvulnerableAfterStagger()
     {
+        m_OnlyJustStaggered = true;
+        m_InLongStance = false;
+        m_InWindup = false;
         yield return new WaitForSeconds(1f);
         m_OnlyJustStaggered = false;
     }

@@ -100,7 +100,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator AtHighestPoint()
     {
-        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1 / AdjustTime((m_TimeStuckInAir + m_DownwardsTime))));
+        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1 / AdjustTime(m_DownwardsTime)));
         m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
 
         float t = 0;
@@ -121,11 +121,11 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         m_DownswingDamage.m_Active = true;
 
         Vector3 xzAfter = new Vector3(m_Scarlet.transform.position.x, 0, m_Scarlet.transform.position.z);
-
         Vector3 posBefore = m_Boss.transform.position + Vector3.zero;
 
         float downwardsTime = AdjustTime(m_DownwardsTime);
 
+        // actual downwards movement
         FancyAudioEffectsSoundPlayer.Instance.PlayScytheCrashDownSound(m_Boss.transform);
         float t = 0;
         while ((t += Time.deltaTime) < downwardsTime)
@@ -138,6 +138,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
             yield return null;
         }
 
+        // impact
+        CameraController.Instance.Shake();
         m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1f));
         DisableVisualEffect();
         m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
@@ -145,6 +147,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         Rigidbody b = m_Boss.GetComponent<Rigidbody>();
         b.useGravity = true;
 
+        // move on
         yield return new WaitForSeconds(m_TimeDamageActive);
         m_DownswingDamage.m_Active = false;
 
@@ -230,6 +233,8 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
             m_DownswingDamage.m_Active = false;
         }
+
+        CameraController.Instance.Shake();
     }
 
     public void HandleScarletCollision(Collider other)
