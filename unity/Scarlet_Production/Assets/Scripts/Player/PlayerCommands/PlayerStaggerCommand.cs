@@ -37,6 +37,18 @@ public class PlayerStaggerCommand : PlayerCommand {
         s_Instance.TriggerMajorStagger(pos, force);
     }
 
+    public static void ApplyForceAwayFrom(Vector3 origin = new Vector3(), float force = 0f)
+    {
+        Vector3 lookRot = origin - s_Instance.m_ScarletBody.transform.position;
+        lookRot.y = 0;
+        s_Instance.m_ScarletBody.transform.rotation = Quaternion.Euler(lookRot);
+
+        s_Instance.m_ScarletBody.velocity = new Vector3(0, 0, 0);
+        Vector3 pos = s_Instance.m_ScarletBody.transform.position - origin;
+        pos = pos.normalized;
+        s_Instance.m_ScarletBody.AddForce(force * pos * s_Instance.m_ScarletBody.mass, ForceMode.Impulse);
+    }
+
     public static Vector3 ScarletPosition()
     {
         return s_Instance.m_ScarletBody.transform.position * 1f;

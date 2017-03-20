@@ -79,6 +79,8 @@ public abstract class DemonHunterController : BossController {
         m_SkipForceKeepWindowOpen = false;
         m_PerfectRotationTarget = m_Scarlet.transform;
         m_ThrowGrenadePlayer = new FancyAudioRandomClip(s_ThrowGrenadeSounds, transform, "dh");
+        m_ActiveCombo = null;
+        m_ComboActive = false;
 
         ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;
 

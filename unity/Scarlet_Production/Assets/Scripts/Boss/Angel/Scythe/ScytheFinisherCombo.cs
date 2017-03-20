@@ -5,10 +5,21 @@ using UnityEngine;
 public class ScytheFinisherCombo : AngelCombo {
 
     public float m_ScytheStanceTime;
-    
-    public override void LaunchCombo()
+
+    public override void LaunchComboFrom(int index)
     {
-        base.LaunchCombo();
+        _m_CurrentAttack = null;
+        if (index == 2)
+        {
+            m_Cancelled = false;
+            m_CurrentAttackIndex = 1;
+            ((AngelOnlyAnimationAttack)m_Attacks[0]).StartAttack();
+            m_Callback.OnComboStart(this);
+        }
+        else
+        {
+            base.LaunchComboFrom(index);
+        }
     }
 
     public override void OnAttackStart(BossAttack attack)

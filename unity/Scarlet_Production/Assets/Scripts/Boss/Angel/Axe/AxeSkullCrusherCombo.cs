@@ -8,13 +8,17 @@ public class AxeSkullCrusherCombo : AngelCombo {
     {
         if (index == 2)
         {
+            _m_CurrentAttack = null;
             m_Cancelled = false;
+            m_Callback.OnComboStart(this);
+            if (m_Cancelled)
+                return;
+
             m_CurrentAttackIndex = 1;
             string before = ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName;
             ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = "AxeBackhandToFinisherStanceTrigger";
             ((AngelOnlyAnimationAttack)m_Attacks[1]).StartAttack();
             ((AngelOnlyAnimationAttack)m_Attacks[1]).m_AnimName = before;
-            m_Callback.OnComboStart(this);
         }
         else
         {
@@ -48,6 +52,7 @@ public class AxeSkullCrusherCombo : AngelCombo {
         {
             if (m_Success < 1)
             {
+                CameraController.Instance.Shake();
                 // base.OnAttackEnd(attack);
                 // do nothing, Blast Wave Attack will take care of this
             }

@@ -7,6 +7,14 @@ public class IngameMenuController : MonoBehaviour
     public GameObject[] MenuItems;
     public GameObject menu;
 
+    private int resume = 0;
+    private int music = 1;
+    private int invertControl = 2;
+    private int backToMain = 3;
+
+
+    private Slider m_MusicSlider;
+
     private bool menuVisible = false;
     private int selected;
     private CameraTracking cameraTracking;
@@ -15,7 +23,8 @@ public class IngameMenuController : MonoBehaviour
     void Start()
     {
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
-        selected = 0;
+        selected = resume;
+        m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);
     }
 
@@ -34,13 +43,18 @@ public class IngameMenuController : MonoBehaviour
         }
         if (menuVisible)
         {
+            if (AudioListener.volume != m_MusicSlider.value / m_MusicSlider.maxValue)
+            {
+                m_MusicSlider.value = AudioListener.volume * m_MusicSlider.maxValue;
+            }
+
             if (Input.GetButtonDown("Vertical"))
             {
                 if (Input.GetAxis("Vertical") < 0)
                 {
                     if (selected == MenuItems.Length - 1)
                     {
-                        selected = 0;
+                        selected = resume;
                     }
                     else
                     {
@@ -49,7 +63,7 @@ public class IngameMenuController : MonoBehaviour
                 }
                 else
                 {
-                    if (selected == 0)
+                    if (selected == resume)
                     {
                         selected = MenuItems.Length - 1;
                     }
@@ -60,40 +74,29 @@ public class IngameMenuController : MonoBehaviour
                 }
                 SelectItem(selected);
             }
-            if (Input.GetButtonDown("Horizontal"))
+            if (Input.GetButton("Horizontal"))
             {
-                if (selected == 1)
+                if (selected == music)
                 {
                     if (Input.GetAxis("Horizontal") < 0)
                     {
-                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
+                        m_MusicSlider.value = m_MusicSlider.value - 1;
+                        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
                     }
                     else
                     {
-                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
+                        m_MusicSlider.value = m_MusicSlider.value + 1;
+                        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
                     }
                 }
-                else if (selected == 2)
-                {
-                    if (Input.GetAxis("Horizontal") < 0)
-                    {
-                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value - 1;
-                    }
-                    else
-                    {
-                        MenuItems[selected].GetComponentInChildren<Slider>().value = MenuItems[selected].GetComponentInChildren<Slider>().value + 1;
-                    }
-
-                }
-
             }
             if (Input.GetButtonDown("Submit"))
             {
-                if (selected == 0)
+                if (selected == resume)
                 {
                     OnResume();
                 }
-                else if (selected == 4)
+                else if (selected == backToMain)
                 {
                     BackToMain();
                 }
@@ -120,7 +123,7 @@ public class IngameMenuController : MonoBehaviour
 
     public void OnResume()
     {
-        if (selected == 0)
+        if (selected == resume)
         {
             ContinueGame();
         }
@@ -128,23 +131,14 @@ public class IngameMenuController : MonoBehaviour
 
     private void OnChangeMusicVolume(int volume)
     {
-        if(selected == 1)
+        if(selected == music)
         {
             //Musik Lautstärke auf den übergebenen Wert setzen
         }
     }
 
-    private void OnChangeSoundVolume(int volume)
-    {
-        if (selected == 2)
-        {
-            //Sounds Lautstärke auf den übergebebenen Wert setzen
-        }
-    }
-
-
     public void ToggleControllerInput() {
-        if (selected == 3)
+        if (selected == invertControl)
         {
             //Je nach Wert die Steuerung invertieren oder nicht
         }
@@ -152,14 +146,14 @@ public class IngameMenuController : MonoBehaviour
 
     public void BackToMain()
     {
-        if (selected == 4)
+        if (selected == backToMain)
         {
             //Zurück zum Hauptmenü
             menu.SetActive(false);
             menuVisible = false;
             GetComponent<IngameMenuController>().enabled = false;
-            GetComponentInChildren<MainMenuController>().enabled = true;
-            GetComponentInChildren<MainMenuController>().Activate();
+            GetComponentInChildren<MainMenuController>(true).enabled = true;
+            GetComponentInChildren<MainMenuController>(true).Activate();
         }
     }
 

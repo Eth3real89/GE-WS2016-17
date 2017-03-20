@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
@@ -113,6 +114,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     protected override void OnScarletDead()
     {
+        bool playTaunt = m_Phase1.enabled || m_Phase2.enabled;
+
         m_Phase1.m_AEFairyController.gameObject.SetActive(true);
         FemaleStopCrying();
 
@@ -133,6 +136,11 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         m_Phase4.enabled = false;
 
         base.OnScarletDead();
+
+        if (playTaunt)
+        {
+            new FARQ().StartTime(85.1f).EndTime(88f).Location(m_Phase1.m_ArmorFairyController.transform).ClipName("armor_fairy").Play();
+        }
     }
 
     protected override void StoreInitialState()
@@ -221,5 +229,10 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         new FARQ().ClipName("ae_fairy").Location(m_Phase3.m_AEFairyController.transform).StartTime(44.1f).EndTime(50.4f).Volume(0.5f).StopIfPlaying();
         new FARQ().ClipName("ae_fairy").Location(m_Phase4.m_ArmorFairyController.transform).StartTime(31.4f).EndTime(43.6f).Volume(0.5f).StopIfPlaying();
         new FARQ().ClipName("ae_fairy").Location(m_Phase4.m_ArmorFairyController.transform).StartTime(44.1f).EndTime(50.4f).Volume(0.5f).StopIfPlaying();
+    }
+
+    public override void LoadSceneAfterBossfight()
+    {
+        SceneManager.LoadScene("maze_exploration_level");
     }
 }

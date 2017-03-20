@@ -44,6 +44,7 @@ public class BulletFactory : MonoBehaviour {
                 dmg.m_DamageAmount = m_Damage;
 
             ((Bullet)copy).m_StaggerScarlet = m_StaggerScarlet;
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(copy.transform);
         }
 
         return copy;

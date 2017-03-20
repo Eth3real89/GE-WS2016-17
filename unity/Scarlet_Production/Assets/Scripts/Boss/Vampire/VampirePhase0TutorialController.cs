@@ -61,7 +61,10 @@ public class VampirePhase0TutorialController : VampireController {
         PlayerControls controls = FindObjectOfType<PlayerControls>();
 
         if (controls != null)
+        {
             controls.DisableAllCommands();
+            controls.StopMoving();
+        }
 
         yield return new WaitForSeconds(0.5f);
 

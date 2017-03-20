@@ -18,6 +18,7 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
     public override void LaunchCombo()
     {
         m_Cancelled = false;
+        _m_CurrentAttack = null;
 
         m_Success = -1;
         MLog.Log(LogType.BattleLog, 1, "Launching Combo, Combo, " + this);
@@ -34,6 +35,7 @@ public class AngelCombo : AttackCombo, AngelAttack.AngelAttackCallback {
     public virtual void LaunchComboFrom(int index)
     {
         m_Cancelled = false;
+        _m_CurrentAttack = null;
 
         m_Success = -1;
         MLog.Log(LogType.BattleLog, 1, "Launching Combo at index: " + index + ", Combo, " + this);

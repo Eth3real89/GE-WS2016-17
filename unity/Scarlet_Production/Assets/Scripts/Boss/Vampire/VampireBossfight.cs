@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VampireBossfight : BossFight, BossfightCallbacks {
 
@@ -110,8 +112,14 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
                 hittable.StopPlayingCriticalHPSound();
 
             ScarletVOPlayer.Instance.PlayVictorySound();
-            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+            StartCoroutine(ShowVictoryScreenAfterWaiting());
         }
+    }
+
+    private IEnumerator ShowVictoryScreenAfterWaiting()
+    {
+        yield return new WaitForSeconds(10f);
+        GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
     }
 
     protected override IEnumerator CheckScarletHealth()
@@ -162,6 +170,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         }
 
         base.OnScarletDead();
+
+        new FARQ().StartTime(154.4f).EndTime(160.527f).Location(m_TutorialController.transform).ClipName("vampire").Play();
     }
 
     protected void ShowHealTutorial()
@@ -185,4 +195,8 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         m_TutorialVisuals.HideTutorial(1f);
     }
 
+    public override void LoadSceneAfterBossfight()
+    {
+        SceneManager.LoadScene("post_vampire_scene");
+    }
 }

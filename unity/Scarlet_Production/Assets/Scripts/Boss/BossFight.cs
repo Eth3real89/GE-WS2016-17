@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,6 +60,8 @@ public abstract class BossFight : MonoBehaviour {
         StartCoroutine(m_ScarletHealthEnumerator);
     }
 
+    public abstract void LoadSceneAfterBossfight();
+
     protected virtual IEnumerator CheckScarletHealth()
     {
         PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
@@ -84,6 +87,7 @@ public abstract class BossFight : MonoBehaviour {
 
         PlayerControls controls = FindObjectOfType<PlayerControls>();
         controls.DisableAllCommands();
+        controls.StopMoving();
 
         SlowTime.Instance.m_PreventChanges = false;
         SlowTime.Instance.StopAllCoroutines();

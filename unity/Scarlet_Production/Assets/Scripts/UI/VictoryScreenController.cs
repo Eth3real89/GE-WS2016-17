@@ -88,8 +88,7 @@ public class VictoryScreenController : MonoBehaviour {
 			{
 				if (fight.enabled)
 				{
-					fight.RestartBossfight();
-					break;
+                    fight.LoadSceneAfterBossfight();
 				}
 			}
 		}

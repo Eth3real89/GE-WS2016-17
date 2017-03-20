@@ -37,6 +37,8 @@ public class WerewolfRagemodeController : WerewolfController
     {
         m_NotDeactivated = true;
         m_AttackCount = 0;
+        m_ActiveCombo = null;
+        m_ComboActive = false;
 
         m_BossHittable.RegisterInterject(this);
 

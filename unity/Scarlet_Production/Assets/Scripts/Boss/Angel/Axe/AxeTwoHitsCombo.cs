@@ -8,6 +8,7 @@ public class AxeTwoHitsCombo : AngelCombo {
     {
         if (m_CurrentAttackIndex == 2)
         {
+            _m_CurrentAttack = null;
             if (((AngelAttack) m_Attacks[m_CurrentAttackIndex]).m_SuccessLevel == 1)
             {
                 m_Animator.SetTrigger("AxeBackhandToFinisherStanceTrigger");

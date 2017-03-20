@@ -63,6 +63,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
         m_AEFairyCollider.isTrigger = false;
         m_AEFairyCollider.enabled = true;
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
 
         m_AEFairyController.ExpandLightGuard();
         yield return new WaitForSeconds(2f);

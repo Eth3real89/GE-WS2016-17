@@ -19,7 +19,7 @@ public class GrowingConeAttack : GrowingAEAttack, Damage.DamageCallback {
     public float m_EndSize;
     public float m_GrowTime;
 
-    public enum StaggerScarlet { None, ALittle, Hard};
+    public enum StaggerScarlet { None, ALittle, Hard, Mega};
     public StaggerScarlet m_StaggerScarlet;
 
     public float m_LineWidth = 1f;
@@ -126,7 +126,7 @@ public class GrowingConeAttack : GrowingAEAttack, Damage.DamageCallback {
         {
             PlayerStaggerCommand.StaggerScarlet(false);
         }
-        else if (m_StaggerScarlet == StaggerScarlet.Hard)
+        else if (m_StaggerScarlet == StaggerScarlet.Hard || m_StaggerScarlet == StaggerScarlet.Mega)
         {
             PlayerStaggerCommand.StaggerScarletAwayFrom(m_AttackContainer.position, 2f, true);
         }

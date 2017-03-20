@@ -133,6 +133,8 @@ public abstract class AngelMeleeAttack : AngelAttack, DamageCollisionHandler, Da
         m_SuccessCallback.ReportResult(this);
 
         m_Damage.m_Active = false;
+
+        CameraController.Instance.Shake();
     }
 
     public virtual void HandleScarletCollision(Collider other)

@@ -255,6 +255,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
         if (controls != null)
         {
             controls.DisableAllCommands();
+            controls.StopMoving();
         }
     }
 
