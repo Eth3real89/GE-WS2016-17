@@ -70,6 +70,11 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
         ((BulletMultiStageMovement)b.m_Movement).m_Times[0] = m_TimeToReachBorders;
         ((BulletMultiStageMovement)b.m_Movement).m_Times[1] = m_TimeStandStill;
 
+        if (((BulletMultiStageMovement)b.m_Movement).m_Movements[1] is BulletMoveAlongCircle)
+        {
+            ((BulletMoveAlongCircle)((BulletMultiStageMovement)b.m_Movement).m_Movements[1]).m_Center = m_Center;
+        }
+
         StartCoroutine(RotateBullet(b, bulletAngle - 180));
 
         return b;
