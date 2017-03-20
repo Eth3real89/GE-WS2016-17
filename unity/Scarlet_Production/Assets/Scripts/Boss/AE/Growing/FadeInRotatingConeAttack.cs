@@ -130,18 +130,28 @@ public class FadeInRotatingConeAttack : GrowingThenRotatingConeAttack {
 
     public override void OnSuccessfulHit()
     {
-        if (m_StaggerScarlet == StaggerScarlet.Hard)
+        if (m_StaggerScarlet == StaggerScarlet.Hard || m_StaggerScarlet == StaggerScarlet.Mega)
         {
             Vector3 diff = PlayerStaggerCommand.ScarletPosition() - m_AttackContainer.position;
 
             if (diff.magnitude > m_MinDistance + (m_EndSize - m_MinDistance) / 2f)
             {
                 PlayerStaggerCommand.StaggerScarletAwayFrom(m_AttackContainer.position, 2, true);
+
+                if (m_StaggerScarlet == StaggerScarlet.Mega)
+                {
+                    PlayerStaggerCommand.ApplyForceAwayFrom(diff * 2 - new Vector3(0, 1, 0), diff.magnitude * 2);
+                }
             }
             else
             {
                 diff.y = 0;
                 PlayerStaggerCommand.StaggerScarletAwayFrom(diff * 2 - new Vector3(0, 1, 0), 3, false);
+
+                if (m_StaggerScarlet == StaggerScarlet.Mega)
+                {
+                    PlayerStaggerCommand.ApplyForceAwayFrom(diff * 2 - new Vector3(0, 1, 0), diff.magnitude / 2);
+                }
             }
         }
         else
