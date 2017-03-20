@@ -73,6 +73,8 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         m_PlayerAttackCommand.m_RegularHitDamage = 0;
         m_PlayerAttackCommand.m_FinalHitDamage = 0;
         m_PlayerAttackCommand.m_RiposteDamage = m_BossHealth.m_MaxHealth / m_NumParryRequired;
+        m_ActiveCombo = null;
+        m_ComboActive = false;
 
         m_BlockTimeBefore = m_PlayerParryCommand.m_OkParryTime;
         m_PlayerParryCommand.m_OkParryTime = 0;

@@ -25,6 +25,8 @@ public class WerewolfPhase2Controller : WerewolfController
     public void LaunchPhase(BossfightCallbacks callbacks)
     {
         m_NotDeactivated = true;
+        m_ActiveCombo = null;
+        m_ComboActive = false;
 
         m_Callbacks = callbacks;
         m_Active = true;

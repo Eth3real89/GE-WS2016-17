@@ -25,6 +25,7 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
     protected virtual IEnumerator PlayCutscene()
     {
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
 
         new FARQ().ClipName("ae_fairy").Location(m_AEFairyController.transform).StartTime(23.1f).EndTime(31.3f).Volume(0.5f).PlayUnlessPlaying();
         yield return new WaitForSeconds(31.3f - 23.1f);
@@ -67,6 +68,7 @@ public class FairyBossfightPhase3 : FairyBossfightPhase {
     protected virtual IEnumerator ReanimateArmor()
     {
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
 
         float timeToReachArmor = 2.5f;
         float t = 0;

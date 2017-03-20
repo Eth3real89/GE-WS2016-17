@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
@@ -271,6 +272,11 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             yield return new WaitForSeconds(UnityEngine.Random.Range(0.02f, 0.08f));
             SetStreetLightsEnabled(i % 2 == 0, i % 2 == 0 && setEffectsOn);
         }
+    }
+
+    public override void LoadSceneAfterBossfight()
+    {
+        SceneManager.LoadScene("post_werewolf_scene");
     }
 
     private class EmptyAttackCallback : BossAttack.AttackCallback

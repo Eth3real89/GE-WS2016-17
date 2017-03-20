@@ -42,6 +42,7 @@ public class ScytheReapAttack : AngelMeleeAttack {
     {
         base.OnSuccessfulHit();
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
 
         Rigidbody scarletBody = m_PlayerHittable.GetComponent<Rigidbody>();
 

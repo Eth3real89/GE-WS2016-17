@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DemonHunterBossfight : BossFight, BossfightCallbacks
 {
@@ -84,6 +86,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
             ScarletVOPlayer.Instance.PlayVictorySound();
+            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }
 
@@ -92,7 +95,6 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
         if (hittable != null)
         {
-            new FARQ().StartTime(115).EndTime(117.6f).Location(hittable.transform).ClipName("dh").Play();
             hittable.m_HitCount = 0;
 
             hittable.GetComponent<Animator>().SetTrigger("CancelTrigger");
@@ -113,6 +115,11 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         Gunfire.ResetSound();
 
         base.OnScarletDead();
+        new FARQ().StartTime(115).EndTime(117.6f).Location(m_Phase1Controller.transform).ClipName("dh").Play();
     }
 
+    public override void LoadSceneAfterBossfight()
+    {
+        SceneManager.LoadScene("pre_angel_scene");
+    }
 }

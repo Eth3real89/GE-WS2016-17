@@ -43,6 +43,8 @@ public class AngelController : BossController {
         
         m_ScarletKnockedDown = false;
         m_NotDeactivated = true;
+        m_ActiveCombo = null;
+        m_ComboActive = false;
 
         SetSpeed(m_SpeedMultiplier);
         SetDamage(m_DamageMultiplier);

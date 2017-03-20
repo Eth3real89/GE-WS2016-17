@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -91,5 +92,9 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         m_Phase2Controller.m_NotDeactivated = false;
 
         base.OnScarletDead();
+    }
+
+    public override void LoadSceneAfterBossfight()
+    {
     }
 }

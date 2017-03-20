@@ -75,14 +75,14 @@ public class FancyAudio : MonoBehaviour
         if (!_Instance.m_Clips.ContainsKey(rq.m_ClipName))
             return;
 
-        AudioSource source = FindAudioSource(rq);
+        SourceAndRequest sar = FindAudioSource(rq);
+        AudioSource source = sar.m_Source;
 
         source.clip = _Instance.m_Clips[rq.m_ClipName];
 
         source.loop = rq.m_Loop;
         source.time = rq.m_Start;
         source.volume = rq.m_Volume * _s_MasterVolume;
-        source.Play();
 
         float duration;
         if (rq.m_End == -1)
@@ -94,7 +94,9 @@ public class FancyAudio : MonoBehaviour
             duration = rq.m_End - rq.m_Start;
         }
 
-        _Instance.StartCoroutine(StopPlaying(source, duration, rq));
+        source.Play();
+        sar.m_PlayEnumerator = StopPlaying(source, duration, sar);
+        _Instance.StartCoroutine(sar.m_PlayEnumerator);
     }
 
     public void StopAll()
@@ -111,17 +113,19 @@ public class FancyAudio : MonoBehaviour
         }
     }
 
-    private IEnumerator StopPlaying(AudioSource source, float seconds, FARQ originalRequest)
+    private IEnumerator StopPlaying(AudioSource source, float seconds, SourceAndRequest originalRequest)
     {
         yield return new WaitForSecondsRealtime(seconds);
         if (source != null && source.isPlaying)
         {
-            if (!originalRequest.m_Loop)
+            if (!originalRequest.m_Request.m_Loop)
                 source.Stop();
 
-            if (originalRequest.m_OnFinish != null)
-                originalRequest.m_OnFinish();
+            if (originalRequest.m_Request.m_OnFinish != null)
+                originalRequest.m_Request.m_OnFinish();
         }
+
+        originalRequest.m_PlayEnumerator = null;
     }
 
     public List<AudioSource> SearchByParams(FARQ rq)
@@ -151,7 +155,7 @@ public class FancyAudio : MonoBehaviour
     /// (Does not affect sources that were not created by FancyAudio.)
     /// </summary>
     /// <param name="m_Position"></param>
-    private AudioSource FindAudioSource(FARQ request)
+    private SourceAndRequest FindAudioSource(FARQ request)
     {
         Transform position = request.m_Position;
 
@@ -167,30 +171,32 @@ public class FancyAudio : MonoBehaviour
             _Instance.m_Sources.Add(position, sources);
         }
 
+        SourceAndRequest sar = null;
         AudioSource emptySource = null;
         foreach (SourceAndRequest source in sources)
         {
-            if (!source.m_Source.isPlaying)
+            if (!source.m_Source.isPlaying && source.m_PlayEnumerator == null)
             {
                 emptySource = source.m_Source;
                 source.m_Request = request;
+                sar = source;
                 break;
             }
         }
 
-        if (emptySource == null)
+        if (sar == null)
         {
             emptySource = GameObject.Instantiate(m_SourcePrefab, position);
             emptySource.transform.localPosition = new Vector3(0, 0, 0);
 
-            SourceAndRequest sar = new SourceAndRequest();
+            sar = new SourceAndRequest();
             sar.m_Request = request;
             sar.m_Source = emptySource;
 
             sources.Add(sar);
         }
 
-        return emptySource;
+        return sar;
     }
 
 
@@ -319,4 +325,6 @@ public class SourceAndRequest
 {
     public AudioSource m_Source;
     public FARQ m_Request;
+
+    public IEnumerator m_PlayEnumerator;
 }

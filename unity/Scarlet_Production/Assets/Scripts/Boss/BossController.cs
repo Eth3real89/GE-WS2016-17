@@ -334,7 +334,7 @@ public class BossController : MonoBehaviour, AttackCombo.ComboCallback, Blocking
                 c.CancelCombo();
             }
         }
-        catch { }
+        catch {}
 
         try
         {

@@ -25,8 +25,11 @@ public class VampirePhase3Controller : VampireController
         ((VampireHittable)m_BossHittable).m_DontPlaySound = true;
 
         PlayerControls controls = FindObjectOfType<PlayerControls>();
-        if (controls != null)
+        if (controls != null) 
+        {
             controls.DisableAllCommands();
+            controls.StopMoving();
+        }
 
         StartCoroutine(SlowlyDrainHealth());
 

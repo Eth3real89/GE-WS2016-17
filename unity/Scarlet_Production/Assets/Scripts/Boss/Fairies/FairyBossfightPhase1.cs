@@ -35,6 +35,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
     {
         m_ArmorAnimator.SetBool("Dead", false);
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
 
         //Vector3 prefScaleSword = new Vector3(m_Sword.transform.localScale.x, m_Sword.transform.localScale.y, m_Sword.transform.localScale.z);
         //Vector3 prefScaleShield = new Vector3(m_Shield.transform.localScale.x, m_Shield.transform.localScale.y, m_Shield.transform.localScale.z);
@@ -135,6 +136,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_AEFairyCollider.enabled = true;
 
         m_PlayerControls.DisableAllCommands();
+        m_PlayerControls.StopMoving();
         m_AEFairyController.ExpandLightGuard();
 
         float t = 0;
