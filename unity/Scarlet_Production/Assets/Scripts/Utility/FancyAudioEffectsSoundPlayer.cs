@@ -21,7 +21,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayParriedSound(Transform attachTo)
     {
-        return createRequest("eff_parried", 0, -1, attachTo, false);
+        return createRequest("eff_parried", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayBeamSound(Transform attachTo)
@@ -36,12 +36,28 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayPistolsReloadSound(Transform attachTo)
     {
-        return createRequest("eff_pistols_reload", 0, -1, attachTo, false);
+        return createRequest("eff_pistols_reload", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayRifleReloadSound(Transform attachTo)
     {
-        return createRequest("eff_rifle_reload", 0, -1, attachTo, false);
+        return createRequest("eff_rifle_reload", 0, -1, attachTo, false, 1f);
+    }
+
+
+    public FARQ PlayPistolsShotSound(Transform attachTo)
+    {
+        return createRequestUnlessPlaying("eff_pistols_shot", 0, 0.48f, attachTo, false, 1f);
+    }
+
+    public FARQ PlayMagInsertSound(Transform attachTo)
+    {
+        return createRequest("eff_mag_insert", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayRifleShotSound(Transform attachTo)
+    {
+        return createRequest("eff_rifle_shot", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayBulletSpawnSound(Transform attachTo)
@@ -104,10 +120,17 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_heal", 0, -1, attachTo, false);
     }
 
-    protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 1f)
+    protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)
     {
-        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(0);
+        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
         f.Play();
+        return f;
+    }
+
+    protected FARQ createRequestUnlessPlaying(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)
+    {
+        FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
+        f.PlayUnlessPlaying();
         return f;
     }
 

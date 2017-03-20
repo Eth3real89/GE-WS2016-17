@@ -9,8 +9,7 @@ public class IngameMenuController : MonoBehaviour
 
     private int resume = 0;
     private int music = 1;
-    private int invertControl = 2;
-    private int backToMain = 3;
+    private int backToMain = 2;
 
 
     private Slider m_MusicSlider;
@@ -134,13 +133,6 @@ public class IngameMenuController : MonoBehaviour
         if(selected == music)
         {
             //Musik Lautstärke auf den übergebenen Wert setzen
-        }
-    }
-
-    public void ToggleControllerInput() {
-        if (selected == invertControl)
-        {
-            //Je nach Wert die Steuerung invertieren oder nicht
         }
     }
 

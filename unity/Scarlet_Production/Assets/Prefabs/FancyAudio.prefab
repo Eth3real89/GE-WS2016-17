@@ -69,6 +69,9 @@ GameObject:
   - component: {fileID: 114758136346561942}
   - component: {fileID: 114148384187426752}
   - component: {fileID: 114633288114347056}
+  - component: {fileID: 114083306689019112}
+  - component: {fileID: 114518020176416142}
+  - component: {fileID: 114911504361769850}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -208,8 +211,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 5b233a7e1492d50479aa84cc062454c6, type: 3}
   m_ClipName: eff_pistols_reload
+--- !u!114 &114083306689019112
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 43bf9adbc6e70744abd9b90081a04eba, type: 3}
+  m_ClipName: eff_pistols_shot
 --- !u!114 &114148384187426752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -313,6 +329,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: f463800ff17867443b5ccf3ebb6ec7c6, type: 3}
   m_ClipName: eff_gather_light_travel
+--- !u!114 &114518020176416142
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 574db322ebc945146bc2d9c3fbabd7b6, type: 3}
+  m_ClipName: eff_rifle_shot
 --- !u!114 &114547546187126882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -374,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: f2e40616af7ff4b438ba719b223e9dd9, type: 3}
   m_ClipName: eff_rifle_reload
 --- !u!114 &114753017470843816
 MonoBehaviour:
@@ -426,7 +455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 063128a0a6102b245bbdfbe613ed2379, type: 3}
   m_ClipName: eff_parried
 --- !u!114 &114863679490776224
 MonoBehaviour:
@@ -441,3 +470,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
   m_ClipName: eff_scythe_rotate_upwards
+--- !u!114 &114911504361769850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: d7c4497d466c9434ea55a51eb9a7e8b0, type: 3}
+  m_ClipName: eff_mag_insert

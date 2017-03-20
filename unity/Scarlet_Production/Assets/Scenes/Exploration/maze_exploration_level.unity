@@ -21986,11 +21986,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 442577908}
   m_Mesh: {fileID: 4300000, guid: bfb8dc8972490e84aaf11afce870c032, type: 3}
---- !u!1 &467743037 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1342562087629762, guid: edce96fe67933554cbfbcbbd5c64e4ec,
-    type: 2}
-  m_PrefabInternal: {fileID: 1151828466}
 --- !u!1 &468255587
 GameObject:
   m_ObjectHideFlags: 0
@@ -28027,7 +28022,6 @@ MonoBehaviour:
   MenuItems:
   - {fileID: 691174989}
   - {fileID: 1473834909}
-  - {fileID: 467743037}
   - {fileID: 554154397}
   menu: {fileID: 48340093}
 --- !u!114 &566930179
@@ -61014,6 +61008,31 @@ Prefab:
       propertyPath: menuCamera
       value: 
       objectReference: {fileID: 566930179}
+    - target: {fileID: 224889305710494500, guid: 46e1ed52280b4ae46bed540f0468ffa2,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224889305710494500, guid: 46e1ed52280b4ae46bed540f0468ffa2,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224149807474449066, guid: 46e1ed52280b4ae46bed540f0468ffa2,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224149807474449066, guid: 46e1ed52280b4ae46bed540f0468ffa2,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224149807474449066, guid: 46e1ed52280b4ae46bed540f0468ffa2,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 46e1ed52280b4ae46bed540f0468ffa2, type: 2}
   m_IsPrefabParent: 0
