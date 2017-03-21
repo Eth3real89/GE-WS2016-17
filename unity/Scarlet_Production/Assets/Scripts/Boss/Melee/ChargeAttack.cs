@@ -190,7 +190,7 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
     {
         if (m_State == State.Run && initialCollision)
         {
-            if (m_EnvironmentColliders.IndexOf(other.gameObject) >= 0)
+            if (m_EnvironmentColliders.IndexOf(other.gameObject) >= 0) // <- == hit a wall
             {
                 if (m_StateTimer != null)
                     StopCoroutine(m_StateTimer);
@@ -201,6 +201,8 @@ public class ChargeAttack : BossAttack, DamageCollisionHandler {
 
                 m_DamageTrigger.m_Active = false;
                 m_BossCollider.m_Active = false;
+
+                FancyAudioEffectsSoundPlayer.Instance.PlayBigWeaponImpactSound(m_Boss.transform);
 
                 if (m_CarryingScarlet)
                 {

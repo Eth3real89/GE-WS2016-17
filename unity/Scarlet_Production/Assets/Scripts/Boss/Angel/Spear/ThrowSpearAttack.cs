@@ -49,7 +49,7 @@ public class ThrowSpearAttack : AngelAttack
         m_Weapons.RemoveTip();
         m_AngelStaff.SetActive(false);
 
-        m_SpearToHurl.transform.position = m_AngelStaff.transform.position - new Vector3(0, m_AngelStaff.transform.position.y, 0);
+        m_SpearToHurl.transform.position = m_AngelStaff.transform.position;
         m_SpearToHurl.transform.rotation = Quaternion.Euler(0, m_Boss.transform.rotation.eulerAngles.y, 0);
         m_SpearToHurl.gameObject.SetActive(true);
         FancyAudioEffectsSoundPlayer.Instance.PlayThrowSpearSound(m_SpearToHurl.transform);

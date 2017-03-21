@@ -177,6 +177,37 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7fb7c00d41675af4290c00c657ce9f66, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &42171154 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1860542475869306, guid: 7fb7c00d41675af4290c00c657ce9f66,
+    type: 2}
+  m_PrefabInternal: {fileID: 42171153}
+--- !u!114 &42171155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 42171154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: e8a45d66663cbde439913721cf634b72, type: 3}
+  m_ClipName: eff_armor_hit_ground
+--- !u!114 &42171156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 42171154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 1bd45a6ac50fa8448beeff15a605d0f8, type: 3}
+  m_ClipName: eff_body_hit_ground
 --- !u!1001 &54967119
 Prefab:
   m_ObjectHideFlags: 0
@@ -4787,7 +4818,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
-  m_StartPhase: 0
+  m_StartPhase: 1
   m_Phase1: {fileID: 1929195639}
   m_Phase2: {fileID: 252596080}
   m_Phase3: {fileID: 813341994}
@@ -8897,6 +8928,28 @@ GameObject:
   m_PrefabParentObject: {fileID: 1918826352540026, guid: e2c38e6550dc81348be55dcf2fb78481,
     type: 2}
   m_PrefabInternal: {fileID: 149003328}
+--- !u!114 &1509072869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509072868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 009d8b9b9754fa242938fd8f2ac81c61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1509072870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1509072868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79a127ee287ea746bab18ffad0e1bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1509072877 stripped
 Animator:
   m_PrefabParentObject: {fileID: 95123423343808628, guid: e2c38e6550dc81348be55dcf2fb78481,

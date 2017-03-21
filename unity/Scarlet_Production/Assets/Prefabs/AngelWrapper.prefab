@@ -5787,6 +5787,7 @@ GameObject:
   - component: {fileID: 114940212842150974}
   - component: {fileID: 114216377217466738}
   - component: {fileID: 114686573878909234}
+  - component: {fileID: 114777504330371076}
   m_Layer: 9
   m_Name: angel
   m_TagString: Untagged
@@ -27164,6 +27165,17 @@ MonoBehaviour:
   m_BaseSwarm: {fileID: 114968976751838882}
   m_AnimationStartTime: 0
   m_MoveOnAfter: 0
+--- !u!114 &114777504330371076
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1508432114519878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79a127ee287ea746bab18ffad0e1bb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114783896050880288
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -27427,7 +27439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Scarlet: {fileID: 0}
-  m_NotDeactivated: 1
+  m_NotDeactivated: 0
   m_Combos:
   - {fileID: 114791697742346416}
   - {fileID: 114898679893377186}
@@ -27454,7 +27466,7 @@ MonoBehaviour:
   - {fileID: 114740423821568736}
   - {fileID: 114898964670306910}
   - {fileID: 114543507140824996}
-  m_DebugAttackIndex: 3
+  m_DebugAttackIndex: 6
   m_DebugForceAttack: 0
   m_SpeedMultiplier: 1.25
   m_DamageMultiplier: 1

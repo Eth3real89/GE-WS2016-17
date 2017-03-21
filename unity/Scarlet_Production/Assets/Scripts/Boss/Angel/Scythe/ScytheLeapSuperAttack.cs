@@ -79,14 +79,20 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         float yVelocity = 0;
         float rotationTime = AdjustTime(m_RotationTime);
 
-        FancyAudioEffectsSoundPlayer.Instance.PlayScytheRotateUpwardsSound(m_Boss.transform);
         float t = 0;
         while((t += Time.deltaTime) < rotationTime)
         {
             yVelocity += ((t > rotationTime / 2)? -1 : 1) * Time.deltaTime * m_UpSpeed;
             m_Boss.transform.position += new Vector3(0, yVelocity, 0) + m_Boss.transform.forward * AdjustSpeed(m_ForwardSpeed) * Time.deltaTime;
 
+            float rot1 = m_Boss.transform.rotation.eulerAngles.y;
             m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * Mathf.Sin(t / rotationTime * Mathf.PI / 2), 0);
+            float rot2 = m_Boss.transform.rotation.eulerAngles.y;
+
+            if ((rot1 < initialYRotation && rot2 >= initialYRotation) || (rot1 >= initialYRotation && rot2 < initialYRotation)) {
+                FancyAudioEffectsSoundPlayer.Instance.PlayScytheRotateUpwardsSound(m_Boss.transform);
+            }
+
             yield return null;
         }
 

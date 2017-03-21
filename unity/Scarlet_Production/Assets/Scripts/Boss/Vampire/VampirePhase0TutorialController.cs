@@ -348,7 +348,7 @@ public class VampirePhase0TutorialController : VampireController {
             m_DashTutorialOver = true;
 
             m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
-            StartCoroutine(MoveOnAfterWaiting());
+            StartCoroutine(WaitThenMoveOnAfterWaiting());
         }
     }
 
@@ -434,6 +434,13 @@ public class VampirePhase0TutorialController : VampireController {
         m_CurrentComboIndex--;
         m_NextComboTimer = StartNextComboAfter(0.5f);
         StartCoroutine(m_NextComboTimer);
+    }
+
+    // method name ~.~
+    private IEnumerator WaitThenMoveOnAfterWaiting()
+    {
+        yield return new WaitForSeconds(1f);
+        StartCoroutine(MoveOnAfterWaiting());
     }
 
     private IEnumerator MoveOnAfterWaiting()
