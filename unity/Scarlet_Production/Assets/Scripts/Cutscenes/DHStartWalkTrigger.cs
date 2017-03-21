@@ -8,4 +8,9 @@ public class DHStartWalkTrigger : MonoBehaviour {
 	{
 		GetComponent<Animator>().SetTrigger("WalkTrigger");
 	}
+
+	public void Ignite()
+	{
+		GetComponent<Animator>().SetTrigger("IgniteTrigger");
+	}
 }
