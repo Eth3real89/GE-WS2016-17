@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletFactoryInvoker : MonoBehaviour {
 
+    public enum PlaySpawnAudio {None, All, PerIteration };
+
     public BulletFactory[] m_Factories;
     public Transform m_Base;
 
@@ -14,6 +16,8 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
     protected IEnumerator m_LaunchIterationTimer;
 
+    public PlaySpawnAudio m_PlayAudio = PlaySpawnAudio.None;
+
     public virtual void Launch(BulletSwarm bs, IEnumerator onFinish = null)
     {
         m_CurrentIteration = 0;
@@ -22,10 +26,16 @@ public class BulletFactoryInvoker : MonoBehaviour {
 
     protected virtual void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
+        if (m_PlayAudio == PlaySpawnAudio.PerIteration)
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(m_Base.transform, 1f);
 
         for (int i = 0; i < m_Factories.Length; i++)
         {
             BulletBehaviour b = CreateBullet(i);
+
+            if(m_PlayAudio == PlaySpawnAudio.All)
+                FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(b.transform, .3f);
+
             b.Launch(bs);
             bs.m_Instances.Add(b);
         }

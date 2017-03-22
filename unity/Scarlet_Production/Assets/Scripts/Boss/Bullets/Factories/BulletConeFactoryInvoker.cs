@@ -11,6 +11,9 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
     
     protected override void SpawnIteration(BulletSwarm bs, IEnumerator onFinish = null)
     {
+        if (m_PlayAudio == PlaySpawnAudio.PerIteration)
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(m_Base.transform);
+
         int count = m_IterationBulletCounts[m_CurrentIteration];
 
         float angleStep = (count > 1)? ((m_Angle) / ((m_Angle == 360)? count : count - 1)) : 0;
@@ -20,6 +23,9 @@ public class BulletConeFactoryInvoker : BulletFactoryInvoker {
             BulletBehaviour b = m_Factories[m_CurrentIteration].CreateBullet();
             b.transform.position = m_Base.transform.position;
             b.transform.rotation = m_Base.transform.rotation;
+
+            if (m_PlayAudio == PlaySpawnAudio.All)
+                FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(b.transform, .3f);
 
             b.Launch(bs);
 

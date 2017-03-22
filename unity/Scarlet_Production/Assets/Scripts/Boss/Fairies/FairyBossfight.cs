@@ -29,12 +29,16 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     public override void StartBossfight()
     {
         base.StartBossfight();
+
         StartCoroutine(StartAfterShortDelay());
     }
 
     private IEnumerator StartAfterShortDelay()
     {
         yield return new WaitForSeconds(0.2f);
+        ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
+        armorHittable.GetComponent<Animator>().ResetTrigger("ReanimationTrigger");
+
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Cave;
         ScarletVOPlayer.Instance.SetupPlayers();
 
@@ -193,6 +197,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         aeHealth.m_CurrentHealth = aeHealth.m_HealthStart;
 
         ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
+        armorHittable.GetComponent<Animator>().SetBool("Dead", false);
+        armorHittable.GetComponent<Animator>().SetTrigger("ReanimationTrigger");
         CharacterHealth armorHealth = armorHittable.GetComponent<CharacterHealth>();
         armorHealth.m_CurrentHealth = armorHealth.m_HealthStart;
 
