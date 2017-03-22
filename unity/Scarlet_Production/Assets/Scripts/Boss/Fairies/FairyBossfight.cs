@@ -24,6 +24,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     void Start()
     {
         StartBossfight();
+        StartCoroutine(SaveProgressInPlayerPrefs());
     }
 
     public override void StartBossfight()
@@ -241,6 +242,15 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     public override void LoadSceneAfterBossfight()
     {
+        PlayerPrefs.SetString("CurrentLevel", "post_fairies_exploration_level");
+        PlayerPrefs.Save();
         SceneManager.LoadScene("post_fairies_exploration_level");
+    }
+
+    protected override IEnumerator SaveProgressInPlayerPrefs()
+    {
+        yield return null;
+        PlayerPrefs.SetString("CurrentLevel", "fairies_battle_dev");
+        PlayerPrefs.Save();
     }
 }

@@ -235,6 +235,7 @@ public abstract class BossFight : MonoBehaviour {
         }
     }
 
+    protected abstract IEnumerator SaveProgressInPlayerPrefs();
 }
 
 public interface BossfightCallbacks

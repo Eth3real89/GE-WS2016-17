@@ -12,72 +12,78 @@ public class MainMenuController : MonoBehaviour
     public TrackingBehaviour menuCamera;
     public GameObject Menu;
 
-    private bool isShowing;
+    public bool isShowing = false;
+
     private int selected;
     private CameraTracking cameraTracking;
     private TrackingBehaviour previousTracking;
 
     void Start()
     {
+        AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
-        isShowing = true;
-        selected = 0;
-        SelectItem(selected);
-        SetScarletControlsEnabled(false);
+        if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
+        {
+            selected = 0;
+            SelectItem(selected);
+            SetScarletControlsEnabled(false);
+        } 
+        if(PlayerPrefs.GetInt("IsStarted") == 1)
+        {
+            StartNewGame();
+        }
     }
 
     void Update()
     {
-        if (isShowing && cameraTracking.m_TrackingBehaviour != menuCamera)
-        {
-            previousTracking = cameraTracking.m_TrackingBehaviour;
-            cameraTracking.m_TrackingBehaviour = menuCamera;
-        }
 
-        if (Input.GetButtonDown("Vertical"))
+        if (isShowing)
         {
-            if (Input.GetAxis("Vertical") < 0)
+            if (Input.GetButtonDown("Vertical"))
             {
-                if (selected == MenuItems.Length - 1)
+                if (Input.GetAxis("Vertical") < 0)
                 {
-                    selected = 0;
+                    if (selected == MenuItems.Length - 1)
+                    {
+                        selected = 0;
+                    }
+                    else
+                    {
+                        selected += 1;
+                    }
                 }
                 else
                 {
-                    selected += 1;
+                    if (selected == 0)
+                    {
+                        selected = MenuItems.Length - 1;
+                    }
+                    else
+                    {
+                        selected -= 1;
+                    }
                 }
+                SelectItem(selected);
             }
-            else
+
+            if (Input.GetButtonDown("Submit"))
             {
                 if (selected == 0)
                 {
-                    selected = MenuItems.Length - 1;
+                    StartNewGame();
                 }
-                else
+                else if (selected == 1)
                 {
-                    selected -= 1;
+                    LoadGame();
                 }
-            }
-            SelectItem(selected);
-        }
-
-        if (Input.GetButtonDown("Submit"))
-        {
-            if (selected == 0)
-            {
-                StartNewGame();
-            }
-            else if (selected == 1)
-            {
-                LoadGame();
-            }
-            else if (selected == 2)
-            {
-                OpenOptions();
-            }
-            else if (selected == 3)
-            {
-                CloseGame();
+                else if (selected == 2)
+                {
+                    OpenOptions();
+                }
+                else if (selected == 3)
+                {
+                    CloseGame();
+                }
             }
         }
     }
@@ -127,16 +133,23 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == 0)
         {
-            // Reset Player Prefs
+            // Reset Player Prefs except volume
             PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+            if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
+            {
+                ZoomToScarlet();
+                Menu.SetActive(false);
+                GetComponent<MainMenuController>().enabled = false;
+                GetComponentInParent<IngameMenuController>().enabled = true;
 
-            ZoomToScarlet();
-            Menu.SetActive(false);
-            GetComponent<MainMenuController>().enabled = false;
-            GetComponentInParent<IngameMenuController>().enabled = true;
-
-            ActivateScarletControls();
-            SequencedActionController.Instance.PlayCutscene("Opening");
+                ActivateScarletControls();
+                SequencedActionController.Instance.PlayCutscene("Opening");
+            } else
+            {
+                PlayerPrefs.SetInt("IsStarted", 1);
+                SceneManager.LoadScene("city_exploration_level");
+            }
         }
     }
 
@@ -144,14 +157,25 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == 1)
         {
-            //TODO: Loadgame instead of new
-            ZoomToScarlet();
-            Menu.SetActive(false);
-            GetComponent<MainMenuController>().enabled = false;
-            GetComponentInParent<IngameMenuController>().enabled = true;
-            GetComponent<AreaEnterTextController>().StartFadeIn();
+            ////TODO: Check load game with checkpoints
+            var currentScene = SceneManager.GetActiveScene().name;
+            if (!PlayerPrefs.GetString("CurrentLevel", "city_exploration_level").Equals(currentScene))
+            {
+                SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel", "city_exploration_level"));
+            }
+            else
+            {
+                ZoomToScarlet();
+                Menu.SetActive(false);
+                GetComponent<MainMenuController>().enabled = false;
+                GetComponentInParent<IngameMenuController>().enabled = true;
 
-            ActivateScarletControls();
+                ActivateScarletControls();
+                if (currentScene.Equals("city_exploration_level"))
+                {
+                    SequencedActionController.Instance.PlayCutscene("Opening");
+                }
+            }
         }
     }
 
@@ -168,7 +192,14 @@ public class MainMenuController : MonoBehaviour
 
     public void Activate()
     {
+        isShowing = true;
+
+        previousTracking = cameraTracking.m_TrackingBehaviour;
+        cameraTracking.m_TrackingBehaviour = menuCamera;
+        selected = 0;
+        SelectItem(selected);
         Menu.SetActive(true);
+        SetScarletControlsEnabled(false);
     }
 
     private void ActivateScarletControls()

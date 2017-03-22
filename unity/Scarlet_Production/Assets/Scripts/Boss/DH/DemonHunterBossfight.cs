@@ -19,6 +19,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
     void Start()
     {
         StartBossfight();
+        StartCoroutine(SaveProgressInPlayerPrefs());
     }
 
     public override void StartBossfight()
@@ -126,6 +127,15 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     public override void LoadSceneAfterBossfight()
     {
+        PlayerPrefs.SetString("CurrentLevel", "pre_angel_scene");
+        PlayerPrefs.Save();
         SceneManager.LoadScene("pre_angel_scene");
+    }
+
+    protected override IEnumerator SaveProgressInPlayerPrefs()
+    {
+        yield return null;
+        PlayerPrefs.SetString("CurrentLevel", "dh_battle_dev");
+        PlayerPrefs.Save();
     }
 }

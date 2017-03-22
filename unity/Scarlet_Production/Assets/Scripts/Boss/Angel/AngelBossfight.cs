@@ -21,6 +21,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
     void Start()
     {
         StartBossfight();
+        StartCoroutine(SaveProgressInPlayerPrefs());
     }
 
     public override void StartBossfight()
@@ -96,5 +97,13 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
     public override void LoadSceneAfterBossfight()
     {
+        // @todo
+    }
+
+    protected override IEnumerator SaveProgressInPlayerPrefs()
+    {
+        yield return null;
+        PlayerPrefs.SetString("CurrentLevel", "dh_angel_battle_dev");
+        PlayerPrefs.Save();
     }
 }
