@@ -19,6 +19,7 @@ function Update () {
 
 function GenerateSunRays () {
 	rayRef = GameObject.CreatePrimitive(PrimitiveType.Quad);
+	rayRef.GetComponent.<Collider>().enabled = false;
 	rayRef.GetComponent.<Renderer>().material = rayMaterial;
 	rayRef.GetComponent.<Renderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
 	rayRef.GetComponent.<Renderer>().receiveShadows = false;
