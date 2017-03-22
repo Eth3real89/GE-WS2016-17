@@ -27,7 +27,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
     void Start()
     {
         StartBossfight();
-
+        StartCoroutine(SaveProgressInPlayerPrefs());
         m_RagemodeConeAttack.m_Callback = new EmptyAttackCallback();
     }
 
@@ -277,7 +277,16 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     public override void LoadSceneAfterBossfight()
     {
+        PlayerPrefs.SetString("CurrentLevel", "post_werewolf_scene");
+        PlayerPrefs.Save();
         SceneManager.LoadScene("post_werewolf_scene");
+    }
+
+    protected override IEnumerator SaveProgressInPlayerPrefs()
+    {
+        yield return null;
+        PlayerPrefs.SetString("CurrentLevel", "werewolf_battle_dev");
+        PlayerPrefs.Save();
     }
 
     private class EmptyAttackCallback : BossAttack.AttackCallback

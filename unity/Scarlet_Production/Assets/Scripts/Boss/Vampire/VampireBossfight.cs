@@ -21,6 +21,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     void Start()
     {
         StartBossfight();
+        StartCoroutine(SaveProgressInPlayerPrefs());
     }
 
     public override void StartBossfight()
@@ -198,6 +199,15 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
 
     public override void LoadSceneAfterBossfight()
     {
+        PlayerPrefs.SetString("CurrentLevel", "post_vampire_scene");
+        PlayerPrefs.Save();
         SceneManager.LoadScene("post_vampire_scene");
+    }
+
+    protected override IEnumerator SaveProgressInPlayerPrefs()
+    {
+        yield return null;
+        PlayerPrefs.SetString("CurrentLevel", "vampire_battle_dev");
+        PlayerPrefs.Save();
     }
 }
