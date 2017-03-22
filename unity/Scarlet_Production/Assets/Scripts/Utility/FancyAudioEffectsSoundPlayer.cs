@@ -70,9 +70,9 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_rifle_shot", 0, -1, attachTo, false, 1f);
     }
 
-    public FARQ PlayBulletSpawnSound(Transform attachTo)
+    public FARQ PlayBulletSpawnSound(Transform attachTo, float volume = 1f)
     {
-        return createRequest("eff_bullet_spawn", 0, -1, attachTo, false);
+        return createRequest("eff_bullet_spawn", 3f, 3.9f, attachTo, false, volume);
     }
 
     public FARQ PlayShockWaveSpawnSound(Transform attachTo)

@@ -28,11 +28,13 @@ public class BulletSurroundingFactoryInvoker : BulletFactoryInvoker {
         {
             m_Time = Time.timeSinceLevelLoad - m_AbsoluteStartTime;
         }
-
+        
         BulletBehaviour b = CreateBullet(m_CurrentIteration);
         b.transform.rotation = Quaternion.Euler(m_Base.transform.rotation.eulerAngles);
         b.transform.position = new Vector3(m_Base.transform.position.x, m_Base.transform.position.y, m_Base.transform.position.z);
-        
+
+        if (m_PlayAudio == PlaySpawnAudio.PerIteration || m_PlayAudio == PlaySpawnAudio.All)
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(m_Base.transform);
 
         b.Launch(bs);
         bs.m_Instances.Add(b);

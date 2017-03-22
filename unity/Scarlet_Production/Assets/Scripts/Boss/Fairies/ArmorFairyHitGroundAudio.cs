@@ -8,4 +8,9 @@ public class ArmorFairyHitGroundAudio : MonoBehaviour {
     {
         FancyAudioEffectsSoundPlayer.Instance.PlayArmorHitGroundSound(transform);
     }
+
+    public void GroundImpact()
+    {
+        FancyAudioEffectsSoundPlayer.Instance.PlayArmorHitGroundSound(transform);
+    }
 }

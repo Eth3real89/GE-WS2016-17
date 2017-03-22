@@ -76,6 +76,8 @@ GameObject:
   - component: {fileID: 114919901147653246}
   - component: {fileID: 114718941047307798}
   - component: {fileID: 114664028697622434}
+  - component: {fileID: 114393632498024976}
+  - component: {fileID: 114768203406713930}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -306,7 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 6cc09994e5005bc42b3b8f0ce08217b5, type: 3}
   m_ClipName: eff_grenade_explode
 --- !u!114 &114365536341598128
 MonoBehaviour:
@@ -320,6 +322,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SourcePrefab: {fileID: 82476414384235110}
+--- !u!114 &114393632498024976
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: e8a45d66663cbde439913721cf634b72, type: 3}
+  m_ClipName: eff_armor_hit_ground
 --- !u!114 &114496724577203308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -474,6 +489,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: 169f01c203f018c48a9b7663e4cb6f74, type: 3}
   m_ClipName: eff_scythe_crash_down
+--- !u!114 &114768203406713930
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 1bd45a6ac50fa8448beeff15a605d0f8, type: 3}
+  m_ClipName: eff_body_hit_ground
 --- !u!114 &114823707115083074
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -485,7 +513,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: c527b02772e1db14eb93d4d9a9f1943c, type: 3}
   m_ClipName: eff_bullet_spawn
 --- !u!114 &114861370789425852
 MonoBehaviour:

@@ -24,9 +24,15 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
     {
         bs.transform.position = new Vector3(m_Center.position.x, m_Center.position.y, m_Center.position.z);
 
-        for(int i = 0; i < m_CountPerIteration; i++)
+        if (m_PlayAudio == PlaySpawnAudio.PerIteration)
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(m_Spawn.transform);
+
+        for (int i = 0; i < m_CountPerIteration; i++)
         {
             BulletBehaviour b = CreateBullet(m_CurrentIteration, i);
+
+            if (m_PlayAudio == PlaySpawnAudio.All)
+                FancyAudioEffectsSoundPlayer.Instance.PlayBulletSpawnSound(b.transform, .3f);
 
             b.Launch(bs);
             bs.m_Instances.Add(b);
