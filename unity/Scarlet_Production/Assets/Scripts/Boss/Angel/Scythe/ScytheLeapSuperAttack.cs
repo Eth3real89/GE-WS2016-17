@@ -79,6 +79,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         float yVelocity = 0;
         float rotationTime = AdjustTime(m_RotationTime);
 
+        FARQ audio = FancyAudioEffectsSoundPlayer.Instance.PlayScytheRotateUpwardsSound(m_Boss.transform);
         float t = 0;
         while((t += Time.deltaTime) < rotationTime)
         {
@@ -88,16 +89,12 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
             float rot1 = m_Boss.transform.rotation.eulerAngles.y;
             m_Boss.transform.rotation = Quaternion.Euler(0, initialYRotation + m_RotateAngles * Mathf.Sin(t / rotationTime * Mathf.PI / 2), 0);
             float rot2 = m_Boss.transform.rotation.eulerAngles.y;
-
-            if ((rot1 < initialYRotation && rot2 >= initialYRotation) || (rot1 >= initialYRotation && rot2 < initialYRotation)) {
-                FancyAudioEffectsSoundPlayer.Instance.PlayScytheRotateUpwardsSound(m_Boss.transform);
-            }
-
+            
             yield return null;
         }
 
         m_Boss.transform.rotation = Quaternion.Euler(0, m_RotateAngles + initialYRotation, 0);
-
+        audio.StopIfPlaying();
         m_RotationDamage.m_Active = false;
 
         m_Timer = AtHighestPoint();

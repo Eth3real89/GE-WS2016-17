@@ -92,7 +92,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayGatherLightTravellingSound(Transform attachTo)
     {
-        return createRequest("eff_gather_light_travel", 0, -1, attachTo, true);
+        return createRequest("eff_gather_light_travel", 0, -1, attachTo, true, 1f);
     }
 
     public FARQ PlayHoverDashSound(Transform attachTo)
@@ -122,7 +122,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayScytheRotateUpwardsSound(Transform attachTo)
     {
-        return createRequest("eff_scythe_rotate_upwards", 0.4f, -1, attachTo, false, 1f);
+        return createRequest("eff_scythe_rotate_upwards", 0.2f, -1, attachTo, true, 1f);
     }
 
     public FARQ PlayScytheCrashDownSound(Transform attachTo)
