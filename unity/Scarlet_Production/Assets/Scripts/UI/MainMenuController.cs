@@ -136,7 +136,7 @@ public class MainMenuController : MonoBehaviour
             // Reset Player Prefs except volume
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
-            if (SceneManager.GetActiveScene().name == "city_exploration_level")
+            if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
             {
                 ZoomToScarlet();
                 Menu.SetActive(false);
@@ -157,14 +157,25 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == 1)
         {
-            //TODO: Loadgame instead of new
-            ZoomToScarlet();
-            Menu.SetActive(false);
-            GetComponent<MainMenuController>().enabled = false;
-            GetComponentInParent<IngameMenuController>().enabled = true;
-            GetComponent<AreaEnterTextController>().StartFadeIn();
+            ////TODO: Check load game with checkpoints
+            var currentScene = SceneManager.GetActiveScene().name;
+            if (!PlayerPrefs.GetString("CurrentLevel", "city_exploration_level").Equals(currentScene))
+            {
+                SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel", "city_exploration_level"));
+            }
+            else
+            {
+                ZoomToScarlet();
+                Menu.SetActive(false);
+                GetComponent<MainMenuController>().enabled = false;
+                GetComponentInParent<IngameMenuController>().enabled = true;
 
-            ActivateScarletControls();
+                ActivateScarletControls();
+                if (currentScene.Equals("city_exploration_level"))
+                {
+                    SequencedActionController.Instance.PlayCutscene("Opening");
+                }
+            }
         }
     }
 
