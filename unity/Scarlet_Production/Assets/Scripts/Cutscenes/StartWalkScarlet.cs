@@ -20,6 +20,12 @@ public class StartWalkScarlet : MonoBehaviour
         m_MoveCommand.m_CurrentSpeed = 0.7f;
     }
 
+    public void StopWalk()
+    {
+        m_Speed = 0;
+        m_MoveCommand.m_CurrentSpeed = 0f;
+    }
+
     public void StartRun()
     {
         m_MoveCommand.m_CurrentSpeed = 3.5f;

@@ -5,6 +5,10 @@ public class FairyCircling : MonoBehaviour
 {
     public Transform target;
 
+    public float minDistance = 0.5f, maxDistance = 2f;
+    public float minRotSpeed = 1.5f, maxRotSpeed = 2.5f;
+    public float minMovSpeed = 3.5f, maxMovSpeed = 4.5f;
+
     private float distance, rotSpeed, movSpeed;
 
     private void Start()
@@ -25,9 +29,9 @@ public class FairyCircling : MonoBehaviour
 
     private void RandomizeDistance()
     {
-        distance = Random.Range(0.5f, 2f);
-        rotSpeed = Random.Range(1.5f, 2.5f);
-        movSpeed = Random.Range(3.5f, 4.5f);
+        distance = Random.Range(minDistance, maxDistance);
+        rotSpeed = Random.Range(minRotSpeed, maxRotSpeed);
+        movSpeed = Random.Range(minMovSpeed, maxMovSpeed);
 
         Invoke("RandomizeDistance", Random.Range(1f, 3f));
     }
