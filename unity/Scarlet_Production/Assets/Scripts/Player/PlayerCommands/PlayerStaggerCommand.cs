@@ -108,12 +108,15 @@ public class PlayerStaggerCommand : PlayerCommand {
 
         m_ScarletBody.velocity = new Vector3(0, 0, 0);
         m_Animator.SetTrigger(major? "MajorStaggerTrigger" : "StaggerTrigger");
+        if (major)
+            m_Animator.SetBool("IsStaggered", true);
     }
 
     private IEnumerator EndStaggerAfter(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         m_Callback.OnCommandEnd(m_CommandName, this);
+        m_Animator.SetBool("IsStaggered", false);
 
         m_StaggerTimer = null;
     }

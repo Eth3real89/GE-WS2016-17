@@ -31,7 +31,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayGrenadeExplosionSound(Transform attachTo)
     {
-        return createRequest("eff_grenade_explode", 0, -1, attachTo, false);
+        return createRequest("eff_grenade_explode", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayPistolsReloadSound(Transform attachTo)

@@ -70,6 +70,7 @@ public abstract class DemonHunterController : BossController {
     {
         MLog.Log(LogType.DHLog, "Starting Phase, DH, " + this);
         m_Callback = callback;
+        m_NotDeactivated = true;
         m_CanBeHit = false;
         m_ShootingPistols = false;
         m_SkipReload = false;
@@ -80,6 +81,7 @@ public abstract class DemonHunterController : BossController {
         m_PerfectRotationTarget = m_Scarlet.transform;
         m_ThrowGrenadePlayer = new FancyAudioRandomClip(s_ThrowGrenadeSounds, transform, "dh");
         m_ActiveCombo = null;
+        m_CurrentComboIndex = 0;
         m_ComboActive = false;
 
         ((DemonHunterHittable)m_BossHittable).m_NumHits = this.m_NumHits;

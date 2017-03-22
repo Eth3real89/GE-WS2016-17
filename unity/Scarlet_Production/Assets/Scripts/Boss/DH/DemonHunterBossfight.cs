@@ -86,7 +86,14 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
             ScarletVOPlayer.Instance.PlayVictorySound();
+            PlayScarletVictoryAnimation();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+
+            DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
+            if (hittable != null)
+            {
+                hittable.GetComponent<Animator>().SetTrigger("DeathTrigger");
+            }
         }
     }
 
@@ -96,7 +103,6 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         if (hittable != null)
         {
             hittable.m_HitCount = 0;
-
             hittable.GetComponent<Animator>().SetTrigger("CancelTrigger");
         }
 

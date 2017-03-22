@@ -92,7 +92,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
-
+            PlayScarletVictoryAnimation();
             ScarletVOPlayer.Instance.PlayVictorySound();
         }
     }
@@ -249,6 +249,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
         if (hittable != null)
         {
+            hittable.GetComponent<Animator>().SetTrigger("IdleTrigger");
             hittable.m_DontPlaySound = false;
             hittable.StopPlayingCriticalHPSound();
         }

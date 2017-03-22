@@ -13,7 +13,7 @@ public class DeathScreenController : MonoBehaviour {
     private bool m_WaitTillFadeOut = false;
 
     private float m_TimeToFadeOriginal = 0.5f;
-    private float m_TimeToShowOriginal = 2f;
+    private float m_TimeToShowOriginal = 4f;
 
     private float m_TimeToFade;
     private float m_TimeToShow;
