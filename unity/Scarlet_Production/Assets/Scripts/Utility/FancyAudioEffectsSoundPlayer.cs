@@ -24,9 +24,19 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_parried", 0, -1, attachTo, false, 1f);
     }
 
-    public FARQ PlayBeamSound(Transform attachTo)
+    public FARQ PlayBeamStartSound(Transform attachTo)
     {
-        return createRequest("eff_beam", 0, -1, attachTo, true);
+        return createRequest("eff_beam_start", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayBeamLoopSound(Transform attachTo)
+    {
+        return createRequest("eff_beam_loop", 0, -1, attachTo, true, 1f);
+    }
+
+    public FARQ PlayBeamEndSound(Transform attachTo)
+    {
+        return createRequest("eff_beam_end", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayGrenadeExplosionSound(Transform attachTo)

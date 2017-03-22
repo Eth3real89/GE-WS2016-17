@@ -53,7 +53,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4447719919698476}
   - component: {fileID: 114861370789425852}
-  - component: {fileID: 114463150852574040}
   - component: {fileID: 114320340744140148}
   - component: {fileID: 114051056692032198}
   - component: {fileID: 114724628359635742}
@@ -74,6 +73,9 @@ GameObject:
   - component: {fileID: 114911504361769850}
   - component: {fileID: 114543182360703874}
   - component: {fileID: 114089931379294858}
+  - component: {fileID: 114919901147653246}
+  - component: {fileID: 114718941047307798}
+  - component: {fileID: 114664028697622434}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -318,19 +320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SourcePrefab: {fileID: 82476414384235110}
---- !u!114 &114463150852574040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1860542475869306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
-  m_ClipName: eff_beam
 --- !u!114 &114496724577203308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -420,6 +409,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2a26793d95c2c4b8df715d54ae9ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114664028697622434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: e9811a61eb8966a4fad11c7ef23cbabe, type: 3}
+  m_ClipName: eff_beam_end
+--- !u!114 &114718941047307798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: fe1780bf53ef7a04ca6f244c1a3312ac, type: 3}
+  m_ClipName: eff_beam_loop
 --- !u!114 &114724628359635742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -511,3 +526,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: d7c4497d466c9434ea55a51eb9a7e8b0, type: 3}
   m_ClipName: eff_mag_insert
+--- !u!114 &114919901147653246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: d70b1b582a5f313499291abef424a8c2, type: 3}
+  m_ClipName: eff_beam_start
