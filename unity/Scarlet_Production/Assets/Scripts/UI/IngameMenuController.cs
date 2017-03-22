@@ -42,9 +42,9 @@ public class IngameMenuController : MonoBehaviour
         }
         if (menuVisible)
         {
-            if (AudioListener.volume != m_MusicSlider.value / m_MusicSlider.maxValue)
+            if (m_MusicSlider.value != PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue)
             {
-                m_MusicSlider.value = AudioListener.volume * m_MusicSlider.maxValue;
+                m_MusicSlider.value = PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue;
             }
 
             if (Input.GetButtonDown("Vertical"))
@@ -81,11 +81,13 @@ public class IngameMenuController : MonoBehaviour
                     {
                         m_MusicSlider.value = m_MusicSlider.value - 1;
                         AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                     }
                     else
                     {
                         m_MusicSlider.value = m_MusicSlider.value + 1;
                         AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                     }
                 }
             }
