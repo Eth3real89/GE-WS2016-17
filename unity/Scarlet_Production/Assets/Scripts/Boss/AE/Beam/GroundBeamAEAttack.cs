@@ -78,7 +78,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
         m_Damage.gameObject.SetActive(true);
         m_Damage.SetAngle(0);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
-        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayBeamSound(m_Damage.transform);
+        FancyAudioEffectsSoundPlayer.Instance.PlayBeamStartSound(m_Damage.transform);
 
         CameraController.Instance.ZoomOut();
     }
@@ -93,6 +93,7 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
     {
         yield return new WaitForSeconds(m_WaitTimeBetweenExpansions);
         m_Damage.SecondExpansion(m_SecondExpandTime, m_SecondExpandScale, this);
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayBeamLoopSound(m_Damage.transform);
     }
 
     public void OnSecondExpansionOver()
@@ -119,10 +120,12 @@ public class GroundBeamAEAttack : AEAttack, GroundBeamAEDamage.GroundBeamCallbac
 
     protected virtual IEnumerator RemoveBeamAfterWaiting()
     {
+        m_Audio.StopIfPlaying();
+        FancyAudioEffectsSoundPlayer.Instance.PlayBeamEndSound(m_Boss.transform);
+
         yield return new WaitForSeconds(0.5f);
         EventManager.TriggerEvent(BeamAEAttack.END_EVENT_NAME);
 
-        m_Audio.StopIfPlaying();
         m_Damage.gameObject.SetActive(false);
         m_Damage.m_Active = false;
         m_Callback.OnAttackEnd(this);

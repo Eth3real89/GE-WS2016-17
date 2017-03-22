@@ -24,14 +24,24 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_parried", 0, -1, attachTo, false, 1f);
     }
 
-    public FARQ PlayBeamSound(Transform attachTo)
+    public FARQ PlayBeamStartSound(Transform attachTo)
     {
-        return createRequest("eff_beam", 0, -1, attachTo, true);
+        return createRequest("eff_beam_start", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayBeamLoopSound(Transform attachTo)
+    {
+        return createRequest("eff_beam_loop", 0, -1, attachTo, true, 1f);
+    }
+
+    public FARQ PlayBeamEndSound(Transform attachTo)
+    {
+        return createRequest("eff_beam_end", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayGrenadeExplosionSound(Transform attachTo)
     {
-        return createRequest("eff_grenade_explode", 0, -1, attachTo, false);
+        return createRequest("eff_grenade_explode", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayPistolsReloadSound(Transform attachTo)
@@ -67,12 +77,17 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayShockWaveSpawnSound(Transform attachTo)
     {
-        return createRequest("eff_shockwave", 0, -1, attachTo, false);
+        return createRequest("eff_shockwave", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayLightGuardSpawnSound(Transform attachTo)
+    {
+        return createRequest("eff_light_guard_spawn", 0, 1, attachTo, false, 1f);
     }
 
     public FARQ PlayLightGuardDespawnSound(Transform attachTo)
     {
-        return createRequest("eff_light_guard_despawn", 0, -1, attachTo, false);
+        return createRequest("eff_light_guard_despawn", 5, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayGatherLightTravellingSound(Transform attachTo)
@@ -92,32 +107,47 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayBigWeaponImpactSound(Transform attachTo)
     {
-        return createRequest("eff_big_weapon_impact", 0, -1, attachTo, false);
+        return createRequest("eff_big_weapon_impact", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayThrowSpearSound(Transform attachTo)
     {
-        return createRequest("eff_throw_spear", 0, -1, attachTo, false);
+        return createRequest("eff_throw_spear", 0, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayAxeOnGroundSound(Transform attachTo)
     {
-        return createRequest("eff_axe_on_ground", 0, -1, attachTo, true);
+        return createRequest("eff_axe_on_ground", 0, -1, attachTo, true, 1f);
     }
 
     public FARQ PlayScytheRotateUpwardsSound(Transform attachTo)
     {
-        return createRequest("eff_scythe_rotate_upwards", 0, -1, attachTo, false);
+        return createRequest("eff_scythe_rotate_upwards", 0.4f, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayScytheCrashDownSound(Transform attachTo)
     {
-        return createRequest("eff_scythe_crash_down", 0, -1, attachTo, false);
+        return createRequest("eff_scythe_crash_down", 0.7f, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayHealSound(Transform attachTo)
     {
-        return createRequest("eff_heal", 0, -1, attachTo, false);
+        return createRequest("eff_heal", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayBladeSlashSound(Transform attachTo)
+    {
+        return createRequest("eff_blade_slash", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayBodyHitGroundSound(Transform attachTo)
+    {
+        return createRequest("eff_body_hit_ground", 0, -1, attachTo, false, 1f);
+    }
+
+    public FARQ PlayArmorHitGroundSound(Transform attachTo)
+    {
+        return createRequest("eff_armor_hit_ground", 0, -1, attachTo, false, 1f);
     }
 
     protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)

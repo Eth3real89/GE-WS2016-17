@@ -94,7 +94,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
         m_Damage.gameObject.SetActive(true);
         m_Damage.Expand(m_ExpandTime, m_ExpandScale, this);
 
-        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayBeamSound(m_Damage.transform);
+        FancyAudioEffectsSoundPlayer.Instance.PlayBeamStartSound(m_Damage.transform);
 
         if (m_AdjustCamera)
             CameraController.Instance.ZoomOut();
@@ -103,6 +103,7 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
     public virtual void OnExpansionOver(BeamAEDamage dmg)
     {
         m_Damage.Rotate(m_RotationTime, m_RotationAngle, this);
+        m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayBeamLoopSound(m_Damage.transform);
     }
 
     public virtual void OnRotationOver(BeamAEDamage dmg)
@@ -134,11 +135,13 @@ public class BeamAEAttack : AEAttack, BeamAEDamage.ExpandingDamageCallbacks, Dam
 
     protected virtual IEnumerator RemoveBeamAfterWaiting()
     {
+        m_Audio.StopIfPlaying();
+        FancyAudioEffectsSoundPlayer.Instance.PlayBeamEndSound(m_Boss.transform);
+
         yield return new WaitForSeconds(0.5f);
 
         EventManager.TriggerEvent(END_EVENT_NAME);
 
-        m_Audio.StopIfPlaying();
         m_Damage.CancelDamage();
         m_Damage.gameObject.SetActive(false);
         m_Callback.OnAttackEnd(this);

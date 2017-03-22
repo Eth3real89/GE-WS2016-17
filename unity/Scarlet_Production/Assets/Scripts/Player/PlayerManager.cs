@@ -50,7 +50,7 @@ public class PlayerManager : MonoBehaviour, Damage.DamageCallback, LightField.Li
 
         if (m_HealCommand != null)
         {
-            m_HealCommand.m_NumHealthPotions = m_StartHealthPotions;
+            m_HealCommand.m_NumHealthPotions = PlayerPrefs.GetInt("NumHealthPotions", 3);
         }
     }
 

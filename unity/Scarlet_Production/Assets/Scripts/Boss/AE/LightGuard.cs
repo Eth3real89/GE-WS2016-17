@@ -30,6 +30,7 @@ public class LightGuard : MonoBehaviour {
         {
             ps.Stop();
         }
+        FancyAudioEffectsSoundPlayer.Instance.PlayLightGuardSpawnSound(m_LightGuardVisuals.transform);
 
         m_LightGuardEnumerator = GrowLightGuard();
 

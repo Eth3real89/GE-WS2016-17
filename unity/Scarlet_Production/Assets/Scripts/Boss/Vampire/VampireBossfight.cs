@@ -112,6 +112,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
                 hittable.StopPlayingCriticalHPSound();
 
             ScarletVOPlayer.Instance.PlayVictorySound();
+            PlayScarletVictoryAnimation();
             StartCoroutine(ShowVictoryScreenAfterWaiting());
         }
     }

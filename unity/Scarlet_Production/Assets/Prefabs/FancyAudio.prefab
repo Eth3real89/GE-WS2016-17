@@ -53,7 +53,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4447719919698476}
   - component: {fileID: 114861370789425852}
-  - component: {fileID: 114463150852574040}
   - component: {fileID: 114320340744140148}
   - component: {fileID: 114051056692032198}
   - component: {fileID: 114724628359635742}
@@ -72,6 +71,11 @@ GameObject:
   - component: {fileID: 114083306689019112}
   - component: {fileID: 114518020176416142}
   - component: {fileID: 114911504361769850}
+  - component: {fileID: 114543182360703874}
+  - component: {fileID: 114089931379294858}
+  - component: {fileID: 114919901147653246}
+  - component: {fileID: 114718941047307798}
+  - component: {fileID: 114664028697622434}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -226,6 +230,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: 43bf9adbc6e70744abd9b90081a04eba, type: 3}
   m_ClipName: eff_pistols_shot
+--- !u!114 &114089931379294858
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: 811d36b4845c63a42a32f3e13ab3a5d9, type: 3}
+  m_ClipName: eff_blade_slash
 --- !u!114 &114148384187426752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: c527b02772e1db14eb93d4d9a9f1943c, type: 3}
   m_ClipName: eff_light_guard_despawn
 --- !u!114 &114194243115422506
 MonoBehaviour:
@@ -263,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 8ee2a5284200fac40b0bfa5bb2868b81, type: 3}
   m_ClipName: eff_axe_on_ground
 --- !u!114 &114253607854856012
 MonoBehaviour:
@@ -276,7 +293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 89d6b78dcfa8cd24cb8d9db422f5dd72, type: 3}
   m_ClipName: eff_big_weapon_impact
 --- !u!114 &114320340744140148
 MonoBehaviour:
@@ -303,19 +320,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SourcePrefab: {fileID: 82476414384235110}
---- !u!114 &114463150852574040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1860542475869306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
-  m_ClipName: eff_beam
 --- !u!114 &114496724577203308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,6 +346,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: 574db322ebc945146bc2d9c3fbabd7b6, type: 3}
   m_ClipName: eff_rifle_shot
+--- !u!114 &114543182360703874
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: c527b02772e1db14eb93d4d9a9f1943c, type: 3}
+  m_ClipName: eff_light_guard_spawn
 --- !u!114 &114547546187126882
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 641b917ad6d0f2349a7db6189a549020, type: 3}
   m_ClipName: eff_heal
 --- !u!114 &114654101745531554
 MonoBehaviour:
@@ -379,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 13f7ae6294fda014eacbe8c9089f4e01, type: 3}
   m_ClipName: eff_shockwave
 --- !u!114 &114658920112040750
 MonoBehaviour:
@@ -392,6 +409,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd2a26793d95c2c4b8df715d54ae9ae2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114664028697622434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: e9811a61eb8966a4fad11c7ef23cbabe, type: 3}
+  m_ClipName: eff_beam_end
+--- !u!114 &114718941047307798
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: fe1780bf53ef7a04ca6f244c1a3312ac, type: 3}
+  m_ClipName: eff_beam_loop
 --- !u!114 &114724628359635742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -429,7 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: 169f01c203f018c48a9b7663e4cb6f74, type: 3}
   m_ClipName: eff_scythe_crash_down
 --- !u!114 &114823707115083074
 MonoBehaviour:
@@ -468,7 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 8300000, guid: bf5f6840b097f2d4480c80ed054bad91, type: 3}
+  m_Clip: {fileID: 8300000, guid: c425b5338951ee743bf2b69e6d6a2738, type: 3}
   m_ClipName: eff_scythe_rotate_upwards
 --- !u!114 &114911504361769850
 MonoBehaviour:
@@ -483,3 +526,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: d7c4497d466c9434ea55a51eb9a7e8b0, type: 3}
   m_ClipName: eff_mag_insert
+--- !u!114 &114919901147653246
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: d70b1b582a5f313499291abef424a8c2, type: 3}
+  m_ClipName: eff_beam_start

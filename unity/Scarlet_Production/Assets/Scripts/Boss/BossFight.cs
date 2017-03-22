@@ -18,9 +18,12 @@ public abstract class BossFight : MonoBehaviour {
     public float m_MaxScarletRegenerationAfterPhase = 100f;
     protected IEnumerator m_ScarletRegenerationEnumerator;
 
+    protected IEnumerator m_GodModeEnumerator;
+
     public virtual void StartBossfight()
     {
         StartCoroutine(StartAfterFirstFrame());
+        StartCoroutine(GodModeEnumerator());
     }
 
     public virtual void RestartBossfight()
@@ -81,13 +84,13 @@ public abstract class BossFight : MonoBehaviour {
     {
         StopAllCoroutines();
 
-        FancyAudio.Instance.StopAll();
-
-        ScarletVOPlayer.Instance.PlayDeathSound();
-
         PlayerControls controls = FindObjectOfType<PlayerControls>();
         controls.DisableAllCommands();
         controls.StopMoving();
+        controls.GetComponent<Animator>().SetTrigger("DeathTrigger");
+
+        FancyAudio.Instance.StopAll();
+        ScarletVOPlayer.Instance.PlayDeathSound();
 
         SlowTime.Instance.m_PreventChanges = false;
         SlowTime.Instance.StopAllCoroutines();
@@ -100,7 +103,11 @@ public abstract class BossFight : MonoBehaviour {
     protected virtual IEnumerator ResetRoutine()
     {
         GetComponent<DeathScreenController>().ShowVictoryScreen(gameObject);
-        yield return null;
+        yield return new WaitForSeconds(3f);
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        playerHittable.GetComponent<Animator>().SetTrigger("IdleTrigger");
+
+        yield return new WaitForSeconds(1f);
 
         PlayerHealCommand healCommand = FindObjectOfType<PlayerHealCommand>();
         healCommand.ResetPotions();
@@ -122,6 +129,7 @@ public abstract class BossFight : MonoBehaviour {
 
         playerHittable.transform.position = m_ScarletPositionStart + new Vector3();
         playerHittable.transform.rotation = Quaternion.Euler(m_ScarletRotationStart.eulerAngles);
+        playerHittable.GetComponent<Animator>().SetTrigger("IdleTrigger");
 
         bossHittable.transform.position = m_BossPositionStart + new Vector3();
         bossHittable.transform.rotation = Quaternion.Euler(m_BossRotationStart.eulerAngles);
@@ -196,6 +204,34 @@ public abstract class BossFight : MonoBehaviour {
         {
             voPlayer.m_Version = version;
             voPlayer.SetupPlayers();
+        }
+    }
+
+    protected virtual void PlayScarletVictoryAnimation()
+    {
+        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        playerHittable.GetComponent<Animator>().SetTrigger("VictoryTrigger");
+    }
+
+    protected IEnumerator GodModeEnumerator()
+    {
+        while(true)
+        {
+            if (Input.anyKeyDown && Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                if (s_ScarletCanDie)
+                {
+                    s_ScarletCanDie = false;
+                    print("God mode enabled.");
+                }
+                else
+                {
+                    s_ScarletCanDie = true;
+                    print("God mode disabled.");
+                }
+            }
+
+            yield return null;
         }
     }
 

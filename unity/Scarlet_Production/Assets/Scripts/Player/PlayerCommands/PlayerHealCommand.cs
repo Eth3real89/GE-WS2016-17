@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerHealCommand : PlayerCommand {
 
-    public int m_MaxHealthPotions = 3;
+    protected int m_MaxHealthPotions = 3;
     public GameObject m_HealingEffect;
 
     public int m_NumHealthPotions
@@ -36,8 +36,13 @@ public class PlayerHealCommand : PlayerCommand {
     private void Start()
     {
         m_CommandName = "Heal";
-
         comps = m_HealingEffect.GetComponentsInChildren<ParticleSystem>(true);
+
+        m_MaxHealthPotions = PlayerPrefs.GetInt("NumHealthPotions", 3);
+        if (_NumHealthPotions < m_MaxHealthPotions)
+        {
+            m_NumHealthPotions = m_MaxHealthPotions;
+        }
     }
 
     public override void InitTrigger()

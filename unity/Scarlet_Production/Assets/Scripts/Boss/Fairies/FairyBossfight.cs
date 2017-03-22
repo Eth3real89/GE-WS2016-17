@@ -108,7 +108,9 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
                 hittable.StopPlayingCriticalHPSound();
 
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+            PlayScarletVictoryAnimation();
             ScarletVOPlayer.Instance.PlaySpecialFairyVictorySound();
+            PlayerPrefs.SetInt("NumHealthPotions", 4);
         }
     }
 
@@ -233,6 +235,6 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
     public override void LoadSceneAfterBossfight()
     {
-        SceneManager.LoadScene("maze_exploration_level");
+        SceneManager.LoadScene("post_fairies_exploration_level");
     }
 }

@@ -1500,6 +1500,7 @@ GameObject:
   - component: {fileID: 114347573273991008}
   - component: {fileID: 114264350503436666}
   - component: {fileID: 114708012821892694}
+  - component: {fileID: 114263543763474386}
   m_Layer: 0
   m_Name: Scarlet
   m_TagString: Player
@@ -4360,7 +4361,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211058420233924}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.45, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 4309062748784360}
@@ -5635,6 +5636,17 @@ MonoBehaviour:
   m_HighParticleEmissionSmoke: 100
   m_LowParticleEmissionDirection: 130
   m_HighParticleEmissionDirection: 280
+--- !u!114 &114263543763474386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1546299661062702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa24ba7824fbbef4f853da10a97ada29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114264350503436666
 MonoBehaviour:
   m_ObjectHideFlags: 1
