@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
+  m_IndirectSpecularColor: {r: 0.003749073, g: 0.003749073, b: 0.003749073, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4596,7 +4596,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1411264189699000, guid: 14670ed46af439045ad0a7344962e76c, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224373685593649532, guid: 14670ed46af439045ad0a7344962e76c,
         type: 2}
@@ -4662,6 +4662,11 @@ Prefab:
         type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114674437419493272, guid: 14670ed46af439045ad0a7344962e76c,
+        type: 2}
+      propertyPath: m_PreserveAspect
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 14670ed46af439045ad0a7344962e76c, type: 2}
@@ -8387,7 +8392,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: c59c6a3e908ca7344a11fb2bdfd91f26, type: 3}
   m_Type: 0
-  m_PreserveAspect: 1
+  m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
