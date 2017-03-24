@@ -7,7 +7,9 @@ public class UIItemPickupController : MonoBehaviour {
     
     public GameObject textHint;
     public bool charging;
-
+    public bool m_ShowReward = false;
+    public string m_TextForReward = "";
+    
     private Text textField;
     private Image[] images;
     private Interactor interactor;
@@ -55,7 +57,10 @@ public class UIItemPickupController : MonoBehaviour {
         }
         textField.color = new Color(0.65f, 0, 0, 0);
         textHint.GetComponentInChildren<ButtonPromptController>().enabled = false;
-        //FindObjectOfType<ShowRewardMessageController>().StartFadeIn("Health upgrade um 20!!");
+        if (m_ShowReward)
+        {
+            FindObjectOfType<ShowRewardMessageController>().StartFadeIn(m_TextForReward);
+        }
     }
 
     public void UpdatePickup(float floatcurrentTime)
