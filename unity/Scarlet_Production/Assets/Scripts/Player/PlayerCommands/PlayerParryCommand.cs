@@ -151,11 +151,11 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         {
             return false;
         }
-        else if (m_CurrentState == ParryState.Perfect && dmg.Blockable() != Damage.BlockableType.OnlyBlock)
+        else if (m_CurrentState == ParryState.Perfect && dmg.Blockable() != Damage.BlockableType.OnlyBlock && !(dmg is BulletDamage))
         {
             return PerfectParry(dmg);
         }
-        else if (m_CurrentState == ParryState.Ok || (m_CurrentState == ParryState.Perfect && dmg.Blockable() == Damage.BlockableType.OnlyBlock))
+        else if (m_CurrentState == ParryState.Ok || (m_CurrentState == ParryState.Perfect && (dmg.Blockable() == Damage.BlockableType.OnlyBlock || dmg is BulletDamage)))
         {
             return Block(dmg);
         }
@@ -181,7 +181,9 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
         }
         else
         {
-            // need look up whether a bullet can be deflected or not
+            FancyAudioEffectsSoundPlayer.Instance.PlayBulletBlockedAudio(m_Scarlet.transform);
+            
+            // look up whether a bullet can be deflected or not
             if (((BulletDamage)dmg).m_Deflectable)
             {
                 PlayParryDeflectableBulletEffect(dmg);
@@ -194,8 +196,8 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             m_Callback.OnCommandEnd(m_CommandName, this);
         }
 
-        dmg.OnBlockDamage();
         PlayAudio(m_BlockAudio);
+        dmg.OnBlockDamage();
 
         return true;
     }

@@ -136,6 +136,14 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
         float distanceToCenter = Vector3.Distance(transform.position, m_HuntCenter.transform.position);
         bool initiallyTooClose = distanceToCenter < m_HuntDistance;
 
+        bool wasCloserThanScarlet = distanceToCenter <= Vector3.Distance(m_Scarlet.transform.position, m_HuntCenter.transform.position);
+
+        if (wasCloserThanScarlet)
+        {
+            float scarletAngle = BossTurnCommand.CalculateAngleTowards(m_Scarlet.transform.position, m_HuntCenter.position);
+            m_BossTurn.TurnBossBy(-transform.rotation.eulerAngles.y + scarletAngle + 45);
+        }
+
         while (true)
         {
             float turnAngle;
@@ -155,7 +163,10 @@ public class WerewolfHuntController : WerewolfController, AttackCombo.ComboCallb
                 turnAngle = BossTurnCommand.CalculateAngleTowards(this.transform, m_HuntCenter);
             }
 
-            m_BossTurn.TurnBossBy(turnAngle);
+            if (!wasCloserThanScarlet)
+            {
+                m_BossTurn.TurnBossBy(turnAngle);
+            }
             m_BossMove.DoMove(transform.forward.x, transform.forward.z);
 
             yield return null;
