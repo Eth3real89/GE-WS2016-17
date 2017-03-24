@@ -134,7 +134,7 @@ public class EffectController : GenericSingletonClass<EffectController>
             m_Dreamy.strength = Mathf.Lerp(maxDreamyEffect, 0, m_LerpTimer.GetLerpProgress());
             yield return null;
         }
-
-        EnteredOtherWorld();
+        if (EnteredOtherWorld != null)
+            EnteredOtherWorld();
     }
 }
