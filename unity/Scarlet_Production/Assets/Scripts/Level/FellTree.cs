@@ -6,6 +6,8 @@ public class FellTree : Interactor
 {
     public GameObject[] m_Objects;
 
+    public GameObject m_Portal;
+
     public override void Interact()
     {
         if (!m_IsInteractible)
@@ -15,14 +17,30 @@ public class FellTree : Interactor
         new FARQ().ClipName("treefalling").Location(transform).Play();
         GetComponent<Rigidbody>().isKinematic = false;
         StartCoroutine(SwitchStuffOff());
+        StartCoroutine(EnableStartEffect());
+        StartCoroutine(EnablePortal());
+
     }
 
     IEnumerator SwitchStuffOff()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         foreach (GameObject go in m_Objects)
         {
             Destroy(go);
         }
+    }
+
+    IEnumerator EnableStartEffect()
+    {
+        yield return new WaitForSeconds(1f);
+
+        m_Portal.GetComponentInChildren<ParticleSystem>().Play();
+    }
+
+    IEnumerator EnablePortal() 
+    {
+        yield return new WaitForSeconds(3f);
+        m_Portal.GetComponent<MeshRenderer>().enabled = true;
     }
 }
