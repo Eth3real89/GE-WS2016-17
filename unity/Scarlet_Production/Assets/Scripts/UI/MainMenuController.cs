@@ -22,7 +22,11 @@ public class MainMenuController : MonoBehaviour
     {
         AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
-        Activate();
+
+        if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
+        {
+            Activate();
+        }
         if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
         {
             selected = 0;
