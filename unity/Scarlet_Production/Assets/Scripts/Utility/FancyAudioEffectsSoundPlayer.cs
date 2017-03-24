@@ -77,7 +77,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayShockWaveSpawnSound(Transform attachTo)
     {
-        return createRequest("eff_shockwave", 0, -1, attachTo, false, 1f);
+        return createRequest("eff_shockwave", 0.65f, -1, attachTo, false, 1f);
     }
 
     public FARQ PlayLightGuardSpawnSound(Transform attachTo)

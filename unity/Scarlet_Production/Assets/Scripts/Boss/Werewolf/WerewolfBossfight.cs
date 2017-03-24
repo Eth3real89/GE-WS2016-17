@@ -45,6 +45,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
         if (m_StartPhase == Phase.Hunt)
         {
+            SetPhaseIndicatorsEnabled(3);
             StartCoroutine(StartHuntPhaseAfterHowling(0.1f));
         }
         else if (m_StartPhase == Phase.Combat)
@@ -68,6 +69,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_HuntController.enabled = false;
             m_HuntController.m_NotDeactivated = false;
 
+            SetPhaseIndicatorsEnabled(2);
             RegenerateScarletAfterPhase();
             StartCoroutine(FlickerLightsOff());
             StartCoroutine(StartPhase2AfterHowling(2f));
@@ -76,6 +78,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         {
             DestroyAllBullets();
             RegenerateScarletAfterPhase();
+            SetPhaseIndicatorsEnabled(1);
 
             StartCoroutine(FlickerLightsOn(false));
             if (m_Scarlet != null)
@@ -91,6 +94,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();
+            SetPhaseIndicatorsEnabled(0);
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
             PlayScarletVictoryAnimation();
             ScarletVOPlayer.Instance.PlayVictorySound();

@@ -88,4 +88,5 @@ public interface FairyPhaseCallbacks
 {
     void OnPhaseStart(FairyBossfightPhase phase);
     void OnPhaseEnd(FairyBossfightPhase phase);
+    void SetPhaseIndicatorsEnabled(int howMany);
 }

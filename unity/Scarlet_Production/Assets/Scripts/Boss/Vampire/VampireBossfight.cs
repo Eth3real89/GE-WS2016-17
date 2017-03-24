@@ -41,6 +41,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         {
             m_TutorialController.enabled = true;
             m_TutorialController.StartPhase(this);
+            SetPhaseIndicatorsEnabled(3);
         }
         else if (m_StartPhase == Phase.Phase1)
         {
@@ -64,8 +65,10 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             DestroyAllBullets();
             m_TutorialController.enabled = false;
             m_TutorialController.m_NotDeactivated = false;
+            SetPhaseIndicatorsEnabled(3);
             m_Phase1Controller.enabled = true;
             m_Phase1Controller.m_NotDeactivated = true;
+
             m_Phase1Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase1Controller)
@@ -75,6 +78,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase1Controller.enabled = false;
             m_Phase1Controller.m_NotDeactivated = false;
             m_Phase2Controller.enabled = true;
+            SetPhaseIndicatorsEnabled(2);
             m_Phase2Controller.m_NotDeactivated = true;
             m_Phase2Controller.StartPhase(this);
 
@@ -91,6 +95,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase2Controller.enabled = false;
             m_Phase2Controller.m_NotDeactivated = false;
             m_Phase3Controller.enabled = true;
+            SetPhaseIndicatorsEnabled(1);
             m_Phase3Controller.m_NotDeactivated = true;
             m_Phase3Controller.StartPhase(this);
 
@@ -106,6 +111,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             DestroyAllBullets();
             m_Phase3Controller.enabled = false;
             m_Phase3Controller.m_NotDeactivated = false;
+            SetPhaseIndicatorsEnabled(0);
             print("Win!");
 
             VampireHittable hittable = FindObjectOfType<VampireHittable>();

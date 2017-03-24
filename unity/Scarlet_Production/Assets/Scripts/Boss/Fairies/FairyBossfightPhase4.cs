@@ -22,6 +22,8 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
     public PlayerControls m_PlayerControls;
 
+    protected float m_InitialArmorBarYPos = -1;
+
     public override void StartPhase(FairyPhaseCallbacks callbacks)
     {
         m_Active = true;
@@ -51,10 +53,12 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
         //m_Shield.transform.localScale = new Vector3(0, 0, 0);
         //m_Sword.transform.localScale = new Vector3(0, 0, 0);
-
         float t = 0;
         float equipTime = 1f;
         Material[] ms = m_Shield.GetComponent<Renderer>().materials;
+
+
+        m_InitialArmorBarYPos = m_ArmorHealthBar.localPosition.y;
         while ((t += Time.deltaTime) < equipTime)
         {
             foreach (Material m in ms)
@@ -130,6 +134,14 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
             EndPhase();
     }
 
+    public void ResetHealthBars()
+    {
+        m_AEFairyHealthBar.gameObject.SetActive(true);
+
+        if (m_InitialArmorBarYPos != -1)
+            m_ArmorHealthBar.localPosition = new Vector3(m_ArmorHealthBar.localPosition.x, m_InitialArmorBarYPos, m_ArmorHealthBar.localPosition.z);
+    }
+
     public override void EndCombo()
     {
         m_ArmorFairyController.CancelComboIfActive();
@@ -152,6 +164,8 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
         m_ArmorAnimator.SetBool("Dead", true);
         m_ArmorAnimator.SetTrigger("DeathTriggerBack");
         m_ArmorFairyController.m_BossHittable.RegisterInterject(null);
+
+        m_Callback.SetPhaseIndicatorsEnabled(0);
         yield return new WaitForSeconds(1f);
 
         base.EndPhase();

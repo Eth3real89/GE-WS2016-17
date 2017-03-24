@@ -9,8 +9,6 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     public static void StaggerScarlet(bool throwToGround, Vector3 forceValues = new Vector3(), float force = 0f)
     {
-        print("Stagger Scarlet!");
-
         if (throwToGround)
         {
             s_Instance.TriggerMajorStagger(forceValues, force);
@@ -23,8 +21,6 @@ public class PlayerStaggerCommand : PlayerCommand {
 
     public static void StaggerScarletAwayFrom(Vector3 origin = new Vector3(), float force = 0f, bool removeY = false)
     {
-        print("Stagger Scarlet!");
-
         Vector3 lookRot = origin - s_Instance.m_ScarletBody.transform.position;
         lookRot.y = 0;
         s_Instance.m_ScarletBody.transform.rotation = Quaternion.Euler(lookRot);

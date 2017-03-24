@@ -38,6 +38,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
     {
         if (!m_EndInitialized && m_DHHealth.m_CurrentHealth <= (1 / (float) m_NumHits)  * m_DHHealth.m_MaxHealth + 5) // +5: Avoid "rounding" bugs 
         {
+            m_Callback.SetPhaseIndicatorsEnabled(1);
             m_EndInitialized = true;
             m_NotDeactivated = false;
             CancelComboIfActive();

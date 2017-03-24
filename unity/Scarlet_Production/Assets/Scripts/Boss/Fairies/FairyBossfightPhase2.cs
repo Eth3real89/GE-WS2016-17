@@ -65,6 +65,7 @@ public class FairyBossfightPhase2 : FairyBossfightPhase {
         m_PlayerControls.DisableAllCommands();
         m_PlayerControls.StopMoving();
 
+        m_Callback.SetPhaseIndicatorsEnabled(1);
         m_AEFairyController.ExpandLightGuard();
         yield return new WaitForSeconds(2f);
 

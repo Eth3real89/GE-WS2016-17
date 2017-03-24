@@ -139,6 +139,7 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
         m_PlayerControls.StopMoving();
         m_AEFairyController.ExpandLightGuard();
 
+        m_Callback.SetPhaseIndicatorsEnabled(2);
         float t = 0;
         float reanimateTime = 2f;
         while ((t += Time.deltaTime) < reanimateTime)
