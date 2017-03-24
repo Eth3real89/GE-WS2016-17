@@ -150,6 +150,11 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequest("eff_armor_hit_ground", 0, -1, attachTo, false, 1f);
     }
 
+    public FARQ PlayBulletBlockedAudio(Transform attachTo)
+    {
+        return createRequest("eff_bullet_blocked", 0, -1, attachTo, false, 1f);
+    }
+
     protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)
     {
         FARQ f = new FARQ().ClipName(clipName).StartTime(start).EndTime(end).Location(attachTo).Loop(loop).Volume(volume);
