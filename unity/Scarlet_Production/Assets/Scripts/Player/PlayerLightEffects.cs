@@ -16,6 +16,7 @@ public class PlayerLightEffects : MonoBehaviour
 
     private Animator m_Animator;
     private float m_RegularMovementSpeed;
+    private Coroutine m_CurrentRoutine;
 
     private bool m_InsideStrongLight;
 
@@ -52,11 +53,13 @@ public class PlayerLightEffects : MonoBehaviour
         m_RegularMovementSpeed = m_MoveCommand.m_CurrentSpeed;
         m_MoveCommand.m_CurrentSpeed = m_MovementSpeedInStrongLight;
         m_PlayerControls.DisableAndLock(m_DashCommand, m_AttackCommand, m_SprintCommand);
-        StartCoroutine(StartDelayedRetreat(retreatDirection));
+        m_CurrentRoutine = StartCoroutine(StartDelayedRetreat(retreatDirection));
     }
 
     public void OnPlayerExitStrongLight()
     {
+        if (m_CurrentRoutine != null)
+            StopCoroutine(m_CurrentRoutine);
         EffectController.Instance.ExitStrongLight();
         AudioController.FadeAudioCallback callback = HandleAudioOnLightExit;
         AudioController.Instance.FadeOut("EarBuzzing", 0.25f, callback);
