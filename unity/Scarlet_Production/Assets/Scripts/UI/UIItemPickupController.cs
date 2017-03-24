@@ -55,7 +55,6 @@ public class UIItemPickupController : MonoBehaviour {
         }
         textField.color = new Color(0.65f, 0, 0, 0);
         textHint.GetComponentInChildren<ButtonPromptController>().enabled = false;
-        //textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
     }
 
     public void UpdatePickup(float floatcurrentTime)

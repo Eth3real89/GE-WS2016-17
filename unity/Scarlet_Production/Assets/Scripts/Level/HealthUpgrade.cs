@@ -23,7 +23,7 @@ public class HealthUpgrade : Interactor
         PlayerPrefs.SetFloat("MaxHP", currentMaxHP + m_BuffAmount);
         PlayerPrefs.SetInt("HealthUpgrade" + m_Index, 1);
         EffectController.Instance.EmpoweredPeak();
-        Destroy(transform.GetChild(0).GetComponent<UIItemPickupController>().textHint.gameObject);
+        GetComponentInChildren<UIItemPickupController>().OnItemPickedUp();
         Destroy(gameObject);
     }
 }
