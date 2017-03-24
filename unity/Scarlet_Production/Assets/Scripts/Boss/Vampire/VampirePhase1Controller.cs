@@ -48,6 +48,7 @@ public class VampirePhase1Controller : VampireController
 
         new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).StopIfPlaying();
 
+        m_Callback.SetPhaseIndicatorsEnabled(2);
         while ((t += Time.deltaTime) < 1.5f)
         {
             m_BossHealth.m_CurrentHealth = m_BossHealth.m_MaxHealth * (t / 1.5f);

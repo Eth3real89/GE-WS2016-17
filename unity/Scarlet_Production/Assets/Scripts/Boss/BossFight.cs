@@ -20,6 +20,8 @@ public abstract class BossFight : MonoBehaviour {
 
     protected IEnumerator m_GodModeEnumerator;
 
+    public GameObject[] m_PhaseIndicators;
+
     public virtual void StartBossfight()
     {
         StartCoroutine(StartAfterFirstFrame());
@@ -236,10 +238,25 @@ public abstract class BossFight : MonoBehaviour {
     }
 
     protected abstract IEnumerator SaveProgressInPlayerPrefs();
+
+    public virtual void SetPhaseIndicatorsEnabled(int howMany)
+    {
+        for(int i = 0; i < m_PhaseIndicators.Length; i++)
+        {
+            if (i < howMany)
+            {
+                m_PhaseIndicators[m_PhaseIndicators.Length - i - 1].SetActive(true);
+            } else
+            {
+                m_PhaseIndicators[m_PhaseIndicators.Length - i - 1].SetActive(false);
+            }
+        }
+    }
 }
 
 public interface BossfightCallbacks
 {
     void PhaseEnd(BossController whichPhase);
+    void SetPhaseIndicatorsEnabled(int howMany);
 }
 

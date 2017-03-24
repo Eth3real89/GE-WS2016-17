@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1253935861}
-  m_IndirectSpecularColor: {r: 0.00070116227, g: 0.0023195113, b: 0.055857606, a: 1}
+  m_IndirectSpecularColor: {r: 0.00061816757, g: 0.0023196875, b: 0.0555418, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4500,6 +4500,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
+  m_PhaseIndicators:
+  - {fileID: 1236315085}
+  - {fileID: 1246948700}
+  - {fileID: 1269055037}
   m_TransitionTime: 7
   m_StartPhase: 0
   m_WerewolfAnimator: {fileID: 1689460406}
@@ -11898,6 +11902,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1236315085 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1466659246858412, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 437917775}
+--- !u!1 &1246948700 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1753671207085758, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 437917775}
 --- !u!1 &1248972376
 GameObject:
   m_ObjectHideFlags: 0
@@ -12015,6 +12029,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1269055037 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1349547118706188, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 437917775}
 --- !u!114 &1287808969 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114677901600229002, guid: 2acb300160851794e8c5a2330570274b,

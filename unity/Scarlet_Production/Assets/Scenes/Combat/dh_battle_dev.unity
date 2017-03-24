@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.003749073, g: 0.003749073, b: 0.003749073, a: 1}
+  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3344,6 +3344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxScarletRegenerationAfterPhase: 100
+  m_PhaseIndicators:
+  - {fileID: 743761700}
+  - {fileID: 1331076120}
+  - {fileID: 1939978694}
   m_StartPhase: 0
   m_Phase1Controller: {fileID: 10650776}
   m_Phase2Controller: {fileID: 10650775}
@@ -3403,6 +3407,11 @@ MonoBehaviour:
 --- !u!1 &735934331 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1489244204145728, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 757435162}
+--- !u!1 &743761700 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1466659246858412, guid: 14670ed46af439045ad0a7344962e76c,
     type: 2}
   m_PrefabInternal: {fileID: 757435162}
 --- !u!1001 &757435162
@@ -4179,6 +4188,11 @@ Transform:
   m_Father: {fileID: 2001003670}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1331076120 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1753671207085758, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 757435162}
 --- !u!1001 &1336750229
 Prefab:
   m_ObjectHideFlags: 0
@@ -13518,6 +13532,11 @@ Transform:
   m_Father: {fileID: 2001003670}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1939978694 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1349547118706188, guid: 14670ed46af439045ad0a7344962e76c,
+    type: 2}
+  m_PrefabInternal: {fileID: 757435162}
 --- !u!1 &2001003665
 GameObject:
   m_ObjectHideFlags: 0

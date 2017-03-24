@@ -89,6 +89,27 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         base.OnComboEnd(combo);
     }
 
+    public override bool OnHit(Damage dmg)
+    {
+        int hitsBefore = ((DemonHunterHittable)m_BossHittable).m_HitCount;
+        StartCoroutine(CheckIfDead(hitsBefore));
+        return base.OnHit(dmg);
+    }
+
+    protected virtual IEnumerator CheckIfDead(int hitsBeforeLastHit)
+    {
+        yield return new WaitForEndOfFrame();
+        yield return new WaitForEndOfFrame();
+        if (!m_EndInitialized && m_NotDeactivated)
+        {
+            DemonHunterHittable dhh = ((DemonHunterHittable)m_BossHittable);
+            if (dhh.m_HitCount == dhh.m_NumHits || hitsBeforeLastHit > dhh.m_HitCount)
+            {
+                m_Callback.SetPhaseIndicatorsEnabled(2);
+            }
+        }
+    }
+
     protected override IEnumerator OnEvasionFinished()
     {
         DemonHunterHittable dhh = ((DemonHunterHittable)m_BossHittable);

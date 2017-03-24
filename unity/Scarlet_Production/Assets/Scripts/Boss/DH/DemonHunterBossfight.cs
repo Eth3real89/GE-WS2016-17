@@ -38,6 +38,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         {
             m_Phase1Controller.enabled = true;
             m_Phase1Controller.StartPhase(this);
+            SetPhaseIndicatorsEnabled(3);
         }
         else if (m_StartPhase == Phase.Phase2)
         {
@@ -67,6 +68,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
+            SetPhaseIndicatorsEnabled(2);
             m_Phase2Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase2Controller)
@@ -77,6 +79,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             RegenerateScarletAfterPhase();
 
             m_Phase2Controller.enabled = false;
+            SetPhaseIndicatorsEnabled(1);
             m_Phase3Controller.enabled = true;
             m_Phase3Controller.StartPhase(this);
         }
@@ -86,6 +89,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             MLog.Log(LogType.BattleLog, "DH: Phase 3 over " + this);
             m_Phase3Controller.enabled = false;
+            SetPhaseIndicatorsEnabled(0);
             ScarletVOPlayer.Instance.PlayVictorySound();
             PlayScarletVictoryAnimation();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);

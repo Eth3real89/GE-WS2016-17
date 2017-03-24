@@ -21,6 +21,9 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     protected Vector3 m_AEPositionStart;
     protected Quaternion m_AERotationStart;
 
+    public GameObject[] m_PhaseIndicatorsArmor;
+    public GameObject[] m_PhaseIndicatorsAE;
+
     void Start()
     {
         StartBossfight();
@@ -47,6 +50,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         {
             m_Phase1.enabled = true;
             m_Phase1.StartPhase(this);
+            SetPhaseIndicatorsEnabled(3);
         }
         else if (m_StartPhase == Phase.Phase2)
         {
@@ -70,6 +74,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 1 over " + this);
             DestroyAllBullets();
             m_Phase1.enabled = false;
+            SetPhaseIndicatorsEnabled(2);
             m_Phase2.enabled = true;
             m_Phase2.StartPhase(this);
             RegenerateScarletAfterPhase();
@@ -83,6 +88,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 2 over " + this);
             DestroyAllBullets();
             m_Phase2.enabled = false;
+            SetPhaseIndicatorsEnabled(1);
             m_Phase3.enabled = true;
             m_Phase3.StartPhase(this);
             RegenerateScarletAfterPhase();
@@ -98,6 +104,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 3 over " + this);
             DestroyAllBullets();
             m_Phase3.enabled = false;
+            SetPhaseIndicatorsEnabled(1);
             m_Phase4.enabled = true;
             m_Phase4.StartPhase(this);
         }
@@ -106,6 +113,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             MLog.Log(LogType.BattleLog, "Fairies: Phase 4 over " + this);
             DestroyAllBullets();
             m_Phase4.enabled = false;
+            SetPhaseIndicatorsEnabled(0);
 
             FemaleStopCrying();
             ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
@@ -203,6 +211,8 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         CharacterHealth armorHealth = armorHittable.GetComponent<CharacterHealth>();
         armorHealth.m_CurrentHealth = armorHealth.m_HealthStart;
 
+        ((FairyBossfightPhase4)m_Phase4).ResetHealthBars();
+
         base.RestartBossfight();
     }
 
@@ -252,5 +262,32 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "fairies_battle_dev");
         PlayerPrefs.Save();
+    }
+
+    public override void SetPhaseIndicatorsEnabled(int howMany)
+    {
+        for (int i = 0; i < m_PhaseIndicatorsArmor.Length; i++)
+        {
+            if (i < howMany)
+            {
+                m_PhaseIndicatorsArmor[m_PhaseIndicatorsArmor.Length - i - 1].SetActive(true);
+            }
+            else
+            {
+                m_PhaseIndicatorsArmor[m_PhaseIndicatorsArmor.Length - i - 1].SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < m_PhaseIndicatorsAE.Length; i++)
+        {
+            if (i < howMany)
+            {
+                m_PhaseIndicatorsAE[m_PhaseIndicatorsAE.Length - i - 1].SetActive(true);
+            }
+            else
+            {
+                m_PhaseIndicatorsAE[m_PhaseIndicatorsAE.Length - i - 1].SetActive(false);
+            }
+        }
     }
 }

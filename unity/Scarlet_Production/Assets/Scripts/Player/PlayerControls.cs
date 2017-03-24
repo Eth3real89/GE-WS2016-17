@@ -30,6 +30,8 @@ public class PlayerControls : MonoBehaviour,
     private IEnumerator m_DashDelayEnumerator;
     private IEnumerator m_SlowMoEnumerator;
 
+    public float m_ParrySlowMoTime = 1f;
+
     public void DisableAllCommands()
     {
         DisableCommands(m_PlayerCommands);
@@ -241,7 +243,7 @@ public class PlayerControls : MonoBehaviour,
 
     private IEnumerator PerfectParryEnumerator()
     {
-        yield return new WaitForSeconds(1 * SlowTime.Instance.m_SlowAmount);
+        yield return new WaitForSeconds(m_ParrySlowMoTime * SlowTime.Instance.m_SlowAmount);
 
         SlowTime.Instance.StopSlowMo();
         m_AttackCommand.m_RiposteActive = false;

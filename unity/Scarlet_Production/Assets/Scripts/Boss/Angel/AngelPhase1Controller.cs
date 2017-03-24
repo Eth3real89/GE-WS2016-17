@@ -15,7 +15,7 @@ public class AngelPhase1Controller : AngelController {
 
     private void Update()
     {
-        if (!m_EndInitialized && m_BossHittable.m_Health.m_CurrentHealth <= 0)
+        if (enabled && !m_EndInitialized && m_BossHittable.m_Health.m_CurrentHealth <= 0)
         {
             m_EndInitialized = true;
             CancelComboIfActive();

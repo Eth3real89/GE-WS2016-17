@@ -43,6 +43,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         {
             m_Phase1Controller.enabled = true;
             m_Phase1Controller.StartPhase(this);
+            SetPhaseIndicatorsEnabled(2);
         }
         else if (m_StartPhase == Phase.Phase2)
         {
@@ -62,12 +63,16 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
+            SetPhaseIndicatorsEnabled(1);
             m_Phase2Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase2Controller)
         {
+            DestroyAllBullets();
+
             MLog.Log(LogType.BattleLog, "Angel: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
+            SetPhaseIndicatorsEnabled(0);
 
             //StartCoroutine(DissolveAngel());
             ScarletVOPlayer.Instance.PlayVictorySound();
@@ -91,6 +96,9 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
         m_Phase1Controller.m_NotDeactivated = false;
         m_Phase2Controller.m_NotDeactivated = false;
+
+        m_Phase1Controller.enabled = false;
+        m_Phase2Controller.enabled = false;
 
         base.OnScarletDead();
     }
