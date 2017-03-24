@@ -5,7 +5,10 @@ using UnityEngine.UI;
 public class VictoryScreenController : MonoBehaviour {
 	public GameObject m_ScreenContainer;
 
-	private Image m_Background;
+    public bool m_ShowReward = false;
+    public string m_TextForReward = "";
+
+    private Image m_Background;
 	private Text m_Message;
 	private bool m_ShowScreen = false;
 	private bool m_WaitTillFadeOut = false;
@@ -37,7 +40,7 @@ public class VictoryScreenController : MonoBehaviour {
 				if (m_TutorialEnumerator != null)
 					StopCoroutine(m_TutorialEnumerator);
 
-				m_TutorialEnumerator = FadeTo(0.0f, m_TimeToFade);
+				m_TutorialEnumerator = FadeTo(0.0f, m_TimeToFade, true);
 				StartCoroutine(m_TutorialEnumerator);
 			}
 		}
@@ -61,11 +64,11 @@ public class VictoryScreenController : MonoBehaviour {
 		ResetValues();
 		if (m_TutorialEnumerator != null)
 			StopCoroutine(m_TutorialEnumerator);
-		m_TutorialEnumerator = FadeTo(1.0f, m_TimeToFade);
+		m_TutorialEnumerator = FadeTo(1.0f, m_TimeToFade, false);
 		StartCoroutine(m_TutorialEnumerator);
 	}
 
-	IEnumerator FadeTo(float aValue, float aTime)
+	IEnumerator FadeTo(float aValue, float aTime, bool showMessage)
 	{
 		float alpha = m_Background.color.a;
 		for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime)
@@ -92,6 +95,10 @@ public class VictoryScreenController : MonoBehaviour {
 				}
 			}
 		}
+        if(showMessage && m_ShowReward)
+        {
+            FindObjectOfType<ShowRewardMessageController>().StartFadeIn(m_TextForReward);
+        }
 	}
 
 }
