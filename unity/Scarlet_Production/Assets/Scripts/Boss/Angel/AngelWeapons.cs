@@ -135,7 +135,7 @@ public class AngelWeapons : MonoBehaviour {
 
     protected virtual IEnumerator ChangeTipRoutine(GameObject changeTo, IEnumerator doAfterwards, MonoBehaviour callbackOwner)
     {
-        print("Init tip change");
+       // print("Init tip change");
         float t = 0f;
         if (m_CurrentTip != null)
         {

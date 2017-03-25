@@ -67,7 +67,6 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         m_YPosBefore = m_Boss.transform.position.y;
 
         m_ForwardSpeed = Vector3.Distance(m_Boss.transform.position, m_Scarlet.transform.position) / AdjustTime((m_RotationTime + m_DownwardsTime));
-        
         m_ScytheRangeTrigger.m_CollisionHandler = this;
         m_ScytheRangeTrigger.m_Active = true;
 
@@ -186,7 +185,7 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
         AngelSoundPlayer.PlayMiscWindupSound();
         yield return new WaitForSeconds(AdjustTime(m_TimeEnd));
        
-        m_Animator.SetTrigger("IdleTrigger");
+       // m_Animator.SetTrigger("IdleTrigger");
         CleanUp();
 
         m_Callback.OnAttackEnd(this);
