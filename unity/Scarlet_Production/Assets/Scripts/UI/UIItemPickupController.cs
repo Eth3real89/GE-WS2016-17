@@ -41,13 +41,26 @@ public class UIItemPickupController : MonoBehaviour {
         }
     }
 
+    public void Interacting(bool isInteracting)
+    {
+        if(isInteracting)
+        {
+            images[1].color = new Color(0.65f, 0, 0, 0);
+            StartCoroutine(FadeTo(0.0f, 0.4f));
+        } else
+        {
+            images[1].color = new Color(0.65f, 0, 0, 1);
+            StartCoroutine(FadeTo(1.0f, 0.4f));
+        }
+    }
+
     public void OnItemPickedUp()
     {
         //Fade doesn't work because Gameobject is destroyed/invisible
         if (charging)
         {
             images[0].color = new Color(0, 0, 0, 0);
-            images[1].color = new Color(0, 0, 0, 0);
+            images[1].color = new Color(0.65f, 0, 0, 0);
             images[2].color = new Color(0.65f, 0, 0, 0);
         }
         else
