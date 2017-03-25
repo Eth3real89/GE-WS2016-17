@@ -57,13 +57,15 @@ public class EffectController : GenericSingletonClass<EffectController>
     public void EmpoweredPeak()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(Empowered(0.25f));
+        if (m_MoonFlare != null)
+            m_CurrentCoroutine = StartCoroutine(Empowered(0.25f));
     }
 
     public void EmpoweredSlow()
     {
         StopCurrentCoroutine();
-        m_CurrentCoroutine = StartCoroutine(Empowered(1f));
+        if (m_MoonFlare != null)
+            m_CurrentCoroutine = StartCoroutine(Empowered(1f));
     }
 
     public void SwitchWorld(WorldSwitcher.SwitchWorldCallback callback)
@@ -115,7 +117,6 @@ public class EffectController : GenericSingletonClass<EffectController>
     IEnumerator SwitchWorldEffect(WorldSwitcher.SwitchWorldCallback callback)
     {
         float maxDreamyEffect = 10;
-        float defaultFlareInt = m_MoonFlare.brightness;
         m_LerpTimer.Start(1f);
 
         while (m_Dreamy.strength != maxDreamyEffect)
