@@ -37,7 +37,7 @@ public class WorldSwitcher : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name.Equals("post_forest_exploration_level"))
             {
-                FindObjectOfType<AreaEnterTextController>().StartFadeIn("Sanguine Shelter", 9);
+                FindObjectOfType<AreaEnterTextController>().StartFadeInWithText("Sanguine Shelter", 9);
             }
             m_RealWorld.SetActive(false);
             m_ParallelWorld.SetActive(true);
@@ -46,7 +46,7 @@ public class WorldSwitcher : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name.Equals("post_forest_exploration_level"))
             {
-                FindObjectOfType<AreaEnterTextController>().StartFadeIn("Crimson Copse", 9);
+                FindObjectOfType<AreaEnterTextController>().StartFadeInWithText("Crimson Copse", 9);
             }
             m_RealWorld.SetActive(true);
             m_ParallelWorld.SetActive(false);

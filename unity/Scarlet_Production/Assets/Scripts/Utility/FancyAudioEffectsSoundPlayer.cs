@@ -152,7 +152,7 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
 
     public FARQ PlayBulletBlockedAudio(Transform attachTo)
     {
-        return createRequest("eff_bullet_blocked", 0, -1, attachTo, false, 1f);
+        return createRequest("eff_bullet_blocked", 0.6f, -1, attachTo, false, 1f);
     }
 
     protected FARQ createRequest(string clipName, float start, float end, Transform attachTo, bool loop, float volume = 0f)

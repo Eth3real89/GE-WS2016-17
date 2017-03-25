@@ -52,7 +52,7 @@ public class AreaEnterTextController : MonoBehaviour {
 		fadeIn = true;
     }
 
-    public void StartFadeIn(string areaName, int showDealyTime)
+    public void StartFadeInWithText(string areaName, int showDealyTime)
     {
         delay = showDealyTime;
         m_Name.text = areaName;
