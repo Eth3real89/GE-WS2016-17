@@ -37,7 +37,7 @@ public class TalkWithNpc : Interactor
 
     private void StopInteraction()
     {
-        currentEvent.Invoke();
         isInteracting = false;
+        currentEvent.Invoke();
     }
 }
