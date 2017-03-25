@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FairyTalkController : MonoBehaviour
 {
-
     [System.Serializable]
     public struct TimeMarker
     {
@@ -15,12 +14,19 @@ public class FairyTalkController : MonoBehaviour
     }
 
     public List<TimeMarker> marker;
+    public FairyCircling[] fairies;
+    public Transform fleePoint;
+
     private int markerId;
 
     private void Start()
     {
         if (markerId >= marker.Count)
+        {
+            foreach (FairyCircling fc in fairies)
+                fc.target = fleePoint;
             return;
+        }
         StartCoroutine(FairySpeech());
     }
 
