@@ -27,6 +27,7 @@ public class TalkWithNpc : Interactor
         if (isInteracting)
             return;
         isInteracting = true;
+        GetComponentInChildren<UIItemPickupController>().Interacting(isInteracting);
         currentEvent = marker[currentDialog].doAfter;
         new FARQ().ClipName(audioID).StartTime(marker[currentDialog].begin).
             EndTime(marker[currentDialog].end).Location(Camera.main.transform).OnFinish(StopInteraction).Play();
@@ -38,6 +39,8 @@ public class TalkWithNpc : Interactor
     private void StopInteraction()
     {
         isInteracting = false;
+        GetComponentInChildren<UIItemPickupController>().Interacting(isInteracting);
+
         currentEvent.Invoke();
     }
 }
