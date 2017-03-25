@@ -13,8 +13,6 @@ public class ScytheLeapCombo : AngelCombo {
             if (m_Success < 1)
             {
                 attack.CancelAttack();
-                m_Animator.SetTrigger("IdleTrigger");
-
                 base.OnAttackEnd(m_Attacks[m_CurrentAttackIndex]);
             }
         }
@@ -38,10 +36,16 @@ public class ScytheLeapCombo : AngelCombo {
             if (m_Success >= 1)
             {
                 m_Callback.OnComboEnd(this);
+                m_Animator.SetTrigger("IdleTrigger");
             }
         }
         else
         {
+            if (m_CurrentAttackIndex == 2)
+            {
+                m_Animator.SetTrigger("IdleTrigger");
+            }
+
             base.OnAttackEnd(attack);
         }
     }
