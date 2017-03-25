@@ -42,6 +42,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         yield return new WaitForSeconds(0.2f);
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Forest;
         ScarletVOPlayer.Instance.SetupPlayers();
+        SetMusicStage(0);
 
         if (m_StartPhase == Phase.Hunt)
         {
@@ -70,6 +71,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             m_HuntController.m_NotDeactivated = false;
 
             SetPhaseIndicatorsEnabled(2);
+            SetMusicStage(1);
             RegenerateScarletAfterPhase();
             StartCoroutine(FlickerLightsOff());
             StartCoroutine(StartPhase2AfterHowling(2f));
@@ -79,6 +81,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
             DestroyAllBullets();
             RegenerateScarletAfterPhase();
             SetPhaseIndicatorsEnabled(1);
+            SetMusicStage(2);
 
             StartCoroutine(FlickerLightsOn(false));
             if (m_Scarlet != null)
@@ -108,6 +111,8 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         yield return new WaitForSeconds(initialWaitTime);
 
         yield return StartCoroutine(Howl());
+        SetMusicStage(0);
+        PlayMusic();
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");

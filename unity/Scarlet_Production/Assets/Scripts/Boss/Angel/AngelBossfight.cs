@@ -35,6 +35,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         yield return new WaitForSeconds(0.2f);
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Church;
         ScarletVOPlayer.Instance.SetupPlayers();
+        PlayMusic();
 
         m_DH.SetActive(false);
         m_DHHealthWrapper.SetActive(false);
@@ -44,6 +45,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             m_Phase1Controller.enabled = true;
             m_Phase1Controller.StartPhase(this);
             SetPhaseIndicatorsEnabled(2);
+            SetMusicStage(0);
         }
         else if (m_StartPhase == Phase.Phase2)
         {
@@ -64,6 +66,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             SetPhaseIndicatorsEnabled(1);
+            SetMusicStage(1);
             m_Phase2Controller.StartPhase(this);
         }
         else if (whichPhase == m_Phase2Controller)

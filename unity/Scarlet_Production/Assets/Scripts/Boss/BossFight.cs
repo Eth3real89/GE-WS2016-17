@@ -239,6 +239,24 @@ public abstract class BossFight : MonoBehaviour {
 
     protected abstract IEnumerator SaveProgressInPlayerPrefs();
 
+    protected virtual void PlayMusic()
+    {
+        BossfightJukebox musicPlayer = BossfightJukebox.Instance;
+        if (musicPlayer != null)
+        {
+            musicPlayer.StartPlayingUnlessPlaying();
+        }
+    }
+
+    protected virtual void SetMusicStage(int stage)
+    {
+        BossfightJukebox musicPlayer = BossfightJukebox.Instance;
+        if (musicPlayer != null)
+        {
+            musicPlayer.m_CurrentClipOffset = stage;
+        }
+    }
+
     public virtual void SetPhaseIndicatorsEnabled(int howMany)
     {
         for(int i = 0; i < m_PhaseIndicators.Length; i++)

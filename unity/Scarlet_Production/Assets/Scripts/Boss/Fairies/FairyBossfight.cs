@@ -45,12 +45,14 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
 
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Cave;
         ScarletVOPlayer.Instance.SetupPlayers();
+        PlayMusic();
 
         if (m_StartPhase == Phase.Phase1)
         {
             m_Phase1.enabled = true;
             m_Phase1.StartPhase(this);
             SetPhaseIndicatorsEnabled(3);
+            SetMusicStage(0);
         }
         else if (m_StartPhase == Phase.Phase2)
         {
@@ -75,6 +77,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             DestroyAllBullets();
             m_Phase1.enabled = false;
             SetPhaseIndicatorsEnabled(2);
+            SetMusicStage(1);
             m_Phase2.enabled = true;
             m_Phase2.StartPhase(this);
             RegenerateScarletAfterPhase();
@@ -89,6 +92,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             DestroyAllBullets();
             m_Phase2.enabled = false;
             SetPhaseIndicatorsEnabled(1);
+            SetMusicStage(2);
             m_Phase3.enabled = true;
             m_Phase3.StartPhase(this);
             RegenerateScarletAfterPhase();
