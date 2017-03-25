@@ -23,19 +23,26 @@ public class MainMenuController : MonoBehaviour
         AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
 
-        if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
-        {
-            Activate();
-        }
+        //if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
+        //{
+        //    Activate();
+        //}
         if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
         {
+            previousTracking = cameraTracking.m_TrackingBehaviour;
+            cameraTracking.m_TrackingBehaviour = menuCamera;
+            
             selected = 0;
             SelectItem(selected);
+            Menu.SetActive(true);
             SetScarletControlsEnabled(false);
         } 
-        if(PlayerPrefs.GetInt("IsStarted") == 1)
+         else if(PlayerPrefs.GetInt("IsStarted") == 1)
         {
             StartNewGame();
+        } else if(!isShowing && FindObjectOfType<AreaEnterTextController>() != null)
+        {
+            FindObjectOfType<AreaEnterTextController>().StartFadeIn();
         }
     }
 
