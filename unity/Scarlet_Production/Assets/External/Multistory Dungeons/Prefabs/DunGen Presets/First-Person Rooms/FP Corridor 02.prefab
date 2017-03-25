@@ -62,7 +62,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 414160}
-  - component: {fileID: 11434836}
   m_Layer: 0
   m_Name: FP Doorway Default (5)
   m_TagString: Untagged
@@ -289,7 +288,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 464258}
-  - component: {fileID: 11408466}
   m_Layer: 0
   m_Name: FP Doorway Default (3)
   m_TagString: Untagged
@@ -429,7 +427,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 493536}
-  - component: {fileID: 11441106}
   m_Layer: 0
   m_Name: FP Corridor 02
   m_TagString: Untagged
@@ -622,7 +619,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 442648}
-  - component: {fileID: 11477420}
   m_Layer: 0
   m_Name: FP Doorway Default (4)
   m_TagString: Untagged
@@ -2745,129 +2741,6 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &11408466
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 142052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a188f8ee195cf4cb8b2fdccd193b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SocketGroup: 0
-  DoorPrefabs:
-  - {fileID: 103836, guid: 17d08f9ff42aa84419487324b653275d, type: 2}
-  BlockerPrefabs:
-  - {fileID: 178182, guid: a171610a01fcf9f4297e95f5c1dd696d, type: 2}
-  - {fileID: 173772, guid: 575c0988c10c0c94fafa2f769cf85728, type: 2}
-  - {fileID: 110290, guid: e1d2b28bfc256014ea1ac2310d203acb, type: 2}
-  - {fileID: 180244, guid: 66d37468dc0e8014589aa8da16a77931, type: 2}
-  - {fileID: 165158, guid: 54e73bac4dcb1de41a426a937588422c, type: 2}
-  AvoidRotatingDoorPrefab: 0
-  AvoidRotatingBlockerPrefab: 0
-  AddWhenInUse: []
-  AddWhenNotInUse: []
-  Size: {x: 6, y: 8}
-  doorPrefab: {fileID: 0}
-  tile: {fileID: 0}
-  connectedDoorway: {fileID: 0}
-  hideConditionalObjects: 0
---- !u!114 &11434836
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 106244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a188f8ee195cf4cb8b2fdccd193b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SocketGroup: 0
-  DoorPrefabs:
-  - {fileID: 103836, guid: 17d08f9ff42aa84419487324b653275d, type: 2}
-  BlockerPrefabs:
-  - {fileID: 178182, guid: a171610a01fcf9f4297e95f5c1dd696d, type: 2}
-  - {fileID: 173772, guid: 575c0988c10c0c94fafa2f769cf85728, type: 2}
-  - {fileID: 110290, guid: e1d2b28bfc256014ea1ac2310d203acb, type: 2}
-  - {fileID: 180244, guid: 66d37468dc0e8014589aa8da16a77931, type: 2}
-  - {fileID: 165158, guid: 54e73bac4dcb1de41a426a937588422c, type: 2}
-  AvoidRotatingDoorPrefab: 0
-  AvoidRotatingBlockerPrefab: 0
-  AddWhenInUse: []
-  AddWhenNotInUse: []
-  Size: {x: 6, y: 8}
-  doorPrefab: {fileID: 0}
-  tile: {fileID: 0}
-  connectedDoorway: {fileID: 0}
-  hideConditionalObjects: 0
---- !u!114 &11441106
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 156910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 238d443cf4b172f4989d5ce455c57c3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AllowRotation: 1
-  AllowImmediateRepeats: 1
-  placement:
-    UsedDoorways: []
-    UnusedDoorways: []
-    AllDoorways: []
-    pathDepth: 0
-    normalizedPathDepth: 0
-    branchDepth: 0
-    normalizedBranchDepth: 0
-    isOnMainPath: 0
-    bounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 0, y: 0, z: 0}
-    root: {fileID: 0}
-    tile: {fileID: 0}
-  isVisible: 1
-  archetype: {fileID: 0}
-  tileSet: {fileID: 0}
-  node:
-    flow: {fileID: 0}
-    index: 0
-  line:
-    flow: {fileID: 0}
-    index: 0
---- !u!114 &11477420
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 183842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32a188f8ee195cf4cb8b2fdccd193b79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SocketGroup: 0
-  DoorPrefabs:
-  - {fileID: 103836, guid: 17d08f9ff42aa84419487324b653275d, type: 2}
-  BlockerPrefabs:
-  - {fileID: 178182, guid: a171610a01fcf9f4297e95f5c1dd696d, type: 2}
-  - {fileID: 173772, guid: 575c0988c10c0c94fafa2f769cf85728, type: 2}
-  - {fileID: 110290, guid: e1d2b28bfc256014ea1ac2310d203acb, type: 2}
-  - {fileID: 180244, guid: 66d37468dc0e8014589aa8da16a77931, type: 2}
-  - {fileID: 165158, guid: 54e73bac4dcb1de41a426a937588422c, type: 2}
-  AvoidRotatingDoorPrefab: 0
-  AvoidRotatingBlockerPrefab: 0
-  AddWhenInUse: []
-  AddWhenNotInUse: []
-  Size: {x: 6, y: 8}
-  doorPrefab: {fileID: 0}
-  tile: {fileID: 0}
-  connectedDoorway: {fileID: 0}
-  hideConditionalObjects: 0
 --- !u!198 &19804162
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -2876,7 +2749,7 @@ ParticleSystem:
   m_GameObject: {fileID: 137556}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -5507,7 +5380,7 @@ ParticleSystem:
   m_GameObject: {fileID: 167412}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -8090,7 +7963,7 @@ ParticleSystem:
   m_GameObject: {fileID: 126136}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -10673,7 +10546,7 @@ ParticleSystem:
   m_GameObject: {fileID: 191670}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -13256,7 +13129,7 @@ ParticleSystem:
   m_GameObject: {fileID: 148782}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -15839,7 +15712,7 @@ ParticleSystem:
   m_GameObject: {fileID: 135212}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -18470,7 +18343,7 @@ ParticleSystem:
   m_GameObject: {fileID: 165062}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -21101,7 +20974,7 @@ ParticleSystem:
   m_GameObject: {fileID: 154544}
   serializedVersion: 5
   lengthInSec: 2
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
