@@ -178,6 +178,7 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             m_Callback.OnCommandEnd(m_CommandName, this);
 
             LookAtSource(dmg);
+            PlayAudio(m_BlockAudio);
         }
         else
         {
@@ -196,7 +197,6 @@ public class PlayerParryCommand : PlayerCommand, HitInterject
             m_Callback.OnCommandEnd(m_CommandName, this);
         }
 
-        PlayAudio(m_BlockAudio);
         dmg.OnBlockDamage();
 
         return true;
