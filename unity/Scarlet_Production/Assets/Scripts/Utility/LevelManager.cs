@@ -37,6 +37,10 @@ public class LevelManager : GenericSingletonClass<LevelManager>
 
     private void SaveProgress()
     {
+        // don't safe in first scene
+        if (SceneManager.GetActiveScene().name == "city_exploration_level")
+            return;
+
         PlayerPrefs.SetString("CurrentLevel", SceneManager.GetActiveScene().name);
         PlayerPrefs.Save();
     }
