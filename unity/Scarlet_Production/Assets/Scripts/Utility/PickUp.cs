@@ -5,8 +5,9 @@ public class PickUp : Interactor
 {
     public GameObject[] m_Enables;
     public GameObject[] m_Disables;
-
     public GameObject[] m_Auras;
+
+    public LayerMask m_Mask;
 
     private Camera m_Camera;
     private OnCollectibleVFX m_OnCollectibleVFX;
@@ -52,7 +53,7 @@ public class PickUp : Interactor
     private void HandleCollectibleVisualization()
     {
         RaycastHit hit;
-        Physics.Raycast(m_Camera.transform.position, transform.position - m_Camera.transform.position, out hit);
+        Physics.Raycast(m_Camera.transform.position, transform.position - m_Camera.transform.position, out hit, Mathf.Infinity, m_Mask);
 
         if (GetComponent<Renderer>().isVisible && hit.transform == transform)
         {
