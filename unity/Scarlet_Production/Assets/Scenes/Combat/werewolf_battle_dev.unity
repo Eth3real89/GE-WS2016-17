@@ -4510,7 +4510,7 @@ MonoBehaviour:
   - {fileID: 1246948700}
   - {fileID: 1269055037}
   m_TransitionTime: 7
-  m_StartPhase: 0
+  m_StartPhase: 2
   m_WerewolfAnimator: {fileID: 1689460406}
   m_HuntController: {fileID: 1689460401}
   m_Phase2Controller: {fileID: 1689460400}
@@ -4557,8 +4557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ScreenContainer: {fileID: 1131614364}
-  m_ShowReward: 0
-  m_TextForReward: 
+  m_ShowReward: 1
+  m_TextForReward: Darkness Strenghtened
 --- !u!1001 &461883925
 Prefab:
   m_ObjectHideFlags: 0
@@ -15732,6 +15732,11 @@ Prefab:
       propertyPath: m_Tutorial
       value: 
       objectReference: {fileID: 2023222680}
+    - target: {fileID: 114421800819569646, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_TotalAttacks
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
