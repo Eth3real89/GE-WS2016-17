@@ -61,29 +61,32 @@ public class WerewolfRagemodeController : WerewolfController
     {
         CancelComboIfActive();
         StartCoroutine(MakeKillable());
+
     }
 
     protected IEnumerator MakeKillable()
     {
         m_BossHittable.RegisterInterject(this);
         m_Killable = true;
+        WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
+
+        if (hittable != null)
+        {
+            hittable.StopPlayingCriticalHPSound();
+        }
+
         yield return null;
 
 
         m_BossHealth.m_CurrentHealth = 3f;
 
-        WerewolfHittable hittable = FindObjectOfType<WerewolfHittable>();
-        if (hittable != null)
-        {
-            hittable.StopPlayingCriticalHPSound();
-            hittable.m_DontPlaySound = true;
-        }
 
         new FARQ().ClipName("werewolf").Location(this.transform).StartTime(115.4f).EndTime(126.8f).PlayUnlessPlaying();
     }
 
     protected void Kill()
     {
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(115.4f).EndTime(126.8f).StopIfPlaying();
         m_WerewolfAnimator.SetTrigger("DeathTrigger");
         m_NotDeactivated = false;
         UnRegisterEventsForSound();

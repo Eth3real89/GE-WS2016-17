@@ -61,7 +61,7 @@ public class WerewolfHittable : BossHittable {
 
     public void StopPlayingCriticalHPSound()
     {
-        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(60.5f).EndTime(75.2f).Volume(0.3f).OnFinish(ContinuePlayingCriticalHPSound).StopIfPlaying();
+        new FARQ().ClipName("werewolf").Location(this.transform).StartTime(60.5f).EndTime(75.2f).Volume(0.3f).StopIfPlaying();
     }
 
     protected void PlayHitSound(Damage damage)
