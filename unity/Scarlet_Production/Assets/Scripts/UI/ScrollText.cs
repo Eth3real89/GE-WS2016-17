@@ -8,10 +8,13 @@ public class ScrollText : MonoBehaviour
     public Camera camera;
     public RectTransform images;
     public float offset, offsetImages, speed;
+    public bool cutsceneStarted;
+    public LoadBossFight credits;
 
     private float screenHeight;
     private RectTransform rect;
     private Text text;
+    private bool startedSceneLoad;
 
     private void Start()
     {
@@ -28,5 +31,15 @@ public class ScrollText : MonoBehaviour
 
         if (images.localPosition.y < 0)
             images.localPosition += velocity;
+        else if (!cutsceneStarted)
+        {
+            images.localPosition += velocity;
+        }
+
+        if (!cutsceneStarted && images.localPosition.y > camera.pixelHeight / 2 && !startedSceneLoad)
+        {
+            startedSceneLoad = true;
+            credits.LoadNextSceneSlowFade();
+        }
     }
 }

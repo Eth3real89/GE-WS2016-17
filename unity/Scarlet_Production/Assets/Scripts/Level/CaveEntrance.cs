@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CaveEntrance : Interactor
 {
+    public UnityEvent afterBreakoutEvent;
+
     public delegate void OpenGateEvent();
 
     public static OpenGateEvent explodeEvent;
@@ -25,6 +28,8 @@ public class CaveEntrance : Interactor
         explodeEvent();
         yield return new WaitForSeconds(3);
         dropEvent();
+        if (afterBreakoutEvent != null)
+            afterBreakoutEvent.Invoke();
         yield return new WaitForSeconds(3);
         destroyEvent();
     }
