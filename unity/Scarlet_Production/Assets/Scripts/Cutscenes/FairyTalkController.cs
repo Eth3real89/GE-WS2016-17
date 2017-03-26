@@ -19,7 +19,18 @@ public class FairyTalkController : MonoBehaviour
 
     private int markerId;
 
-    private void Start()
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GetComponent<Collider>().enabled = false;
+            foreach (FairyCircling fc in fairies)
+                fc.target = other.transform;
+            TriggerVoiceline();
+        }
+    }
+
+    private void TriggerVoiceline()
     {
         if (markerId >= marker.Count)
         {
@@ -34,7 +45,7 @@ public class FairyTalkController : MonoBehaviour
     {
         TimeMarker currentMarker = marker[markerId];
         yield return new WaitForSeconds(currentMarker.extraDelay);
-        new FARQ().ClipName(currentMarker.audioId).OnFinish(Start).StartTime(currentMarker.begin).EndTime(currentMarker.end).Location(Camera.main.transform).Play();
+        new FARQ().ClipName(currentMarker.audioId).OnFinish(TriggerVoiceline).StartTime(currentMarker.begin).EndTime(currentMarker.end).Location(Camera.main.transform).Play();
         markerId++;
     }
 }
