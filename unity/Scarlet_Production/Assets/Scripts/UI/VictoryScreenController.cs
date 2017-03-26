@@ -84,16 +84,6 @@ public class VictoryScreenController : MonoBehaviour {
 		if (aValue != 0)
 		{
 			m_WaitTillFadeOut = true;
-		} else
-		{
-			BossFight[] bossfights = GetComponents<BossFight>();
-			foreach (BossFight fight in bossfights)
-			{
-				if (fight.enabled)
-				{
-                    fight.LoadSceneAfterBossfight();
-				}
-			}
 		}
         if(showMessage && m_ShowReward)
         {

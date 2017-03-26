@@ -10,7 +10,7 @@ public class ShowRewardMessageController : MonoBehaviour {
     public Image m_CloseHintAura;
     public Image m_CloseHintButton;
     public Text m_CloseHintText;
-
+    public bool m_BossfightAfter = false;
 
     private IEnumerator m_TutorialEnumerator;
 
@@ -101,6 +101,17 @@ public class ShowRewardMessageController : MonoBehaviour {
         if(allowMoveAfter)
         {
             SetScarletControlsEnabled(allowMoveAfter);
+            if(m_BossfightAfter)
+            {
+                BossFight[] bossfights = FindObjectsOfType<BossFight>();
+                foreach (BossFight fight in bossfights)
+                {
+                    if (fight.enabled)
+                    {
+                        fight.LoadSceneAfterBossfight();
+                    }
+                }
+            }
         } else
         {
             m_FadeOut = true;
