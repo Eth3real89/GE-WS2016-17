@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1253935861}
-  m_IndirectSpecularColor: {r: 0.00070116227, g: 0.0023195113, b: 0.055857606, a: 1}
+  m_IndirectSpecularColor: {r: 0.00061816757, g: 0.0023196875, b: 0.0555418, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -7834,10 +7834,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Clips:
-  - {fileID: 8300000, guid: ac3b7a3cf60d74953899769cb12fac30, type: 3}
-  - {fileID: 8300000, guid: b509d4833d01c4b149c608c650adcead, type: 3}
-  - {fileID: 8300000, guid: 43c00633ac3f24f3e86b06b84e177bd0, type: 3}
-  - {fileID: 8300000, guid: 12e2ce328fc6e42599564e60794e6bba, type: 3}
+  - {fileID: 8300000, guid: 5480798156eb14c20ac689d5d6f2b734, type: 3}
+  - {fileID: 8300000, guid: 0aee1027616e648f7b9d048c2ed3ead8, type: 3}
+  - {fileID: 8300000, guid: 2aebdc5cd3fd0454796fc841932b489a, type: 3}
   m_Source1: {fileID: 2003313557}
   m_Source2: {fileID: 1610094383}
   m_CurrentClipOffset: 0
@@ -15870,6 +15869,16 @@ Prefab:
       propertyPath: m_TotalAttacks
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114344973080775448, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_MaxHealth
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 114344973080775448, guid: 31c1964b3a78dd5469bb1ac3c87de78d,
+        type: 2}
+      propertyPath: m_HealthStart
+      value: 900
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 31c1964b3a78dd5469bb1ac3c87de78d, type: 2}
   m_IsPrefabParent: 0
@@ -15913,7 +15922,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -17488,7 +17497,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
