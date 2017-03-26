@@ -24,7 +24,12 @@ public class ScrollText : MonoBehaviour
         images.localPosition = new Vector2(0, rect.localPosition.y + offsetImages - text.preferredHeight);
     }
 
-    void Update()
+    public void CutsceneStarted()
+    {
+        cutsceneStarted = true;
+    }
+
+    private void Update()
     {
         Vector3 velocity = new Vector3(0, speed * Time.deltaTime, 0);
         rect.localPosition += velocity;
