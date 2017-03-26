@@ -117,21 +117,22 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.enabled = false;
             m_Phase3Controller.m_NotDeactivated = false;
             SetPhaseIndicatorsEnabled(0);
-            print("Win!");
 
             VampireHittable hittable = FindObjectOfType<VampireHittable>();
             if (hittable != null)
                 hittable.StopPlayingCriticalHPSound();
 
-            ScarletVOPlayer.Instance.PlayVictorySound();
-            PlayScarletVictoryAnimation();
+            ScarletVOPlayer.Instance.StopPlayingBadlyWoundedSound();
+
             StartCoroutine(ShowVictoryScreenAfterWaiting());
         }
     }
 
     private IEnumerator ShowVictoryScreenAfterWaiting()
     {
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(16f);
+        ScarletVOPlayer.Instance.PlayVictorySound();
+        PlayScarletVictoryAnimation();
         GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
     }
 
