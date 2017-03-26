@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RegisterRockEvents : MonoBehaviour
 {
+    public bool addForce;
+
     private Rigidbody rb;
     private Collider col;
 
@@ -20,6 +22,11 @@ public class RegisterRockEvents : MonoBehaviour
     private void Explode()
     {
         rb.isKinematic = false;
+        if (addForce)
+        {
+            Vector3 origin = GameObject.FindGameObjectWithTag("Player").transform.position;
+            rb.AddExplosionForce(500, origin, 50);
+        }
     }
 
     private void Drop()
