@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.003749073, g: 0.003749073, b: 0.003749073, a: 1}
+  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -787,6 +787,16 @@ Prefab:
     - target: {fileID: 1064843205124224, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114236755051365782, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_MaxHealth
+      value: 850
+      objectReference: {fileID: 0}
+    - target: {fileID: 114236755051365782, guid: e2c38e6550dc81348be55dcf2fb78481,
+        type: 2}
+      propertyPath: m_HealthStart
+      value: 850
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e2c38e6550dc81348be55dcf2fb78481, type: 2}
@@ -4993,7 +5003,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -8069,10 +8079,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Clips:
-  - {fileID: 8300000, guid: ac3b7a3cf60d74953899769cb12fac30, type: 3}
-  - {fileID: 8300000, guid: b509d4833d01c4b149c608c650adcead, type: 3}
-  - {fileID: 8300000, guid: 43c00633ac3f24f3e86b06b84e177bd0, type: 3}
-  - {fileID: 8300000, guid: 12e2ce328fc6e42599564e60794e6bba, type: 3}
+  - {fileID: 8300000, guid: 2290306d0e79643fb9c9e9c31d81bdc8, type: 3}
+  - {fileID: 8300000, guid: 9670b6dfdf8ea472e870a55356009339, type: 3}
+  - {fileID: 8300000, guid: 65d63f8de43c04a55bb858c05a81e311, type: 3}
   m_Source1: {fileID: 1521830842}
   m_Source2: {fileID: 636976500}
   m_CurrentClipOffset: 0
@@ -9414,7 +9423,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0
