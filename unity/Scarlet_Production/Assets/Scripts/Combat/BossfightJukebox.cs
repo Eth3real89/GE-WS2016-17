@@ -67,10 +67,7 @@ public class BossfightJukebox : MonoBehaviour {
         }
         activeSource.Stop();
 
-        if (m_PlayingClip == m_CurrentClipOffset)
-            m_PlayingClip += 1;
-        else
-            m_PlayingClip = m_CurrentClipOffset;
+        m_PlayingClip = m_CurrentClipOffset;
 
         nextSource.clip = m_Clips[m_PlayingClip];
         nextSource.Play();
