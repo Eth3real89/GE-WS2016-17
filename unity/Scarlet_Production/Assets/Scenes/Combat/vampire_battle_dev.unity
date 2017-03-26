@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 143308041}
-  m_IndirectSpecularColor: {r: 0.0037490362, g: 0.0037490362, b: 0.0037490362, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -9995,7 +9995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ScreenContainer: {fileID: 26375375}
   m_ShowReward: 1
-  m_TextForReward: Juhu!!!
+  m_TextForReward: Darkness Strengthened
 --- !u!1 &578588543
 GameObject:
   m_ObjectHideFlags: 0
@@ -18580,6 +18580,16 @@ Prefab:
       propertyPath: m_PlayerParry
       value: 
       objectReference: {fileID: 1776904155}
+    - target: {fileID: 114908096663800970, guid: 3fbb66376cad1ba419a7401087fa0472,
+        type: 2}
+      propertyPath: m_MaxHealth
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 114908096663800970, guid: 3fbb66376cad1ba419a7401087fa0472,
+        type: 2}
+      propertyPath: m_HealthStart
+      value: 750
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3fbb66376cad1ba419a7401087fa0472, type: 2}
   m_IsPrefabParent: 0

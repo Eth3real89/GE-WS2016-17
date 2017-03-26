@@ -7,6 +7,7 @@ public class AreaEnterTextController : MonoBehaviour {
 	public GameObject textHint;
 	public int timeShowHint;
 	public int delay;
+    public AudioClip m_AreaEnterNotification;
 
 	private bool fadeIn;
 	private bool fadeOut = false;
@@ -21,6 +22,8 @@ public class AreaEnterTextController : MonoBehaviour {
 
         m_Name = textHint.GetComponentInChildren<Text>();
         m_Background = textHint.GetComponentInChildren<Image>();
+
+
     }
 
     // Update is called once per frame
@@ -50,6 +53,9 @@ public class AreaEnterTextController : MonoBehaviour {
 	public void StartFadeIn()
 	{
 		fadeIn = true;
+
+        if(m_AreaEnterNotification != null)
+            Camera.main.gameObject.AddComponent<AudioSource>().PlayOneShot(m_AreaEnterNotification);
     }
 
     public void StartFadeInWithText(string areaName, int showDealyTime)
