@@ -40,8 +40,11 @@ public class PlayerInteractionCommand : PlayerCommand
             }
             if (m_CurrentInteraction < 0)
             {
-                if (m_CurrentInteractor!= null)
+                if (m_CurrentInteractor != null)
+                {
                     m_CurrentInteractor.Interact();
+                    CancelDelay();
+                }
             }
         }
         if (!isInteracting)
