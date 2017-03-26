@@ -132,6 +132,8 @@ public class AttackCombo : MonoBehaviour, BossAttack.AttackCallback {
         {
             _m_CurrentAttack.CancelAttack();
             _m_CurrentAttack.StopAllCoroutines();
+            _m_CurrentAttack = null;
+            m_BetweenAttacks = false;
         }
 
         try

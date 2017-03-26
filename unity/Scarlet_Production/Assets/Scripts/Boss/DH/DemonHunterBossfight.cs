@@ -115,6 +115,13 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             hittable.GetComponent<Animator>().SetTrigger("CancelTrigger");
         }
 
+        DemonHunterWeaponChanges dhwc = FindObjectOfType<DemonHunterWeaponChanges>();
+        if (dhwc != null)
+        {
+            dhwc.PistolsPutAwayAnimEvent();
+            dhwc.RiflePutAwayAnimEvent();
+        }
+
         m_Phase1Controller.CancelAndReset();
         m_Phase2Controller.CancelAndReset();
         m_Phase3Controller.CancelAndReset();

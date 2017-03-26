@@ -78,12 +78,16 @@ public class ParallelCombo : AttackCombo, BossAttack.AttackCallback {
 
     public override void CancelCombo()
     {
+        MLog.Log(LogType.BattleLog, 1, "Cancelling Combo, Combo, " + this);
         m_Cancelled = true;
 
         foreach(BossAttack attack in m_Attacks)
         {
             attack.CancelAttack();
         }
+
+        _m_CurrentAttack = null;
+        m_BetweenAttacks = false;
 
         if (m_AttackTimer != null)
             StopCoroutine(m_AttackTimer);
