@@ -15,6 +15,7 @@ public class AreaEnterTextController : MonoBehaviour {
 
     private Text m_Name;
     private Image m_Background;
+    private bool m_SoundPlayed = false;
 
     // Use this for initialization
     void Start () {
@@ -31,14 +32,22 @@ public class AreaEnterTextController : MonoBehaviour {
 		if(fadeIn)
 		{
 			time += Time.deltaTime;
-			if (time > delay)
-			{
-				StartCoroutine(FadeTo(1.0f, 0.6f));
+            if (time > delay - 1f && !m_SoundPlayed)
+            {
+                if (m_AreaEnterNotification != null)
+                    Camera.main.gameObject.AddComponent<AudioSource>().PlayOneShot(m_AreaEnterNotification);
+                m_SoundPlayed = true;
+            }
+
+            if (time > delay)
+            {
+                StartCoroutine(FadeTo(1.0f, 0.6f));
 				fadeIn = false;
 				fadeOut = true;
 				time = 0;
-			}
-		}
+                m_SoundPlayed = false;
+            }
+        }
 		if(fadeOut)
 		{
 			time += Time.deltaTime;
@@ -53,9 +62,6 @@ public class AreaEnterTextController : MonoBehaviour {
 	public void StartFadeIn()
 	{
 		fadeIn = true;
-
-        if(m_AreaEnterNotification != null)
-            Camera.main.gameObject.AddComponent<AudioSource>().PlayOneShot(m_AreaEnterNotification);
     }
 
     public void StartFadeInWithText(string areaName, int showDealyTime)
