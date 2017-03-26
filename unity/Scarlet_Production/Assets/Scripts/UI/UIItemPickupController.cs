@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIItemPickupController : MonoBehaviour {
-    
+public class UIItemPickupController : MonoBehaviour
+{
+
     public GameObject textHint;
     public bool charging;
     public bool m_ShowReward = false;
@@ -14,7 +15,7 @@ public class UIItemPickupController : MonoBehaviour {
     private Text textField;
     private Image[] images;
     private Interactor interactor;
-    
+
     void Start()
     {
         images = textHint.GetComponentsInChildren<Image>();
@@ -62,6 +63,7 @@ public class UIItemPickupController : MonoBehaviour {
     public void StopInteraction()
     {
         m_StopInteraction = true;
+        OnTriggerExit(GameObject.FindGameObjectWithTag("Player").GetComponent<Collider>());
         images[1].color = new Color(0.65f, 0, 0, 0);
         StartCoroutine(FadeTo(0.0f, 0.4f));
     }
@@ -101,7 +103,7 @@ public class UIItemPickupController : MonoBehaviour {
         {
             Color newColorRed = new Color(0.65f, 0, 0, Mathf.Lerp(alpha, aValue, t));
             Color newColorBlack = new Color(0, 0, 0, Mathf.Lerp(alphaBlack, aValue, t));
-            if(charging)
+            if (charging)
             {
                 images[0].color = newColorBlack;
                 images[2].color = newColorRed;
@@ -115,11 +117,12 @@ public class UIItemPickupController : MonoBehaviour {
 
             yield return null;
         }
-        if(charging)
+        if (charging)
         {
             images[0].color = new Color(0, 0, 0, aValue);
             images[2].color = new Color(0.65f, 0, 0, aValue);
-        } else
+        }
+        else
         {
             images[0].color = new Color(0, 0, 0, aValue);
             images[1].color = new Color(0.65f, 0, 0, aValue);

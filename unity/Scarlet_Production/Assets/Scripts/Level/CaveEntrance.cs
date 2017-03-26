@@ -15,6 +15,7 @@ public class CaveEntrance : Interactor
             return;
 
         m_IsInteractible = false;
+        GetComponentInChildren<UIItemPickupController>().StopInteraction();
         new FARQ().ClipName("rocks").Location(transform).Play();
         StartCoroutine(OpenCave());
     }

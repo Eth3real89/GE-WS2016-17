@@ -17,6 +17,7 @@ public class FellTree : Interactor
         new FARQ().ClipName("treefalling").Location(transform).Play();
         GetComponent<Rigidbody>().isKinematic = false;
         GetComponentInChildren<UIItemPickupController>().OnItemPickedUp();
+        GetComponentInChildren<UIItemPickupController>().StopInteraction();
         StartCoroutine(SwitchStuffOff());
         StartCoroutine(EnableStartEffect());
         StartCoroutine(EnablePortal());
