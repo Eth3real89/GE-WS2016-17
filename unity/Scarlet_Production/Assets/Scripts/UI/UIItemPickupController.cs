@@ -15,6 +15,7 @@ public class UIItemPickupController : MonoBehaviour
     private Text textField;
     private Image[] images;
     private Interactor interactor;
+    private bool m_Isinteracting = false;
 
     void Start()
     {
@@ -25,7 +26,7 @@ public class UIItemPickupController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (!m_StopInteraction && other.CompareTag("Player"))
+        if (!m_StopInteraction && !m_Isinteracting && other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(1.0f, 0.6f));
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, true);
@@ -35,7 +36,7 @@ public class UIItemPickupController : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (!m_Isinteracting && other.CompareTag("Player"))
         {
             StartCoroutine(FadeTo(0.0f, 0.6f));
             textHint.GetComponentInChildren<ButtonPromptController>().IsInTriggerArea(gameObject, false);
@@ -45,6 +46,7 @@ public class UIItemPickupController : MonoBehaviour
 
     public void Interacting(bool isInteracting)
     {
+        m_Isinteracting = isInteracting;
         if (!m_StopInteraction)
         {
             if (isInteracting)
