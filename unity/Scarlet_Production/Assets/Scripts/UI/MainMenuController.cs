@@ -51,9 +51,9 @@ public class MainMenuController : MonoBehaviour
 
         if (isShowing)
         {
-            if (Input.GetButtonDown("Vertical"))
+            if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (Input.GetAxis("Vertical") < 0)
+                if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     if (selected == MenuItems.Length - 1)
                     {

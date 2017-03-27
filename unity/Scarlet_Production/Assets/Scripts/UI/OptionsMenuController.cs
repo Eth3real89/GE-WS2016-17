@@ -30,9 +30,9 @@ public class OptionsMenuController : MonoBehaviour {
             m_MusicSlider.value = PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue;
         }
 
-        if (Input.GetButtonDown("Vertical"))
+        if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (Input.GetAxis("Vertical") < 0)
+            if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (selected == MenuItems.Length - 1)
                 {
@@ -56,11 +56,11 @@ public class OptionsMenuController : MonoBehaviour {
             }
             SelectItem(selected);
         }
-        if (Input.GetButton("Horizontal"))
+        if (Input.GetButton("Horizontal") || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
         {
             if (selected == music)
             {
-                if (Input.GetAxis("Horizontal") < 0)
+                if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
                 {
                     m_MusicSlider.value = m_MusicSlider.value - 1;
                     AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
