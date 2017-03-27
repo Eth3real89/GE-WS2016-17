@@ -18,8 +18,6 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
     public GameObject m_Shield;
     public GameObject m_BigSword;
 
-    public CombatCamera[] m_Cameras;
-
     public PlayerControls m_PlayerControls;
 
     protected float m_InitialArmorBarYPos = -1;
@@ -36,11 +34,6 @@ public class FairyBossfightPhase4 : FairyBossfightPhase {
 
         m_Callback.OnPhaseStart(this);
         StartCoroutine(EquipTwoHandedSword());
-
-        foreach (CombatCamera c in m_Cameras)
-        {
-            c.m_Targets = new GameObject[] {m_Scarlet, m_Armor};
-        }
     }
 
     private IEnumerator EquipTwoHandedSword()

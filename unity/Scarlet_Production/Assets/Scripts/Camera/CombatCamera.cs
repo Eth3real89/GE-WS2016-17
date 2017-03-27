@@ -108,6 +108,9 @@ public class CombatCamera : MonoBehaviour
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
+            if (m_Targets[i] == null || !m_Targets[i].activeInHierarchy)
+                continue;
+
             top = Mathf.Max(top, m_Targets[i].transform.position.z);
             left = Mathf.Min(left, m_Targets[i].transform.position.x);
             right = Mathf.Max(right, m_Targets[i].transform.position.x);
@@ -128,7 +131,7 @@ public class CombatCamera : MonoBehaviour
 
         for (int i = 0; i < m_Targets.Length; i++)
         {
-            if (!m_Targets[i].activeSelf)
+            if (m_Targets[i] == null || !m_Targets[i].activeInHierarchy)
                 continue;
 
             float distance = Vector3.Distance(m_Targets[i].transform.position, m_AveragePosition);
