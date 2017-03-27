@@ -5672,6 +5672,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlayerCommands: []
   m_Activator: {fileID: 0}
+  m_ParrySlowMoTime: 1
 --- !u!114 &114335818791618858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -5744,7 +5745,6 @@ MonoBehaviour:
   m_DefaultLocked: 0
   m_Scarlet: {fileID: 0}
   m_Animator: {fileID: 0}
-  m_MaxHealthPotions: 3
   m_HealingEffect: {fileID: 1750817311586412}
   m_MaxHealthGain: 33
   m_NumPotionListenerObject: {fileID: 0}
@@ -6078,7 +6078,7 @@ MonoBehaviour:
   m_Animator: {fileID: 0}
   m_RegularHitDamage: 20
   m_FinalHitDamage: 30
-  m_RiposteDamage: 50
+  m_RiposteDamage: 75
   m_MaxTimeForCombo: 0.5
   m_DelayAfterAttack: 0.3
   m_DelayAfterLastAttack: 0.5
