@@ -224,13 +224,19 @@ public abstract class BossFight : MonoBehaviour {
                 if (s_ScarletCanDie)
                 {
                     s_ScarletCanDie = false;
-                    GetComponent<GodModeActivatedBoxController>().ShowGodModeAcitvated("God mode enabled.", "Filthy Casual!");
+                    try
+                    {
+                        GetComponent<GodModeActivatedBoxController>().ShowGodModeAcitvated("God mode enabled.", "Filthy Casual!");
+                    } catch { }
                     print("God mode enabled.");
                 }
                 else
                 {
                     s_ScarletCanDie = true;
-                    GetComponent<GodModeActivatedBoxController>().ShowGodModeAcitvated("God mode disabled.", "");
+                    try
+                    {
+                        GetComponent<GodModeActivatedBoxController>().ShowGodModeAcitvated("God mode disabled.", "");
+                    } catch { }
                     print("God mode disabled.");
                 }
             }

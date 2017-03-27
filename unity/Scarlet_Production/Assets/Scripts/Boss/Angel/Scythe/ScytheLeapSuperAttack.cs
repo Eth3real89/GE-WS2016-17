@@ -102,7 +102,6 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
     protected virtual IEnumerator AtHighestPoint()
     {
-        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1 / AdjustTime(m_DownwardsTime)));
         m_Animator.SetTrigger("ScytheSuperOverheadTrigger");
 
         float t = 0;
@@ -142,7 +141,6 @@ public class ScytheLeapSuperAttack : AngelAttack, BossMeleeDamage.DamageCallback
 
         // impact
         CameraController.Instance.Shake();
-        m_Animator.SetFloat("AnimationSpeed", AdjustSpeed(1f));
         DisableVisualEffect();
         m_Boss.transform.position = m_Boss.transform.position - new Vector3(0, m_Boss.transform.position.y + m_YPosBefore, 0);
 

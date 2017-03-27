@@ -63,6 +63,8 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             if (weapons != null)
                 weapons.CancelChange();
 
+            RegenerateScarletAfterPhase();
+
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
             SetPhaseIndicatorsEnabled(1);
