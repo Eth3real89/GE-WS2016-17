@@ -114,7 +114,7 @@ public class OnHitSignal : MonoBehaviour {
         }
     }
 
-    private void InitBloodTrail(GameObject attacker)
+    protected virtual void InitBloodTrail(GameObject attacker)
     {
         GameObject[] existingTrails = GameObject.FindGameObjectsWithTag("Blood");
         if (existingTrails.Length >= m_MaxBloodTrails)
@@ -126,6 +126,8 @@ public class OnHitSignal : MonoBehaviour {
             }
         }
 
+        if (m_MaxBloodTrails == 0)
+            return;
 
         GameObject bloodTrailWrapper = (GameObject)Instantiate(m_BloodTrailPrefab, transform.position,
             attacker.transform.rotation);
@@ -148,7 +150,7 @@ public class OnHitSignal : MonoBehaviour {
     }
 
 
-    private IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps, ParticleSystem ps2)
+    protected virtual IEnumerator RemoveBloodTrail(GameObject bloodTrail, ParticleSystem ps, ParticleSystem ps2)
     {
         float time = 0;
         float endTime = time + m_TimeBleedAfterHit;
