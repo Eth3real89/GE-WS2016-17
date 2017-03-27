@@ -2,11 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AngelBossfight : BossFight, BossfightCallbacks
 {
 
-    public enum Phase { Phase1, Phase2, Phase3 };
+    public enum Phase { Phase1, Phase2 };
     public Phase m_StartPhase;
 
     public AngelPhase1Controller m_Phase1Controller;
@@ -67,6 +68,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
+
             SetPhaseIndicatorsEnabled(1);
             SetMusicStage(1);
             m_Phase2Controller.StartPhase(this);
@@ -79,8 +81,13 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             m_Phase2Controller.enabled = false;
             SetPhaseIndicatorsEnabled(0);
 
-            //StartCoroutine(DissolveAngel());
+            PlayerControls pc = FindObjectOfType<PlayerControls>();
+            if (pc != null)
+                pc.DisableAllCommands();
+
             ScarletVOPlayer.Instance.PlayVictorySound();
+            PlayScarletVictoryAnimation();
+            GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
         }
     }
 
@@ -110,7 +117,14 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
     public override void LoadSceneAfterBossfight()
     {
-        // @todo
+        StartCoroutine(LoadSceneDelayed());
+    }
+
+    protected IEnumerator LoadSceneDelayed()
+    {
+        yield return new WaitForSeconds(5f);
+        PlayerPrefs.SetString("CurrentLevel", "credits_scene");
+        SceneManager.LoadScene("credits_scene");
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()

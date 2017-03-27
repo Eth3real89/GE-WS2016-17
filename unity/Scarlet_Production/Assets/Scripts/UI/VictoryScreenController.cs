@@ -55,11 +55,11 @@ public class VictoryScreenController : MonoBehaviour {
 		m_TimeToShow = m_TimeToShowOriginal;
 	}
 
-	public void ShowVictoryScreen(GameObject CallbackObject)
+	public void ShowVictoryScreen(GameObject callbackObject)
 	{
 		if(m_CallbackObject == null)
 		{
-			m_CallbackObject = CallbackObject;
+			m_CallbackObject = callbackObject;
 		}
 		ResetValues();
 		if (m_TutorialEnumerator != null)
@@ -88,6 +88,22 @@ public class VictoryScreenController : MonoBehaviour {
         if(showMessage && m_ShowReward)
         {
             FindObjectOfType<ShowRewardMessageController>().StartFadeIn(m_TextForReward);
+        }
+        else
+        {
+
+            try
+            {
+                foreach(BossFight fight in m_CallbackObject.GetComponentsInChildren<BossFight>())
+                {
+                    if (fight.enabled)
+                    {
+                        fight.LoadSceneAfterBossfight();
+                        break;
+                    }
+                }
+            }
+            catch { }
         }
 	}
 

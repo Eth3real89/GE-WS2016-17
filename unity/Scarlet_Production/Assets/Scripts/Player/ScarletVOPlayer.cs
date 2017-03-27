@@ -146,7 +146,7 @@ public class ScarletVOPlayer : MonoBehaviour {
         new float[]{35.4f, 42.4f}, // city
         new float[]{72.7f, 79.1f}, // forest
         new float[]{72.8f, 81.3f, 81.6f, 88.5f}, // cave
-        new float[]{23.1f, 25.6f}  // church
+        new float[]{99.1f, 105.1f}  // church
     };
 
     protected static float[][] m_BadlyWoundedSounds =
