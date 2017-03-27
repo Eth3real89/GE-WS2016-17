@@ -70,6 +70,8 @@ public class VampirePhase3Controller : VampireController
             if (h1 >= 0.3 * health.m_MaxHealth && health.m_CurrentHealth < 0.3 * health.m_MaxHealth)
                 new FARQ().ClipName("vampire").Location(transform).StartTime(101f).EndTime(117.855f).Volume(1).PlayUnlessPlaying();
 
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
+
             yield return null;
         }
 
