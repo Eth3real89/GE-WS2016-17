@@ -23,6 +23,15 @@ public class BossfightJukebox : MonoBehaviour {
         }
     }
 
+    public static void SetPitch(float pitch)
+    {
+        if (_Instance != null)
+        {
+            _Instance.m_Source1.pitch = pitch;
+            _Instance.m_Source2.pitch = pitch;
+        }
+    }
+
     public AudioClip[] m_Clips;
 
     public AudioSource m_Source1;
