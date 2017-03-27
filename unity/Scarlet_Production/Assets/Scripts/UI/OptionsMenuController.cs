@@ -21,14 +21,14 @@ public class OptionsMenuController : MonoBehaviour {
         selected = 0;
         m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);
-    }
-	
-	// Update is called once per frame
-	void Update () {
         if (m_MusicSlider.value != PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue)
         {
             m_MusicSlider.value = PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue;
         }
+    }
+	
+	// Update is called once per frame
+	void Update () {
 
         if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
@@ -63,14 +63,14 @@ public class OptionsMenuController : MonoBehaviour {
                 if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
                 {
                     m_MusicSlider.value = m_MusicSlider.value - 1;
-                    AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                    PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+                    //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                    //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                 }
                 else
                 {
                     m_MusicSlider.value = m_MusicSlider.value + 1;
-                    AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                    PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+                    //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                    //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                 }
             }
 
@@ -82,6 +82,12 @@ public class OptionsMenuController : MonoBehaviour {
                 BackToMain();
             }
         }
+    }
+
+    public void SetVolume()
+    {
+        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
     }
 
     public void BackToMain()
