@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class BossFight : MonoBehaviour {
 
@@ -21,6 +22,9 @@ public abstract class BossFight : MonoBehaviour {
     protected IEnumerator m_GodModeEnumerator;
 
     public GameObject[] m_PhaseIndicators;
+
+    public Image m_FadeOutImage;
+    protected float m_FadeOutSpeed = 2f;
 
     public virtual void StartBossfight()
     {
@@ -106,6 +110,9 @@ public abstract class BossFight : MonoBehaviour {
     {
         GetComponent<DeathScreenController>().ShowVictoryScreen(gameObject);
         yield return new WaitForSeconds(3f);
+
+        yield return StartCoroutine(FadeOutBackground());
+
         PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
         playerHittable.GetComponent<Animator>().SetTrigger("IdleTrigger");
 
@@ -115,13 +122,11 @@ public abstract class BossFight : MonoBehaviour {
         healCommand.ResetPotions();
 
         ResetInitialPositions();
-
-        // @todo remove blood trails
-
         DestroyAllBullets();
 
+        yield return StartCoroutine(FadeInBackground());
         yield return null;
-        //RestartBossfight();
+        RestartBossfight();
     }
 
     protected virtual void ResetInitialPositions()
@@ -277,6 +282,40 @@ public abstract class BossFight : MonoBehaviour {
                 m_PhaseIndicators[m_PhaseIndicators.Length - i - 1].SetActive(false);
             }
         }
+    }
+
+    protected virtual IEnumerator FadeOutBackground()
+    {
+        if (m_FadeOutImage == null)
+            yield break;
+
+        Color blackColor = Color.black;
+        Color transparentColor = new Color(0, 0, 0, 0);
+
+        float t = 0;
+        while((t += Time.deltaTime) < m_FadeOutSpeed)
+        {
+            m_FadeOutImage.color = Color.Lerp(transparentColor, blackColor, t / m_FadeOutSpeed);
+            yield return null;
+        }
+        m_FadeOutImage.color = blackColor;
+    }
+
+    protected virtual IEnumerator FadeInBackground()
+    {
+        if (m_FadeOutImage == null)
+            yield break;
+
+        Color blackColor = Color.black;
+        Color transparentColor = new Color(0, 0, 0, 0);
+
+        float t = 0;
+        while ((t += Time.deltaTime) < m_FadeOutSpeed)
+        {
+            m_FadeOutImage.color = Color.Lerp(blackColor, transparentColor, t / m_FadeOutSpeed);
+            yield return null;
+        }
+        m_FadeOutImage.color = transparentColor;
     }
 }
 
