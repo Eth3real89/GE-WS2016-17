@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ScrollText : MonoBehaviour
 {
     public Camera camera;
-    public RectTransform images;
+    public RectTransform image1, image2;
     public float offset, offsetImages, speed;
     public bool cutsceneStarted;
     public LoadBossFight credits;
@@ -21,7 +21,8 @@ public class ScrollText : MonoBehaviour
         text = GetComponent<Text>();
         rect = GetComponent<RectTransform>();
         rect.localPosition = new Vector2(0, camera.pixelHeight / -2 + offset);
-        images.localPosition = new Vector2(0, rect.localPosition.y + offsetImages - text.preferredHeight);
+        image1.localPosition = new Vector2(0, image1.localPosition.y + camera.pixelHeight / -2 + offset);
+        image2.localPosition = new Vector2(0, image2.localPosition.y + camera.pixelHeight / -2 + offset);
     }
 
     public void CutsceneStarted()
@@ -34,14 +35,16 @@ public class ScrollText : MonoBehaviour
         Vector3 velocity = new Vector3(0, speed * Time.deltaTime, 0);
         rect.localPosition += velocity;
 
-        if (images.localPosition.y < 0)
-            images.localPosition += velocity;
+        image1.localPosition += velocity;
+
+        if (image2.localPosition.y < 0)
+            image2.localPosition += velocity;
         else if (!cutsceneStarted)
         {
-            images.localPosition += velocity;
+            image2.localPosition += velocity;
         }
 
-        if (!cutsceneStarted && images.localPosition.y > camera.pixelHeight / 2 && !startedSceneLoad)
+        if (!cutsceneStarted && image2.localPosition.y > camera.pixelHeight / 2 && !startedSceneLoad)
         {
             startedSceneLoad = true;
             credits.LoadNextSceneSlowFade();

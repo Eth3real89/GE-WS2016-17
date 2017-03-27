@@ -134,85 +134,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: ac86af080d6d7df48a5374d052e01ef8, type: 3}
   m_ClipName: theguide
---- !u!1 &362391130
+--- !u!1 &300298939
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 362391131}
+  - component: {fileID: 300298940}
+  - component: {fileID: 300298943}
+  - component: {fileID: 300298942}
+  - component: {fileID: 300298941}
   m_Layer: 5
-  m_Name: Image Container
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &362391131
+--- !u!224 &300298940
 RectTransform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 362391130}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_GameObject: {fileID: 300298939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1395050194}
-  - {fileID: 1065375790}
-  m_Father: {fileID: 1488100611}
+  m_Children: []
+  m_Father: {fileID: 1344778234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -2767}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1065375789
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1065375790}
-  - component: {fileID: 1065375792}
-  - component: {fileID: 1065375791}
-  m_Layer: 5
-  m_Name: Image 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1065375790
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1065375789}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.0000135, y: 1.0000135, z: 1.0000135}
-  m_Children: []
-  m_Father: {fileID: 362391131}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 465, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1065375791
+--- !u!114 &300298941
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1065375789}
+  m_GameObject: {fileID: 300298939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Script: {fileID: 11500000, guid: fa724a2494653344e8f99f6b3f470db7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 1771989334}
+  image1: {fileID: 1808810514}
+  image2: {fileID: 1267830520}
+  offset: 0
+  offsetImages: 0
+  speed: 30
+  cutsceneStarted: 0
+  credits: {fileID: 0}
+--- !u!114 &300298942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 300298939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
@@ -223,20 +208,70 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
---- !u!222 &1065375792
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f, type: 3}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: "<size=25>This game was created over five months as the project work of
+    the course Game Engineering which is part of the Master's program of the chair
+    of Media Informatics at the University of Regensburg.</size>\n\n\n<size=35><b>Created
+    By</b></size>\n\n<size=30>Jonathan Brem</size>\n<size=30>J\xFCrgen Hahn</size>\n<size=30>Lena
+    Manschewski</size>\n<size=30>Andreas Pritschet</size>\n\n\n<size=35><b>Testing</b></size>\n<size=30>Core
+    Play Testers</size>\n\n<size=25>Daniel Goessmann</size>\n<size=20>Beats the game
+    easily once he is past the first Boss. That guy has to be beaten by someone else
+    though</size>\n\n<size=25>Soeren Nickel</size>\n<size=20>He really hates the fight
+    against Eilene, but also really loves it on the other hand</size>\n\n<size=25>Alexander
+    Ruhland</size>\n<size=20>Dashes around the arenas like a madman and refuses to
+    stand still, even if this leads to his demise</size>\n\n<size=30>Play Testers</size>\n\n<size=25>Felix
+    Bruckmeier\nAlexander Uitz\nCan B\xFCcherl\nStefan Hering\nFlorian Galos\nTimo
+    Pawelka\nMartin Sellmeier\n\nThe Students of Game Engineering \n(who also made
+    games you should check out!)</size>\n\n\n<size=35><b>Voice Over</b></size>\n\n<size=25>Scarlet</size>\n<size=30>Franziska
+    Hilbrandt</size>\n\n<size=25>The Guide</size>\n<size=30>Kai Raecke</size>\n\n<size=25>High
+    Vampire Fernleigh</size>\n<size=30>Christopher Maschek</size>\n\n<size=25>Daniel,
+    The Great Werewolf</size>\n<size=30>Rafael Herrmann</size>\n\n<size=25>Twin Fairy
+    Tammie</size>\n<size=30>Friederike Orleth</size>\n\n<size=25>Twin Fairy Tommie</size>\n<size=30>Adrian
+    Stuhlfelner</size>\n\n<size=25>Eilene, The Demon Huntress</size>\n<size=30>Anne
+    Rosenberger</size>\n\n<size=25>Death</size>\n<size=30>Anna Linz\nMaximilian Falk</size>\n\n<size=20>Special
+    Thanks to Maximilian Falk for choosing the cast and scheduling of the recording
+    sessions</size>\n\n\n<size=30>Recording / Mastering</size>\n\n<size=25>Recorded
+    at \nTF Medien-Studio University of Regensburg</size>\n\n<size=25>Mastered at
+    \nFlying Mic Studio</size>\n\n\n\n\n\n\n\n\n\n\n\n<size=20>Recording</size>\n<size=25>Constantin
+    Weber</size>\n\n<size=20>Mastering</size>\n<size=25>Hans Hartong</size>\n\n\n<size=30>Music</size>\n<size=25>Dance
+    with the Dead</size>\n\n<size=25>Riot</size>\n<size=20>High Vampire Fernleigh</size>\n\n<size=25>Venom</size>\n<size=20>Daniel,
+    The Great Werewolf</size>\n\n<size=25>Invader</size>\n<size=20>The Twin Fairies</size>\n\n<size=25>Diabolic</size>\n<size=20>Eilene,
+    The Demon Huntress</size>\n\n<size=25>Surrender</size>\n<size=20>Death</size>\n\n<size=25>Quietly
+    into the night</size>\n<size=20>Credits</size>\n\n\n<size=25>Combat and Boss Programming,
+    Animations-, Music-, Sound- and VFX-Integration</size>\n\n<size=35>Jonathan Brem</size>\n\n\n\n<size=25>Exploration
+    and Cutscene Programming, Music-, Sound- and VFX-Integration</size>\n\n<size=35>Andreas
+    Pritschet</size>\n\n\n\n<size=25>UI Design and Programming, VFX-Design, Sound-
+    and VFX Integration</size>\n\n<size=35>Lena Manschewski</size>\n\n\n\n<size=25>Game
+    Design / Direction, Story, VO-Direction, Animation Design, VFX-Design and Integration,
+    Art Style</size>\n\n<size=35>J\xFCrgen Hahn</size>\n\n\n<size=30>Special Thanks</size>\n\n<size=25>Martin
+    Dechant\nfor teaching us everything we needed to know to create Scarlet and providing
+    us with constant feedback and mentoring</size>\n\n<size=25>Core Play Testers\nThank
+    you. Thank you for spending countless hours testing our game in all of its production
+    stages. There is not enough beer, junk food or whatever you prefer to repay your
+    efforts adequately</size>\n\n<size=25>Emeric Thoa for creating Furi and Hidetaka
+    Miyazaki for creating the \"Souls\"-Games. These awesome games which sparked and
+    influenced the creation of Scarlet</size>\n\n\n<size=35>Very Special Thanks</size>\n<size=25>to
+    YOU, the player, for playing our game until the end which means you liked it enough
+    to even finish it. Thank you. </size>\n\n<size=25>The Scarlet Team</size>\n<size=30>Jon,
+    J\xFCrgen, Andi und Lena ;)</size>"
+--- !u!222 &300298943
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1065375789}
+  m_GameObject: {fileID: 300298939}
 --- !u!1 &1066879008
 GameObject:
   m_ObjectHideFlags: 0
@@ -333,7 +368,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -346,17 +381,90 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!1 &1173389807
+--- !u!1 &1267830519
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1173389811}
-  - component: {fileID: 1173389810}
-  - component: {fileID: 1173389809}
-  - component: {fileID: 1173389808}
+  - component: {fileID: 1267830520}
+  - component: {fileID: 1267830522}
+  - component: {fileID: 1267830521}
+  m_Layer: 5
+  m_Name: Image 2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1267830520
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267830519}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1344778234}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -5765.9}
+  m_SizeDelta: {x: 429, y: 165}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1267830521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267830519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 90f7658266c6a854a866151f56a76e04, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1267830522
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1267830519}
+--- !u!4 &1271819571 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4937761434223062, guid: 7fb7c00d41675af4290c00c657ce9f66,
+    type: 2}
+  m_PrefabInternal: {fileID: 1822525944}
+--- !u!1 &1344778230
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1344778234}
+  - component: {fileID: 1344778233}
+  - component: {fileID: 1344778232}
+  - component: {fileID: 1344778231}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -364,12 +472,12 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1173389808
+--- !u!114 &1344778231
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1173389807}
+  m_GameObject: {fileID: 1344778230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -380,12 +488,12 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &1173389809
+--- !u!114 &1344778232
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1173389807}
+  m_GameObject: {fileID: 1344778230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -401,16 +509,16 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!223 &1173389810
+--- !u!223 &1344778233
 Canvas:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1173389807}
+  m_GameObject: {fileID: 1344778230}
   m_Enabled: 1
   serializedVersion: 2
   m_RenderMode: 1
-  m_Camera: {fileID: 1771989334}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -420,248 +528,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!224 &1173389811
+--- !u!224 &1344778234
 RectTransform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1173389807}
+  m_GameObject: {fileID: 1344778230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1488100611}
+  - {fileID: 300298940}
+  - {fileID: 1808810514}
+  - {fileID: 1267830520}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!4 &1271819571 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4937761434223062, guid: 7fb7c00d41675af4290c00c657ce9f66,
-    type: 2}
-  m_PrefabInternal: {fileID: 1822525944}
---- !u!1 &1395050193
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1395050194}
-  - component: {fileID: 1395050196}
-  - component: {fileID: 1395050195}
-  m_Layer: 5
-  m_Name: Image 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1395050194
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1395050193}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 362391131}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 240.21}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1395050195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1395050193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fb5a58ea5d2114e888c0e6e481ac2b33, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
---- !u!222 &1395050196
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1395050193}
---- !u!1 &1488100610
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 1488100611}
-  - component: {fileID: 1488100613}
-  - component: {fileID: 1488100612}
-  - component: {fileID: 1488100614}
-  - component: {fileID: 1488100615}
-  m_Layer: 5
-  m_Name: Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1488100611
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488100610}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 362391131}
-  m_Father: {fileID: 1173389811}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 30}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1488100612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488100610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: e58f9462dd6c3594da631feb8059242f, type: 3}
-    m_FontSize: 20
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 2
-    m_MaxSize: 40
-    m_Alignment: 1
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: "<size=25>This game was created over five months as the project work of
-    the course Game Engineering which is part of the Master's program of the chair
-    of Media Informatics at the University of Regensburg.</size>\n\n\n<size=35><b>Created
-    By</b></size>\n\n<size=30>Jonathan Brem</size>\n<size=30>J\xFCrgen Hahn</size>\n<size=30>Lena
-    Manschewski</size>\n<size=30>Andreas Pritschet</size>\n\n\n<size=35><b>Testing</b></size>\n<size=30>Core
-    Play Testers</size>\n\n<size=25>Daniel Goessmann</size>\n<size=20>Beats the game
-    easily once he is past the first Boss. That guy has to be beaten by someone else
-    though</size>\n\n<size=25>Soeren Nickel</size>\n<size=20>He really hates the fight
-    against Eilene, but also really loves it on the other hand</size>\n\n<size=25>Alexander
-    Ruhland</size>\n<size=20>Dashes around the arenas like a madman and refuses to
-    stand still, even if this leads to his demise</size>\n\n<size=30>Play Testers</size>\n\n<size=25>Felix
-    Bruckmeier\nAlexander Uitz\nCan B\xFCcherl\nStefan Hering\nFlorian Galos\nTimo
-    Pawelka\nMartin Sellmeier\n\nThe Students of Game Engineering \n(who also made
-    games you should check out!)</size>\n\n\n<size=35><b>Voice Over</b></size>\n\n<size=25>Scarlet</size>\n<size=30>Franziska
-    Hilbrandt</size>\n\n<size=25>The Guide</size>\n<size=30>Kai Raecke</size>\n\n<size=25>High
-    Vampire Fernleigh</size>\n<size=30>Christopher Maschek</size>\n\n<size=25>Daniel,
-    The Great Werewolf</size>\n<size=30>Rafael Herrmann</size>\n\n<size=25>Twin Fairy
-    Tammie</size>\n<size=30>Friederike Orleth</size>\n\n<size=25>Twin Fairy Tommie</size>\n<size=30>Adrian
-    Stuhlfelner</size>\n\n<size=25>Eilene, The Demon Huntress</size>\n<size=30>Anne
-    Rosenberger</size>\n\n<size=25>Death</size>\n<size=30>Anna Linz\nMaximilian Falk</size>\n\n<size=20>Special
-    Thanks to Maximilian Falk for choosing the cast and scheduling of the recording
-    sessions</size>\n\n\n<size=30>Recording / Mastering</size>\n\n<size=25>Recorded
-    at \nTF Medien-Studio University of Regensburg</size>\n\n<size=25>Mastered at
-    \nFlying Mic Studio</size>\n\n\n\n\n\n\n\n\n\n<size=20>Recording</size>\n<size=25>Constantin
-    Weber</size>\n\n<size=20>Mastering</size>\n<size=25>Hans Hartong</size>\n\n\n<size=30>Music</size>\n<size=25>Dance
-    with the Dead</size>\n\n<size=25>Riot</size>\n<size=20>High Vampire Fernleigh</size>\n\n<size=25>Venom</size>\n<size=20>Daniel,
-    The Great Werewolf</size>\n\n<size=25>Invader</size>\n<size=20>The Twin Fairies</size>\n\n<size=25>Diabolic</size>\n<size=20>Eilene,
-    The Demon Huntress</size>\n\n<size=25>Surrender</size>\n<size=20>Death</size>\n\n<size=25>Quietly
-    into the night</size>\n<size=20>Credits</size>\n\n\n<size=25>Combat and Boss Programming,
-    Animations-, Music-, Sound- and VFX-Integration</size>\n\n<size=35>Jonathan Brem</size>\n\n\n\n<size=25>Exploration
-    and Cutscene Programming, Music-, Sound- and VFX-Integration</size>\n\n<size=35>Andreas
-    Pritschet</size>\n\n\n\n<size=25>UI Design and Programming, VFX-Design, Sound-
-    and VFX Integration</size>\n\n<size=35>Lena Manschewski</size>\n\n\n\n<size=25>Game
-    Design / Direction, Story, VO-Direction, Animation Design, VFX-Design and Integration,
-    Art Style</size>\n\n<size=35>J\xFCrgen Hahn</size>\n\n\n<size=30>Special Thanks</size>\n\n<size=25>Martin
-    Dechant\nfor teaching us everything we needed to know to create Scarlet and providing
-    us with constant feedback and mentoring</size>\n\n<size=25>Core Play Testers\nThank
-    you. Thank you for spending countless hours testing our game in all of its production
-    stages. There is not enough beer, junk food or whatever you prefer to repay your
-    efforts adequately</size>\n\n<size=25>Emeric Thoa for creating Furi and Hidetaka
-    Miyazaki for creating the \"Souls\"-Games. These awesome games which sparked and
-    influenced the creation of Scarlet</size>\n\n<size=25>The Scarlet Team</size>\n<size=30>Jon,
-    J\xFCrgen, Andi und Lena ;)</size>"
---- !u!222 &1488100613
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488100610}
---- !u!114 &1488100614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488100610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa724a2494653344e8f99f6b3f470db7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 1771989334}
-  images: {fileID: 362391131}
-  offset: -30
-  offsetImages: -100
-  speed: 30
-  cutsceneStarted: 0
-  credits: {fileID: 1488100615}
---- !u!114 &1488100615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1488100610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be5fa2dd28a8f4d4fbf17432d5927fd1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SceneName: city_exploration_level
-  m_FadeToBlack: 1
 --- !u!1 &1502223565
 GameObject:
   m_ObjectHideFlags: 0
@@ -798,7 +685,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1584848387
 GameObject:
@@ -1007,6 +894,74 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1808810513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1808810514}
+  - component: {fileID: 1808810516}
+  - component: {fileID: 1808810515}
+  m_Layer: 5
+  m_Name: Image 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1808810514
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808810513}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1344778234}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -3087.89}
+  m_SizeDelta: {x: 350, y: 240.22}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1808810515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808810513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: fb5a58ea5d2114e888c0e6e481ac2b33, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1808810516
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1808810513}
 --- !u!1001 &1822525944
 Prefab:
   m_ObjectHideFlags: 0
@@ -1044,7 +999,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4937761434223062, guid: 7fb7c00d41675af4290c00c657ce9f66, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1071690713807560, guid: 7fb7c00d41675af4290c00c657ce9f66, type: 2}
       propertyPath: m_Name
