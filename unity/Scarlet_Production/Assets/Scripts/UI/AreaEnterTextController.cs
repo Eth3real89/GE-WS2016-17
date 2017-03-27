@@ -18,13 +18,12 @@ public class AreaEnterTextController : MonoBehaviour {
     private bool m_SoundPlayed = false;
 
     // Use this for initialization
-    void Start () {
-		fadeIn = false;
+    void Start ()
+    {
+        fadeIn = false;
 
         m_Name = textHint.GetComponentInChildren<Text>();
         m_Background = textHint.GetComponentInChildren<Image>();
-
-
     }
 
     // Update is called once per frame
