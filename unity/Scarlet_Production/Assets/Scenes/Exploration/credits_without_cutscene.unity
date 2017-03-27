@@ -155,18 +155,18 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 362391130}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1395050194}
   - {fileID: 1065375790}
-  m_Father: {fileID: 1173389811}
-  m_RootOrder: 1
+  m_Father: {fileID: 1488100611}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -3083}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1065375789
@@ -201,7 +201,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 133, y: -50}
+  m_AnchoredPosition: {x: -437, y: 80}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1065375791
@@ -431,7 +431,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 1488100611}
-  - {fileID: 362391131}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -477,8 +476,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -133, y: -50}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0.2, y: 317}
+  m_SizeDelta: {x: 350, y: 240.21}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395050195
 MonoBehaviour:
@@ -492,14 +491,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: fb5a58ea5d2114e888c0e6e481ac2b33, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -541,7 +540,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 362391131}
   m_Father: {fileID: 1173389811}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -594,8 +594,8 @@ MonoBehaviour:
     Ruhland</size>\n<size=20>Dashes around the arenas like a mad man and refuses to
     stand still, even when this means death</size>\n\n<size=30>Play Testers</size>\n\n<size=25>Felix
     Bruckmeier\nAlexander Uitz\nCan B\xFCcherl\nStefan Hering\nFlorian Galos\nTimo
-    Pawelka\n\nThe Students of Game Engineering \n(who also made games  you should
-    check out!)</size>\n\n\n<size=35><b>Voice Over</b></size>\n\n<size=25>Scarlet</size>\n<size=30>Franziska
+    Pawelka\nMartin Sellmeier\n\nThe Students of Game Engineering \n(who also made
+    games  you should check out!)</size>\n\n\n<size=35><b>Voice Over</b></size>\n\n<size=25>Scarlet</size>\n<size=30>Franziska
     Hilbrandt</size>\n\n<size=25>The Guide</size>\n<size=30>Kai Raecke</size>\n\n<size=25>High
     Vampire Fernleigh</size>\n<size=30>Christopher Maschek</size>\n\n<size=25>Daniel,
     The Great Werewolf</size>\n<size=30>Rafael Herrmann</size>\n\n<size=25>Twin Fairy
@@ -605,10 +605,10 @@ MonoBehaviour:
     Thanks to Maximilian Falk for choosing the cast and scheduling of the recording
     sessions</size>\n\n\n<size=30>Recording / Mastering</size>\n\n<size=25>Recorded
     at \nTF Medien-Studio University of Regensburg</size>\n\n<size=25>Mastered at
-    \nFlying Mic Studio</size>\n\n<size=20>Recording</size>\n<size=25>Constantin Weber</size>\n\n<size=20>Mastering</size>\n<size=25>Hans
-    Hartong</size>\n\n\n<size=30>Music</size>\n<size=25>Dance with the Dead</size>\n\n<size=25>Riot</size>\n<size=20>High
-    Vampire Fernleigh</size>\n\n<size=25>Venom</size>\n<size=20>Daniel, The Great
-    Werewolf</size>\n\n<size=25>Invader</size>\n<size=20>The Twin Fairies</size>\n\n<size=25>Diabolic</size>\n<size=20>Eilene,
+    \nFlying Mic Studio</size>\n\n\n\n\n\n\n\n\n\n<size=20>Recording</size>\n<size=25>Constantin
+    Weber</size>\n\n<size=20>Mastering</size>\n<size=25>Hans Hartong</size>\n\n\n<size=30>Music</size>\n<size=25>Dance
+    with the Dead</size>\n\n<size=25>Riot</size>\n<size=20>High Vampire Fernleigh</size>\n\n<size=25>Venom</size>\n<size=20>Daniel,
+    The Great Werewolf</size>\n\n<size=25>Invader</size>\n<size=20>The Twin Fairies</size>\n\n<size=25>Diabolic</size>\n<size=20>Eilene,
     The Demon Huntress</size>\n\n<size=25>Surrender</size>\n<size=20>Death</size>\n\n<size=25>Quietly
     into the night</size>\n<size=20>Credits</size>\n\n\n<size=25>Combat and Boss Programming,
     Animations-, Music-, Sound- and VFX-Integration</size>\n\n<size=35>Jonathan Brem</size>\n\n\n\n<size=25>Exploration
