@@ -467,6 +467,9 @@ public class AngelController : BossController {
         { 
             MLog.Log(LogType.AngelLog, "Angel: Succesful hit! " + this);
 
+            if (m_ActualLastCombo != null)
+                m_ActualLastCombo.m_Success = 0;
+
             CancelComboIfActive();
 
             if (m_TimeWindowManager != null)
