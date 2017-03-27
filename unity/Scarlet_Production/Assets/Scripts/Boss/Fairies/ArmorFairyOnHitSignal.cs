@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArmorFairyOnHitSignal : OnHitSignal {
 
-    protected override void InitBloodTrail(GameObject attacker)
+    public override void InitBloodTrail(GameObject attacker)
     {
         GameObject sparks = (GameObject)Instantiate(m_BloodTrailPrefab, transform.position,
             transform.rotation, transform);

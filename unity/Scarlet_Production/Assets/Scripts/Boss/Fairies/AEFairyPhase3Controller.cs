@@ -68,6 +68,7 @@ public class AEFairyPhase3Controller : AEFairyController {
             ExpandLightGuard();
             dmg.OnSuccessfulHit();
             m_AEFairyHealth.m_CurrentHealth =  (m_AEFairyHealth.m_MaxHealth * 0.5f) + 0.5f * (m_AEFairyHealth.m_MaxHealth) * (1f - (m_CurrentHits / (float) m_NumHits));
+            m_BossHittable.m_OnHitSignal.InitBloodTrail(m_Scarlet);
             return true;
         }
         else

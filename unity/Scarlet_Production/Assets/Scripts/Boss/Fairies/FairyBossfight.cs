@@ -42,6 +42,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         yield return new WaitForSeconds(0.2f);
         ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
         armorHittable.GetComponent<Animator>().ResetTrigger("ReanimationTrigger");
+        armorHittable.GetComponent<Animator>().SetBool("TwoHand", false);
 
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Cave;
         ScarletVOPlayer.Instance.SetupPlayers();
@@ -187,6 +188,9 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         armorHittable.transform.position = m_ArmorPositionStart + Vector3.zero;
         armorHittable.transform.rotation = Quaternion.Euler(m_ArmorRotationStart.eulerAngles);
 
+        FairyBossfightPhase4 phase4 = (FairyBossfightPhase4)m_Phase4;
+        phase4.m_BigSword.SetActive(false);
+
         AEFairyHittable aeHittable = FindObjectOfType<AEFairyHittable>();
         if (aeHittable == null)
         {
@@ -212,6 +216,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         ArmorFairyHittable armorHittable = FindObjectOfType<ArmorFairyHittable>();
         armorHittable.GetComponent<Animator>().SetBool("Dead", false);
         armorHittable.GetComponent<Animator>().SetTrigger("ReanimationTrigger");
+        armorHittable.GetComponent<Animator>().SetBool("TwoHand", false);
         CharacterHealth armorHealth = armorHittable.GetComponent<CharacterHealth>();
         armorHealth.m_CurrentHealth = armorHealth.m_HealthStart;
 

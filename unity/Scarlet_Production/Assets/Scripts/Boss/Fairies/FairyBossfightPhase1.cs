@@ -45,41 +45,13 @@ public class FairyBossfightPhase1 : FairyBossfightPhase {
 
         m_Shield.gameObject.SetActive(true);
         m_Sword.gameObject.SetActive(true);
-
-        MakeSwordAndShieldShiny(true);
-
-        yield return new WaitForEndOfFrame();
-
-        m_ArmorAnimator.SetTrigger("EquipSwordShieldTrigger");
-
-        float t = 2f;
-        float equipTime = 2f;
         Material[] ms = m_Shield.GetComponent<Renderer>().materials;
-        FancyAudioEffectsSoundPlayer.Instance.PlayWeaponSpawnSound(m_Sword.transform);
-
-        while ((t -= Time.deltaTime) > 0)
-        {
-            foreach(Material m in ms)
-            {
-                m.SetFloat("_Cutoff", t / equipTime);
-            }
-            m_Sword.GetComponent<Renderer>().material.SetFloat("_Cutoff", t / equipTime);
-            //m_Shield.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleShield, t / equipTime);
-            //m_Sword.transform.localScale = Vector3.Lerp(new Vector3(0, 0, 0), prefScaleSword, t / equipTime);
-            yield return null;
-        }
         
         foreach (Material m in ms)
         {
             m.SetFloat("_Cutoff", 0);
         }
-
-        //m_Shield.transform.localScale = prefScaleShield;
-        //m_Sword.transform.localScale = prefScaleSword;
-
         yield return new WaitForSeconds(0.5f);
-
-        MakeSwordAndShieldShiny(false);
 
         m_AEFairyController.ExpandLightGuard();
         m_PlayerControls.EnableAllCommands();

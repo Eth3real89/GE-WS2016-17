@@ -114,7 +114,7 @@ public class OnHitSignal : MonoBehaviour {
         }
     }
 
-    protected virtual void InitBloodTrail(GameObject attacker)
+    public virtual void InitBloodTrail(GameObject attacker)
     {
         GameObject[] existingTrails = GameObject.FindGameObjectsWithTag("Blood");
         if (existingTrails.Length >= m_MaxBloodTrails)
