@@ -238,7 +238,6 @@ GameObject:
   - component: {fileID: 114151344750909242}
   - component: {fileID: 114314314159545460}
   - component: {fileID: 114088272400999214}
-  - component: {fileID: 114959354090946548}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -294,7 +293,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1593645891938700
 GameObject:
   m_ObjectHideFlags: 1
@@ -683,7 +682,8 @@ MonoBehaviour:
   textHint: {fileID: 0}
   timeShowHint: 6
   delay: 1
-  m_AreaEnterNotification: {fileID: 0}
+  m_AreaEnterNotification: {fileID: 8300000, guid: 256307ea272754aa4aa912f3ca201610,
+    type: 3}
 --- !u!114 &114099940201959488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -756,7 +756,7 @@ MonoBehaviour:
   - {fileID: 1269654177398258}
   menuCamera: {fileID: 0}
   Menu: {fileID: 1582443124895228}
-  isShowing: 1
+  isShowing: 0
 --- !u!114 &114194185294396802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1622,22 +1622,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114959354090946548
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1484289599665884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db289e4f829767549acf8aa79188ac6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textHint: {fileID: 0}
-  timeShowHint: 6
-  delay: 1
-  m_AreaEnterNotification: {fileID: 8300000, guid: 256307ea272754aa4aa912f3ca201610,
-    type: 3}
 --- !u!222 &222080910551689834
 CanvasRenderer:
   m_ObjectHideFlags: 1
