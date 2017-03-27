@@ -19,6 +19,8 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
     public BossMeleeDamage m_Damage;
     public float m_DamageAmount;
 
+    public GameObject m_AxeFloorDraggingEffects;
+
     protected IEnumerator m_Timer;
     protected State m_State;
 
@@ -57,6 +59,12 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
     protected IEnumerator Charge()
     {
         m_Audio = FancyAudioEffectsSoundPlayer.Instance.PlayAxeOnGroundSound(m_Boss.transform);
+
+         // added axe super attack axe dragging effects here, because the animation has no fixed
+        // duration and stops dynamically
+
+        m_AxeFloorDraggingEffects.GetComponentInChildren<ParticleSystem>().Play();
+
         float t = 0;
         while((t += Time.deltaTime) < AdjustTime(m_ChargeTime))
         {
@@ -80,6 +88,8 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
         yield return new WaitForSeconds(AdjustTime(m_UpswingTime));
         m_State = State.Hit;
         yield return new WaitForSeconds(AdjustTime(m_TimeAfterUpswing));
+
+        m_AxeFloorDraggingEffects.GetComponentInChildren<ParticleSystem>().Stop();
 
         m_Damage.m_Active = false;
         m_Damage.m_Callback = null;
