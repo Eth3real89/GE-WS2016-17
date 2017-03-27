@@ -9,6 +9,8 @@ public class StartWalkScarlet : MonoBehaviour
 
     private float m_Speed;
 
+    public float m_MoveCommandSpeed = 0.7f;
+
     private void Update()
     {
         m_MoveCommand.TriggerManually(m_Scarlet.forward * m_Speed);
@@ -17,7 +19,7 @@ public class StartWalkScarlet : MonoBehaviour
     public void StartWalk()
     {
         m_Speed = 1;
-        m_MoveCommand.m_CurrentSpeed = 0.7f;
+        m_MoveCommand.m_CurrentSpeed = m_MoveCommandSpeed;
     }
 
     public void StopWalk()
