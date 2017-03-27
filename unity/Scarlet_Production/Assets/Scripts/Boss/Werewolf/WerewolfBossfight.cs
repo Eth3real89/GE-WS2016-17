@@ -47,7 +47,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         if (m_StartPhase == Phase.Hunt)
         {
             SetPhaseIndicatorsEnabled(3);
-            StartCoroutine(StartHuntPhaseAfterHowling(0.1f));
+            StartCoroutine(StartHuntPhaseAfterWaiting(0.1f));
         }
         else if (m_StartPhase == Phase.Combat)
         {
@@ -104,13 +104,11 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         }
     }
 
-    private IEnumerator StartHuntPhaseAfterHowling(float initialWaitTime)
+    private IEnumerator StartHuntPhaseAfterWaiting(float initialWaitTime)
     {
         m_PlayerControls.DisableAllCommands();
         StopPlayerMove();
         yield return new WaitForSeconds(initialWaitTime);
-
-        yield return StartCoroutine(Howl());
         SetMusicStage(0);
         PlayMusic();
 
