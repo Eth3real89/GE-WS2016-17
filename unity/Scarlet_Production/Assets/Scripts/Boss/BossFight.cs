@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public abstract class BossFight : MonoBehaviour {
 
@@ -113,9 +114,15 @@ public abstract class BossFight : MonoBehaviour {
         GetComponent<DeathScreenController>().ShowVictoryScreen(gameObject);
         yield return new WaitForSeconds(3f);
 
+        BossfightJukebox.Instance.FadeToVolume(0);
         yield return StartCoroutine(FadeOutBackground());
+        yield return new WaitForSeconds(1f);
 
-        PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        // Reset is slightly more elegant, but it causes bugs and time is running out :<
+
+        /*PlayerHittable playerHittable = FindObjectOfType<PlayerHittable>();
         playerHittable.GetComponent<Animator>().SetTrigger("IdleTrigger");
 
         yield return new WaitForSeconds(1f);
@@ -128,7 +135,7 @@ public abstract class BossFight : MonoBehaviour {
 
         yield return StartCoroutine(FadeInBackground());
         yield return null;
-        RestartBossfight();
+        RestartBossfight();*/
     }
 
     protected virtual void ResetInitialPositions()
