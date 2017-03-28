@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PostAngelCutscene : MonoBehaviour
 {
-    public GameObject scarlet, dh, angel;
+    public GameObject scarlet, dh, angel, m_BanishingEffect;
 
     public void Voice1()
     {
@@ -19,6 +19,8 @@ public class PostAngelCutscene : MonoBehaviour
     public void VoiceScarlet()
     {
         new FARQ().ClipName("scarlet").StartTime(61.8f).EndTime(70.2f).Location(Camera.main.transform).Play();
+
+        m_BanishingEffect.SetActive(true);
     }
 
     public void VoiceGuide()
