@@ -43,6 +43,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         ScarletVOPlayer.Instance.m_Version = ScarletVOPlayer.Version.Forest;
         ScarletVOPlayer.Instance.SetupPlayers();
         SetMusicStage(0);
+        PlayMusic();
 
         if (m_StartPhase == Phase.Hunt)
         {
@@ -94,6 +95,8 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         else if (whichPhase == m_RagemodeController)
         {
             DestroyAllBullets();
+            BossfightJukebox.Instance.FadeToVolume(0f);
+
             m_RagemodeController.enabled = false;
             m_RagemodeController.m_NotDeactivated = false;
             m_RagemodeConeAttack.CancelAttack();
@@ -110,7 +113,6 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         StopPlayerMove();
         yield return new WaitForSeconds(initialWaitTime);
         SetMusicStage(0);
-        PlayMusic();
 
         m_PlayerControls.EnableAllCommands();
         m_WerewolfAnimator.SetTrigger("IdleTrigger");
@@ -284,6 +286,13 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
     public override void LoadSceneAfterBossfight()
     {
+        StartCoroutine(LoadNextSceneAfterWaiting());
+    }
+
+    protected IEnumerator LoadNextSceneAfterWaiting()
+    {
+        yield return new WaitForSeconds(5f);
+
         PlayerPrefs.SetString("CurrentLevel", "post_werewolf_scene");
         PlayerPrefs.Save();
         SceneManager.LoadScene("post_werewolf_scene");

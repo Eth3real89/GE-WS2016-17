@@ -95,9 +95,10 @@ public class BossfightJukebox : MonoBehaviour {
     protected IEnumerator FadeVolumeRoutine(float volumeToReach)
     {
         float t = 0;
+        float prevVolume = m_Source1.volume;
         while((t += Time.deltaTime) < m_FadeSpeed)
         {
-            SetVolume(t / m_FadeSpeed * volumeToReach);
+            SetVolume(Mathf.Lerp(prevVolume, volumeToReach, t / m_FadeSpeed));
             yield return null;
         }
 

@@ -119,6 +119,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
             DestroyAllBullets();
             m_Phase4.enabled = false;
             SetPhaseIndicatorsEnabled(0);
+            BossfightJukebox.Instance.FadeToVolume(0f);
 
             FemaleStopCrying();
             ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
