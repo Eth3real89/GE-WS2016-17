@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class DemonHunterPhase3Controller : DemonHunterController {
 
+    private const float m_BulletStreamShootSpeed = 4f;
+    private const float m_BigBulletsShootSpeed = 0.33f;
+
     public float m_BasicTimeRhythm = 3f;
     public ParallelCombo[] m_CombosForRhythm;
 
@@ -75,6 +78,7 @@ public class DemonHunterPhase3Controller : DemonHunterController {
 
     public override void OnComboEnd(AttackCombo combo)
     {
+        m_DHAnimator.SetTrigger("StopShootingTrigger");
         m_ActiveCombo = null;
 
         if (m_CurrentComboIndex == 8)
@@ -162,6 +166,23 @@ public class DemonHunterPhase3Controller : DemonHunterController {
         if (m_CurrentComboIndex == 1 || m_CurrentComboIndex == 2 || m_CurrentComboIndex == 5 || m_CurrentComboIndex == 6)
         {
             PlayGrenadeSound();
+        }
+
+        if (m_Types[m_CurrentComboIndex] == AttackType.Pistols)
+        {
+            m_DHAnimator.ResetTrigger("StopShootingTrigger");
+            m_DHAnimator.SetTrigger("ShootTrigger");
+        }
+
+        if (m_CurrentComboIndex == 3)
+        {
+            m_DHAnimator.SetFloat("ShootingSpeed", m_BulletStreamShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = false;
+        }
+        else if (m_CurrentComboIndex == 4)
+        {
+            m_DHAnimator.SetFloat("ShootingSpeed", m_BigBulletsShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = true;
         }
 
         base.OnComboStart(combo);

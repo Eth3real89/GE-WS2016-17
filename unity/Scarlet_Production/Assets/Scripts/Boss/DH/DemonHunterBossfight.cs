@@ -83,7 +83,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             m_Phase2Controller.enabled = false;
             SetPhaseIndicatorsEnabled(1);
-            SetMusicStage(2);
+            SetMusicStage(1);
             m_Phase3Controller.enabled = true;
             m_Phase3Controller.StartPhase(this);
         }

@@ -7,7 +7,7 @@ public class DemonHunterPhase1Controller : DemonHunterController {
 
     private const float m_FirstAttackShootSpeed = 2f;
     private const float m_SecondAttackShootSpeed = 4f;
-    private const float m_FifthAttackShootSpeed = 0.3f;
+    private const float m_FifthAttackShootSpeed = 0.33f;
 
     protected bool m_EndInitialized;
 
@@ -60,10 +60,12 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         if (m_CurrentComboIndex == 0)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FirstAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = false;
         }
         else if (m_CurrentComboIndex == 1)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = false;
         }
         else if (m_CurrentComboIndex == 2)
         {
@@ -72,6 +74,7 @@ public class DemonHunterPhase1Controller : DemonHunterController {
         else if (m_CurrentComboIndex == 5)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FifthAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = true;
         }
 
 

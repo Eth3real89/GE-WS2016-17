@@ -60,6 +60,11 @@ public class FancyAudioEffectsSoundPlayer : MonoBehaviour {
         return createRequestUnlessPlaying("eff_pistols_shot", 0, 0.48f, attachTo, false, 1f);
     }
 
+    public FARQ PlayPistolsIndividualShotSound(Transform attachTo)
+    {
+        return createRequest("eff_pistols_shot_individual", 0, -1f, attachTo, false, 1f);
+    }
+
     public FARQ PlayMagInsertSound(Transform attachTo)
     {
         return createRequest("eff_mag_insert", 0, -1, attachTo, false, 1f);

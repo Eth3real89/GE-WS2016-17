@@ -39,6 +39,8 @@ public class BossfightJukebox : MonoBehaviour {
 
     public int m_CurrentClipOffset = 0;
 
+    public float m_FadeSpeed = 3f;
+
     protected int m_PlayingClip;
     protected IEnumerator m_ClipEnumerator;
 
@@ -83,6 +85,23 @@ public class BossfightJukebox : MonoBehaviour {
 
         m_ClipEnumerator = WhilePlaying();
         StartCoroutine(m_ClipEnumerator);
+    }
+
+    public void FadeToVolume(float volume)
+    {
+        StartCoroutine(FadeVolumeRoutine(volume));
+    }
+
+    protected IEnumerator FadeVolumeRoutine(float volumeToReach)
+    {
+        float t = 0;
+        while((t += Time.deltaTime) < m_FadeSpeed)
+        {
+            SetVolume(t / m_FadeSpeed * volumeToReach);
+            yield return null;
+        }
+
+        SetVolume(volumeToReach);
     }
 
     public void StopPlaying()
