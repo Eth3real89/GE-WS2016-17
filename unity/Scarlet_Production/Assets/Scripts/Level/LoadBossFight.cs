@@ -6,12 +6,13 @@ using UnityEngine;
 public class LoadBossFight : MonoBehaviour
 {
     public string m_SceneName;
-    public bool m_FadeToBlack;
+    public bool m_FadeToBlack, m_NoTrigger;
     private FadeToBlack.FadeFinishedCallback m_FadeCallback;
 
     private void OnTriggerEnter(Collider other)
     {
-        LoadNextScene();
+        if (!m_NoTrigger)
+            LoadNextScene();
     }
 
     public void LoadNextScene()
