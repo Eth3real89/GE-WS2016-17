@@ -30,7 +30,7 @@ public class SlowTime : MonoBehaviour {
         if (slowAmount < 0)
             slowAmount = m_SlowAmount;
 
-        BossfightJukebox.SetPitch(Mathf.Pow(slowAmount, .1f));
+        BossfightJukebox.SetPitch(Mathf.Pow(slowAmount, .17f));
         Time.timeScale = slowAmount;
         Time.fixedDeltaTime = 0.02f * Time.timeScale;
     }
