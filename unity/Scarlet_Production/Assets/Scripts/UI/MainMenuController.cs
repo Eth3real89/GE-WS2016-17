@@ -17,19 +17,18 @@ public class MainMenuController : MonoBehaviour
     private int selected;
     private CameraTracking cameraTracking;
     private TrackingBehaviour previousTracking;
+    private TrackingBehaviour m_NormalTracking;
+    private bool m_FirstStartWhileSceneOpen = true;
 
     void Start()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
         cameraTracking = Camera.main.GetComponent<CameraTracking>();
-
-        //if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
-        //{
-        //    Activate();
-        //}
+        
         if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
-        {
+            {
             previousTracking = cameraTracking.m_TrackingBehaviour;
+            m_NormalTracking = previousTracking;
             cameraTracking.m_TrackingBehaviour = menuCamera;
             
             selected = 0;
@@ -51,6 +50,10 @@ public class MainMenuController : MonoBehaviour
 
         if (isShowing)
         {
+            if(cameraTracking.m_TrackingBehaviour != menuCamera)
+            {
+                cameraTracking.m_TrackingBehaviour = menuCamera;
+            }
             if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
@@ -137,7 +140,13 @@ public class MainMenuController : MonoBehaviour
     private void ZoomToScarlet()
     {
         isShowing = false;
-        cameraTracking.m_TrackingBehaviour = previousTracking;
+        if(m_NormalTracking != null)
+        {
+            cameraTracking.m_TrackingBehaviour = m_NormalTracking;
+        } else
+        {
+            cameraTracking.m_TrackingBehaviour = previousTracking;
+        }
         SetScarletControlsEnabled(true);
     }
 
@@ -148,8 +157,9 @@ public class MainMenuController : MonoBehaviour
             // Reset Player Prefs except volume
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
-            if (SceneManager.GetActiveScene().name.Equals("city_exploration_level"))
+            if (SceneManager.GetActiveScene().name.Equals("city_exploration_level") && m_FirstStartWhileSceneOpen)
             {
+                m_FirstStartWhileSceneOpen = false;
                 ZoomToScarlet();
                 Menu.SetActive(false);
                 GetComponent<MainMenuController>().enabled = false;
@@ -183,10 +193,10 @@ public class MainMenuController : MonoBehaviour
                 GetComponentInParent<IngameMenuController>().enabled = true;
 
                 ActivateScarletControls();
-                if (currentScene.Equals("city_exploration_level"))
-                {
-                    SequencedActionController.Instance.PlayCutscene("Opening");
-                }
+                //if (currentScene.Equals("city_exploration_level"))
+                //{
+                //    SequencedActionController.Instance.PlayCutscene("Opening");
+                //}
             }
         }
     }
@@ -202,11 +212,12 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    public void Activate()
+    public void Activate(TrackingBehaviour normalTracking)
     {
         isShowing = true;
 
         previousTracking = cameraTracking.m_TrackingBehaviour;
+        if(normalTracking != null) m_NormalTracking = normalTracking;
         cameraTracking.m_TrackingBehaviour = menuCamera;
         selected = 0;
         SelectItem(selected);

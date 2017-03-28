@@ -97,7 +97,7 @@ public class OptionsMenuController : MonoBehaviour {
             //Zurück zum Hauptmenü
             menu.SetActive(false);
             GetComponent<MainMenuController>().enabled = true;
-            GetComponent<MainMenuController>().Activate();
+            GetComponent<MainMenuController>().Activate(null);
             GetComponent<OptionsMenuController>().enabled = false;
         }
     }

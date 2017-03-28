@@ -11,7 +11,6 @@ public class HealthBar : MonoBehaviour {
     public GameObject m_Character;
     private CharacterHealth m_Health;
 
-    private Image m_ImgHealth;
     private Image m_ImgHealthLoss;
    
     private float m_ElapsedTime;
@@ -20,7 +19,6 @@ public class HealthBar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         m_Health = m_Character.GetComponentInChildren<CharacterHealth>();
-        m_ImgHealth = m_HealthBar.transform.FindChild("Fill Area").GetChild(0).GetComponent<Image>();
         m_LastDmg = 0;
     }
 	
@@ -55,7 +53,5 @@ public class HealthBar : MonoBehaviour {
     {
         m_LossBar.value = m_Health.m_HealthOld / m_Health.m_MaxHealth;
         m_HealthBar.value = m_Health.m_CurrentHealth / m_Health.m_MaxHealth;
-
-        //m_ImgHealth.color = Color.Lerp(Color.black, Color.red, m_HealthBar.value);
     }
 }

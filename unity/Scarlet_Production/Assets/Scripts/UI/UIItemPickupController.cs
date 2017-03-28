@@ -53,14 +53,14 @@ public class UIItemPickupController : MonoBehaviour
     public void Interacting(bool isInteracting)
     {
         m_Isinteracting = isInteracting;
-        if (!m_StopInteraction && m_InArea)
+        if (!m_StopInteraction)
         {
             if (isInteracting)
             {
                 images[1].color = new Color(0.65f, 0, 0, 0);
                 StartCoroutine(FadeTo(0.0f, 0.4f));
             }
-            else
+            else if(m_InArea)
             {
                 images[1].color = new Color(0.65f, 0, 0, 1);
                 StartCoroutine(FadeTo(1.0f, 0.4f));

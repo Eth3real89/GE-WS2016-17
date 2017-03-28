@@ -68,6 +68,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
             RegenerateScarletAfterPhase();
 
+            m_Phase1Controller.CancelAndReset();
             m_Phase1Controller.enabled = false;
             m_Phase2Controller.enabled = true;
 
@@ -78,6 +79,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
         else if (whichPhase == m_Phase2Controller)
         {
             DestroyAllBullets();
+            m_Phase2Controller.CancelAndReset();
 
             MLog.Log(LogType.BattleLog, "Angel: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;

@@ -9,7 +9,6 @@ public class DeathScreenController : MonoBehaviour {
     private Image m_Background;
     private Text m_Message;
 
-    private bool m_ShowScreen = false;
     private bool m_WaitTillFadeOut = false;
 
     private float m_TimeToFadeOriginal = 0.5f;
@@ -49,7 +48,6 @@ public class DeathScreenController : MonoBehaviour {
 
     private void ResetValues()
     {
-        m_ShowScreen = false;
         m_WaitTillFadeOut = false;
 
         m_TimeToFade = m_TimeToFadeOriginal;
