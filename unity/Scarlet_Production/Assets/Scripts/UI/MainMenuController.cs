@@ -50,6 +50,10 @@ public class MainMenuController : MonoBehaviour
 
         if (isShowing)
         {
+            if(cameraTracking.m_TrackingBehaviour != menuCamera)
+            {
+                cameraTracking.m_TrackingBehaviour = menuCamera;
+            }
             if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
