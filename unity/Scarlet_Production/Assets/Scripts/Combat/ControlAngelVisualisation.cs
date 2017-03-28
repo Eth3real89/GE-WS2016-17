@@ -18,9 +18,7 @@ public class ControlAngelVisualisation : MonoBehaviour {
     public Color[] trailColorLight;
     public Color[] trailColorFull;
 
-    private MeleeWeaponTrail[] m_Trails_Left;
     private MeleeWeaponTrail[] m_Trails_Right;
-    private ParticleSystem[] m_Particles_Left;
     private ParticleSystem[] m_Particles_Right;
 
     private MeleeWeaponTrail[] m_SpecialTrails;
@@ -32,7 +30,6 @@ public class ControlAngelVisualisation : MonoBehaviour {
     private ParticleSystem[] m_SpecialParticlesLand;
 
     private float t = 0.5f;
-    private float tDown = 0.1f;
 
     private float m_TimeStartLight = 0.5f;
     private float m_TimeImpactLight = 1.8f;
@@ -44,7 +41,6 @@ public class ControlAngelVisualisation : MonoBehaviour {
     void Start()
     {
         m_Light = m_SpecialLandVisualisation.GetComponent<Light>();
-        m_Trails_Left = m_LeftHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
 
         m_SpecialTrails = m_SpecialAttack.GetComponentsInChildren<MeleeWeaponTrail>(true);
         m_Trails_Right = m_RightHand.GetComponentsInChildren<MeleeWeaponTrail>(true);
@@ -53,7 +49,6 @@ public class ControlAngelVisualisation : MonoBehaviour {
         m_Trails_Right = m_Trails_Right.Where(val => !m_SpecialTrails.Contains(val)).ToArray();
 
 
-        m_Particles_Left = m_LeftHand.GetComponentsInChildren<ParticleSystem>(true);
 
         m_SpecialParticlesLand = m_SpecialLandVisualisation.GetComponentsInChildren<ParticleSystem>();
         m_SpecialParticles_UP = m_SpecialAttack.GetComponentsInChildren<ParticleSystem>(true);
@@ -219,90 +214,4 @@ public class ControlAngelVisualisation : MonoBehaviour {
         m_Light.intensity = 8;
         m_ImpactLightOn = true;
     }
-
-
-
-
-    
-    //public void EnableVisualisationLeft()
-    //{
-    //    foreach (ParticleSystem particles in m_Particles_Left)
-    //    {
-    //        particles.Play();
-    //    }
-    //    foreach (MeleeWeaponTrail trail in m_Trails_Left)
-    //    {
-    //        trail.Emit = true;
-    //    }
-    //}
-
-    //public void EnableVisualisationRight()
-    //{
-    //    foreach (ParticleSystem particles in m_Particles_Right)
-    //    {
-    //        Debug.Log("Play particles");
-    //        particles.Play();
-    //    }
-
-    //    foreach (MeleeWeaponTrail trail in m_Trails_Right)
-    //    {
-    //        Debug.Log("Play trail");
-    //        trail.Emit = true;
-    //    }
-    //}
-
-
-    //public void DisableVisualisationLeft()
-    //{
-    //    foreach (ParticleSystem particles in m_Particles_Left)
-    //    {
-    //        particles.Stop();
-    //    }
-    //    foreach (MeleeWeaponTrail trail in m_Trails_Left)
-    //    {
-    //        trail.Emit = false;
-    //    }
-
-    //}
-
-    //public void DisableVisualisationRight()
-    //{
-    //    foreach (ParticleSystem particles in m_Particles_Right)
-    //    {
-    //        particles.Stop();
-    //    }
-    //    foreach (MeleeWeaponTrail trail in m_Trails_Right)
-    //    {
-    //        trail.Emit = false;
-    //    }
-    //}
-
-
-
-    //// handside: 0=right 1=left 2=both
-    //public void AttackWeaponStart(int handSide)
-    //{
-    //    if (handSide == 0)
-    //    {
-    //        EnableVisualisationRight();
-    //    }
-    //    else if (handSide == 1)
-    //    {
-    //        EnableVisualisationLeft();
-    //    }
-    //    else if (handSide == 2)
-    //    {
-    //        EnableVisualisationRight();
-    //        EnableVisualisationLeft();
-    //    }
-    //}
-
-
-
-    ////both hands disable
-    //public void AttackWeaponEnd()
-    //{
-    //    DisableVisualisationRight();
-    //    DisableVisualisationLeft();
-    //}
 }
