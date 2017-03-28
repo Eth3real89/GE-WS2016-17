@@ -79,6 +79,7 @@ GameObject:
   - component: {fileID: 114393632498024976}
   - component: {fileID: 114768203406713930}
   - component: {fileID: 114094583921525576}
+  - component: {fileID: 114142483266584482}
   m_Layer: 0
   m_Name: DefaultEffectsAudio
   m_TagString: Untagged
@@ -259,6 +260,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Clip: {fileID: 8300000, guid: 39fb9dbee3cc4f4449a850a07bd24786, type: 3}
   m_ClipName: eff_bullet_blocked
+--- !u!114 &114142483266584482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1860542475869306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058d261115384384fbd75c8975fb130f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Clip: {fileID: 8300000, guid: ab6740a9900af494094bcfa8e5927551, type: 3}
+  m_ClipName: eff_pistols_shot_individual
 --- !u!114 &114148384187426752
 MonoBehaviour:
   m_ObjectHideFlags: 1

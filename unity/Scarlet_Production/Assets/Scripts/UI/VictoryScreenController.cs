@@ -89,7 +89,7 @@ public class VictoryScreenController : MonoBehaviour {
         {
             FindObjectOfType<ShowRewardMessageController>().StartFadeIn(m_TextForReward);
         }
-        else
+        else if (!m_ShowReward)
         {
 
             try

@@ -83,7 +83,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
             m_Phase2Controller.enabled = false;
             SetPhaseIndicatorsEnabled(1);
-            SetMusicStage(2);
+            SetMusicStage(1);
             m_Phase3Controller.enabled = true;
             m_Phase3Controller.StartPhase(this);
         }
@@ -97,6 +97,7 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
             ScarletVOPlayer.Instance.PlayVictorySound();
             PlayScarletVictoryAnimation();
             GetComponent<VictoryScreenController>().ShowVictoryScreen(gameObject);
+            BossfightJukebox.Instance.FadeToVolume(0f);
 
             DemonHunterHittable hittable = FindObjectOfType<DemonHunterHittable>();
             if (hittable != null)
@@ -142,6 +143,12 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     public override void LoadSceneAfterBossfight()
     {
+        StartCoroutine(LoadNextSceneAfterDelay());
+    }
+
+    protected virtual IEnumerator LoadNextSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(5f);
         PlayerPrefs.SetString("CurrentLevel", "pre_angel_scene");
         PlayerPrefs.Save();
         SceneManager.LoadScene("pre_angel_scene");

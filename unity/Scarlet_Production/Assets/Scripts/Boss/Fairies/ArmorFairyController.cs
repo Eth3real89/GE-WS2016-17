@@ -52,6 +52,10 @@ public class ArmorFairyController : FairyController {
         m_LightAttackPlayer = new FancyAudioRandomClip(s_LightAttackSounds, this.transform, "armor_fairy", 1f);
         m_ParriedPlayer = new FancyAudioRandomClip(s_ParriedAttackSounds, this.transform, "armor_fairy", 1f);
         m_StaggerPlayer = new FancyAudioRandomClip(s_StaggerSounds, this.transform, "armor_fairy", 1f);
+
+        ArmorFairyHittable hittable = FindObjectOfType<ArmorFairyHittable>();
+        if (hittable != null)
+            hittable.SetSoundset(true);
     }
 
     public virtual void RegisterEventsForSound()

@@ -8,7 +8,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
 
     private const float m_FirstAttackShootSpeed = 2f;
     private const float m_SecondAttackShootSpeed = 4f;
-    private const float m_FifthAttackShootSpeed = 0.3f;
+    private const float m_FifthAttackShootSpeed = 0.33f;
 
     private const int BEFORE_DROP_GRENADE = 3;
 
@@ -220,10 +220,12 @@ public class DemonHunterPhase2Controller : DemonHunterController
         if (m_CurrentComboIndex == 0)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FirstAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = false;
         }
         else if (m_CurrentComboIndex == 1)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_SecondAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = false;
         }
         else if (m_CurrentComboIndex == 2)
         {
@@ -232,6 +234,7 @@ public class DemonHunterPhase2Controller : DemonHunterController
         else if (m_CurrentComboIndex == 5)
         {
             m_DHAnimator.SetFloat("ShootingSpeed", m_FifthAttackShootSpeed);
+            Gunfire.s_IndividualShotSoundForPistols = true;
         }
         else if (m_CurrentComboIndex == 8)
         {
@@ -301,6 +304,12 @@ public class DemonHunterPhase2Controller : DemonHunterController
         }
 
         base.OnComboEnd(combo);
+    }
+
+    protected override bool ScarletTooClose(bool onlyCheckRange = false)
+    {
+        float dist = Vector3.Distance(transform.position, m_Scarlet.transform.position);
+        return dist <= m_DangerousDistance && ((onlyCheckRange && m_CurrentComboIndex <= 3) || (!m_DropGrenadeAttack.IsActive() && !m_Evading && !m_CanBeHit));
     }
 
 }

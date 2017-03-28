@@ -26,6 +26,8 @@ public abstract class BossFight : MonoBehaviour {
     public Image m_FadeOutImage;
     protected float m_FadeOutSpeed = 2f;
 
+    protected bool m_VolumeReset = false;
+
     public virtual void StartBossfight()
     {
         StartCoroutine(StartAfterFirstFrame());
@@ -257,6 +259,14 @@ public abstract class BossFight : MonoBehaviour {
         BossfightJukebox musicPlayer = BossfightJukebox.Instance;
         if (musicPlayer != null)
         {
+            float volume = musicPlayer.m_Source1.volume;
+            if (!m_VolumeReset)
+            {
+                BossfightJukebox.SetVolume(0f);
+                m_VolumeReset = true;
+            }
+
+            musicPlayer.FadeToVolume(volume);
             musicPlayer.StartPlayingUnlessPlaying();
         }
     }

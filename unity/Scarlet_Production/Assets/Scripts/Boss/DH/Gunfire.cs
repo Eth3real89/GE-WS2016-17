@@ -3,7 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gunfire : MonoBehaviour {
+public class Gunfire : MonoBehaviour
+{
+
+    public static bool s_IndividualShotSoundForPistols = false;
 
     protected static float[][] s_RifleSoundIndices =
     {
@@ -80,7 +83,10 @@ public class Gunfire : MonoBehaviour {
         StartCoroutine(HideMuzzleFlashLight(obj));
         StartCoroutine(HideMuzzleFlashEffect(obj));
 
-        FancyAudioEffectsSoundPlayer.Instance.PlayPistolsShotSound(transform);
+        if (s_IndividualShotSoundForPistols)
+            FancyAudioEffectsSoundPlayer.Instance.PlayPistolsIndividualShotSound(transform);
+        else
+            FancyAudioEffectsSoundPlayer.Instance.PlayPistolsShotSound(transform);
     }
 
     private void SafetyDisable(GameObject obj)

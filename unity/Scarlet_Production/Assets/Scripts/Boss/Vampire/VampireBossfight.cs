@@ -117,6 +117,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
             m_Phase3Controller.enabled = false;
             m_Phase3Controller.m_NotDeactivated = false;
             SetPhaseIndicatorsEnabled(0);
+            BossfightJukebox.Instance.FadeToVolume(0f);
 
             VampireHittable hittable = FindObjectOfType<VampireHittable>();
             if (hittable != null)

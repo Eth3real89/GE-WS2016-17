@@ -80,6 +80,7 @@ public class AngelBossfight : BossFight, BossfightCallbacks
             MLog.Log(LogType.BattleLog, "Angel: Phase 2 over " + this);
             m_Phase2Controller.enabled = false;
             SetPhaseIndicatorsEnabled(0);
+            BossfightJukebox.Instance.FadeToVolume(0f);
 
             PlayerControls pc = FindObjectOfType<PlayerControls>();
             if (pc != null)
@@ -123,8 +124,8 @@ public class AngelBossfight : BossFight, BossfightCallbacks
     protected IEnumerator LoadSceneDelayed()
     {
         yield return new WaitForSeconds(5f);
-        PlayerPrefs.SetString("CurrentLevel", "credits_scene");
-        SceneManager.LoadScene("credits_scene");
+        PlayerPrefs.SetString("CurrentLevel", "post_angel_scene");
+        SceneManager.LoadScene("post_angel_scene");
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
