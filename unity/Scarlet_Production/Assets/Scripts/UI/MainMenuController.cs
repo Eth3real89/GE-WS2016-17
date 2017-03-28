@@ -17,7 +17,7 @@ public class MainMenuController : MonoBehaviour
     private int selected;
     private CameraTracking cameraTracking;
     private TrackingBehaviour previousTracking;
-    private TrackingBehaviour normalTracking;
+    private TrackingBehaviour m_NormalTracking;
     private bool m_FirstStartWhileSceneOpen = true;
 
     void Start()
@@ -28,7 +28,7 @@ public class MainMenuController : MonoBehaviour
         if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
             {
             previousTracking = cameraTracking.m_TrackingBehaviour;
-            normalTracking = previousTracking;
+            m_NormalTracking = previousTracking;
             cameraTracking.m_TrackingBehaviour = menuCamera;
             
             selected = 0;
@@ -136,9 +136,9 @@ public class MainMenuController : MonoBehaviour
     private void ZoomToScarlet()
     {
         isShowing = false;
-        if(normalTracking != null)
+        if(m_NormalTracking != null)
         {
-            cameraTracking.m_TrackingBehaviour = normalTracking;
+            cameraTracking.m_TrackingBehaviour = m_NormalTracking;
         } else
         {
             cameraTracking.m_TrackingBehaviour = previousTracking;
@@ -208,11 +208,12 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    public void Activate()
+    public void Activate(TrackingBehaviour normalTracking)
     {
         isShowing = true;
 
         previousTracking = cameraTracking.m_TrackingBehaviour;
+        if(normalTracking != null) m_NormalTracking = normalTracking;
         cameraTracking.m_TrackingBehaviour = menuCamera;
         selected = 0;
         SelectItem(selected);

@@ -18,6 +18,7 @@ public class IngameMenuController : MonoBehaviour
     private int selected;
     private CameraTracking cameraTracking;
     private TrackingBehaviour previousTracking;
+    private TrackingBehaviour normalTracking;
 
     void Start()
     {
@@ -116,6 +117,7 @@ public class IngameMenuController : MonoBehaviour
     private void PauseGame()
     {
         previousTracking = cameraTracking.m_TrackingBehaviour;
+        normalTracking = previousTracking;
         cameraTracking.m_TrackingBehaviour = menuCamera;
         menuVisible = true;
         menu.SetActive(true);
@@ -146,7 +148,7 @@ public class IngameMenuController : MonoBehaviour
             menuVisible = false;
             GetComponent<IngameMenuController>().enabled = false;
             GetComponentInChildren<MainMenuController>(true).enabled = true;
-            GetComponentInChildren<MainMenuController>(true).Activate();
+            GetComponentInChildren<MainMenuController>(true).Activate(normalTracking);
         }
     }
 
