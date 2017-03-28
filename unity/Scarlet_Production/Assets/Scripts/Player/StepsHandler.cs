@@ -6,7 +6,7 @@ public class StepsHandler : MonoBehaviour
 {
     public enum StepType
     {
-        Brick, Grass, Wood
+        Brick, Grass, Wood, BrickReverb
     }
 
     [System.Serializable]
