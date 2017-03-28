@@ -9,7 +9,7 @@ public class AreaEnterTextController : MonoBehaviour {
 	public int delay;
 	public AudioClip m_AreaEnterNotification;
 
-	private bool fadeIn;
+	private bool fadeIn = false;
 	private bool fadeOut = false;
 	private float time = 0;
 
@@ -20,7 +20,7 @@ public class AreaEnterTextController : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
 	{
-		fadeIn = false;
+		//fadeIn = false;
 
 		m_Name = textHint.GetComponentInChildren<Text>();
 		m_Background = textHint.GetComponentInChildren<Image>();

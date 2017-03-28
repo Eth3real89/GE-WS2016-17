@@ -7,12 +7,19 @@ using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
-    //Main 0=Start; 1=Load; 2=Options; 3=Leave
     public GameObject[] MenuItems;
     public TrackingBehaviour menuCamera;
     public GameObject Menu;
 
     public bool isShowing = false;
+
+    private int m_NewGame = 0;
+    private int m_Continue = 1;
+    private int m_Options = 2;
+    private int m_SelectLevel = 3;
+    private int m_LeaveGame = 4;
+
+
 
     private int selected;
     private CameraTracking cameraTracking;
@@ -31,7 +38,7 @@ public class MainMenuController : MonoBehaviour
             m_NormalTracking = previousTracking;
             cameraTracking.m_TrackingBehaviour = menuCamera;
             
-            selected = 0;
+            selected = m_NewGame;
             SelectItem(selected);
             Menu.SetActive(true);
             SetScarletControlsEnabled(false);
@@ -60,7 +67,7 @@ public class MainMenuController : MonoBehaviour
                 {
                     if (selected == MenuItems.Length - 1)
                     {
-                        selected = 0;
+                        selected = m_NewGame;
                     }
                     else
                     {
@@ -69,7 +76,7 @@ public class MainMenuController : MonoBehaviour
                 }
                 else
                 {
-                    if (selected == 0)
+                    if (selected == m_NewGame)
                     {
                         selected = MenuItems.Length - 1;
                     }
@@ -83,19 +90,23 @@ public class MainMenuController : MonoBehaviour
 
             if (Input.GetButtonDown("Submit"))
             {
-                if (selected == 0)
+                if (selected == m_NewGame)
                 {
                     StartNewGame();
                 }
-                else if (selected == 1)
+                else if (selected == m_Continue)
                 {
                     LoadGame();
                 }
-                else if (selected == 2)
+                else if (selected == m_Options)
                 {
                     OpenOptions();
                 }
-                else if (selected == 3)
+                else if (selected == m_SelectLevel)
+                {
+                    OpenSelectLevel();
+                }
+                else if (selected == m_LeaveGame)
                 {
                     CloseGame();
                 }
@@ -152,7 +163,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
-        if (selected == 0)
+        if (selected == m_NewGame)
         {
             // Reset Player Prefs except volume
             PlayerPrefs.DeleteAll();
@@ -177,7 +188,7 @@ public class MainMenuController : MonoBehaviour
 
     public void LoadGame()
     {
-        if (selected == 1)
+        if (selected == m_Continue)
         {
             ////TODO: Check load game with checkpoints
             var currentScene = SceneManager.GetActiveScene().name;
@@ -203,11 +214,21 @@ public class MainMenuController : MonoBehaviour
 
     public void OpenOptions()
     {
-        if (selected == 2)
+        if (selected == m_Options)
         {
             Menu.SetActive(false);
             GetComponent<OptionsMenuController>().enabled = true;
             GetComponent<OptionsMenuController>().Activate();
+            GetComponent<MainMenuController>().enabled = false;
+        }
+    }
+    public void OpenSelectLevel()
+    {
+        if (selected == m_SelectLevel)
+        {
+            Menu.SetActive(false);
+            GetComponent<LevelSelectMenuController>().enabled = true;
+            GetComponent<LevelSelectMenuController>().Activate();
             GetComponent<MainMenuController>().enabled = false;
         }
     }
@@ -219,7 +240,7 @@ public class MainMenuController : MonoBehaviour
         previousTracking = cameraTracking.m_TrackingBehaviour;
         if(normalTracking != null) m_NormalTracking = normalTracking;
         cameraTracking.m_TrackingBehaviour = menuCamera;
-        selected = 0;
+        selected = m_NewGame;
         SelectItem(selected);
         Menu.SetActive(true);
         SetScarletControlsEnabled(false);
@@ -234,7 +255,7 @@ public class MainMenuController : MonoBehaviour
 
     public void CloseGame()
     {
-        if (selected == 3)
+        if (selected == m_LeaveGame)
         {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
