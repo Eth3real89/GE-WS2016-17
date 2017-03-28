@@ -209,6 +209,16 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         m_TutorialVisuals.HideTutorial(1f);
     }
 
+    protected override void ResetInitialPositions()
+    {
+        try
+        {
+            m_Phase1Controller.m_VampireAnimator.SetTrigger("ForceIdleTrigger");
+        } catch { }
+
+        base.ResetInitialPositions();
+    }
+
     public override void LoadSceneAfterBossfight()
     {
         PlayerPrefs.SetString("CurrentLevel", "post_vampire_scene");

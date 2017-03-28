@@ -25,6 +25,10 @@ public class IngameMenuController : MonoBehaviour
         selected = resume;
         m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);
+        if (m_MusicSlider.value != PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue)
+        {
+            m_MusicSlider.value = PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue;
+        }
     }
 
     void Update()
@@ -42,10 +46,6 @@ public class IngameMenuController : MonoBehaviour
         }
         if (menuVisible)
         {
-            if (m_MusicSlider.value != PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue)
-            {
-                m_MusicSlider.value = PlayerPrefs.GetFloat("CurrentVolume") * m_MusicSlider.maxValue;
-            }
 
             if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -80,14 +80,14 @@ public class IngameMenuController : MonoBehaviour
                     if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
                     {
                         m_MusicSlider.value = m_MusicSlider.value - 1;
-                        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+                        //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                        //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                     }
                     else
                     {
                         m_MusicSlider.value = m_MusicSlider.value + 1;
-                        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+                        //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+                        //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                     }
                 }
             }
@@ -130,12 +130,11 @@ public class IngameMenuController : MonoBehaviour
         }
     }
 
-    private void OnChangeMusicVolume(int volume)
+    public void OnChangeMusicVolume()
     {
-        if(selected == music)
-        {
-            //Musik Lautstärke auf den übergebenen Wert setzen
-        }
+        //Musik Lautstärke auf den übergebenen Wert setzen
+        AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
+        PlayerPrefs.SetFloat("CurrentVolume", m_MusicSlider.value / m_MusicSlider.maxValue);
     }
 
     public void BackToMain()

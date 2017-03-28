@@ -165,7 +165,7 @@ Prefab:
     - target: {fileID: 224645664913222696, guid: c7b59d6da78df304c86f1582dfaee149,
         type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224645664913222696, guid: c7b59d6da78df304c86f1582dfaee149,
         type: 2}
@@ -6036,6 +6036,16 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: BackToMain
+      objectReference: {fileID: 0}
+    - target: {fileID: 114446105576639582, guid: edce96fe67933554cbfbcbbd5c64e4ec,
+        type: 2}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1868949612}
+    - target: {fileID: 114446105576639582, guid: edce96fe67933554cbfbcbbd5c64e4ec,
+        type: 2}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnChangeMusicVolume
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: edce96fe67933554cbfbcbbd5c64e4ec, type: 2}
@@ -50794,7 +50804,7 @@ Prefab:
     - target: {fileID: 224642016562510466, guid: 46e1ed52280b4ae46bed540f0468ffa2,
         type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 224642016562510466, guid: 46e1ed52280b4ae46bed540f0468ffa2,
         type: 2}
@@ -99808,9 +99818,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1105367329}
-  - {fileID: 272268721}
   - {fileID: 2779197}
+  - {fileID: 272268721}
+  - {fileID: 1105367329}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -103538,6 +103548,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MoveCommand: {fileID: 1971428140}
   m_Scarlet: {fileID: 1869491301}
+  m_MoveCommandSpeed: 0.7
 --- !u!1 &2001466082
 GameObject:
   m_ObjectHideFlags: 0
@@ -107135,7 +107146,7 @@ Transform:
   m_PrefabParentObject: {fileID: 400180, guid: 37ea969bed5689c4b92a7a5220aba79e, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2084379443}
-  m_LocalRotation: {x: 0.87076694, y: -0.3246418, z: -0.36881918, w: -0.01857237}
+  m_LocalRotation: {x: 0.87076706, y: -0.32464182, z: -0.3688192, w: -0.018572371}
   m_LocalPosition: {x: 0.0019417349, y: -0.0006037734, z: 0.008516664}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

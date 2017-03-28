@@ -88,7 +88,7 @@ public class DeathScreenController : MonoBehaviour {
         }
         else
         {
-            BossFight[] bossfights = GetComponents<BossFight>();
+            /*BossFight[] bossfights = GetComponents<BossFight>();
             foreach (BossFight fight in bossfights)
             {
                 if (fight.enabled)
@@ -96,7 +96,7 @@ public class DeathScreenController : MonoBehaviour {
                     fight.RestartBossfight();
                     break;
                 }
-            }
+            }*/
         }
     }
 
