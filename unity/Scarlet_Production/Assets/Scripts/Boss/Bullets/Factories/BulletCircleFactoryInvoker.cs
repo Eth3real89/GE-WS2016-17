@@ -78,7 +78,7 @@ public class BulletCircleFactoryInvoker : BulletFactoryInvoker {
 
         if (((BulletMultiStageMovement)b.m_Movement).m_Movements[1] is BulletMoveAlongCircle)
         {
-            ((BulletMoveAlongCircle)((BulletMultiStageMovement)b.m_Movement).m_Movements[1]).m_Center = m_Center;
+            ((BulletMoveAlongCircle)((BulletMultiStageMovement)b.m_Movement).m_Movements[1]).m_Center = Instantiate(m_Center);
         }
 
         StartCoroutine(RotateBullet(b, bulletAngle - 180));
