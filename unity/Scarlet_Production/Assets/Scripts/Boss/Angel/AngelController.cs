@@ -37,9 +37,12 @@ public class AngelController : BossController {
     public float m_SpeedMultiplier = 1f;
     public float m_DamageMultiplier = 1f;
 
+    protected float m_InitialGroundDistance;
+
     public virtual void StartPhase(BossfightCallbacks callback)
     {
         //Time.timeScale = 0.5f;
+        m_InitialGroundDistance = transform.position.y;
         
         m_ScarletKnockedDown = false;
         m_NotDeactivated = true;
@@ -149,6 +152,8 @@ public class AngelController : BossController {
         MLog.Log(LogType.AngelLog, "On Combo End " + combo + " " + this);
         if (m_ActiveCombo == null)
             return;
+
+        transform.position = new Vector3(transform.position.x, m_InitialGroundDistance, transform.position.z);
 
         m_ActiveCombo = null;
         m_ComboActive = false;

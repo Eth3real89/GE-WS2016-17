@@ -165,6 +165,11 @@ public class AxeChargeAttack : AngelAttack, DamageCollisionHandler, BossMeleeDam
         if (m_Timer != null)
             StopCoroutine(m_Timer);
 
+        try
+        {
+            m_AxeFloorDraggingEffects.GetComponentInChildren<ParticleSystem>().Stop();
+        } catch { }
+
         m_State = State.None;
 
         m_ScarletInRange = false;
