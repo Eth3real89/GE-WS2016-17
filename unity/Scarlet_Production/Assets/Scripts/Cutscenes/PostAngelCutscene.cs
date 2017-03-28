@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PostAngelCutscene : MonoBehaviour
 {
-    public GameObject scarlet, dh, angel, m_BanishingEffect;
+    public GameObject scarlet, dh, angel, m_BanishingEffect, m_Fire;
 
     public void Voice1()
     {
@@ -44,5 +44,55 @@ public class PostAngelCutscene : MonoBehaviour
         angel.SetActive(false);
         dh.SetActive(true);
         dh.GetComponent<Animator>().SetTrigger("DeathTrigger");
+
+        StartCoroutine(SmotherFlames());
+        StartCoroutine(TurnOutLights());
+    }
+
+    private IEnumerator SmotherFlames()
+    {
+        yield return new WaitForSeconds(3f);
+
+        Component[] pss = m_Fire.GetComponentsInChildren<ParticleSystem>();
+
+        foreach(ParticleSystem ps in pss)
+        {
+            ps.Stop();
+        }
+    }
+
+    private IEnumerator TurnOutLights()
+    {
+        yield return new WaitForSeconds(9f);
+
+        Component[] lights = m_Fire.GetComponentsInChildren<Light>();
+
+        foreach(Light l in lights)
+        {
+            l.enabled = false;
+        }
+
+        AudioSource[] asrcs = m_Fire.GetComponentsInChildren<AudioSource>();
+
+        if(asrcs.Length > 0)
+        {
+            LerpTimer timer = new LerpTimer(2f);
+            float startVol = asrcs[0].volume;
+
+            while (timer.GetLerpProgress() < 1)
+            {
+                foreach(AudioSource asrc in asrcs)
+                {
+                    asrc.volume = Mathf.Lerp(startVol, 0, timer.GetLerpProgress());
+                }
+
+                yield return null;
+            }
+
+            foreach(AudioSource asrc in asrcs)
+            {
+                asrc.Stop();
+            }
+        }
     }
 }
