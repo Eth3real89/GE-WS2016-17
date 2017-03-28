@@ -22,6 +22,11 @@ public class AnimationsTrigger : MonoBehaviour
         animator.SetTrigger("ChaseAwayTrigger");
     }
 
+    public void Banishment()
+    {
+        animator.SetTrigger("BanishedTrigger");
+    }
+
     public void SetEyesWhite()
     {
         body.materials[8].SetColor("_Color", Color.black);
