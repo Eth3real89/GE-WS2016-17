@@ -24,6 +24,8 @@ public class AngelPhase2Controller : AngelController {
             StopListeningToAttackEvents();
             m_NotDeactivated = false;
 
+            m_BossHittable.RegisterInterject(null);
+
             m_Callback.PhaseEnd(this);
         }
     }

@@ -84,7 +84,14 @@ public class AngelBossfight : BossFight, BossfightCallbacks
 
             PlayerControls pc = FindObjectOfType<PlayerControls>();
             if (pc != null)
-                pc.DisableAllCommands();
+            {
+                pc.DisableAndLock(pc.m_PlayerCommands);
+            }
+
+            try
+            {
+                m_Phase2Controller.GetComponent<Animator>().SetTrigger("DefeatTrigger");
+            } catch { }
 
             ScarletVOPlayer.Instance.PlayVictorySound();
             PlayScarletVictoryAnimation();
