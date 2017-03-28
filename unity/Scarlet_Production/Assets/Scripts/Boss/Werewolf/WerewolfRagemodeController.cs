@@ -80,8 +80,8 @@ public class WerewolfRagemodeController : WerewolfController
 
         m_BossHealth.m_CurrentHealth = 3f;
 
-
         new FARQ().ClipName("werewolf").Location(this.transform).StartTime(115.4f).EndTime(126.8f).PlayUnlessPlaying();
+        m_WerewolfAnimator.SetTrigger("WhineTrigger");
     }
 
     protected void Kill()
