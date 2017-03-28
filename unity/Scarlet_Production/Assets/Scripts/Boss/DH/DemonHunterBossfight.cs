@@ -18,6 +18,8 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
 
     void Start()
     {
+        DigitalRuby.PyroParticles.FireLightScript.s_SkipLightStartup = true;
+
         StartBossfight();
         StartCoroutine(SaveProgressInPlayerPrefs());
     }

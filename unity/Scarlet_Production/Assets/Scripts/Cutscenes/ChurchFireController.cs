@@ -28,8 +28,16 @@ public class ChurchFireController : MonoBehaviour {
     public float time = 5f;
     // -------- ENDE  - DAS ENTFERNEN WENN DAS EXTERN GETRIGGERT WIRD -----------
 
+    public bool m_SkipEverythingAndStartImmediately = false;
+
     // Use this for initialization
     void Start () {
+        if (m_SkipEverythingAndStartImmediately)
+        {
+            StartImmediately();
+            return;
+        }
+
         m_WaitTillNextCurrent = m_WaitTillNext;
 
         foreach (GameObject container in m_FireContainers)
@@ -47,6 +55,9 @@ public class ChurchFireController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (m_SkipEverythingAndStartImmediately)
+            return;
+
 		if(m_LightUpNext && m_FireIndex < m_FireContainers.Length)
         {
             m_WaitTillNextCurrent -= Time.deltaTime;
@@ -122,6 +133,27 @@ public class ChurchFireController : MonoBehaviour {
         //{
         //    OnChangeColorsToNormal();
         //}
+    }
+
+    protected void StartImmediately()
+    {
+        for (int i = 0; i < m_FireContainers.Length; i++)
+        {
+            FireConstantBaseScript[] scripts = m_FireContainers[i].GetComponentsInChildren<FireConstantBaseScript>();
+
+            foreach (ParticleSystem ps in m_FireContainers[i].GetComponentsInChildren<ParticleSystem>())
+            {
+                var x = ps.main;
+                x.prewarm = true;
+                ps.Play();
+            }
+
+            foreach (FireConstantBaseScript script in scripts)
+            {
+                m_FireBaseScripts.Add(script);
+                script.StartFire();
+            }
+        }
     }
 
     public void OnLightUpFires()

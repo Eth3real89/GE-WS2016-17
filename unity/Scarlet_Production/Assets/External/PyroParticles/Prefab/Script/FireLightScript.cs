@@ -8,6 +8,8 @@ namespace DigitalRuby.PyroParticles
     /// </summary>
     public class FireLightScript : MonoBehaviour
     {
+        public static bool s_SkipLightStartup;
+
         [Tooltip("Random seed for movement, 0 for no movement.")]
         public float Seed = 100.0f;
 
@@ -49,7 +51,7 @@ namespace DigitalRuby.PyroParticles
                 return;
             }
 
-            if (seed != 0 && fireBaseScript.Running)
+            if (seed != 0 && fireBaseScript.Running || fireBaseScript.Starting && s_SkipLightStartup)
             {
                 // we have a random movement seed, set up with random movement
                 bool setIntensity = true;
