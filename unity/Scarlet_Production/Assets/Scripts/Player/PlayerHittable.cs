@@ -29,7 +29,7 @@ public class PlayerHittable : MonoBehaviour, Hittable {
     {
         if (m_Interject == null || !m_Interject.OnHit(damage))
         {
-            if (m_Invulnerable)
+            if (m_Invulnerable || damage.DamageAmount() == 0)
                 return;
 
             float healthBefore = m_Health.m_CurrentHealth;

@@ -193,7 +193,7 @@ public class PlayerControls : MonoBehaviour,
             EnableCommand(command);
     }
 
-    private void DisableCommand(PlayerCommand command)
+    public void DisableCommand(PlayerCommand command)
     {
         if (command != null)
             command.m_Active = false;

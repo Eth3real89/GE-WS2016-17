@@ -336,7 +336,7 @@ public class VampirePhase0TutorialController : VampireController {
 
     private void OnPlayerDash()
     {
-        if (m_CurrentComboIndex == m_DashTutorialBlast && m_ActiveCombo == m_Combos[0])
+        if (m_CurrentComboIndex == m_DashTutorialBlast && m_ActiveCombo == m_Combos[0] && !m_DashTutorialOver)
         {
             if (m_TutorialEnumerator != null)
             {
@@ -347,14 +347,17 @@ public class VampirePhase0TutorialController : VampireController {
 
             m_DashTutorialOver = true;
 
-            m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry, m_PlayerDash);
+            m_PlayerControls.DisableAndLock(m_PlayerMove, m_PlayerHeal, m_PlayerAttack, m_PlayerParry);
+            m_PlayerControls.DisableCommand(m_PlayerDash);
+
             StartCoroutine(WaitThenMoveOnAfterWaiting());
         }
     }
 
     private void OnBlastWaveHit()
     {
-        StartCoroutine(TryAgainAfterWaiting());
+        if (!m_DashTutorialOver)
+            StartCoroutine(TryAgainAfterWaiting());
     }
 
     private void OnBulletHit()
