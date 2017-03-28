@@ -48,6 +48,7 @@ public class ScrollText : MonoBehaviour
         {
             startedSceneLoad = true;
             credits.LoadNextSceneSlowFade();
+            FindObjectOfType<FadeOutAudio>().FadeOut();
         }
     }
 }
