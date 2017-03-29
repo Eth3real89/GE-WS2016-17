@@ -29,6 +29,10 @@ public class LevelSelectMenuController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            BackToMain();
+        }
         if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
@@ -90,14 +94,11 @@ public class LevelSelectMenuController : MonoBehaviour {
 
     public void BackToMain()
     {
-        if (selected == backToMain)
-        {
-            //Zurück zum Hauptmenü
-            menu.SetActive(false);
-            GetComponent<MainMenuController>().enabled = true;
-            GetComponent<MainMenuController>().Activate(null);
-            GetComponent<LevelSelectMenuController>().enabled = false;
-        }
+        //Zurück zum Hauptmenü
+        menu.SetActive(false);
+        GetComponent<MainMenuController>().enabled = true;
+        GetComponent<MainMenuController>().Activate(null);
+        GetComponent<LevelSelectMenuController>().enabled = false;
     }
 
     public void Activate()
