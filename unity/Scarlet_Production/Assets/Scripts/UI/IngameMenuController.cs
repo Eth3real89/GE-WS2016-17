@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class IngameMenuController : MonoBehaviour
@@ -180,10 +181,16 @@ public class IngameMenuController : MonoBehaviour
         if (controls != null)
         {
             if (enabled)
-                controls.EnableAllCommands();
+                StartCoroutine(EnableCommandsInNextFrame(controls));
             else
                 controls.DisableAllCommands();
         }
+    }
+
+    private IEnumerator EnableCommandsInNextFrame(PlayerControls controls)
+    {
+        yield return null;
+        controls.EnableAllCommands();
     }
 
     public void SelectItem(int itemNumber)
