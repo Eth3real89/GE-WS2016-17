@@ -6,6 +6,7 @@ public class IngameMenuController : MonoBehaviour
     public TrackingBehaviour menuCamera;
     public GameObject[] MenuItems;
     public GameObject menu;
+    public bool m_InCombatScene = false;
 
     private int resume = 0;
     private int music = 1;
@@ -22,7 +23,10 @@ public class IngameMenuController : MonoBehaviour
 
     void Start()
     {
-        cameraTracking = Camera.main.GetComponent<CameraTracking>();
+        if(!m_InCombatScene)
+        {
+            cameraTracking = Camera.main.GetComponent<CameraTracking>();
+        }
         selected = resume;
         m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);
@@ -52,7 +56,6 @@ public class IngameMenuController : MonoBehaviour
 
         if (menuVisible)
         {
-
             if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
@@ -97,7 +100,7 @@ public class IngameMenuController : MonoBehaviour
                     }
                 }
             }
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
             {
                 if (selected == resume)
                 {
@@ -113,7 +116,10 @@ public class IngameMenuController : MonoBehaviour
 
     private void ContinueGame()
     {
-        cameraTracking.m_TrackingBehaviour = previousTracking;
+        if (!m_InCombatScene)
+        {
+            cameraTracking.m_TrackingBehaviour = previousTracking;
+        }
         menuVisible = false;
         menu.SetActive(false);
         SetScarletControlsEnabled(true);
@@ -121,9 +127,13 @@ public class IngameMenuController : MonoBehaviour
 
     private void PauseGame()
     {
-        previousTracking = cameraTracking.m_TrackingBehaviour;
-        normalTracking = previousTracking;
-        cameraTracking.m_TrackingBehaviour = menuCamera;
+
+        if (!m_InCombatScene)
+        {
+            previousTracking = cameraTracking.m_TrackingBehaviour;
+            normalTracking = previousTracking;
+            cameraTracking.m_TrackingBehaviour = menuCamera;
+        }
         menuVisible = true;
         menu.SetActive(true);
         SetScarletControlsEnabled(false);
@@ -153,7 +163,14 @@ public class IngameMenuController : MonoBehaviour
             menuVisible = false;
             GetComponent<IngameMenuController>().enabled = false;
             GetComponentInChildren<MainMenuController>(true).enabled = true;
-            GetComponentInChildren<MainMenuController>(true).Activate(normalTracking);
+
+            if (!m_InCombatScene)
+            {
+                GetComponentInChildren<MainMenuController>(true).Activate(normalTracking);
+            } else
+            {
+                GetComponentInChildren<MainMenuController>(true).Activate(null);
+            }
         }
     }
 

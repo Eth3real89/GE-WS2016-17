@@ -55,7 +55,7 @@ public class LevelSelectMenuController : MonoBehaviour {
             }
             SelectItem(selected);
         }
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
         {
             Load(selected);
         }

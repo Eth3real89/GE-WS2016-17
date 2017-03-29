@@ -75,7 +75,7 @@ public class OptionsMenuController : MonoBehaviour {
             }
 
         }
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
         {
             if (selected == backToMain)
             {

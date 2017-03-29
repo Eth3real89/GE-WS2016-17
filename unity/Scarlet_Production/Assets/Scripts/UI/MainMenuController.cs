@@ -10,6 +10,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject[] MenuItems;
     public TrackingBehaviour menuCamera;
     public GameObject Menu;
+    public bool m_InCombatScene = false;
 
     public bool isShowing = false;
 
@@ -31,14 +32,19 @@ public class MainMenuController : MonoBehaviour
     void Start()
     {
         AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
-        cameraTracking = Camera.main.GetComponent<CameraTracking>();
-        
+        if(!m_InCombatScene)
+        {
+            cameraTracking = Camera.main.GetComponent<CameraTracking>();
+        }
+
         if (isShowing && PlayerPrefs.GetInt("IsStarted") == 0)
             {
-            previousTracking = cameraTracking.m_TrackingBehaviour;
-            m_NormalTracking = previousTracking;
-            cameraTracking.m_TrackingBehaviour = menuCamera;
-            
+            if (!m_InCombatScene)
+            {
+                previousTracking = cameraTracking.m_TrackingBehaviour;
+                m_NormalTracking = previousTracking;
+                cameraTracking.m_TrackingBehaviour = menuCamera;
+            }
             selected = m_Continue;
             SelectItem(selected);
             Menu.SetActive(true);
@@ -58,9 +64,12 @@ public class MainMenuController : MonoBehaviour
 
         if (isShowing)
         {
-            if(cameraTracking.m_TrackingBehaviour != menuCamera)
+            if (!m_InCombatScene)
             {
-                cameraTracking.m_TrackingBehaviour = menuCamera;
+                if (cameraTracking.m_TrackingBehaviour != menuCamera)
+                {
+                    cameraTracking.m_TrackingBehaviour = menuCamera;
+                }
             }
             if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
@@ -89,7 +98,7 @@ public class MainMenuController : MonoBehaviour
                 SelectItem(selected);
             }
 
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
             {
                 if (selected == m_NewGame)
                 {
@@ -156,39 +165,40 @@ public class MainMenuController : MonoBehaviour
     private void ZoomToScarlet()
     {
         isShowing = false;
-        if(m_NormalTracking != null)
+        if (!m_InCombatScene)
         {
-            cameraTracking.m_TrackingBehaviour = m_NormalTracking;
-        } else
-        {
-            cameraTracking.m_TrackingBehaviour = previousTracking;
+            if (m_NormalTracking != null)
+            {
+                cameraTracking.m_TrackingBehaviour = m_NormalTracking;
+            }
+            else
+            {
+                cameraTracking.m_TrackingBehaviour = previousTracking;
+            }
         }
         SetScarletControlsEnabled(true);
     }
 
     public void StartNewGame()
     {
-        //if (selected == m_NewGame)
-        //{
-            // Reset Player Prefs except volume
-            PlayerPrefs.DeleteAll();
-            PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
-            if (SceneManager.GetActiveScene().name.Equals("city_exploration_level") && m_FirstStartWhileSceneOpen)
-            {
-                m_FirstStartWhileSceneOpen = false;
-                ZoomToScarlet();
-                Menu.SetActive(false);
-                GetComponent<MainMenuController>().enabled = false;
-                GetComponentInParent<IngameMenuController>().enabled = true;
+        // Reset Player Prefs except volume
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
+        if (SceneManager.GetActiveScene().name.Equals("city_exploration_level") && m_FirstStartWhileSceneOpen)
+        {
+            m_FirstStartWhileSceneOpen = false;
+            ZoomToScarlet();
+            Menu.SetActive(false);
+            GetComponent<MainMenuController>().enabled = false;
+            GetComponentInParent<IngameMenuController>().enabled = true;
 
-                ActivateScarletControls();
-                SequencedActionController.Instance.PlayCutscene("Opening");
-            } else
-            {
-                PlayerPrefs.SetInt("IsStarted", 1);
-                SceneManager.LoadScene("city_exploration_level");
-            }
-        //}
+            ActivateScarletControls();
+            SequencedActionController.Instance.PlayCutscene("Opening");
+        } else
+        {
+            PlayerPrefs.SetInt("IsStarted", 1);
+            SceneManager.LoadScene("city_exploration_level");
+        }
     }
 
     public void LoadGame()
@@ -250,10 +260,12 @@ public class MainMenuController : MonoBehaviour
     public void Activate(TrackingBehaviour normalTracking)
     {
         isShowing = true;
-
-        previousTracking = cameraTracking.m_TrackingBehaviour;
-        if(normalTracking != null) m_NormalTracking = normalTracking;
-        cameraTracking.m_TrackingBehaviour = menuCamera;
+        if (!m_InCombatScene)
+        {
+            previousTracking = cameraTracking.m_TrackingBehaviour;
+            if (normalTracking != null) m_NormalTracking = normalTracking;
+            cameraTracking.m_TrackingBehaviour = menuCamera;
+        }
         selected = m_Continue;
         SelectItem(selected);
         Menu.SetActive(true);
