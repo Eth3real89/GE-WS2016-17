@@ -16,7 +16,7 @@ public class LevelSelectMenuController : MonoBehaviour {
     private const int backToMain = 4;
 
     private int m_CurrentLevel;
-    
+    private string m_SceneName;
     private int selected;
 
     // Use this for initialization
@@ -84,21 +84,33 @@ public class LevelSelectMenuController : MonoBehaviour {
         }
     }
 
+
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(m_SceneName);
+
+        LevelManager.Instance.QuickLoadFix();
+    }
+
     public void Load()
     {
         switch (m_CurrentLevel)
         {
             case m_ScarletSuburb:
-                SceneManager.LoadScene("city_exploration_level");
+                m_SceneName = "city_exploration_level";
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
                 break;
             case m_CrimsonCopse:
-                SceneManager.LoadScene("forest_exploration_level");
+                m_SceneName = "forest_exploration_level";
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
                 break;
             case m_SanguineShelter:
-                SceneManager.LoadScene("post_forest_exploration_level");
+                m_SceneName = "post_forest_exploration_level";
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
                 break;
             case m_MaroonMonastery:
-                SceneManager.LoadScene("maze_exploration_level");
+                m_SceneName = "maze_exploration_level";
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
                 break;
             case backToMain:
                 BackToMain();

@@ -30,6 +30,8 @@ public class MainMenuController : MonoBehaviour
     private bool m_FirstStartWhileSceneOpen = true;
     private bool m_ShowContinue;
 
+    private string m_SceneName;
+
     void Start()
     {
         if(SceneManager.GetActiveScene().name.Equals("city_exploration_level") && (PlayerPrefs.GetString("CurrentLevel") == null || PlayerPrefs.GetString("CurrentLevel").Equals("")))
@@ -248,8 +250,14 @@ public class MainMenuController : MonoBehaviour
         } else
         {
             PlayerPrefs.SetInt("IsStarted", 1);
-            SceneManager.LoadScene("city_exploration_level");
+            m_SceneName = "city_exploration_level";
+            Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
         }
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(m_SceneName);
     }
 
     public void LoadGame()
@@ -260,7 +268,8 @@ public class MainMenuController : MonoBehaviour
             var currentScene = SceneManager.GetActiveScene().name;
             if (!PlayerPrefs.GetString("CurrentLevel", "city_exploration_level").Equals(currentScene))
             {
-                SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel", "city_exploration_level"));
+                m_SceneName = PlayerPrefs.GetString("CurrentLevel", "city_exploration_level");
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
             }
             else
             {
@@ -293,7 +302,8 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == m_Credits)
         {
-            SceneManager.LoadScene("credits_without_cutscene");
+            m_SceneName = "credits_without_cutscene";
+            Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
         }
     }
 

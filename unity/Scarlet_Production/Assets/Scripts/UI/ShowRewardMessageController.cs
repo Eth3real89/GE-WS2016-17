@@ -21,6 +21,7 @@ public class ShowRewardMessageController : MonoBehaviour
     private bool m_FadeOut = false;
     private bool m_CloseScene = false;
     private float m_FadeTimeCurrent = 0f;
+    private string m_SceneName;
 
     // Use this for initialization
     void Start()
@@ -123,7 +124,8 @@ public class ShowRewardMessageController : MonoBehaviour
             }
             if(m_CloseScene)
             {
-                SceneManager.LoadScene("city_exploration_level");
+                m_SceneName = "city_exploration_level";
+                Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
             }
         }
         else
@@ -132,6 +134,12 @@ public class ShowRewardMessageController : MonoBehaviour
         }
     }
 
+    private void LoadScene()
+    {
+        SceneManager.LoadScene(m_SceneName);
+
+        LevelManager.Instance.QuickLoadFix();
+    }
 
     public void StartFadeIn(string message, bool closeScene = false)
     {
