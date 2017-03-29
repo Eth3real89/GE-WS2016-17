@@ -13,14 +13,14 @@ public class ShowRewardMessageController : MonoBehaviour
     public Image m_CloseHintButton;
     public Text m_CloseHintText;
     public bool m_BossfightAfter = false;
+    public float m_FadeTime = 0.75f;
 
     private IEnumerator m_TutorialEnumerator;
 
     private bool m_FadeIn = false;
     private bool m_FadeOut = false;
     private bool m_CloseScene = false;
-    private float m_Time = 0f;
-    private float m_TimeMax = 1f;
+    private float m_FadeTimeCurrent = 0f;
 
     // Use this for initialization
     void Start()
@@ -44,15 +44,15 @@ public class ShowRewardMessageController : MonoBehaviour
         }
         if (Input.GetButton("Attack") && m_FadeOut)
         {
-            m_Time += Time.deltaTime;
-            UpdateClose(m_Time / m_TimeMax);
+            m_FadeTimeCurrent += Time.deltaTime;
+            UpdateClose(m_FadeTimeCurrent / m_FadeTime);
 
         }
         else if (m_FadeOut)
         {
             if (m_TutorialEnumerator != null)
                 StopCoroutine(m_TutorialEnumerator);
-            m_Time = 0;
+            m_FadeTimeCurrent = 0;
             UpdateClose(0);
 
         }
