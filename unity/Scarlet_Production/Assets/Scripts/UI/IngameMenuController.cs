@@ -178,6 +178,8 @@ public class IngameMenuController : MonoBehaviour
     private void SetScarletControlsEnabled(bool enabled)
     {
         PlayerControls controls = FindObjectOfType<PlayerControls>();
+        PlayerCommand.s_IsMenuActive = !enabled;
+
         if (controls != null)
         {
             if (enabled)

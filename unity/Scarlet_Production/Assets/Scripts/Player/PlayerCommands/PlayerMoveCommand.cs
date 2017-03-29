@@ -103,7 +103,7 @@ public class PlayerMoveCommand : PlayerCommand
 
         public override void Update()
         {
-            if (!m_Command.m_Active || !m_Command.IsCommandAvailable())
+            if (!m_Command.m_Active || !m_Command.IsCommandAvailable() || s_IsMenuActive)
                 return;
 
             float horizontal = Input.GetAxis("Horizontal");

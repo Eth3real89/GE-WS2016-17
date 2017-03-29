@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class PlayerCommand : MonoBehaviour
 {
+    public static bool s_IsMenuActive = false; // in which case: do not play commands!
+
     public enum CommandAvailability
     {
         Anywhere = -1, Exploration = 0, Combat = 1
@@ -74,7 +76,7 @@ public abstract class PlayerCommand : MonoBehaviour
 
         public override void Update()
         {
-            if (!m_Command.m_Active || !m_Command.IsCommandAvailable())
+            if (!m_Command.m_Active || !m_Command.IsCommandAvailable() || s_IsMenuActive)
                 return;
 
             float axisValue = Input.GetAxis(m_Axis);
@@ -98,10 +100,11 @@ public abstract class PlayerCommand : MonoBehaviour
 
         public override void Update()
         {
-            if (m_Command.m_Active && m_Command.IsCommandAvailable())
+            if (m_Command.m_Active && m_Command.IsCommandAvailable() && !s_IsMenuActive)
             {
                 if (Input.GetButtonDown(m_Axis))
                 {
+                    print(s_IsMenuActive);
                     m_Command.TriggerCommand();
                 }
             }
