@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ShowRewardMessageController : MonoBehaviour
@@ -17,6 +18,7 @@ public class ShowRewardMessageController : MonoBehaviour
 
     private bool m_FadeIn = false;
     private bool m_FadeOut = false;
+    private bool m_CloseScene = false;
     private float m_Time = 0f;
     private float m_TimeMax = 1f;
 
@@ -119,6 +121,10 @@ public class ShowRewardMessageController : MonoBehaviour
                     }
                 }
             }
+            if(m_CloseScene)
+            {
+                SceneManager.LoadScene("city_exploration_level");
+            }
         }
         else
         {
@@ -127,8 +133,9 @@ public class ShowRewardMessageController : MonoBehaviour
     }
 
 
-    public void StartFadeIn(string message)
+    public void StartFadeIn(string message, bool closeScene = false)
     {
+        m_CloseScene = closeScene;
         m_Message.text = message;
         m_FadeIn = true;
     }

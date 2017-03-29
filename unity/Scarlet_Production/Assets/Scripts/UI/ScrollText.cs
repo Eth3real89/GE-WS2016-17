@@ -10,6 +10,7 @@ public class ScrollText : MonoBehaviour
     public float offset, offsetImages, speed;
     public bool cutsceneStarted;
     public LoadBossFight credits;
+    public bool m_showCloseInteraction = false;
 
     private float screenHeight;
     private RectTransform rect;
@@ -23,6 +24,10 @@ public class ScrollText : MonoBehaviour
         rect.localPosition = new Vector2(0, camera.pixelHeight / -2 + offset);
         image1.localPosition = new Vector2(0, image1.localPosition.y + camera.pixelHeight / -2 + offset);
         image2.localPosition = new Vector2(0, image2.localPosition.y + camera.pixelHeight / -2 + offset);
+        if(m_showCloseInteraction)
+        {
+            FindObjectOfType<ShowRewardMessageController>().StartFadeIn("", true);
+        }
     }
 
     public void CutsceneStarted()
