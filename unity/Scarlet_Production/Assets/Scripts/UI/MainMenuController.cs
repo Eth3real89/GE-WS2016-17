@@ -34,13 +34,11 @@ public class MainMenuController : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name.Equals("city_exploration_level") && (PlayerPrefs.GetString("CurrentLevel") == null || PlayerPrefs.GetString("CurrentLevel").Equals("")))
         {
-            Debug.Log("No Continue!");
             m_ShowContinue = false;
             MenuItems[m_Continue].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BackgroundPanelDisabled");
             MenuItems[m_Continue].GetComponentInChildren<Text>().color = new Color(0.75f, 0, 0, 1);
         } else
         {
-            Debug.Log("Do Continue: " + PlayerPrefs.GetString("CurrentLevel"));
             m_ShowContinue = true;
             MenuItems[m_Continue].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BackgroundPanel");
             MenuItems[m_Continue].GetComponentInChildren<Text>().color = new Color(1, 0, 0, 1);
@@ -128,7 +126,7 @@ public class MainMenuController : MonoBehaviour
             {
                 if (selected == m_NewGame)
                 {
-                    StartNewGame();
+                    AskIfNewGame();
                 }
                 else if (selected == m_Continue)
                 {
@@ -193,7 +191,6 @@ public class MainMenuController : MonoBehaviour
             }
             else
             {
-                Debug.Log(selected);
                 background.sprite = Resources.Load<Sprite>("BackgroundPanel");
             }
         }
@@ -214,6 +211,17 @@ public class MainMenuController : MonoBehaviour
             }
         }
         SetScarletControlsEnabled(true);
+    }
+
+    public void EnableMenu()
+    {
+        enabled = true;
+    }
+
+    public void AskIfNewGame()
+    {
+        enabled = false;
+        FindObjectOfType<WarningBoxController>().StartFadeIn("override Save?", "Continue", "Cancle", StartNewGame, EnableMenu);
     }
 
     public void StartNewGame()
