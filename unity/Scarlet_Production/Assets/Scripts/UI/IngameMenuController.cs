@@ -45,6 +45,11 @@ public class IngameMenuController : MonoBehaviour
                 PauseGame();
             }
         }
+        if(menuVisible && Input.GetButtonDown("Parry"))
+        {
+            ContinueGame();
+        }
+
         if (menuVisible)
         {
 
