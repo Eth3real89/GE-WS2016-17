@@ -28,9 +28,23 @@ public class MainMenuController : MonoBehaviour
     private TrackingBehaviour previousTracking;
     private TrackingBehaviour m_NormalTracking;
     private bool m_FirstStartWhileSceneOpen = true;
+    private bool m_ShowContinue;
 
     void Start()
     {
+        if(SceneManager.GetActiveScene().name.Equals("city_exploration_level") && (PlayerPrefs.GetString("CurrentLevel") == null || PlayerPrefs.GetString("CurrentLevel").Equals("")))
+        {
+            Debug.Log("No Continue!");
+            m_ShowContinue = false;
+            MenuItems[m_Continue].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BackgroundPanelDisabled");
+            MenuItems[m_Continue].GetComponentInChildren<Text>().color = new Color(0.75f, 0, 0, 1);
+        } else
+        {
+            Debug.Log("Do Continue: " + PlayerPrefs.GetString("CurrentLevel"));
+            m_ShowContinue = true;
+            MenuItems[m_Continue].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BackgroundPanel");
+            MenuItems[m_Continue].GetComponentInChildren<Text>().color = new Color(1, 0, 0, 1);
+        }
         AudioListener.volume = PlayerPrefs.GetFloat("CurrentVolume", 1);
         if(!m_InCombatScene)
         {
@@ -45,7 +59,13 @@ public class MainMenuController : MonoBehaviour
                 m_NormalTracking = previousTracking;
                 cameraTracking.m_TrackingBehaviour = menuCamera;
             }
-            selected = m_Continue;
+            if(m_ShowContinue)
+            {
+                selected = m_Continue;
+            } else
+            {
+                selected = m_NewGame;
+            }
             SelectItem(selected);
             Menu.SetActive(true);
             SetScarletControlsEnabled(false);
@@ -77,7 +97,13 @@ public class MainMenuController : MonoBehaviour
                 {
                     if (selected == MenuItems.Length - 1)
                     {
-                        selected = m_Continue;
+                        if(m_ShowContinue)
+                        {
+                            selected = m_Continue;
+                        } else
+                        {
+                            selected = m_NewGame;
+                        }
                     }
                     else
                     {
@@ -86,7 +112,7 @@ public class MainMenuController : MonoBehaviour
                 }
                 else
                 {
-                    if (selected == m_Continue)
+                    if ((m_ShowContinue && selected == m_Continue) || (!m_ShowContinue && selected == m_NewGame))
                     {
                         selected = MenuItems.Length - 1;
                     }
@@ -151,12 +177,15 @@ public class MainMenuController : MonoBehaviour
 
     public void SelectItem(int itemNumber)
     {
+        if (!m_ShowContinue && itemNumber == m_Continue) return;
+
         if (selected != itemNumber)
         {
             selected = itemNumber;
         }
         for (int i = 0; i < MenuItems.Length; i++)
         {
+            if (!m_ShowContinue && i == m_Continue) continue;
             Image background = MenuItems[i].GetComponentInChildren<Image>();
             if (itemNumber == i)
             {
@@ -164,6 +193,7 @@ public class MainMenuController : MonoBehaviour
             }
             else
             {
+                Debug.Log(selected);
                 background.sprite = Resources.Load<Sprite>("BackgroundPanel");
             }
         }
@@ -273,7 +303,13 @@ public class MainMenuController : MonoBehaviour
             if (normalTracking != null) m_NormalTracking = normalTracking;
             cameraTracking.m_TrackingBehaviour = menuCamera;
         }
-        selected = m_Continue;
+        if(m_ShowContinue)
+        {
+            selected = m_Continue;
+        } else
+        {
+            selected = m_NewGame;
+        }
         SelectItem(selected);
         Menu.SetActive(true);
         SetScarletControlsEnabled(false);
