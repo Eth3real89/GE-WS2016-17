@@ -146,7 +146,7 @@ public class MainMenuController : MonoBehaviour
                 }
                 else if (selected == m_LeaveGame)
                 {
-                    CloseGame();
+                    AskIfCloseGame();
                 }
             }
         }
@@ -221,7 +221,7 @@ public class MainMenuController : MonoBehaviour
     public void AskIfNewGame()
     {
         enabled = false;
-        FindObjectOfType<WarningBoxController>().StartFadeIn("override Save?", "Continue", "Cancle", StartNewGame, EnableMenu);
+        FindObjectOfType<WarningBoxController>().StartFadeIn("Start a New Game?", "Continue", "Cancel", StartNewGame, EnableMenu);
     }
 
     public void StartNewGame()
@@ -330,16 +330,19 @@ public class MainMenuController : MonoBehaviour
             activator.ActivateControls();
     }
 
+    public void AskIfCloseGame()
+    {
+        enabled = false;
+        FindObjectOfType<WarningBoxController>().StartFadeIn("Leave Game?", "Yes", "No", CloseGame, EnableMenu);
+    }
+
     public void CloseGame()
     {
-        if (selected == m_LeaveGame)
-        {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
-        }
     }
 
 }
