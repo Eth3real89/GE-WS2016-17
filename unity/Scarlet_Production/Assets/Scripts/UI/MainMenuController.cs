@@ -168,8 +168,8 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
-        if (selected == m_NewGame)
-        {
+        //if (selected == m_NewGame)
+        //{
             // Reset Player Prefs except volume
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
@@ -188,7 +188,7 @@ public class MainMenuController : MonoBehaviour
                 PlayerPrefs.SetInt("IsStarted", 1);
                 SceneManager.LoadScene("city_exploration_level");
             }
-        }
+        //}
     }
 
     public void LoadGame()
