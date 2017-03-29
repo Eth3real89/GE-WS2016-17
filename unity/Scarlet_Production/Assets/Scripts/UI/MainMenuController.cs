@@ -132,13 +132,20 @@ public class MainMenuController : MonoBehaviour
     private void SetScarletControlsEnabled(bool enabled)
     {
         PlayerControls controls = FindObjectOfType<PlayerControls>();
+        PlayerCommand.s_IsMenuActive = !enabled;
         if (controls != null)
         {
             if (enabled)
-                controls.EnableAllCommands();
+                StartCoroutine(EnableCommandsInNextFrame(controls));
             else
                 controls.DisableAllCommands();
         }
+    }
+
+    private IEnumerator EnableCommandsInNextFrame(PlayerControls controls)
+    {
+        yield return null;
+        controls.EnableAllCommands();
     }
 
 
