@@ -295,7 +295,13 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
 
         PlayerPrefs.SetString("CurrentLevel", "post_werewolf_scene");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("post_werewolf_scene");
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign(LoadScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
@@ -303,6 +309,7 @@ public class WerewolfBossfight : BossFight, BossfightCallbacks {
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "werewolf_battle_dev");
         PlayerPrefs.Save();
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
     }
 
     private class EmptyAttackCallback : BossAttack.AttackCallback

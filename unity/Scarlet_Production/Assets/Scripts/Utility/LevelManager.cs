@@ -43,6 +43,8 @@ public class LevelManager : GenericSingletonClass<LevelManager>
 
         PlayerPrefs.SetString("CurrentLevel", SceneManager.GetActiveScene().name);
         PlayerPrefs.Save();
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
     }
 
     public void QuickLoadFix()

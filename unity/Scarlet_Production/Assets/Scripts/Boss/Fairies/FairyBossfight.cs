@@ -264,7 +264,13 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
     {
         PlayerPrefs.SetString("CurrentLevel", "post_fairies_exploration_level");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("post_fairies_exploration_level");
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign(LoadScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
@@ -272,6 +278,7 @@ public class FairyBossfight : BossFight, FairyPhaseCallbacks {
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "fairies_battle_dev");
         PlayerPrefs.Save();
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
     }
 
     public override void SetPhaseIndicatorsEnabled(int howMany)

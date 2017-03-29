@@ -136,13 +136,19 @@ public class AngelBossfight : BossFight, BossfightCallbacks
     {
         yield return new WaitForSeconds(5f);
         PlayerPrefs.SetString("CurrentLevel", "post_angel_scene");
-        SceneManager.LoadScene("post_angel_scene");
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign(LoadScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
     {
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "dh_angel_battle_dev");
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
         PlayerPrefs.Save();
     }
 }

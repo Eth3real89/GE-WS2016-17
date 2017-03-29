@@ -67,14 +67,10 @@ public class OptionsMenuController : MonoBehaviour {
                 if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
                 {
                     m_MusicSlider.value = m_MusicSlider.value - 1;
-                    //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                    //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                 }
                 else
                 {
                     m_MusicSlider.value = m_MusicSlider.value + 1;
-                    //AudioListener.volume = m_MusicSlider.value / m_MusicSlider.maxValue;
-                    //PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
                 }
             }
 

@@ -224,7 +224,13 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
     {
         PlayerPrefs.SetString("CurrentLevel", "post_vampire_scene");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("post_vampire_scene");
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign(LoadScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
@@ -232,5 +238,7 @@ public class VampireBossfight : BossFight, BossfightCallbacks {
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "vampire_battle_dev");
         PlayerPrefs.Save();
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
     }
 }

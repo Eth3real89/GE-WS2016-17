@@ -153,7 +153,13 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         yield return new WaitForSeconds(5f);
         PlayerPrefs.SetString("CurrentLevel", "pre_angel_scene");
         PlayerPrefs.Save();
-        SceneManager.LoadScene("pre_angel_scene");
+
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign(LoadScene);
+    }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(PlayerPrefs.GetString("CurrentLevel"));
     }
 
     protected override IEnumerator SaveProgressInPlayerPrefs()
@@ -161,5 +167,6 @@ public class DemonHunterBossfight : BossFight, BossfightCallbacks
         yield return null;
         PlayerPrefs.SetString("CurrentLevel", "dh_battle_dev");
         PlayerPrefs.Save();
+        FindObjectOfType<ShowSaveSignController>().FadeInSaveSign();
     }
 }
