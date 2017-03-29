@@ -11,8 +11,8 @@ public class ShowSaveSignController : MonoBehaviour {
 
     private bool m_WaitTillFadeOut = false;
 
-    private float m_TimeToFadeOriginal = 1f;
-    private float m_TimeToShowOriginal = 4f;
+    private float m_TimeToFadeOriginal = 0.75f;
+    private float m_TimeToShowOriginal = 3f;
 
     private float m_TimeToFade;
     private float m_TimeToShow;
