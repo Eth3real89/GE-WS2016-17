@@ -29,7 +29,7 @@ public class LevelSelectMenuController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Cancel") || Input.GetButtonDown("Parry"))
         {
             BackToMain();
         }
