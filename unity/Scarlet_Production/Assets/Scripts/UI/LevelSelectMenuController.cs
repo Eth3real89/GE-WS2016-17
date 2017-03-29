@@ -15,6 +15,7 @@ public class LevelSelectMenuController : MonoBehaviour {
     private const int m_MaroonMonastery = 3;
     private const int backToMain = 4;
 
+    private int m_CurrentLevel;
     
     private int selected;
 
@@ -61,13 +62,31 @@ public class LevelSelectMenuController : MonoBehaviour {
         }
         if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
         {
-            Load(selected);
+            AskIfLoadNewLevel(selected);
         }
     }
 
-    public void Load(int level)
+    public void EnableMenu()
     {
-        switch (level)
+        enabled = true;
+    }
+
+    public void AskIfLoadNewLevel(int level)
+    {
+        m_CurrentLevel = level;
+        if(level == backToMain || PlayerPrefs.GetString("CurrentLevel").Equals(""))
+        {
+            Load();
+        } else
+        {
+            enabled = false;
+            FindObjectOfType<WarningBoxController>().StartFadeIn("Are you sure? Your progress will be lost!", "Yes", "No", Load, EnableMenu);
+        }
+    }
+
+    public void Load()
+    {
+        switch (m_CurrentLevel)
         {
             case m_ScarletSuburb:
                 SceneManager.LoadScene("city_exploration_level");

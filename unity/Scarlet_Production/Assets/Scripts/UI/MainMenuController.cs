@@ -221,7 +221,13 @@ public class MainMenuController : MonoBehaviour
     public void AskIfNewGame()
     {
         enabled = false;
-        FindObjectOfType<WarningBoxController>().StartFadeIn("Start a New Game?", "Continue", "Cancel", StartNewGame, EnableMenu);
+        if (m_ShowContinue)
+        {
+            FindObjectOfType<WarningBoxController>().StartFadeIn("Are you sure? Your progress will be lost!", "Yes", "No", StartNewGame, EnableMenu);
+        } else
+        {
+            StartNewGame();
+        }
     }
 
     public void StartNewGame()
