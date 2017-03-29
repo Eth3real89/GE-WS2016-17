@@ -13,11 +13,12 @@ public class MainMenuController : MonoBehaviour
 
     public bool isShowing = false;
 
-    private int m_NewGame = 0;
-    private int m_Continue = 1;
-    private int m_Options = 2;
-    private int m_SelectLevel = 3;
-    private int m_LeaveGame = 4;
+    private int m_Continue = 0;
+    private int m_NewGame = 1;
+    private int m_SelectChapter = 2;
+    private int m_Options = 3;
+    private int m_Credits = 4;
+    private int m_LeaveGame = 5;
 
 
 
@@ -38,7 +39,7 @@ public class MainMenuController : MonoBehaviour
             m_NormalTracking = previousTracking;
             cameraTracking.m_TrackingBehaviour = menuCamera;
             
-            selected = m_NewGame;
+            selected = m_Continue;
             SelectItem(selected);
             Menu.SetActive(true);
             SetScarletControlsEnabled(false);
@@ -67,7 +68,7 @@ public class MainMenuController : MonoBehaviour
                 {
                     if (selected == MenuItems.Length - 1)
                     {
-                        selected = m_NewGame;
+                        selected = m_Continue;
                     }
                     else
                     {
@@ -76,7 +77,7 @@ public class MainMenuController : MonoBehaviour
                 }
                 else
                 {
-                    if (selected == m_NewGame)
+                    if (selected == m_Continue)
                     {
                         selected = MenuItems.Length - 1;
                     }
@@ -102,9 +103,13 @@ public class MainMenuController : MonoBehaviour
                 {
                     OpenOptions();
                 }
-                else if (selected == m_SelectLevel)
+                else if (selected == m_SelectChapter)
                 {
-                    OpenSelectLevel();
+                    OpenSelectChapter();
+                }
+                else if (selected == m_Credits)
+                {
+                    OpenCredits();
                 }
                 else if (selected == m_LeaveGame)
                 {
@@ -222,9 +227,18 @@ public class MainMenuController : MonoBehaviour
             GetComponent<MainMenuController>().enabled = false;
         }
     }
-    public void OpenSelectLevel()
+
+    public void OpenCredits()
     {
-        if (selected == m_SelectLevel)
+        if (selected == m_Credits)
+        {
+            SceneManager.LoadScene("credits_without_cutscene");
+        }
+    }
+
+    public void OpenSelectChapter()
+    {
+        if (selected == m_SelectChapter)
         {
             Menu.SetActive(false);
             GetComponent<LevelSelectMenuController>().enabled = true;
@@ -240,7 +254,7 @@ public class MainMenuController : MonoBehaviour
         previousTracking = cameraTracking.m_TrackingBehaviour;
         if(normalTracking != null) m_NormalTracking = normalTracking;
         cameraTracking.m_TrackingBehaviour = menuCamera;
-        selected = m_NewGame;
+        selected = m_Continue;
         SelectItem(selected);
         Menu.SetActive(true);
         SetScarletControlsEnabled(false);

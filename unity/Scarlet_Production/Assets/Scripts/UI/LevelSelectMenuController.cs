@@ -96,7 +96,7 @@ public class LevelSelectMenuController : MonoBehaviour {
             menu.SetActive(false);
             GetComponent<MainMenuController>().enabled = true;
             GetComponent<MainMenuController>().Activate(null);
-            GetComponent<OptionsMenuController>().enabled = false;
+            GetComponent<LevelSelectMenuController>().enabled = false;
         }
     }
 
