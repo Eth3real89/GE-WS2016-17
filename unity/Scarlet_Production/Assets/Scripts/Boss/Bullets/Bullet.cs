@@ -126,6 +126,8 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
             m_DamageTrigger.m_Active = true;
             m_BulletCallbacks.LoseBullet(this);
 
+            ColorBulletRed();
+
             float speed = -1;
             if (m_Movement is BulletStraightMovement)
                 speed = ((BulletStraightMovement)m_Movement).m_Speed;
@@ -148,5 +150,40 @@ public class Bullet : BulletBehaviour, BulletDamageTrigger.BulletDamageCallback,
             m_IgnoreExpirationBehaviour = true;
             m_BulletCallbacks.OnBulletHitTarget(this);
         }
+    }
+
+    private void ColorBulletRed()
+    {
+        // simply because we don't want visual-only things to crash anything, ever:
+        try
+        {
+            Renderer[] renderers = GetComponentsInChildren<Renderer>();
+            foreach(Renderer renderer in renderers)
+            {
+                Material[] materials = renderer.materials;
+                for(int i = 0; i < materials.Length; i++)
+                {
+                    materials[i].color = Color.red;
+                    materials[i].SetColor("_EmissionColor", Color.red);
+                    materials[i].SetColor("_EmissionColorUI", Color.red);
+                }
+            }
+
+            ParticleSystem[] pss = GetComponentsInChildren<ParticleSystem>();
+            foreach(ParticleSystem ps in pss)
+            {
+                var x = ps.main;
+                x.startColor = Color.red;
+                var col = ps.colorOverLifetime;
+                Gradient gradNew = new Gradient();
+
+                gradNew.SetKeys(
+                    new GradientColorKey[] {new GradientColorKey(Color.red, 0f), new GradientColorKey(Color.red, 1f) },
+                    new GradientAlphaKey[] {new GradientAlphaKey(1f, 0f), new GradientAlphaKey(1f, 0.76f), new GradientAlphaKey(0f, 1f) });
+
+                col.color = gradNew;
+            }
+
+        } catch { }
     }
 }

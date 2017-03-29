@@ -104,7 +104,6 @@ public abstract class PlayerCommand : MonoBehaviour
             {
                 if (Input.GetButtonDown(m_Axis))
                 {
-                    print(s_IsMenuActive);
                     m_Command.TriggerCommand();
                 }
             }
