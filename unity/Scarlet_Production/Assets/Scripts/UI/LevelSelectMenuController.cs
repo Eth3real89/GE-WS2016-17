@@ -24,6 +24,8 @@ public class LevelSelectMenuController : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        Cursor.visible = true;
+
         selected = m_ScarletSuburb;
         SelectItem(selected);
         

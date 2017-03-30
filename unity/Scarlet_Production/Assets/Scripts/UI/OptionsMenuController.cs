@@ -21,6 +21,7 @@ public class OptionsMenuController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Cursor.visible = true;
         selected = 0;
         m_MusicSlider = MenuItems[music].GetComponentInChildren<Slider>();
         SelectItem(selected);

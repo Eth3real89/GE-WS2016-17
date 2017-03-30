@@ -27,7 +27,9 @@ public class IngameMenuController : MonoBehaviour
 
     void Start()
     {
-        if(!m_InCombatScene)
+        Cursor.visible = false;
+
+        if (!m_InCombatScene)
         {
             cameraTracking = Camera.main.GetComponent<CameraTracking>();
         }
@@ -46,10 +48,12 @@ public class IngameMenuController : MonoBehaviour
         {
             if (menuVisible)
             {
+                Cursor.visible = false;
                 ContinueGame();
             }
             else
             {
+                Cursor.visible = true;
                 PauseGame();
             }
         }
@@ -60,6 +64,7 @@ public class IngameMenuController : MonoBehaviour
 
         if (menuVisible)
         {
+
             float pressedV = Input.GetAxis("Vertical");
 
             if ((pressedV != 0 && !((pressedV > 0 && m_PressedV > 0) || (pressedV < 0 && m_PressedV < 0))) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))

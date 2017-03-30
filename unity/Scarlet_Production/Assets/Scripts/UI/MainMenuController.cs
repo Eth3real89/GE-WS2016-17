@@ -36,7 +36,9 @@ public class MainMenuController : MonoBehaviour
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name.Equals("city_exploration_level") && (PlayerPrefs.GetString("CurrentLevel") == null || PlayerPrefs.GetString("CurrentLevel").Equals("")))
+        Cursor.visible = false;
+
+        if (SceneManager.GetActiveScene().name.Equals("city_exploration_level") && (PlayerPrefs.GetString("CurrentLevel") == null || PlayerPrefs.GetString("CurrentLevel").Equals("")))
         {
             m_ShowContinue = false;
             MenuItems[m_Continue].GetComponentInChildren<Image>().sprite = Resources.Load<Sprite>("BackgroundPanelDisabled");
@@ -86,6 +88,7 @@ public class MainMenuController : MonoBehaviour
 
         if (isShowing)
         {
+            Cursor.visible = true;
             if (!m_InCombatScene)
             {
                 if (cameraTracking.m_TrackingBehaviour != menuCamera)
@@ -239,6 +242,7 @@ public class MainMenuController : MonoBehaviour
 
     public void StartNewGame()
     {
+        Cursor.visible = false;
         // Reset Player Prefs except volume
         PlayerPrefs.DeleteAll();
         PlayerPrefs.SetFloat("CurrentVolume", AudioListener.volume);
@@ -269,6 +273,8 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == m_Continue)
         {
+            Cursor.visible = false;
+
             ////TODO: Check load game with checkpoints
             var currentScene = SceneManager.GetActiveScene().name;
             if (!PlayerPrefs.GetString("CurrentLevel", "city_exploration_level").Equals(currentScene))
@@ -307,6 +313,8 @@ public class MainMenuController : MonoBehaviour
     {
         if (selected == m_Credits)
         {
+            Cursor.visible = false;
+
             m_SceneName = "credits_without_cutscene";
             Camera.main.GetComponent<FadeToBlack>().StartFade(Color.black, 2, LoadScene);
         }
