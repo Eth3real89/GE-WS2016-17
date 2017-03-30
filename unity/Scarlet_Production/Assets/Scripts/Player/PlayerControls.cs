@@ -87,6 +87,8 @@ public class PlayerControls : MonoBehaviour,
     /// </summary>
     public void ActivateInitially()
     {
+        PlayerCommand.s_IsMenuActive = false;
+
         if (m_HasCalledActivate)
             return;
 
