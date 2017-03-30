@@ -30,6 +30,8 @@ public class MainMenuController : MonoBehaviour
     private bool m_FirstStartWhileSceneOpen = true;
     private bool m_ShowContinue;
 
+    private float m_Pressed;
+
     private string m_SceneName;
 
     void Start()
@@ -91,9 +93,11 @@ public class MainMenuController : MonoBehaviour
                     cameraTracking.m_TrackingBehaviour = menuCamera;
                 }
             }
-            if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+            float pressed = Input.GetAxis("Vertical");
+
+            if ((pressed != 0 && !((pressed > 0 && m_Pressed > 0) || (pressed < 0 && m_Pressed < 0))) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
+                if (pressed < 0 || Input.GetKeyDown(KeyCode.DownArrow))
                 {
                     if (selected == MenuItems.Length - 1)
                     {
@@ -124,6 +128,7 @@ public class MainMenuController : MonoBehaviour
                 SelectItem(selected);
             }
 
+            m_Pressed = pressed;
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
             {
                 if (selected == m_NewGame)

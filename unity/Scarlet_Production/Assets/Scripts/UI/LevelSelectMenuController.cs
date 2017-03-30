@@ -19,6 +19,8 @@ public class LevelSelectMenuController : MonoBehaviour {
     private string m_SceneName;
     private int selected;
 
+    private float m_Pressed;
+
     // Use this for initialization
     void Start()
     {
@@ -34,9 +36,11 @@ public class LevelSelectMenuController : MonoBehaviour {
         {
             BackToMain();
         }
-        if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        float pressed = Input.GetAxis("Vertical");
+
+        if ((pressed != 0 && !((pressed > 0 && m_Pressed > 0) || (pressed < 0 && m_Pressed < 0))) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
+            if (pressed < 0 || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (selected == MenuItems.Length - 1)
                 {
@@ -60,6 +64,7 @@ public class LevelSelectMenuController : MonoBehaviour {
             }
             SelectItem(selected);
         }
+        m_Pressed = pressed;
         if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
         {
             AskIfLoadNewLevel(selected);

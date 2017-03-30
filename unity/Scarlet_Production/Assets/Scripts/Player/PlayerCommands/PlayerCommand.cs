@@ -100,13 +100,17 @@ public abstract class PlayerCommand : MonoBehaviour
 
         public override void Update()
         {
+            float pressed = Input.GetAxis(m_Axis);
+
             if (m_Command.m_Active && m_Command.IsCommandAvailable() && !s_IsMenuActive)
             {
-                if (Input.GetButtonDown(m_Axis))
+                if (pressed > 0 && pressed != m_Pressed)
                 {
                     m_Command.TriggerCommand();
                 }
             }
+
+            m_Pressed = pressed;
         }
     }
 }

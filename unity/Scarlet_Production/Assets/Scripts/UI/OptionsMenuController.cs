@@ -16,6 +16,9 @@ public class OptionsMenuController : MonoBehaviour {
     private Slider m_MusicSlider;
     private int selected;
 
+    private float m_PressedV;
+    private float m_PressedH;
+
     // Use this for initialization
     void Start () {
         selected = 0;
@@ -34,9 +37,12 @@ public class OptionsMenuController : MonoBehaviour {
         {
             BackToMain();
         }
-        if (Input.GetButtonDown("Vertical") || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+
+        float pressedV = Input.GetAxis("Vertical");
+
+        if ((pressedV != 0 && !((pressedV > 0 && m_PressedV > 0) || (pressedV < 0 && m_PressedV < 0))) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (Input.GetAxis("Vertical") < 0 || Input.GetKeyDown(KeyCode.DownArrow))
+            if (pressedV < 0 || Input.GetKeyDown(KeyCode.DownArrow))
             {
                 if (selected == MenuItems.Length - 1)
                 {
@@ -60,11 +66,15 @@ public class OptionsMenuController : MonoBehaviour {
             }
             SelectItem(selected);
         }
-        if (Input.GetButton("Horizontal") || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        m_PressedV = pressedV;
+
+        float pressedH = Input.GetAxis("Horizontal");
+
+        if ((pressedH != 0 && !((pressedH > 0 && m_PressedH > 0) || (pressedH < 0 && m_PressedH < 0))) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (selected == music)
             {
-                if (Input.GetAxis("Horizontal") < 0 || Input.GetKey(KeyCode.LeftArrow))
+                if (pressedH < 0 || Input.GetKey(KeyCode.LeftArrow))
                 {
                     m_MusicSlider.value = m_MusicSlider.value - 1;
                 }
@@ -75,6 +85,8 @@ public class OptionsMenuController : MonoBehaviour {
             }
 
         }
+        m_PressedH = pressedH;
+
         if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Attack"))
         {
             if (selected == backToMain)
